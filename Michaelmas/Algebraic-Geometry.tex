@@ -1,0 +1,59 @@
+\documentclass{article}
+
+\usepackage{../Style}
+
+\title{Algebraic Geometry}
+\author{Shing Tak Lam}
+
+\begin{document}
+
+\maketitle
+
+\section*{Preliminaries}
+
+\subsection*{Plan}
+
+Roughly speaking, there are four parts of the course:
+
+\begin{enumerate}
+    \item Spectrum of a commutative ring, and basics of sheaf theory.
+    \item Definitions of schemes and morphisms between them.
+    \item Properties of schemes, and properties of morphisms (replacements of na\"ive topological notions of compactness, Hausdorff, etc.). Basic constructions (Picard group, class group).
+    \item Rapid introduction to sheaf cohomology.
+\end{enumerate}
+
+\subsection*{Prerequisites}
+
+\begin{enumerate}[(i)]
+    \item Basic undegraduate mathematics (groups, rings, topological spaces and so on).
+    \item Commutative algebra (co-requisite).
+\end{enumerate}
+
+\subsection*{Resources}
+
+\begin{enumerate}[(i)]
+    \item Dhruv's course page.
+    \item Textbooks: Hartshorne, Vakil for Algebraic geometry, Atiyah-MacDonald for commutative algebra.
+\end{enumerate}
+
+\subsection*{Why suffer through this? (Weil conjectures)}
+
+The Weil conjectures link two worlds. The starting data is a homogeneous polynomial \(f \in \Z[x_0, \dots, x_n] = \Z[\bf x]\), of degree \(d\).
+
+\textbf{World 1:} We can consider the vanishing locus
+
+\[X = \bb V(f) = \left\{(a_0: \dots : a_n) \mid f(a_0, \dots, a_n) = 0\right\} \subseteq \bb P^1_\C\]
+
+which is a projective hypersurface. We will assume that \(X\) is smooth, i.e. there is no point \(p \in X\), such that all of the partial derivatives \(\pdv{f}{x_i}(p)\) vanish for all \(i\). If we view \(\bb P^n\) as \((\C^{n+1} \setminus 0)/\text{scaling}\), and \(\C^{n+1}\setminus 0\) is given the Euclidean topology, then \(X\) is a (complex) manifold. This follows from the inverse/implicit function theorem. Moreover, \(X\) is a compact topological space. In fact, \(X\) can be triangulated. 
+
+With this, we can consider various invariants associated to \(X\). The simplest is the Euler characteristic \(\chi(X)\). For example, \(\chi(\bb P^k) = k+1\). More generally, we can consider the Betti numbers \(b_i\), where
+
+\[b_i = \dim_\Q H_i(X; \Q)\]
+
+are the dimension of the rational homology groups. In this case,
+
+\[\chi(X) = \sum_i(-1)^i b_i\]
+
+\textbf{World 2:} Fix a prime \(p\), such that \(X\) is smooth over \(\overline{\bb F_p}\).
+
+\end{document}
