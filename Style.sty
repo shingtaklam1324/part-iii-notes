@@ -1,0 +1,448 @@
+\PassOptionsToPackage{usenames,svgnames,dvipsnames,table}{xcolor}
+\usepackage{xcolor}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{thmtools}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usepackage{appendix}
+
+% \usepackage{stix2}
+
+% \usepackage[default]{gfsneohellenic}
+% \usepackage[LGR,T1]{fontenc} %% LGR encoding is needed for loading the package gfsneohellenic
+
+\usepackage[math, light]{iwona}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{graphicx}
+
+% \usepackage{sansmathfonts}
+% \usepackage[T1]{fontenc}
+% \renewcommand*\familydefault{\sfdefault}
+
+% \usepackage[sfdefault,lining]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+% \usepackage[fakebold]{firamath-otf}
+% \renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+
+\usepackage{tikz-cd}
+% \tikzcdset{row sep/normal=2.1em}
+% \tikzcdset{column sep/normal=2.8em}
+
+% \usepackage{concmath}
+% \usepackage[OT1]{fontenc}
+
+% \usepackage[light,math]{kurier}
+% \usepackage[T1]{fontenc}
+
+% \usepackage[default]{gfsneohellenic}
+% \usepackage[LGR,T1]{fontenc} %% LGR encoding is needed for loading the package gfsneohellenic
+
+\usepackage{multirow}
+
+\usepackage{chngcntr}
+
+\usepackage{mathrsfs}
+
+\usepackage{bbm}
+
+\usepackage{caption}
+
+\usepackage{blindtext}
+
+\usepackage{physics}
+
+\usepackage{hyperref}
+
+\usepackage{tabularx}
+
+\usepackage{cleveref}
+
+\usepackage{enumerate}
+
+\usepackage{verbatim}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\theoremstyle{definition}
+\mdfdefinestyle{mdbluebox}{%
+% roundcorner = 10pt,
+% linewidth=1pt,
+skipabove=12pt,
+innerbottommargin=9pt,
+skipbelow=2pt,
+linecolor=TealBlue!5,
+nobreak=false,
+backgroundcolor=TealBlue!5,
+}
+\declaretheoremstyle[
+headfont=\bfseries\color{MidnightBlue},
+mdframed={style=mdbluebox},
+% headpunct={\\[3pt]},
+headpunct={. },
+postheadspace={0pt}
+]{thmbluebox}
+
+\mdfdefinestyle{mdredbox}{%
+linewidth=0.5pt,
+skipabove=12pt,
+frametitleaboveskip=5pt,
+frametitlebelowskip=0pt,
+skipbelow=2pt,
+frametitlefont=\bfseries,
+innertopmargin=4pt,
+innerbottommargin=8pt,
+nobreak=false,
+backgroundcolor=Salmon!5,
+linecolor=Salmon!5,
+}
+\declaretheoremstyle[
+headfont=\bfseries\color{RawSienna},
+mdframed={style=mdredbox},
+headpunct={\\[3pt]},
+postheadspace={0pt},
+]{thmredbox}
+\mdfdefinestyle{mdgreenbox}{%
+skipabove=8pt,
+linewidth=2pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+linecolor=ForestGreen,
+backgroundcolor=ForestGreen!5,
+}
+\declaretheoremstyle[
+headfont=\bfseries\color{ForestGreen!70!black},
+bodyfont=\normalfont,
+spaceabove=2pt,
+spacebelow=1pt,
+mdframed={style=mdgreenbox},
+% headpunct=,
+]{thmgreenbox}
+\mdfdefinestyle{mdblackbox}{%
+skipabove=8pt,
+linewidth=3pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+linecolor=RedViolet!5!gray!5,
+backgroundcolor=RedViolet!5!gray!5,
+}
+\declaretheoremstyle[
+headfont=\bfseries,
+bodyfont=\normalfont\small,
+spaceabove=0pt,
+spacebelow=0pt,
+mdframed={style=mdblackbox}
+]{thmblackbox}
+
+\mdfdefinestyle{mdpurplebox}{%
+% roundcorner = 10pt,
+% linewidth=1pt,
+skipabove=12pt,
+innerbottommargin=9pt,
+skipbelow=2pt,
+linecolor=Orchid!5,
+nobreak=false,
+backgroundcolor=Orchid!5,
+}
+\declaretheoremstyle[
+headfont=\bfseries\color{RoyalPurple},
+mdframed={style=mdpurplebox},
+headpunct={\\[3pt]},
+postheadspace={0pt}
+]{thmpurplebox}
+
+\newcommand{\listhack}{$\empty$\vspace{-2em}}
+
+\declaretheorem[%
+style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
+\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+% \declaretheorem[%
+% style=thmbluebox,name=Theorem]{theorem}
+\declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{proposition}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+% \declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem}
+\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+% \declaretheorem[style=thmbluebox,name=Proposition,numbered=no]{proposition}
+% \declaretheorem[style=thmbluebox,name=Corollary,numbered=no]{corollary}
+
+\declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
+% \declaretheorem[style=thmredbox,name=Example,numbered=no]{example}
+
+\declaretheorem[style=thmblackbox,name=Remark,sibling=theorem]{remark}
+% \declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark}
+
+\declaretheorem[style=thmblackbox,name=Notation,sibling=theorem]{notation}
+% \declaretheorem[style=thmblackbox,name=Notation,numbered=no]{notation}
+
+\declaretheorem[style=thmpurplebox,name=Definition,sibling=theorem]{definition}
+% \declaretheorem[style=thmpurplebox,name=Definition,numbered=no]{definition}
+
+\declaretheorem[style=thmgreenbox,name=Claim,sibling=theorem]{claim}
+% \declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim}
+\declaretheorem[style=thmgreenbox,name=Conjecture,sibling=theorem]{conjecture}
+% \declaretheorem[style=thmgreenbox,name=Conjecture,numbered=no]{conjecture}
+\declaretheorem[style=thmgreenbox,name=Question,sibling=theorem]{question}
+% \declaretheorem[style=thmgreenbox,name=Question,numbered=no]{question}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\ord}{ord}
+% \DeclareMathOperator{\Ker}{ker}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Obj}{Obj}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Bil}{Bil}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Null}{null}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Adj}{Adj}
+\DeclareMathOperator{\adj}{adj}
+
+\DeclareMathOperator{\Ber}{Ber}
+\DeclareMathOperator{\Bin}{Bin}
+\DeclareMathOperator{\Markov}{Markov}
+\DeclareMathOperator{\Geo}{Geo}
+\DeclareMathOperator{\Poi}{Poi}
+\DeclareMathOperator{\Unif}{Unif}
+
+\DeclareMathOperator{\Orb}{Orb}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\ccl}{ccl}
+\DeclareMathOperator{\sign}{sign}
+
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\emptyset}{\varnothing}
+
+\newcommand{\mcA}{\mathcal{A}}
+\newcommand{\mcB}{\mathcal{B}}
+\newcommand{\mcC}{\mathcal{C}}
+\newcommand{\mcD}{\mathcal{D}}
+\newcommand{\mcE}{\mathcal{E}}
+\newcommand{\mcF}{\mathcal{F}}
+\newcommand{\mcG}{\mathcal{G}}
+\newcommand{\mcH}{\mathcal{H}}
+\newcommand{\mcI}{\mathcal{I}}
+\newcommand{\mcJ}{\mathcal{J}}
+\newcommand{\mcK}{\mathcal{K}}
+\newcommand{\mcL}{\mathcal{L}}
+\newcommand{\mcM}{\mathcal{M}}
+\newcommand{\mcN}{\mathcal{N}}
+\newcommand{\mcO}{\mathcal{O}}
+\newcommand{\mcP}{\mathcal{P}}
+\newcommand{\mcQ}{\mathcal{Q}}
+\newcommand{\mcR}{\mathcal{R}}
+\newcommand{\mcS}{\mathcal{S}}
+\newcommand{\mcT}{\mathcal{T}}
+\newcommand{\mcU}{\mathcal{U}}
+\newcommand{\mcV}{\mathcal{V}}
+\newcommand{\mcW}{\mathcal{W}}
+\newcommand{\mcX}{\mathcal{X}}
+\newcommand{\mcY}{\mathcal{Y}}
+\newcommand{\mcZ}{\mathcal{Z}}
+
+\newcommand{\msA}{\mathscr{A}}
+\newcommand{\msB}{\mathscr{B}}
+\newcommand{\msC}{\mathscr{C}}
+\newcommand{\msD}{\mathscr{D}}
+\newcommand{\msE}{\mathscr{E}}
+\newcommand{\msF}{\mathscr{F}}
+\newcommand{\msG}{\mathscr{G}}
+\newcommand{\msH}{\mathscr{H}}
+\newcommand{\msI}{\mathscr{I}}
+\newcommand{\msJ}{\mathscr{J}}
+\newcommand{\msK}{\mathscr{K}}
+\newcommand{\msL}{\mathscr{L}}
+\newcommand{\msM}{\mathscr{M}}
+\newcommand{\msN}{\mathscr{N}}
+\newcommand{\msO}{\mathscr{O}}
+\newcommand{\msP}{\mathscr{P}}
+\newcommand{\msQ}{\mathscr{Q}}
+\newcommand{\msR}{\mathscr{R}}
+\newcommand{\msS}{\mathscr{S}}
+\newcommand{\msT}{\mathscr{T}}
+\newcommand{\msU}{\mathscr{U}}
+\newcommand{\msV}{\mathscr{V}}
+\newcommand{\msW}{\mathscr{W}}
+\newcommand{\msX}{\mathscr{X}}
+\newcommand{\msY}{\mathscr{Y}}
+\newcommand{\msZ}{\mathscr{Z}}
+
+\newcommand{\mfa}{\mathfrak{a}}
+\newcommand{\mfb}{\mathfrak{b}}
+\newcommand{\mfc}{\mathfrak{c}}
+\newcommand{\mfd}{\mathfrak{d}}
+\newcommand{\mfe}{\mathfrak{e}}
+\newcommand{\mff}{\mathfrak{f}}
+\newcommand{\mfg}{\mathfrak{g}}
+\newcommand{\mfh}{\mathfrak{h}}
+\newcommand{\mfi}{\mathfrak{i}}
+\newcommand{\mfj}{\mathfrak{j}}
+\newcommand{\mfk}{\mathfrak{k}}
+\newcommand{\mfl}{\mathfrak{l}}
+\newcommand{\mfm}{\mathfrak{m}}
+\newcommand{\mfn}{\mathfrak{n}}
+\newcommand{\mfo}{\mathfrak{o}}
+\newcommand{\mfp}{\mathfrak{p}}
+\newcommand{\mfq}{\mathfrak{q}}
+\newcommand{\mfr}{\mathfrak{r}}
+\newcommand{\mfs}{\mathfrak{s}}
+\newcommand{\mft}{\mathfrak{t}}
+\newcommand{\mfu}{\mathfrak{u}}
+\newcommand{\mfv}{\mathfrak{v}}
+\newcommand{\mfw}{\mathfrak{w}}
+\newcommand{\mfx}{\mathfrak{x}}
+\newcommand{\mfy}{\mathfrak{y}}
+\newcommand{\mfz}{\mathfrak{z}}
+
+\DeclareMathOperator{\Cl}{Cl}
+
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\bbm}[1]{\mathbbm{#1}}
+
+\newcommand{\cat}[1]{\mathbf{#1}}
+
+\newcommand{\fim}{\text{ for infinitely many }}
+
+% \newcommand{\Int}[1]{{#1}^{\mathrm{O}}}
+\DeclareMathOperator{\Int}{Int}
+
+\newcounter{NumTodos}
+\setcounter{NumTodos}{1}
+\newcommand{\todo}[1]{{\color{red}\textbf{TODO \theNumTodos: }#1} \stepcounter{NumTodos}}
+
+\newcommand{\const}{\text{const}}
+
+\newcommand{\qqquad}{\qquad\qquad}
+
+\newcommand{\T}{\mathrm{T}}
+\newcommand{\vs}[1]{\({#1}\)-vector space}
+\newcommand{\module}[1]{\({#1}\)-module}
+
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+
+\newcommand{\orthoplus}{\overset{\perp}{\oplus}}
+
+\DeclareMathOperator{\bias}{bias}
+\DeclareMathOperator{\mse}{mse}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Supp}{supp}
+\DeclareMathOperator{\Multi}{Multi}
+\DeclareMathOperator{\Col}{Col}
+
+\newcommand{\pmi}[1]{(#1^\T #1)^{-1} #1^\T}
+
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Length}{Length}
+\DeclareMathOperator{\Image}{Image}
+
+\DeclareMathOperator{\Homeo}{Homeo}
+
+\newcommand{\homeo}{\cong_\mathrm{h}}
+\newcommand{\diffeo}{\cong_\mathrm{d}}
+\newcommand{\osubseteq}{\underset{\mathrm{open}}{\subseteq}}
+
+\DeclareMathOperator{\Area}{Area}
+
+\DeclareMathOperator{\artanh}{artanh}
+
+\DeclareMathOperator{\Syl}{Syl}
+\def\Circlearrowright{\ensuremath{%
+  \rotatebox[origin=c]{180}{$\ \circlearrowright\ $}}}
+\newcommand{\actson}{\Circlearrowright}
+% \DeclareMathOperator{\orb}{Orb}
+\DeclareMathOperator{\Frac}{Frac}
+\newcommand{\opp}{\mathrm{op}}
+
+\DeclareMathOperator{\SCI}{SCI}
+\newcommand{\CP}{\{\Omega, \Xi\}}
+\newcommand{\CPf}{\{\Omega, \Xi, \mcM, \Lambda\}}
+\newcommand{\CPh}{\{\Omega, \Xi, \mcM, \hat\Lambda\}}
+\newcommand{\NH}{\mathrm{NH}}
+
+\newcommand{\Ioo}[1]{(#1)}
+\newcommand{\Icc}[1]{[#1]}
+\newcommand{\Ico}[1]{[#1)} %]
+\newcommand{\Ioc}[1]{(#1]} %)
+
+\newcommand{\sbe}{\epsilon_\mathrm{B}^\mathrm{s}}
+\newcommand{\wbe}{\epsilon_\mathrm{B}^\mathrm{w}}
+\newcommand{\psbe}{\epsilon_{\mathbb{P}\mathrm{B}}^\mathrm{s}}
+\newcommand{\pwbe}{\epsilon_{\mathbb{P}\mathrm{B}}^\mathrm{w}}
+\newcommand{\hpsbe}{\epsilon_{\mathbb{P}\mathrm{hB}}^\mathrm{s}}
+\newcommand{\hpwbe}{\epsilon_{\mathbb{P}\mathrm{hB}}^\mathrm{w}}
+
+\newcommand{\RGA}{\mathrm{RGA}}
+\newcommand{\Gran}{\Gamma^\mathrm{ran}}
+\newcommand{\compl}{\mathrm{c}}
+\newcommand{\enat}{\N \cup \{\infty\}}
+
+\DeclareMathOperator{\cm}{cm}
+\DeclareMathOperator{\Isom}{Isom}
+% \DeclareMathOperator{\inj}{inj}
+
+\newcommand{\llangle}{\langle\langle}
+\newcommand{\rrangle}{\rangle\rangle}
+
+\DeclareMathOperator{\lm}{lm}
+\DeclareMathOperator{\lc}{lc}
+
+\DeclareMathOperator{\St}{St}
+\DeclareMathOperator{\Disc}{Disc}
+
+\DeclareMathOperator{\Gal}{Gal}
+
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\covol}{covol}
+
+\DeclareMathOperator{\Crit}{Crit}
+\DeclareMathOperator{\codim}{codim}
+
+\renewcommand{\div}{\mathrm{div}}
+
+\newcommand{\transverse}{\pitchfork}
+\newcommand{\DD}{\mathrm{D}}
+\newcommand{\TT}{\mathrm{T}}
+\newcommand{\HH}{\mathrm{H}}
+\newcommand{\Hdr}{\HH_\mathrm{dR}}
+\newcommand{\Hdol}{\HH_\mathrm{Dolbeault}}
+
+\DeclareMathOperator{\proj}{proj}
+\newcommand{\Dv}[2]{\frac{\DD #1}{\dd #2}}
+
+\DeclareMathOperator{\Div}{Div}
+
+\DeclareMathOperator{\pr}{pr}
+
+\newcommand{\gl}{\mfg\mfl}
+
+\DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\Diff}{Diff}
+\DeclareMathOperator{\Sympl}{Sympl}
