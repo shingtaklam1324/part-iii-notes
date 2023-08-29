@@ -30,6 +30,7 @@
 \usepackage{tabularx}
 \usepackage{cleveref}
 \usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
 \usepackage{verbatim}
 \usepackage[a4paper, margin=1in]{geometry}
 
@@ -186,7 +187,7 @@ style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
 
 %% Lecture numbering
 \newcounter{lecturenumber}
-\newcommand{\lec}{\marginpar{\stepcounter{lecturenumber}Lecture \thelecturenumber}}
+\newcommand{\lec}{\vspace{2mm}\marginpar{\stepcounter{lecturenumber}Lecture \thelecturenumber}\vspace{2mm}}
 
 %% Abbreviations
 
@@ -394,6 +395,8 @@ style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
 \renewcommand{\ev}{\mathrm{ev}} % physics uses \ev for expected value.
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\maxSpec}{maxSpec}
+\DeclareMathOperator{\res}{res}
+\DeclareMathOperator{\sh}{sh}
 
 %%% Algebraic topology
 \newcommand{\HH}{\mathrm{H}}
