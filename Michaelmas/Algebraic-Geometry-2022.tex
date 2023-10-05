@@ -46,7 +46,7 @@ The Weil conjectures link two worlds. The starting data is a homogeneous polynom
 
 \textbf{World 1:} We can consider the vanishing locus
 
-\[X = \bb V(f) = \left\{(a_0: \dots : a_n) \mid f(a_0, \dots, a_n) = 0\right\} \subseteq \bb P^1_\C\]
+\[X = \bb V(f) = \left\{(a_0: \dots : a_n) \mid f(a_0, \dots, a_n) = 0\right\} \sse \bb P^1_\C\]
 
 which is a projective hypersurface. We will assume that \(X\) is smooth, i.e. there is no point \(p \in X\), such that all of the partial derivatives \(\pdv{f}{x_i}(p)\) vanish for all \(i\). If we view \(\bb P^n\) as \((\C^{n+1} \setminus 0)/\text{scaling}\), and \(\C^{n+1}\setminus 0\) is given the Euclidean topology, then \(X\) is a (complex) manifold. This follows from the inverse/implicit function theorem. Moreover, \(X\) is a compact topological space. In fact, \(X\) can be triangulated. 
 
@@ -85,9 +85,9 @@ Deligne proved the Riemann Hypothesis for the Weil \(\zeta\) function.
 
 Let \(k = \overline k\) be an algebraically closed field. We would like to consider subsets
 
-\[\van(S) \subseteq \aff k n\]
+\[\van(S) \sse \aff k n\]
 
-where \(S \subseteq k\poly n\). Up to isomorphism, this is the same as finitely generated \(k\)-algebras without nilpotent elements. Given \(V = \bb V(S)\), we have an ideal \[I(V) = \left\{f \in k\poly n \mid f = 0 \text{ on }V\right\}\]
+where \(S \sse k\poly n\). Up to isomorphism, this is the same as finitely generated \(k\)-algebras without nilpotent elements. Given \(V = \bb V(S)\), we have an ideal \[I(V) = \left\{f \in k\poly n \mid f = 0 \text{ on }V\right\}\]
 
 We can then define
 
@@ -113,7 +113,7 @@ Then \(\van(S) = \van(\inner{S}) = \van(\sqrt{\inner{S}})\), where \(\inner{S}\)
 
 \begin{itemize}
     \item \(k\polys\) is the ring of algebraic functions on \(\aff k n\).
-    \item \(I \subseteq k\polys\) is a radical ideal.
+    \item \(I \sse k\polys\) is a radical ideal.
     \item The coordinate ring of \(V = \van(I)\) is \(k[V] = k\polys/I\).
 \end{itemize}
 
@@ -121,17 +121,17 @@ This coordinate ring is the basic object, it's more fundamental than \(I\).
 
 \subsubsection{Topology}
 
-Fix an affine variety \(V \subseteq \aff k n\). It has a Zariski topology, where the closed sets are subsets of the form
+Fix an affine variety \(V \sse \aff k n\). It has a Zariski topology, where the closed sets are subsets of the form
 
 \[V \cap \van(S)\]
 
-where \(S \subseteq k\polys\). Equivalently, we can consider the Zariski topology on \(\aff k n\), and then equip \(V\) with the subspace topology.
+where \(S \sse k\polys\). Equivalently, we can consider the Zariski topology on \(\aff k n\), and then equip \(V\) with the subspace topology.
 
-Intrinsically, we can say that \(W \subseteq V\) is closed if we have that
+Intrinsically, we can say that \(W \sse V\) is closed if we have that
 
 \[W = \van(J)\]
 
-where \(J \subseteq k[V]\) is an ideal. Exercise: these two topologies are the same.
+where \(J \sse k[V]\) is an ideal. Exercise: these two topologies are the same.
 
 \subsubsection{Nullstellensatz}
 
@@ -165,12 +165,12 @@ Each \(f \in k[V]\) gives a function \(V \to k (= \aff k 1)\), sending \(p\) to 
 
 \subsubsection{Morphisms}
 
-Given \(V \subseteq \aff k n\), \(W \subseteq \aff k m\), morphisms \(V \to W\) are constructed as follows.
+Given \(V \sse \aff k n\), \(W \sse \aff k m\), morphisms \(V \to W\) are constructed as follows.
 
 \begin{enumerate}
     \item Take functions \(f_1, \dots, f_m \in k\poly n\).
     \item This gives a map \(\varphi = (f_1, \dots, f_m) : V \to \aff k m\).
-    \item A morphism \(V \to W\) must additionally satisfy that \(\varphi(V) \subseteq W\).
+    \item A morphism \(V \to W\) must additionally satisfy that \(\varphi(V) \sse W\).
 \end{enumerate}
 
 There is a more intrinsic construction. Any such \(\varphi : V \to W\) as above, gives rise to a pullback map \(\varphi^* : k[W] \to k[V]\), where \(\varphi^*(g) = g \circ \varphi\).
@@ -185,9 +185,9 @@ In practice, the right hand side is much cleaner than the right hand side.
 
 \underline{Upshot:} Let \(R\) be a finitely generated, nilpotent free \(k\)-algebra, the topological space
 
-\[X_R = \left\{\mfm \subseteq R \mid \mfm \text{ is a maximal ideal}\right\}\]
+\[X_R = \left\{\mfm \sse R \mid \mfm \text{ is a maximal ideal}\right\}\]
 
-Closed sets are given by \(\van(S)\), for \(S \subseteq R\).
+Closed sets are given by \(\van(S)\), for \(S \sse R\).
 
 \subsection{Limitations}
 
@@ -202,7 +202,7 @@ Morally, it's an object which locally looks like an affine variety.
 
     \[I = \inner{x^2 + y^2 + 1} \in \R[x, y]\]
 
-    Then \(\van(I) = \emptyset \subseteq \R^2\). \(I\) is a prime ideal, therefore radical, so the na\"ive Nullstellensatz fails.
+    Then \(\van(I) = \emptyset \sse \R^2\). \(I\) is a prime ideal, therefore radical, so the na\"ive Nullstellensatz fails.
 \end{example}
 
 \begin{question}
@@ -212,7 +212,7 @@ Morally, it's an object which locally looks like an affine variety.
 \begin{example}
     [Why restrict to radical ideals] Assume \(k = \overline k\).
 
-    \[C = \van(y - x^2) \subseteq \aff k n\]
+    \[C = \van(y - x^2) \sse \aff k n\]
 
     and
 
@@ -233,7 +233,7 @@ Morally, it's an object which locally looks like an affine variety.
 
 \underline{Basic idea:} Given a ring \(A\), we will define
 
-\[\Spec(A) = \left\{\mfp \subseteq A \mid \mfp \text{ a prime ideal}\right\}\]
+\[\Spec(A) = \left\{\mfp \sse A \mid \mfp \text{ a prime ideal}\right\}\]
 
 Why prime?
 
@@ -251,7 +251,7 @@ Let \(A\) be a commutative ring,
 \begin{definition}
     [Zariski spectrum] The Zariski spectrum of \(A\) is
 
-    \[\Spec(A) = \set{\mfp \subseteq A \mid \mfp \text{ a prime ideal}}\]
+    \[\Spec(A) = \set{\mfp \sse A \mid \mfp \text{ a prime ideal}}\]
 \end{definition}
 
 \begin{remark}
@@ -279,7 +279,7 @@ Subject to this, homomorphisms \(f : A \to K\), with \(K\) a field, corresponds 
     \begin{align*}
         123(2) &= 1 \in \Z/2 \\
         123(3) &= 0 \in \Z/3 \\
-        123(0) &= 123 \in \Z \subseteq \Q
+        123(0) &= 123 \in \Z \sse \Q
     \end{align*}
 \end{example}
 
@@ -309,12 +309,12 @@ Subject to this, homomorphisms \(f : A \to K\), with \(K\) a field, corresponds 
 
 \[\van(f) = \left\{\mfp \in \Spec(A) \mid f \in \mfp\right\} = \left\{\mfp \in \Spec(A) \mid f(\mfp) = 0 \in A/\mfp\right\}\]
 
-More generally, if \(I \subseteq A\) is an ideal, then
+More generally, if \(I \sse A\) is an ideal, then
 
-\[\van(I) = \left\{\mfp \in \Spec(A) \mid I \subseteq \mfp\right\} = \left\{\mfp \in \Spec(A) \mid f(\mfp) = 0 \text{ for all }f\in I\right\}\]
+\[\van(I) = \left\{\mfp \in \Spec(A) \mid I \sse \mfp\right\} = \left\{\mfp \in \Spec(A) \mid f(\mfp) = 0 \text{ for all }f\in I\right\}\]
 
 \begin{definition}
-    The sets \(\van(I) \subseteq \Spec(A)\), for \(I \subseteq A\) ideals, satisfy the requirements for closed sets in a topological space. 
+    The sets \(\van(I) \sse \Spec(A)\), for \(I \sse A\) ideals, satisfy the requirements for closed sets in a topological space. 
 \end{definition}
 
 \begin{proof}
@@ -326,9 +326,9 @@ More generally, if \(I \subseteq A\) is an ideal, then
 
     \[\van(I_1) \cup \van(I_2) = \van(I_1 \cap I_2)\]
 
-    For this, \(\subseteq\) is clear. For the reverse containment,
+    For this, \(\sse\) is clear. For the reverse containment,
 
-    \[I_1I_2 \subseteq I_1\cap I_2\]
+    \[I_1I_2 \sse I_1\cap I_2\]
 
     If \(\mfp \supseteq I_1 \cap I_2\), then it contains \(I_1I_2\). Since \(\mfp\) is prime, then either \(I_1\) or \(I_2\) is contained in \(\mfp\).
 \end{proof}
@@ -383,7 +383,7 @@ On the other hand, \(\maxSpec(A)\) is a single (closed) point, which is the same
 \underline{Starting point:} We are already thinking about \(A\) as ``functions on \(\Spec(A)\)''.
 
 \begin{lemma}
-    The subspace \(U_f \subseteq \Spec(A)\) is (naturally) homeomorphic to \(\Spec(A_f)\), where \(A_f\) is the localisation of \(A\) at \(f\).
+    The subspace \(U_f \sse \Spec(A)\) is (naturally) homeomorphic to \(\Spec(A_f)\), where \(A_f\) is the localisation of \(A\) at \(f\).
 \end{lemma}
 
 \underline{Aside on localisation:} \(A_f = A[t]/\inner{tf - 1}\). For example, if \(A = \C[x]\) and \(f = x\), then \(A_f = \C[x, x^{-1}]\). There is an obvious map \(A \to A_f\), however if \(f\) is a zero divisor, this map may not be injective.
@@ -394,7 +394,7 @@ Since we have a ring homomorphism \(A \to A_f\), we have an induced map \(\Spec(
     Primes in \(A_f\) are exactly in bijection with primes in \(A\) that do not contain \(f\). Why? Let \(\theta : A \to A_f\) be the natural map.
 
     \begin{claim}
-        Every ideal in \(A_f\) is generated by \(\theta(I)\) for some ideal \(I \subseteq A\).
+        Every ideal in \(A_f\) is generated by \(\theta(I)\) for some ideal \(I \sse A\).
     \end{claim}
 
     For details, see Atiyah-MacDonald, or Commutative Algebra.
@@ -419,7 +419,7 @@ This sets up the following association:
     U_f &\mapsto A_f
 \end{align*}
 
-\underline{Observe:} If \(U_{f_1} \subseteq U_{f_2}\), there is a natural ring homomorphism \(A_{f_2} \to A_{f_1}\).
+\underline{Observe:} If \(U_{f_1} \sse U_{f_2}\), there is a natural ring homomorphism \(A_{f_2} \to A_{f_1}\).
 
 \section{Sheaves}
 
@@ -436,11 +436,11 @@ Sheaves will formalise behaviour of the assignment above.
         U &\mapsto \mcF(U)
     \end{align*}
 
-    such that if \(U \subseteq V\), then there is a homomorphism \(\res^V_U : \mcF(V) \to \mcF(U)\), with
+    such that if \(U \sse V\), then there is a homomorphism \(\res^V_U : \mcF(V) \to \mcF(U)\), with
 
     \begin{itemize}
         \item \(\res_U^U = \id_{\mcF(U)}\),
-        \item if we have \(U \subseteq V \subseteq W\) opens, then
+        \item if we have \(U \sse V \sse W\) opens, then
         \[\res_U^V \circ \res_V^W = \res_U^W\]
     \end{itemize}
 \end{definition}
@@ -464,7 +464,7 @@ Let \(\mcF, \mcG\) be presheaves on a topologial space \(X\).
 
     \[\varphi_U : \mcF(U) \to \mcG(U)\]
 
-    compatible with restriction. That is, if \(V \subseteq U\) are open, then
+    compatible with restriction. That is, if \(V \sse U\) are open, then
 
     % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1jRihVKSJdLFsyLDAsIlxcbWNHKFUpIl0sWzAsMiwiXFxtY0YoVikiXSxbMiwyLCJcXG1jRyhWKSJdLFsyLDMsIlxcdmFycGhpX1YiXSxbMCwxLCJcXHZhcnBoaV9VIl0sWzAsMiwiXFxyZXNfVl5VIiwyXSxbMSwzLCJcXHJlc19WXlUiXV0=
 \[\begin{tikzcd}
@@ -486,7 +486,7 @@ commutes.
     [Sheaf] A sheaf \(\mcF\) on \(X\) is a presheaf such that
 
     \begin{enumerate}[label=S\arabic*.]
-        \item If \(U \subseteq X\) is open, and \(\set{U_i}\) is an open cover of \(U\), and if \(s \in \mcF(U)\) is such that
+        \item If \(U \sse X\) is open, and \(\set{U_i}\) is an open cover of \(U\), and if \(s \in \mcF(U)\) is such that
         \[s\vert_{U_i} = \res_{U_i}^U(s) = 0\]
         for all \(i\), then \(s = 0\).
         \item If \(U\) and \(\set{U_i}\) are as above, given \(s_i \in \mcF(U_i)\), with \(s_i\vert_{U_i \cap U_j} = s_j\vert_{U_i \cap U_j}\) for all \(i, j\), then there exists \(s \in \mcF(U)\) with \(s\vert_{U_i} = s_i\) for all \(i\).  
@@ -540,14 +540,14 @@ commutes.
 
 Fix a sheaf \(\mcF\) on a topological space \(X\).
 
-\underline{Terminology:} A section of \(\mcF\) over \(U \subseteq X\) is an element of \(\mcF(U)\). The group of global sections is \(\mcF(X)\).
+\underline{Terminology:} A section of \(\mcF\) over \(U \sse X\) is an element of \(\mcF(U)\). The group of global sections is \(\mcF(X)\).
 
 \begin{definition}
     [Stalk] Fix a point \(p \in X\). Then the stalk of \(\mcF\) at \(p\), denoted \(\mcF_p\), is
 
     \[\mcF_p = \frac{\left\{(s, U) \mid s \in \mcF(U), p \in U\right\}}{\sim}\]
 
-    where \((s, u)\sim (s', u')\) if there exists a nonempty open \(p \in W \subseteq U \cap U'\), such that \(s\vert_W = s'\vert_W\).
+    where \((s, u)\sim (s', u')\) if there exists a nonempty open \(p \in W \sse U \cap U'\), such that \(s\vert_W = s'\vert_W\).
 \end{definition}
 
 \(\mcF_p\) is sections of \(\mcF\) on some neighbourhood of \(p\).
@@ -558,7 +558,7 @@ Given \((s, U), (t, V)\) representing elements of \(\mcF_p\), we can define
 
 \[(s, U) + (t, V) = (s\vert_{W} + t\vert_W, W)\]
 
-for any neighbourhood \(W \subseteq U \cap V\) of \(p\).
+for any neighbourhood \(W \sse U \cap V\) of \(p\).
 
 \begin{example}
     Consider the structure sheaf \(\mcO_{\aff k 1}\), where \(k = \overline k\). Open sets of \(\aff k 1\) are complements of finite sets (and the empty set).
@@ -578,7 +578,7 @@ for any neighbourhood \(W \subseteq U \cap V\) of \(p\).
 \underline{Exercise:} The induced map makes sense.
 
 \begin{proof}
-    We will show that for every open \(U \subseteq X\), the morphism \(f_U : \mcF(U) \to \mcG(U)\) is an isomorphism. Given this, we will define the inverse map \(f^{-1} : \mcG \to \mcF\) to be \(f_U^{-1}\) on each \(U\).
+    We will show that for every open \(U \sse X\), the morphism \(f_U : \mcF(U) \to \mcG(U)\) is an isomorphism. Given this, we will define the inverse map \(f^{-1} : \mcG \to \mcF\) to be \(f_U^{-1}\) on each \(U\).
 
     \underline{Exercise:} This is compatible with gluing.
 
@@ -646,7 +646,7 @@ Note that if \(\mcF\) is a presheaf on \(X\), then it has stalks \(\mcF_p\) for 
     Let \(\mcF\) be a presheaf on \(X\). Define
 
     \begin{align*}
-        \mcF^{\sh}(U) = \big\{(f_p)_{p \in U} \mid f_p \in \mcF_p &\text{ and for every }p\text{, there exists an open }V_p \subseteq U\text{ neighbourhood of }p, \\ &\text{ and a section }s \in \mcF(V_p)\text{ such that }s_q = f_q \in \mcF_q\text{ for all }q \in V_p\big\}
+        \mcF^{\sh}(U) = \big\{(f_p)_{p \in U} \mid f_p \in \mcF_p &\text{ and for every }p\text{, there exists an open }V_p \sse U\text{ neighbourhood of }p, \\ &\text{ and a section }s \in \mcF(V_p)\text{ such that }s_q = f_q \in \mcF_q\text{ for all }q \in V_p\big\}
     \end{align*}
 \end{proposition}
 

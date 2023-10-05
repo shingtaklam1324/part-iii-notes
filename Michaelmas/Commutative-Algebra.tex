@@ -9,4 +9,144 @@
 
 \maketitle
 
+\lec
+
+In this course, a ring is a commutative unital ring \(R\). One non-commutative exception is the ring \(\End(M)\), where \(M\) is an abelian group. This is a ring with pointwise addition, and composition as multiplication.
+
+\begin{definition}
+    [module] An \(R\)-module \(M\) is an abelian group \(M\) with an fixed ring homomorphism \(\rho : R \to \End(M)\). We will write \(r \cdot m := \rho(r)(m)\).
+\end{definition}
+
+\begin{remark}
+    By definition, this implies that \((r_1 + r_2) \cdot m = r_1 \cdot m + r_2 \cdot m\), \(r \cdot (m_1 + m_2) = r \cdot m_1 + r \cdot m_2\) and \(r_1 \cdot (r_2 \cdot m) = (r_1r_2)\cdot m\).
+\end{remark}
+
+\begin{example}
+    [Examples of modules]
+    \begin{itemize}
+        \item Let \(k\) be a field. Then a \(k\)-module is the same as a \(k\)-vector space.
+        \item Every abelian group is a \(\Z\)-module in a unique way, since we must have that \(\rho(1) = \id_M\). Therefore, abelian groups and \(\Z\)-modules are the same thing.
+        \item Every ring \(R\) is (trivially) an \(R\)-module.
+        \item More generally, \(R^{\oplus \N}\) (direct sum) and \(R^\N\) (direct product) are \(R\)-modules.
+    \end{itemize}
+\end{example}
+
+\section{Chain conditions}
+
+\begin{definition}
+    [Noetherian, Artinian module]
+    An \(R\)-module \(M\) is \emph{Noetherian} if one of the following (equivalent) conditions hold:
+    \begin{enumerate}
+        \item Every ascending chain of submodules \(M_0 \sse M_1 \sse M_2 \sse \cdots\) stabilises. That is, it is eventually constant.
+        \item Every non-empty set \(\Sigma\) of submodules of \(M\) has a maximal element.
+    \end{enumerate}
+
+    \(M\) is \emph{Artinian} if we replace in the above: ascending with descending, maximal with minimal.
+\end{definition}
+
+\begin{lemma}
+    An \(R\)-module \(M\) is Noetherian if and only if every submodule of \(M\) is finitely generated.
+\end{lemma}
+
+In particular, every Noetherian module is finitely generated. If \(R = \Z[T_1, T_2, \dots]\), with \(M = R\) as an \(R\)-module. Then \(M\) is finitely generated. On the other hand, \(M' = \inner{T_1, T_2, T_3, \dots}\), is not finitely generated.
+
+\begin{definition}
+    [Noetherian, Artinian ring]
+    A ring \(R\) is Noetherian (resp. Artinian) if it is Noetherian (resp. Artinian) as an \(R\)-module.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item \(\Z\) is Noetherian (as it is a PID), but not Artinian (e.g. \(\inner{2} \supseteq \inner{4} \supseteq \inner{8} \supseteq \cdots\)).
+        \item \(\Z[1/2]/\Z\) is Artinian, but not Noetherian as a \(\Z\)-module.
+        \item A ring \(R\) is Artinian if and only if \(R\) is Noetherian and \(R\) has Krull dimension \(0\).
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    [Exact sequence]
+    A sequence
+% https://q.uiver.app/#q=WzAsNSxbMSwwLCJNX3tpLTF9Il0sWzAsMCwiXFxjZG90cyJdLFsyLDAsIk1faSJdLFszLDAsIk1fe2krMX0iXSxbNCwwLCJcXGNkb3RzIl0sWzEsMF0sWzAsMiwiZl9pIl0sWzIsMywiZl97aSsxfSJdLFszLDRdXQ==
+\[\begin{tikzcd}
+	\cdots & {M_{i-1}} & {M_i} & {M_{i+1}} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow["{f_i}", from=1-2, to=1-3]
+	\arrow["{f_{i+1}}", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+of \(R\)-modules and \(R\)-module homomorphisms is \emph{exact} if \(\im(f_i) = \ker(f_{i+1})\) for all \(i\).
+\end{definition}
+
+\begin{definition}
+    [Short exact sequence]
+    A \emph{short exact sequence} (SES) is an exact sequence of the form
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTCJdLFsyLDAsIk0iXSxbMywwLCJOIl0sWzQsMCwiMCJdLFswLDFdLFsxLDIsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzIsMywiIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzMsNF1d
+\[\begin{tikzcd}
+	0 & N & M & L & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["\iota", hook, from=1-2, to=1-3]
+	\arrow[two heads, from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+
+That is, we have an embedding \(\iota : N \inj M\), and an isomorphism \(L \cong M/\iota(N)\). 
+\end{definition}
+
+\begin{lemma}
+    Let
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTiJdLFsyLDAsIk0iXSxbMywwLCJMIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & N & M & L & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+be an SES of \(R\)-modules. Then \(M\) is Noetherian (resp. Artinian) if and only if \(N\) and \(L\) are Noetherian (resp. Artinian).
+\end{lemma}
+
+\begin{corollary}
+    If \(M_1, \dots, M_n\) are Noetherian (resp. Artinian) \(R\)-modules, then \(M_1 \oplus \cdots \oplus M_n\) is Noetherian (resp. Artinian).
+\end{corollary}
+
+\begin{proof}
+    By the lemma and induction.
+\end{proof}
+
+Recall a module homomorphism
+
+\[\varphi : M_1 \oplus \cdots \oplus M_n \to L\]
+
+is the same as a collection of module homomorphism \(\varphi_i : M_i \to L\). This is also true for infinite direct sums (but not products!).
+
+\begin{proposition}
+    For a Noetherian (resp. Artinian) ring \(R\), every finitely generated \(R\)-module is Noetherian (resp. Artinian).
+\end{proposition}
+
+\begin{proof}
+    \(M\) is finitely generated if and only if there exists a surjection \(R^n \surj M\) for some \(n \in \N\). The fact that \(R^n\) is Noetherian (resp. Artinian) implies that \(M\) is Noetherian (resp. Artinian), as quotients of Noetherian (resp. Artinian) modules are Noetherian (resp. Artinian).
+\end{proof}
+
+\begin{definition}
+    [algebra]
+    An \(R\)-algebra \(A\) is a ring \(A\) with a fixed ring homomorphism \(\rho : R \to A\). We will write \(r \cdot a := \rho(r)a\).
+\end{definition}
+
+\begin{remark}
+    Every \(R\)-algebra is an \(R\)-module.
+\end{remark}
+
+\begin{example}
+    The polynomial ring \(k[T_1, \dots, T_n]\) is a \(k\)-algebra. Do note however that it is a finitely generated by \(T_1, \dots, T_n\) as a \(k\)-algebra, but it is infinite dimensional as a \(k\)-vector space.
+\end{example}
+
+\begin{definition}
+    [algebra homomorphism] \(\varphi : A \to B\) is an \(R\)-algebra homomorphism if \(\varphi\) is a ring homomorphism and \(\varphi(r \cdot 1_A) = r \cdot 1_B\).
+\end{definition}
+
+\begin{definition}
+    [finitely generated algebra]
+    An \(R\)-algebra \(A\) is \emph{finitely generated} if there exists a surjective \(R\)-algebra homomorphism \(R[T_1, \dots, T_n] \surj A\) for some \(n \in \N\).
+\end{definition}
+
 \end{document}

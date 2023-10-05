@@ -9,4 +9,78 @@
 
 \maketitle
 
+\lec
+
+% Four examples classes, given by A.G.Kovalev (Oct 26 etc.). Note last examples class is Thursday Week 9.
+
+\section{Manifolds}
+
+The concept of a manifold is intended to generalise curves and surfaces in \(\R^3\).
+
+% Motivation
+% Definition of a topological space
+% Definition of Huasdorff and second countable
+
+\begin{definition}
+    [smooth structure]
+    A \emph{smooth structure} on a topological space \(M\) is a collection of \emph{charts} (an \emph{atlas})
+    \[\varphi_\alpha : U_\alpha \to V_\alpha\]
+    where \(U_\alpha \sse M\), \(V_\alpha \sse \R^d\) are open, \(\varphi_\alpha\) is a homeomorphism, such that
+    \begin{enumerate}
+        \item \(M = \bigcup_\alpha U_\alpha\). That is, the charts cover \(M\).
+        \item Given any charts \(\varphi_\alpha, \varphi_\beta\), the map
+        \[\varphi_\beta \circ \varphi_\alpha^{-1} : \varphi_\alpha(U_\alpha \cap U_\beta) \to \varphi_\beta(U_\alpha \cap U_\beta)\]
+        is a smooth map between open subsets of \(\R^d\).
+        \item If \(\varphi\) is \emph{compatible} (as in the previous point) with every chart in the atlas, then \(\varphi\) is a chart in the atlas.
+    \end{enumerate}
+\end{definition}
+
+In practice (i.e. using Zorn's lemma), given any collection of charts satisfying the first two conditions, we can find a maximal atlas containing it.
+
+\begin{remark}
+    \begin{enumerate}
+        \item The second condition implies that \(\varphi_\beta\circ \varphi_\alpha^{-1}\) is a diffeomorphism.
+        \item \(d\) is fixed, assuming that \(M\) is connected.
+    \end{enumerate}
+\end{remark}
+
+\begin{definition}
+    [manifold] A \emph{(smooth) manifold} \(M\) is a second countable Huasdorff space topological space, equipped with a smooth structure.
+
+    \(d = \dim(M)\) is the \emph{dimension} of \(M\).
+\end{definition}
+
+In practice, we may induce a topology on \(M\) from a smooth structure (without the mention of open or homeomorphism), then \(D \sse M\) is open if for any chart \(\varphi_\alpha\), \(\varphi_\alpha(D \cap U_\alpha)\) is an open subseteq of \(\R^d\).
+
+\begin{remark}
+    \begin{enumerate}
+        \item We can also define a \(C^k\) manifold by replacing smooth with \(C^k\) as above. If \(k = 0\), then we have a \emph{topological manifold}.
+        \item On the other hand, we can replace \(\R^d\) with \(\C^n\), and obtain a \emph{complex manifold}.
+    \end{enumerate}
+\end{remark}
+
+\(\R^n\) is (trivially) a manifold.
+
+\begin{example}
+    [unit sphere]
+    Define
+    \[S^n = \left\{x = (x_0, \dots, x_n) \in \R^n \mid \norm{x} = 1\right\} \sse \R^{n+1}\]
+    For the charts, we can consider the stereographic projections
+    \[\varphi(x) = \frac{1}{1-x_0}(x_1, \dots, x_n) \qquad \text{for }x_0 \ne 1\]
+    and
+    \[\psi(x) = \frac{1}{1+x_0}(x_1, \dots, x_n) \qquad \text{for }x_0 \ne -1\]
+    In particular,
+    \[\psi \circ \varphi^{-1}(u) = \frac{u}{\norm{u}^2}\]
+\end{example}
+
+\begin{example}
+    If \(M, N\) are manifolds of dimensions \(d,e\) respectively, then \(M \times N\) is a manifold of dimension \(d + e\).
+\end{example}
+
+As a corollary, \(T^n = (S^1)^n\) is a manifold.
+
+\begin{example}
+    If \(M\) is a manifold, \(X \subseteq M\) is open, then \(X\) is a manifold.
+\end{example}
+
 \end{document}

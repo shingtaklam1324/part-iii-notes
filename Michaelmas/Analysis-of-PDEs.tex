@@ -9,4 +9,158 @@
 
 \maketitle
 
+% Zoe Wyatt E2.02 zs253 Moodle
+
+\section{Basics}
+
+Let \(\mcU \subseteq \R^n\) be an open set. A \emph{PDE of order \(k\)} is an expression of the following form
+\begin{equation}
+    \label{eq:pde}
+    F(x, u, Du, \dots, D^ku) = 0
+\end{equation}
+where \(u : \mcU \to \R\) is the unknown, \(F : \mcU \times \R \times \R^n \times \cdots \times \R^{n^k}\) is a general function. We say that \(u\) is a \emph{classical solution of} \cref{eq:pde} if \(u\) satisfies \cref{eq:pde} in \(\mcU\).
+
+We may also consider the case where \(u(x) \in \R^p\) and \(F \in \R^q\), and we call this a \emph{system of PDEs}.
+
+\subsection{Examples of PDEs}
+
+\begin{example}
+    [ODE system]
+    One example of a model used in mathematical biology is the ODE system
+    \begin{align*}
+        \dv{u}{t} &= f(u, v) \\
+        \dv{v}{t} &= g(u, v)
+    \end{align*}
+\end{example}
+
+\begin{example}
+    [Laplace's equation]
+    \[\Delta u = \sum_{i=1}^n \partial_i^2 u = 0\]
+    The Laplacian is an \emph{averaging} operator.
+\end{example}
+
+\begin{example}
+    [Heat equation]
+    \[u_t = D\Delta u\]
+    This is also called the diffusion equation, \(D\) is called the diffusion constant.
+\end{example}
+
+\begin{example}
+    [Navier-Stokes]
+    The Navier-Stokes equations in fluid dynamics is
+    \begin{align*}
+        u_t &= \nu\Delta u - u \cdot \grad u - \grad \rho + f \\
+        \div(u) &= 0
+    \end{align*}
+\end{example}
+
+\begin{example}
+    [Transport equation]
+
+    The transport equation is
+    \[u_t + vu_x = 0\]
+    where \(v\) is a constant, corresponding to the velocity. A modification is the \emph{advection-diffusion} equation,
+    \[u_t + v \vdot \grad u = D\Delta u + f\]
+\end{example}
+
+\begin{example}
+    [Poisson equation]
+    \[\Delta u = f\]
+    Describes electric field due to some charge, or Newtonian gravity.
+\end{example}
+
+\begin{example}
+    [Wave equation]
+    \[\Box u = -u_tt + c^2 \Delta u = 0\]
+    This models sound waves, seismic waves, ...
+\end{example}
+
+\begin{example}
+    [KdV equation]
+    This equation admits \emph{soliton} solution.
+    \[u_t + \partial_x^3 u - 6u\partial_x u = 0\]
+\end{example}
+
+\begin{example}
+    [Maxwell equations]
+    \begin{align*}
+        \div(E) &= \rho \\
+        \div(B) &= 0 \\
+        \partial_t E &= \curl B = J \\
+        \partial_t B &= -\curl F
+    \end{align*}
+\end{example}
+
+\begin{example}
+    [Einstein's equations]
+    \[\Ric(g) - \frac{1}{2}gR(g) = 0\]
+\end{example}
+
+\subsection{Data and Well-Posedness}
+
+All of the examples from above need additional information to solve, which we call the \emph{data}. For example, we might need \(u\vert_{\partial \mcU}\) and so on. A guiding principle to this process is called \emph{well-posedness (in the sense of Hadamard)}.
+
+We say that a PDE problem (equation and the data) is well-posed if we have
+
+\begin{enumerate}
+    \item A solution exists (in some function space).
+    \item Given some data, the solution should be unique (depends on the function space of choice).
+    \item The solution depends continuously on the data.
+\end{enumerate}
+
+The aim is to find the largest space for which a solution exists, but small enough so that it is unique. (For example, strong cosmic censorship in GR?)
+
+\begin{notation}
+    [Multi-index notation] We will use multi-index notation,
+    \[\N = \{0, 1, \dots\}\]
+    \(\alpha = (\alpha_1, \dots, \alpha_n) \in \N^n\) is called a \emph{multi-index}, and we define the \emph{order} of \(\alpha\)
+    \[\abs{\alpha} = \alpha_1 + \alpha_2 + \dots + \alpha_n\]
+    and the \(\alpha\)-th derivative is
+    \[D^\alpha f(x) = \partial_1^{\alpha_1}\cdots\partial_n^{\alpha_n}f\]
+    If \(x = (x_1, \dots, x_n)\), then \(x^\alpha = x_1^{\alpha_1}\cdots x_n^{\alpha_n}\), and
+    \[\alpha! = \alpha_1!\cdots \alpha_n!\]
+\end{notation}
+
+\subsection{Classifying PDEs (of order \(k\))}
+
+We say \cref{eq:pde} is \emph{linear} if \(F\) is a linear function of \(x, u\) and its derivative. That is, we can write it as
+
+\[\sum_{\abs{\alpha} \le k}a_\alpha(x) D^\alpha u = f(x)\]
+
+We say \cref{eq:pde} is \emph{semilinear} if the highest order derivatives appear linearly with coefficients depending only on \(x\). That is, we have
+
+\[\sum_{\abs{\alpha} = k}a_\alpha(x)D^\alpha u(x) + F(x, u, Du, \dots, D^{k-1}u) = 0\]
+
+One example would be \(\Delta u = u_x^2\). Finally, we say \cref{eq:pde} is \emph{quasilinear} if the highest order derivatives appear linearly, but the coefficients depending on lower order derivatives. That is, we have
+
+\[\sum_{\abs{\alpha} = k}a_\alpha(x, u, \dots, D^{k-1}u)D^k u + F(x, u, \dots, D^{k-1}u) = 0\]
+
+For example, we can have \(u u_{xx} + u_{yy} - u_x^2 = 0\). Finally, we say \cref{eq:pde} is \emph{fully non-linear} if it is non of the above.
+
+\section{Cauchy-Kovelevskaya theorem}
+
+\subsection{ODE theory}
+
+Fix \(\mcU \sse \R^n\) open, and suppose \(f : \mcU \to \R^n\) is given. We would like to consider the ODE
+
+\begin{equation}
+    \label{eq:ode}
+    \begin{cases}
+        \dot u(t) = f(u(t)) \\
+        u(0) = u_0
+    \end{cases}
+\end{equation}
+
+\begin{theorem}
+    [Picard-Lindel\"of] Suppose we have \(r, K > 0\) such that \(B_r(u_0) \sse U\) and
+    \[\norm{f(x) - f(y)} \le K\norm{x - y}\]
+    for all \(x, y \in B_r(u_0)\). Then there exists \(\epsilon > 0\), depending on \(K, r\) and a unique \(C^1\) solution \(u : (-\epsilon, \epsilon) \to \mcU\) solving \cref{eq:ode}.
+\end{theorem}
+
+\section{Sobolev spaces}
+
+\section{Elliptic PDEs}
+
+\section{Hyperbolic PDEs}
+
 \end{document}
