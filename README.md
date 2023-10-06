@@ -1,5 +1,7 @@
 # Part III Notes
 
+Here are the notes which I am taking from Part III lectures. They should usually be transcriptions of the lectures, although sometimes things will be omitted (diagrams, long computations). Any mistakes are probably mine.
+
 ## Michaelmas
 
 * [Algebraic Geometry](Michaelmas/Algebraic-Geometry.pdf)
