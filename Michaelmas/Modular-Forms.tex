@@ -8,6 +8,8 @@
 
 \newcommand{\mch}{\mathfrak{h}}
 
+\makeindex
+
 \begin{document}
 
 \maketitle
@@ -17,11 +19,11 @@
 \section{Introduction}
 
 \begin{definition}
-    Define the upper half plane
+    Define the upper half plane\index{upper half plane}
     \[\mch = \left\{\tau \in \C \mid \im(\tau) > 0\right\}\]
     and the positive determinant group
     \[\GL_2(\R)^+ = \left\{g \in \GL_2(\R) \mid \det(g) > 0\right\}\]
-    and
+    and\index{\(\Gamma(1)\)}
     \[\Gamma(1) = \SL_2(\Z)\]
 \end{definition}
 
@@ -43,12 +45,12 @@
 \begin{definition}
     Let \(g \in \GL_2(\R)^+\), \(\tau \in \mch\), define \(j(g, \tau) = c\tau + d\), where \(g = \begin{pmatrix}
         a & b \\ c & d
-    \end{pmatrix}\). This is called the \emph{modular cocycle}. If \(k\) is an integer, \(f : \mch \to \C\) is any function, then
+    \end{pmatrix}\). This is called the \emph{modular cocycle}\index{modular cocycle}. If \(k\) is an integer, \(f : \mch \to \C\) is any function, then
     \begin{align*}
         f\vert_k[g] : \mfh &\to \C \\
         \tau &\mapsto \det(g)^{k-1}f(g\tau)j(g, \tau)
     \end{align*}
-    is called the \emph{weight \(k\) action of \(g\) on \(f\)}
+    is called the \emph{weight \(k\) action of \(g\) on \(f\)}\index{weight \(k\) action}.
 \end{definition}
 
 \begin{lemma}
@@ -90,7 +92,7 @@ For \(g, h \in \GL_2(\R)^+\), \(\tau \in \mfh\),
 and
 \[j(gh, \tau) = j(g, h\tau)j(h, \tau)\]
 \begin{definition}
-    Let \(k \in \Z\), \(\Gamma \le \Gamma(1)\) a finite index subgroup. A \emph{weakly modular function of weight \(k\) and level \(\Gamma\)} is a meromorphic function \(f : \mch \to \C\), which is invariant under the weight \(k\) action of \(\Gamma\). That is, such that for all \(\gamma \in \Gamma\),
+    Let \(k \in \Z\), \(\Gamma \le \Gamma(1)\) a finite index subgroup. A \emph{weakly modular function of weight \(k\) and level \(\Gamma\)}\index{weakly modular function of weight \(j\) and level \(\Gamma\)} is a meromorphic function \(f : \mch \to \C\), which is invariant under the weight \(k\) action of \(\Gamma\). That is, such that for all \(\gamma \in \Gamma\),
     \[f\vert_k[\gamma] = f\] 
 \end{definition}
 We will define a modular form (when \(\Gamma = \Gamma(1)\)) next time, but they are weakly modular functions, which are holomorphic in \(\mch\) and at \(\infty\).
@@ -127,5 +129,7 @@ In fact, modular forms of fixed weight and level live in finite dimensional \(\C
     
     \underline{Homework:} Handout on Moodle called ``Reminder of Complex Analysis''.
 \end{enumerate}
+
+\printindex
 
 \end{document}

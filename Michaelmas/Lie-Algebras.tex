@@ -6,6 +6,8 @@
 \author{Shing Tak Lam}
 \date{Michaelmas 2023\footnote{Based on lectures by Stuart Martin. Last updated \today.}}
 
+\makeindex
+
 \begin{document}
 
 \maketitle
@@ -20,7 +22,7 @@ A \emph{Lie group} is fundamentally a group, which also a (smooth) manifold. For
     A prototypical example of a Lie group is the circle group \(S^1\).
 \end{example}
 
-Let \(G\) be a Lie group. Then the \emph{Lie algebra} of \(G\) is the tangent space at the identity \(e\) of \(G\). That is, 
+Let \(G\) be a Lie group. Then the \emph{Lie algebra}\index{Lie algebra (as tangent space)} of \(G\) is the tangent space at the identity \(e\) of \(G\). That is, 
 \[\mfg = \T_eG\]
 \(\mfg\) is a vector space, with additional structure, which we will see later.
 
@@ -33,7 +35,7 @@ into a map
 \begin{align*}
     \ad : \mfg \to \End(\mfg)
 \end{align*}
-called the \emph{adjoint}. This gives a bilinear map
+called the \emph{adjoint}\index{adjoint}. This gives a bilinear map
 \begin{align*}
     [\cdot, \cdot] : \mfg \times \mfg &\to \mfg \\
     [x, y] &= \ad(x)(y)
@@ -81,7 +83,7 @@ Let \(k\) be a field. Most of the time, \(k = \C\), but not always. We will some
 
 \begin{definition}
     [Lie algebra]
-    A \emph{Lie algebra} over \(k\) is a vector space \(\mfg\) over \(k\), together with a bilinear pairing
+    A \emph{Lie algebra}\index{Lie algebra} over \(k\) is a vector space \(\mfg\) over \(k\), together with a bilinear pairing
     \begin{align*}
         [\cdot, \cdot] : \mfg \times \mfg \to \mfg
     \end{align*}
@@ -104,13 +106,13 @@ Let \(k\) be a field. Most of the time, \(k = \C\), but not always. We will some
 
 \begin{definition}
     [(Lie) subalgebra]
-    A \(k\)-vector subspace \(\mfh\) of \(\mfg\) is a \emph{(Lie) subalgebra} if \(\mfh\) is closed under the Lie bracket of \(\mfg\). That is, for all \(x, y \in \mfh\), \([xy] \in \mfh\).
+    A \(k\)-vector subspace \(\mfh\) of \(\mfg\) is a \emph{(Lie) subalgebra}\index{(Lie) subalgebra} if \(\mfh\) is closed under the Lie bracket of \(\mfg\). That is, for all \(x, y \in \mfh\), \([xy] \in \mfh\).
 \end{definition}
 
 \begin{example}
     Let \(V\) be a finite dimensional \(k\)-vector space, then
     \begin{enumerate}
-        \item Let \(\gl(V) = \End(V)\), with \([xy] = xy-yx\). If we choose a basis for \(V\), then we can identify \(\gl(V)\) with \(\Mat_n(k)\). In this case, we will write \(\gl_n\) or \(\gl_n(k)\).
+        \item Let \(\gl(V) = \End(V)\), with \([xy] = xy-yx\). If we choose a basis for \(V\), then we can identify \(\gl(V)\) with \(\Mat_n(k)\). In this case, we will write \(\gl_n\) or \(\gl_n(k)\)\index{\(\gl_n\)}.
         \item Let
         \[\sl(V) = \left\{x \in \gl(V) \mid \tr(x) = 0\right\}\]
         This defines a subalgebra of \(\gl(V)\), called the \emph{special linear Lie algebra}, with \(\dim(\sl(V)) = \dim(V)^2 - 1\). The standard basis of \(\sl(V)\) is given by
@@ -118,8 +120,10 @@ Let \(k\) be a field. Most of the time, \(k = \C\), but not always. We will some
             E_{i,j} \text{ for }i \ne j \\
             E_{i, i} - E_{i+1, i+1}
         \end{align*}
-        We will often write \(\sl_n\) for this Lie algebra.
+        We will often write \(\sl_n\)\index{\(\sl_n\)} for this Lie algebra.
     \end{enumerate}
 \end{example}
+
+\printindex
 
 \end{document}

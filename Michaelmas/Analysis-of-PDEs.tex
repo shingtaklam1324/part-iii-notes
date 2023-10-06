@@ -6,6 +6,8 @@
 \author{Shing Tak Lam}
 \date{Michaelmas 2023\footnote{Based on lectures by Zoe Wyatt. Last updated \today.}}
 
+\makeindex
+
 \begin{document}
 
 \maketitle
@@ -16,14 +18,14 @@
 
 \section{Basics}
 
-Let \(\mcU \subseteq \R^n\) be an open set. A \emph{PDE of order \(k\)} is an expression of the following form
+Let \(\mcU \subseteq \R^n\) be an open set. A \emph{PDE of order \(k\)}\index{PDE of order \(k\)} is an expression of the following form
 \begin{equation}
     \label{eq:pde}
     F(x, u, Du, \dots, D^ku) = 0
 \end{equation}
-where \(u : \mcU \to \R\) is the unknown, \(F : \mcU \times \R \times \R^n \times \cdots \times \R^{n^k}\) is a general function. We say that \(u\) is a \emph{classical solution of} \cref{eq:pde} if \(u\) satisfies \cref{eq:pde} in \(\mcU\).
+where \(u : \mcU \to \R\) is the unknown, \(F : \mcU \times \R \times \R^n \times \cdots \times \R^{n^k}\) is a general function. We say that \(u\) is a \emph{classical solution of}\index{classical solution} \cref{eq:pde} if \(u\) satisfies \cref{eq:pde} in \(\mcU\).
 
-We may also consider the case where \(u(x) \in \R^p\) and \(F \in \R^q\), and we call this a \emph{system of PDEs}.
+We may also consider the case where \(u(x) \in \R^p\) and \(F \in \R^q\), and we call this a \emph{system of PDEs}\index{system of PDEs}.
 
 \subsection{Examples of PDEs}
 
@@ -101,9 +103,9 @@ We may also consider the case where \(u(x) \in \R^p\) and \(F \in \R^q\), and we
 
 \subsection{Data and Well-Posedness}
 
-All of the examples from above need additional information to solve, which we call the \emph{data}. For example, we might need \(u\vert_{\partial \mcU}\) and so on. A guiding principle to this process is called \emph{well-posedness (in the sense of Hadamard)}.
+All of the examples from above need additional information to solve, which we call the \emph{data}\index{data}. For example, we might need \(u\vert_{\partial \mcU}\) and so on. A guiding principle to this process is called \emph{well-posedness (in the sense of Hadamard)}.
 
-We say that a PDE problem (equation and the data) is well-posed if we have
+We say that a PDE problem (equation and the data) is well-posed\index{well-posed} if we have
 
 \begin{enumerate}
     \item A solution exists (in some function space).
@@ -114,7 +116,7 @@ We say that a PDE problem (equation and the data) is well-posed if we have
 The aim is to find the largest space for which a solution exists, but small enough so that it is unique. (For example, strong cosmic censorship in GR?)
 
 \begin{notation}
-    [Multi-index notation] We will use multi-index notation,
+    [Multi-index notation] We will use multi-index notation\index{multi-index notation},
     \[\N = \{0, 1, \dots\}\]
     \(\alpha = (\alpha_1, \dots, \alpha_n) \in \N^n\) is called a \emph{multi-index}, and we define the \emph{order} of \(\alpha\)
     \[\abs{\alpha} = \alpha_1 + \alpha_2 + \dots + \alpha_n\]
@@ -126,19 +128,19 @@ The aim is to find the largest space for which a solution exists, but small enou
 
 \subsection{Classifying PDEs (of order \(k\))}
 
-We say \cref{eq:pde} is \emph{linear} if \(F\) is a linear function of \(x, u\) and its derivative. That is, we can write it as
+We say \cref{eq:pde} is \emph{linear}\index{linear PDE} if \(F\) is a linear function of \(x, u\) and its derivative. That is, we can write it as
 
 \[\sum_{\abs{\alpha} \le k}a_\alpha(x) D^\alpha u = f(x)\]
 
-We say \cref{eq:pde} is \emph{semilinear} if the highest order derivatives appear linearly with coefficients depending only on \(x\). That is, we have
+We say \cref{eq:pde} is \emph{semilinear}\index{semilinear PDE} if the highest order derivatives appear linearly with coefficients depending only on \(x\). That is, we have
 
 \[\sum_{\abs{\alpha} = k}a_\alpha(x)D^\alpha u(x) + F(x, u, Du, \dots, D^{k-1}u) = 0\]
 
-One example would be \(\Delta u = u_x^2\). Finally, we say \cref{eq:pde} is \emph{quasilinear} if the highest order derivatives appear linearly, but the coefficients depending on lower order derivatives. That is, we have
+One example would be \(\Delta u = u_x^2\). Finally, we say \cref{eq:pde} is \emph{quasilinear}\index{quasilinear PDE} if the highest order derivatives appear linearly, but the coefficients depending on lower order derivatives. That is, we have
 
 \[\sum_{\abs{\alpha} = k}a_\alpha(x, u, \dots, D^{k-1}u)D^k u + F(x, u, \dots, D^{k-1}u) = 0\]
 
-For example, we can have \(u u_{xx} + u_{yy} - u_x^2 = 0\). Finally, we say \cref{eq:pde} is \emph{fully non-linear} if it is non of the above.
+For example, we can have \(u u_{xx} + u_{yy} - u_x^2 = 0\). Finally, we say \cref{eq:pde} is \emph{fully non-linear}\index{fully non-linear PDE} if it is non of the above.
 
 \section{Cauchy-Kovelevskaya theorem}
 
@@ -155,7 +157,7 @@ Fix \(\mcU \sse \R^n\) open, and suppose \(f : \mcU \to \R^n\) is given. We woul
 \end{equation}
 
 \begin{theorem}
-    [Picard-Lindel\"of] Suppose we have \(r, K > 0\) such that \(B_r(u_0) \sse U\) and
+    [Picard-Lindel\"of]\index{Picard-Lindel\"of} Suppose we have \(r, K > 0\) such that \(B_r(u_0) \sse U\) and
     \[\norm{f(x) - f(y)} \le K\norm{x - y}\]
     for all \(x, y \in B_r(u_0)\). Then there exists \(\epsilon > 0\), depending on \(K, r\) and a unique \(C^1\) solution \(u : (-\epsilon, \epsilon) \to \mcU\) solving \cref{eq:ode}.
 \end{theorem}
@@ -165,5 +167,7 @@ Fix \(\mcU \sse \R^n\) open, and suppose \(f : \mcU \to \R^n\) is given. We woul
 \section{Elliptic PDEs}
 
 \section{Hyperbolic PDEs}
+
+\printindex
 
 \end{document}

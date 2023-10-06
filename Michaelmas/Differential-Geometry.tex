@@ -6,6 +6,8 @@
 \author{Shing Tak Lam}
 \date{Michaelmas 2023\footnote{Based on lectures by Alexei Kovalev. Last updated \today.}}
 
+\makeindex
+
 \begin{document}
 
 \maketitle
@@ -24,7 +26,7 @@ The concept of a manifold is intended to generalise curves and surfaces in \(\R^
 
 \begin{definition}
     [smooth structure]
-    A \emph{smooth structure} on a topological space \(M\) is a collection of \emph{charts} (an \emph{atlas})
+    A \emph{smooth structure}\index{smooth structure} on a topological space \(M\) is a collection of \emph{charts}\index{charts} (an \emph{atlas}\index{atlas})
     \[\varphi_\alpha : U_\alpha \to V_\alpha\]
     where \(U_\alpha \sse M\), \(V_\alpha \sse \R^d\) are open, \(\varphi_\alpha\) is a homeomorphism, such that
     \begin{enumerate}
@@ -46,17 +48,17 @@ In practice (i.e. using Zorn's lemma), given any collection of charts satisfying
 \end{remark}
 
 \begin{definition}
-    [manifold] A \emph{(smooth) manifold} \(M\) is a second countable Huasdorff space topological space, equipped with a smooth structure.
+    [manifold] A \emph{(smooth) manifold}\index{manifold} \(M\) is a second countable Huasdorff space topological space, equipped with a smooth structure.
 
-    \(d = \dim(M)\) is the \emph{dimension} of \(M\).
+    \(d = \dim(M)\) is the \emph{dimension}\index{dimension} of \(M\).
 \end{definition}
 
 In practice, we may induce a topology on \(M\) from a smooth structure (without the mention of open or homeomorphism), then \(D \sse M\) is open if for any chart \(\varphi_\alpha\), \(\varphi_\alpha(D \cap U_\alpha)\) is an open subseteq of \(\R^d\).
 
 \begin{remark}
     \begin{enumerate}
-        \item We can also define a \(C^k\) manifold by replacing smooth with \(C^k\) as above. If \(k = 0\), then we have a \emph{topological manifold}.
-        \item On the other hand, we can replace \(\R^d\) with \(\C^n\), and obtain a \emph{complex manifold}.
+        \item We can also define a \(C^k\) manifold by replacing smooth with \(C^k\) as above. If \(k = 0\), then we have a \emph{topological manifold}\index{topological manifold}.
+        \item On the other hand, we can replace \(\R^d\) with \(\C^n\), and obtain a \emph{complex manifold}\index{complex manifold}.
     \end{enumerate}
 \end{remark}
 
@@ -83,5 +85,7 @@ As a corollary, \(T^n = (S^1)^n\) is a manifold.
 \begin{example}
     If \(M\) is a manifold, \(X \subseteq M\) is open, then \(X\) is a manifold.
 \end{example}
+
+\printindex
 
 \end{document}

@@ -6,6 +6,9 @@
         "**/*.log": true,
         "**/*.out": true,
         "**/*.pdf": true,
-        "**/*.synctex.gz": true
+        "**/*.synctex.gz": true,
+        "**/*.idx": true,
+        "**/*.ind": true,
+        "**/*.ilg": true
     }
 }

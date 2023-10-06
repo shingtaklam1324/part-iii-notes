@@ -6,6 +6,8 @@
 \author{Shing Tak Lam}
 \date{Michaelmas 2023\footnote{Based on lectures by Oren Becker. Last updated \today.}}
 
+\makeindex
+
 \begin{document}
 
 \maketitle
@@ -15,7 +17,7 @@
 In this course, a ring is a commutative unital ring \(R\). One non-commutative exception is the ring \(\End(M)\), where \(M\) is an abelian group. This is a ring with pointwise addition, and composition as multiplication.
 
 \begin{definition}
-    [module] An \(R\)-module \(M\) is an abelian group \(M\) with an fixed ring homomorphism \(\rho : R \to \End(M)\). We will write \(r \cdot m := \rho(r)(m)\).
+    [module] An \emph{\(R\)-module}\index{module} \(M\) is an abelian group \(M\) with an fixed ring homomorphism \(\rho : R \to \End(M)\). We will write \(r \cdot m := \rho(r)(m)\).
 \end{definition}
 
 \begin{remark}
@@ -36,13 +38,13 @@ In this course, a ring is a commutative unital ring \(R\). One non-commutative e
 
 \begin{definition}
     [Noetherian, Artinian module]
-    An \(R\)-module \(M\) is \emph{Noetherian} if one of the following (equivalent) conditions hold:
+    An \(R\)-module \(M\) is \emph{Noetherian}\index{Noetherian} if one of the following (equivalent) conditions hold:
     \begin{enumerate}
         \item Every ascending chain of submodules \(M_0 \sse M_1 \sse M_2 \sse \cdots\) stabilises. That is, it is eventually constant.
         \item Every non-empty set \(\Sigma\) of submodules of \(M\) has a maximal element.
     \end{enumerate}
 
-    \(M\) is \emph{Artinian} if we replace in the above: ascending with descending, maximal with minimal.
+    \(M\) is \emph{Artinian}\index{Artinian} if we replace in the above: ascending with descending, maximal with minimal.
 \end{definition}
 
 \begin{lemma}
@@ -75,12 +77,12 @@ In particular, every Noetherian module is finitely generated. If \(R = \Z[T_1, T
 	\arrow["{f_{i+1}}", from=1-3, to=1-4]
 	\arrow[from=1-4, to=1-5]
 \end{tikzcd}\]
-of \(R\)-modules and \(R\)-module homomorphisms is \emph{exact} if \(\im(f_i) = \ker(f_{i+1})\) for all \(i\).
+of \(R\)-modules and \(R\)-module homomorphisms is \emph{exact}\index{exact sequence} if \(\im(f_i) = \ker(f_{i+1})\) for all \(i\).
 \end{definition}
 
 \begin{definition}
     [Short exact sequence]
-    A \emph{short exact sequence} (SES) is an exact sequence of the form
+    A \emph{short exact sequence}\index{short exact sequence} (SES) is an exact sequence of the form
     % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTCJdLFsyLDAsIk0iXSxbMywwLCJOIl0sWzQsMCwiMCJdLFswLDFdLFsxLDIsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzIsMywiIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzMsNF1d
 \[\begin{tikzcd}
 	0 & N & M & L & 0
@@ -140,7 +142,7 @@ is the same as a collection of module homomorphism \(\varphi_i : M_i \to L\). Th
 
 \begin{definition}
     [algebra]
-    An \(R\)-algebra \(A\) is a ring \(A\) with a fixed ring homomorphism \(\rho : R \to A\). We will write \(r \cdot a := \rho(r)a\).
+    An \emph{\(R\)-algebra}\index{algebra} \(A\) is a ring \(A\) with a fixed ring homomorphism \(\rho : R \to A\). We will write \(r \cdot a := \rho(r)a\).
 \end{definition}
 
 \begin{remark}
@@ -152,12 +154,14 @@ is the same as a collection of module homomorphism \(\varphi_i : M_i \to L\). Th
 \end{example}
 
 \begin{definition}
-    [algebra homomorphism] \(\varphi : A \to B\) is an \(R\)-algebra homomorphism if \(\varphi\) is a ring homomorphism and \(\varphi(r \cdot 1_A) = r \cdot 1_B\).
+    [algebra homomorphism] \(\varphi : A \to B\) is an \emph{\(R\)-algebra homomorphism}\index{algebra homomorphism} if \(\varphi\) is a ring homomorphism and \(\varphi(r \cdot 1_A) = r \cdot 1_B\).
 \end{definition}
 
 \begin{definition}
     [finitely generated algebra]
-    An \(R\)-algebra \(A\) is \emph{finitely generated} if there exists a surjective \(R\)-algebra homomorphism \(R[T_1, \dots, T_n] \surj A\) for some \(n \in \N\).
+    An \(R\)-algebra \(A\) is \emph{finitely generated}\index{finitely generated algebra} if there exists a surjective \(R\)-algebra homomorphism \(R[T_1, \dots, T_n] \surj A\) for some \(n \in \N\).
 \end{definition}
+
+\printindex
 
 \end{document}
