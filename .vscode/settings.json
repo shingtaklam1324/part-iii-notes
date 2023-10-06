@@ -9,6 +9,7 @@
         "**/*.synctex.gz": true,
         "**/*.idx": true,
         "**/*.ind": true,
-        "**/*.ilg": true
+        "**/*.ilg": true,
+        "**/*.toc": true,
     }
 }
