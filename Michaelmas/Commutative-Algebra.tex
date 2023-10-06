@@ -40,13 +40,13 @@ In this course, a ring is a commutative unital ring \(R\). One non-commutative e
 
 \begin{definition}
     [Noetherian, Artinian module]
-    An \(R\)-module \(M\) is \emph{Noetherian}\index{Noetherian} if one of the following (equivalent) conditions hold:
+    An \(R\)-module \(M\) is \emph{Noetherian}\index{Noetherian!module} if one of the following (equivalent) conditions hold:
     \begin{enumerate}
         \item Every ascending chain of submodules \(M_0 \sse M_1 \sse M_2 \sse \cdots\) stabilises. That is, it is eventually constant.
         \item Every non-empty set \(\Sigma\) of submodules of \(M\) has a maximal element.
     \end{enumerate}
 
-    \(M\) is \emph{Artinian}\index{Artinian} if we replace in the above: ascending with descending, maximal with minimal.
+    \(M\) is \emph{Artinian}\index{Artinian!module} if we replace in the above: ascending with descending, maximal with minimal.
 \end{definition}
 
 \begin{lemma}
@@ -57,7 +57,7 @@ In particular, every Noetherian module is finitely generated. If \(R = \Z[T_1, T
 
 \begin{definition}
     [Noetherian, Artinian ring]
-    A ring \(R\) is Noetherian (resp. Artinian) if it is Noetherian (resp. Artinian) as an \(R\)-module.
+    A ring \(R\) is Noetherian\index{Noetherian!ring} (resp. Artinian\index{Artinian!ring}) if it is Noetherian (resp. Artinian) as an \(R\)-module.
 \end{definition}
 
 \begin{example}
@@ -84,7 +84,7 @@ of \(R\)-modules and \(R\)-module homomorphisms is \emph{exact}\index{exact sequ
 
 \begin{definition}
     [Short exact sequence]
-    A \emph{short exact sequence}\index{short exact sequence} (SES) is an exact sequence of the form
+    A \emph{short exact sequence}\index{exact sequence!short exact sequence} (SES) is an exact sequence of the form
     % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTCJdLFsyLDAsIk0iXSxbMywwLCJOIl0sWzQsMCwiMCJdLFswLDFdLFsxLDIsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzIsMywiIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzMsNF1d
 \[\begin{tikzcd}
 	0 & N & M & L & 0
@@ -156,12 +156,12 @@ is the same as a collection of module homomorphism \(\varphi_i : M_i \to L\). Th
 \end{example}
 
 \begin{definition}
-    [algebra homomorphism] \(\varphi : A \to B\) is an \emph{\(R\)-algebra homomorphism}\index{algebra homomorphism} if \(\varphi\) is a ring homomorphism and \(\varphi(r \cdot 1_A) = r \cdot 1_B\).
+    [algebra homomorphism] \(\varphi : A \to B\) is an \emph{\(R\)-algebra homomorphism}\index{algebra!homomorphism} if \(\varphi\) is a ring homomorphism and \(\varphi(r \cdot 1_A) = r \cdot 1_B\).
 \end{definition}
 
 \begin{definition}
     [finitely generated algebra]
-    An \(R\)-algebra \(A\) is \emph{finitely generated}\index{finitely generated algebra} if there exists a surjective \(R\)-algebra homomorphism \(R[T_1, \dots, T_n] \surj A\) for some \(n \in \N\).
+    An \(R\)-algebra \(A\) is \emph{finitely generated}\index{algebra!finitely generated} if there exists a surjective \(R\)-algebra homomorphism \(R[T_1, \dots, T_n] \surj A\) for some \(n \in \N\).
 \end{definition}
 
 \printindex
