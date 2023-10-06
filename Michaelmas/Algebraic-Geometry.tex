@@ -10,4 +10,79 @@
 
 \maketitle
 
+\lec
+
+\subsection{Plan}
+
+\begin{enumerate}
+    \item Basics of sheaves of topological spaces
+    \item Definitions of schemes and of morphisms
+    \item Properties of schemes (the algebraic geometry analogues of compactness)
+    \item Rapid introduction to the cohomology of sheaves
+\end{enumerate}
+
+\subsection{Resources}
+
+\begin{enumerate}
+    \item Course webpage - Google Dhruv
+    \item Books:
+        \begin{itemize}
+            \item Hartshorne - Algebraic Geometry, Chapter 2 and \(\epsilon\times\)Chapter 3
+            \item Vakil - Rising Sea, good online (free) alternative
+            \item Eisenbud-Harris - Geometry of schemes
+        \end{itemize}
+    \item Four examples sheets on webpage
+    \item SAGES - Look on Dhruv's webpage
+\end{enumerate}
+
+\subsection{Why scheme theory?}
+
+\textbf{Moduli theory} -- It is better to study families of varieties than one at a time. Or better, all varieties of a given type at the same time.
+
+\underline{Examples of moduli:} The set of all lines in \(\P^2\). A line in \(\bb P^2\) is
+\[\{a X_0 + bX_1 + cX_2 = 0\}\]
+In particular, as lines are paramterised by the triple \((a,b, c)\), we have a correspondence
+\[\P^2_\text{dual} = \text{lines in }\P^2 \bij \bb P^2\]
+The same logic applies for degree \(d\) hypersurface in \(\P^n\), and we get
+\[\text{degree }d\text{ hypersufaces in }\P^n \bij \P^N\]
+where \(N = {n + d \choose d} - 1\). However, there is something wrong with this picture. Some polynomials are of the form
+\[f = f_1^2f_2\]
+But in this case,
+\[\van(f) = \van(f_1f_2)\]
+and \(f_1f_2\) is (in general) not of degree \(d\).
+
+\underline{A solution} Take \(U_d \sse \P^N\), where
+\[[f] \in U_d \iff f\text{ has no repeated factors}\]
+But \(U_d\) is not compact.
+
+\underline{Output of scheme theory} for a fixed projective space \(\P^n\), we obtain a space
+\[\text{subvarieties of }\P^n \bij \Var(\P^n) \subsetneq \Hilb(\P^n) \bij \text{ subschemes of }\P^n\]
+where \(\Hilb(\P^n)\) is the Hilbert scheme of \(\P^n\), which is compact in the Euclidean topology. That is, the limit of varieties need not be a variety, but limits of schemes are always schemes.
+
+In scheme theory,
+\[\van(X_0 + X_1 + X_2) \text{ and }\van((X_0 + X_1 + X_2)^2)\]
+are not isomorphic as schemes.
+
+\textbf{Weil conjectures} Fix \(f \in \Z[X_0, \dots, X_{n+1}]\) homogeneous. We have
+\[X = \van(f) \sse \P^{n+1}_\C\]
+We will assume that \(X\) is smooth. That is, \(X\) is a (complex) manifold. In particular, \(X\) is a compact topological space, and so we have numbers \(b_0(X), \dots, b_{2n}(X)\) called the Betti numbers, where
+\[b_i(X) = \rank(H_i(X, \Z))\]
+In particular, we have the Euler characteristic \(\chi(X)\).
+
+On the other hand, fix a prime number \(p\), and let
+\[N_m = \text{number of solutions to }f\text{ in }\bb F_{p^m} = \abs{X(\bb F_{p^m})}\]
+Define the Weil \(\zeta\) function
+\[\zeta(X; t) = \exp(\sum_m\frac{N_m}{m}t^m)\]
+
+\begin{theorem}
+    [Weil conjectures, Grothendieck]
+    \begin{enumerate}
+        \item \(\zeta(X; t)\) is a rational function in \(t\)
+        \item Moreover,
+        \[\zeta(X; t) = \frac{P_0(t)P_2(t)\cdots P_{2n}(t)}{P_1(t)P_3(t)\cdots P_{2n-1}(t)}\]
+        where \(\deg(P_i(t)) = b_i(X)\).
+    \end{enumerate}
+\end{theorem}
+
+\underline{Upshot:} The proof is (fundamentally) via scheme theory. We need a space \(\mcX\) which interpolates geometry over \(\C\) and geometry over finite fields.
 \end{document}

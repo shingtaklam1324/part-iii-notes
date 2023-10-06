@@ -10,4 +10,48 @@
 
 \maketitle
 
+\lec
+
+\section{Introduction}
+
+Let \(X, Y\) be topological spaces, \(f, g : X \to Y\) be continuous functions. Note we will use the terminology `map := continuous function'. We say that \emph{\(f\) is homotopic to \(g\)}, written \(f \simeq g\), if there exists a map \(F : X \times I \to Y\), such that
+\[F \vert_{X \times \{0\}}=  f \quad and \quad F \vert_{X \times \{1\}} = g\]
+Here \(I = [0, 1]\) carries its Euclidean topology. An exercise (sheet 1) is that this defines an equivalence relation on the set of maps \(X \to Y\).
+
+\begin{definition}
+    [homotopy equivalence]
+    We say that \(f : X \to Y\) is a \emph{homotopy equivalence} if there exists a function \(g : Y \to X\) such that \(f\circ g \simeq \id_Y\) and \(g \circ f \simeq \id_X\). We say that \(g\) is a \emph{homotopy inverse} to \(f\).
+\end{definition}
+
+The same exercise on sheet 1 shows that homotopy equivalence is an equivalence relation on topological spaces.
+
+\begin{example}
+    \begin{enumerate}
+        \item If \(f : X \to Y\) is a homeomorphism, then \(f\) is also a homotopy equivalence.
+        \item \(i : \{0\} \inj \R^n\) is a homotopy equivance.
+        \item The inclusion \(i : S^{n-1} \inj \R^n \setminus 0\) is a homotopy equivalence. 
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    A space \(X\) is \emph{contractible} if it is homotopy equivalent to a point.
+\end{definition}
+
+\underline{Idea of Algebraic Topology:} Study spaces up to homotopy equivalence. Broadly, we are interested in ``connectivity properties'' of topological spaces.
+
+\begin{example}
+    \begin{enumerate}
+        \item We say a space \(X\) is \emph{path-connected} if any two maps \(\{*\} \to X\) are homotopic. For example, \(\R\) is path connected, \(\R \setminus \{0\}\) is not. A corollary of this is the intermediate value theorem.
+        \item We say a path connected space \(X\) is \emph{simply connected} if every map \(f : S^1 \to X\) is homotopic to a constant map. Equivalently, every two maps \(S^1 \to X\) are homotopic. Or equivalently (again) every continuous map \(S^1 \to X\) extends to a continuous map \(D^2 \to X\). For example, \(\R^2\) is simply connected, by \(\R^2 \setminus \{0\}\) is not. If \(\gamma : S^1 \to \R^2 \setminus \{0\}\) is continuous, it has a \emph{winding number}, or \emph{degree} \(\deg(\gamma) \in \Z\), such that
+        \begin{itemize}
+            \item It is invariant under homotopy,
+            \item If \(\gamma_n(t) = \exp(2n\pi it)\), then \(\deg(\gamma_n) = n\)
+        \end{itemize}
+        In particular, taking \(n = 0\) gives the constant map. Therefore, a constant map has degree \(0\). A corollary of this is the fundamental theorem of algebra.
+        % Insert proof of FTA here
+        \item We say a path connected space \(X\) is \emph{\(k\)-connected}, if for all \(i \le k\), every map \(S^i \to X\) is homotopic to a constant map. In this case, \(\R^n\) is \((n-1)\)-connected, but \(\R^n \setminus 0\) is not. More precisely, maps from \(S^{n-1} \to \R^n \setminus 0\) have a degree \(\deg(f) \in Z\), such that degree is a homotopy invariant, and the degree of the inclusion map is \(1\), and the degree of the constant map is \(0\). A corollary of this is the Brouwer fixed point theorem.
+        % Insert proof of Brouwer
+    \end{enumerate}
+\end{example}
+
 \end{document}

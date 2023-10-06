@@ -10,4 +10,116 @@
 
 \maketitle
 
+\lec
+
+\section{Introduction}
+
+A \emph{Lie group} is fundamentally a group, which also a (smooth) manifold. For example, \(\GL_n, \SL_n, \SO_n, \Sp_{2n}\).
+
+\begin{example}
+    A prototypical example of a Lie group is the circle group \(S^1\).
+\end{example}
+
+Let \(G\) be a Lie group. Then the \emph{Lie algebra} of \(G\) is the tangent space at the identity \(e\) of \(G\). That is, 
+\[\mfg = \T_eG\]
+\(\mfg\) is a vector space, with additional structure, which we will see later.
+
+By taking a derivative, we turn the conjugation map
+\begin{align*}
+    G &\to \Aut(G) \\
+    g &\mapsto g(\cdot)g^{-1}
+\end{align*}
+into a map
+\begin{align*}
+    \ad : \mfg \to \End(\mfg)
+\end{align*}
+called the \emph{adjoint}. This gives a bilinear map
+\begin{align*}
+    [\cdot, \cdot] : \mfg \times \mfg &\to \mfg \\
+    [x, y] &= \ad(x)(y)
+\end{align*}
+
+\begin{example}
+    If \(G = \GL_n(\R)\), then we have that \(\mfg = \gl_n(\R) = \Mat_n(\R)\), with
+    \[[x, y] = xy - yx\]
+\end{example}
+What do Lie algebras tell us about the structure of the Lie group \(G\)? 
+\begin{itemize}
+    \item We will define the \emph{root system} of \(\mfg\), and this then tells us about commutator relations in \(G\) (see Carter's book).
+    \item We will define the \emph{Weyl group} of \(\mfg\). For example, the Weyl group of \(\gl_n(\C)\) is isomorphic to \(S_n\), there is an embedding \(S_n \inj \GL_n(\C)\), vie permutation matrices. Let \(B\) denote the Borel subgroup of upper triangular matrices in \(\GL_n(\C)\), then there exists a \emph{Bruhat decomposition}
+    \[G = \bigsqcup_{w \in S_n}BwB\]
+\end{itemize}
+Lie algebras also give us information of the representation theory of \(G\) and \(\mfg\). For example, there exists a bijection
+\[\{\text{finite dimensional }\C\text{-representations of }\SL_n(\C)\} \bij \{\text{finite dimensional }\C\text{-representations of }\sl_n(\C)\}\]
+
+Moreover, we can describe the right hand side completely.
+
+In addition, Lie algebras have applications in Algebraic Geometry, for example, we can use Lie algebras to build families of surfaces, of equivalenrly, algebraic curves (See book by Slodovy).
+
+We will define the \emph{Dynkin diagrams} of \emph{semisimple Lie algebras}. For example,
+% https://q.uiver.app/#q=WzAsNyxbMCwwLCJcXGJ1bGxldCJdLFsxLDAsIlxcYnVsbGV0Il0sWzIsMCwiXFxidWxsZXQiXSxbMiwxLCJcXGJ1bGxldCJdLFszLDAsIlxcYnVsbGV0Il0sWzQsMCwiXFxidWxsZXQiXSxbNSwwLCJcXGJ1bGxldCJdLFswLDEsIiIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwyLCIiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzIsMywiIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsyLDQsIiIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbNCw1LCIiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzUsNiwiIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==
+\[\begin{tikzcd}
+	\bullet & \bullet & \bullet & \bullet & \bullet & \bullet \\
+	&& \bullet
+	\arrow[no head, from=1-1, to=1-2]
+	\arrow[no head, from=1-2, to=1-3]
+	\arrow[no head, from=1-3, to=2-3]
+	\arrow[no head, from=1-3, to=1-4]
+	\arrow[no head, from=1-4, to=1-5]
+	\arrow[no head, from=1-5, to=1-6]
+\end{tikzcd}\]
+is a Dynkin diagram of type \(E_7\), and understanding the Dynkin diagram tells us about the singularities on the surfaces.
+
+Moreover, Lie algebras also have applications in number theory, root systems/Weyl groups give the structure of groups over \(\Q_p\), the \(p\)-adic integers (see paper on Moodle). Local Langlands correspondence predicts a relationship
+\[\{\text{Galois theory of local fields}\}\bij\{\text{complex Lie theory}\}\]
+
+Finally, there any other applications, for example algebraic groups, quantum groups, theoretical physics, quantum mechanics.
+
+\section{Basic definitions and examples}
+
+Let \(k\) be a field. Most of the time, \(k = \C\), but not always. We will sometimes point out how things can go wrong in characteristic \(p\).
+
+\begin{definition}
+    [Lie algebra]
+    A \emph{Lie algebra} over \(k\) is a vector space \(\mfg\) over \(k\), together with a bilinear pairing
+    \begin{align*}
+        [\cdot, \cdot] : \mfg \times \mfg \to \mfg
+    \end{align*}
+    satisfying
+    \begin{enumerate}
+        \item \([xx] = 0\) for all \(x \in \mfg\),
+        \item the Jacobi identity
+        \[[x[yz]] + [y[zx]] + [z[xy]] = 0\]
+    \end{enumerate}
+\end{definition}
+
+\begin{notation}
+    Note that when clear, we will write \([xy] := [x, y]\).
+\end{notation}
+
+\begin{remark}
+    In particular, we have antisymmetry, i.e.
+    \[[xy] = -[yx]\]
+\end{remark}
+
+\begin{definition}
+    [(Lie) subalgebra]
+    A \(k\)-vector subspace \(\mfh\) of \(\mfg\) is a \emph{(Lie) subalgebra} if \(\mfh\) is closed under the Lie bracket of \(\mfg\). That is, for all \(x, y \in \mfh\), \([xy] \in \mfh\).
+\end{definition}
+
+\begin{example}
+    Let \(V\) be a finite dimensional \(k\)-vector space, then
+    \begin{enumerate}
+        \item Let \(\gl(V) = \End(V)\), with \([xy] = xy-yx\). If we choose a basis for \(V\), then we can identify \(\gl(V)\) with \(\Mat_n(k)\). In this case, we will write \(\gl_n\) or \(\gl_n(k)\).
+        \item Let
+        \[\sl(V) = \left\{x \in \gl(V) \mid \tr(x) = 0\right\}\]
+        This defines a subalgebra of \(\gl(V)\), called the \emph{special linear Lie algebra}, with \(\dim(\sl(V)) = \dim(V)^2 - 1\). The standard basis of \(\sl(V)\) is given by
+        \begin{align*}
+            E_{i,j} \text{ for }i \ne j \\
+            E_{i, i} - E_{i+1, i+1}
+        \end{align*}
+        We will often write \(\sl_n\) for this Lie algebra.
+    \end{enumerate}
+\end{example}
+
 \end{document}

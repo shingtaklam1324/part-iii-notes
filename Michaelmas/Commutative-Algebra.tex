@@ -106,6 +106,16 @@ That is, we have an embedding \(\iota : N \inj M\), and an isomorphism \(L \cong
 be an SES of \(R\)-modules. Then \(M\) is Noetherian (resp. Artinian) if and only if \(N\) and \(L\) are Noetherian (resp. Artinian).
 \end{lemma}
 
+\begin{proof}
+    We may assume without loss of generality that \(N\) is a submodule of \(M\). Let \(P_1 \sse P_2 \sse \dots\) be an increasing (resp. decreasing) sequence of submodules of \(M\). In this case,
+    \[N \cap P_1 \sse N \cap P_2 \sse \cdots\]
+    is an increasing (resp. decreasing) sequence of submodules of \(N\), hence eventually constant. Similarly,
+    \[\frac{N + P_1}{N} \sse \frac{N + P_2}{N} \sse \cdots\]
+    is an increasing (resp. decreasing) sequence of submodules of \(L = M/N\), hence eventually constant. For large \(n\), we will have
+    \[P_n \subseteq P_{n+1} \quad N \cap P_n = N \cap P_{n+1} \quad N + P_n = N + P_{n+1}\]
+    Hence \(P_n = P_{n+1}\) for large enough \(n\).
+\end{proof}
+
 \begin{corollary}
     If \(M_1, \dots, M_n\) are Noetherian (resp. Artinian) \(R\)-modules, then \(M_1 \oplus \cdots \oplus M_n\) is Noetherian (resp. Artinian).
 \end{corollary}

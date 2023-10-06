@@ -6,8 +6,126 @@
 \author{Shing Tak Lam}
 \date{Michaelmas 2023\footnote{Based on lectures by Jack Thorne. Last updated \today.}}
 
+\newcommand{\mch}{\mathfrak{h}}
+
 \begin{document}
 
 \maketitle
+
+\lec
+
+\section{Introduction}
+
+\begin{definition}
+    Define the upper half plane
+    \[\mch = \left\{\tau \in \C \mid \im(\tau) > 0\right\}\]
+    and the positive determinant group
+    \[\GL_2(\R)^+ = \left\{g \in \GL_2(\R) \mid \det(g) > 0\right\}\]
+    and
+    \[\Gamma(1) = \SL_2(\Z)\]
+\end{definition}
+
+\begin{lemma}
+    \(\GL_2(\R)^+\) acts transitively on \(\mch\) via M\"obius transformations.
+\end{lemma}
+
+\begin{proof}
+    Suppose \(g = \begin{pmatrix}
+        a & b \\ c & d
+    \end{pmatrix} \in \GL_2(\R)^+\), and \(\tau \in \mch\). Then
+    \[\Im(g\tau) = \frac{1}{2i}\left(\frac{a\tau + b}{c\tau + d} - \frac{a\overline\tau + b}{c\overline\tau + d}\right) = \frac{1}{2i}\frac{(ad - bc)(\tau - \overline \tau)}{\abs{c\tau + d}^2} = \frac{\deg(g)\Im(\tau)}{\abs{c\tau + d}^2} > 0\]
+    For transitivity, for \(x + iy \in \mch\),
+    \[\begin{pmatrix}
+        y & x \\ 0 & 1
+    \end{pmatrix} \vdot i = x + iy\]
+\end{proof}
+
+\begin{definition}
+    Let \(g \in \GL_2(\R)^+\), \(\tau \in \mch\), define \(j(g, \tau) = c\tau + d\), where \(g = \begin{pmatrix}
+        a & b \\ c & d
+    \end{pmatrix}\). This is called the \emph{modular cocycle}. If \(k\) is an integer, \(f : \mch \to \C\) is any function, then
+    \begin{align*}
+        f\vert_k[g] : \mfh &\to \C \\
+        \tau &\mapsto \det(g)^{k-1}f(g\tau)j(g, \tau)
+    \end{align*}
+    is called the \emph{weight \(k\) action of \(g\) on \(f\)}
+\end{definition}
+
+\begin{lemma}
+    This is a \emph{right} action of \(\GL_2(\R)^+\). That is,
+    \[f\vert_k[gh] = \left(f\vert_k[g]\right)\vert_k[h]\]
+\end{lemma}
+
+\begin{proof}
+    \begin{align*}
+        f\vert_k[g]\vert_k[h](\tau) &= \det(h)^{k-1}f\vert_k[g](h\tau)j(h, \tau)^{-k} = \det(h)^{k-1}\det(g)^{k-1}f(gh\tau)j(g, h\tau)^{-k}j(h, \tau)^{-k} \\
+        &\stackrel{?}{=} \det(gh)^{k-1}f(gh\tau)j(gh, \tau)^{-k}
+    \end{align*}
+    Therefore, suffices to show that
+    \[j(gh, \tau) = j(g, h\tau)j(h, \tau)\]
+    Note that if \(g = \begin{pmatrix}
+        a & b \\ c & d
+    \end{pmatrix}\), then \(g \begin{pmatrix}
+        \tau \\ 1
+    \end{pmatrix} = \begin{pmatrix}
+        a\tau + b \\ c\tau + d
+    \end{pmatrix} = j(g, \tau)\begin{pmatrix}
+        g\tau \\ 1
+    \end{pmatrix}\), This means that,
+    \[j(gh, \tau)\begin{pmatrix}
+        gh\tau \\ 1
+    \end{pmatrix} = gh\begin{pmatrix}
+        \tau \\ 1
+    \end{pmatrix} = g\left(j(h, \tau)\begin{pmatrix}
+        h\tau \\ 1
+    \end{pmatrix}\right) = j(g, h\tau)j(h, \tau)\begin{pmatrix}
+        gh\tau \\ 1
+    \end{pmatrix}\]
+\end{proof}
+
+\underline{Formulae:}
+
+For \(g, h \in \GL_2(\R)^+\), \(\tau \in \mfh\),
+\[\Im(g\tau) = \frac{\det(g)\Im(\tau)}{\abs{j(g, \tau)}^2}\]
+and
+\[j(gh, \tau) = j(g, h\tau)j(h, \tau)\]
+\begin{definition}
+    Let \(k \in \Z\), \(\Gamma \le \Gamma(1)\) a finite index subgroup. A \emph{weakly modular function of weight \(k\) and level \(\Gamma\)} is a meromorphic function \(f : \mch \to \C\), which is invariant under the weight \(k\) action of \(\Gamma\). That is, such that for all \(\gamma \in \Gamma\),
+    \[f\vert_k[\gamma] = f\] 
+\end{definition}
+We will define a modular form (when \(\Gamma = \Gamma(1)\)) next time, but they are weakly modular functions, which are holomorphic in \(\mch\) and at \(\infty\).
+
+In fact, modular forms of fixed weight and level live in finite dimensional \(\C\)-vector spaces \(M_k(\Gamma)\), which are the main objects of study in this course.
+
+\underline{Why do we study modular forms?}
+
+\begin{enumerate}
+    \item They are related to the theory of elliptic functions. Let \(E/\C\) be an elliptic curve. Let \(\omega\) be a non-zero holomorphic \(1\)-form. Then there exists a unique lattice \(\Lambda \le \C\), and an isomorphism of Riemann surfaces, \(\phi : \C/\Lambda \to E\), such that \(\phi^*(\omega) = \dd z\). We can show that \(E\) is isomorphic to the elliptic curve \(y^2 = 4x^3 - 60 G_4(\Lambda)x - 140 G_6(\Lambda)\), where for \(k \in \Z\),
+    \[G_k(\Lambda) = \sum_{\lambda \in \Lambda \setminus 0}\lambda^{-k}\]
+    which converges for \(\lambda > 2\). If \(\tau \in \mch\), then we have an associated lattice \(\Lambda_\tau = \Z \oplus \Z_\tau\), and the function
+    \[G_k(\tau) = G_k(\Lambda_\tau)\]
+    is a modular form of weight \(k\) and level \(\Gamma(1)\). This is called the \emph{Eisenstein series}. Moreover, \(\mch/\SL_2(\Z)\) can be identified (as a set) with the set of isomorphism classes of elliptic curves over \(\C\).
+    \item Modular forms \(f\) have Fourier expansions
+    \[\sum_{n \in \Z}a_n q^n\]
+    where \(a_n \in \C\), and often serve as generating functions for arithmetically interesting sequences \(a_n\). One example is
+    \[\vartheta(q) = \sum_n e^{\pi i n^2\tau}\]
+    If \(k \in 2\N\), then \(\vartheta^{2k}\) is a modular form, and on the other hand,
+    \[\vartheta^{2k} = \sum_{n \in \Z}r_k(n)e^{\pi i n\tau}\]
+    where \(r_k(n)\) is the number of ways to write \(n\) as a sum of \(k\) squares. By expressing \(\vartheta^{2k}\) in terms of ther modular forms, we can prove formulae such as
+    \[r_4(n) = 8\sum_{d \mid n, 4 \not\mid d}d\]
+    \item The Riemann \(\zeta\) function is an important object in number theory. Properties include
+    \begin{enumerate}
+        \item The Euler product
+        \[\zeta(s) = \prod_p(1 - p^{-s})^{-1}\]
+        \item A meromorphic extension to \(\C\),
+        \item A functional equation relating \(\zeta(s)\) and \(\zeta(1-s)\).
+    \end{enumerate}
+    A \emph{Dirichlet \(L\)-series} is a function of the form
+    \[\sum_{n \ge 1}a_n n^{-s}\]
+    which has similar properties is called an \(L\)-function. Modular forms can be used to construct interesting examples of \(L\)-functions. Take \(M_k(\Gamma)\) and decompose them under the action of Hecke operators. In particular, if \(\Gamma = \Gamma(1)\), we get a decomposition into lines, called Hecke eigenforms.
+    \item Connections to the Langland programme, which predicts (among other things) a relation between modular forms and other objects in arithmetic geometry. A special case of this is the \emph{Modularity conjecture}, which says that there is a bijection between elliptic curves over \(\Q\) (up to isogeny) and the set of Hecke eigenforms of weight \(2\). This implies Fermat's last theorem. The bijection is formulated in the language of Hecke operators and \(L\)-functions.
+    
+    \underline{Homework:} Handout on Moodle called ``Reminder of Complex Analysis''.
+\end{enumerate}
 
 \end{document}
