@@ -134,7 +134,7 @@ We say \cref{eq:pde} is \emph{linear}\index{linear PDE} if \(F\) is a linear fun
 
 \[\sum_{\abs{\alpha} \le k}a_\alpha(x) D^\alpha u = f(x)\]
 
-We say \cref{eq:pde} is \emph{semilinear}\index{semilinear PDE} if the highest order derivatives appear linearly with coefficients depending only on \(x\). That is, we have
+Moreover, we say that a linear PDE is \emph{homogeneous}\index{linear PDE!homogeneous} if \(f = 0\). We say \cref{eq:pde} is \emph{semilinear}\index{semilinear PDE} if the highest order derivatives appear linearly with coefficients depending only on \(x\). That is, we have
 
 \[\sum_{\abs{\alpha} = k}a_\alpha(x)D^\alpha u(x) + F(x, u, Du, \dots, D^{k-1}u) = 0\]
 
@@ -144,7 +144,7 @@ One example would be \(\Delta u = u_x^2\). Finally, we say \cref{eq:pde} is \emp
 
 For example, we can have \(u u_{xx} + u_{yy} - u_x^2 = 0\). Finally, we say \cref{eq:pde} is \emph{fully non-linear}\index{fully non-linear PDE} if it is non of the above.
 
-\section{Cauchy-Kovelevskaya theorem}
+\section{Cauchy-Kovalevskaya theorem}
 
 \subsection{ODE theory}
 
@@ -163,6 +163,128 @@ Fix \(\mcU \sse \R^n\) open, and suppose \(f : \mcU \to \R^n\) is given. We woul
     \[\norm{f(x) - f(y)} \le K\norm{x - y}\]
     for all \(x, y \in B_r(u_0)\). Then there exists \(\epsilon > 0\), depending on \(K, r\) and a unique \(C^1\) solution \(u : (-\epsilon, \epsilon) \to \mcU\) solving \cref{eq:ode}.
 \end{theorem}
+
+\lec
+
+\begin{proof}
+    [Sketch proof, see examples sheet 1] If \(u \in \C^1\) solves \cref{eq:ode}, then by the fundamental theorem of calculus, \(u\) satisfies the \emph{weak formulation}
+    \begin{equation}
+        \label{eq:weak-sol-ode}
+        u(t) = u_0 + \int_0^t f(u(s))\dd s
+    \end{equation}
+    Moreover, if \(u \in C^0\) is a solution to \cref{eq:weak-sol-ode}, then it is a \(C^1\) solution to \cref{eq:ode}. Moreover, if \(u\) exists, then it is a fixed point of
+    \[G(w) = u_0 + \int_0^t f(w(s))\dd s\]
+    Let \(\mcS = \left\{w : (-\epsilon, \epsilon) \to \overline{B_{r/2}(u_0)}\right\} \text{ continuous}\). We want to show that \(\mcS\) is a complete metric space, \(G : \mcS \to \mcS\) is a contraction for \(\epsilon\) sufficiently small, and by the contraction mapping theorem \(G\) has a fixed point.
+\end{proof}
+
+\begin{remark}
+    \begin{enumerate}
+        \item The solution (in general) can't be global. Consider for example
+        \[\dot u(t) = u(t)^2 \qqtext{with} u(0) = u_0 > 0\]
+        Solutions to this equation blow up in finite time.
+        \item This does not apply to
+        \[\dot u(t) = \sqrt{u(t)} \qqtext{with} u(0) = 0\]
+        There are two solutions. Note we \emph{can} apply the Peano existence theorem.
+    \end{enumerate}
+\end{remark}
+
+Now suppose \(f\) is smooth, and we have \(\dot u(t) = f(u(t))\) is \(C^1\). By the chain rule,
+\[\ddot u(t) = Df(u(t))\vdot \dot u(t) = f_2(u(t), \dot u(t))\]
+which is continuous. Hence \(\ddot u\) is continuous, and so \(u \in C^2\). Repeating this, we get that \(u \in C^k\) for all \(k\). That is, \(u\) is smooth.
+
+In principle, given \(u_0 = u(0)\), we can determine
+\[u^{(k)}(0) = F_k\left(u, u', \dots, u^{(k-1)}\right)\big\vert_{t=0}\]
+and so we can write
+\[\sum_{k\ge 0}\frac{u^{(k)}(0)}{k!}t^k\]
+We call this a \emph{formal power series solution}. Does our solution \(u(t)\) agree with this? That is, do we have
+\[u(t) = \sum_{k \ge 0}\frac{u^{(k)}(0)}{k!}t^k\]
+in a neighbourhood of \(0\)?
+
+\begin{theorem}
+    [Cauchy-Kovalevskaya for simple ODEs] \index{Cauchy-Kovalevskaya Theorem!for simple ODEs}If \(f(u)\) is real analytic in a neighbourhood of \(u_0\), then the series
+    \[\sum_{k \ge 0}\frac{u^{(k)}(0)}{k!}t^k\]
+    converges in a neighbourhood of \(0\) to the unique solution of \cref{eq:ode} given by Picard-Lindel\"of.
+\end{theorem}
+
+\subsection{Real analyticity and majorants}
+
+Suppose \(f : (-\epsilon, \epsilon) \to \R\) is a smooth function. Therefore, \(f^{(n)}(0)\) exists for all \(n \ge 0\). Does the partial sums
+\[\sum_{n \ge 0}\abs{f^{(n)}(0)}{n!}x^n\]
+for some \(\abs{x} \le \delta\)? No, consider the function
+\[f(x) = \begin{cases}
+    \exp(-\frac{1}{x}) & x > 0 \\
+    0 & x \le 0
+\end{cases}\]
+This is a smooth function, with \(f^{(n)}(0) = 0\) for all \(n\).
+
+\begin{definition}
+    [real analytic]
+    Let \(\mcU \sse \R^n\) be open and \(f : \mcU \to \R\) is \emph{real analytic}\index{real analytic} (at \(x_0\)) if there exists \(r > 0\), \(f_\alpha \in \R\) such that
+    \[\sum_{\alpha}f_\alpha(x-x_0)^\alpha\]
+    for all \(\abs{x - x_0} < r\). 
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item That is, \(f\) can be written as a convergent power series and
+        \[f_\alpha = \frac{D^\alpha f(x_0)}{n!}\]
+        \item If \(f\) is real analytic about \(x_0 \in \mcU\), then \(f\) is real analytic about all of \(\mcU\).
+        \item We will denote the set of real analytic functions on \(\mcU\) by \(C^\omega(\mcU)\).
+        \item If \(f\) is \(C^\omega\), then \(f\) is smooth (e.g. Weierstrass \(M\)-test).
+        \item If \(f\) is real analytic, and \(\mcU\) is connected, then \(f\) is uniquely determined in \(\mcU\) by its derivatives \(D^\alpha f(x)\) at some point \(x \in \mcU\).
+    \end{enumerate}
+\end{remark}
+
+\underline{Exercise:} Show \(f(x) = 1/x\) and \(f(x) =\sqrt{x}\) are real analytic for \(x > 0\).
+
+\begin{example}
+    Recall
+    \[\frac{1}{1-x} = \sum_{k \ge 0}x^k\]
+    for \(\abs{x} < 1\). Let \(r > 0\), and consider
+    \[f(x) = \frac{r}{r - (x_1 + \dots + x_n)} = \frac{1}{1- \frac{x_1 + \dots + x_n}{r}} = \sum_{k \ge 0}\left(\frac{x_1 + \dots + x_n}{r}\right)^k\]
+    provided \(\abs{x_1 + \dots + x_n} \le \sqrt n\left(\sum_j \abs{x_j}^2\right)^{1/2} = \sqrt n \norm{x} < r\).
+    By the multinomial theorem (sheet 1),
+    \[f(x) = \sum_{k \ge 0}\frac{1}{r^k}\sum_{\abs{\alpha} = k}{\abs{\alpha}\choose \alpha}x^\alpha = \sum_\alpha \frac{\abs{\alpha}!}{\alpha!r^{\abs{\alpha}}}x^\alpha\]
+    where
+    \[{\abs{\alpha}\choose\alpha} = \frac{\abs{\alpha}!}{\alpha!}\]
+    and so,
+    \[f(x) = \sum_\alpha f_\alpha x^\alpha\]
+    where
+    \[f_\alpha = \frac{\abs{\alpha}!}{\alpha!}\frac{1}{r^{\abs{\alpha}}}\]
+
+    This series is absolutely convergent near zero, since
+    \[\sum_\alpha \frac{\abs{\alpha!}}{\alpha!}\frac{x^\alpha}{r^{\abs{\alpha}}} = \sum_{k \ge 0}\left(\frac{\abs{x_1} + \dots + \abs{x_n}}{r}\right)^k < \infty\]
+\end{example}
+
+\begin{definition}
+    [majorise]
+    Let \(f = \sum_\alpha f_\alpha x^\alpha\) and \(g = \sum_\alpha g_\alpha x^\alpha\), we say that \emph{\(g\) majorises \(f\)}\index{majorise}, or \emph{\(g\) is a mojorant of \(f\)}, written \(g \gg f\), if \(g_\alpha \ge \abs{f_\alpha}\) for all \(\alpha\).
+\end{definition}
+
+For vector valued functions, we require each component to be a majorant.
+
+\begin{lemma}
+    [properties of majorants]
+    \begin{enumerate}
+        \item If \(g \gg f\), and \(g\) converges for \(\norm{x} < r\), then \(f\) converges for \(\norm{x} < r\).
+        \item If \(f = \sum f_\alpha x^\alpha\) converges for \(\norm{x} < r\), then for any \(s \in (0, r/\sqrt n)\), there exists a majorant of \(f\) which converges for \(\norm{x} < s/\sqrt n\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    1. Looking at the partial sums
+    \[\sum_{\abs{\alpha} \le k}\abs{f_\alpha x^\alpha} = \sum_{\abs{\alpha} \le k}\abs{f_\alpha}\abs{x_1}^{\alpha_1} \cdots \abs{x_n}^{\alpha_n} \le \sum_{\abs{\alpha}\le k}\abs{g_\alpha}\abs{x_1}^{\alpha_1}\cdots\abs{x_n}^{\alpha_n} \le \sum_\alpha\abs{x_1}^{\alpha_1} \cdots \abs{x_n}^{\alpha_n} = g(\tilde x)\]
+    where \(\tilde(x) = (\abs{x_1}, \dots, \abs{x_n})\). So \(\norm{\tilde x} = \norm{x}\), and so if \(\norm{x} < r\), then \(g\) converges at \(\tilde x\). That is, \(g(\tilde x) < \infty\). Therefore, we have a uniform bound on the partial sum.
+
+    2. Let \(s \in (0, r/\sqrt n)\), and set \(y = (s, \dots, s)\). Then \(\norm{y} = s\sqrt n\), and by assumption,
+    \[f(y) = \sum_\alpha f_\alpha y^\alpha\]
+    converges, as \(\norm{y} = s\sqrt n < r\). So there exists a constant \(c\) such that \(\abs{f_\alpha y^\alpha} \le c\). Hence \[\abs{f_\alpha} \le \frac{C}{\abs{y^\alpha}} = \frac{C}{\abs{y_1}^{\alpha_1}\cdots \abs{y_n}^{\alpha_n}} = \frac{C}{\abs{s}^{\abs{\alpha}}} \le \frac{C}{\abs{s}^{\abs{\alpha}}}\frac{\abs{\alpha}!}{\alpha!}\]
+    
+    So we define
+    \[g(x) = \frac{Cs}{s - (x_1 + \dots + x_n)}\]
+    From the above, \(g\) majorises \(f\).
+\end{proof}
+
 
 \section{Sobolev spaces}
 

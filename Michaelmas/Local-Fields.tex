@@ -1,0 +1,194 @@
+\documentclass{article}
+
+\usepackage{../../Style}
+
+\title{Local fields}
+\author{Shing Tak Lam}
+\date{Michaelmas 2023\footnote{Based on lectures by Rong Zhou. Last updated \today.}}
+
+\makeindex
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+% Zoe Wyatt E2.02 zs253 Moodle
+
+\lec
+
+\printindex
+
+Makeup lecture Thursday Week 9. Four examples sheets/examples classes.
+
+\section{Basic theory}
+
+For example, we have Diophantine equations
+\[f(x_1, \dots, x_n) \in \Z[x_1, \dots, x_n]\]
+and we would like to find solutions to
+\[f(x_1, \dots, x_n) = 0\]
+in \(\Z^n\). Instead of trying to solve this equation, we can try to solve
+\[f(x_1, \dots, x_n) \equiv 0 \pmod p\]
+and also modulo higher powers of \(p\).
+
+Local fields packages all of this information together.
+
+\subsection{Absolute value}
+
+\begin{definition}
+    [absolute value] Let \(K\) be a field. An \emph{absolute value} on \(K\) is a function \(\abs{\cdot} : K \to \R_{\ge 0}\), satisfying:
+    \begin{enumerate}[(i)]
+        \item \(\abs{x} = 0\) if and only if \(x = 0\),
+        \item \(\abs{xy} = \abs{x}\abs{y}\) for all \(x, y \in K\),
+        \item the triangle inequality \(\abs{x + y} \le \abs{x} + \abs{y}\) for all \(x, y \in K\).
+    \end{enumerate}
+\end{definition}
+
+We call the pair \((K, \abs{\cdot})\) a \emph{value field}. 
+
+\begin{example}
+    If \(K = \Q, \R\) or \(\C\), then the usual absolute value is an absolute value (in the above sense). We denote this as the \(\abs{x}_\infty\).
+\end{example}
+
+\begin{example}
+    [trivial absolute value]
+    For any field \(K\), define
+    \[\abs{x} = \begin{cases}
+        0 & x = 0 \\
+        1 & x\ne 0
+    \end{cases}\]
+    This defines a absolute valie. In this course, we will ignore this.
+\end{example}
+
+\begin{example}
+    [\(p\)-adic absolute value] 
+    \label{ex:p-adic}
+    Let \(p\) be a prime number, and let \(K = \Q\). For a nonzero \(x \in \Q\), we can write write
+    \[x = p^n\frac{a}{b}\]
+    where \((a, p) = (b, p) = 1\). Then we can define the \emph{\(p\)-adic absolute value} as follows:
+    \[\abs{x}_p = \begin{cases}
+        0 & x = 0 \\
+        p^{-n} & x = p^n \frac{a}{b} \text{ as above}
+    \end{cases}\]
+    For the axioms, (i) is clear. For the other two, write
+    \[y= p^m \frac{c}{d}\]
+    (ii) is
+    \[\abs{xy}_p = \abs{p^{n+m}\frac{ac}{bd}}_p = p^{-(n+m)} = \abs{x}_p\abs{y}_p\]
+    as the numerator and denominator are coprime to \(p\).
+    For (iii), without loss of generality, we can assume \(m \ge n\). Then
+    \[\abs{x + y}_p = \abs{p^n \left(\frac{ad + p^{m-n}bc}{bd}\right)} \le p^{-n} = \abs{x}_p = \max\{\abs{x}_p, \abs{y}_p\} \le \abs{x}_p + \abs{y}_p\]
+
+    The inequality \[\abs{x + y}_p \le \max\{\abs{x}_p, \abs{y}_p\}\] is called the \emph{ultrametric inequality}.
+\end{example}
+
+An absolute value on \(K\) induces a metric on \(K\), defined by
+\[d(x, y) = \abs{x-y}\]
+This then induces a topology on \(K\).
+
+\begin{definition}
+    [equivalence of absolute values] Suppose \(\abs{\cdot}\) and \(\abs{\cdot}'\) are absolute values on a field \(K\). We say that these absolute values are \emph{equivalent} if they induce the same topology. An equivalence class of absolute values is called a \emph{place}.
+\end{definition}
+
+\begin{proposition}
+    Let \(\abs{\cdot}\) and \(\abs{\cdot}'\) are (non-trivial) absolute values on \(K\). Then the following are equivalent:
+    \begin{enumerate}[(i)]
+        \item \(\abs{\cdot}\) and \(\abs{\cdot}'\) are equivalent,
+        \item for all \(x \in K\), \(\abs{x} < 1\) if and only if \(\abs{x}' < 1\),
+        \item there exists \(c > 0\) such that
+        \[\abs{x}^c = \abs{x}'\]
+        for all \(x \in K\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \textbf{(i) \(\implies\) (ii)} Note that \(\abs{x} < 1\) if and only if \(x^n \to 0\) with respect to the topology. Since the topologies are equivalent, this is true if and only if \(\abs{x}' < 1\).
+
+    \textbf{(ii) \(\implies\) (iii)} Note \(\abs{x}^c = \abs{x}'\) is equivalent to saying
+    \[c\log\abs{x} = \log\abs{x}'\]
+    Let \(a \in K^\times\), such that \(\abs{a} > 1\). This exists since we assumed the absolute value is non-trivial. We need to show that for all \(x \in K^\times\),
+    \[\frac{\log\abs{x}}{\log\abs{a}} = \frac{\log\abs{x}'}{\log\abs{a}'}\]
+    Suppose not. Then without loss of generality, for some \(x \in K^\times\),
+    \[\frac{\log\abs{x}}{\log\abs{a}} < \frac{\log\abs{x}'}{\log\abs{a}'}\]
+    Choose \(m, n \in \Z\) such that
+    \[\frac{\log\abs{x}}{\log\abs{a}} < \frac{m}{n} < \frac{\log\abs{x}'}{\log\abs{a}'}\]
+    Rearranging,
+    \begin{align*}
+        n \log\abs{x} &< m \log\abs{a} \\
+        n \log\abs{x}' &> m \log\abs{a}'
+    \end{align*}
+    Exponentiating, we find that
+    \[\abs{\frac{x^n}{a^m}} < 1 \qqtext{and}\abs{\frac{x^n}{a^m}}' > 1\]
+    Contradiction.
+
+    \textbf{(iii) \(\implies\) (ii)} is clear.
+\end{proof}
+
+\begin{remark}
+    \(\abs{\cdot}_\infty^2\) is \emph{not} an absolute value, since it does not satisfy the triangle inequality. Some authors replace the triangle inequality by
+    \[\abs{x+y}^\beta \le \abs{x}^\beta + \abs{y}^\beta\]
+    for some \(\beta > 0\).
+\end{remark}
+
+In this course, we are mainly interested in the following:
+
+\begin{definition}
+    [non-archimedean absolute value] An absolute value \(\abs{\cdot}\) on \(K\) is \emph{non-archimedean} if it satisfies the \emph{ultrametric inequality}
+    \[\abs{x + y} \le \max\{\abs{x}, \abs{y}\}\]
+
+    If \(\abs{\cdot}\) is not non-archimedean, then it is \emph{archimedean}.
+\end{definition}
+
+\begin{example}
+    \begin{itemize}
+        \item \(\abs{\cdot}_\infty\) on \(\R\) is archimedean.
+        \item \(\abs{\cdot}_p\) on \(\Q\) is non-archimedean, see \cref{ex:p-adic}.
+    \end{itemize}
+\end{example}
+
+\begin{lemma}
+    Let \((K, \abs{\cdot})\) be non-archimedean, \(x, y \in K\). If \(\abs{x} < \abs{y}\), then \(\abs{x-y} = \abs{y}\).
+\end{lemma}
+
+\begin{proof}
+    \[\abs{x - y} \le \max\left\{\abs{x}, \abs{y}\right\} = \abs{y}\]
+    where we use the fact that \(\abs{-y} = \abs{y}\) (follows from the axioms of an absolute value). Conversely,
+    \[\abs{y} \le \max\left\{\abs{x}, \abs{x - y}\right\} \le \abs{x - y}\]
+    since we can't have \(\abs{y} \le \abs{x}\).
+\end{proof}
+
+Convergence is easier for non-archimedean absolute values.
+
+\begin{proposition}
+    Let \((K, \abs{\cdot})\) be a non-archimedean valued field, and \((x_n)\) be a sequence in the field \(K\). Suppose \(\abs{x_n - x_{n+1}} \to 0\). Then \((x_n)\) is Cauchy. In particular, if \(K\) is complete, then \((x_n)\) converges.
+\end{proposition}
+
+\begin{proof}
+    For \(\epsilon > 0\), choose \(N\) such that for all \(n \ge N\), \(\abs{x_n - x_{n+1}} < \epsilon\). Then for \(n, m \ge N\), 
+    \[\abs{x_n - x_m} = \abs{(x_n - x_{n+1}) + \cdots + (x_{m-1} - x_m)} < \epsilon\]
+    by the ultrametric inequality (and induction).
+\end{proof}
+
+\begin{example}
+    Consider the \(5\)-adic metric, we will construct a sequence \((x_n)\) in \(\Q\) such that
+    \begin{enumerate}[(i)]
+        \item \(x_n^2 + 1 \equiv 0 \pmod{5^n}\),
+        \item \(x_n \equiv x_{n+1} \pmod{5^n}\)
+    \end{enumerate}
+    
+    Take \(x_1 = 2\), and suppose we have defined \(x_n\). Let \(x_n^2 + 2 = a 5^n\), and set \(x_{n+1} = x_n + b5^n\). Then
+    \[x_{n+1}^2 + 1 = x_n^2 + 2b x_n5^n + b^25^{2n} + 1 = a5^n + 2b x_n 5^n + \underbrace{b^2 5^{2n}}_{\equiv 0 \pmod{5^{n+1}}}\]
+    Therefore, all we need to do is choose \(b\) such that \(a + 2bx_n \equiv 0 \pmod 5\). Then \(x_{n+1}^2 + 1 \equiv 0 \pmod{5^{n+1}}\).
+
+    By the proposiiton, (ii) tells us that \((x_n)\) is Cauchy. On the other hand, suppose \(x_n \to \ell \in \Q\). By the usual properties of limits, \(x_n^2 \to \ell^2\). But (i) tells us that \(x_n^2 \to -1\). Hence \(\ell^2 = -1\), contradiction.
+
+    Using this, \((\Q, \abs{\cdot}_5)\) is not compete.
+\end{example}
+
+\begin{definition}
+    [\(p\)-adic numbers] The \emph{\(p\)-adic numbers} \(\Q_p\) is the completion of \(\Q\) with respect to \(\abs{\cdot}_p\).
+\end{definition}
+
+\underline{Analogy:} Compare this with the construction of \(\R\) as the completion of \(\Q\) with respect to the usual absolute value.
+
+\end{document}

@@ -88,6 +88,117 @@ As a corollary, \(T^n = (S^1)^n\) is a manifold.
     If \(M\) is a manifold, \(X \subseteq M\) is open, then \(X\) is a manifold.
 \end{example}
 
+\lec
+
+% Example sheet 1 out, will mark questions 1 and 2 (via moodle)
+% Example class 1 - Thursday 26 Oct 3:30pm - 5pm MR13
+
+A convention, we will will assume for any manifold \(M\), we will assume all components are of the same dimension. In particular, \(\dim(M)\) is well defined.
+
+\begin{notation}
+    We will write \(M^d\) to say \(M\) is a manifold of dimension \(d\).
+\end{notation}
+
+\begin{example}
+    [real projective space] The real projective space\index{real projective space@real projective space \(\R\P^n\)} is
+    \[\R\P^n = \left\{\text{straight lines in }\R^{n+1}\text{ through }0\right\}\]
+    Points in \(\R\P^n\) can be written using homogeneous coordinates \((x_0 : \dots : x_n)\), where the \(x_i\) are not all zero, and
+    \[(x_0 : \dots : x_n) = (\lambda x_0 : \dots : \lambda x_n)\]
+    for all \(\lambda \ne 0\). We will induce a topology from a smooth structure. The charts are given by \((\varphi_i, U_i)\) where
+    \[U_i = \left\{x_i \ne 0\right\}\]
+    and we define
+    \[\varphi_i(x_0:\dots:x_n) = \left(\frac{x_0}{x_i}, \dots, \frac{x_{i-1}}{x_i},\frac{x_{i+1}}{x_i}, \dots, \frac{x_n}{x_i}\right) \in \R^n\]
+    For \(i < j\), 
+    \[\varphi_j \circ \varphi_i^{-1}(y_0, \dots, y_n) = \left(\frac{y_1}{y_j}, \dots, \frac{1}{y_j}, \dots, \frac{y_n}{y_j}\right)\]
+    where the \(1\) is in the \(i\)-th position, and we omit the \(j\)-th position. Thus, \(\R\P^n\) is an \(n\)-dimensional manifold. Similarly, we can define the complex projective space \(\C\P^n\)\index{complex projective space@complex projective space \(\C\P^n\)}, which is a \(2n\)-manifold (and a \(n\)-dimensional complex manifold).
+\end{example}
+
+\begin{example}
+    [Grassmannian]
+    \[\Gr(k, n) = \left\{k\text{-dimensional subspaces of }\R^n\right\}\]\index{Grassmannian@Grassmannian \(\Gr(k, n)\)}
+    Then \(\Gr(k, n)\) is a manifold of dimension \(k(n - k)\). Note we can also define the Grassmannian over \(\C\).
+\end{example}
+
+\begin{proof}
+    [Sketch proof] An example of a coordinate neighbourhood is
+    \[U = \left\{k\text{-dimensional subspaces obtainable as the span of rows of }k \times n\text{ matrices of the form} \begin{pmatrix}
+        I_k & *
+    \end{pmatrix}\right\}\]
+    where \(I_k\) is the \(k \times k\) identity matrix. In this case, the \(k \times (n-k)\) block \(*\) defines local coordinates. Choosing different columns, we have \({n \choose k}\) neighbourhoods, \(U_{i_1, \dots, i_k}\), where \(i_1 < i_2 < \dots < i_k\).
+\end{proof}
+
+In particular, note that \(\R\P^n = \Gr(1, n+1)\).
+
+\begin{example}
+    [Non-example] Consider an equivalence relation on \(\R^2\) given by
+    \[(x, y) \sim \left(\lambda x, \frac{1}{\lambda}y\right)\]
+    for any \(\lambda \ne 0\). Let \(X = \R^2/\sim\) for the quotient, with the quotient topology. We can consider
+    \[\left\{(x, y) \mid xy = c\right\}\]
+    If \(c \ne 0\), then this is one equivalence class. If \(c = 0\), this splits into three, which are
+    \begin{itemize}
+        \item \(\{(0, 0)\}\),
+        \item \(\{(x, 0) \mid x \ne 0\}\),
+        \item \(\{(0, y) \mid y \ne 0\}\)
+    \end{itemize}
+    We can write
+    \[X = (-\infty, 0) \cup (0, \infty) \cup \left\{0', 0'', 0'''\right\}\]
+    We have three charts \(\varphi_i\) corresponding to each choice of zero. For example,
+    \[U_1 = (-\infty, 0) \cup \{0'\} \cup (0, \infty)\]
+    with the ``natural'' map \(\varphi_1\). On the other hand, the induced topology is not Hausdorff. Note the induced topology is \emph{not} the quotient topology.
+\end{example}
+
+Refer to Examples Sheet 1 Question 12 for an example of a non-second countable (non-)example.
+
+\begin{definition}
+    [smooth map] Let \(M, N\) be manifolds, a continuous map \(f : M \to N\) is \emph{smooth}\index{smooth map} if for any \(p \in M\), we can find charts \((\varphi, U)\) near \(p\), \((\psi, V)\) near \(f(p)\), and the composition
+    \[\psi \circ f \circ \varphi^{-1}\]
+    is smooth. as a map on
+    \[\varphi(U \cap f^{-1}(V))\]
+\end{definition}
+
+\begin{definition}
+    [diffeomorphism] A smooth map \(f : M \to N\) is a \emph{diffeomorphism}\index{diffeomorphism} if \(f\) is a bijection, and \(f^{-1}\) is smooth. In this case, we say that \(M, N\) are \emph{diffeomorphic}\index{diffeomorphic}.
+\end{definition}
+
+\begin{proposition}
+    \begin{enumerate}
+        \item If \(U \sse \R^n\), then \(f : U \to \R^m\) is smooth in the above definition if and only if it is smooth in the sense of multi-variate calculus.
+        \item Every chart \(\varphi : U \to \varphi(U) \sse \R^d\) is a smooth map of manifolds. Moreover, it is a diffeomorphism.
+        \item If \(f : M \to N\), \(g : N \to P\) are smooth, then \(g \circ f : M \to P\) is smooth.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Obvious, and so omitted.
+\end{proof}
+
+\subsection{Matrix Lie groups}
+
+Consider the group \(\GL(n, \R) \sse \R^{n^2}\). In fact, this is an open subset, and so it is a manifold. Moreover, matrix multiplication and inversion are smooth.
+
+\begin{definition}
+    [Lie group] A group \(G\) is called a \emph{Lie group}\index{Lie group} if
+    \begin{itemize}
+        \item \(G\) is a manifold,
+        \item the multiplication map \(G \times G \to G\) is smooth,
+        \item inversion \(G \to G\) is smooth.
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    Suffices to show that the map
+    \[G \times G \ni (\sigma, \tau) \mapsto \sigma\tau^{-1} \in G\]
+    is smooth.
+\end{remark}
+
+In particular, \(\GL(n, \R\) is a Lie group. Similarly, \(\GL(n, \C)\) is also a Lie group. More generally, for \(A = (a_{ij}) \in \Mat_n(\C)\), we define the norm \(\norm{A} = n\max_{i, j}\abs{i, j}\). (Note in finite dimensional, all norms are equivalent). In particular,
+\[\norm{AB} \le \norm{A}\norm{B}\]
+We define the \emph{exponential of \(A\)}\index{exponential map of matrices} as
+\[\exp(A) = \sum_k \frac{A^k}{k!}\]
+This series converges for all \(A\), by the same proof as for \(\exp : \C \to \C\) (or more generally, any Banach algebra). Moreover, it converges uniformly on balls
+\[\left\{\norm{A} \le R\right\}\]
+by the Weierstrass \(M\)-test. In particular, \(\exp : \Mat_n(\C) \to \Mat_n(\C)\) is continuous.
+
 \printindex
 
 \end{document}
