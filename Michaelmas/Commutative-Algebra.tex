@@ -212,7 +212,7 @@ Recall \(f : M \times N \to L\) is \emph{\(R\)-bilinear} if \(n \mapsto f(m_0, n
         r(m, n) &= (m, rn)
     \end{align*}
     The \emph{tensor product}\index{tensor product} is
-    \[M \otimes_R N := \frac{F}{K}\]
+    \[M \otimes_R N := \frac{\mcF}{\mcK}\]
     We have an \(R\)-bilinear map
     \begin{align*}
         i_{M \otimes N} : M \times N &\to M \otimes_R N \\
@@ -239,7 +239,7 @@ commute.
     \[h(m \otimes n) = f(m, n)\]
     since the pure tensors generate, \(h\) must be unique, if it exists. Therefore, suffices to show the above extends to an \(R\)-linear map \(M \otimes_R N \to L\). This follows from the map
     \begin{align*}
-        R^{\otimes (M \times N)} &\to L \\
+        R^{\oplus (M \times N)} &\to L \\
         e_{(m, n)} &\mapsto f(m, n) 
     \end{align*}
     extending to a linear map (by the universal property of the direct sum), and that this map vanishes on \(\mcK\). Therefore, \(h\) extends to \(M \otimes_R N\) from the pure tensors.
