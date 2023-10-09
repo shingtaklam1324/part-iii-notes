@@ -58,6 +58,157 @@ The same exercise on sheet 1 shows that homotopy equivalence is an equivalence r
     \end{enumerate}
 \end{example}
 
+\lec
+
+\subsection{Co(chain) complexes}
+
+We will define invariants of topological spaces in two steps:
+\begin{enumerate}[(a)]
+    \item We associate to \(X\) a (co)chain complex,
+    \item We take the (co)homology of the complex
+\end{enumerate}
+The topology enters in step (a), whereas (b) is just homological algebra.
+\begin{definition}
+    [chain complex]
+    A \emph{chain complex}@\index{chain complex} \((C_*, \partial)\) consists of a sequence \(\{C_i\}_{i \in \Z}\) of abelian groups, along with \emph{boundary homomorphisms}\index{boundary homomorphism} \(\partial_n : C_n \to C_{n-1}\) for all \(n\), satisfying \(\partial_n \circ \partial_{n+1} = 0\). We also write this conditions as \(\partial^2 = 0\).
+\end{definition}
+
+\begin{definition}
+    [homology group]
+    The \emph{\(i\)-th homology group}\index{homology group} of a chain complex \((C_*, \partial)\) is
+    \[\HH_i(C_*, \partial) = \frac{\ker(\partial_i : C_i \to C_{i-1})}{\im(\partial_{i+1} : C_{i+1} \to C_i)}\]
+    We write
+    \[\HH_*(C_*, \partial) = \bigoplus_{i \in \Z}\HH_i(C_*, \partial)\]
+\end{definition}
+
+\begin{definition}
+    [cochain complex]
+    A \emph{cochain complex}\index{cochain complex} \((C^*, \partial)\) consists of a sequence \(\{C^i\}_{i \in \Z}\) of abelian groups, along with \emph{boundary homomorphisms} \(\partial^n : C^n \to C^{n+1}\) for all \(n\), satisfying \(\partial^{n+1} \circ \partial^n = 0\). We also write this conditions as \(\partial^2 = 0\).
+\end{definition}
+
+\begin{definition}
+    [cohomology group]
+    The \emph{\(i\)-th cohomology group}\index{cohomology group} of a cochain complex \((C^*, \partial)\) is
+    \[\HH^i(C^*, \partial) = \frac{\ker(\partial^i : C^i \to C^{i+1})}{\im(\partial^{i-1} : C^{i-1} \to C^i)}\]
+    We write
+    \[\HH^*(C^*, \partial) = \bigoplus_{i \in \Z}\HH_i(C^*, \partial)\]
+\end{definition}
+
+\begin{notation}
+Elements of \(\ker(\partial)\) are called \emph{cycles}\index{cycle} (in a chain complex), \emph{cocycles}\index{cocycle} (in a cochain complex). Elements of \(\im(\partial)\) are called \emph{boundaries}\index{boundary} (and \emph{coboundary}\index{coboundary} resp.).
+
+Elements of \(\HH_*\) are called \emph{homology classes}\index{homology class}, and elements of \(\HH^*\) are called \emph{cohomology classes}\index{cohomology class}.
+
+We will call \(\partial\) the \emph{differential}\index{differential}.
+\end{notation}
+
+\begin{definition}
+    [chain map]
+    Given chain complex \((C_*, \partial)\), \((D_*, \partial)\), a \emph{chain map}\index{chain map} \(f : C_* \to D_*\) comprises group homomorphism \(f_i : C_i \to D_i\), such that
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJDX2kiXSxbMiwwLCJEX2kiXSxbMCwyLCJDX3tpLTF9Il0sWzIsMiwiRF97aS0xfSJdLFswLDIsIlxccGFydGlhbCIsMl0sWzEsMywiXFxwYXJ0aWFsIl0sWzAsMSwiZl9pIl0sWzIsMywiZl97aS0xfSIsMl1d
+\[\begin{tikzcd}
+	{C_i} && {D_i} \\
+	\\
+	{C_{i-1}} && {D_{i-1}}
+	\arrow["\partial"', from=1-1, to=3-1]
+	\arrow["\partial", from=1-3, to=3-3]
+	\arrow["{f_i}", from=1-1, to=1-3]
+	\arrow["{f_{i-1}}"', from=3-1, to=3-3]
+\end{tikzcd}\]
+    commutes.
+\end{definition}
+
+\begin{lemma}
+    A chain map \(f : C_* \to D_*\) induces homomorphisms \(f_* : \HH_i(C_*) \to \HH_i(D_*)\).
+\end{lemma}
+
+\begin{proof}
+    Let \(a \in \HH_i(C_*)\), and we can choose a cycle \(\alpha \in C_i(C_*)\), with \(\partial \alpha = 0\). In this case,
+    \[\partial f_i(\alpha) = f_{i-1}(\partial\alpha) = f_{i-1}(0) = 0\]
+    So \(f_i(\alpha) \in D_i\) is a cycle. We set \(f_*(a) = [f_i(\alpha)] \in \HH_i(D_*)\). Next, we need to show that this is independent of choices. Suppose \(a = [\alpha] = [\alpha']\). Then \(\alpha - \alpha' \in \im(\partial)\). Therefore, we can write \(\alpha - \alpha' = \partial\tau\). In this case,
+    \[f_i(\alpha) - f_i(\alpha') = f_i(\partial\tau) = \partial f_{i+1}(\tau) \in \im(\partial)\]
+    So we conclude \([f_i(\alpha)] = [f_i(\alpha')] \in \HH_i(D_*)\). It is clear that \(f_*\) defines a homomorphism.
+\end{proof}
+
+Correspondingly, we can define \emph{cochain maps}\index{cochain maps} \(C^* \to D^*\), that is, \(f^i : C^i \to D^i\) such that
+% https://q.uiver.app/#q=WzAsNCxbMCwyLCJDXmkiXSxbMiwyLCJEXmkiXSxbMCwwLCJDXntpKzF9Il0sWzIsMCwiRF57aSsxfSJdLFsyLDMsImZee2krMX0iXSxbMCwxLCJmXmkiLDJdLFswLDIsIlxccGFydGlhbCJdLFsxLDMsIlxccGFydGlhbCIsMl1d
+\[\begin{tikzcd}
+	{C^{i+1}} && {D^{i+1}} \\
+	\\
+	{C^i} && {D^i}
+	\arrow["{f^{i+1}}", from=1-1, to=1-3]
+	\arrow["{f^i}"', from=3-1, to=3-3]
+	\arrow["\partial", from=3-1, to=1-1]
+	\arrow["\partial"', from=3-3, to=1-3]
+\end{tikzcd}\]
+commutes.
+
+\underline{Exercise:} This construction is functorial. That is, \((\id_{C_*})_* = \id_{\HH_*}\), and if we have \(f : C_* \to D_*, g : D_* \to E_*\), then \((g \circ f)_* = g_* \circ f_*\).
+
+\underline{Goal:} To associate to a topological space \(X\) (co)chain complex \(C_*(X)\) and \(C^*(X)\). The definition works for any \(X\), but the theories are better behaved for ``nicer'' \(X\).
+
+We will develop singular (co)homology.
+
+\begin{definition}
+    [standard simplex, face]
+    The \emph{standard simplex}\index{standard simplex} is
+    \[\Delta^n = \left\{(t_0, \dots, t_n) \in \R^{n+1} \mid t_i \ge 0, \sum_i t_i = 1\right\}\]
+    The \(i\)-th face \(\Delta^n\) is
+    \[\Delta_i^n = \Delta^n \cap \{t_i = 0\}\]
+    and we have a canonical homeomorphism
+    \begin{align*}
+        \delta_i : \Delta^{n-1} &\to \Delta^{n-1}_i \\
+        (t_0, \dots, t_{n-1}) & \mapsto (t_0, \dots, t_{i-1}, 0, t_i, \dots, t_{n-1})
+    \end{align*}
+\end{definition}
+
+\begin{definition}
+    [singular simplex, singular chain complex]
+    If \(X\) is a topological space, a \emph{singular \(n\)-simplex}\index{singular simplex} in \(X\) is a continuous map \(\sigma : \Delta^n \to X\).
+
+    The \emph{singular chain complex}\index{singular chain complex} is given by the the free abelian groups
+    \[C_i(X) = \bigoplus_{\sigma \text{ singular }n\text{-simplex}}\Z \sigma\]
+    We define the boundary map \(C_i(X) \to C_{i-1}(X)\) via
+    \[\partial \sigma = \sum_{j=0}^i (-1)^j \sigma\vert_{\Delta_j^i}\]
+    where
+    \[\sigma \vert_{\Delta_j^i} := \sigma \circ \delta_j : \Delta^{n-1} \to X\]
+\end{definition}
+
+Note if \(\{v_i\}_{i=0}^n\) are \(n+1\) ordered points in \(\R^{n+1}\), and if \(\{v_i - v_0\}_{i=1}^n\) are linearly independent, then the convex hull of \(v_0, \dots, v_n\) is an \(n\)-simplex, which we will call
+\[[v_0, \dots, v_n]\]
+which is given by the map
+\begin{align*}
+    \Delta^n &\to \R^{n+1} \\
+    t &\mapsto \sum_i t_iv_i
+\end{align*}
+We orient the edges of the standard simplex (and thus any simplex \([v_0, \dots, v_n]\)) by saying that \(v_i < v_j\) if \(i < j\).
+
+More concretely, for \(n = 2\), we have the oriented edges \(v_0 \to v_1, v_0 \to v_2, v_1 \to v_2\).
+
+\begin{lemma}
+    \(\partial^2 = 0\).
+\end{lemma}
+
+\begin{proof}
+    If \(\sigma\) is an \(n\)-simplex, defined on \([v_0, \dots, v_n]\), then
+    \[\partial\sigma = \sum_j(-1)^j\sigma\vert_{[v_0, \dots, \widehat{v_j}, \dots, v_n]}\]
+    and so
+    \[\partial(\partial\sigma) = \sum_{i < j}(-1)^i(-1)^j\sigma\vert_{[v_0, \dots, \widehat{v_i}, \dots, \widehat{v_j}, \dots, v_n]} + \sum_{i > j}(-1)^{i+1}{-1}^j\sigma\vert_{[v_0, \dots, \widehat{v_j}, \dots, \widehat{v_i}, \dots, v_n]} = 0\]
+    since the signs cancel.
+\end{proof}
+
+\begin{definition}
+    The \emph{singular homology groups of \(X\)}\index{singular homology}, \(\HH_i(X)\), are the homology groups of the singular chain complex.
+\end{definition}
+
+\begin{remark}
+    Since all we used is the topology on \(X\), \(\HH_i(X)\) is clearly a topological (read homeomorphism) invariant of \(X\).
+
+    Moreover, if \(f : X \to Y\) is continuous, \(\sigma : \Delta^n \to X\) is an \(n\)-simplex on \(X\), then \(f \circ \sigma\) is an \(n\)-simplex on \(Y\). The fact that
+    \[(f \circ \sigma) \circ \delta_j = f \circ (\sigma \circ \delta_j)\]
+    shows that \(f\) induces a chain map.
+\end{remark}
+
 \printindex
 
 \end{document}

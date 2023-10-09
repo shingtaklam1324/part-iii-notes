@@ -6,7 +6,7 @@
 \author{Shing Tak Lam}
 \date{Michaelmas 2023\footnote{Based on lectures by Jack Thorne. Last updated \today.}}
 
-\newcommand{\mch}{\mathfrak{H}}
+\newcommand{\mfH}{\mathfrak{H}}
 
 \makeindex
 
@@ -22,7 +22,7 @@
 
 \begin{definition}
     Define the upper half plane\index{upper half plane}
-    \[\mch = \left\{\tau \in \C \mid \im(\tau) > 0\right\}\]
+    \[\mfH = \left\{\tau \in \C \mid \im(\tau) > 0\right\}\]
     and the positive determinant group
     \[\GL_2(\R)^+ = \left\{g \in \GL_2(\R) \mid \det(g) > 0\right\}\]
     and\index{\(\Gamma(1)\)}
@@ -30,24 +30,24 @@
 \end{definition}
 
 \begin{lemma}
-    \(\GL_2(\R)^+\) acts transitively on \(\mch\) via M\"obius transformations.
+    \(\GL_2(\R)^+\) acts transitively on \(\mfH\) via M\"obius transformations.
 \end{lemma}
 
 \begin{proof}
     Suppose \(g = \begin{pmatrix}
         a & b \\ c & d
-    \end{pmatrix} \in \GL_2(\R)^+\), and \(\tau \in \mch\). Then
+    \end{pmatrix} \in \GL_2(\R)^+\), and \(\tau \in \mfH\). Then
     \[\Im(g\tau) = \frac{1}{2i}\left(\frac{a\tau + b}{c\tau + d} - \frac{a\overline\tau + b}{c\overline\tau + d}\right) = \frac{1}{2i}\frac{(ad - bc)(\tau - \overline \tau)}{\abs{c\tau + d}^2} = \frac{\deg(g)\Im(\tau)}{\abs{c\tau + d}^2} > 0\]
-    For transitivity, for \(x + iy \in \mch\),
+    For transitivity, for \(x + iy \in \mfH\),
     \[\begin{pmatrix}
         y & x \\ 0 & 1
     \end{pmatrix} \vdot i = x + iy\]
 \end{proof}
 
 \begin{definition}
-    Let \(g \in \GL_2(\R)^+\), \(\tau \in \mch\), define \(j(g, \tau) = c\tau + d\), where \(g = \begin{pmatrix}
+    Let \(g \in \GL_2(\R)^+\), \(\tau \in \mfH\), define \(j(g, \tau) = c\tau + d\), where \(g = \begin{pmatrix}
         a & b \\ c & d
-    \end{pmatrix}\). This is called the \emph{modular cocycle}\index{modular cocycle}. If \(k\) is an integer, \(f : \mch \to \C\) is any function, then
+    \end{pmatrix}\). This is called the \emph{modular cocycle}\index{modular cocycle}. If \(k\) is an integer, \(f : \mfH \to \C\) is any function, then
     \begin{align*}
         f\vert_k[g] : \mfh &\to \C \\
         \tau &\mapsto \det(g)^{k-1}f(g\tau)j(g, \tau)
@@ -94,10 +94,10 @@ For \(g, h \in \GL_2(\R)^+\), \(\tau \in \mfh\),
 and
 \[j(gh, \tau) = j(g, h\tau)j(h, \tau)\]
 \begin{definition}
-    Let \(k \in \Z\), \(\Gamma \le \Gamma(1)\) a finite index subgroup. A \emph{weakly modular function of weight \(k\) and level \(\Gamma\)}\index{weakly modular function of weight \(j\) and level \(\Gamma\)} is a meromorphic function \(f : \mch \to \C\), which is invariant under the weight \(k\) action of \(\Gamma\). That is, such that for all \(\gamma \in \Gamma\),
+    Let \(k \in \Z\), \(\Gamma \le \Gamma(1)\) a finite index subgroup. A \emph{weakly modular function of weight \(k\) and level \(\Gamma\)}\index{weakly modular function of weight \(j\) and level \(\Gamma\)} is a meromorphic function \(f : \mfH \to \C\), which is invariant under the weight \(k\) action of \(\Gamma\). That is, such that for all \(\gamma \in \Gamma\),
     \[f\vert_k[\gamma] = f\] 
 \end{definition}
-We will define a modular form (when \(\Gamma = \Gamma(1)\)) next time, but they are weakly modular functions, which are holomorphic in \(\mch\) and at \(\infty\).
+We will define a modular form (when \(\Gamma = \Gamma(1)\)) next time, but they are weakly modular functions, which are holomorphic in \(\mfH\) and at \(\infty\).
 
 In fact, modular forms of fixed weight and level live in finite dimensional \(\C\)-vector spaces \(M_k(\Gamma)\), which are the main objects of study in this course.
 
@@ -106,9 +106,9 @@ In fact, modular forms of fixed weight and level live in finite dimensional \(\C
 \begin{enumerate}
     \item They are related to the theory of elliptic functions. Let \(E/\C\) be an elliptic curve. Let \(\omega\) be a non-zero holomorphic \(1\)-form. Then there exists a unique lattice \(\Lambda \le \C\), and an isomorphism of Riemann surfaces, \(\phi : \C/\Lambda \to E\), such that \(\phi^*(\omega) = \dd z\). We can show that \(E\) is isomorphic to the elliptic curve \(y^2 = 4x^3 - 60 G_4(\Lambda)x - 140 G_6(\Lambda)\), where for \(k \in \Z\),
     \[G_k(\Lambda) = \sum_{\lambda \in \Lambda \setminus 0}\lambda^{-k}\]
-    which converges for \(\lambda > 2\). If \(\tau \in \mch\), then we have an associated lattice \(\Lambda_\tau = \Z \oplus \Z_\tau\), and the function
+    which converges for \(\lambda > 2\). If \(\tau \in \mfH\), then we have an associated lattice \(\Lambda_\tau = \Z \oplus \Z_\tau\), and the function
     \[G_k(\tau) = G_k(\Lambda_\tau)\]
-    is a modular form of weight \(k\) and level \(\Gamma(1)\). This is called the \emph{Eisenstein series}. Moreover, \(\mch/\SL_2(\Z)\) can be identified (as a set) with the set of isomorphism classes of elliptic curves over \(\C\).
+    is a modular form of weight \(k\) and level \(\Gamma(1)\). This is called the \emph{Eisenstein series}. Moreover, \(\mfH/\SL_2(\Z)\) can be identified (as a set) with the set of isomorphism classes of elliptic curves over \(\C\).
     \item Modular forms \(f\) have Fourier expansions
     \[\sum_{n \in \Z}a_n q^n\]
     where \(a_n \in \C\), and often serve as generating functions for arithmetically interesting sequences \(a_n\). One example is
@@ -131,6 +131,139 @@ In fact, modular forms of fixed weight and level live in finite dimensional \(\C
     
     \underline{Homework:} Handout on Moodle called ``Reminder of Complex Analysis''.
 \end{enumerate}
+
+\lec
+
+\section{Modular forms on \(\Gamma(1)\)}
+
+Recall a \emph{meromorphic function} on \(U \sse \C\) is a closed subset \(A \sse U\) and a holomorphic function \(f : U \setminus A \to \C\), such that for every \(a \in A\), there exists \(\delta > 0\), such that
+\[D_*(a, \delta) \sse U \setminus A\]
+and there exists an integer \(n \ge \Z\) such that
+\[(z-a)^nf(z)\]
+defines a holomorphic function on \(D(a, \delta)\). Such an \(a \in A\) is called a \emph{pole} of \(f\). \(f\) then has a \emph{Laurent expansion}
+\[\sum_{m \in \Z}a_m(z-a)^m\]
+which is absolutely convergent on \(D(a, \delta)\).
+
+\begin{lemma}
+    Let \(f\) be a weakly modular function of weight \(k\) and level \(\Gamma(1)\). Then there exists a unique meromorphic function \(\tilde f\) on \(D_*(0, 1)\) such that
+    \[f(\tau) \tilde f(e^{2\pi i \tau})\]
+\end{lemma}
+
+\begin{proof}
+    By assumption, \(f\) is meromorphic on \(\mfH\), let \(\gamma = \begin{pmatrix}
+        1 & 1 \\ 0 & 1
+    \end{pmatrix} \in \Gamma(1)\). Then
+    \[f\vert_k[\gamma](\tau) = f(\gamma\tau) = f(\tau)\]
+    as \(f\) is invariant under the weight \(k\) action of \(\gamma\). But
+    \[f(\gamma\tau) = f(\tau + 1)\]
+    \underline{Existence:} Locally, let \(a \in D_*(0, 1), \delta > 0\) be such that \(D(a, \delta) \sse D_*(0, 1)\). Define \(\tilde f\) in the disc by
+    \[\tilde f(q) = f\left(\frac{1}{2\pi i}\log(q)\right)\]
+    where \(\log\) is any branch of logarithm defined in \(D(a, \delta)\). This is independent of the choice of branch of logarithm, since any two branches differ by \(2\pi i\), and \(f(\tau) = f(\tau + 1)\). Therefore, this defines \(\tilde f\) on \(D_*(0, 1)\).
+
+    \underline{Uniqueness:} Since the map \(\tau \mapsto e^{2\pi i \tau}\) is surjective, \(\tilde f\) is unique. 
+\end{proof}
+
+Suppose \(\tilde f\) extends to a meromorphic function on \(D(0, 1)\), then there exists \(\delta > 0\) such that \(\tilde f\) has a Laurent expansion
+\[\tilde f(q) = \sum_{n \in \Z}a_nq^n\]
+which is absolutely convergent on \(D_*(0, \delta)\). In particular, in the region where \(\Im(\tau) > \frac{1}{2\pi}\log(\delta)\), we have
+\[f(\tau) = \sum_n a_n q^n\]
+where \(q = e^{2\pi i \tau}\). We call this the \emph{\(q\)-expansion of a weakly modular function \(f\)}.
+
+\begin{definition}
+    Let \(f\) be a weakly modular function of weight \(k\) and level \(\Gamma(1)\). We say that \(f\) is \emph{meromorphic at \(\infty\)}\index{meromorphic at \(\infty\)} if \(\tilde f\) extends to a meromorphic function on \(D(0, 1)\).
+
+    We say that \(f\) is \emph{holomorphic at \(\infty\)}\index{holomorphic at \(\infty\)} if \(\tilde f\) extends, and is holomorphic at \(q = 0\). In this case, we define
+    \[f(\infty) = \tilde f(0) = \lim_{\Im(\tau) \to \infty}f(\tau)\]
+
+    We say that \(f\) \emph{vanishes at \(\infty\)}\index{vanishes at \(\infty\)} if \(f\) is holomorphic at \(\infty\), and \(f(\infty) = 0\).
+\end{definition}
+
+\begin{definition}
+    [modular form] A \emph{modular function}\index{modular function!of weight \(k\) and level \(\Gamma(1)\)} (of weight \(k\) and level \(\Gamma(1)\)) is a weakly modular function, which is meromorphic at \(\infty\). A \emph{modular form}\index{modular form!of weight \(k\) and level \(\Gamma(1)\)} is a weakly modular function which is holomorphic in \(\mfH\), and holomorphic at \(\infty\).
+
+    A \emph{cuspidal modular form}\index{cuspoidal modular form} is a modular form which vanishes at \(\infty\).
+\end{definition}
+
+\begin{remark}
+    We let
+    \[M_k(\Gamma(1))\]
+    be the set of modular forms of weight \(k\) and level \(\Gamma(1)\), and
+    \[S_k(\Gamma(1)) \sse M_k(\Gamma(1))\]
+    be the set of cuspidal modular forms of weight \(k\) and level \(\Gamma(1)\). These are \(\C\)-vector spaces. If \(k\) is odd, then they are zero. To see this, consider the matrix
+    \[\gamma = \begin{pmatrix}
+        -1 & 0 \\ 0 & -1
+    \end{pmatrix} \in \Gamma(1)\]
+    and the weight \(k\)-action is
+    \[f\vert_k[\gamma](\tau) = (-1)^kf(\tau) = f(\tau)\]
+    We will now consider even weights only.
+\end{remark}
+
+If \(k \in \Z\) is even, let
+\[G_k(\tau) = \sum_{\lambda \in \Lambda_\tau \setminus 0}\lambda^{-k} = \sum_{(m, n) \in \Z^2 \setminus 0} (m \tau + n)^{-k}\]
+where \(\Lambda_\tau = \Z_\tau \oplus \Z \le \C\).
+
+If \(\gamma \in \Gamma(1)\), then we formally have
+\[G_k\vert_k[\gamma](\tau) = G_k(\gamma\tau)j(\gamma, \tau)^{-k} = \sum_{\lambda \in \Lambda_{\gamma\tau}\setminus 0}\lambda^{-k}j(\gamma, \tau)^{-k}\]
+But if \(\gamma = \begin{pmatrix}
+    a & b \\ c & d
+\end{pmatrix}\), then
+\[\Lambda_{\gamma\tau} = \Z\frac{a\tau + b}{c\tau + d} \oplus \Z = (c\tau + d)^{-1}\left(\Z(a \tau + b) \oplus \Z(c \tau + d)\right) = (c\tau + d)^{-1}\Lambda_\tau\]
+Therefore,
+\[G_k\vert_k[\gamma](\tau) = \sum_{\lambda \in (c\tau + d)^{-1}\Lambda_\tau \setminus 0}\lambda^{-k}(c\tau + d)^{-k} = \sum_{\lambda \in \Lambda_\tau \setminus 0}\lambda^{-k} = G_k(\tau)\]
+This is justified only when the series defining \(G_k(\tau)\) converges absolutely.
+
+\begin{proposition}
+    Let \(k > 2\) be an even integer. Then \(G_k(\tau)\) converges absolutely, and defines a modular form of weight \(k\) and level \(\Gamma(1)\), with
+    \[G_k(\infty) = 2\zeta(k)\]
+    where \(\zeta\) is the Riemann \(\zeta\)-function. We call \(G_k\) the \emph{weight \(k\) Eisenstein series}\index{weight \(k\) Eisenstein series, \(G_k\)}.
+\end{proposition}
+
+\begin{remark}
+    We will see later that \(M_2(\Gamma(1)) = 0\), so this is optimal.
+\end{remark}
+
+\begin{proof}
+    We want to show absolute and local uniform convergence in \(\mfH\), since this shows that \(G_k\) is holomorphic.
+
+    Let \(A \ge 2\), and define
+    \[\Omega_A = \left\{\tau \in \mfH \ \bigg\vert\ \Im(\tau) \ge \frac{1}{A} \text{ and }\Re(\tau) \in [-A, A]\right\}\]
+
+    We will show uniform convergence in \(\Omega_A\). If \(\tau \in \Omega_A\), \(x \in \R\), then
+    \[\abs{\tau + x} \ge \begin{cases}
+        \frac{1}{A} & \abs{x} \le 2A \\
+        \frac{\abs{x}}{2} & \abs{x} \ge 2A
+    \end{cases}\]
+    Therefore, 
+    \[\tau + x \ge \max\left\{\frac{1}{A}, \frac{\abs{x}}{2A^2}\right\} \ge \max\left\{\frac{1}{A^2}, \frac{\abs{x}}{2A^2}\right\} \ge \frac{1}{2A^2}\max\{1, \abs{x}\}\]
+
+    If \((m, n) \in \Z^2\), then we get that
+    \[\abs{m \tau + n}\ge \frac{1}{2A^2}\max\{\abs{m}, \abs{n}\}\]
+    If \(\tau \in \Omega_A\), then
+
+    % \begin{align*}
+        
+    %     \sum_{(m, n) \in \Z^2\setminus 0}\abs{m\tau + n}^{-k} \le \left(\frac{1}{2A^2}\right)^{-k}\sum_{(m, n) \in \Z^2 \setminus 0}\max\{\abs{m}, \abs{n}\}^{-k}
+    % %  \\
+    % %     &= (2A^2)^{-k}\sum_{d \in \N}d^{-k} \cdot \abs{\left\{(m, n) \in \Z^2 \mid \max\{\abs{m}, \abs{n}\} = d\right\}} \\
+    % %     &< \infty
+    % \end{align*}
+    \begin{align*}
+        \sum_{(m, n) \in \Z^2 \setminus 0}\abs{m\tau + n}^{-k} &\le (2A^2)^k \sum_{(m, n)\in \Z^2 \setminus 0} \max\{\abs{m}, \abs{n}\}^{-k} \\
+        &= (2A^2)^k\sum_d d^{-k} \cdot \#\{(m, n) \in \Z^2 \setminus 0 \mid \max\{\abs{m}, \abs{n}\} = d\} \\
+        &= (2A^2)^{-k} \sum_d d^{1-k} \\
+        &= 8(2A^2)^k\zeta(k-1) < \infty
+    \end{align*}
+
+    as \(k > 2\). This shows uniform convergence in \(\Omega_A\) by the Weierstrass \(M\)-test.
+
+    We now know that \(G_k\) is holomorphic in \(\mfH\), and invariant under the weight \(k\) action of \(\Gamma(1)\). It remains to show to show \(G_k\) is holomorphic at \(\infty\), with \(G_k(\infty) = 2\zeta(k)\). It suffices to show that
+    \[\lim_{\Im(\tau) \to \infty}G_k(\tau) = 2\zeta(k)\]
+    By uniform convergence, we can exchange the limit and sum. But
+    \[\lim_{\Im(\tau) \to \infty}(m \tau + n)^{-k} = \begin{cases}
+        0 & m \ne 0 \\
+        n^{-k} & m = 0
+    \end{cases}\]
+\end{proof}
 
 \printindex
 

@@ -122,9 +122,162 @@ Let \(k\) be a field. Most of the time, \(k = \C\), but not always. We will some
             E_{i,j} \text{ for }i \ne j \\
             E_{i, i} - E_{i+1, i+1}
         \end{align*}
-        We will often write \(\sl_n\)\index{\(\sl_n\)} for this Lie algebra.
+        We will often write \(\sl_n\)\index{\(\sl_n\)} for this Lie algebra.       
     \end{enumerate}
 \end{example}
+
+\lec
+
+\begin{example}
+    [continued]
+    \begin{enumerate}
+        \setcounter{enumi}{2}
+        \item Suppose \(\Char(k) \ne 2\), and suppose \(V\) is endowed with a symmetric (non-degenerate?) bilinear form
+        \[\inner{\cdot, \cdot} : V \times V \to k\]
+        Then define
+        \[\so(V) = \left\{x \in \gl(V) \mid \inner{xv, w} + \inner{v, xw} = 0 \text{ for all }v, w \in V\right\}\]
+        If \(M \in \GL(V)\) is such that \(\inner{v, w} = v^\T M w\), so
+        \[\so(V) = \left\{x \mid M x + x^\T M = 0\right\}\]
+        We usually take
+        \[M = \begin{cases}
+            \begin{pmatrix}
+                0 & I_\ell \\
+                I_\ell & 0
+            \end{pmatrix} & n = 2\ell \\
+            \begin{pmatrix}
+                1 & 0 & 0 \\
+                0 & 0 & I_\ell \\
+                0 & I_\ell & 0
+            \end{pmatrix} & n = 2\ell + 1
+        \end{cases}\]
+        These are called the \emph{orthogonal Lie algebra}\index{\(\so_n\)}, denoted \(\so_n\).
+        \begin{remark}
+            \label{rem:sl2c}
+            In the case \(n = 2\), let
+            \[e = \begin{pmatrix}
+                0 & 1 \\ 0 & 0
+            \end{pmatrix} \quad f = \begin{pmatrix}
+                0 & 0 \\
+                1 & 0
+            \end{pmatrix} \quad h = \begin{pmatrix}
+                1 & 0 \\ 0 & -1
+            \end{pmatrix}\]
+            viewed as matrices (in \(\sl_2(\C)\)). Indeed, this is the standard basis of \(\sl_2(\C)\). Note
+            \begin{align*}
+                [ef]&= h \\
+                [he] &= 2e \\
+                [hf] &= -2f
+            \end{align*}
+            We'll see that (in some sense) the structure of all semisimple Lie algebras comes from \(\sl_2(\C)\).
+        \end{remark}
+        \item Again suppose \(\Char(k) \ne 2\). Now suppose \(V\) is endowed with a non-degenerate skew-symmetric (or alternating) bilinear form \(\inner{\cdot, \cdot}\), then
+        \[\sp(V) = \left\{x \in \gl(V) \mid \inner{xv, w} + \inner{v, xw} = 0\right\}\]
+        In coordinates, we take the form \(\inner{\cdot, \cdot}\) to be the skew-symmetric form given by
+        \[M = \begin{pmatrix}
+            0 & I_\ell \\
+            -I_\ell & 0
+        \end{pmatrix}\]
+        where \(n = 2\ell\). This is called the \emph{symplectic Lie algebra}\index{\(\sp_n\)}, denoted \(\sp_n\).
+    \end{enumerate}
+\end{example}
+
+\underline{Exercise:} Check that \(\so_n\) and \(\sp_n\) are Lie subalgebras of \(\gl_n\).
+
+\begin{example}
+    [continued]
+    \begin{enumerate}
+        \setcounter{enumi}{4}
+        \item Any vector space \(V\) is a Lie algebra with \([vw] = 0\) for all \(v, w\). We call such Lie algebras \emph{abelian}\index{abelian Lie algebra}. It is named like this, since for \emph{linear Lie algebras}\index{linear Lie algebra}, that is, any subalgebra of \(\gl(V)\) where \(V\) is finite dimensional, \([xy] = xy - yx = 0\) is true if and only if \(x\) and \(y\) commute.
+        \item \(\mfb_n\) is the \emph{Borel algebra}\index{\(\mfb_n\)} of upper triangular matrices
+        \[\begin{pmatrix}
+            * & \cdots & * \\
+            & \ddots & \vdots \\
+            0& & *
+        \end{pmatrix}\]
+        This is the Lie algebra associated to the Borel subgroup of upper triangular invertible matrices.
+        \item \(\mfn_n\)\index{\(\mfn_n\)} is the Lie algebra of strictly upper triangular matrices,
+        \[\begin{pmatrix}
+            0 & \cdots & * \\
+            & \ddots & \vdots \\
+            0& & 0
+        \end{pmatrix}\]
+        \(\mfn\) stands for \emph{nilpotent}, see section 7.
+    \end{enumerate}
+\end{example}
+
+\section{Basic representation theory}
+
+\begin{definition}
+    [homomorphism, isomorphism]
+    A linear map \(\varphi : \mfg \to \mfh\) between two Lie algebras is a \emph{homomorphism}\index{homomorphism} if
+    \[\varphi([xy]) = [\varphi(x),\varphi(y)]\]
+    for all \(x, y \in \mfg\). If \(\varphi\) is a linear isomorphism, we call \(\varphi\) an \emph{isomorphism of Lie algebras}\index{isomorphism!of Lie algebras}.
+\end{definition}
+
+\begin{definition}
+    [representation]
+    A \emph{representation}\index{representation} of \(\mfg\) is a Lie algebra homomorphism
+    \[\varphi : \mfg \to \gl(V)\]
+    for some vector space \(V\).
+\end{definition}
+
+\begin{notation}
+    We also call \(V\) itself a \emph{representation}, or a \(\mfg\)-module. We write \(\mfg \actson V\), and say \(\mfg\) acts on \(V\). We will write
+    \[x \vdot v = xv := \varphi(x)(v)\]
+
+    The \emph{dimension}\index{dimension} of the representation is the dimension of \(V\).
+\end{notation}
+
+\begin{example}
+    \begin{enumerate}
+        \item Let \(\dim(V) = 1\), then \(\mfg \actson V\) via \(xv = 0\). This is called the \emph{trivial representation}\index{trivial representation}.
+        \item \(\mfg\) is a subalgebra of \(\gl(V)\), then the natural inclusion \(\mfg \inj \gl(V)\) is called the \emph{defining representation}\index{defining representation}.
+        \item Let \(x \in \mfg\), define \(\ad_x : \mfg \to \mfg\) by \(\ad_x(y) = [xy]\). The map
+        \begin{align*}
+            \ad : \mfg &\to \gl(\mfg) \\
+            x & \mapsto \ad_x
+        \end{align*}
+        is called the \emph{adjoint representation}\index{adjoint representation}.
+        \begin{remark}
+            Recall \(e, h, f\) from \cref{rem:sl2c}, the adjoint representation of \(\sl_2(\C)\) has matrices
+            \[\ad_h = \begin{pmatrix}
+                2 \\
+                & 0 \\
+                & & -2
+            \end{pmatrix} \quad \ad_e = \begin{pmatrix}
+                & -2 \\
+                & & 1 \\
+                &
+            \end{pmatrix} \quad \ad_f = \begin{pmatrix}
+                & \\
+                -1 \\
+                & 2
+            \end{pmatrix}\]
+            with respect to the basis \(\{e,h,f\}\).
+        \end{remark}
+        \item If \(V, W\) are representations of \(\mfg\), then so is their \emph{direct sum}\index{direct sum} \(V \oplus V\), via
+        \[x(v, w) = (xv, xw)\]
+        \item If \(V\) is a representation of \(\mfg\), then so is the \emph{dual}\index{dual representation} \(V^*\),
+        \[(xf)(v) = -f(xv)\]
+        for all \(x \in \mfg, f \in V^*, v \in V\).
+        \item If \(V, W\) are representations of \(\mfg\), then so is the \emph{homomorphisms}\index{hom representation@\(\Hom(V, W)\) representation} \(\Hom(V, W)\), via
+        \[(x\vdot f)(v) = x\vdot f(v) - f(x \vdot v)\]
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    [equivariant, isomorphism]
+    If \(V, W\) are representations of \(\mfg\), then a linear map \(\varphi : V \to W\) is called \emph{\(\mfg\)-equivariant}\index{equivariant} for all \(x \in \mfg, v \in V\),
+    \[x \vdot \varphi(v) = \varphi(x \vdot v)\]
+
+    We say \(V, W\) are \emph{isomorphic}\index{isomorphism!of representations} if there exists a \(\mfg\) equivariant isomorphism (of vector spaces) \(V \to W\).
+\end{definition}
+
+\begin{definition}
+    [subrepresentation, irreducible] A \emph{subrepresentation}\index{subrepresentation} \(W \le V\) is a subspace \(xw \in W\) for all \(x \in \mfg, w \in W\). A non-zero representation \(V\) is \emph{irreducible}\index{irreducible representation} or \emph{simple}\index{simple representation} if the only subrepresentations of \(V\) are \(0\) and \(V\).
+\end{definition}
+
+\underline{Exercise:} The trivial representation is irreducible, and so are the defining and the adjoint representation of \(\sl_2(\C)\).
 
 \printindex
 
