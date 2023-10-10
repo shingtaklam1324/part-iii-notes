@@ -193,11 +193,144 @@ Consider the group \(\GL(n, \R) \sse \R^{n^2}\). In fact, this is an open subset
 
 In particular, \(\GL(n, \R\) is a Lie group. Similarly, \(\GL(n, \C)\) is also a Lie group. More generally, for \(A = (a_{ij}) \in \Mat_n(\C)\), we define the norm \(\norm{A} = n\max_{i, j}\abs{i, j}\). (Note in finite dimensional, all norms are equivalent). In particular,
 \[\norm{AB} \le \norm{A}\norm{B}\]
-We define the \emph{exponential of \(A\)}\index{exponential map of matrices} as
+We define the \emph{exponential of \(A\)}\index{exponential map!of matrices} as
 \[\exp(A) = \sum_k \frac{A^k}{k!}\]
 This series converges for all \(A\), by the same proof as for \(\exp : \C \to \C\) (or more generally, any Banach algebra). Moreover, it converges uniformly on balls
 \[\left\{\norm{A} \le R\right\}\]
 by the Weierstrass \(M\)-test. In particular, \(\exp : \Mat_n(\C) \to \Mat_n(\C)\) is continuous.
+
+\lec
+
+First of all, note that
+\[f(A) = A^n\]
+is a differentiable function, with
+\[\norm{(\dd f)_A} \le n\abs{A}^{n-1}\]
+Therefore, the series which we get by differentiating term by term, converges uniformly on any bounded set, again by the Weierstrass \(M\)-test.
+
+Therefore, \(\exp(A)\) is (at least) \(C^1\) on \(\Mat_n(\C)\). We can similarly consider the higher derivatives, and we find that \(\exp(A)\) is \(C^\infty\).
+
+\begin{remark}
+    Some basic properties of the matrix exponential:
+
+    \begin{enumerate}
+        \item \(\exp(A^\T) = \exp(A)^\T\),
+        \item \(\exp(A^*) = \exp(A^*)\),
+        \item \(\exp(CAC^{-1}) = C\exp(A)C^{-1}\),
+    \end{enumerate}
+
+    In general,
+    \[\exp(A + B) = \exp(A)\exp(B)\]
+    does not hold. However, it does hold if \(AB = BA\). In particular,
+
+    \begin{enumerate}
+        \setcounter{enumi}{3}
+        \item \(\exp(A)\exp(-A) = \exp(-A)\exp(A) = I\)
+    \end{enumerate}
+\end{remark}
+
+We can also define the \emph{matrix logarithm}\index{logarithm map!for matrices} via the series
+\[\log(I + A) = \sum_m(-1)^{m+1}\frac{A^m}{m}\]
+We can show that this converges absolutely and uniformly on \(\{\abs{A} < \epsilon\}\) for any \(0 < \epsilon < 1\). The same result holds for the term by term differentiation, and again we get that \(\log(I + A)\) is \(C^\infty\) on \(\{\abs{A} < 1\}\)
+
+Suppose \(\log(A)\) is defined, that is, \(\abs{A - I} < 1\), then
+\[\exp(\log(A)) = A\]
+since the same proof as in \(\C\) works for any Banach algebra.
+
+On the other hand, if we would like
+\[\log(\exp(A)) = A\]
+we clearly need \(\abs{\exp(A) - I} < 1\). Suppose
+\[A_\theta = \begin{pmatrix}
+    0 & -\theta \\
+    \theta & 0
+\end{pmatrix}\]
+for some \(\theta \in \R\). In particular,
+\[A_\theta^2 = -\theta^2I\]
+and we find that
+\[\exp(A_\theta) = \begin{pmatrix}
+    \cos(\theta) & -\sin(\theta) \\
+    \sin(\theta) & \cos(\theta)
+\end{pmatrix}\]
+Setting \(\theta = 2\pi\), then we find that \(\exp(A_{2\pi}) = I\), but
+\[\log(\exp(A_{2\pi})) = \log(I) = 0 \ne A_{2\pi}\]
+Hence \(\abs{\exp(A) - I} < 1\) is a necessary, but not sufficient. On the other hand, \(\abs{A} < \log(2)\) is sufficient, since in this case,
+\[\abs{e^\abs{A} - 1} < 1\]
+which is required for absolute convergence.
+
+\begin{example}
+    [orthogonal group]
+    Consider
+    \[O(n) = \left\{A \in \GL(n, \R) \mid AA^\T = A^\T A = I\right\}\]
+    We will show that \(O(n)\)\index{orthogonal group, \(O(n)\)} is a Lie group. Let \(A\) be an orthogonal matrix, \(\abs{A - I} < \epsilon < 1\), then \(B = \log(A)\) is defined. Moreover, \(\exp(B) = A\). By continuity, we can take \(\epsilon\) small enough such that \(\abs{B} < \log(2)\). Now
+    \[\exp(B)\exp(B^\T) = AA^\T = \id\]
+    and so
+    \[\exp(B) = A = (A^\T)^{-1} = \exp(B^\T)^{-1} = \exp(-B^\T)\]
+    Taking \(\log\), since \(\abs{B} = \abs{B^\T} < \log(2)\), we see that \(B = -B^\T\).
+
+    Conversely, if \(B\) is skew-symmetric, with \(\abs{B} < \log(2)\), then
+    \[\exp(B)\exp(B^\T) = I\]
+
+    Define
+    \[V_0 = \left\{B \in \Mat_n(\R) \mid  \abs{B} < \log(2), B^\T + B = 0\right\}\]
+    and define
+    \[U = \exp(V_0)\]
+    which is an open neighbourhood of \(I \in O(n)\).
+
+    \begin{proposition}
+        \(O(n)\) has a \(C^\infty\) structure, making it into a manifold and a Lie group, with dimension \(n(n-1)/2\).
+    \end{proposition}
+
+    \begin{proof}
+        We will use the subspace topology induced from \(O(n) \sse \R^{n^2}\). Define
+        \begin{align*}
+            h : U &\to V_0 \\
+            h(A) &= \log(A)
+        \end{align*}
+        This is a homeomorphism onto its image, which is an open neighbourhood of \(0 \in \so(n) \cong \R^{n(n-1)/2}\).
+
+        Given \(C \in O(n)\), define
+        \[U_C = \left\{CA \mid A \in U\right\}\]
+        and
+        \begin{align*}
+            h_C : U_C &\to V_0 \\
+            h_C(A) &= \log(C^{-1}A)
+        \end{align*}
+        Again, this is a homeomorphism onto its image. Since \(C \in U_C\), we have an open cover. Moreover,
+        \[h_{C_2} \circ h_{C_1}^{-1}(B) = h_{C_2}(C_1\exp(B)) = \log(C_2^{-1}C_2\exp(B))\]
+        which is a smooth map between open neighbourhoods of \(\so(n)\). Therefore, \(O(n)\) is a smooth manifold. Similarly, for consider the map
+        \[F(A_1, A_2) = A_1A_2^{-1}\]
+        In local coordinates,
+        \begin{align*}
+            F_{\text{loc}}(B_1, B_2) &= h_{C_1C_2^{-1}}(F(h_{C_1}^{-1}(B_1), h_{C_2}^{-1}(B_2))) \\
+            &= \log((C_1C_2^{-1})^{-1}C_1\exp(B_1)(C_2\exp(B_2))^{-1}) \\
+            &= \log(C_2\exp(B_1)\exp(-B_2)C_2^{-1})
+        \end{align*}
+        and we can see that this is a smooth map as a function of \(B_1, B_2\).
+    \end{proof}
+\end{example}
+
+This method works for more groups, and is sometimes called the Cayley construction (for matrix Lie groups).
+
+\section{Tangent spaces to manifolds}
+
+Consider a local curve in a ball in \(\R^n\), defined by a smooth parametrisation \(x(t) = (x_1(t), \dots, x_n(t))\). Suppose we have that \(x(0) = p \in \R^n\). In this case, its tangent vector at \(p\) is
+\[\dot x(0)\in \R^n\]
+If \(y(x)\) is a smooth change of coordinates near \(p\), then by the chain rule, we have
+\[\dv{t}\bigg\vert_{t=0}y(x(t)) = J(y)_p \dot x(0)\]
+where \(J(y)\) is the Jacobian matrix. More explicitly,
+\[\dot y_i(0) = \sum_j \pdv{y_j}{x_j}(p)\dot x_j(0)\]
+
+\begin{definition}
+    [tangent vector]
+    A \emph{tangent vector}\index{tangent vector} \(a\) to a manifold \(M^n\) at a point \(p \in M\), is an assignment to each coordinate chart \((U, \varphi)\) with \(p \in U\), an \(n\)-tuple of coordinates \((a_1, \dots, a_n) \in \R^n\), such that if \((U', \varphi')\) is another chart near \(p\), \((x_i), (x_i')\) the respective local coordinates,
+    \[a_i' = \sum_j \pdv{x_i'}{x_j}(p)a_j\] 
+\end{definition}
+
+This definition is called the \emph{tensorial definition}, where we focus on the transformation law. There are several other definitions, for example, derivations, equivalence of curves to first order and so on.
+
+\begin{definition}
+    [tangent space]
+    The \emph{tangent space}\index{tangent space} to \(M\) at a point \(p\), denoted \(\T_pM\) is the space of all tangent vectors to \(M\) at \(p\). It is naturally a vector space (of dimension \(n\) over \(R\)).
+\end{definition}
 
 \printindex
 

@@ -15,6 +15,7 @@
 \tableofcontents
 
 % Zoe Wyatt E2.02 zs253 Moodle
+% Office hours 2-3pm
 
 \lec
 
@@ -201,7 +202,9 @@ We call this a \emph{formal power series solution}. Does our solution \(u(t)\) a
 in a neighbourhood of \(0\)?
 
 \begin{theorem}
-    [Cauchy-Kovalevskaya for simple ODEs] \index{Cauchy-Kovalevskaya Theorem!for simple ODEs}If \(f(u)\) is real analytic in a neighbourhood of \(u_0\), then the series
+    [Cauchy-Kovalevskaya for simple ODEs] 
+    \label{thm:c-k-simple-ode}
+    \index{Cauchy-Kovalevskaya Theorem!for simple ODEs}If \(f(u)\) is real analytic in a neighbourhood of \(u_0\), then the series
     \[\sum_{k \ge 0}\frac{u^{(k)}(0)}{k!}t^k\]
     converges in a neighbourhood of \(0\) to the unique solution of \cref{eq:ode} given by Picard-Lindel\"of.
 \end{theorem}
@@ -220,18 +223,21 @@ This is a smooth function, with \(f^{(n)}(0) = 0\) for all \(n\).
 \begin{definition}
     [real analytic]
     Let \(\mcU \sse \R^n\) be open and \(f : \mcU \to \R\) is \emph{real analytic}\index{real analytic} (at \(x_0\)) if there exists \(r > 0\), \(f_\alpha \in \R\) such that
-    \[\sum_{\alpha}f_\alpha(x-x_0)^\alpha\]
-    for all \(\abs{x - x_0} < r\). 
+    \[f(x) = \sum_{\alpha}f_\alpha(x-x_0)^\alpha\]
+    when \(\abs{x - x_0} < r\). 
 \end{definition}
 
 \begin{remark}
     \begin{enumerate}
         \item That is, \(f\) can be written as a convergent power series and
         \[f_\alpha = \frac{D^\alpha f(x_0)}{n!}\]
-        \item If \(f\) is real analytic about \(x_0 \in \mcU\), then \(f\) is real analytic about all of \(\mcU\).
+        \item Real analyticity is a local property.
+        \item \(f\) is real analytic on an open set \(U\) if it is real analytic at each \(x_0 \in U\).
         \item We will denote the set of real analytic functions on \(\mcU\) by \(C^\omega(\mcU)\).
         \item If \(f\) is \(C^\omega\), then \(f\) is smooth (e.g. Weierstrass \(M\)-test).
         \item If \(f\) is real analytic, and \(\mcU\) is connected, then \(f\) is uniquely determined in \(\mcU\) by its derivatives \(D^\alpha f(x)\) at some point \(x \in \mcU\).
+        \item In particular, \(f\) is real analytic if and only if for any compact \(K \sse U\), there exists \(C, r\) such that
+        \[\sup_{x \in K}\abs{D^\alpha f(x)} \le C\abs{\abs{\alpha}!}{r^{\abs{\alpha}}}\]
     \end{enumerate}
 \end{remark}
 
@@ -265,6 +271,7 @@ For vector valued functions, we require each component to be a majorant.
 
 \begin{lemma}
     [properties of majorants]
+    \label{lem:majorant-props}
     \begin{enumerate}
         \item If \(g \gg f\), and \(g\) converges for \(\norm{x} < r\), then \(f\) converges for \(\norm{x} < r\).
         \item If \(f = \sum f_\alpha x^\alpha\) converges for \(\norm{x} < r\), then for any \(s \in (0, r/\sqrt n)\), there exists a majorant of \(f\) which converges for \(\norm{x} < s/\sqrt n\).
@@ -285,6 +292,140 @@ For vector valued functions, we require each component to be a majorant.
     From the above, \(g\) majorises \(f\).
 \end{proof}
 
+\lec
+
+% Meet and greet 2:30 - 3:15 this afternoon.
+\begin{proof}
+    [Proof of \cref{thm:c-k-simple-ode}] We will use the method of majorants. Without loss of generality \(u_0 = 0\), and for simplicity, we can assume \(n = 1\). We need to find the series coefficients. So
+    \[\dot u = f(u)\]
+    and so \(\dot u(0) = f(u(0)) = f(0)\), that is, \(u_1 = f(0)\). Next,
+    \[\ddot u(t) = f'(u(t))\dot u(t)\]
+    and so \(\ddot u(0) = f'(0)f(0)\), that is, \(u_2 = f'(0)f(0) = \frac{1}{2!}f'(0)f(0)\). Repeating,
+    \[u^{(3)}(0) = f''(0)f(0)^2 + f'(0)^2 f(0)\]
+    and so
+    \[u_3 = \frac{1}{3!}(f''(0)f(0)^2 + f'(0)^2 f(0))\]
+    Iterating this procedure,
+    \[u_k = P_k\left(f(0), \dots, f^{(k-1)}(0)\right)\]
+    where \(P_k\) is a polynomial in \(k\)-variables, with nonnegative coefficients. For example,
+    \begin{align*}
+        P_1(x) &= x \\
+        P_2(x,y) &= \frac{1}{2!}xy \\
+        P_3(x,y,z) &= \frac{1}{3!}(x^2z + xy^2)
+    \end{align*} 
+
+    Since \(f\) is real analytic, we have that
+    \[f(v) = \sum_{k \ge 0} f_k v^k\]
+    where \(f_k = \frac{1}{k!}f^{(k)}(0)\). Hence we have that
+    \[f^{(k)}(0) = k!\cdot f_k\]
+    Substituting, we have that
+    \[u_k = Q_k(f_0, \dots, f_{k-1})\]
+    which again is a polynomial in \(k\)-variables and nonnegative coefficients. This polynomial is ``universal''.
+
+    \underline{Aim:} We would like to show that the power series
+    \[\sum_k u_k t^k\]
+    converges in a neighbourhood of \(t = 0\), and solves the ODE, \cref{eq:ode}. Since \(f\) is analytic, we know that
+    \[f(u) = \sum_k f_k u^k\]
+    on \(\abs{u} < k\). Fixing some \(s < r\), there exists a majorant
+    \[g(u) = \sum_k g_k u^k\]
+    of \(f\), from \cref{lem:majorant-props} (ii). Consider the auxilliary differential equation
+    \[\dot w(t) = g(w(t))\]
+    and \(w(0) = 0\). Using the definition of \(g\), we that
+    \[\dv{w}{t} = \frac{Cs}{s - w(t)}\]
+    We get that
+    \[w = s\pm\sqrt{s^2 - 2Cst}\]
+    Due to the initial data, we take the \(-\) solution. That is,
+    \[w = s - \sqrt{s^2 - 2Cst}\]
+    This is real analytic, for \(\abs{t} < s/2C\). This tells us that
+    \[w(t)  = \sum_k w_kt^k\]
+    converges for \(\abs{t} < s/2C\). Moreover,
+    \[w_k = Q_k(g_0, \dots, g_{k-1})\]
+    since \(Q_k\) is ``universal''.
+
+    \begin{claim}
+        \(w\) majorises \(u\).
+    \end{claim}
+
+    By construction, \(g\) majorises \(f\), i.e. \(g_k \ge \abs{f_k}\) for all \(k\). Moreover, since \(Q_k\) has nonnegative coefficients,
+    \[w_k = Q_k(g_0,\dots, g_{k-1}) \ge Q_k(\abs{f_0}, \dots, \abs{f_{k-1}}) \ge \abs{Q_k(f_0, \dots, f_{k-1})} = \abs{u_k}\]
+    Hence by \cref{lem:majorant-props} (i), we know that the series
+    \[\sum_k u_kt^k\]
+    converges for \(\abs{t} < s/2C\).
+
+    To conclude, set
+    \[u(t) := \sum_{k\ge 0}u_kt^k\]
+    and we need to check that it solves \cref{eq:ode}. Both sides are analytic, so suffices to check the derivatives on each side agree to all orders at \(t = 0\).
+\end{proof}
+
+\begin{remark}
+    \begin{enumerate}
+        \item We can extend to systems, where we replace \(u_k\) with
+        \[u_k^j = Q_k^j(D^\abs{\alpha} \mid \abs{\alpha} \le k)\]
+    
+        For \(w\), we can replace \(w^j = w^1\) as before.
+        \item For the non-autonomous case,
+        \begin{align*}
+            u(t) &= f(u, t) \\
+            u(0) &= 0
+        \end{align*}
+        Consider \(v(t) = (u(t), t)\), then \(\dot v(t) = (\dot u(t), 1) = (f(u, 1), 1) = (f(v), 1) = F(v)\)
+        with \(v(0) = 0\), and we can apply the system version.
+    \end{enumerate}
+\end{remark}
+
+For the PDE version, see the handout.
+
+\section{Cauchy-Kovalevskaya for PDEs}
+
+Let \(u : \R^n \to R^m\), and choose \(r > 0\). Consider the following problem
+\[u_t = \sum_{j=1}^n B_j(u, x)u_{x_j} + C(u, x)\]
+on \(\norm{x}^2 + t^2 < r^2\), with
+\[u = 0\]
+on \(\norm{x}^2 + t^2 < r^2\) and \(t = 0\). The \(B_j\) are matrices, \(B_j\) and \(C\) are real analytic.
+
+\begin{theorem}
+    [Cauchy-Kovalevskaya for first order systems]
+    \index{Cauchy-Kovalevskaya Theorem!for first order systems}
+    Suppose \(B_j, C\) are real analytic, for small \(r > 0\). Then there exists a unique real analytic function
+    \[u = \sum_\alpha u_\alpha x^\alpha\]
+    solving the above PDE.
+\end{theorem}
+
+\begin{proof}
+    [Idea] Compute
+    \[u_\alpha = \frac{D^\alpha u}{\alpha!}\]
+    in terms of \(B_j, C\), and show that the power series converges for small \(r\). We use the PDE to find all derivatives.
+\end{proof}
+
+\begin{example}
+    Consider the system
+    \begin{align*}
+        u_t &= v_x - f \\
+        v_t &= -u_x
+    \end{align*}
+    with \(u = v = 0\) on \(t = 0\). The boundary conditions give us that
+    \[u(0, 0) = v(0, 0) = 0\]
+    We would like to determine \(u_\alpha\) for all \(\alpha\). By differentiating the boudary conditions,
+    \[\partial_x^nu(x, 0) = \partial_x^nv(x, 0) = 0\]
+    for all \(n\). That is, for the case \(\alpha = (n, 0)\). From the PDE,
+    \[u_t(x, 0) = 0 - f = -f \qquad v_t(x, 0) = 0\]
+    This then means that
+    \[\partial_x^n \partial_t u(x, 0) = -\partial_x^n f(x, 0)\]
+    and
+    \[\partial_x^n \partial_tv(x, 0) = 0\]
+    for all \(n \ge 1\).
+    
+    Next, if \(\alpha = (n, 2)\) use the PDE and we get
+    \[u_{tt}(x, 0) = f_t(x, 0)\]
+    and
+    \[v_{tt}(x, 0) = f_x(x, 0)\]
+    The same method as above gives us that
+    \begin{align*}
+        \partial_x^n\partial_t^2 u(x, 0) &= -(\partial x)^n \partial_t f(x, 0) \\
+        \partial_x^n\partial_t^2 v(x, 0) &= (\partial_x)^{n+1}f(x, 0)
+    \end{align*}
+
+    Repeating this, we can compute all of the derivatives.
+\end{example}
 
 \section{Sobolev spaces}
 

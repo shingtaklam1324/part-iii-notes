@@ -211,7 +211,7 @@ Recall \(f : M \times N \to L\) is \emph{\(R\)-bilinear} if \(n \mapsto f(m_0, n
         r(m, n) &= (rm, n) \\
         r(m, n) &= (m, rn)
     \end{align*}
-    The \emph{tensor product}\index{tensor product} is
+    The \emph{tensor product}\index{tensor product!of \(R\)-modules} is
     \[M \otimes_R N := \frac{\mcF}{\mcK}\]
     We have an \(R\)-bilinear map
     \begin{align*}
@@ -263,6 +263,175 @@ commutes.
     By the universal property of tensor product, such a map \(\varphi\) exists, with \(\varphi(m \otimes n) = j(m, n)\). Similarly, we have a homomorphism \(\psi : T \to M \otimes_R N\). In particular,
     \[\psi \circ \varphi \circ i_{M \otimes N} = i_{M \otimes N} = \id_{M \otimes N} \circ i_{M \otimes N}\]
     In particular, by uniqueness in the universal property, we must have that \(\psi \circ \varphi = \id_{M \otimes N}\).
+\end{proof}
+
+\lec
+
+\begin{proposition}
+    \label{prop:tensor-sum-eq-zero-iff}
+    Suppose \(M, N\) are \(R\)-modules, then
+    \[\sum_i m_i \otimes n_i = 0 \in M\otimes_R N\]
+    if and only if for all \(R\)-modules \(L\), and every \(R\)-bilinear map \(f : M \times N \to L\) has
+    \[\sum_i f(m_i, n_i) = 0\]
+\end{proposition}
+
+\begin{proof}
+    Suppose \(\sum m_i \otimes n_i = 0\), let \(f : M \times N \to L\) be bilinear. Then \(f\) factors through \(M \times N \to M \otimes_R N\), and we can write
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJNXFx0aW1lcyBOIl0sWzIsMCwiTSBcXG90aW1lcyBOIl0sWzIsMiwiTCJdLFswLDIsImYiLDJdLFswLDEsImkiXSxbMSwyLCJoIl1d
+\[\begin{tikzcd}
+	{M\times N} && {M \otimes N} \\
+	\\
+	&& L
+	\arrow["f"', from=1-1, to=3-3]
+	\arrow["i_{M \otimes N}", from=1-1, to=1-3]
+	\arrow["h", from=1-3, to=3-3]
+\end{tikzcd}\]
+    In this case, we have that
+    \[\sum_i f(m_i, n_i) = \sum_i h(i(m, n)) = \sum_i h(m_i \otimes n_i) = h \left(\sum_i m_i \otimes n_i\right) = h(0) = 0\]
+    Conversly, if
+    \[\sum_i m_i \otimes n_i \ne 0\]
+    then by definition,
+    \[\sum_i i_{m \otimes n}(m_i, n_i) \ne 0\]
+\end{proof}
+
+\begin{example}
+    Let \(k\) be a field, and consider the tensor product
+    \[k^m \otimes k^\ell\]
+    Suppose \(k^m\) has basis \(\{e_1, \dots, e_m\}\), and \(k^\ell\) has basis \(\{f_1, \dots, f_\ell\}\), then
+    \[k^m \otimes k^\ell = \Span_k\{v \otimes w \mid v \in k^m, w \in k^\ell\} = \Span_k\left\{e_i \otimes f_j\right\}\]
+
+    \begin{claim}
+        \(\{e_i \otimes f_j\}\) is a basis.
+    \end{claim}
+
+    \begin{proof}
+        Suppose we have
+        \[\sum_{ij} \alpha_{ij}(e_i \otimes f_j) = 0\]
+        For every \(1 \le a \le m, 1 \le b \le \ell\), define a bilinear map
+        \begin{align*}
+            T_{ab} : k^m \times k^\ell &\to k \\
+            T_{ab}((v_i), (w_j)) = v_aw_b
+        \end{align*}
+        This is a \(k\)-bilinear map. By \cref{prop:tensor-sum-eq-zero-iff},
+        \[0 = \sum_{i,j}\alpha_{ij}T_{ab}(e_i, f_j) = \sum_{i, j}\alpha_{ij}\delta_{ia}\delta_{jb} = \alpha_{ab}\]
+    \end{proof}
+\end{example}
+
+\begin{example}
+    More concretely, let us consider \(\R^2 \otimes \R^2\). We have a basis of size \(4\), given by
+    \[e_1 \otimes f_1, e_1 \otimes f_2, e_2\otimes f_1, e_2 \otimes f_2\]
+    What do pure tensors look like?
+    \begin{align*}
+        (\alpha e_1 + \beta e_2) \otimes (\gamma f_1 + \delta f_2) &= \alpha\gamma (e_1 \otimes f_1) + \alpha\delta (e_1 \otimes f_2) + \beta\gamma (e_2 \otimes f_1) + \beta\delta (e_2 \otimes f_2)
+    \end{align*}
+    These are not generic elements of \(\R^2 \otimes \R^2\), since the vectors
+    \[(\alpha\gamma, \alpha\delta) \qqtext{and} (\beta\gamma, \beta\delta)\]
+    are linearly dependent. In particular,
+    \[e_1 \otimes f_1 + 2e_1 \otimes f_2 + 3e_2 \otimes f_1 + 4e_2 \otimes f_2\]
+    is \emph{not} a pure tensor.
+\end{example}
+
+\begin{example}
+    [warning]
+    First consider
+    \[\Z \otimes_\Z \Z/2\]
+    In this case,
+    \[2 \otimes 1 = 1 \otimes 2 = 1 \otimes 0 = 0\]
+    Now consider
+    \[2\Z \otimes_\Z \Z/2\]
+    But in this case,
+    \[2 \otimes 1 \ne 0\]
+    since we can define a bilinear map
+    \begin{align*}
+        B : 2\Z \times \Z/2 &\to \Z/2 \\
+        B(2m, x) &= mx
+    \end{align*}
+    In this case,
+    \[B(2, 1) = 1 \cdot 1 = 1 \ne 0\]
+
+    However, if \(M' \le M, N' \le N\) are submodules, and
+    \[\sum_i m_i \otimes n_i = 0\]
+    in \(M' \otimes N'\), then
+    \[\sum_i m_i \otimes n_i = 0\]
+    in \(M \otimes N\).
+\end{example}
+
+\begin{proposition}
+    \label{prop:tensor-eq-zero-in-fg-submod}
+    If
+    \[\sum m_i \otimes n_i = 0 \in M \otimes_R N\]
+    then there are finitely generated \(R\)-submodules \(M' \le M, N' \le N\), such that
+    \[\sum m_i \otimes n_i = 0 \in M' \otimes_R N'\]
+\end{proposition}
+
+Intuitively, a proof that the sum is zero is finite, and so it can only involve finitely many expressions. We can take them to be the generators.
+
+\begin{proof}
+    \[\sum m_i \otimes n_i 0 = \in M \otimes N = \frac{R^{\oplus(M \times N)}}{\mcK}\]
+    then
+    \[\sum_i e_{(m_i, n_i)} = 0 \in \mcK\]
+    This means that we can write the left hand side as a finite sum of the generators of \(\mcK\). Taking all the elements of \(M\) and \(N\) which appear, gives the result. 
+\end{proof}
+
+\begin{corollary}
+    Let \(A, B\) be torsion-free abelian groups, then \(A \otimes_\Z B\) is torsion free.
+\end{corollary}
+
+\begin{proof}
+    Suppose
+    \[n \cdot \left(\sum_i a_i \otimes b_i\right) = 0 \in A \otimes B\]
+    for some \(n \ge 1\). By \cref{prop:tensor-eq-zero-in-fg-submod}, there exists finitely generated subgroups \(A' \le A, B' \le B\), such that
+    \[n \cdot \left(\sum_i a_i \otimes b_i\right) = 0 \in A' \otimes B'\]
+    By the structure theorem of finitely generated abelian groups, \(A' \cong \Z^r, B' \cong \Z^s\), and so we have that
+    \[A' \otimes B' \cong \Z^{rs}\]
+    which is torsion free. Contradiction.
+\end{proof}
+
+\begin{example}
+    \[\C^2 \otimes_\C \C^3 \cong \C^6\] 
+    as \(\C\)-vector spaces, and we also have that \(\C^6 \cong \R^12\) as \(\R\)-vector spaces. On the other hand,
+    \[\C^2 \otimes_\R \C^3 \cong \R^4 \otimes_\R \R^6 \cong \R^{24}\]
+\end{example}
+
+\begin{proposition}
+    \label{prop:tensor-properties}
+    \begin{enumerate}
+        \item \(M \otimes N \cong N \otimes N\)
+        \item \((M \otimes N) \otimes P \cong M \otimes (N \otimes P) \cong M \otimes N \otimes P\),
+        where we define \(M \otimes N \otimes P\) using trilinear maps.
+        \item \(\left(\bigoplus_i M_i\right) \otimes P \cong \bigoplus_i(M_i \otimes P)\)
+        \item \(R \otimes_R M \cong M\),
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    See examples sheet 1.
+\end{proof}
+
+\begin{example}
+    Using \cref{prop:tensor-properties}, we can compute
+    \begin{align*}
+        R^m \otimes R^\ell &\cong \left(\oplus_{i=1}^m R\right) \otimes \left(\oplus_{j=1}^\ell R\right) \\
+        &\cong \oplus_{i, j}R \\
+        &\cong R^{m\ell}
+    \end{align*}
+\end{example}
+
+\subsection{Tensor product of \(R\)-linear maps}
+
+\begin{proposition}
+    For \(R\)-linear maps \(f : M \to M', g : N \to N'\), then there exists a unique \(R\)-linear map\index{tensor product!of \(R\)-linear maps}
+    \[f \otimes g : M \otimes N \to M' \otimes N'\]
+    with
+    \[(f \otimes g)(m \otimes n) = f(m) \otimes g(n)\]
+\end{proposition}
+
+\begin{proof}
+    Uniqueness is clear since the pure tensors generate. For existence, we can use the universal property on the \(R\)-bilinear map
+    \begin{align*}
+        T : M \times N &\to M' \otimes N' \\
+        T(m, n) &= f(m) \otimes g(n)
+    \end{align*}
 \end{proof}
 
 \printindex
