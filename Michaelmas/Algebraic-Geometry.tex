@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage{../../Style}
+\usepackage{../../quiver}
 
 \title{Algebraic Geometry}
 \author{Shing Tak Lam}
@@ -175,6 +176,135 @@ Or more generally, \(\Z, \Z[x]\) and so on.
     \[C \cap D = \van(x, y) = \left\{(0, 0)\right\}\]
     If we set \(D_\delta = \van(y - \delta)\), then \(C \cap D_\delta\) is two points, for all \(\delta \ne 0\).
 \end{example}
+
+\lec
+
+\subsection{Spectrum of a ring}
+
+Let \(A\) be a (commutative, unital) ring.
+
+\begin{definition}
+    [Zariski spectrum] The \emph{Zariski spectrum of \(A\)}\index{Zariski spectrum, \(\Spec A\)} is
+    \[\Spec A = \left\{\mfp \idealof A \mid \mfp \text{ is a prime ideal}\right\}\]
+\end{definition}
+
+Given a ring homomorphism \(\varphi : A \to B\), we have a induced map (of sets)
+\begin{align*}
+    \varphi^{-1} : \Spec(B) &\to \Spec A \\
+    \mfq &\mapsto \varphi^{-1}(\mfq)
+\end{align*}
+
+\underline{Warning:} This would fail if we considered maximal ideals instead. That is, the preimage of a maximal ideal need not be maximal.
+
+Given \(f \in A\) and \(\mfp \in \Spec A\), we have an induced
+\begin{align*}
+    \overline f \in A/\mfp
+\end{align*}
+by taking the quotient. Informally, we can evaluate any \(f \in A\) at points \(\mfp \in \Spec(A)\), with the caviat that the codomain of the evaluation map depends on \(\mfp\).
+
+\begin{example}
+    Let \(A = \Z\), then
+    \[\Spec(\Z) = \left\{p \mid p \text{ a prime number}\right\} \cup \{0\}\]
+    Choose an element, say \(132 \in \Z\). Given a prime \(p\), we can look at \(132 \mod p \in \Z/p\).
+
+    \underline{Takeaway:}
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCJcXFNwZWMoXFxaKSJdLFsyLDAsIlxcdGV4dHtzcGFjZX0iXSxbMCwxLCIxMzIgXFxpbiBcXFoiXSxbMiwxLCJcXHRleHR7YSBmdW5jdGlvbn0iXSxbMCwyLCIxMzIgXFxtb2QgcCJdLFsyLDIsIlxcdGV4dHt2YWx1ZSBvZiB0aGUgZnVuY3Rpb24gYXQgfSBwIl0sWzAsMSwiIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoic3F1aWdnbHkifX19XSxbMiwzLCIiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJzcXVpZ2dseSJ9fX1dLFs0LDUsIiIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6InNxdWlnZ2x5In19fV1d
+\[\begin{tikzcd}
+	{\Spec(\Z)} && {\text{space}} \\
+	{132 \in \Z} && {\text{a function}} \\
+	{132 \mod p} && {\text{value of the function at } p}
+	\arrow[squiggly, from=1-1, to=1-3]
+	\arrow[squiggly, from=2-1, to=2-3]
+	\arrow[squiggly, from=3-1, to=3-3]
+\end{tikzcd}\]
+\end{example}
+
+\begin{example}
+    \(A = \R[x]\), then
+    \[\Spec \R[x] = \frac{\C}{\text{complex conjugation}} \cup \{0\}\]
+\end{example}
+
+\underline{Exercise:} Draw \(\Spec \Z[x] \) and \(\Spec k[x]\) for any field \(k\).
+
+\begin{example}
+    [for sanity] If \(A = \C[x]\), then
+    \[\Spec A = \C \cup \{0\}\]
+    Given \(a \in \C\), we have the maximal ideal \(\inner{z-a}\).
+\end{example}
+
+\subsection{Topology}
+
+Fix \(f \in A\), then define
+\[\van(f) = \left\{\mfp \in \Spec(A) \mid f \equiv 0 \pmod \mfp\right\} \sse \Spec(A)\]
+or equivalently, \(f + \mfp = 0 \in A/\mfp\), or \(f \in \mfp\). Similarly, for \(J \idealof A\) an ideal,
+\[\van(J) = \left\{\mfp \in \Spec(A) \mid J \sse \mfp\right\}\]
+
+\begin{proposition}
+    The sets \(\van(J) \sse \Spec A\) ranging over all ideals \(J \idealof A\), form the closed sets of a topology on \(\Spec A\). This topology is called the \emph{Zariski topology}\index{Zariski topology!on \(\Spec A\)}.
+\end{proposition}
+
+\begin{proof}
+    Easy facts that \(\emptyset = \van(1)\) and \(\Spec A = \van(0)\) are closed. Since
+    \[\van\left(\sum_\alpha I_\alpha\right) = \bigcap_\alpha \van(I_\alpha)\]
+    the intersections of closed sets is closed. Finally,
+    \[\van(I_1 \cap I_2) = \van(I_1) \cup \van(I_2)\]
+    \(\supseteq\) is clear, conversely, \(I_1I_2 \sse I_1 \cap I_2 \sse \mfp\), then by primality of \(\mfp\), \(I_1 \sse \mfp\) or \(I_2 \sse \mfp\).
+\end{proof}
+
+\begin{example}
+    Consider \(\Spec\C[x, y]\). A few observations:
+    \begin{itemize}
+        \item \(0 \in \Spec\C[x, y]\) is dense in the Zariski topology. That is,
+        \[\overline{\{\inner{0}\}} = \Spec\C[x, y]\]
+        since every prime ideal contains \(0\).
+        \item Consider the prime ideal \(\inner{y^2 - x^3}\). Consider a maximal ideal
+        \[\mfm_{a, b} = \inner{x-a, y-b}\]
+        When is \(\mfm_{a, b} \in \overline{\{\inner{y^2 - x^3}\}}\)? This holds if and only if \(b^2 = a^3\). See examples sheet 1.
+    \end{itemize}
+    \begin{remark}
+        Points are not closed.
+    \end{remark}
+\end{example}
+
+\subsection{Functions on opens}
+
+Let \(f \in A\). Define the \emph{distinguished open corresponding to \(f\)}\index{distinguished open, \(U_f\)} to be
+\[U_f = \Spec(A) \setminus \van(f)\]
+
+\begin{example}
+    If \(A = \C[x]\), then
+    \[\Spec A = \C \cup \{\inner{0}\}\]
+    Take \(f = x\). Recall that we have a bijection
+    \begin{align*}
+        \Spec(A) &\bij \C \cup \{\inner{0}\} \\
+        (x-a) &\mapsfrom a \in \C \\
+        0 &\mapsfrom 0
+    \end{align*}
+    Then \(\van(x) = \{\mfp \in \Spec A \mid x \in \mfp\} = \{\inner{x}\}\). So
+    \[U_x = \Spec(A) \setminus \{\inner{0}\}\]
+    As a picture, \(\Spec(\C[x])\) is a line (corresponding to \(\C\)) with a ``generic point'' \(\{0\}\).
+
+    More generally, suppose we fix \(a_1, \dots, a_r \in \C\), with
+    \[U = \Spec(A) \setminus \{\inner{x-a_i}\}_{i=1}^r\]
+    then
+    \(U = U_f\)
+    where \(f = \prod_{i=1}^r(x - a_i)\).
+\end{example}
+
+\begin{lemma}
+    The distinguished opens \(U_f\) for all \(f \in A\) form a basis for the Zariski topology on \(\Spec A\).
+\end{lemma}
+
+\begin{proof}
+    Examples sheet 1.
+\end{proof}
+
+A bit of commutative algebra: Given \(f \in A\), the \emph{localisation of \(A\) at \(f\)}\index{localisation!at \(f \in A\)} is
+\[A_f = \frac{A[x]}{\inner{xf - 1}} = A\left[\frac{1}{f}\right]\]
+
+\begin{lemma}
+    The distinguished open \(U_f \sse \Spec(A)\) is naturally homeomorphic to \(\Spec(A_f)\).
+\end{lemma}
 
 \printindex
 

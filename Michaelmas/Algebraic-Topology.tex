@@ -147,6 +147,8 @@ commutes.
 
 \underline{Goal:} To associate to a topological space \(X\) (co)chain complex \(C_*(X)\) and \(C^*(X)\). The definition works for any \(X\), but the theories are better behaved for ``nicer'' \(X\).
 
+\subsection{Singular (co)homology}
+
 We will develop singular (co)homology.
 
 \begin{definition}
@@ -208,6 +210,131 @@ More concretely, for \(n = 2\), we have the oriented edges \(v_0 \to v_1, v_0 \t
     \[(f \circ \sigma) \circ \delta_j = f \circ (\sigma \circ \delta_j)\]
     shows that \(f\) induces a chain map.
 \end{remark}
+
+\lec
+
+\begin{definition}
+    [singular cochain complex]
+    The \emph{singular cochain complex}\index{singular cochain complex} of \(X\) has
+    \[C^i(X) = \Hom_\Z(C_i(X), \Z)\]
+    and the boundary operator
+    \[\partial^*\psi(\sigma) = \psi(\partial \sigma)\]
+    for \(\psi \in C^i(X), \sigma \in C_{i+1}(X)\). That is, it is adjoint to \(\partial : C_i(X) \to C_{i-1}(X)\).
+\end{definition}
+
+Since \(\partial^2 = 0, (\partial^*)^2 = 0\). The \emph{singular cohomology}\index{singular cohomology} is
+\[\HH^*(X) = \bigoplus_{i \ge 0}\HH^i(C^*, \partial^*)\]
+
+If \(f : X \to Y\) continuous, then \(f\) induces a chain map \(f_* : C_*(X) \to C_*(Y)\) via \(f_*(\sigma) = f \circ \sigma\), satisfying \(\partial f_* = f_*\partial\). Similarly, \(f : X \to Y\) defines a \emph{pullback map} \(f^* : C^*(Y) \to C^*(X)\), given by
+\[f^*(\psi)(\tau) = \psi(f_*(\tau))\]
+
+Again, we have that
+\[\partial^* f^*(\psi)(\tau) = f^*\psi(\partial\tau) = \psi(f_*\partial\tau) = \psi(\partial f_*\tau) = (\partial^*\psi)(f_*\tau) = f^*(\partial^*\psi)(\tau)\]
+So \(f^*\) is a cochain map, i.e. \(\partial^*f^* = f^*\partial^*\). Therefore, we have an induced homomorphism on cohomology,
+\[f^* : \HH^*(Y) \to \HH^*(X)\]
+
+\underline{Warning:} by definition,
+\[C^i(X) = \Hom_\Z(C_i(X), \Z)\]
+but it is not true (in general) that
+\[\HH^i(X) = \Hom_\Z(\HH_i(X), \Z)\]
+
+\subsubsection{Basic computations}
+
+\begin{lemma}
+    [homology of a point]
+    Let \(X = \{\bullet\}\). Then
+    \[\HH_n(X) = \begin{cases}
+        \Z & n = 0 \\
+        0 & \text{otherwise}
+    \end{cases}\]
+\end{lemma}
+
+\begin{proof}
+    By definition, \(C_i(X)\) is the free abelian groups on continuous map \(\Delta^i \to \{\bullet\}\). But there is only one such map, namely the constant map (for \(i \ge 0\)). Hence the chain complex looks like
+    % https://q.uiver.app/#q=WzAsMTAsWzQsMCwiMCJdLFszLDAsIkNfMChYKSJdLFsyLDAsIkNfMShYKSJdLFsxLDAsIkNfMihYKSJdLFswLDAsIlxcY2RvdHMiXSxbMywxLCJcXFoiXSxbNCwxLCIwIl0sWzIsMSwiXFxaIl0sWzEsMSwiXFxaIl0sWzAsMSwiXFxjZG90cyJdLFs0LDNdLFszLDJdLFsyLDFdLFsxLDBdLFs5LDhdLFs4LDddLFs3LDVdLFs1LDZdLFswLDYsIiIsMSx7Im9mZnNldCI6LTEsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMCw2LCIiLDEseyJvZmZzZXQiOjEsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+\[\begin{tikzcd}
+	\cdots & {C_2(X)} & {C_1(X)} & {C_0(X)} & 0 \\
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    where each \(C_i(X)\) is \(\Z\). Computing the boundary maps,
+    \[\partial(\sigma_n) = \begin{cases}
+        \sigma_{n-1} & \text{if }n\text{ is even} \\
+        0 &\text{if }n\text{ is odd}
+    \end{cases}\]
+    Hence the chain complex is
+    % https://q.uiver.app/#q=WzAsNixbMiwwLCJcXFoiXSxbMywwLCJcXFoiXSxbNCwwLCJcXFoiXSxbNSwwLCIwIl0sWzEsMCwiXFxaIl0sWzAsMCwiXFxjZG90cyJdLFsyLDMsIjAiXSxbMSwyXSxbMCwxLCIwIl0sWzQsMF0sWzUsNF1d
+\[\begin{tikzcd}
+	\cdots & \Z & \Z & \Z & \Z & 0
+	\arrow["0", from=1-5, to=1-6]
+	\arrow["\id",from=1-4, to=1-5]
+	\arrow["0", from=1-3, to=1-4]
+	\arrow["\id",from=1-2, to=1-3]
+	\arrow[from=1-1, to=1-2]
+\end{tikzcd}\]
+    We can then compute the homology groups explicity.
+\end{proof}
+
+\begin{lemma}
+    If we write
+    \[X = \bigsqcup_{\alpha \in A}X_\alpha\]
+    as a disjoint union of path components, then
+    \[\HH_i(X) = \bigoplus_{\alpha \in A}\HH_i(X_\alpha)\]
+
+    Moreover, if \(X\) is path connected (and nonempty), then \(\HH_0(X) = \Z\).
+\end{lemma}
+
+\begin{proof}
+    Since \(\Delta^i\) is path connected, the image of a continuous map \(\sigma : \Delta^i \to X\) must lie within some \(X_\alpha\). Moreover, so does the image of all of the boundary faces \(\sigma \circ \delta_j\). So in fact
+    \[(C_i(X), \partial) = \left(\bigoplus_{\alpha \in A}C_i(X_\alpha), \partial\right)\]
+    Note that a general element of \(C_i(X)\) is a \underline{finite} linear combination of \(i\)-simplicies in \(X\). So its image can only meet finitely many of the \(X_\alpha\).
+
+    Now suppose \(X\) is path connected. Define a function
+    \begin{align*}
+        \epsilon : C_0(X) &\to \Z \\
+        \sum n_i\sigma_i &\mapsto \sum n_i
+    \end{align*}
+
+    Since \(X\) is nonempty, \(\epsilon\) is surjective. On the other hand, if \(\tau  \in C_1(X)\), then \(\epsilon(\tau(1) - \tau(0)) = 0\). So by linearity, 
+    \[\im(\partial : C_1(X) \to C_0(X)) \sse \ker(\epsilon)\]
+    Recall
+    \[\HH_0(X) = \frac{C_0(X)}{\im(\partial : C_1(X) \to C_0(X))}\]
+    and so \(\epsilon\) descends to a map \(\HH_0(X) \to \Z\). Now we will use the fact that \(X\) is path connected. Suppose
+    \[\sum n_i\sigma_i \in \ker(\epsilon)\]
+    and fix a base point \(p \in X\). Since the \(\sigma_i\) are \(0\)-simplicies, they correspond to points in \(X\). Moreover, since \(X\) is path connected, we can choose paths
+    \[\tau_i : \Delta^1 \to X\]
+    such that \(\tau_i(1) = \sigma_i\) and \(\tau_i(0) = p\). In this case,
+    \[\partial\left(\sum n_i\tau_i\right) = \sum n_i\partial \tau_i = \sum n_i\sigma_i - (\sum n_i) p\]
+    But we assumed \(\sum n_i = 0\), and so \(\ker(\epsilon) \sse \im(\partial : C_1(X) \to C_0(X))\). This then gives the required result, as the induced map
+    \[\HH_0(X) \to \Z\]
+    is then an isomorphism.
+\end{proof}
+
+\underline{Informal conjecture:} We can't compute anything else.
+
+Therefore, we need to develop some more structure about (co)homology.
+
+\underline{What are we doing?} Consider the case of \(X\) being an annulus in \(\R^2\). We have \(1\)-simplices
+
+\begin{center}
+    \includegraphics[scale=0.1]{diagrams/at3_1 (1).jpg}
+\end{center}
+
+
+(\(\sigma_1\) null-homotopic, \(\sigma_2\) winds around the origin)
+
+In this case, \(\partial\sigma_1 = \partial\sigma_2 = 0\), and so they define homology classes.
+
+\begin{center}
+    \includegraphics[scale=0.1]{diagrams/at3_2.jpg}
+\end{center}
+
+Moreover, \([\partial\sigma_1] = 0\), since we have triangles \(\tau_0, \tau_1, \tau_2\) such that
+\[\partial(\tau_0 + \tau_1 + \tau_2) = \sigma_1\]
+
+From this intuition, \([\sigma_2] \ne 0\). But to show even this, we need some structure theorems.
 
 \printindex
 

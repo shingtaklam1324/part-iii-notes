@@ -279,6 +279,199 @@ Let \(k\) be a field. Most of the time, \(k = \C\), but not always. We will some
 
 \underline{Exercise:} The trivial representation is irreducible, and so are the defining and the adjoint representation of \(\sl_2(\C)\).
 
+\lec
+
+\begin{definition}
+    [completely reducible, semisimple]
+    A representation \(V\) is \emph{completely reducible}\index{completely reducible}, or \emph{semisimple}\index{semisimple} if it decomposes as the direct sum of irreducible representations.
+\end{definition}
+
+\underline{Exercise:} A representation \(V\) is completely reducible if and only if for every subrepresentation \(W\) of \(V\), there exists another subrepresentation \(W'\) such that
+\[V = W \oplus W'\]
+
+\begin{example}
+    If \(V\) is a representation, \(W \le V\) a subrepresentation, then the \emph{quotient}\index{quotient representation} \(V/W\) is a representation of \(\mfg\), via
+    \[x(v + W) = (xv) + W\]
+\end{example}
+
+\begin{remark}
+    The isomorphism theorems hold for quotient representations as well.
+\end{remark}
+
+\section{Representation theory of \(\sl_2(\C)\)}
+
+Recall
+\[\sl_2(\C) = \left\{\begin{pmatrix}
+    a & b \\
+    c & -a 
+\end{pmatrix}\ \bigg\vert\ a,b,c \in \C\right\}\]
+
+\begin{example}
+    We have
+    \[\mfb_2 = \left\{\begin{pmatrix}
+        a & b \\
+        0 & c
+    \end{pmatrix}\right\}\]
+    which is the Borel subalgebra of \(2 \times 2\) matrices. Let \(V = \Span\left\{v_! = \begin{pmatrix}
+        1 \\ 0
+    \end{pmatrix}, v_2 = \begin{pmatrix}
+        0 \\ 1
+    \end{pmatrix}\right\}\), and the defining representation of \(\mfb_2\). This is not completely reducible. To see this, set
+    \[V_1 = \Span\{v_1\}\]
+    and this does not have a complement.
+\end{example}
+
+\begin{definition}
+    [faithful]
+    A representation \(V\) of \(\mfg\) is \emph{faithful}\index{faithful} if the map
+    \[\mfg \to \gl(V)\]
+    is injective.
+\end{definition}
+
+From now on, all Lie algebras and their representations will be over \(C\), unless stated otherwise.
+
+Let \(V\) be a representation of \(\sl_2(\C)\). Recall the basis
+\[e = \begin{pmatrix}
+    0 & 1 \\ 0 & 0
+\end{pmatrix} \quad f = \begin{pmatrix}
+    0 & 0 \\ 1 & 0
+\end{pmatrix} \quad h = \begin{pmatrix}
+    1 & 0 \\ 0 & -1
+\end{pmatrix}\]
+of \(\sl_2(\C)\). We know three representations of \(\sl_2(\C)\) already.
+\begin{center}
+    \begin{tabular}{c c c}
+        dimension & name & action of \(h\) \\\hline
+        1 & trivial & \(0\) \\
+        2 & defining & \(\begin{pmatrix}
+            1 & 0 \\ 0 & -1
+        \end{pmatrix}\) \\
+        3 & adjoint & \(\begin{pmatrix}
+            2 \\
+            & 0\\
+            &&-2
+        \end{pmatrix}\)
+    \end{tabular}
+\end{center}
+
+\begin{definition}
+    [weight space]
+    For \(\lambda \in \C\), the \emph{\(\lambda\)-weight space}\index{weight space} of \(V\) is
+    \[V_\lambda = \left\{v \in V \mid hv = \lambda v\right\}\]
+    is the \(\lambda\)-eigenspace of \(h\).
+\end{definition}
+
+The following are \underline{vector space sums}, not decompositions into subrepresentations.
+\begin{itemize}
+    \item For the trivial representation,
+    \[V = V_0\]
+    \item For the defining representation,
+    \[V = V_1 \oplus V_{-1}\]
+    \item For the adjoint representation,
+    \[V = V_2 \oplus V_0 \oplus V_{-2}\]
+    where \(V_2 = \inner{e}, V_0 = \inner{h}, V_{-2} = \inner{f}\).
+\end{itemize}
+
+For \(v \in V_\lambda\),
+\[h(ev) = (he)v = ([he] + eh)v = 2ev + \lambda ev = (\lambda + 2)ev\]
+Hence \(ev \in V_{\lambda + 2}\). Similarly, \(fv \in V_{\lambda -2 }\).
+
+That is, we have
+% https://q.uiver.app/#q=WzAsNSxbMiwwLCJWX1xcbGFtYmRhIl0sWzMsMCwiVl97XFxsYW1iZGEgKyAyfSJdLFs0LDAsIlxcY2RvdHMiXSxbMSwwLCJWX3tcXGxhbWJkYS0yfSJdLFswLDAsIlxcY2RvdHMiXSxbNCwzLCJlIiwwLHsib2Zmc2V0IjotMX1dLFszLDAsImUiLDAseyJvZmZzZXQiOi0xfV0sWzAsMSwiZSIsMCx7Im9mZnNldCI6LTF9XSxbMSwyLCJlIiwwLHsib2Zmc2V0IjotMX1dLFsyLDEsImYiLDAseyJvZmZzZXQiOi0xfV0sWzEsMCwiZiIsMCx7Im9mZnNldCI6LTF9XSxbMCwzLCJmIiwwLHsib2Zmc2V0IjotMX1dLFszLDQsImYiLDAseyJvZmZzZXQiOi0xfV1d
+\[\begin{tikzcd}
+	\cdots & {V_{\lambda-2}} & {V_\lambda} & {V_{\lambda + 2}} & \cdots
+	\arrow["e", shift left, from=1-1, to=1-2]
+	\arrow["e", shift left, from=1-2, to=1-3]
+	\arrow["e", shift left, from=1-3, to=1-4]
+	\arrow["e", shift left, from=1-4, to=1-5]
+	\arrow["f", shift left, from=1-5, to=1-4]
+	\arrow["f", shift left, from=1-4, to=1-3]
+	\arrow["f", shift left, from=1-3, to=1-2]
+	\arrow["f", shift left, from=1-2, to=1-1]
+\end{tikzcd}\]
+
+\begin{definition}
+    [highest weight vector]
+    A non-zero
+    \[v \in V_\lambda \cap \ker(e)\]
+    for some \(\lambda\) is called a \emph{highest weight vector (of weight \(\lambda\))}\index{highest weight vector}
+\end{definition}
+
+\begin{example}
+    In the adjoint representation, \(e\) is a highest weight vector.
+\end{example}
+
+\begin{lemma}
+    \label{lem:e-f-v}
+    Suppose \(v \in V_\lambda\) is a highest weight vector. Then for all \(n \ge 1\),
+    \[ef^nv = n(\lambda - n + 1)f^{n-1}v\]
+\end{lemma}
+\begin{proof}
+    Induction on \(n\). For \(n = 1\),
+    \[(ef)v = ([ef] + fe)v = (h + fe)v = \lambda v = 1(\lambda - 1 + 1)f^0v\]
+    The inductive step follows similarly.
+\end{proof}
+
+\begin{lemma}
+    \label{lem:span-f-subrep}
+    Suppose \(v \in V_\lambda\) is a highest weight vector. Then
+    \[W = \Span\{v, fv, f^2v, \dots\}\]
+    is a sub-representation of \(V\),
+\end{lemma}
+
+\begin{proof}
+    Suffices to show that for \(w = f^n v \in W\), then \(ew, fw, hw \in W\). By definition, \(fw \in W\) is obvious. \(ew \in W\) follows by \cref{lem:e-f-v}, and the \(n = 0\) case is just \(ew = 0\).
+
+    For \(hw\),
+    \[f^nv \in V_{\lambda - 2n}\]
+    and so
+    \[hw = (\lambda - 2n)w \in W\]
+\end{proof}
+
+\begin{proposition}
+    \label{prop:highest-weight-vector-exists}
+    If \(V\) is finite dimensional, then a highest weight vector exists.
+\end{proposition}
+
+\begin{proof}
+    Choose any nonzero eigenvector \(v\) of \(h\) (always exists as we are working over \(\C\)). Consider
+    \[v, ev, e^2v, \dots\]
+    These are eigenvectors for \(h\), with distinct eigenvalues. Hence the set
+    \[\{e^nv \mid e^n v \ne 0\}\]
+    is linearly independent. As \(V\) is finite dimensional, this set must be finite. Hence there must exists \(n\) such that
+    \[e^n v \ne 0 \qqtext{and}e^{n+1}v= 0\]
+    Then \(e^nv\) is a highest weight vector.
+\end{proof}
+
+\begin{lemma}
+    \label{lem:highest-weight-integer}
+    Suppose \(V\) is finite dimensional, and \(v \in V_\lambda\) is a highest weight vector, then \(\lambda \in \Z_{\ge 0}\).
+\end{lemma}
+
+\begin{proof}
+    Any non-zero vectors of the form \(f^n v\) must be linearly independent, so there exists \(n \ge 0\) such that \(f^n v \ne 0, f^{n+1}v = 0\). By \cref{lem:e-f-v},
+    \[0 = ef^{n+1}v = (n+1)(\lambda - n)f^n v\]
+    Hence we must have that \(\lambda = n\), since \(n + 1\ne 0, f^n v \ne 0\).
+\end{proof}
+
+\underline{Conclusion:} Suppose \(V\) is irreducible, of dimension \(n+1\). Then by \cref{prop:highest-weight-vector-exists}, a highest weight vector \(v \in V_\lambda\) exists. By \cref{lem:span-f-subrep}, we have a subrepresentation
+\[W = \Span\{v, fv, \dots\}\]
+So by irreducibility,
+\[\{v, fv, \dots, f^nv\}\]
+is a basis, as the \(f^iv\) are linearly independent, and we know from \cref{lem:highest-weight-integer} that \(\lambda = n\).
+
+\begin{corollary}
+    If \(V\) is an irreducible representation of \(\sl_2\), of dimension \(n+1\), then there exists a basis \(v_0, \dots, v_n\) of \(V\), such that the actions are:
+    \[h v_i = (n-2i)v_i \qquad fv_i = \begin{cases}
+        v_{i+1} & i+1 \le n \\
+        0 & i = n
+    \end{cases} \qquad e v_i = \begin{cases}
+        i(n-i+1)v_{i-1} & i -1 \ge 0 \\
+        0 & i = 0
+    \end{cases}\]
+    In particular, there is a unique irreducible representation of \(\sl_2\) with dimension \(n+1\) for all \(n \ge 0\).
+\end{corollary}
+
 \printindex
 
 \end{document}
