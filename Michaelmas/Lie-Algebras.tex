@@ -461,6 +461,7 @@ So by irreducibility,
 is a basis, as the \(f^iv\) are linearly independent, and we know from \cref{lem:highest-weight-integer} that \(\lambda = n\).
 
 \begin{corollary}
+    \label{cor:sl2-irrep-actions}
     If \(V\) is an irreducible representation of \(\sl_2\), of dimension \(n+1\), then there exists a basis \(v_0, \dots, v_n\) of \(V\), such that the actions are:
     \[h v_i = (n-2i)v_i \qquad fv_i = \begin{cases}
         v_{i+1} & i+1 \le n \\
@@ -471,6 +472,144 @@ is a basis, as the \(f^iv\) are linearly independent, and we know from \cref{lem
     \end{cases}\]
     In particular, there is a unique irreducible representation of \(\sl_2\) with dimension \(n+1\) for all \(n \ge 0\).
 \end{corollary}
+
+\lec
+
+\begin{remark}
+    Let \(V\) be the \(n+1\) dimensional irreducible representation of \(\sl_2\), and let \(v \in V\) be a highest weight vector. Note
+    \[\left(ef + fe + \frac{1}{2}h^2\right)(v) = \left(n + \frac{n^2}{2}\right)v\]
+\end{remark}
+
+\section{Irreducible modules for \(\sl_2\)}
+
+\begin{notation}
+    We will write \(V(n)\) for the \(n+1\) dimensional irreducible representation of \(\sl_2\).
+\end{notation}
+
+\begin{definition}
+    [weights]
+    Given a representation \(V\) for \(\sl_2\),
+    \[\{\lambda \in \C \mid V_\lambda \ne 0\}\]
+    are the \emph{weights}\index{weights} of \(V\).
+\end{definition}
+
+We will show \emph{Weyl's theorem}.
+
+\begin{theorem}
+    \label{thm:weyl}
+    \index{Weyl's theorem}
+    Every finite dimensional representation of \(\sl_2\) is completely reducible.
+\end{theorem}
+
+This result, along with \cref{cor:sl2-irrep-actions}, implies that the action of \(h\) completely determines a finite dimensional representation of \(\sl_2\).
+
+\begin{example}
+    Suppose \(V\) is a 5-dimensional representation of \(\sl_2\), and there exists \(v \in V\) of weight \(3\). This means that by counting dimensions, the possible weights are \(\{3, 1, -1, -3\}\), and \(\{0\}\). Thus,
+    \[V \cong V(3) \oplus V(0)\]
+\end{example}
+
+We will need a few facts. Let \(\mfg\) be a Lie algebra, \(\varphi : \mfg \to \gl(V)\) be a representation of \(\mfg\), and suppose there exists \(\sigma\) commuting with \(\varphi(x)\) for all \(x \in \mfg\). Then:
+
+\underline{Fact 1:}
+\[\ker(\sigma - \lambda \id_V)\]
+is a subrepresentaion of \(V\), for all \(\lambda \in \C\).
+
+\underline{Fact 2:}
+If \(V\) is irreducible, then \(\sigma\) is a scalar multiple of \(\id_V\). That is, Schur's Lemma.
+
+\begin{definition}
+    [Casimir element]
+    Let \(V\) be a finite dimensional representation of \(\sl_2\). Then
+    \[\Omega = ef + fe + \frac{1}{2}h^2 \in \gl(V)\]
+    is called the \emph{Casimir element (of \(\sl_2\))}\index{Casimir element}.
+\end{definition}
+
+In fact, \(\Omega\) is \emph{central}.
+
+\begin{lemma}
+    \label{lem:sl2-casimir-central}
+    If \(\varphi : \sl_2 \to \gl(V)\) is a representation, then \(\Omega\) commutes with \(\varphi(x)\) for all \(x \in \sl_2\).
+\end{lemma}
+
+\begin{proof}
+    To show \(\Omega\) is central, suffices to show \(\Omega e = e\Omega, \Omega f = f\Omega, \Omega h = h\Omega\). Just compute.
+\end{proof}
+
+\begin{corollary}
+    If \(V\) is an irreducible finite dimensional representation of \(\sl_2\), then \(\Omega \actson V\) by a scalar.
+\end{corollary}
+
+\begin{proof}
+    By Schur's lemma and \cref{lem:sl2-casimir-central}. Moreover, the scalar is
+    \[\frac{n^2}{2} + n\]
+\end{proof}
+
+\begin{proof}
+    [Proof of \cref{thm:weyl}] Let \(\varphi : \sl_2 \to \gl(V)\) be a finite dimensional representation of \(\sl_2\). Let \(W \le V\) be a subrepresentaion. We need to find a subrepresentaion \(U \le V\), such that
+    \[V \cong W \oplus U\]
+
+    \textbf{Case 1: \(W\) has codimension \(1\)}. So \(V/W \cong V(0)\).
+
+    \textbf{Subcase (i): \(W\) is trivial.} In this case, \(\dim(V) = 2\), and so we have a basis \(v_1, v_2\) of \(V\), with respect to which \(\sl_2\) acts on \(V\), by matrices
+    \[\begin{pmatrix}
+        0 & * \\
+        0 & 0
+    \end{pmatrix}\]
+    We will show \(V\) is isomorphic to \(\underbrace{V(0)}_{=W} \oplus \underbrace{V(0)}_{=U}\).
+    Note that
+    \[\left[\begin{pmatrix}
+        0 & x \\
+        0 & 0
+    \end{pmatrix}, \begin{pmatrix}
+        0 & y \\
+        0 & 0
+    \end{pmatrix}\right] = 0\]
+    for all \(x, y\). Since \(\varphi\) is a representation, it respects the Lie bracket. We must have that
+    \[\varphi(h) = [\varphi(e),\varphi(f)] = 0\]
+    and so
+    \[\varphi(e) = \frac{1}{2}[\varphi(h), \varphi(e)] = 0\]
+    and \(\varphi(f) = 0\) similarly. Thus, the action of \(\sl_2\) is trivial.
+
+    \textbf{Subcase (ii): \(W = V(n)\) is irreducible, \(n > 0\).} Now we have \(\Omega \in \gl(V)\), and we will show
+    \[V = V(n) \oplus \ker(\Omega)\]
+    By Schur's lemma, and the fact that \(W\) is irreducible, and that \(\Omega\) acts on \(V/W\) trivially, there is a basis for \(V\), such that
+    \[\Omega = \begin{pmatrix}
+        \lambda I & * \\
+        0 & 0 
+    \end{pmatrix}\]
+    \(W\) is non-trivial by assumption, and so \(\ker(\Omega) \ne 0\), and \(W \cap \ker(\Omega) = 0\). Hence
+    \[V = W \oplus \Omega\]
+
+    \textbf{Subcase (iii): For a general \(W\).} We do this by induction on \(\dim(V)\). If \(\dim(V) = 1\), the result is clearly true. So we can assume \(\dim(V) \ge 2\). Let \(W' \le W\) be a non-zero subrepresentation. As \(\dim(W/W') < \dim(V)\), and \(\codim_{V/W'}(W/W') = 1\), by induction, this implies that we have a splitting
+    \begin{equation}
+        \label{eq:weyl-decomp-1}
+        \frac{V}{W'} = \frac{W}{W'} \oplus \frac{W''}{W'}
+    \end{equation}
+    for some subspace \(W'' \le V\), with \(W' \sse W''\), and \(W''/W'\) is a subrepresentation of \(V/W'\). Moreover, \(W''/W'\) is codimension \(1\), and \(\dim(W') \le \dim(V)\). \(W''\) being a subrepresentation of \(V\) follows from the fact that \(W''/W'\) is a subrepresentation. By induction again, there exists a subrepresentation \(U \le W''\) such that
+    \[W'' = W' \oplus U\]
+    We know that
+    \[V = W \oplus U\]
+    as \(W \cap U = 0\) since \cref{eq:weyl-decomp-1} is a direct sum, and so \(W \cap U \le W' \cap U = 0\). Using \(\dim(U) = 1\), and counting dimensions we are done.
+
+    \textbf{Case 2: Let \(W\) be arbitrary.} Recall the action on \(\Hom(V, W)\), is given by
+    \[(x\varphi)(v) = x\varphi(v) - \varphi(xv)\]
+    Define
+    \[\van = \left\{\psi \in \Hom(V, W) \mid \psi\vert_W = \lambda\id_W \text{ for some }\lambda\right\}\]
+    and we have a subspace
+    \[\bb W = \left\{\psi \in \van \mid \psi\vert_W = 0\right\} \le \van\]
+    Since we lose one degree of freedom going from \(\bb V\) to \(\bb W\), and so \(\codim_{\bb V}(\bb W) = 1\). Suppose \(\psi\vert_W = \lambda \id_W\), \(x \in \sl_2, w\in W\), then
+    \[(x\psi)(w) = x\psi(w) - \psi(xw) = x(\lambda w) - \lambda(xw) = 0\]
+    So \(\bb V\) is a subrepresentation of \(\Hom(V, W)\), and so \(\bb W\) is a subrepresentation as well. By case 1, there exists a one-dimensional subrepresentation \(\bb U \le \bb V\), such that
+    \[\bb V = \bb U \oplus \bb W\]
+    Write \(\bb U = \inner{\gamma}\), for some \(\gamma \in \bb V\), and so \(\gamma\vert_W = \lambda \id_W\), for some non-zero \(\lambda\).
+
+    \begin{claim}
+        We have a vector space decomposition:
+        \[V = W \oplus \ker(\gamma)\]88
+    \end{claim}
+\end{proof}
+
+In Humphreys' book \S6.3, Humphreys proves \cref{thm:weyl} for a general semisimple Lie algebra. Or see Henderson \S5.2.1, \S7.5.1.
 
 \printindex
 

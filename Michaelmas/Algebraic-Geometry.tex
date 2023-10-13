@@ -303,8 +303,123 @@ A bit of commutative algebra: Given \(f \in A\), the \emph{localisation of \(A\)
 \[A_f = \frac{A[x]}{\inner{xf - 1}} = A\left[\frac{1}{f}\right]\]
 
 \begin{lemma}
-    The distinguished open \(U_f \sse \Spec(A)\) is naturally homeomorphic to \(\Spec(A_f)\).
+    The distinguished open \(U_f \sse \Spec(A)\) is naturally homeomorphic to \(\Spec(A_f)\), via the ring homomorphism
+    \begin{align*}
+        j : A &\to A_f
+    \end{align*}
+    which induces
+    \[j^{-1} : \Spec(A_f) \to \Spec A\]
 \end{lemma}
+
+\lec
+
+\begin{proof}
+    Primes in \(A_f\) are in bijection with primes of \(A\), which miss \(f\), via \(j^{-1}\). To see this, the preimage of a prime ideal is prime, and so if \(\mfq \idealof A_f\) is prime, then \(j^{-1}(\mfa) \idealof A\) is prime. For the converse, given \(\mfp \idealof A\), define
+    \[\mfp_f = j(\mfp)A_f = \inner{j(\mfp)}\]
+    
+    \begin{claim}
+        \(\mfp_f\) is a prime exactly when \(f \notin \mfp\). 
+    \end{claim}
+    \begin{proof}
+        [Proof of claim]
+        To see this, \(f\) is a unit in \(A_f\), and so if \(f \in \mfp\), then \(\mfp_f\) contains a unit, and so \(\mfp_f = 1\).
+    
+        But if \(f \notin \mfp\), then
+        \[\frac{A_f}{\mfp_f} \cong \left(\frac{A}{\mfp}\right)_{\overline f}\]
+        where \(\overline f = f + \mfp\). So
+        \[(A/\mfp)_{\overline f} \sse \Frac(A/\mfp)\]
+        and so it is an integral domain.
+    \end{proof}
+
+    Finally, we can check that this defines a bijection, but this is just basic properties of ideals.
+\end{proof}
+
+\subsubsection*{Facts about distinguised opens}
+
+\begin{itemize}
+    \item \(U_f \cap U_g = U_{fg}\).
+    \item \(U_{f^n} = U_f\) for all \(n \ge 1\).
+    \item The rings \(A_f\) and \(A_{f^n}\) (for \(n \ge 1\)) are isomorphic. To see this,
+    \[A_f = \frac{A[x]}{\inner{xf - 1}} \qqtext{and} A_{f^n} = \frac{A[y]}{\inner{yf^n - 1}}\]
+    The isomorphism is given by
+    \[y \mapsto x^n \qqtext{and} x \mapsto f^{n-1}y\]
+    which define inverse maps.
+    \item \underline{Containment:} \(U_f \sse U_g\) if and only if \(f^n\) is a multiple of \(g\) for some \(n \ge 1\). (Recall if \(f = gf'\), then certainly \(U_f \sse U_g\))
+    \begin{proof}
+        The ``if'' direction is clear. Conversely, if \(U_f \sse U_g\). That is,
+        \[\van(f) \supseteq \van(g)\]
+        The set \(\van(f)\), by definition, is the set of all primes, containing \(f\).
+
+        \begin{claim}
+            \(\sqrt{\inner{f}} \sse \sqrt{\inner{g}}\).
+        \end{claim}
+
+        To see this, the radical of an ideal \(I\) is the intersection of all primes containing \(I\), which we will see in Commutative Algebra.
+    \end{proof}
+\end{itemize}
+
+\subsubsection*{Foreshadowing}
+
+Fix \(A\), we've made an assignment
+\begin{align*}
+    \text{distinguised opens in }\Spec A &\to \text{rings} \\
+    U_f &\mapsto A_f
+\end{align*}
+The association is functorial, that is, if \(U_{f_1} \sse U_{f_2}\), then we can assume \(f_1^n = f_2f_3\), so \(U_{f_1} = U_{f_1^n} = U_{f_2f_3} \sse U_{f_2}\), and so there is a homomorphism
+\[A_{f_2} \to A_{f_1}\]
+which is the restriction map.
+
+Can we extend this association to all open sets? See notes.
+
+\section{Sheaves}
+
+\subsection{Presheaves}
+
+Let \(X\) be a topological space.
+
+\begin{definition}
+    [presheaf] A \emph{presheaf!of abelian groups}\index{presheaf of abelian groups} is an association
+    \begin{align*}
+        \left\{\text{Open set in }X\right\} &\bij \text{Abelian Groups} \\
+        U \mapsto \mcF(U)
+    \end{align*}
+    and for \(U \sse V\) opens, we have a homomorphism
+    \[\res_U^V : \mcF(V) \to \mcF(U)\]
+    such that
+    \begin{enumerate}
+        \item \(\res_U^U = \id\),
+        \item \(\res^V_U\res^W_V = \res^W_U\) for \(U \sse V \sse W\).
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    For any space \(X\), take
+    \[\mcF(U) = \left\{f : U \to \R \mid f\text{ continuous}\right\}\]
+    with \(\res^V_U(f) = f\vert_U\).
+\end{example}
+
+We can make an analogous definition for sheaves of rings, sets, \(R\)-modules, and so on.
+
+\begin{definition}
+    [morphism of presheaves] A \emph{morphism \(\varphi : \mcF \to \mcG\) of presheaves}\index{morphism!of presheaves} on \(X\) is, for each \(U \sse X\) open, a homomorphism
+    \[\varphi(U) : \mcF(U) \to \mcG(U)\]
+    compatible with restrictions, that is, the diagram
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1jRihWKSJdLFswLDIsIlxcbWNGKFUpIl0sWzIsMCwiXFxtY0coVikiXSxbMiwyLCJcXG1jRyhVKSJdLFswLDEsIlxccmVzXlZfVSIsMl0sWzIsMywiXFxyZXNeVl9VIl0sWzAsMiwiXFx2YXJwaGkoVikiXSxbMSwzLCJcXHZhcnBoaShVKSIsMl1d
+\[\begin{tikzcd}
+	{\mcF(V)} && {\mcG(V)} \\
+	\\
+	{\mcF(U)} && {\mcG(U)}
+	\arrow["{\res^V_U}"', from=1-1, to=3-1]
+	\arrow["{\res^V_U}", from=1-3, to=3-3]
+	\arrow["{\varphi(V)}", from=1-1, to=1-3]
+	\arrow["{\varphi(U)}"', from=3-1, to=3-3]
+\end{tikzcd}\]
+commutes, for all \(U \sse V\).
+\end{definition}
+
+In terms of category theory, the opens in \(X\) form a category, with morphisms given by inclusions. In this case, a presheaf is a contravariant functor \(\text{Opens}(X) \to \text{Ab}\), and a morphism is a natural transformation.
+
+A morphism \(\varphi : \mcF \to \mcG\) is \emph{injective}\index{injective!morphism of sheaves} (resp. \emph{surjective}\index{surjective!morphism of sheaves}) if \(\varphi(U) : \mcF(U) \to \mcG(U)\) is injective (resp. surjective) for all \(U \sse X\).
 
 \printindex
 

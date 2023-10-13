@@ -145,6 +145,10 @@ is the same as a collection of module homomorphism \(\varphi_i : M_i \to L\). Th
     An \emph{\(R\)-algebra}\index{algebra} \(A\) is a ring \(A\) with a fixed ring homomorphism \(\rho : R \to A\). We will write \(r \cdot a := \rho(r)a\).
 \end{definition}
 
+\begin{definition}
+    [noetherian algebra] An \(R\)-algebra is \emph{Noetherian}\index{Noetherian!algebra} if it is Noetherian as a ring.
+\end{definition}
+
 \begin{remark}
     Every \(R\)-algebra is an \(R\)-module.
 \end{remark}
@@ -433,6 +437,125 @@ Intuitively, a proof that the sum is zero is finite, and so it can only involve 
         T(m, n) &= f(m) \otimes g(n)
     \end{align*}
 \end{proof}
+
+\lec
+
+\underline{Exercise:} \((f \otimes g) \circ (h \otimes i) = (f \circ h) \otimes (h \circ i)\).
+
+\begin{example}
+    Let \(T : k^a \to k^c\) and \(S : k^b \to k^d\) be linear. Then
+    \[(T \otimes S)(e_i \otimes e_j) = T(e_i) \otimes S(e_j) = \sum_{\ell, t}[T]_{\ell i}[S]_{tj}(f_\ell \otimes f_t)\]
+    where \([T]\) is the matrix representation of \(T\). If we order the basis of \(k^a \otimes k^b\) by
+    \[e_1 \otimes e_1, \dots, e_1 \otimes e_c, e_2\otimes e_1, \dots, e_2\otimes e_c, \dots, e_a \otimes e_c\]
+    and a similar ordering for the range, then
+    \[[T \otimes S] = \begin{pmatrix}
+        [T]_{11}S & \cdots & [T]_{1a}S \\
+        \vdots &\ddots&\vdots \\
+        [T]_{c1}S & \cdots & [T]_{ca}S
+    \end{pmatrix}\]
+    is the \emph{Kronecker product}\index{Kronecker product} of \([T]\) and \([S]\).
+\end{example}
+
+\begin{proposition}
+    Let \(f : M \to M', g : N \to N'\) be \(\R\)-linear.
+    \begin{enumerate}[(i)]
+        \item If \(f, g\) are isomorphisms, then so is \(f \otimes g\),
+        \item if \(f\) and \(g\) are surjective, so is \(f \otimes g\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    For (i), \((f^{-1} \otimes g^{-1}) = (f \otimes g)^{-1}\), since we have that \((f \otimes g) \circ (h \otimes i) = (f \circ h) \otimes (h \circ i)\).
+
+    For (ii), notice that \(\im(f \otimes g)\) contains all pure tensors in \(M' \otimes N'\).
+\end{proof}
+
+\begin{example}
+    If \(f: \Z \to \Z\), \(f(n) = pn\), then we have
+    \[(f \otimes \id) : \Z \otimes \Z/p \to \Z \otimes \Z/p\]
+    is the zero map, as
+    \[(f \otimes \id)(a \otimes b) = (pa) \otimes b = a \otimes (pb) = a \otimes 0 = 0\]
+    But \(\Z \otimes \Z/p \cong \Z/p\) which is nonzero.
+\end{example}
+
+\subsection{Tensor product of algebras}
+
+Let \(B, C\) be \(R\)-algebras. Then we have \(B \otimes_R C\) as an \(R\)-module. We would like to define the multiplication by
+\[(b \otimes c)(b' \otimes c') = (bb') \otimes (cc')\]
+This is well-defined. Fix \((b, c) \in B \times \C\), then we have a bilinear map
+\begin{align*}
+    B \times C &\to B\otimes C \\
+    (b', c') &\mapsto (bb') \otimes (cc')
+\end{align*}
+which gives us a map \(B \otimes C \to B'\otimes C'\), with
+\[b' \otimes c' \mapsto (bb') \otimes (cc')\]
+It is easy to show that this then satisfies the ring axioms. Hence \(B \otimes C\) is a ring. The \(R\)-algebra structure\index{tensor product!of algebras} will be given by
+\begin{align*}
+    R &\to B \otimes C \\
+    r &\mapsto (r1_B) \otimes 1_C = r(1_B \otimes 1_C) = 1_B \otimes (r1_C)
+\end{align*}
+
+\begin{example}
+    There is an isomorphism
+    \[\varphi : R[x_1, \dots, x_n] \otimes_R R[t_1, \dots, t_r] \cong R[x_1, \dots, x_n, t_1, \dots, t_r]\]
+
+    \begin{proof}
+        We have an \(R\)-basis for the left hand side, which is
+        \[x^k \otimes t^\ell\]
+        and we also have a \(R\)-basis for the right hand side,
+        \[x^kt^\ell\]
+        Define
+        \[\varphi(x^k \otimes t^\ell) = x^kt^\ell\]
+        which gives us a \(R\)-module isomorphism. Moreover,
+        \[\varphi(r \otimes 1) = r1 = 1\]
+        and by distributivity, suffices to show
+        \[\varphi((x^k \otimes t^\ell)(x^m \otimes t^n)) = x^kt^\ell x^mt^n\]
+        which is clear by definition.
+    \end{proof}
+
+    More generally,
+    \begin{align*}
+        \frac{R[x_1, \dots, x_n]}{I} \otimes \frac{R[t_1, \dots, t_r]}{J} \cong \frac{R[x_1, \dots, x_n, t_1, \dots, t_r]}{L} \cong \frac{R[x_1, \dots, x_n, t_1, \dots, t_r]}{I^e + J^e}
+    \end{align*}
+    where \(I^e = \inner{I} \idealof R[x_1, \dots, x_n, t_1, \dots, t_r]\) denotes the extension of \(I\).
+\end{example}
+
+\begin{example}
+    \(\frac{\C[x,y,z]}{\inner{f, g}} \otimes \frac{\C[w,u]}{h}\) is isomorphic as \(\C\)-algebras to
+    \[\frac{\C[x,y,z,w,u]}{\inner{f,g,h}}\]
+\end{example}
+
+\begin{proposition}
+    [universal property of tensor product of algebras]\index{universal property of!tensor product of algebras} Let \(A, B\) be \(R\)-algebras, for every \(R\)-algebra \(C\), and \(R\)-algebra homomorphisms \(f_1 : A \to C\) and \(f_2 : B \to C\), there exists a unique \(R\)-algebra map
+    \[h : A \otimes B \to C\]
+    such that
+    % https://q.uiver.app/#q=WzAsNCxbMSwwLCJBIFxcb3RpbWVzIEIiXSxbMCwwLCJBIl0sWzIsMCwiQiJdLFsxLDEsIkMiXSxbMSwwLCJpX0EiXSxbMiwwLCJpX0IiLDJdLFsxLDMsImZfMSIsMl0sWzIsMywiZl8yIl0sWzAsMywiaCIsMV1d
+\[\begin{tikzcd}
+	A & {A \otimes B} & B \\
+	& C
+	\arrow["{i_A}", from=1-1, to=1-2]
+	\arrow["{i_B}"', from=1-3, to=1-2]
+	\arrow["{f_1}"', from=1-1, to=2-2]
+	\arrow["{f_2}", from=1-3, to=2-2]
+	\arrow["h"{description}, from=1-2, to=2-2]
+\end{tikzcd}\]
+commutes, where \(i_A(a) = a \otimes 1\), \(i_B(b) = 1 \otimes b\). Moreover, this characterises \((A \otimes B, i_A, i_B)\) uniquely (up to isomorphism).
+\end{proposition}
+
+\begin{proof}
+    \(A \otimes B\) is generated, as an \(R\)-algebra, by
+    \[\{a \otimes 1 \mid a \in A\} \cup \{1 \otimes b \mid b \in B\}\]
+    This then implies the uniqueness of \(h\), as it defines \(h\) on the generators. For the existence, define the bilinear map \(A \times B \to C\), given by
+    \[f(a, b) = f_1(a) f_2(b)\]
+    Using the universal property of tensor product of modules, there exists \(h : A \otimes B \to C\) which is \(R\)-linear, with
+    \[h(a \otimes b) = f_1(a)f_2(b)\]
+    It is then easy to show that \(h\) is an algebra homomorphism.
+\end{proof}
+
+Consider \(R[x_1, \dots, x_n, t_1, \dots, t_r]\) from above. We have natural embeddings
+from \(R[x_1, \dots, x_n]\) and \(R[t_1, \dots, t_n]\). Given \(f_1, f_2\) as above, we see that the image of the \(x_i\) is determined by \(f_1\), and the image of \(t_i\) is determined by \(f_2\). Therefore, 
+\[R[x_1, \dots, x_n, t_1, \dots, t_r] \cong \R[x_1, \dots, x_n] \otimes R[t_1, \dots, t_r]\]
+as it satisfies the universal property.
 
 \printindex
 

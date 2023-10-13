@@ -294,6 +294,8 @@ For vector valued functions, we require each component to be a majorant.
 
 \lec
 
+\subsection{Proof of Cauchy-Kovalevskaya for ODEs}
+
 % Meet and greet 2:30 - 3:15 this afternoon.
 \begin{proof}
     [Proof of \cref{thm:c-k-simple-ode}] We will use the method of majorants. Without loss of generality \(u_0 = 0\), and for simplicity, we can assume \(n = 1\). We need to find the series coefficients. So
@@ -374,7 +376,7 @@ For vector valued functions, we require each component to be a majorant.
 
 For the PDE version, see the handout.
 
-\section{Cauchy-Kovalevskaya for PDEs}
+\subsection{Cauchy-Kovalevskaya for PDEs}
 
 Let \(u : \R^n \to R^m\), and choose \(r > 0\). Consider the following problem
 \[u_t = \sum_{j=1}^n B_j(u, x)u_{x_j} + C(u, x)\]
@@ -426,6 +428,135 @@ on \(\norm{x}^2 + t^2 < r^2\) and \(t = 0\). The \(B_j\) are matrices, \(B_j\) a
 
     Repeating this, we can compute all of the derivatives.
 \end{example}
+
+\lec
+
+\subsection{Reduction to first order systems}
+
+\begin{example}
+    Consider \(u : \R^3 \to \R\) satisfying
+    \[u_{tt} = u u_{xy} - u_{xx} + u_t\]
+    with conditions
+    \[u\vert_{t=0} = u_0(x, y) \qqtext{and} u_t\vert_{t=0}u_1(x, y)\]
+
+    where \(u_0, u_1\) are real analytic near \(0 \in \R^3\). Note
+    \[f(t, x, y) = u_0 + tu_1\]
+    is real analytic near \(0 \in \R^3\). Note
+    \[f\vert_{t=0} = u_0 \qqtext{and} \partial_tf\vert_{t=0} = u_1\]
+    Set \(w(t,x,y) = u - f\). Then we find that
+    \[w_tt = ww_{xy} - w_{xx} + w_t + fw_{xy} + f_{xy}w + F\]
+    where
+    \[R = ff_{xy} -  f_{xx} + f_t\]
+    where
+    \[w\vert_{t=0} = \partial_tw\vert_{t=0} = 0\]
+    Observe \(F\) is real analytic, and independent of \(w\) and its derivatives. Let \(x = (x, y, t) = (x^1, x^2, x^3)\), and set
+    \[v = (w, w_x, w_y, w_z) = (v^1, v^2, v^3, v^4)\]
+    Then
+    \begin{align*}
+        v^1_t &= w_t = v^4 \\
+        v_t^2 &= w_{xt} = v^4_{x_1} \\
+        v_t^3 &= w_{yt} = v^4_{x_2} \\
+        v_t^4 &= v^1v_{x_2}^2 - v_{x_1}^2 + v^4 + fv_{x_2}^2 + f_{xy}v^1 + F
+    \end{align*}
+    Define
+    \[B_1 = \begin{pmatrix}
+        & & & 0\\
+        & & & 1 \\
+        & & & 0 \\
+        0 & -1 & 0 & 0
+    \end{pmatrix} \qquad B_2 = \begin{pmatrix}
+        & & & \\
+        & & & \\
+        & & & 1 \\
+        v^1 + f & 0 & 0 & 0
+    \end{pmatrix}\]
+    and
+    \[c = \begin{pmatrix}
+        v^4 \\
+        0 \\
+        0 \\
+        v^4 + f_{xy}v^1 + F
+    \end{pmatrix}\]
+    We can see then
+    \[\pdv{x_3}v = B_1v_{x_1} + B_2v_{x_2} + c\]
+    In this case, \(B_1, B_2, c\) are real analytic functions of \(x, v\), and so we can apply Cauchy-Kovalevskaya.
+\end{example}
+
+More generally, consider the scalar quasilinear problem
+
+\[\sum_{\abs{\alpha} = k}a_\alpha(D^{k-1}u, \dots, u, x)D^\alpha u + a_0(D^{k-1}u, \dots, u, x) = 0\]
+where
+\[u : B_r(0) \to \R \qqtext{and} \pdv{u}{x_n} = \dots = \left(\pdv{x_n}\right)^{k-1}u = 0\]
+for \(\norm{x'} < r, x_n = 0\).
+
+Define
+\[v = \left(u, \pdv{u}{x_1}, \dots, \pdv{u}{x_n}, \pdv[2]{u}{x_1}{x_1}, \dots, \left(\pdv{x_n}\right)^{k-1}u\right) = (v^1, \dots, v^m) \in \R^m\]
+We would like to get a first order system in \(v\). That is, express
+\[\pdv{v^j}{x_n}\]
+in terms of \(v^j\) and \(\pdv{v}{x_j}\) for \(j = 1, \dots, m-1\). If \(j = 1\), then
+\[\pdv{v^1}{x_n} = \pdv{u}{x_n} = v^\ell\]
+for some \(\ell\). If \(2 \le j \le m-1\), then
+\[v^j = D^\alpha u\]
+for some \(\abs{\alpha} \le k-1\), such that \(\alpha_n < k-1\). So
+\[\pdv{v^j}{x_n} = D^\alpha \pdv{u}{x_n} = \frac{\partial^{\abs{\alpha} + 1}}{\partial_1^{\alpha_1}\cdots \partial_n^{\alpha_n + 1}}u\]
+If \(\abs{\alpha} \le k-2\), then \(\abs{\alpha} + 1 \le k-1\),a nd so \(\pdv{v^j}{x_n} = v^\ell\) for some \(\ell\).
+
+If \(\abs{\alpha} = k-1\), and \(\alpha_n < k-1\), then there exists \(p \ne n\) such that \(\alpha_p \ge 1\). So we have that
+\[\pdv{v^j}{x_n} = \pdv{x_n}(\frac{\partial^{\abs{\alpha}}u}{\partial_1^{\alpha_1}\cdots\partial_n^{\alpha_n}}) = \pdv{x_p}(\frac{\partial^{\abs{\alpha}}u}{\partial_1^{\alpha_1}\cdots \partial_p^{\alpha_p - 1}\cdots \partial_n^{\alpha_n - 1}}) = \pdv{v^\ell}{x_p}\]
+for some \(\ell\). Finally, to compute
+\[\pdv{v^m}{x_n}\]
+we will use the PDE. Recall the coefficients are \(a_\alpha(v, x)\) for \(v \in \R^m, x \in \R^n\). We assume \(a_\alpha : B_\rho(0) \to \R\) is real analytic, and suppose
+\[a_c = a_{(0, \dots, 0, k)}(0) \ne 0\]
+Since \(a_\alpha\) are real analytic near zero, they are continuous. Therefore, \(a_c(z, w) \ne 0\) for all \(\norm{z}^2 + \norm{w}^2 \le \delta^2\), where \(\delta < \rho\). Then
+\[a_c \frac{\partial^k u}{\partial x_n^k} = -\left(\sum_{\abs{\alpha} = k, \alpha_n < k} a_\alpha D^\alpha u + a_0\right)\]
+Dividing by \(a_c\), we get
+\[\frac{\partial^k u}{\partial x_n^k} = -\frac{1}{a_c}\left(\sum_{\abs{\alpha} = k, \alpha_n < k} a_\alpha D^\alpha u + a_0\right)\]
+
+The right hand side can be written in terms of
+\[\pdv{v^\ell}{x_p}, v\]
+for \(p < n\). Therefore, if \(a_c \ne 0\), we have turned the scalar quasilinear PDE into a first order PDE system, on which we can apply Cauchy-Kovalevskaya.
+
+\begin{definition}
+    If \(a_c = a_{(0, \dots, 0, k)}(0)\) is non-zero, then we say the plane
+    \[\{x^n = 0\}\]
+    is \emph{non-characteristic}. Otherwise, it is \emph{characteristic}.
+\end{definition}
+
+\subsection{Exotic boundary conditions}
+
+\begin{definition}
+    [real analytic hypersurface]
+    We say \(\Sigma \sse \R^n\) is a \emph{real analytic hypersurface near \(x_0 \in \Sigma\)}\index{real analytic hypersurface} if there exists \(\epsilon > 0\), and a real analytic function
+    \[\Phi : B_\epsilon(x_0) \to U \sse \R^n\]
+    where \(U\) is an open neighbourhood of \(0 \in \R^n\), and defining \(y = \Phi(x)\), with \(\Phi(x_0) = 0\). Moreover, we require
+    \begin{enumerate}[(i)]
+        \item \(\Phi\) is a bijection,
+        \item \(\Phi^{-1} : U \to B_\epsilon(x_0)\) is real analytic,
+        \item \(\Phi(\Sigma \cap B_\epsilon(x_0)) = \{y_n = 0\} \cap U\). 
+    \end{enumerate}
+
+    We can think of \(\Phi\) as ``straightening out'' \(\Sigma\).
+\end{definition}
+
+\begin{example}
+    Spheres, planes, tori, etc. are real analytic (hyper)surfaces.
+\end{example}
+
+Let \(\gamma\) be unit normal to \(\Sigma\), and consider
+\[\sum_{\abs{\alpha} = k} a_\alpha(D^{k-1}u, \dots, u, x)D^\alpha u + a_0(D^{k-1}u, \dots, u, x)\]
+where
+\[u = \sum_i\gamma^i\partial_i u = 0 \text{ on }\Sigma\]
+
+Define
+\[v(y) = u(\Phi^{-1}(y))\]
+for \(y \in U\). That is, \(u(x) = v(\Phi(x))\) for \(x \in B_\epsilon(x_0)\). Using the chain rule,
+\[\pdv{u}{x_i} = \sum \pdv{u}{y_j} \pdv{\Phi^j}{x_i}\]
+where \(\Phi = (\Phi^1, \dots, \Phi^n) \in \R^n\). So the PDE becomes
+
+\[\sum b_\alpha D^\alpha v + b_0 = 0\]
+where \(b_0, \dots, b_\alpha\) dependis on \(u\) and \(D^\alpha u\) for \(\abs{\alpha} \le k-1\), and also \(\Phi\) (which is given). The boundary conditions becomes
+\[v = \pdv{y_n}v = \dots = \left(\pdv{y_n}\right)^{k-1}v = 0\]
+on \(\{y_n = 0\}\). Since \(\Phi\) is real analytic, so are \(b_0, b_\alpha\).
 
 \section{Sobolev spaces}
 

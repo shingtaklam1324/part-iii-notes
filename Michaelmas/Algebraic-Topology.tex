@@ -60,6 +60,8 @@ The same exercise on sheet 1 shows that homotopy equivalence is an equivalence r
 
 \lec
 
+\section{(Co)homology}
+
 \subsection{Co(chain) complexes}
 
 We will define invariants of topological spaces in two steps:
@@ -335,6 +337,253 @@ Moreover, \([\partial\sigma_1] = 0\), since we have triangles \(\tau_0, \tau_1, 
 \[\partial(\tau_0 + \tau_1 + \tau_2) = \sigma_1\]
 
 From this intuition, \([\sigma_2] \ne 0\). But to show even this, we need some structure theorems.
+
+\lec
+
+\subsection{Fundamental properties}
+
+(Co)homology is useful by virtue of various structural properties.
+
+\begin{theorem}
+    [homotopy invariance]
+    \index{homotopy invariance!of (co)homology}
+    If \(f, g : X \to Y\) are homotopic, then the induced maps \(f_*, g_*\) on homology, and the induced maps \(f^*, g^*\) on cohomology agree.
+\end{theorem}
+
+\begin{corollary}
+    If \(X \simeq Y\), then \(H_*(X) \simeq Y\), and if \(f\) is a homotopy equivalence, then \(f_*\) induces the isomorphism. For cohomology we have the similar statement, but with \(f^*\).
+\end{corollary}
+
+\begin{proof}
+    [Proof of the corollary] \(X \simeq Y\) via \(f\) is saying that there exists \(g : Y \to X\), such that \(g \circ f \simeq \id_X\), and \(f\circ g\simeq \id_Y\). That is,
+    \[g_* \circ f_* = \id \qqtext{and} f_* \circ g_* = \id\]
+\end{proof}
+
+We think of this as saying that (co)homology is ``insensitive to inessential deformations''.
+
+\begin{example}
+    Recall \(\{0\} \inj \R^n\) is a homotopy equivalence, and so
+    \[H_*(\R^n) = \begin{cases}
+        \Z & * = 0 \\
+        0 & \text{otherwise}
+    \end{cases}\]
+\end{example}
+
+The other key structural property relies on some homological algebra.
+
+\begin{definition}
+    [exact sequence]
+    An \emph{exact sequence}\index{exact sequence} is a chain complex with \(H_*(C_*, \partial) = 0\). That is,
+    \[\im(\partial : C_{n+1} \to C_n) = \ker(\partial : C_n \to C_{n-1})\]
+    
+    Similarly, a cochain complex is \emph{exact} if \(H^*(C^*, \partial) = 0\).
+
+    If \(A, B, C\) are abelian groups, and we have
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzEsMCwiQiJdLFsyLDAsIkMiXSxbMCwxLCJcXGFscGhhIl0sWzEsMiwiXFxiZXRhIl1d
+\[\begin{tikzcd}
+	A & B & C
+	\arrow["\alpha", from=1-1, to=1-2]
+	\arrow["\beta", from=1-2, to=1-3]
+\end{tikzcd}\]
+    Then this sequence is \emph{exact at \(B\)}\index{exact at} if \(\ker(\beta) = \im(\alpha)\).
+\end{definition}
+
+\begin{definition}
+    [short exact sequence]
+    A \emph{short exact sequence}\index{short exact sequence} is an exact sequence of the form
+    % https://q.uiver.app/#q=WzAsNSxbMSwwLCJBIl0sWzIsMCwiQiJdLFszLDAsIkMiXSxbMCwwLCIwIl0sWzQsMCwiXFxidWxsZXQiXSxbMCwxLCJcXGFscGhhIl0sWzEsMiwiXFxiZXRhIl0sWzMsMF0sWzIsNF1d
+\[\begin{tikzcd}
+	0 & A & B & C & 0
+	\arrow["\alpha", from=1-2, to=1-3]
+	\arrow["\beta", from=1-3, to=1-4]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+which is exact at all places. That is, \(\alpha\) is injective, \(\beta\) is surjective, and \(\im(\alpha) = \ker(\beta)\).
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}[(i)]
+        \item If
+        % https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiQSJdLFsyLDAsIkIiXSxbMywwLCIwIl0sWzAsMV0sWzEsMiwiXFxhbHBoYSJdLFsyLDNdXQ==
+        \[\begin{tikzcd}
+            0 & A & B & 0
+            \arrow[from=1-1, to=1-2]
+            \arrow["\alpha", from=1-2, to=1-3]
+            \arrow[from=1-3, to=1-4]
+        \end{tikzcd}\]
+        is exact, then \(\alpha\) is an isomorphism.
+    \end{enumerate}
+    \item If
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxaIl0sWzIsMCwiRyJdLFszLDAsIlxcWi9uIl0sWzQsMCwiMCJdLFsxLDIsIlxcYWxwaGEiXSxbMiwzLCJcXGJldGEiXSxbMyw0XSxbMCwxXV0=
+    \[\begin{tikzcd}
+        0 & \Z & G & {\Z/n} & 0
+        \arrow["\alpha", from=1-2, to=1-3]
+        \arrow["\beta", from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+        \arrow[from=1-1, to=1-2]
+    \end{tikzcd}\]
+    is exact, then we could have \(G = \Z \oplus \Z/n\), or we could have \(G = \Z\), with \(\alpha(x) = nx\).
+\end{example}
+
+\begin{theorem}
+    [Mayer-Vietoris]
+    \index{Mayer-Vietoris}
+    If \(X = A \cup B\), with \(A, B\) open subsets of \(X\). Then there exists \emph{Mayer-Vietoris boundary homomorphism}\index{Mayer-Vietoris!homomorphism}
+    \[\partial_{MV} : H_{i+!}(X) \to H_i(A \cap B)\]
+    for all \(i\), so that the sequence
+    % https://q.uiver.app/#q=WzAsNixbMSwwLCJcXEhIX3tpKzF9KFgpIl0sWzIsMCwiXFxISF9pKEEgXFxjYXAgQikiXSxbMywwLCJcXEhIX2koQSlcXG9wbHVzIFxcSEhfaShCKSJdLFs0LDAsIlxcSEhfaShYKSJdLFswLDAsIlxcY2RvdHMiXSxbNSwwLCJcXGNkb3RzIl0sWzQsMF0sWzAsMSwiXFxwYXJ0aWFsX3tNVn0iXSxbMSwyLCJpX3tBKn1cXG9wbHVzIGlfe0IqfSJdLFsyLDMsImpfe0EqfS1qX3tCXip9Il1d
+\[\begin{tikzcd}
+	\cdots & {\HH_{i+1}(X)} & {\HH_i(A \cap B)} & {\HH_i(A)\oplus \HH_i(B)} & {\HH_i(X)} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow["{\partial_{MV}}", from=1-2, to=1-3]
+	\arrow["{i_{A*}\oplus i_{B*}}", from=1-3, to=1-4]
+	\arrow["{j_{A*}-j_{B^*}}", from=1-4, to=1-5]
+\end{tikzcd}\]
+    is exact, where
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJBXFxjYXAgQiJdLFsxLDAsIkEiXSxbMCwxLCJCIl0sWzEsMSwiWCJdLFswLDIsImlfQiIsMl0sWzAsMSwiaV9BIl0sWzEsMywial9BIl0sWzIsMywial9CIiwyXV0=
+\[\begin{tikzcd}
+	{A\cap B} & A \\
+	B & X
+	\arrow["{i_B}"', from=1-1, to=2-1]
+	\arrow["{i_A}", from=1-1, to=1-2]
+	\arrow["{j_A}", from=1-2, to=2-2]
+	\arrow["{j_B}"', from=2-1, to=2-2]
+\end{tikzcd}\]
+    Similarly, we have a homomorphism
+    \[\partial_{MV}^* : H^i(A \cap B) \to H^{i+1}(X)\]
+    which makes the sequence
+% https://q.uiver.app/#q=WzAsNyxbMSwwLCJIXntpLTF9KEEgXFxjYXAgQikiXSxbMiwwLCJIXmkoWCkiXSxbMywwLCJIXmkoQSlcXG9wbHVzIEheaShCKSJdLFs0LDAsIkheaShBIFxcY2FwIEIpIl0sWzUsMCwiSF57aS0xfShYKSJdLFswLDAsIlxcY2RvdHMiXSxbNiwwLCJcXGNkb3RzIl0sWzAsMSwiXFxwYXJ0aWFsX3tNVn1eKiJdLFszLDQsIlxccGFydGlhbF97TVZ9XioiXSxbMSwyLCJqX0FeKiBcXG9wbHVzIC1qX0JeKiJdLFsyLDMsImlfQV4qICtpX0JeKiJdLFs1LDBdLFs0LDZdXQ==
+\[\begin{tikzcd}
+	\cdots & {H^{i-1}(A \cap B)} & {H^i(X)} & {H^i(A)\oplus H^i(B)} & {H^i(A \cap B)} & {H^{i-1}(X)} & \cdots
+	\arrow["{\partial_{MV}^*}", from=1-2, to=1-3]
+	\arrow["{\partial_{MV}^*}", from=1-5, to=1-6]
+	\arrow["{j_A^* \oplus -j_B^*}", from=1-3, to=1-4]
+	\arrow["{i_A^* +i_B^*}", from=1-4, to=1-5]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-6, to=1-7]
+\end{tikzcd}\]
+    exact.
+\end{theorem}
+
+\begin{remark}
+    \begin{enumerate}[(i)]
+        \item The Mayer-Vietoris maps are not induced by maps of spaces, but they are constructed algebraically. Suppose \(\sigma \in C_{i+1}(X)\) is a cycle, and suppose we can write \(\sigma = \sigma_A + \sigma_B\), where \(\sigma_A \in C_{i+1}(A)\) and \(\sigma_B \in C_{i+1}(B)\) are chains, and in general, not cycles. Since \(\partial \sigma = 0, \partial \sigma_A + \partial\sigma_B = 0\). We define
+        \[\partial_{MV}(\sigma) = [\partial\sigma_A] \in \HH_i(A \cap B)\]
+        Since \(\partial \sigma_A \in C_i(A)\), we must have that \(\partial \sigma_A = -\partial\sigma_B \in C_{i}(A \cap B)\). As \(\partial^2 = 0\), \(\partial\sigma_A\) is closed and so it represents a class in homology.
+
+        This is (correct) intuition, but not a proof.
+        \item The Mayer-Vietoris sequence is natural for maps of pairs. That is, if \(X = A \cup B, Y = C \cup D\), and \(f : X \to Y\) has \(f(A) \sse C\), \(f(B) \sse D\), then we have a map of long exact sequences
+        % https://q.uiver.app/#q=WzAsMTQsWzIsMCwiSF9pKEEgXFxjYXAgQikiXSxbMywwLCJIX2koQSkgXFxvcGx1cyBIX2koQikiXSxbNCwwLCJIX2koWCkiXSxbMiwxLCJIX2koQ1xcY2FwIEQpIl0sWzMsMSwiSF9pKEMpIFxcb3BsdXMgSF9pKEQpIl0sWzQsMSwiSF9pKFkpIl0sWzUsMCwiSF97aS0xfShBIFxcY2FwIEIpIl0sWzUsMSwiSF97aS0xfShDXFxjYXAgRCkiXSxbMSwwLCJIX3tpKzF9KFgpIl0sWzEsMSwiSF97aSsxfShZKSJdLFswLDAsIlxcY2RvdHMiXSxbMCwxLCJcXGNkb3RzIl0sWzYsMCwiXFxjZG90cyJdLFs2LDEsIlxcY2RvdHMiXSxbMTAsOF0sWzExLDldLFs4LDBdLFs5LDNdLFszLDRdLFswLDFdLFsxLDJdLFs0LDVdLFsyLDZdLFs1LDddLFs2LDEyXSxbNywxM10sWzgsOSwiZl8qIiwxXSxbMCwzLCJmXyoiLDFdLFsxLDQsImZfKiBcXG9wbHVzIGZfKiIsMV0sWzIsNSwiZl8qIiwxXSxbNiw3LCJmXyoiLDFdXQ==
+        \[\begin{tikzcd}
+            \cdots & {H_{i+1}(X)} & {H_i(A \cap B)} & {H_i(A) \oplus H_i(B)} & {H_i(X)} & {H_{i-1}(A \cap B)} & \cdots \\
+            \cdots & {H_{i+1}(Y)} & {H_i(C\cap D)} & {H_i(C) \oplus H_i(D)} & {H_i(Y)} & {H_{i-1}(C\cap D)} & \cdots
+            \arrow[from=1-1, to=1-2]
+            \arrow[from=2-1, to=2-2]
+            \arrow[from=1-2, to=1-3]
+            \arrow[from=2-2, to=2-3]
+            \arrow[from=2-3, to=2-4]
+            \arrow[from=1-3, to=1-4]
+            \arrow[from=1-4, to=1-5]
+            \arrow[from=2-4, to=2-5]
+            \arrow[from=1-5, to=1-6]
+            \arrow[from=2-5, to=2-6]
+            \arrow[from=1-6, to=1-7]
+            \arrow[from=2-6, to=2-7]
+            \arrow["{f_*}"{description}, from=1-2, to=2-2]
+            \arrow["{f_*}"{description}, from=1-3, to=2-3]
+            \arrow["{f_* \oplus f_*}"{description}, from=1-4, to=2-4]
+            \arrow["{f_*}"{description}, from=1-5, to=2-5]
+            \arrow["{f_*}"{description}, from=1-6, to=2-6]
+        \end{tikzcd}\]
+        where all the squares commute.
+    \end{enumerate}
+\end{remark}
+
+We will prove these later when we use them.
+
+\begin{example}
+    \[\HH_*(S^1) = \begin{cases}
+        \Z & * = 0, 1 \\
+        0 & \text{otherwise}
+    \end{cases}\]
+\end{example}
+
+\begin{proof}
+    
+    Here, \(S^1 = A \cup B\), where \(A, B \simeq \{*\}\) and \(A \cap B \simeq \{p, q\}\).
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/10_13 (1).jpg}
+    \end{center}
+    
+    Using this, we know \(\HH_*(A), \HH_*(B), \HH_*(A \cap B)\). For \(i \ge 2\), we have
+    % https://q.uiver.app/#q=WzAsNSxbMSwwLCJcXHVuZGVyYnJhY2V7SF9pKEEpXFxvcGx1cyBIX2koQil9X3s9MH0iXSxbMiwwLCJIX2koWCkiXSxbMywwLCJcXHVuZGVyYnJhY2V7SF97aS0xfShBIFxcY2FwIEIpfV97PTB9Il0sWzAsMCwiXFxjZG90cyJdLFs0LDAsIlxcY2RvdHMiXSxbMCwxXSxbMSwyXSxbMywwXSxbMiw0XV0=
+\[\begin{tikzcd}
+	\cdots & {\underbrace{H_i(A)\oplus H_i(B)}_{=0}} & {H_i(X)} & {\underbrace{H_{i-1}(A \cap B)}_{=0}} & \cdots
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    and so \(\HH_i(X) = 0\) for all \(i \ge 2\). For lowe degrees, we have
+    % https://q.uiver.app/#q=WzAsNyxbMCwwLCJcXHVuZGVyYnJhY2V7SF8xKEEgXFxjYXAgQil9X3s9MH0iXSxbMSwwLCJcXHVuZGVyYnJhY2V7SF8xKEEpXFxvcGx1cyBIXzEoQil9X3s9MH0iXSxbMiwwLCJIXzEoWCkiXSxbMCwyLCJcXHVuZGVyYnJhY2V7SF8wKEEgXFxjYXAgQil9X3tcXGlubmVye3B9XFxvcGx1c1xcaW5uZXJ7cX19Il0sWzEsMiwiXFx1bmRlcmJyYWNle0hfMChBKVxcb3BsdXMgSF8wKEIpfV97PVxcWiBcXG9wbHVzIFxcWn0iXSxbMiwyLCJcXHVuZGVyYnJhY2V7SF8wKFgpfV97PVxcWn0iXSxbMywyLCIwIl0sWzUsNl0sWzQsNV0sWzMsNCwiXFxhbHBoYSIsMl0sWzAsMV0sWzEsMl0sWzIsMywiXFxwYXJ0aWFsX3tNVn0iXV0=
+\[\begin{tikzcd}
+	{\underbrace{H_1(A \cap B)}_{=0}} & {\underbrace{H_1(A)\oplus H_1(B)}_{=0}} & {H_1(X)} \\
+	\\
+	{\underbrace{H_0(A \cap B)}_{\inner{p}\oplus\inner{q}}} & {\underbrace{H_0(A)\oplus H_0(B)}_{=\Z \oplus \Z}} & {\underbrace{H_0(X)}_{=\Z}} & 0
+	\arrow[from=3-3, to=3-4]
+	\arrow[from=3-2, to=3-3]
+	\arrow["\alpha"', from=3-1, to=3-2]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow["{\partial_{MV}}", from=1-3, to=3-1]
+\end{tikzcd}\]
+    where \(\alpha(n, m) = (n+m, n+m)\). Moreover, we use that \(S^1\) is path connected, and \(H_0\) is generated by any point. Therefore, \(\HH_1(X)\) sits in an exact sequence
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCIwIl0sWzEsMCwiXFxISF8xKFgpIl0sWzIsMCwiXFxaXjIiXSxbMywwLCJcXFpeMiJdLFs0LDAsIlxcWiJdLFs1LDAsIjAiXSxbMCwxXSxbMSwyLCJcXHBhcnRpYWxfe01WfSJdLFsyLDMsIlxcYWxwaGEiXSxbMyw0LCJcXGJldGEiXSxbNCw1XV0=
+\[\begin{tikzcd}
+	0 & {\HH_1(X)} & {\Z^2} & {\Z^2} & \Z & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["{\partial_{MV}}", from=1-2, to=1-3]
+	\arrow["\alpha", from=1-3, to=1-4]
+	\arrow["\beta", from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+\end{tikzcd}\]
+    and so,
+    \[\HH_1(X) \simeq \ker(\alpha) = \inner{(1, -1)} = \Z(p - q)\]
+\end{proof}
+
+\begin{example}
+    \[\HH_*(S^n) = \begin{cases}
+        \Z & * = 0, n \\
+        0 &\text{otherwise}
+    \end{cases}\]
+\end{example}
+
+\begin{proof}
+    Define \(A, B \sse S^n\) by
+
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/10_13 (2).jpg}
+    \end{center}
+
+    Then \(A, B\) are contractible, and \(A \cap B\) is homotopic to \(S^{n-1}\). We work inductively in \(n\), using the Mayer-Vietoris sequence. The sequence gives
+    % https://q.uiver.app/#q=WzAsNSxbMSwwLCJIX2koU15uKSJdLFszLDAsIkhfe2ktMX0oKilcXG9wbHVzIEhfe2ktMX0oKikiXSxbMiwwLCJIX3tpLTF9KFNebikiXSxbNCwwLCJIX3tpLTF9KFNebikiXSxbMCwwLCJIX2koKilcXG9wbHVzIEhfaSgqKSJdLFs0LDBdLFswLDJdLFsyLDFdLFsxLDNdXQ==
+\[\begin{tikzcd}
+	{H_i(*)\oplus H_i(*)} & {H_i(S^n)} & {H_{i-1}(S^n)} & {H_{i-1}(*)\oplus H_{i-1}(*)} & {H_{i-1}(S^n)}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    If \(i \ne 0, n, 1\), \(H_i(S^n)\) has
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCIwIl0sWzEsMCwiSF9pKFNebikiXSxbMiwwLCIwIl0sWzAsMV0sWzEsMl1d
+    \[\begin{tikzcd}
+        0 & {H_i(S^n)} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+    \end{tikzcd}\]
+    so \(H_i(S^n) = 0\).
+\end{proof}
 
 \printindex
 

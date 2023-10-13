@@ -329,8 +329,105 @@ This definition is called the \emph{tensorial definition}, where we focus on the
 
 \begin{definition}
     [tangent space]
-    The \emph{tangent space}\index{tangent space} to \(M\) at a point \(p\), denoted \(\T_pM\) is the space of all tangent vectors to \(M\) at \(p\). It is naturally a vector space (of dimension \(n\) over \(R\)).
+    The \emph{tangent space}\index{tangent space} to \(M\) at a point \(p\), denoted \(\T_pM\) is the space of all tangent vectors to \(M\) at \(p\). It is naturally a vector space (of dimension \(n\) over \(\R\)).
 \end{definition}
+
+\lec
+
+A choice of chart (with local coordinates \((x_i)\) say), determines a linear isomorphism
+\[\T_p M \to \R^n\]
+where \(n = \dim(M)\). We denote by \(\pdv{x_i}\), the basis corrsponding to the usual standard basis of \(\R^n\), under this linear isomorphism.
+
+If we want to emphasise the point \(p \in M\), we may write
+\[\left(\pdv{x_i}\right)_p \text{ or }\pdv{x_i}\bigg\vert_p\]
+Then by the usual linear algebra, we have that
+\[\left(\pdv{x_i}\right)_p = \sum_j \left(\pdv{x_j'}{x_i}\right)_p \left(\pdv{x_j'}\right)_p\]
+
+An alternative view on tangent vectors is as \emph{derivations}. Given
+\[a = \sum a_i \pdv{x_i} \in \T_pM\]
+we can define a \emph{first-order derivation}\index{first order derivation} at \(p\),
+\[a : C^\infty(M) \to \R\]
+where
+\[a(f) = \sum_i a_i \pdv{f}{x_i}\]
+in local coordinates. This definition is independent of the choice of local coordinates. We can define this in a coordinate independent way, by defining
+\[a(f) = \dv{t}\bigg\vert_{t=0}f(x(t))\]
+where \(x\) is a local curve on \(M\), with \(\dot x(0) = a\). Moreover, every derivation satisfies the \emph{Leibniz rule}\index{Leibniz rule}
+\[a(fg) = f \cdot a(g) + a(f) \cdot g\]
+Conversely, every linear map \(a : C^\infty(M) \to \R\) satisfying the Leibniz rule above arises as a derivation corresponding to a tangent vector.
+
+\begin{example}
+    Let \(r : \R^2_{u, v}\supseteq D \to S \sse \R^3\) be a regular parametrisation for a surface \(S\). Then \(\varphi = r^{-1}\) defines a chart. The partial derivatives \(r_u, r_v\) correspond to
+    \[\pdv{u}, \pdv{v}\]
+    respectively.
+\end{example}
+
+For a Lie group \(G\), the tangent spaces has an ``infinitessimal counterpart'' of the group structure.
+
+\begin{definition}
+    [Lie algebra] A \emph{Lie algebra}\index{Lie algebra} is a vector space \(\mfg\), wiht a bilinear map
+    \[[\cdot, \cdot] : \mfg \times \mfg \to \mfg\]
+    called the \emph{Lie bracket}\index{Lie bracket}, with
+    \begin{itemize}
+        \item anticommutativity \([x, y] = [-y, x]\),
+        \item the Jacobi idenity
+        \[[x,[y,z]] + [y, [z,x]] + [z, [x, y]] = 0\]
+    \end{itemize}
+\end{definition}
+
+\begin{theorem}
+    Let \(G \sse \GL(n, F)\) be a matrix Lie group (where \(F = \R\) or \(\C\)), such that \(\log\) defines a chart near \(I \in G\). Let
+    \[\mfg = \T_IG\]
+    is identified with a (real) subspace of \(\Mat_n(F)\). Then \(\mfg\) is a Lie algebra, with
+    \[[x,y] = xy-yx\]
+    We call \(\mfg\) the \emph{Lie algebra of \(G\)}\index{Lie algebra!of a Lie group}. We may also write
+    \[\mfg = \Lie(G)\]
+\end{theorem}
+
+\begin{proof}
+    Clearly \(\mfg\) is a vector space, and \([\cdot, \cdot]\) is anticommutative and satisfies the Jacobi identity. Therefore, all we need to show is that if \(x, y \in \mfg\), then so is \([x,y]\).
+
+    For \(B_1, B_2 \in \mfg\), consider
+    \[A(t) = \exp(B_1t)\exp(B_2t)\exp(-B_1t)\exp(-B_2t)\]
+    This defines a smooth path in \(G\), with \(A(0) = I\). Recall
+    \[\exp(B t) = I + Bt + \frac{1}{2}B^2t^2 + o(t^2)\]
+    as \(t \to 0\). We obtain that
+    \[A(t) = I + [B_1, B_2]t^2 + o(t^2)\]
+    Letting \(B(t) = \log(A(t))\), for small \(t\), we have that \(B(t) = [B_1, B_2]t^2 + o(t^2)\). But we also have that
+    \[\exp(A(t)) = B(t)\]
+    Moreover, by definition, \(B(t) \in \mfg\) for \(t\) small, as \(B(t)\) is in the image of the logarithm chart. So
+    \[\frac{B(t)}{t^2} \in \mfg\]
+    as \(\mfg\) is a vector space. So
+    \[\lim_{t \to 0}\frac{B(t)}{t^2} = [B_1, B_2] \in \mfg\]
+    since \(\mfg \le \Mat_n(F)\) is closed.
+\end{proof}
+
+If we take \(G = O(n)\), then we have that
+\[\mfg = \mfo(n) = \left\{A \in \Mat_n(\R) \mid A^\T + A = 0\right\}\]
+is the space of skew-symmetric matrices.
+
+\begin{definition}
+    Let \(M\) be a manifold. Then the \emph{tangent bundle of \(M\)}\index{tangent bundle} is
+    \[\T M = \bigsqcup_{p \in M}\T_p M\]
+\end{definition}
+
+\begin{theorem}
+    \(\T M\) has a smooth structure, making it into a manifold of dimension \(2 \dim(M)\).
+\end{theorem}
+
+\begin{proof}
+    The topology on \(\T M\) will be induced from the smooth structure. Let \((\varphi, U)\) be a chart on \(M\). Say the local coordinates corresponding to \(\varphi\) are \(x_1, \dots, x_n\). So we can write \(a \in \T_pM\) as
+    \[\sum a_i \pdv{x_i}\]
+    Define
+    \begin{align*}
+        U_T &= \bigsqcup_{p \in U}\T_p M \\
+        \varphi_T(p, a) &= (\varphi(p), (a_i))
+    \end{align*}
+    It is clear that the sets of the form \(U_T\) cover, so all we need to check is that the change of coordinate maps are smooth. Let \((\psi, V)\) be another chart on \(M\), with local coordinates \(y_i\). Then
+    \[\psi \circ \varphi^{-1}(x, a) = (y, b)\]
+    and it is easy to see that \(y = \psi \circ \varphi^{-1}(x)\), and
+    \[b_i = \sum_j\pdv{y_i}{x_j} a_j\]
+    Hausdorff and second countable follow from the fact that \(M\) and \(\R^n\) are.
+\end{proof}
 
 \printindex
 
