@@ -557,6 +557,162 @@ from \(R[x_1, \dots, x_n]\) and \(R[t_1, \dots, t_n]\). Given \(f_1, f_2\) as ab
 \[R[x_1, \dots, x_n, t_1, \dots, t_r] \cong \R[x_1, \dots, x_n] \otimes R[t_1, \dots, t_r]\]
 as it satisfies the universal property.
 
+\lec
+
+If we have \(f : A \to A', g : B \to B'\) which are algebra homomorphisms, then the tensor product of \(R\)-linear maps,
+\[f \otimes g : A \otimes B \to A' \otimes B'\]
+is an \(R\)-algebra homomorphism. Moreover, we have \(R\)-algebra isomorphisms
+\begin{itemize}
+    \item \((R/I) \otimes (R/J) \cong R/(I + J)\)
+    \item \(A \otimes B \cong B \otimes A\),
+    \item \((A \otimes B) \otimes C \cong A \otimes (B \otimes C)\),
+    \item \(A \otimes B^n \cong (A \otimes B)^n\),
+\end{itemize}
+
+\subsection{Restriction and extension of scalars}
+
+\subsubsection*{Restriction of scalars}
+\index{restriction of scalars}
+
+We will have a ring homomorphisms \(f : R \to S\), let \(M\) be an \(S\)-module, so \(M\) is also an \(R\)-module,
+\[r \cdot m := f(r)m\]
+for \(r \in R, m \in M\). The fact that this is a module is clear by our definition, since it is just the composition
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJSIl0sWzIsMCwiUyJdLFs0LDAsIlxcRW5kKE0pIl0sWzAsMSwiZiJdLFsxLDJdXQ==
+\[\begin{tikzcd}
+	R && S && {\End(M)}
+	\arrow["f", from=1-1, to=1-3]
+	\arrow[from=1-3, to=1-5]
+\end{tikzcd}\]
+
+\begin{example}
+    If we consider the embedding \(\R \inj \C\), then \(\C^n\) is a \(C\)-vector space, but also an \(\R\)-vector space, of dimension \(2n\).
+\end{example}
+
+\subsubsection*{Extension of scalars}
+\index{extension of scalars}
+
+Let \(f : R \to S\) be a ring homomorphism, \(M\) be an \(S\)-module (thus an \(R\)-module by restriction of scalars), \(N\) is an \(R\)-module. From this, we can form
+\[M \otimes_R N\]
+which is an \(R\)-module. In fact, \(M \otimes_R N\) is also an \(S\)-module, with
+\[s \cdot (m \otimes n) := (sm) \otimes n\]
+Is this well defined? We have an \(R\)-bilinear map
+\begin{align*}
+    M \times N &\to M \otimes_R N \\
+    (m, n) &\mapsto (sm) \otimes n
+\end{align*}
+By the universal property, we have a map
+\begin{align*}
+    h_s : M \otimes_R N \to M \otimes_R N
+\end{align*}
+which is \(R\)-linear, and \(h_s(m \otimes n) = (sm) \otimes n\). Now define
+\begin{align*}
+    \varphi : S &\to \End(M \otimes_R N) \\
+    \varphi(s) &= h_s
+\end{align*}
+Which is a ring homomorphism, and so, we have an \(S\)-module structure on \(M \otimes_R N\).
+
+\begin{example}
+    We know from before that \(S \otimes_R R \cong S\) as \(R\)-module, with
+    \[s \otimes r \mapsto s \cdot f(r)\]
+    But in fact, this is also \(S\)-linear, since
+    \[s'\cdot(s \otimes r) = (s's) \otimes r \mapsto s's \cdot f(r)\]
+
+    For example, this implies that
+    \[\C \otimes_\R \R \cong \C\]
+    as \(\C\)-vector spaces.
+\end{example}
+
+\begin{example}
+    If \(M\) is an \(S\)-module, \(N_i\) are \(R\)-modules, then
+    \[M \otimes_R \left(\bigoplus_i N_i\right) \cong \bigoplus_i(M \otimes_R N_i)\]
+    as \(S\)-modules.
+
+    In this case,
+    \[\C \otimes_\R \R^n \cong \C^n\]
+    as \(\C\)-vector spaces.
+\end{example}
+
+\begin{example}
+    Consider \(\C^n\) as a \(\C\)-module. Restricting to \(\R\),
+    \[\C^n \cong \R^{2n}\]
+    as \(\R\)-vector spaces. Now extending scalars,
+    \[\C \otimes_\R \R^{2n} \cong \C^{2n}\]
+    as \(\C\)-vector spaces.
+\end{example}
+
+\begin{example}
+    Now consider \(\R^n\) as an \(\R\)-vector space. Extending scalars,
+    \[\R^n \otimes_\R \C \cong \C^n\]
+    over \(\C\). Restricting to \(\R\),
+    \[\C^n \cong \R^{2n}\]
+\end{example}
+
+\begin{example}
+    Consider \(\Z^n\) as an \(\Z\)-module, and let \(f : \Z \to \Z/2\) be the quotient map. Extending scalars,
+    \[(\Z/2) \otimes_\Z \Z^n \cong (\Z/2)^n\]
+\end{example}
+
+\begin{example}
+    Consider
+    \[\C^n \otimes_\R \R^\ell\]
+    One way to compute this:
+    \[\C^n \otimes_\R \R^\ell \cong_\R \R^{2n} \otimes \R^\ell \cong_\R \R^{2n\ell} \cong_\R \C^{n\ell}\]
+    where \(\cong_\R\) denotes isomorphism as \(\R\)-vector spaces. Another way to do this:
+    \[\C^n \otimes_\R \R^\ell \cong_\C \C^n \otimes_\C \left(\C \otimes_\R \R^\ell\right) \cong_\C \C^n \otimes \C^\ell \cong_\C \C^{n\ell}\]
+    The first isomorphism is given by
+    \[v \otimes u \mapsto v \otimes (1 \otimes u)\]
+    Combining these, the isomorphism \(\C^n \otimes_\R \R^\ell \to \C^n \otimes \C^\ell\) sends
+    \[v \otimes u \mapsto v\otimes u\]
+    where we use the inclusion \(\R^\ell \inj \C^\ell\).
+\end{example}
+
+\begin{proposition}
+    \label{prop:tensor-ext-scalar}
+    Let \(M\) be an \(S\)-module, \(N\) be an \(R\)-module, then
+    \[M \otimes_R N \cong M \otimes_S(S \otimes_R N)\]
+    as \(S\)-modules. In particular, the isomorphism is given by
+    \begin{align*}
+        m \otimes n &\mapsto m \otimes (1 \otimes n) \\
+        (sm) \otimes n &\mapsfrom m \otimes (s\otimes n)
+    \end{align*}
+\end{proposition}
+
+\begin{proposition}
+    \label{prop:tensor-ext-scalar-properties}
+    Let \(M, M'\) be \(S\)-modules, \(N, N'\) be \(R\)-modules, then we have \(S\)-module isomorphisms
+    \begin{enumerate}
+        \item \(M \otimes_R N \cong N \otimes_R M\), via \(m \otimes n \to n \otimes m\)
+        \item \((M \otimes_R N) \otimes_R N' \cong M \otimes_R (N \otimes_R N')\)
+        \item \((M \otimes_R N) \otimes_S M' \cong M \otimes_S (N \otimes_R M')\)
+        \item \(M \otimes_R (\bigoplus_i N_i) \cong \bigoplus_i (M \otimes_R N_i)\)
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    We will prove (iii). Using \cref{prop:tensor-ext-scalar}, we have
+    \begin{align*}
+        (M \otimes_R N) \otimes_S M' &\cong \left(M \otimes_S (N \otimes_R S)\right) \otimes_S M' \\
+        &\cong M \otimes_S \left((N \otimes_R S) \otimes_S M'\right) \\
+        &\cong M \otimes_S (N \otimes_R M')
+    \end{align*}
+\end{proof}
+
+\begin{example}
+    As \(\C\)-vector spaces,
+    \[\C \otimes_\R (\R^\ell \otimes_\R \R^k) \cong (\C \otimes_\R \R^\ell) \otimes_\C (\C \otimes_\R \R^k) \cong \C^\ell \otimes \C^k \cong \C^{\ell k}\]
+\end{example}
+
+\begin{corollary}
+    If \(N, N'\) are \(R\)-modules, then 
+    \[S \otimes_R (N \otimes N') \cong_S (S \otimes_R N) \otimes_S (S \otimes N')\]
+\end{corollary}
+
+\begin{proof}
+    By \cref{prop:tensor-ext-scalar} and \cref{prop:tensor-ext-scalar-properties} (ii):
+    \[S \otimes_R (N \otimes_\R N') \cong (S \otimes_R N) \otimes_R N' \cong (S \otimes_R N) \otimes_S (S \otimes_R N')\]
+\end{proof}
+
+
 \printindex
 
 \end{document}

@@ -519,7 +519,7 @@ for \(p < n\). Therefore, if \(a_c \ne 0\), we have turned the scalar quasilinea
 \begin{definition}
     If \(a_c = a_{(0, \dots, 0, k)}(0)\) is non-zero, then we say the plane
     \[\{x^n = 0\}\]
-    is \emph{non-characteristic}. Otherwise, it is \emph{characteristic}.
+    is \emph{non-characteristic}\index{non-characteristic!equation}. Otherwise, it is \emph{characteristic}.
 \end{definition}
 
 \subsection{Exotic boundary conditions}
@@ -545,7 +545,10 @@ for \(p < n\). Therefore, if \(a_c \ne 0\), we have turned the scalar quasilinea
 Let \(\gamma\) be unit normal to \(\Sigma\), and consider
 \[\sum_{\abs{\alpha} = k} a_\alpha(D^{k-1}u, \dots, u, x)D^\alpha u + a_0(D^{k-1}u, \dots, u, x)\]
 where
-\[u = \sum_i\gamma^i\partial_i u = 0 \text{ on }\Sigma\]
+\begin{equation}
+    \label{eq:surf-pde}
+    u = \sum_i\gamma^i\partial_i u = (\gamma^i\partial_i)^{k-1}u = 0 \text{ on }\Sigma
+\end{equation}
 
 Define
 \[v(y) = u(\Phi^{-1}(y))\]
@@ -553,10 +556,116 @@ for \(y \in U\). That is, \(u(x) = v(\Phi(x))\) for \(x \in B_\epsilon(x_0)\). U
 \[\pdv{u}{x_i} = \sum \pdv{u}{y_j} \pdv{\Phi^j}{x_i}\]
 where \(\Phi = (\Phi^1, \dots, \Phi^n) \in \R^n\). So the PDE becomes
 
-\[\sum b_\alpha D^\alpha v + b_0 = 0\]
-where \(b_0, \dots, b_\alpha\) dependis on \(u\) and \(D^\alpha u\) for \(\abs{\alpha} \le k-1\), and also \(\Phi\) (which is given). The boundary conditions becomes
+\[\sum_{\abs{\alpha} = k} b_\alpha D^\alpha v + b_0 = 0\]
+where \(b_0, b_\alpha\) dependis on \(u\) and \(D^\alpha u\) for \(\abs{\alpha} \le k-1\), and also \(\Phi\) (which is given). The boundary conditions becomes
 \[v = \pdv{y_n}v = \dots = \left(\pdv{y_n}\right)^{k-1}v = 0\]
 on \(\{y_n = 0\}\). Since \(\Phi\) is real analytic, so are \(b_0, b_\alpha\).
+
+\lec
+
+We would like to apply Cauchy-Kovalevskaya, therefore we need to check that whether the hypersurface \(\{y_n = 0\}\) is non-characteristic. That is,
+\[b_{(0, \dots, 0, k)}(D^{k-1}v = 0, \dots, Dv = 0, y = 0) \ne 0\]
+
+Note if \(\abs{\alpha} = 2\), we can compute
+\[D^\alpha u = \frac{\partial^kv}{\partial y_n^k}(D\Phi^n)^\alpha + \text{terms not involving} \frac{\partial^kv}{\partial y_n^k}\]
+
+For example, if \(k = 2, n = 2, \alpha = (0, 2)\), then
+\[D^\alpha u = u_{x_2x_2} = v_{y_2y_2}\underbrace{(\Phi^2_{x_2})(\Phi^2_{x_2})}_{=(D\Phi^2)^\alpha} + \text{terms not involving} v_{y_2y_2}\]
+Thus,
+\[b_{(0, \dots, 0, k)} = \sum_{\abs{\alpha} = k}a_\alpha \left(D \Phi^n\right)^\alpha\]
+
+\begin{definition}
+    We say that \(\Sigma\) is \emph{non-characteristic at \(x_0 \in \Sigma\)}\index{non-characteristic!hypersurface} if
+    \[b_{(0, \dots, 0, k)}(0) = \sum_{\abs{\alpha} = k}a_\alpha(0, \dots, 0, x_0)\left(D\Phi^n(x_0)\right)^\alpha \ne 0\]
+
+    Otherwise, \(\Sigma\) is characteristic at \(x_0\).
+\end{definition}
+
+\begin{remark}
+    Note that \(\Sigma = \left\{x \in \R^n \mid \Phi^{(n)}(x) = y_n = 0\right\}\). This tells us that
+    \[D\Phi^n(x) = c(x)\gamma(x)\]
+    where \(\gamma\) is the unit normal of \(\Sigma\). In particular,
+
+    \[D\Phi^n(x_0) = c(x_0)\gamma(x_0)\]
+    and so the non-characteristic condition is equivalent to
+    \[\sum_{\abs{\alpha} = k}a_\alpha\gamma^\alpha(x) \ne 0\]
+\end{remark}
+
+\begin{theorem}
+    [Cauchy-Kovalevskaya for non-characteristic hypersurfaces] Suppose \(\Sigma \sse \R^n\) is a hypersurface, with normal \(\gamma\), and consider the PDE \cref{eq:surf-pde} as above. Suppose \(a_\alpha, a_0\) are real analytic near \(x_0 \in \Sigma\), and \(\Sigma\) is non-characteristic near \(x_0\). Then there exists a unique real analytic solution in a neighbourhood of \(x_0\).
+\end{theorem}
+
+\subsection{Characteristic surfaces}
+
+Consider the linear operator
+\[L = \sum_{i, j=  1}^n a_{ij}\pdv[2]{}{x_i}{x_j}\]
+where \(a_{ij} \in \R\). Without loss of generality, we can assume \(a_{ij} = a_{ji}\). Consider the PDE problem
+\begin{equation}
+    \label{eq:plane-pde}
+    \begin{cases}
+        Lu = f & \\
+        u = \gamma^i\partial_i u = 0 & \text{ on }\Pi_\gamma = \left\{x \mid x \vdot \gamma = 0\right\}
+    \end{cases}
+\end{equation}
+That is, the boundary conditions are on the plane with unit normal \(\gamma\). In particular, \(\Pi_\gamma\) is non-characteristic for \cref{eq:plane-pde} if
+\[\sum_{i, j= 1}^n a_{ij}\gamma^i\gamma^j \ne 0\]
+
+We would like to find non-characteristic \(\Pi_\gamma\). Note that the left hand side is just \(\inner{A\gamma, \gamma}\), where \(A = (a_{ij})\) is a symmetric matrix, with the usual Euclidean inner product. In particular, \(A\) is diagonalisable, say \(A = P^\T\Lambda P\), where \(P\) is orthogonal and \(\Lambda\) is diagonal. Then
+\[\inner{A\gamma, \gamma} = \inner{P^\T\Lambda P\gamma, \gamma} = \inner{\Lambda v, v}\]
+where \(v = P\gamma\). If \(\{\lambda_i\}\) are the eigenvalues for \(A\), then the non-characteristic condition becomes
+\[\sum_{i=1}^n \lambda_i(v_i)^2 \ne 0\]
+
+\begin{example}
+    [Laplacian]
+    \[L = \Delta = \sum_{i=1}^n \partial^2_{1,1}\]
+    gives
+    \[A = \begin{pmatrix}
+        1 \\
+        &\ddots \\
+        & & 1
+    \end{pmatrix}\]
+    The Laplacian is an elliptic operator.
+\end{example}
+
+\begin{example}
+    [Wave equation]
+    \[L = \partial_t^2 + \Delta\]
+    gives
+    \[A = \begin{pmatrix}
+        1 \\
+        & \ddots \\
+        && 1 \\
+        &&&-1
+    \end{pmatrix}\]
+\end{example}
+
+\textbf{Case 1: All eigenvalues have the same sign (and are all non-zero)}. Since \(v\) is a unit vector, the characteristic condition is impossible. That is, there are no characteristic hyperplanes \(\Pi_\gamma\). In this case, we call \(L\) an \emph{elliptic operator}\index{elliptic operator}.
+
+\textbf{Case 2: Say \(\lambda_n < 0\) and \(\lambda_j > 0\) for \(j \ne n\) (or vice versa).} In this case, we call \(L\) an \emph{hyperbolic operator}\index{hyperbolic operator}. In particular, the characteristic condition becomes
+\[\sum \lambda_i v_i^2 = 0 \iff \lambda_1v_1^2 + \sum_{j=2}^n\lambda_jv_j^2 = 0\]
+Considering the wave equation again, we have the condition that
+\[v_n^2 = \sum_{j=1}^{n-1}v_j^2\]
+subject to the condition
+\[\norm{v} = 1\]
+
+\textbf{Note that these cases are \emph{not} exhaustive.}
+
+Now we want to different features of elliptic and hyperbolic operators. We will forget about boundary conditions, and look for solutions of the form
+\[u(x) = e^{ik \vdot x}\]
+for \(k \in \R^n\). We are looking for \emph{wave-like}\index{wave-like solutions} solutions. Substituting,
+\[L(e^{ik\vdot x}) = e^{ik\vdot x} = \sum_{j, \ell}a_{j\ell}k_jk_\ell\]
+We would like to consider \(Lu = 0\). Taking \(k = c\gamma\), \(\norm{\gamma} = 1\), then the condition is equivalent to
+\[c^2\sum a_{j\ell}\gamma_j\gamma_\ell = 0\]
+
+If \(L\) is elliptic, then the only solution is when \(k = 0\). That is, there are no wave-like solutions. On the other hand, if \(L\) is hyperbolic, then we can have wave like solutions, that is,
+\[\sum a_{ij}\gamma_i\gamma_j = 0\]
+has a solution with \(\norm{\gamma} = 1\). In this case, we have
+\[u(x) = e^{i\lambda \gamma \vdot x}\]
+gives an infinite family of solutions, indexed by \(\lambda \in \R\).
+
+As we take \(\abs{\lambda} \to \infty\), we see that \(u'(x)\) can grow large. In particular, solutions can be rough.
+
+By contrast, we will see that solutions to elliptic equations are smooth.
 
 \section{Sobolev spaces}
 

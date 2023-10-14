@@ -429,6 +429,119 @@ is the space of skew-symmetric matrices.
     Hausdorff and second countable follow from the fact that \(M\) and \(\R^n\) are.
 \end{proof}
 
+\lec
+
+We will use the notation \(\pi : \T M \to M\) for the canonical projection map
+\[\pi(p, a) = p\]
+
+\begin{proposition}
+    The map \(\pi : \T M \to M\) is smooth.
+\end{proposition}
+
+\begin{proof}
+    In local coordinates given by \(\varphi\) and \(\varphi_T\), we have
+    \[\pi(x, a) = x\]
+\end{proof}
+
+\begin{remark}
+    In general, the tangent bundle \(\T M\) need not be diffeomorphic to \(M \times \R^n\).
+\end{remark}
+
+\begin{definition}
+    [smooth vector field] A \emph{smooth vector field}\index{smooth vector field} \(X\) on a manifold \(M\) is a smooth map \(X : M \to \T M\), such that \(\pi(X(p)) = p\). That is, \(X(p) \in \T_pM\).
+\end{definition}
+
+\begin{example}
+    \(X = 0\) is a vector field. Similarly, \(X\) supported on a coordinate neighbourhood is a well defined vector field.
+\end{example}
+
+\(X\) is \(C^\infty\) if and only if for each coordinate neighbourhood \(U\), with local coordinates \(x_i\), we have
+\[X = \sum_i a_i(p) \pdv{x_i}\]
+Smoothness of \(X\) becomes the requirement that each \(a_i : U \to \R\) is smooth.
+
+\begin{theorem}
+    Suppose \(M^n\) is a manifold, and \(X^{(1)}, \dots, X^{(n)}\) are smooth vector fields on \(M\), such that for all \(p \in M\),
+    \[X^{(1)}(p), \dots, X^{(n)}(p)\]
+    is a basis for \(\T_pM\). Then \(\T M\) is isomorphic to the product \(M \times \R^d\). That is, there exists \(\Phi : \T M \to M \times \R^n\) is a diffeomorphism, such that
+    \[\Phi(p, m) = (p, \phi_p(m))\]
+    and for each fixed \(p\), \(\phi_p : \T_p M \to \R^n\) is a linear isomorphism.
+\end{theorem}
+
+Manifolds which satisfies the requirements of the theorem are called \emph{parallelisable}\index{parallelisable}.
+
+\begin{proof}
+    For \((p, a) \in \T M\), we can write it as
+    \[a = \sum a_i X^{(i)}(p)\]
+    for some unique \(a_1, \dots, a_n \in \R\). Using this, we can define a map
+    \[\Phi(p, a) = (p,  (a_i)) \in M \times \R^n\]
+    It is easy to see that this is a bijection. Moreover, \(\phi_p\) defines a linear isomorphism. Therefore, all we need to check is the smoothness. Let \(\psi : U \to \R^n\) be a chart on \(M\), and \(\psi_T : U_T \to \R^n \times \R^n\) be the corresponding chart on \(\T M\). In this case,
+    \[(\psi \times \id) \circ \Phi \circ \psi_T^{-1}(x, b) = (x, a)\]
+    such that
+    \[a = \sum_i a_i X^{(i)}(p) = \sum_j b_j \left(\pdv{x_j}\right)_p\]
+    We can write \(X^{(i)}\) in the \(\pdv{x_j}\) basis, to get
+    \[X^{(i)} = \sum_j X^{(i)}_j \pdv{x_j}\]
+    Thus,
+    \[b_j = \sum_i a_i X^{(i)}_j(x)\]
+    Since the \(X^{(i)}_j\) are smooth, we are done. Moreover, the inverse transformation is also smooth, and thus \(\Phi\) defines a local diffeomorphism, which must then be a diffeomorphism.
+\end{proof}
+
+\begin{remark}
+    \begin{itemize}
+        \item The converse of the theorem is also true, and it is easy, since all we need to choose is (the image of) \((x, e_1), \dots, (x, e_n)\).
+        \item The condition that \(M\) is parallelisable is a restriction. We know that all Lie groups are parallelisable, but general manifolds are not. For example, there are no non-vanishing vector fields on \(S^2\). More generally, \(S^n\) is parallelisable if and only if \(n = 1, 3\) or \(7\).
+    \end{itemize}
+\end{remark}
+
+\begin{definition}
+    [differential]
+    Let \(F : M \to N\) be a smooth map, Define the \emph{differential of \(F\) at \(p \in M\)}\index{differential!of a smooth map between manifolds} as
+    \begin{align*}
+        \dd F_p : \T_p M &\to \T_{F(p)} N \\
+        \pdv{x_i}\bigg\vert_p &\mapsto \sum_j {\pdv{y_i}{x_j}}(x(p))\pdv{y_j}\bigg\vert_{F(p)}
+    \end{align*}
+    where \(x_i\) are local coordinates around \(p\), given by the chart \(\varphi\), and \(y_j\) are local coordinates aroung \(F(p)\), given by \(\psi\). In local coordinates, \(y = y(x) = \psi \circ F \circ \psi^{-1}(x)\).
+
+    Moreover, it is easy to see this is independent of choice of local coordinate, which follows from the chain rule in multivariave calculus.
+\end{definition}
+
+\begin{remark}
+    For smooth maps \(F : M \to N\), \(G : N \to P\),
+    \[\dd(G \circ F) = \dd G \circ \dd F\]
+\end{remark}
+
+Now suppose \(F : M \to N\) is a diffeomorphism, \(X\) is a smooth vector field on \(M\). Then the \emph{pushforward of \(X\) by \(F\)}\index{pushforward!of a vector field by a diffeomorphism} is
+\[\left((\dd F)X\right)_{F(p)} = (\dd F)_pX(p)\]
+which defines a vector field on \(N\). We want \(F^{-1}\) to be smooth, since otherwise we don't know whether the image will be smooth.
+
+Every vector field \(X\) on \(M\) defines a linear map
+\[X : \C^\infty(M) \to \C^\infty(M)\]
+where if
+\[X = \sum_i X_i \pdv{x_i}\]
+we define locally
+\[Xh = \sum_i X_i \pdv{h}{x_i}\]
+again by the chain rule, this is independent of choice of coordinates.
+
+Let \(f \in C^\infty(N)\), \(F : M \to N\) be a diffeomorphism. Then \(f \circ F \in C^\infty(M)\). In coordinates \(x_i\) on \(M\), \(y_j\) on \(N\) given by \(F\),
+\[\pdv{x_i}(f \circ F) = \sum_j \pdv{f}{y_j}\pdv{y_j}{x_i}\]
+Therefore,
+\[X(f \circ F) = \sum_{i, j}X_i\pdv{f}{y_j}\pdv{y_j}{x_i} = \left(\left((\dd F)X\right)f\right) \circ F\]
+That is, the diagram
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJDXlxcaW5mdHkoTikiXSxbMCwyLCJDXlxcaW5mdHkoTikiXSxbMiwwLCJDXlxcaW5mdHkoTSkiXSxbMiwyLCJDXlxcaW5mdHkoTSkiXSxbMCwyLCJcXGNkb3QgXFxjaXJjIEYiXSxbMSwzLCJcXGNkb3QgXFxjaXJjIEYiXSxbMCwxLCIoXFxkZCBGKVgiLDJdLFsyLDMsIlgiXV0=
+\[\begin{tikzcd}
+	{C^\infty(N)} && {C^\infty(M)} \\
+	\\
+	{C^\infty(N)} && {C^\infty(M)}
+	\arrow["{\cdot \circ F}", from=1-1, to=1-3]
+	\arrow["{\cdot \circ F}", from=3-1, to=3-3]
+	\arrow["{(\dd F)X}"', from=1-1, to=3-1]
+	\arrow["X", from=1-3, to=3-3]
+\end{tikzcd}\]
+commutes.
+
+Let \(X, Y\) be vector fields on \(M\). \(X\) and \(Y\) can be consider as a first order linear differential operator. Then the composition \(XY\) is not, but the \emph{Lie bracket}\index{Lie bracket!of vector fields}
+\[[X, Y] = XY - YX\]
+is a well defined first order linear differential operator. One way to see this is by the symmetry of mixed partial derivatives. Thus, the space of all vector fields on \(M\) forms a Lie algebra. Note that it is infinite dimensional, and so it can't come from a Lie group.
+
 \printindex
 
 \end{document}
