@@ -385,7 +385,7 @@ Let \(X\) be a topological space.
     \end{align*}
     and for \(U \sse V\) opens, we have a homomorphism
     \[\res_U^V : \mcF(V) \to \mcF(U)\]
-    such that
+    called the \emph{restriction map}\index{restriction map}, such that
     \begin{enumerate}
         \item \(\res_U^U = \id\),
         \item \(\res^V_U\res^W_V = \res^W_U\) for \(U \sse V \sse W\).
@@ -420,6 +420,117 @@ commutes, for all \(U \sse V\).
 In terms of category theory, the opens in \(X\) form a category, with morphisms given by inclusions. In this case, a presheaf is a contravariant functor \(\text{Opens}(X) \to \text{Ab}\), and a morphism is a natural transformation.
 
 A morphism \(\varphi : \mcF \to \mcG\) is \emph{injective}\index{injective!morphism of sheaves} (resp. \emph{surjective}\index{surjective!morphism of sheaves}) if \(\varphi(U) : \mcF(U) \to \mcG(U)\) is injective (resp. surjective) for all \(U \sse X\).
+
+\lec
+
+\subsection{Sheaves}
+
+\begin{definition}
+    [sheaf]
+    A \emph{sheaf}\index{sheaf} is a presheaf \(\mcF\) on \(X\), such that
+    \begin{enumerate}[label=S\arabic*.]
+        \item Supppose \(U \sse X\) open, \(\{U_i\}\) an open cover of \(U\), then for \(s \in \mcF(U)\), with
+        \[s \vert_{U_i} = \res^U_{U_i}s = 0\]
+        for all \(i\), then \(s = 0\).
+        \item Suppose \(U \sse X\) is open, \(\{U_i\}\) an open cover of \(U\), given \(s_i \in \mcF(U_i)\), with
+        \[s_i\vert_{U_i \cap U_j} = s_j\vert_{U_i \cap U_j}\]
+        then there exists \(s \in \mcF(U)\) with \(s\vert_{U_i} = s_i\).
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    These axioms imply that \(\mcF(\emptyset) = 0\).
+\end{remark}
+
+\begin{definition}
+    [morphism of sheaves]
+    A \emph{morphisms of sheaves}\index{morphism!of sheaves} \(\varphi : \mcF \to \mcG\) is just a morphism of the underlying presheaves.
+\end{definition}
+
+\begin{example}
+    If \(X\) is a topological space, and
+    \[\mcF(U) = \left\{f : U \to \R \text{ continuous}\right\}\]
+    Then \(\mcF\) is a sheaf.
+\end{example}
+
+\begin{example}
+    [non-example] Let \(X = \C\) with the usual Euclidean topology. Let
+    \[\mcF(U) = \left\{f : U \to \C \text{ holomorphic and bounded}\right\}\]
+    The issue here is that function being bounded is not a local property. That is, we can glue bounded functions together and get an unbounded function.
+\end{example}
+
+\begin{example}
+    [non-example] Fix an abelian group \(G\), and set
+    \[\mcF(U) = G\]
+    This is called the \emph{constant presheaf}\index{constant presheaf}. If \(U_1, U_2\) are disjoint, then
+    \[\mcF(U_1 \cup U_2) = \mcF(U_1) \oplus \mcF(U_2) = G \oplus G \ne G\]
+    (unless \(G = 0\) that is).
+\end{example}
+
+\begin{example}
+    [constant sheaf]
+    Let \(G\) be an abelian group, with the discrete topology. Then define
+    \[\mcF(U) = \left\{f : U \to G \text{ continuous}\right\} = \left\{f : U \to G \text{ locally constant}\right\}\]
+    This is called the \emph{constant sheaf}\index{constant sheaf}.
+\end{example}
+
+\begin{example}
+    If \(V\) is an irreducible variety, define
+    \[\mcO_V(U) = \left\{f \in k(V) \mid f \text{ is regular at all }p \in U\right\}\]
+    Here, regular at \(p\) means \(f = g/h\), \(g, h \in k[V]\), with \(h(p) \ne 0\). \(\mcO_X\) is called the \emph{structure sheaf}\index{structure sheaf!of a variety} of \(V\). This is a sheaf as being regular is a local condition.
+\end{example}
+
+\subsection{Basic constructions}
+
+\begin{definition}
+    [section]
+    Let \(\mcF\) be a sheaf, a \emph{section}\index{section} \(s\) of \(\mcF\) on \(U\) is an element \(s \in \mcF(U)\).
+\end{definition}
+
+\begin{definition}
+    [Stalks] Fix \(p \in X\), and \(\mcF\) a presheaf on \(X\). The \emph{stalk of \(\mcF\) at \(p\)}\index{stalk} is
+    \[\mcF_p = \frac{\left\{(U, s) \mid U \text{ open neighbourhood of }p, s \in \mcF(U)\right\}}{\sim}\]
+    where \((U, s) \sim (V, t)\) if there exists \(W \sse U \cap V\) an open neighbourhood of \(p\), such that
+    \[s \vert_W = t\vert_W\]
+    Elements of \(\mcF_p\) are called \emph{germs}\index{germ}.
+\end{definition}
+
+\begin{example}
+    Consider the affine line \(\bb A^1\), then
+    \[\mcO_{\bb A^1, 0} = \left\{\frac{f(t)}{g(t)} \ \bigg\vert\ g(0) \ne 0\right\} \sse k(t)\]
+    Equivalently, we can consider this as the localisation \(k[t]_{(t)}\).
+\end{example}
+
+\begin{proposition}
+    Suppose \(f : \mcF \to \mcG\) is a morphism of sheaves on \(X\), such that for all \(p \in X\), the induced map
+    \[f_p : \mcF_p \to \mcG_p\]
+    is an isomorphism. Then \(f\) is an isomorphism.
+\end{proposition}
+
+Note that
+\[f_p((U, s)) = (U, f_U(s))\]
+which is well defined by definition of a morphism of sheaves.
+
+\begin{proof}
+    We will show that
+    \[f_U : \mcF(U) \to \mcG(U)\]
+    is an isomorphism for all \(U\). Once we know this, we will define \(f^{-1}\) by
+    \[(f^{-1})_U = f_U^{-1}\]
+
+    \textbf{\(f_U\) is injective.} Suppose \(s \in \mcF(U)\) has \(f_U(s) = 0\). By injectivity of \(f_p\), \((U, s) = 0\) in \(\mcF_p\) for all \(p \in U\). This means that for all \(p \in U\), there exists an open neighbourhood \(U_p\) of \(p\) such that \(s\vert_{U_p} = 0\). This defines a cover of \(U\). Hence by S1, \(s = 0\). 
+
+    \textbf{\(f_U\) is surjective.} Given \(t \in \mcG(U)\), for each \(p \in U\), we have \((U_p, s_p) \in \mcF_p\), with \(f_p(U_p, s_p) = (U, t) \in \mcG_p\). By shrinking \(U_p\) if necessary, we can assume \(f_{U_p}(s_p) = t\vert_{U_p}\). For points \(p, q \in U\),
+    \[f_{U_p \cap U_q}(s_p\vert_{U_p \cap U_q} - s_q\vert_{U_p \cap U_q}) = t\vert_{U_p \cap U_q} - t\vert_{U_p \cap U_q} = 0\]
+    Thus bu injectivity of \(f_{U_p \cap U_q}\),
+    \[s_p\vert_{U_p \cap U_q} = s_q\vert_{U_p \cap U_q}\]
+    Thus by S2, there exists \(s \in \mcF(U)\), with \(s\vert_{U_p} = s_p\). Now
+    \[f_U(s) \vert_{U_p} = f_U(s\vert_{U_p}) = f\vert_{U_p}(s_p) = t\vert_{U_p}\]
+    Thus, \(f_U(s) = t\) by S1.
+\end{proof}
+
+\begin{remark}
+    There is an asymmetry in the proof here, we need to show injectivity before surjectivity.
+\end{remark}
 
 \printindex
 

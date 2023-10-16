@@ -605,11 +605,172 @@ In fact, \(\Omega\) is \emph{central}.
 
     \begin{claim}
         We have a vector space decomposition:
-        \[V = W \oplus \ker(\gamma)\]88
+        \[V = W \oplus \ker(\gamma)\]
     \end{claim}
+
+    \lec
+
+    \begin{proof}
+        [Proof of claim]
+        By construction, \(W \cap \ker(\gamma) = 0\), and by dimension counting, \(\dim(V) = \dim(W) + \dim(\ker(\gamma))\), as \(W = \im(\gamma)\). Since dimensions add up and the intersection is zero, we have a direct sum of vector spaces.
+    \end{proof}
+
+    Finally, it remains to show that \(\ker(\gamma)\) is a subrepresentation of \(V\). Let \(v \in \ker(\gamma)\), \(x \in \sl_2\). Since \(\bb U\) is one-dimensional of \(\sl_2\), it must be the trivial representation. Thus,
+    \[0 = (x\gamma)(v) = x\gamma(v) - \gamma(x v) = -\gamma(xv)\]
+    as \(\gamma(v) = 0\). This means that \(xv \in \ker(\gamma)\) as required.
+
+
 \end{proof}
 
 In Humphreys' book \S6.3, Humphreys proves \cref{thm:weyl} for a general semisimple Lie algebra. Or see Henderson \S5.2.1, \S7.5.1.
+
+\begin{remark}
+    \begin{enumerate}
+        \item The proof only needed (in terms of representation theory)
+        \begin{itemize}
+            \item existence of a Casimir element \(\Omega\),
+            \item the only one-dimensional representation is the trivial representation.
+        \end{itemize}
+        \item Complete reducibility is rare, it can fail for infinite dimensional Lie algebras, or simple Lie algebras in positive characteristic. For example, the adjoint representation of \(\sl_n(\bb F_p)\) on \(\gl_n(\bb F_p)\) is not completely reducible if \(p \mid n\).
+    \end{enumerate}
+\end{remark}
+
+\section{Tensor products}
+
+Given vector spaces \(V, W\), with bases \(v_1, \dots, v_n\) and \(w_1, \dots, w_m\) respectively. We define the \emph{tensor product}\index{tensor product!of vector spaces} \(V \otimes_\C W\) as the \(\C\)-vector space, with basis
+\[\{v_i \otimes w_j\}_{i, j}\]
+subject to the usual bilinearity conditions.
+
+\begin{definition}
+    [tensor product of representations]
+    If \(V, W\) are representations of a Lie algebra \(\mfg\), then so is \(V \otimes W\)\index{tensor product!of representations}, with
+    \[x(v \otimes w) = (xv) \otimes w + v \otimes (xw)\]
+\end{definition}
+
+\begin{example}
+    If \(V, W\) are \(\sl_2\) representations, \(v \in V_\lambda, w \in W_\mu\), then
+    \[h(v \otimes w) = (\lambda + \mu)(v \otimes w)\]
+    That is,
+    \[v \otimes w = (V\otimes W)_{\lambda + \mu}\]
+    Thus, the weights of \(V \otimes W\) are just \(\lambda + \mu\), where \(\lambda\) is a weight for \(V\), \(\mu\) is a weight for \(W\).  
+\end{example}
+
+\begin{example}
+    For
+    \[V(2) \otimes V(2) = V(2)^{\otimes 2}\]
+    we have the weights:
+    \begin{center}
+        \begin{tabular}{c|c c c}
+            & 2 & 0 & -2 \\
+            \hline
+            2 & 4 & 2 & 0 \\
+            0 & 2 & 0 & -2 \\
+            -2 & 0 & -2 & -4
+        \end{tabular}
+    \end{center}
+    and so
+    \[V(2)^{\otimes 2} = V(4) \oplus V(2) \oplus V(0)\]
+    In particular, if \(v_n\) is a highest weight vector in \(V(n)\), then \(v_n \otimes v_m\) is a highest weight vector for \(V(n) \otimes V(m)\).
+\end{example}
+
+We would like a general formula for decomposing \(V(n) \otimes V(m)\). The answer, as in Part II Representation theory, is a \emph{Clebsch-Gordon}\index{Clebsch-Gordon} formula
+\[V(n) \otimes V(m) = \bigoplus_{r = \abs{n - m}, r \cong n - m \pmod 2}^{n + m}V(r)\]
+We won't need this though.
+
+\begin{definition}
+    The \emph{\(n\)-th symmetric power}\index{symmetric power} is
+    \[S^nV = \Sym^n(V) = \frac{V^{\otimes n}}{M_n}\]
+    where \(M_n\) is the span of
+    \[u_1 \otimes \cdots \otimes u_n - u_{\sigma(1)}\otimes \cdots \otimes u_{\sigma(n)}\]
+    where \(\sigma \in S_n\), and \(u_i \in V\).
+\end{definition}
+
+For example, \(M_2\) is the span of \(v \otimes w - w \otimes v\). In particular, note that \(M_n\) is a subrepresentation of \(V^{\otimes n}\) of \(V\). So \(\Sym^n(V)\) is a representation of \(V\).
+
+\begin{example}
+    In \(S^2V\), \(v \otimes w = w \otimes v\), and so \(S^2 V\) has basis
+    \[v_i \otimes v_j\]
+    for \(i \le j\). Decomposing \(S^2V(2)\), we see that \(e \otimes e \in S^2V(2)\) is nonzero (note \(V(2)\) is the adjoint representation), and so \(V(4)\) is a subrepresentation of \(S^2V(2)\). In particular, we have a splitting
+    \[S^2V(2) = V(4) \oplus V(0)\]
+\end{example}
+
+\begin{definition}
+    The \emph{\(n\)-th exterior (or alternating) power}\index{exterior power} is
+    \[\Lambda^n V = \frac{V^{\otimes n}}{N_n}\]
+    where \(N_n\) is the span of
+    \[u_1 \otimes \cdots \otimes u_n\]
+    where \(u_i \in V\), and \(u_i = u_j\) for some \(i \ne j\).
+\end{definition}
+
+Again, \(N_n\) is a subrepresentation of \(V^{\otimes n}\), and so \(\Lambda^n V\) is a representation.
+
+\begin{example}
+    With \(n = 2\), \(N_2 = \Span\{v \otimes v\}\).
+\end{example}
+
+\begin{notation}
+    We write (the coset of) \(u_1 \otimes \cdots \otimes u_n\) in \(\Lambda^n V\) as
+    \[u_1 \wedge \cdots \wedge u_n\]
+\end{notation}
+
+\underline{Exercises:}
+\begin{enumerate}
+    \item Decompose \(\Lambda^2V(2) = V(2)\), with basis \(e \wedge f, e \wedge h, h \wedge f\).
+    \item Find the dimensions of \(S^n V\) and \(\Lambda^n V\).
+\end{enumerate}
+
+\section{Results about semisimple Lie algebras}
+
+Let \(\mfg\) be a semisimple Lie algebra over \(\C\).
+
+\begin{definition}
+    [ideal] A subspace \(I \sse \mfg\) is an \emph{ideal}\index{ideal} of \(\mfg\) if
+    \[[xy]\in I\]
+    for all \(x \in \mfg, y \in I\).
+\end{definition}
+
+\begin{remark}
+    Any ideal is automatically a subalgebra.
+\end{remark}
+
+Suppose \(I\) is an ideal, then \(\mfg/I\) is a Lie algebra under
+\[[x + I, y + I] = [x,y] + I\]
+Moreover, \(I\) is an ideal if and only if it is a subrepresentation of the adjoint representation \(\ad : \mfg \to \gl(\mfg)\).
+
+\begin{example}
+    The \emph{centre}\index{centre} of \(\mfg\) is
+    \[Z(\mfg) = \left\{x \in \mfg \mid [x, y] = 0 \text{ for all }y \in \mfg\right\}\]
+    and by definition, \(Z(\mfg) = \ker(\ad : \mfg \to \gl(\mfg))\).
+\end{example}
+
+If \(Z(\mfg) = 0\), then \(\ad : \mfg \to \gl(\mfg)\) is faithful, and thus we have an embedding
+\[\ad : \mfg \to \gl(\mfg)\]
+and as such, \(\mfg\) can be regarded as a Lie subalgebra of \(\gl_n\), where \(n = \dim(\mfg)\).
+
+\begin{theorem}
+    [Ado] Suppose \(\Char(k) = 0\), then any finite dimensional Lie algebra \(\mfg\) embeds as a Lie subalgebra of \(\gl_m\) for some \(m\).
+\end{theorem}
+
+\begin{proof}
+    Omitted.
+\end{proof}
+
+Note that the embedding need not be via the adjoint representation. In fact, this is true for \(\Char(k) = p > 0\), due to Iwasawa.
+
+\begin{example}
+    The \emph{derived subalgebra}\index{derived subalgebra} of \(\mfg\) is
+    \[D(\mfg) = [\mfg, \mfg] = \left\{[x, y] \mid x,y \in \mfg\right\}\]
+    This is an ideal of \(\mfg\).
+\end{example}
+
+Recall \(\sl_n\) is a subalgebra of \(\gl_n\). In fact,
+\[D(\gl_n) = \sl_n\]
+
+\begin{example}
+    Suppose \(\varphi : \mfg \to \mfh\) is a homomorphism  of Lie algebras, then
+    \[\ker(\varphi) = \left\{x \in \mfg \mid \varphi(x) = 0\right\}\]
+    is an ideal of \(\mfg\).
+\end{example}
 
 \printindex
 

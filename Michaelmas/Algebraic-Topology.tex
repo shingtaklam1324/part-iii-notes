@@ -363,7 +363,7 @@ We think of this as saying that (co)homology is ``insensitive to inessential def
 
 \begin{example}
     Recall \(\{0\} \inj \R^n\) is a homotopy equivalence, and so
-    \[H_*(\R^n) = \begin{cases}
+    \[\HH_*(\R^n) = \begin{cases}
         \Z & * = 0 \\
         0 & \text{otherwise}
     \end{cases}\]
@@ -413,24 +413,24 @@ which is exact at all places. That is, \(\alpha\) is injective, \(\beta\) is sur
             \arrow[from=1-3, to=1-4]
         \end{tikzcd}\]
         is exact, then \(\alpha\) is an isomorphism.
+        \item If
+        % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxaIl0sWzIsMCwiRyJdLFszLDAsIlxcWi9uIl0sWzQsMCwiMCJdLFsxLDIsIlxcYWxwaGEiXSxbMiwzLCJcXGJldGEiXSxbMyw0XSxbMCwxXV0=
+        \[\begin{tikzcd}
+            0 & \Z & G & {\Z/n} & 0
+            \arrow["\alpha", from=1-2, to=1-3]
+            \arrow["\beta", from=1-3, to=1-4]
+            \arrow[from=1-4, to=1-5]
+            \arrow[from=1-1, to=1-2]
+        \end{tikzcd}\]
+        is exact, then we could have \(G = \Z \oplus \Z/n\), or we could have \(G = \Z\), with \(\alpha(x) = nx\).
     \end{enumerate}
-    \item If
-    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxaIl0sWzIsMCwiRyJdLFszLDAsIlxcWi9uIl0sWzQsMCwiMCJdLFsxLDIsIlxcYWxwaGEiXSxbMiwzLCJcXGJldGEiXSxbMyw0XSxbMCwxXV0=
-    \[\begin{tikzcd}
-        0 & \Z & G & {\Z/n} & 0
-        \arrow["\alpha", from=1-2, to=1-3]
-        \arrow["\beta", from=1-3, to=1-4]
-        \arrow[from=1-4, to=1-5]
-        \arrow[from=1-1, to=1-2]
-    \end{tikzcd}\]
-    is exact, then we could have \(G = \Z \oplus \Z/n\), or we could have \(G = \Z\), with \(\alpha(x) = nx\).
 \end{example}
 
 \begin{theorem}
     [Mayer-Vietoris]
     \index{Mayer-Vietoris}
     If \(X = A \cup B\), with \(A, B\) open subsets of \(X\). Then there exists \emph{Mayer-Vietoris boundary homomorphism}\index{Mayer-Vietoris!homomorphism}
-    \[\partial_{MV} : H_{i+!}(X) \to H_i(A \cap B)\]
+    \[\partial_{MV} : \HH_{i+!}(X) \to \HH_i(A \cap B)\]
     for all \(i\), so that the sequence
     % https://q.uiver.app/#q=WzAsNixbMSwwLCJcXEhIX3tpKzF9KFgpIl0sWzIsMCwiXFxISF9pKEEgXFxjYXAgQikiXSxbMywwLCJcXEhIX2koQSlcXG9wbHVzIFxcSEhfaShCKSJdLFs0LDAsIlxcSEhfaShYKSJdLFswLDAsIlxcY2RvdHMiXSxbNSwwLCJcXGNkb3RzIl0sWzQsMF0sWzAsMSwiXFxwYXJ0aWFsX3tNVn0iXSxbMSwyLCJpX3tBKn1cXG9wbHVzIGlfe0IqfSJdLFsyLDMsImpfe0EqfS1qX3tCXip9Il1d
 \[\begin{tikzcd}
@@ -455,7 +455,7 @@ which is exact at all places. That is, \(\alpha\) is injective, \(\beta\) is sur
     which makes the sequence
 % https://q.uiver.app/#q=WzAsNyxbMSwwLCJIXntpLTF9KEEgXFxjYXAgQikiXSxbMiwwLCJIXmkoWCkiXSxbMywwLCJIXmkoQSlcXG9wbHVzIEheaShCKSJdLFs0LDAsIkheaShBIFxcY2FwIEIpIl0sWzUsMCwiSF57aS0xfShYKSJdLFswLDAsIlxcY2RvdHMiXSxbNiwwLCJcXGNkb3RzIl0sWzAsMSwiXFxwYXJ0aWFsX3tNVn1eKiJdLFszLDQsIlxccGFydGlhbF97TVZ9XioiXSxbMSwyLCJqX0FeKiBcXG9wbHVzIC1qX0JeKiJdLFsyLDMsImlfQV4qICtpX0JeKiJdLFs1LDBdLFs0LDZdXQ==
 \[\begin{tikzcd}
-	\cdots & {H^{i-1}(A \cap B)} & {H^i(X)} & {H^i(A)\oplus H^i(B)} & {H^i(A \cap B)} & {H^{i-1}(X)} & \cdots
+	\cdots & {\HH^{i-1}(A \cap B)} & {\HH^i(X)} & {\HH^i(A)\oplus \HH^i(B)} & {\HH^i(A \cap B)} & {\HH^{i-1}(X)} & \cdots
 	\arrow["{\partial_{MV}^*}", from=1-2, to=1-3]
 	\arrow["{\partial_{MV}^*}", from=1-5, to=1-6]
 	\arrow["{j_A^* \oplus -j_B^*}", from=1-3, to=1-4]
@@ -476,8 +476,8 @@ which is exact at all places. That is, \(\alpha\) is injective, \(\beta\) is sur
         \item The Mayer-Vietoris sequence is natural for maps of pairs. That is, if \(X = A \cup B, Y = C \cup D\), and \(f : X \to Y\) has \(f(A) \sse C\), \(f(B) \sse D\), then we have a map of long exact sequences
         % https://q.uiver.app/#q=WzAsMTQsWzIsMCwiSF9pKEEgXFxjYXAgQikiXSxbMywwLCJIX2koQSkgXFxvcGx1cyBIX2koQikiXSxbNCwwLCJIX2koWCkiXSxbMiwxLCJIX2koQ1xcY2FwIEQpIl0sWzMsMSwiSF9pKEMpIFxcb3BsdXMgSF9pKEQpIl0sWzQsMSwiSF9pKFkpIl0sWzUsMCwiSF97aS0xfShBIFxcY2FwIEIpIl0sWzUsMSwiSF97aS0xfShDXFxjYXAgRCkiXSxbMSwwLCJIX3tpKzF9KFgpIl0sWzEsMSwiSF97aSsxfShZKSJdLFswLDAsIlxcY2RvdHMiXSxbMCwxLCJcXGNkb3RzIl0sWzYsMCwiXFxjZG90cyJdLFs2LDEsIlxcY2RvdHMiXSxbMTAsOF0sWzExLDldLFs4LDBdLFs5LDNdLFszLDRdLFswLDFdLFsxLDJdLFs0LDVdLFsyLDZdLFs1LDddLFs2LDEyXSxbNywxM10sWzgsOSwiZl8qIiwxXSxbMCwzLCJmXyoiLDFdLFsxLDQsImZfKiBcXG9wbHVzIGZfKiIsMV0sWzIsNSwiZl8qIiwxXSxbNiw3LCJmXyoiLDFdXQ==
         \[\begin{tikzcd}
-            \cdots & {H_{i+1}(X)} & {H_i(A \cap B)} & {H_i(A) \oplus H_i(B)} & {H_i(X)} & {H_{i-1}(A \cap B)} & \cdots \\
-            \cdots & {H_{i+1}(Y)} & {H_i(C\cap D)} & {H_i(C) \oplus H_i(D)} & {H_i(Y)} & {H_{i-1}(C\cap D)} & \cdots
+            \cdots & {\HH_{i+1}(X)} & {\HH_i(A \cap B)} & {\HH_i(A) \oplus \HH_i(B)} & {\HH_i(X)} & {\HH_{i-1}(A \cap B)} & \cdots \\
+            \cdots & {\HH_{i+1}(Y)} & {\HH_i(C\cap D)} & {\HH_i(C) \oplus \HH_i(D)} & {\HH_i(Y)} & {\HH_{i-1}(C\cap D)} & \cdots
             \arrow[from=1-1, to=1-2]
             \arrow[from=2-1, to=2-2]
             \arrow[from=1-2, to=1-3]
@@ -519,7 +519,7 @@ We will prove these later when we use them.
     Using this, we know \(\HH_*(A), \HH_*(B), \HH_*(A \cap B)\). For \(i \ge 2\), we have
     % https://q.uiver.app/#q=WzAsNSxbMSwwLCJcXHVuZGVyYnJhY2V7SF9pKEEpXFxvcGx1cyBIX2koQil9X3s9MH0iXSxbMiwwLCJIX2koWCkiXSxbMywwLCJcXHVuZGVyYnJhY2V7SF97aS0xfShBIFxcY2FwIEIpfV97PTB9Il0sWzAsMCwiXFxjZG90cyJdLFs0LDAsIlxcY2RvdHMiXSxbMCwxXSxbMSwyXSxbMywwXSxbMiw0XV0=
 \[\begin{tikzcd}
-	\cdots & {\underbrace{H_i(A)\oplus H_i(B)}_{=0}} & {H_i(X)} & {\underbrace{H_{i-1}(A \cap B)}_{=0}} & \cdots
+	\cdots & {\underbrace{\HH_i(A)\oplus \HH_i(B)}_{=0}} & {\HH_i(X)} & {\underbrace{\HH_{i-1}(A \cap B)}_{=0}} & \cdots
 	\arrow[from=1-2, to=1-3]
 	\arrow[from=1-3, to=1-4]
 	\arrow[from=1-1, to=1-2]
@@ -528,9 +528,9 @@ We will prove these later when we use them.
     and so \(\HH_i(X) = 0\) for all \(i \ge 2\). For lowe degrees, we have
     % https://q.uiver.app/#q=WzAsNyxbMCwwLCJcXHVuZGVyYnJhY2V7SF8xKEEgXFxjYXAgQil9X3s9MH0iXSxbMSwwLCJcXHVuZGVyYnJhY2V7SF8xKEEpXFxvcGx1cyBIXzEoQil9X3s9MH0iXSxbMiwwLCJIXzEoWCkiXSxbMCwyLCJcXHVuZGVyYnJhY2V7SF8wKEEgXFxjYXAgQil9X3tcXGlubmVye3B9XFxvcGx1c1xcaW5uZXJ7cX19Il0sWzEsMiwiXFx1bmRlcmJyYWNle0hfMChBKVxcb3BsdXMgSF8wKEIpfV97PVxcWiBcXG9wbHVzIFxcWn0iXSxbMiwyLCJcXHVuZGVyYnJhY2V7SF8wKFgpfV97PVxcWn0iXSxbMywyLCIwIl0sWzUsNl0sWzQsNV0sWzMsNCwiXFxhbHBoYSIsMl0sWzAsMV0sWzEsMl0sWzIsMywiXFxwYXJ0aWFsX3tNVn0iXV0=
 \[\begin{tikzcd}
-	{\underbrace{H_1(A \cap B)}_{=0}} & {\underbrace{H_1(A)\oplus H_1(B)}_{=0}} & {H_1(X)} \\
+	{\underbrace{\HH_1(A \cap B)}_{=0}} & {\underbrace{\HH_1(A)\oplus \HH_1(B)}_{=0}} & {\HH_1(X)} \\
 	\\
-	{\underbrace{H_0(A \cap B)}_{\inner{p}\oplus\inner{q}}} & {\underbrace{H_0(A)\oplus H_0(B)}_{=\Z \oplus \Z}} & {\underbrace{H_0(X)}_{=\Z}} & 0
+	{\underbrace{\HH_0(A \cap B)}_{\inner{p}\oplus\inner{q}}} & {\underbrace{\HH_0(A)\oplus \HH_0(B)}_{=\Z \oplus \Z}} & {\underbrace{\HH_0(X)}_{=\Z}} & 0
 	\arrow[from=3-3, to=3-4]
 	\arrow[from=3-2, to=3-3]
 	\arrow["\alpha"', from=3-1, to=3-2]
@@ -538,7 +538,7 @@ We will prove these later when we use them.
 	\arrow[from=1-2, to=1-3]
 	\arrow["{\partial_{MV}}", from=1-3, to=3-1]
 \end{tikzcd}\]
-    where \(\alpha(n, m) = (n+m, n+m)\). Moreover, we use that \(S^1\) is path connected, and \(H_0\) is generated by any point. Therefore, \(\HH_1(X)\) sits in an exact sequence
+    where \(\alpha(n, m) = (n+m, n+m)\). Moreover, we use that \(S^1\) is path connected, and \(\HH_0\) is generated by any point. Therefore, \(\HH_1(X)\) sits in an exact sequence
     % https://q.uiver.app/#q=WzAsNixbMCwwLCIwIl0sWzEsMCwiXFxISF8xKFgpIl0sWzIsMCwiXFxaXjIiXSxbMywwLCJcXFpeMiJdLFs0LDAsIlxcWiJdLFs1LDAsIjAiXSxbMCwxXSxbMSwyLCJcXHBhcnRpYWxfe01WfSJdLFsyLDMsIlxcYWxwaGEiXSxbMyw0LCJcXGJldGEiXSxbNCw1XV0=
 \[\begin{tikzcd}
 	0 & {\HH_1(X)} & {\Z^2} & {\Z^2} & \Z & 0
@@ -553,36 +553,196 @@ We will prove these later when we use them.
 \end{proof}
 
 \begin{example}
-    \[\HH_*(S^n) = \begin{cases}
+    \[\HH^*(S^n) = \HH_*(S^n) = \begin{cases}
         \Z & * = 0, n \\
         0 &\text{otherwise}
     \end{cases}\]
 \end{example}
 
+\lec
+
 \begin{proof}
-    Define \(A, B \sse S^n\) by
+    We will compute the cohomology. Define \(A, B \sse S^n\) by
 
     \begin{center}
         \includegraphics[scale=0.1]{diagrams/10_13 (2).jpg}
     \end{center}
 
     Then \(A, B\) are contractible, and \(A \cap B\) is homotopic to \(S^{n-1}\). We work inductively in \(n\), using the Mayer-Vietoris sequence. The sequence gives
-    % https://q.uiver.app/#q=WzAsNSxbMSwwLCJIX2koU15uKSJdLFszLDAsIkhfe2ktMX0oKilcXG9wbHVzIEhfe2ktMX0oKikiXSxbMiwwLCJIX3tpLTF9KFNebikiXSxbNCwwLCJIX3tpLTF9KFNebikiXSxbMCwwLCJIX2koKilcXG9wbHVzIEhfaSgqKSJdLFs0LDBdLFswLDJdLFsyLDFdLFsxLDNdXQ==
+%     % https://q.uiver.app/#q=WzAsNSxbMSwwLCJIX2koU15uKSJdLFszLDAsIkhfe2ktMX0oKilcXG9wbHVzIEhfe2ktMX0oKikiXSxbMiwwLCJIX3tpLTF9KFNebikiXSxbNCwwLCJIX3tpLTF9KFNebikiXSxbMCwwLCJIX2koKilcXG9wbHVzIEhfaSgqKSJdLFs0LDBdLFswLDJdLFsyLDFdLFsxLDNdXQ==
+% \[\begin{tikzcd}
+% 	{\HH_i(*)\oplus \HH_i(*)} & {\HH_i(S^n)} & {\HH_{i-1}(S^n)} & {\HH_{i-1}(*)\oplus \HH_{i-1}(*)} & {\HH_{i-1}(S^n)}
+% 	\arrow[from=1-1, to=1-2]
+% 	\arrow[from=1-2, to=1-3]
+% 	\arrow[from=1-3, to=1-4]
+% 	\arrow[from=1-4, to=1-5]
+% \end{tikzcd}\]
+%     If \(i \ne 0, n, 1\), \(\HH_i(S^n)\) has
+%     % https://q.uiver.app/#q=WzAsMyxbMCwwLCIwIl0sWzEsMCwiSF9pKFNebikiXSxbMiwwLCIwIl0sWzAsMV0sWzEsMl1d
+%     \[\begin{tikzcd}
+%         0 & {\HH_i(S^n)} & 0
+%         \arrow[from=1-1, to=1-2]
+%         \arrow[from=1-2, to=1-3]
+%     \end{tikzcd}\]
+%     so \(\HH_i(S^n) = 0\).
+% https://q.uiver.app/#q=WzAsOCxbNCwwLCJIXntpLTF9KFNebikiXSxbMCwyLCJIXmkoU15uKSJdLFsyLDIsIkheaSgqKSBcXG9wbHVzXFxISF5pKCopIl0sWzQsMiwiXFxISF57aS0xfShTXntuLTF9KSJdLFsyLDAsIlxcY2RvdHMiXSxbMiw0LCJIXntpKzF9KCopXFxvcGx1cyBIXmkoKikiXSxbMCw0LCJIXntpKzF9KFNebikiXSxbNCw0LCJcXGNkb3RzIl0sWzQsMF0sWzAsMSwiXFxwYXJ0aWFsXipfe01WfSJdLFsxLDJdLFsyLDNdLFszLDYsIlxccGFydGlhbF4qX3tNVn0iXSxbNiw1XSxbNSw3XV0=
 \[\begin{tikzcd}
-	{H_i(*)\oplus H_i(*)} & {H_i(S^n)} & {H_{i-1}(S^n)} & {H_{i-1}(*)\oplus H_{i-1}(*)} & {H_{i-1}(S^n)}
+	&& \cdots && {\HH^{i-1}(S^n)} \\
+	\\
+	{\HH^i(S^n)} && {\HH^i(*) \oplus\HH^i(*)} && {\HH^{i-1}(S^{n-1})} \\
+	\\
+	{\HH^{i+1}(S^n)} && {\HH^{i+1}(*)\oplus \HH^i(*)} && \cdots
+	\arrow[from=1-3, to=1-5]
+	\arrow["{\partial^*_{MV}}", from=1-5, to=3-1]
+	\arrow[from=3-1, to=3-3]
+	\arrow[from=3-3, to=3-5]
+	\arrow["{\partial^*_{MV}}", from=3-5, to=5-1]
+	\arrow[from=5-1, to=5-3]
+	\arrow[from=5-3, to=5-5]
+\end{tikzcd}\]
+If \(i > 0\), we have
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzIsMCwiSF5pKFNee24tMX0pIl0sWzQsMCwiSF57aSsxfShTXm4pIl0sWzYsMCwiMCJdLFswLDFdLFsxLDIsIlxccGFydGlhbF97TVZ9XioiXSxbMiwzXV0=
+\[\begin{tikzcd}
+	0 && {\HH^i(S^{n-1})} && {\HH^{i+1}(S^n)} && 0
+	\arrow[from=1-1, to=1-3]
+	\arrow["{\partial_{MV}^*}", from=1-3, to=1-5]
+	\arrow[from=1-5, to=1-7]
+\end{tikzcd}\]
+and so
+\[\HH^i(S^{n-1}) = \HH^{i+1}(S^n)\]
+This gives us almost everything inductively. We can assume \(n \ge 2\). At the bottom of the sequence, we have
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCJcXHVuZGVyYnJhY2V7SF4wKFNebil9X3s9XFxafSJdLFsyLDAsIlxcdW5kZXJicmFjZXtIXjAoKilcXG9wbHVzIEheMCgqKX1fez1cXFpcXG9wbHVzXFxafSJdLFs0LDAsIlxcdW5kZXJicmFjZXtIXjAoU157bi0xfSl9X3s9XFxafSJdLFs2LDAsIkheMShTXm4pIl0sWzgsMCwiMCJdLFswLDFdLFsxLDIsIlxcYWxwaGEiXSxbMiwzXSxbMyw0XV0=
+\[\begin{tikzcd}
+	{\underbrace{\HH^0(S^n)}_{=\Z}} && {\underbrace{\HH^0(*)\oplus \HH^0(*)}_{=\Z\oplus\Z}} && {\underbrace{\HH^0(S^{n-1})}_{=\Z}} && {\HH^1(S^n)} && 0
+	\arrow[from=1-1, to=1-3]
+	\arrow["\alpha", from=1-3, to=1-5]
+	\arrow[from=1-5, to=1-7]
+	\arrow[from=1-7, to=1-9]
+\end{tikzcd}\]
+We have shown (on examples sheet 1) that \(\HH^0(X) = 1\), generated by the \(0\)-dimensional cochain, sending \(p \mapsto 1\). As
+\[\alpha(p, q) = p + q\]
+\(\alpha\) is surjective. Thus, we have
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCIwIl0sWzEsMCwiSF4xKFNebikiXSxbMiwwLCIwIl0sWzAsMV0sWzEsMl1d
+\[\begin{tikzcd}
+	0 & {\HH^1(S^n)} & 0
 	\arrow[from=1-1, to=1-2]
 	\arrow[from=1-2, to=1-3]
+\end{tikzcd}\]
+and so \(\HH^1(S^n) = 0\).
+\end{proof}
+
+\begin{corollary}
+    \(\R^n\) is homeomorphic to \(\R^m\) if and only if \(m = n\).
+\end{corollary}
+
+\begin{proof}
+    Suppose \(f : \R^n \to \R^m\) is a homeomorphism. This gives us a homeomorphism
+    \[f : \R^n \setminus 0 \to \R^m \setminus \{f(0)\}\]
+    But \(\R^n\setminus \{*\}\) is homotopy equivalent to \(\S^{n-1}\). Thus \(f\) induces an isomorphism in homology
+    \[\HH_i(S^{n-1}) = \HH_i(S^{m-1})\]
+    But by our homology computations, this implies that \(n = m\).
+\end{proof}
+
+Note in the below we assume \(n > 0\).
+
+\begin{definition}
+    [degree]
+    Suppose \(f : S^n \to S^n\) is a continuous map, then \(f\) induces a map
+    \[f_* : \HH_n(S^n) \to \HH_n(S^n)\]
+    which is multiplication by some \(d \in \Z\). We call \(\deg(f) = d\) the \emph{degree}\index{degree!of a map \(S^n \to S^n\)} of \(f\).
+\end{definition}
+
+\begin{remark}
+    Since \(\HH_n(S^n) = \Z\) which is free, therefore \(f_*\) is determined by \(f_*(1)\). Moreover, we will need to use the \emph{same} identification of \(\HH_n(S^n) = \Z\), and so \(\deg(f)\) is well defined. Note that if we use different isomorphisms, then \(\deg(f)\) is only defined up to a sign.
+\end{remark}
+
+Note that 
+\begin{itemize}
+    \item if \(f \simeq g\), then \(\deg(f) = \deg(g)\),
+    \item \(\deg(\id) = 1\).
+    \item \(\deg(\text{const}) = 0\), since the constant map factors through \(\{*\}\), and so the induced map on homology factors through \(\HH^n(*) = 0\).
+\end{itemize}
+
+\begin{lemma}
+    If \(A \in O(n+1)\), then \(A\) acts on \(S^n\), and we have
+    \[\deg(A) = \det(A) \in \{\pm1\}\]
+\end{lemma}
+
+\begin{proof}
+    The group \(O(n+1)\) has two path components. By homotopy invariance of degree, any \(A\) is homotopic to \(\id_{S^n}\), or a reflection in an equatorial hyperplane \(H\).
+
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2023_10_16 lec (1).jpg}
+    \end{center}
+
+    The reflection preserves \(A, B, A \cap B\), and \(H\) intersects \(A \cap B = S^{n-1}\) at two points. The Mayer-Vietoris sequence gives
+    % https://q.uiver.app/#q=WzAsOCxbMCwwLCIwIl0sWzEsMCwiSF9uKFNebikiXSxbMiwwLCJIX3tuLTF9KFNee24tMX0pIl0sWzMsMCwiMCJdLFswLDEsIjAiXSxbMSwxLCJIX24oU157bn0pIl0sWzIsMSwiSF97bi0xfShTXntuLTF9KSJdLFszLDEsIjAiXSxbMCwxXSxbMSwyLCJcXGNvbmciXSxbNSw2LCJcXGNvbmciLDJdLFs0LDVdLFsxLDUsIkFfKiIsMl0sWzIsNiwiQV8qIl0sWzYsN10sWzIsM11d
+\[\begin{tikzcd}
+	0 & {\HH_n(S^n)} & {\HH_{n-1}(S^{n-1})} & 0 \\
+	0 & {\HH_n(S^{n})} & {\HH_{n-1}(S^{n-1})} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["\cong", from=1-2, to=1-3]
+	\arrow["\cong"', from=2-2, to=2-3]
+	\arrow[from=2-1, to=2-2]
+	\arrow["{A_*}"', from=1-2, to=2-2]
+	\arrow["{A_*}", from=1-3, to=2-3]
+	\arrow[from=2-3, to=2-4]
 	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    The two vertical maps are the same. Therefore it suffices to consider the result on \(S^1\). 
+    
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2023_10_16 lec (2).jpg}
+    \end{center}
+
+    Recall our computation of \(H_1(S^1)\) has
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiSF8xKFNeMSkiXSxbMiwwLCJIXzAocCBcXHNxY3VwIHEpIl0sWzMsMCwiSF8wKEEpXFxvcGx1cyBIXzAoQikiXSxbNCwwLCJcXGNkb3RzIl0sWzAsMV0sWzEsMl0sWzIsMywiXFxhbHBoYSJdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & {\HH_1(S^1)} & {\HH_0(p \sqcup q)} & {\HH_0(A)\oplus \HH_0(B)} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow["\alpha", from=1-3, to=1-4]
 	\arrow[from=1-4, to=1-5]
 \end{tikzcd}\]
-    If \(i \ne 0, n, 1\), \(H_i(S^n)\) has
-    % https://q.uiver.app/#q=WzAsMyxbMCwwLCIwIl0sWzEsMCwiSF9pKFNebikiXSxbMiwwLCIwIl0sWzAsMV0sWzEsMl1d
-    \[\begin{tikzcd}
-        0 & {H_i(S^n)} & 0
-        \arrow[from=1-1, to=1-2]
-        \arrow[from=1-2, to=1-3]
-    \end{tikzcd}\]
-    so \(H_i(S^n) = 0\).
+    where \(\alpha(u, v) = (u + v, u + v)\). Hence \(H_1(S^1)\) is generated by \((1, -1)\), which we can think of as \(p - q\). But in this case, reflection in \(H\) swaps \(p\) and \(q\), and so it acts on \(H^1(S^1)\) by multiplication by \(-1\).
+\end{proof}
+
+\begin{corollary}
+    The antipodal map \(a_n : S^n \to S^n\) has degree \((-1)^{n+1}\).
+\end{corollary}
+
+\begin{proof}
+    \(a_n\) is orthogonal. Or equivalently, it is a composition of \(n+1\) reflections, and we have that
+    \[\deg(fg) = \deg(f)\deg(g)\]
+\end{proof}
+
+\begin{corollary}
+    If \(f : S^n \to S^n\) has no fixed point, then \(f\) is homotopic to the antipodal map.
+\end{corollary}
+
+\begin{proof}
+    In fact, we will see that \(f(x) \ne g(x)\) for all \(x \in S^n\), then \(f \simeq a_n \circ g\). Taking \(g = \id\) gives the result. Consider the map
+
+    \[x \mapsto \frac{tf(x) - (1-t)g(x)}{\norm{tf(x) - (1-t)g(x)}}\]
+    for \(0 \le t \le 1\). Note that the denominator never vanishes. This then defines a homotopy from \(f\) to \(-g\).
+\end{proof}
+
+Using this, the degree of any map without fixed points is \((-1)^{n+1}\). Another corollary is that if \(f(x) \ne -x\) for all \(x \in S^n\), then \(f \simeq a \circ a = \id\).
+
+\begin{definition}
+    [vector field on \(\S^n\)]
+    A \emph{vector field on \(S^n\)}\index{vector field on \(S^n\)} is a map \(v : S^n \to \R^{n+1}\), such that for all \(x \in S^n\),
+    \[\inner{x, v(x)} = 0\]
+\end{definition}
+
+\begin{proposition}
+    [Hairy ball theorem] \(S^n\) has a nowhere vanishing vector field if and only if \(n\) is odd.
+\end{proposition}
+
+\begin{proof}
+    If \(n = 2k-1\),
+    \[v(x_1, y_1, \dots, x_k, y_k) = (-y_1, x_2, \dots, -y_k, x_k)\]
+    works.
 \end{proof}
 
 \printindex
