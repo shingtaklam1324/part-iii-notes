@@ -10,4 +10,5 @@ Here are the notes which I am taking from Part III lectures. They should usually
 * [Commutative Algebra](Michaelmas/Commutative-Algebra.pdf)
 * [Differential Geometry](Michaelmas/Differential-Geometry.pdf)
 * [Lie Algebras](Michaelmas/Lie-Algebras.pdf)
-* [Modular Forms](Michaelmas/Modular-Forms.pdf)
+* [Local Fields (Lecture 1)](Michaelmas/Local-Fields.pdf)
+* [Modular Forms (Lectures 1-4)](Michaelmas/Modular-Forms.pdf)
