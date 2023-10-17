@@ -675,7 +675,177 @@ As we take \(\abs{\lambda} \to \infty\), we see that \(u'(x)\) can grow large. I
 
 By contrast, we will see that solutions to elliptic equations are smooth.
 
+\lec
+
+\begin{example}
+    Consider the IVP for Laplace's equation
+    \begin{align*}
+        \begin{cases}
+            u_{xx} + u_{yy} = 0 \\
+            u(x, 0) = \varphi(x) \\
+             \partial_y u(x, 0) = 0
+        \end{cases}
+    \end{align*}
+    Is this problem well-posed? If \(\varphi(x) = 0\), then \(0\) is a solution. On the other hand, we don't have Cauchy stability. Consider
+    \[u_k(x, y) = e^{-\sqrt k}\cos(kx)\cosh(ky)\]
+    See typed notes for more details.
+\end{example}
+
 \section{Sobolev spaces}
+
+\subsection{H\"older spaces \(C^{k, \gamma}\)}
+
+Let \(U \sse \R^n\) be open, \(k \in \N\). 
+
+\begin{definition}
+    [\(C^k\) spaces]
+    Define\index{\(C^k(U)\)}
+    \[C^k(U) = \left\{f : U \to \R \mid u\text{ is }k\text{ times continuously differentiable}\right\}\]
+    
+    and define\index{\(C^k(\overline U)\)}
+    \[C^k(\overline U) = \left\{u \in C^k(U) \mid u \text{ and its derivatives are bounded and uniformly continuous on }U\right\}\]
+
+    We will define the norm
+    \[\norm{u}_{C^k(\overline U)} = \sum_{\abs{\alpha} \le k}\sup_{x \in U}\abs{D^\alpha u(x)}\]
+\end{definition}
+
+The idea is that \(C^k(\overline U)\) is the space of functions which can be extended continuously to \(\partial U\). Note that this is is contained in, but not equal to
+\[u : \overline U \to \R \text{ such that }u \text{ and its derivatives are continuous}\]
+
+On examples sheet 2, we will show that \(C^k(\overline U)\) is a Banach space.
+
+\begin{definition}
+    [H\"older continuous]
+    We say \(u : U \to \R\) is \emph{H\"older continuous of index \(\gamma\)}\index{H\"older continuous} with \(0 < \gamma \le 1\) if there exists a constant \(C > 0\), such that
+    \[\abs{u(x) - u(y)} \le C\abs{x-y}^\gamma\]
+    for all \(x, y \in U\).
+
+    If \(\gamma = 1\), then we say that \(u\) is \emph{Lipschitz continuous}\index{Lipschitz continuous}.
+\end{definition}
+
+\begin{remark}
+    If \(\gamma > 1\), and \(u\) is H\"older continuous of index \(\gamma\), then \(u\) is constant.
+\end{remark}
+
+\begin{definition}
+    [\(0\)-H\"older space]
+    For \(\gamma \in \Ioc{0, 1}\), we define the \emph{\(0\)-H\"older space}\index{H\"older space!\(C^{0, \gamma}\)}:
+    \[C^{0, \gamma}(\overline U) = \left\{u \in C^0(\overline U) \ \big\vert\ u \text{ is }\gamma\text{-H\"older continuous}\right\}\]
+    Define the \(\gamma\)-H\"older seminorm by
+    \[[u]_{C^{0, \gamma}(\overline U)} = \sup_{x, y \in U}\frac{\abs{u(x) -  u(y)}}{\abs{x - y}}\]
+    That is, the smallest \(C\) such that \(u\) is \(\gamma\)-H\"older continuous. Since constant functions vanish, we add the \(C^0\) norm, and define
+    \[\norm{u}_{C^{0, \gamma}(\overline U)} = \norm{u}_{C^0(\overline U)} + [u]_{C^{0, \gamma}(\overline U)}\]
+\end{definition}
+
+The space \(C^{0, \gamma}\), with the H\"older norm \(\norm{\cdot}_{C^{0, \gamma}(\overline U)}\) is a Banach space. We can extend this to higher order, that is,
+
+\begin{definition}
+    [\(k\)-th H\"older space]
+    Define the \emph{\(k\)-th H\"older space}\index{H\"older space!\(C^{k, \gamma}\)}
+    \[C^{k, \gamma}(\overline U) = \left\{u \in C^k(\overline U) \mid D^\alpha u \in C^{0, \gamma}(\overline U) \text{ for all }\abs{\alpha} = k\right\}\]
+    with norm
+    \[\norm{u}_{C^{k, \gamma}(\overline U)} = \norm{u}_{C^k(\overline U)} + \sum_{\abs{\alpha} = k}[D^\alpha u]_{C^{0, \gamma}(\overline U)}\]
+\end{definition}
+
+As above, \(C^{k, \gamma}\) is a Banach space with the H\"older norm.
+
+\subsection{The Lebesgue spaces}
+
+
+\begin{definition}
+    [\(L^p\) space]
+    Let \(U \sse \R^n\) be open, and suppose \(1 \le p \le \infty\), define \index{Lebsgue space!\(L^p\)}
+    \[L^p(U) = \frac{\left\{f : U \to \R \mid f \text{ measurable, and with} \norm{u}_{L^p(U)} < \infty\right\}}{\sim}\]
+    where
+    \[\norm{u}_{L^p} = \begin{cases}
+        \left(\int_U \abs{u(x)}^p\dd x\right)^{1/p} & 1 \le p < \infty \\
+        \esssup_{x \in U}\abs{u(x)} = \inf\left\{C > 0 \mid \abs{u(x)} \le C \text{ a.e.}\right\} & p = \infty
+    \end{cases}\]
+    and \(u \sim v\) if \(u = v\) almost everywhere.
+\end{definition}
+
+\(L^p(U)\) with the \(\norm{\cdot}_{L^p}\) norm is a Banach space. We also define local versions,
+
+\begin{definition}
+    [\(L^p_{loc}\) space]
+    We say that \(u \in L^p_{loc}(U)\)\index{Lebesgue space!\(L^p_{loc}\)} if \(f \in L^p(V)\) for every \(V \Subset U\) (\(V \sse K \sse U\), where \(K\) is compact). Equivalently,
+    \[L^p_{loc}(U) = \bigcap_{V \Subset U}L^p(V)\]
+\end{definition}
+
+Note that \(L^p_{loc}(U)\) is not Banach, on the other hand, it is a Fr\'echet space.
+
+\begin{remark}
+    If \(K \sse U\) is compact, \(U\) is open, then
+    \[d(K, \partial U) = \inf\{\abs{x - y} \mid x \in K, y \in \R^n \setminus U\} > 0\]
+    We will use the space outside \(K\) as a ``buffer zone''.
+\end{remark}
+
+\subsection{Weak derivatives}
+
+That is, a notion of derivative for \(L^p\).
+
+\begin{definition}
+    [weak derivative]
+    Suppose \(u, v \in L^1_{loc}(U)\), \(\alpha\) a multi-index. We say \(v\) is the \emph{\(\alpha\)-th weak derivative of \(U\)}\index{weak derivative} if
+    \[\int_U u D^\alpha \phi \dd x = (-1)^{\abs{\alpha}}\int_Uv\phi\dd x\]
+    for all \(\phi \in C_c^\infty(U)\). We will also call the space \(C_c^\infty(U)\) the space of \emph{test functions}\index{test function}.
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item since \(\Supp(D^\alpha\phi)\) and \(\Supp(\phi)\) are compact, the integrals are finite,
+        \item \(u, v\) obey the correct integration by parts formula
+    \end{enumerate}
+\end{remark}
+
+\begin{example}
+    \(u(x) = \abs{x}\) is not differentiable at \(x = 0\), but it is weakly differentiable with \(v(x) = \sign(x)\).
+\end{example}
+
+\begin{lemma}
+    [uniqueness of weak derivative] Suppose \(v, \tilde v \in L^1_{loc}(U)\) are both the \(\alpha\)-th weak derivative of \(u \in L^1_{loc}(U)\), then \(v = \tilde v\) almost everywhere.
+\end{lemma}
+
+\begin{proof}
+    For all \(\varphi \in C_c^\infty(U)\),
+    \[\int_U v\phi \dd x = (-1)^\abs{\alpha}\int_U u D^\alpha \phi \dd x = \int_U\overline v \phi \dd x\]
+    Thus,
+    \[\int_U (v - \overline v)\phi \dd x = 0\]
+    for all \(\phi \in C_c^\infty(U)\). Taking \(\phi\) to be a smooth approximation to an indicator, we get the required result.
+\end{proof}
+
+Suppose \(u\) is smooth, then the weak derivative agrees with the usual derivative almost everywhere.
+
+\begin{notation}
+    We will write \(v = D^\alpha u\).
+\end{notation}
+
+\begin{definition}
+    [Sobolev space] Define the \emph{Sobolev space}\index{Sobolev space!\(W^{k, p}\)}
+    \[W^{k, p}(U) = \left\{u \in L^1_{loc}(U) \mid u \in L^p(U) \text{, the weak derivatives }D^\alpha u\text{ exists for }\abs{\alpha} \le k\text{, }D^\alpha u \in L^p(U)\right\}\]
+    with the \emph{Sobolev norm}
+    \[\norm{u}_{W^{k,p}(U)} = \begin{cases}
+        \left(\sum_{\abs{\alpha} = k}\int_U\abs{D^\alpha u}^p \dd x\right)^{1/p} & p < \infty \\
+        \sum_{\abs{\alpha} \le k}\esssup_U \abs{D^\alpha u} & p = \infty
+    \end{cases}\]
+    When \(p = 2\), we write \(H^k = W^{k, 2}\)\index{Sobolev space!\(H^k\)}.
+\end{definition}
+
+\begin{definition}
+    [\(W_0^{k, p}\)]
+    We denote by \(W^{k, p}_0(U)\)\index{Sobolev space!\(W^{k, p}_0\)} the completion of \(C_c^\infty(U)\) with respect to the \(W^{k,p}\) norm. Analogously, we define \(H^k_0 = W^{k, 2}_0(U)\)\index{Sobolev space!\(H^k_0\)}.
+\end{definition}
+
+The \(_0\) denotes that the function vanishes on the boundary.
+
+\begin{example}
+    Let \(n > 2, \lambda > 0\), and take \(U = B_1(0) \sse \R^n\) the open ball. Consider
+    \[u(x) = \begin{cases}
+        \abs{x}^{-\lambda} & \text{ for }x \ne 0 \\
+        \text{anything} & x = 0
+    \end{cases}\]
+    When is \(u \in W^{p, 1}(U)\)?
+\end{example}
 
 \section{Elliptic PDEs}
 
