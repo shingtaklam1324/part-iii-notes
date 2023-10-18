@@ -721,7 +721,7 @@ Again, \(N_n\) is a subrepresentation of \(V^{\otimes n}\), and so \(\Lambda^n V
 
 \section{Results about semisimple Lie algebras}
 
-Let \(\mfg\) be a semisimple Lie algebra over \(\C\).
+Let \(\mfg\) be a Lie algebra over \(\C\).
 
 \begin{definition}
     [ideal] A subspace \(I \sse \mfg\) is an \emph{ideal}\index{ideal} of \(\mfg\) if
@@ -769,8 +769,157 @@ Recall \(\sl_n\) is a subalgebra of \(\gl_n\). In fact,
 \begin{example}
     Suppose \(\varphi : \mfg \to \mfh\) is a homomorphism  of Lie algebras, then
     \[\ker(\varphi) = \left\{x \in \mfg \mid \varphi(x) = 0\right\}\]
-    is an ideal of \(\mfg\).
+    is an ideal of \(\mfg\). In fact, every ideal arises in this way.
 \end{example}
+
+\lec
+
+\begin{definition}
+    [simple] A Lie algebra \(\mfg\) is \emph{simple} if \([\mfg, \mfg] \ne 0\), and the only ideals are \(0\) and \(\mfg\).
+\end{definition}
+
+\begin{example}
+    We can show that \(\sl_n\) (for \(n \ge 2\)), \(\so_n\) (for \(n \ge 2\)) and \(\sl_{2\ell}\) (for \(\ell \ge 1\)) are simple.
+\end{example}
+
+\begin{remark}
+    \begin{enumerate}
+        \item if \(\mfg\) is simple, then \([\mfg, \mfg] = \mfg\).
+        \item if \(\mfg\) is simple, every representation of \(\mfg\) is either faithful, or the direct sum of trivial representations. 
+        \item \(\mfg\) is simple if and only if the adjoint representation is irreducible.
+    \end{enumerate}
+\end{remark}
+
+\begin{definition}
+    [semisimple] A Lie algebra \(\mfg\) is \emph{semisimple} if it is the direct sum of simple ideals. That is, ideals which are simple as Lie algebras.
+\end{definition}
+
+\begin{example}
+    \[\so_4 \cong \sl_2 \oplus \sl_2\]
+\end{example}
+
+We will state a more `standard' definition of semisimple Lie algebras, and show that these are equivalent.
+
+\begin{definition}
+    [(lower) central series] The \emph{(lower) central series} of a Lie algebra \(\mfg\) is the sequence of subalgebras
+    \[\mfg = \mfg^0 \supseteq \mfg^1 \supseteq \mfg^2 \supseteq \cdots\]
+    with \(\mfg^n = [\mfg, \mfg^{n-1}]\). That is,
+    \[\mfg \supseteq [\mfg, \mfg] \supseteq [\mfg, [\mfg, \mfg]] \supseteq \cdots\]
+\end{definition}
+
+\begin{definition}
+    [derived series, upper central series] The \emph{derived series}, or \emph{upper central series} for a Lie algebra \(\mfg\) is the sequence
+    \[\mfg^{(0)} \supseteq \mfg^{(1)} \supseteq \mfg^{(2)} \supseteq \cdots\]
+    where \(\mfg^{(0)} = \mfg\), and \(\mfg^{(n)} = [\mfg^{(n-1)}, \mfg^{(n-1)}]\). That is,
+    \[\mfg \supseteq [\mfg, \mfg] \supseteq [[\mfg, \mfg], [\mfg, \mfg]] \supseteq \cdots\]
+\end{definition}
+
+\begin{remark}
+    \begin{itemize}
+        \item \(\mfg^{(n)} \sse \mfg^n\),
+        \item \(\mfg^n\) and \(\mfg^{(n)}\) are ideals.
+    \end{itemize}
+    To see the second point, we induct on \(n\). The case \(n = 0\) is clear. Let \(x \in \mfg, y \in \mfg^n\). Then
+    \[[x, y] \in \mfg^{n-1}\]
+    since \(\mfg^{n-1}\) is an ideal, and \(\mfg^n \sse \mfg^{n-1}\). As
+    \[\mfg^n = \left\{[x, y] \mid x \in \mfg, y \in \mfg^{n-1}\right\}\]
+    this clearly contains \([x, y]\).
+\end{remark}
+
+\begin{example}
+    \begin{enumerate}
+        \item if \(\mfg\) is simple, then \(\mfg^n = \mfg^{(n)} = \mfg\) for all \(n\).
+        \item if \(\mfg\) is abelian, then \(\mfg^1 = \mfg^{(1)} = 0\).
+        \item let \(\mfn_n \sse \gl_n\) be the Lie algebra of strictly upper triangular \(n \times n\) matrices. The central series for \(\mfn_n\) is
+        \[\left\{\begin{pmatrix}
+            0 & & * \\
+            & \ddots \\
+            & & 0
+        \end{pmatrix}\right\} \supseteq \left\{\begin{pmatrix}
+            0 & 0 & & * \\
+            & \ddots & \ddots & \\
+            & & \ddots & 0 \\
+            & & & 0
+        \end{pmatrix}\right\} \supseteq \cdots  \supseteq 0\]
+        Note \(\mfn_3\) is the \emph{Heisenberg Lie algebra}.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    [nilpotent] If \(\mfg^n = 0\) for some \(n\), then \(\mfg\) is called \emph{nilpotent}.
+\end{definition}
+
+\begin{definition}
+    [solvable, soluble] If \(\mfg^{(n)} = 0\) for some \(n\), then \(\mfg\) is called \emph{solvable} (or \emph{soluble} in BrE).
+\end{definition}
+
+\underline{Exercise:} Let \(\mfb_n \sse \gl_n\) be the Borel Lie algebra of upper triangular matrices. Then \(\mfb_n\) is solvable but not nilpotent (for \(n \ge 2\)).
+
+Note on the other hand that as \(\mfg^{(n)} \sse \mfg^n\), nilpotent implies solvable.
+
+The next result allows the theory of complex semisimple Lie algebras to go `far' with minimal work.
+
+\begin{theorem}
+    [Lie's theorem] \label{thm:lie}Let \(k = \C\) (or an algebraically closed field with characteristic \(0\)). Let \(\mfg \sse \gl(V)\) be a Lie subalgebra, and suppose \(\mfg\) is solvable. Then there exists a common eigenvector for all elements of \(\mfg\).
+
+    That is, there exists \(v \in V\) non-zero, such that for all \(x \in \mfg\), \(xv = \lambda_xv\) for some \(\lambda_x \in \C\).
+\end{theorem}
+
+\begin{proof}
+    Omitted. See Humphreys Theorem 4.1.
+\end{proof}
+
+\begin{corollary}
+    There exists a basis for \(V\) such that every element is upper triangular. 
+\end{corollary}
+In fact,  using \cref{thm:lie} and induction on \(\dim(V)\), we can show that there exists a chain of subspsaces
+\[0 = V_0 \le V_1 \le \cdots \le V_n = V\]
+with \(\dim(V_i) = i\), and \(\mfg(V_i) \sse V_i\). By considering a basis for \(V_i\), we get the corollary.
+
+Using this result, we can consider \(\mfg \sse \mfb_n\). 
+
+\underline{Aside:} We call the sequence
+\[0 = V_0 \le V_1 \le \cdots \le V_n\]
+a \emph{maximal flag}, and there is interesting geometry related to this.
+
+\begin{proposition}
+    Suppose \(I, J\) are ideals of \(\mfg\). Then
+    \begin{enumerate}[(i)]
+        \item if \(\mfg\) is solvable, then any subalgebra or quotient of \(\mfg\) is solvable.
+        \item if \(I\) is solvable, and \(\mfg/I\) is solvable, then so is \(\mfg\).
+        \item if \(I, J\) are solvable, then so is \(I + J\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    (i) is clear from definitions. For (ii), choose \(n\) such that \((g/I)^{(n)} = 0\). Then this forces \(\mfg^{(n)} \sse I\). But then we have \(\mfg^{(n+m)} \sse I^{(m)}\) for each \(m \ge 0\). Since we know that \(I\) is solvable, we are done.
+
+    For (iii), note that 
+    \begin{align*}
+        \frac{I + J}{J} \cong \frac{I}{I \cap J}
+    \end{align*}
+    and the right hand side is solvable, by (i), and \(J\) is solvable by assumption, and so by (ii), \(I + J\) is solvable.
+\end{proof}
+
+\begin{definition}
+    [radical] The \emph{radical} of \(\mfg\) is \(\Rad(\mfg)\) is the maximal solvable ideal of \(\mfg\). That is, it is the sum of all solvable ideals of \(\mfg\).
+\end{definition}
+
+\begin{definition}
+    [trace form]
+    Suppose \(\varphi : \mfg \to \gl(V)\) is a finite dimensional representation of \(\mfg\). Then the \emph{trace form} of \(V\) (or \(\varphi\)) is the symmetric bilinear form
+    \begin{align*}
+        (\cdot, \cdot) : \mfg \times \mfg &\to \C \\
+        (x, y) &= \tr(\varphi(x)\varphi(y))
+    \end{align*}
+\end{definition}
+
+\underline{Exercise:} We have the invariance relation \(([x, y], z) = (x, [y, z])\)
+
+\begin{definition}
+    [Killing form] The \emph{Killing form} \(K(\cdot, \cdot)\) is the trace form of \(\ad\). That is,
+    \[K(x, y) = \tr(\ad(x)\ad(y)) = (x, y)_{\ad}\]
+\end{definition}
 
 \printindex
 

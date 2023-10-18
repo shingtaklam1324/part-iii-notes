@@ -500,6 +500,8 @@ which is exact at all places. That is, \(\alpha\) is injective, \(\beta\) is sur
     \end{enumerate}
 \end{remark}
 
+\subsection{Examples of Homology calculations}
+
 We will prove these later when we use them.
 
 \begin{example}
@@ -743,6 +745,136 @@ Using this, the degree of any map without fixed points is \((-1)^{n+1}\). Anothe
     If \(n = 2k-1\),
     \[v(x_1, y_1, \dots, x_k, y_k) = (-y_1, x_2, \dots, -y_k, x_k)\]
     works.
+
+    \lec
+
+    Now suppose a nowhere vanishing vector field \(v : S^n \to \R^{n+1}\) exists. By normalising, i.e. considering
+    \[\frac{v(x)}{\norm{v(x)}}\]
+    we can consider \(v : S^n \to S^n \sse \R^{n+1}\). Now consider the family
+    \[v_t(x) = \cos(t)x + \sin(t)v(x)\]
+    for \(0 \le t \le \pi\), which has unit length as we assumed \(v(x)\) and \(x\) are orthogonal. This family has \(v_0 = \id\), and \(v_\pi = a_n\). Thus, we have that
+    \[1 = \deg(\id) = \deg(a_n) = (-1)^{n+1}\]
+\end{proof}
+
+\begin{example}
+    [Klein bottle]
+
+    Recall the Klein bottle is the result if we glue two M\"obius strips together along their common boundary \(S^1\). That is, we define \(K\) by the gluing pattern
+
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2023_10_18 (1).jpg}
+    \end{center}
+
+    In this case, we can write \(K = A \cup B\), where \(A, B\) are M\"obius bands, i.e. \(A \simeq S^1 \simeq B\). Moreover, \(A \cap B \simeq S^1\) as well. The interesting part of the Mayer-Vietoris sequence for homology is as follows:
+    % https://q.uiver.app/#q=WzAsNyxbMCwwLCIwIl0sWzEsMCwiXFxISF8yKEspIl0sWzIsMCwiXFxISF8xKEEgXFxjYXAgQikiXSxbMywwLCJcXEhIXzEoQSlcXG9wbHVzXFxISF8xKEIpIl0sWzQsMCwiXFxISF8xKEspIl0sWzUsMCwiXFxISF8wKEEgXFxjYXAgQikiXSxbNiwwLCJcXEhIXzAoQSkgXFxvcGx1cyBcXEhIXzAoQikiXSxbMCwxXSxbMSwyXSxbMiwzLCJcXHBzaSJdLFszLDRdLFs0LDVdLFs1LDYsIlxcYWxwaGEiXV0=
+\[\begin{tikzcd}
+	0 & {\HH_2(K)} & {\HH_1(A \cap B)} & {\HH_1(A)\oplus\HH_1(B)} & {\HH_1(K)} & {\HH_0(A \cap B)} & {\HH_0(A) \oplus \HH_0(B)}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow["\psi", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+	\arrow["\alpha", from=1-6, to=1-7]
+\end{tikzcd}\]
+    Recall \(\alpha(1) = (1, 1)\), and so \(\alpha\) is injective, and the sequence becomes
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCIwIl0sWzEsMCwiXFxISF8yKEspIl0sWzIsMCwiXFxISF8xKEEgXFxjYXAgQikiXSxbMywwLCJcXEhIXzEoQSlcXG9wbHVzXFxISF8xKEIpIl0sWzQsMCwiXFxISF8xKEspIl0sWzUsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDMsIlxccHNpIl0sWzMsNF0sWzQsNV1d
+\[\begin{tikzcd}
+	0 & {\HH_2(K)} & {\HH_1(A \cap B)} & {\HH_1(A)\oplus\HH_1(B)} & {\HH_1(K)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow["\psi", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+\end{tikzcd}\]
+    By exactness, \(\HH_1(K) \cong (\Z \oplus \Z)/\im(\psi) = \coker(\psi)\) and \(\HH_2(K) \cong \ker(\psi)\).
+
+    \begin{claim}
+        \(\psi(1) = (2, 2)\), and so \(\HH_2(K) = 0\), and \(\HH_1(K) = \Z \oplus \Z/2\).
+    \end{claim}
+
+    \begin{proof}
+        [Proof of claim]
+
+        We will use the decomposition of \(K\) into two M\"obius bands.
+
+        \begin{center}
+            \includegraphics[scale=0.15]{diagrams/2023_10_18 (2).jpg}
+        \end{center}
+
+        In this case, \(\HH_1(A \cap B) = \Z\inner{v + w}\), and \(\HH_1(A) = \Z\inner{\sigma_1 + \sigma_2}\). At chain level, there exists a collection of \(2\)-simplices in \(A\), with boundary \(c - (\sigma_1 + \sigma_2)\). Therefore, \(v \mapsto \sigma_1 + \sigma_2\) and \(w \mapsto \sigma_1 + \sigma_2\). With this, we have that (by symmetry),
+        \[\psi(1) = (2, 2)\]
+    \end{proof}
+\end{example}
+
+\begin{remark}
+    \begin{enumerate}[(i)]
+        \item In cohomology, \(\HH^2(K) = \Z/2\) and \(\HH^1(K) = \Z\). That is, the homology and the cohomology are not the same.
+        \item We defined \(C_i(X) = \left\{\sum_{\text{finite}} a_j \sigma_j \mid a_j \in \Z, \sigma_j \text{ is an }i\text{-simplex}\right\}\). But we can also define
+        \[C_i(X; G) = \left\{\sum_{\text{finite}} a_j \sigma_j \ \big\vert\ a_j \in G, \sigma_j \text{ is an }i\text{-simplex}\right\}\]
+        for any abelian group \(G\). \(\partial\) is defined as before, and we get a chain complex \(C_*(X; G)\) and homology \(\HH_*(X;G)\). If we instead computed
+        \[\HH_*(K; \Z/2) = \begin{cases}
+            \Z/2 & * = 0 \\
+            \Z/2 \oplus \Z/2 & * = 1 \\
+            \Z/2 & * = 2
+        \end{cases}\]
+        since \(\psi = 0\) if we used \(\Z/2\) coefficients.
+    \end{enumerate}
+\end{remark}
+
+\subsubsection*{Interlude on relative homology}
+Some of the questions on sheet 1 concern \emph{relative homology}\index{relative homology}. If \(A \sse X\) is a subspace, then any simplex \(\sigma : \Delta^1 \to A\) is a simplex in \(X\). Moreover, if \(\sigma\) is a simplex in \(A\), so are all of its boundary faces. Thus, the natural map induced by the inclusion map,
+\[C_i(A) \inj C_i(X)\]
+defines a chain map. Using this, \(C_*(A)\) is a \emph{subcomplex} of \(C_*(X)\). In particular, we can define the \emph{quotient complex},
+\[C_i(X, A) = \frac{C_i(X)}{C_i(A)}\]
+and this is a chain complex, with \(\partial\) induced by the boundary operator on \(C_i(X)\). Another way of thinking about \(C_i(X, A)\) is that it is the free abelian group on \(i\)-simplices in \(X\) not wholly contained in \(A\). The homology of \(C_*(X, A)\), denoted \(\HH_*(X, A)\) is called \emph{relative homology}.
+
+We have a long exact sequence
+% https://q.uiver.app/#q=WzAsNixbMCwwLCJcXGNkb3RzIl0sWzEsMCwiXFxISF9pKEEpIl0sWzIsMCwiXFxISF9pKFgpIl0sWzMsMCwiXFxISF9pKFgsQSkiXSxbNCwwLCJcXEhIX3tpLTF9KEEpIl0sWzUsMCwiXFxjZG90cyJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDQsIlxccGFydGlhbCIsMl0sWzQsNV1d
+\[\begin{tikzcd}
+	\cdots & {\HH_i(A)} & {\HH_i(X)} & {\HH_i(X,A)} & {\HH_{i-1}(A)} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow["\partial"', from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+\end{tikzcd}\]
+
+If \(A\) and \(X\) are `well behaved', then \(\HH_i(X, A) \cong \HH_i(X/A)\) for \(i > 0\), where \(X/A\) is the quotient space where we quotient \(A\) into a point.
+
+\subsection{Paying debts}
+
+Recall if \(f, g : X \to Y\) are homotopic, we would like to show that the induced maps on homology and cohomology are the same. Recall also that the maps are induced by (co)chain maps on (co)chain complexes.
+
+\begin{definition}
+    [chain homotopic]
+    Let \(C_*, D_*\) be chain complexes. Let \(f_*, g_* : C_* \to D_*\) be chain maps. We say that they are \emph{chain homotopic}\index{chain homotopic} if there exists maps
+    \[P_n : C_n \to D_{n+1}\]
+    for all \(n\), such that
+    \[P_{n-1}\circ \partial - \partial \circ P_n = f_n - g_n\]
+    for all \(n\).
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCJDX3tuKzF9Il0sWzIsMCwiQ19uIl0sWzQsMCwiQ197bi0xfSJdLFsyLDIsIkRfbiJdLFswLDIsIkRfe24rMX0iXSxbNCwyLCJEX3tuLTF9Il0sWzEsNCwiUF9uIiwyLHsiY29sb3VyIjpbMjQwLDYwLDYwXX0sWzI0MCw2MCw2MCwxXV0sWzIsMywiUF97bi0xfSIsMix7ImNvbG91ciI6WzI0MCw2MCw2MF19LFsyNDAsNjAsNjAsMV1dLFsxLDIsIlxccGFydGlhbCJdLFswLDEsIlxccGFydGlhbCJdLFs0LDMsIlxccGFydGlhbCIsMl0sWzMsNSwiXFxwYXJ0aWFsIiwyXSxbMSwzLCJmX24gLSBnX24iLDFdXQ==
+\[\begin{tikzcd}
+	{C_{n+1}} && {C_n} && {C_{n-1}} \\
+	\\
+	{D_{n+1}} && {D_n} && {D_{n-1}}
+	\arrow["{P_n}"', color={rgb,255:red,92;green,92;blue,214}, from=1-3, to=3-1]
+	\arrow["{P_{n-1}}"', color={rgb,255:red,92;green,92;blue,214}, from=1-5, to=3-3]
+	\arrow["\partial", from=1-3, to=1-5]
+	\arrow["\partial", from=1-1, to=1-3]
+	\arrow["\partial"', from=3-1, to=3-3]
+	\arrow["\partial"', from=3-3, to=3-5]
+	\arrow["{f_n - g_n}"{description}, from=1-3, to=3-3]
+\end{tikzcd}\]
+\end{definition}
+
+\begin{lemma}
+    Suppose \(f_*, g_* : C_* \to D_*\) are chain homotopic. Then they induce the same map on homology.
+\end{lemma}
+
+\begin{proof}
+    Let \(\alpha \in C_i\) be a cycle, that is, \(\partial \alpha = 0\). By definition, \(f_*[\alpha] = [f(\alpha)]\). Consider
+    \[f_i(\alpha) - g_i(\alpha) = (f_i - g_i)(\alpha) = (\partial P - P\partial)(\alpha) = \partial(P\alpha)\]
+    But this is in the image of \(\partial\), and so the corresponding homology classes are the same.
 \end{proof}
 
 \printindex

@@ -532,6 +532,133 @@ which is well defined by definition of a morphism of sheaves.
     There is an asymmetry in the proof here, we need to show injectivity before surjectivity.
 \end{remark}
 
+\lec
+
+\underline{Exercises:}
+\begin{enumerate}
+    \item There is a map
+    \begin{align*}
+        \mcF(U) &\to \prod_{p \in U}\mcF_p \\
+        s &\mapsto ((U, s))_{p \in U}
+    \end{align*}
+    \item Given morphisms \(\varphi, \psi : \mcF \to \mcG\), with \(\varphi_p = \psi_p\) for all \(p \in X\), we have that \(\varphi = \psi\).
+\end{enumerate}
+
+\begin{definition}
+    [sheafification] Suppose \(\mcF\) is a presheaf on \(X\), then a morphism \(\sh : \mcF \to \mcF^{\sh}\), where \(\mcF^{\sh}\) is a sheaf, is a \emph{sheafiifcation}\index{sheafification} if for any morphism \(\varphi : \mcF \to \mcG\), where \(\mcG\) is a sheaf, there exists a unique morphism \(f^{\sh} : \mcF^{\sh} \to \mcG\), making the diagram
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXG1jRiJdLFsyLDAsIlxcbWNGXntcXHNofSJdLFsyLDIsIlxcbWNHIl0sWzAsMSwiXFxzaCJdLFswLDIsIlxcdmFycGhpIiwyXSxbMSwyLCJcXHZhcnBoaV57XFxzaH0iXV0=
+\[\begin{tikzcd}
+	\mcF && {\mcF^{\sh}} \\
+	\\
+	&& \mcG
+	\arrow["\sh", from=1-1, to=1-3]
+	\arrow["\varphi"', from=1-1, to=3-3]
+	\arrow["{\varphi^{\sh}}", from=1-3, to=3-3]
+\end{tikzcd}\]
+    commute.
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}[(i)]
+        \item We have defined sheafification by a universal property, and so as usual, it is unique up to unique isomorphism.
+        \item A morphism on presheaves \(\mcF \to \mcG\) induces a morphism of sheaves \(\mcF^{\sh} \to \mcG^{\sh}\).
+    \end{enumerate}
+\end{remark}
+
+\begin{proposition}
+    Sheafification exists.
+\end{proposition}
+
+\begin{proof}
+    [Construction] Given a presheaf \(\mcF\) on \(X\), define
+    \[\mcF^{\sh}(U) = \left\{f : U \to \bigsqcup_{p \in U}\mcF_p \ \bigg\vert\ (*)\right\}\]
+    where the condition \((*)\) is that:
+    \(f(p) \in \mcF_p\) and for every \(p \in U\) there exists an open neighbourhood \(V_p \sse U\) of \(p\), and \(s \in \mcF(V_p)\) such that \((V_p, s) \in f(q) = \mcF_q\) for all \(q \in V_p\).
+
+    It is clear that this is a sheaf, and we leave as an exercise to check that this satisfies the universal property.
+\end{proof}
+
+\begin{corollary}
+    The stalks of \(\mcF\) and \(\mcF^{\sh}\) coincide.
+\end{corollary}
+
+\begin{proof}
+    From the definition of sheafification.
+\end{proof}
+
+\underline{Exercise:} Find a non-zero presheaf \(\mcF\) with \(\mcF^{\sh} = 0\).
+
+\subsection{Kernels, Cokernels, etc.}
+
+Let \(\varphi : \mcF \to \mcG\) be a morphism of presheaves. Then we can define presheaves \(\ker(\varphi), \im(\varphi), \coker(\varphi)\)\index{kernel!as a presheaf}\index{image!as a presheaf}\index{cokernel!as a presheaf}, where on an open set \(U\), we define
+\begin{align*}
+    \ker(\varphi)(U) &= \ker(\varphi_U : \mcF(U) \to \mcG(U)) \\
+    \coker(\varphi)(U) &= \coker(\varphi_U) \\
+    \im(\varphi)(U) &= \im(\varphi_U)
+\end{align*}
+These are all presheaves.
+
+\underline{Exercise:} The presheaf kernel for a morphism \(\varphi : \mcF \to \mcG\) between sheaves is a sheaf\index{kernel!as a sheaf}.
+
+However, in general, \(\coker(\varphi)\) is not a sheaf.
+
+\begin{example}
+    Let \(X = \C\) with the usual Euclidean topology, and let
+    \[\mcO_X(U) = \left\{f : U \to \C \text{ holomorphic}\right\}\]
+    with addition, and set
+    \[\mcO_X^*(U) = \left\{f : U \to \C \text{ holomorphic nowhere vanishing}\right\}\]
+    with multiplication. We have a morphism of sheaves \(\exp : \mcO_X \to \mcO_X^*\), given by
+    \[\exp(f)(z) = \exp(f(z))\]
+    The kernel of \(\exp\) is \(2\pi i \Z\), where \(\Z\) is the constant sheaf. But the cokernel is not a sheaf. Let \(U_1 = \C \setminus \Ico{0, \infty}\) and \(U_2 = \C \setminus \Ioc{-\infty, 0}\). Let \(U = U_1 \cup U_2 = \C \setminus 0\).
+
+    Let \(f(z) = z\). Then \(f \in \mcO_x^*(U)\), and is not in the image of \(\exp : \mcO_X(U) \to \mcO_X^*(U)\), since \(\log(z)\) is not defined on \(U\). Thus \(f\) defines a non-zero section of \(\coker(\exp)(U)\). But if we restrict to \(U_i\), then \(f\) is in the image of \(\exp\). With this, \(f\vert_{U_i} = 1 \in \coker(\exp)(U_i)\). Hence \(\coker(\exp)\) does not satisfy S1.
+\end{example}
+
+\begin{definition}
+    [sheaf image, sheaf cokernel]
+    Let \(\varphi : \mcF \to \mcG\) be a morphism of sheaves. We define the \emph{sheaf cokernel}\index{cokernel!as a sheaf} and the \emph{sheaf image}\index{image!as a sheaf} of \(\varphi\) to be \(\coker(\varphi)^{\sh}\) and \(\im(\varphi)^{\sh}\) respectively.
+\end{definition}
+
+\begin{remark}
+    A crucial fact is that there exists an exact sequence
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzIsMCwiMlxccGkgaSBcXFoiXSxbNCwwLCJcXG1jT19YIl0sWzYsMCwiXFxtY09fWF4qIl0sWzgsMCwiMSJdLFswLDFdLFsxLDJdLFsyLDMsIlxcZXhwIl0sWzMsNF1d
+\[\begin{tikzcd}
+	0 && {2\pi i \Z} && {\mcO_X} && {\mcO_X^*} && 1
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-3, to=1-5]
+	\arrow["\exp", from=1-5, to=1-7]
+	\arrow[from=1-7, to=1-9]
+\end{tikzcd}\]
+    That is, \(2\pi i \Z\) is the kernel of \(\exp\), and \(\coker(\exp) = 1\).
+\end{remark}
+
+\begin{remark}
+    \(\ker(\varphi)\) and \(\coker(\varphi)\) satisfies the category theoretic definitions (i.e. in abelian categories).
+
+    Suppose \(\varphi : \mcF \to \mcG\) is a morphism, then \(\ker(\varphi)\) is the object such that given \(\psi : \mcL \to \mcF\), with \(\varphi \circ \psi = 0\), then \(\psi\) factors through \(\ker(\varphi)\).
+% https://q.uiver.app/#q=WzAsNCxbMiwyLCJcXG1jRiJdLFs0LDIsIlxcbWNHIl0sWzAsMiwiXFxrZXIoXFx2YXJwaGkpIl0sWzIsMCwiXFxtY0wiXSxbMCwxLCJcXHZhcnBoaSIsMl0sWzMsMCwiXFxwc2kiLDJdLFszLDEsIlxcdmFycGhpIFxcY2lyYyBcXHBzaSA9IDAiXSxbMiwwXSxbMywyLCJcXGV4aXN0cyAhIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzIsMSwiMCIsMix7ImN1cnZlIjozfV1d
+\[\begin{tikzcd}
+	&& \mcL \\
+	\\
+	{\ker(\varphi)} && \mcF && \mcG
+	\arrow["\varphi"', from=3-3, to=3-5]
+	\arrow["\psi"', from=1-3, to=3-3]
+	\arrow["{\varphi \circ \psi = 0}", from=1-3, to=3-5]
+	\arrow[from=3-1, to=3-3]
+	\arrow["{\exists !}"', dashed, from=1-3, to=3-1]
+	\arrow["0"', curve={height=18pt}, from=3-1, to=3-5]
+\end{tikzcd}\]
+    It is easy to check this by working locally, that is, in open sets. There is an analogous definition for the cokernel.
+
+    With this, we see that the sheaf of abelian groups is an abelian category.
+\end{remark}
+
+\begin{remark}
+    \begin{enumerate}
+        \item We can also define subsheafs, \(\mcF \sse \mcG\) if there exists inclusions \(\mcF(U) \sse \mcG(U)\) compatible with restrictions. For example, \(\ker(\varphi : \mcF \to \mcG)\) is a subsheaf of \(\mcF\).
+    \end{enumerate}
+\end{remark}
+
 \printindex
 
 \end{document}
