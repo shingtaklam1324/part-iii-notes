@@ -672,6 +672,125 @@ Let \(M\) be a manifold, \(N \sse M\) and \(N\) is a manifold. Consider the incl
     For (iii), \(D \sse N\) is open if and only if there exists \(U \sse M\) open, with \(D = D \cap N\).
 \end{remark}
 
+\lec
+
+The condition (iii) is required, since we don't want an example which looks like a figure-8, or other `weird' topological spaces, such as
+
+\begin{center}
+    \includegraphics[scale=0.125]{diagrams/2023_10_19.jpg}
+\end{center}
+
+\begin{remark}
+    If \(\iota\) only satisfies (i) and (ii), we call \(N\) an \emph{immersed submanifold}\index{immersed submanifold}.
+\end{remark}
+
+\begin{remark}
+    A slight generalisation of this is that: if \(N, M\) are manifolds, a map \(\psi : N \to M\) is called an \emph{embedding}\index{embedding}, denoted \(\psi : N \inj M\), if \(\psi\)  is injective, and satisfies conditions (i), (ii) and (iii). That is, \(\psi(N) \sse M\) is an immersed submanifold.
+
+    If \(\dd\Psi\) is injective for all \(p\), then we call \(\psi\) an \emph{immersion}\index{immersion}.
+\end{remark}
+
+\underline{Convention:} Submanifold will mean embedded submanifold unless otherwise stated.
+
+\begin{example}
+    [parametrised urves and surfaces in \(\R^3\)] In this case, condition (ii) simply means what we called a `regular' parametrisation.
+\end{example}
+
+\begin{example}
+    [irrational twist flow]
+
+    Define the map
+    \begin{align*}
+        \R &\to T^2 \\
+        t &\mapsto (e^{it}, e^{i\alpha t})
+    \end{align*}
+    In this case, we see that the map is injective and an immersion, but not an embedding as the image is dense in \(T^2\).
+\end{example}
+
+Is a submanifold the same as \(f^{-1}(0)\) for some smooth map \(f : \R^n \to \R^m\), or more generally, \(f^{-1}(p)\) for some \(f : M \to N\).
+
+In general, no. Since \(f\) is smooth, it is continuous, and so \(f^{-1}(p)\) is a closed set. On the other hand,
+
+\begin{proposition}    
+    For every closed subset \(E \sse \R^2\), we can find a smooth map \(f : \R^2 \to \R\), such that \(f^{-1}(0) = E\).
+\end{proposition}
+
+\begin{proof}
+    Omitted, optional exercise.
+\end{proof}
+
+\begin{definition}
+    [regular value]
+    Let \(f : M \to Y\) be a smooth map between manifolds. Then \(q \in Y\) is a \emph{regular value}\index{regular value} for \(f\) if for every \(p \in f^{-1}(q)\), \((\dd f)_p : \T_p M \to \T_q Y\) is surjective.
+\end{definition}
+
+\begin{theorem}
+    [preimage theorem] \index{preimage theorem}Suppose \(f : M \to Y\) is a smooth map, \(y \in Y\) is a regular value, with \(f^{-1}(y)\) nonempty. Then \(N = f^{-1}(y)\) is an embedded submanifold of \(M\), with
+    \[\dim(N) = \dim(M) - \dim(Y)\]
+\end{theorem}
+
+\begin{proof}
+    Omitted.
+\end{proof}
+
+A fact from differential topology: Suppose \(M\) is a manifold, \(N \sse M\) a subspace (with the subspace topology). Then there is at most one smooth structure on \(N\) making it into an embedded submanifold. Therefore, it makes sense for us to say \(N\) is or is not a submanifold.
+
+The converse of the preimage theorem is only true locally.
+
+\begin{proposition}
+    Let \(N \inj M\) be an embedded submanifold, \(p \in N\). Then there exists an open neighbourhood \(p \in U \sse M\), and \(f : U \to \R^d\), \(d = \dim(M) - \dim(N)\), with \(0 \in \R^d\) is a regular value of \(f\), and \(f^{-1}(0) = U \cap f^{-1}(0)\).
+\end{proposition}
+
+\begin{proof}
+    Let \(\varphi : U_0 \to \R^n\) be a chart on \(M\) near \(p\), with \(\varphi(p) = 0\), with local coordinates \(x_1, \dots, x_n\). Let \(\psi : V_0 \to \R^\ell\) be a chart on \(N\), \(\psi(p) = 0\) and with local coordinates \(u_1, \dots, u_\ell\).
+
+    We may assume without loss of generality that \(V_0 = U_0 \cap N\). In this case, \(\iota : N \inj M\) is expressed locally as
+    \[x_i = x_i(u_1, \dots, u_\ell)\]
+    Thus, the rank of the Jacobian matrix
+    \[\begin{pmatrix}
+        \pdv{x_i}{u_j}(0)
+    \end{pmatrix}\]
+    is \(\ell\), by assumption. Without loss of generality,
+    \[\det\begin{pmatrix}
+        \pdv{x_i}{u_j}(0)
+    \end{pmatrix}_{i, j = 1}^\ell \ne 0\]
+    From the inverse function theorem from multivariate calculus, we have a local inverse
+    \[u_i = u_i(x_1, \dots, x_\ell)\]
+    near \(0\). Moreover, for \(i > \ell\), then \(x_i = x_i(u) = x_i(u(x_1, \dots, x_\ell)) = h_i(x_1, \dots, x_\ell)\).
+
+    Define \(f_i(x) = x_i - h_i(x_1, \dots, x_\ell)\) for \(\ell < i < n\). This gives the required map, with Jacobian at \(0\) given in block form as
+    \(\begin{pmatrix}
+        * & I_d
+    \end{pmatrix}\)
+    Thus, \(0\) is a regular value.
+\end{proof}
+
+\begin{example}
+    Consider
+    \[N = \{(x_0:x_1:x_2) \in \R\P^2 \mid x_2 = 0\}\]
+    We can see that \(N \inj \R\P^2\), and \(N \cong S^1\). However, it is impossible to write
+    \[N = f^{-1}(q)\]
+    for all \(f : \R\P^2 \to M\) where \(M\) is a \(1\)-manifold, \(q \in M\) a regular value.
+
+    To see this, suppose we found such an \(f\). Then consider a chart \(\Psi\) around \(q\) on \(M\), \(\psi(q) = 0\). Then we have that
+    \[\psi \circ f : \R\P^2 \supseteq U \to (-1, 1)\]
+    with \(N \sse U \sse \R\P^2\), \(U\) is open and connected. In this case, we have
+    \[N = \left\{p \mid (\psi \circ f)(p) = 0\right\}\]
+    As \(q\) is a regular value, there exists \(p_+, p_- \in U\) such that
+    \[\psi(f(p_+)) > 0 \qqtext{and} \psi(f(p_-)) < 0\]
+    But \(U \setminus N \sse \R\P^2 \setminus N\) is connected, since it is either an annulus or a disc.
+\end{example}
+
+\begin{theorem}
+    [Whitney embedding theorem]
+    \index{Whitney embedding theorem}
+    For any manifold \(M^n\), there exists an embedding \(\psi : M \inj \R^{2n}\).
+\end{theorem}
+
+On the examples sheet, we will show the result for \(\R^N\), and with the additional assumption that \(M\) is compact. It's not too difficult to show that an embedding into \(\R^{2n+1}\) exists, Reducing to \(2n\) is the main difficulty in this theorem. Moreover, this result is optimal, for example by considering
+\[\R\P^2\]
+which embeds into \(\R^4\) but not \(\R^3\).
+
 \printindex
 
 \end{document}

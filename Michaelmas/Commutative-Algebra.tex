@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage{../../Style}
+\usepackage{../../quiver}
 
 \title{Commutative Algebra}
 \author{Shing Tak Lam}
@@ -858,7 +859,7 @@ That is, \(\T_M\) is a \emph{right exact functor}\index{right exact functor} fro
 	\arrow["{\Hom_R(f,P)}", from=1-5, to=1-7]
 \end{tikzcd}\]
     \end{enumerate}
-    In both cases, we say that the respective \(\Hom\) functor is \emph{left exact}\index{left exact functor}.
+    In both cases, we say that the respective \(\Hom\) functor is \emph{left exact}\index{left exact functor!\(\Hom\)}.
 \end{proposition}
 
 \begin{proof}
@@ -866,6 +867,7 @@ That is, \(\T_M\) is a \emph{right exact functor}\index{right exact functor} fro
 \end{proof}
 
 \begin{lemma}
+    \label{lem:exact-if-hom-exact}
     Consider a (not necessarily exact) sequence
     % https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzIsMCwiQiJdLFs0LDAsIkMiXSxbMCwxLCJmIl0sWzEsMiwiZyJdXQ==
 \[\begin{tikzcd}
@@ -911,6 +913,242 @@ Recall that we have a bijection \(\Hom_R(M \otimes_R N, L) \cong \Bil(M \times N
 \[\Bil(M \times N, L) \cong \Hom_R(N, \Hom_R(M, L))\]
 and so we have an isomorphism
 \[\Hom_R(M \otimes N, L) \cong \Hom_R(N, \Hom_R(M, L))\]
+sending \(\varphi\) to \(n \mapsto (m \mapsto \varphi(m \otimes n))\)
+
+\lec
+
+\begin{proposition}
+    Let \(M\) be an \(R\)-module. Then \(\T_M\) is a right exact functor\index{right exact functor!\(\T_M\)}.
+\end{proposition}
+
+\begin{proof}
+    Given an exact sequence
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzEsMCwiQiJdLFsyLDAsIkMiXSxbMywwLCIwIl0sWzAsMSwiZiJdLFsxLDIsImciXSxbMiwzXV0=
+\[\begin{tikzcd}
+	A & B & C & 0
+	\arrow["f", from=1-1, to=1-2]
+	\arrow["g", from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    Fix an \(R\)-module \(P\). We will apply the functors \(\Hom_R(\cdot, P)\), then the functor \(\Hom_R(M, \cdot)\), to get the sequence
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiXFxIb21fUihNLCBcXEhvbV9SKEMsIFApKSJdLFsyLDAsIlxcSG9tX1IoTSwgXFxIb21fUihCLCBQKSkiXSxbMywwLCJcXEhvbV9SKE0sIFxcSG9tX1IoQSwgUCkpIl0sWzAsMV0sWzEsMl0sWzIsM11d
+\[\begin{tikzcd}
+	0 & {\Hom_R(M, \Hom_R(C, P))} & {\Hom_R(M, \Hom_R(B, P))} & {\Hom_R(M, \Hom_R(A, P))}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    which is exact as the \(\Hom\) functors are left exact. Using the isomorphism above, and noting that the square
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhvbV9SKE0sIFxcSG9tX1IoQywgUCkpIl0sWzEsMCwiXFxIb21fUihNLCBcXEhvbV9SKEIsIFApKSJdLFswLDIsIlxcSG9tX1IoTSBcXG90aW1lcyBDLCBQKSJdLFsxLDIsIlxcSG9tX1IoTSBcXG90aW1lcyBCLCBQKSJdLFswLDFdLFswLDJdLFsxLDNdLFsyLDNdXQ==
+\[\begin{tikzcd}
+	{\Hom_R(M, \Hom_R(C, P))} & {\Hom_R(M, \Hom_R(B, P))} \\
+	\\
+	{\Hom_R(M \otimes C, P)} & {\Hom_R(M \otimes B, P)}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=3-1]
+	\arrow[from=1-2, to=3-2]
+	\arrow[from=3-1, to=3-2]
+\end{tikzcd}\]
+    commutes, we have an exact sequence
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhvbV9SKE0gXFxvdGltZXMgQywgUCkiXSxbMSwwLCJcXEhvbShNIFxcb3RpbWVzIEIsIFApIl0sWzIsMCwiXFxIb20oTSBcXG90aW1lcyBBLCBQKSJdLFszLDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXV0=
+\[\begin{tikzcd}
+	{\Hom_R(M \otimes C, P)} & {\Hom(M \otimes B, P)} & {\Hom(M \otimes A, P)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    Since \(P\) is arbitrary, using \cref{lem:exact-if-hom-exact}, we see that
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFRfTShBKSJdLFsxLDAsIlxcVF9NKEIpIl0sWzIsMCwiXFxUX00oQykiXSxbMywwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM11d
+    \[\begin{tikzcd}
+        {\T_M(A)} & {\T_M(B)} & {\T_M(C)} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+    \end{tikzcd}\]
+    is exact, as required.
+\end{proof}
+
+\begin{remark}
+    Note on the other hand that
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzEsMCwiQiJdLFsyLDAsIkMiXSxbMCwxXSxbMSwyXV0=
+\[\begin{tikzcd}
+	A & B & C
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+\end{tikzcd}\]
+    being exact does not imply that
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzEsMCwiQiJdLFsyLDAsIkMiXSxbMCwxXSxbMSwyXV0=
+\[\begin{tikzcd}
+	{\T_M(A)} & {\T_M(B)} & {\T_M(C)}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+\end{tikzcd}\]
+    is exact.
+    
+    For example, consider the exact sequence
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCIwIl0sWzEsMCwiXFxaIl0sWzIsMCwiXFxaIl0sWzAsMV0sWzEsMiwiXFxjZG90MiJdXQ==
+\[\begin{tikzcd}
+	0 & \Z & \Z
+	\arrow[from=1-1, to=1-2]
+	\arrow["\cdot2", from=1-2, to=1-3]
+\end{tikzcd}\]
+    This is exact, but
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCIwIl0sWzEsMCwiXFxaXFxvdGltZXMgXFxaLzIiXSxbMiwwLCJcXFpcXG90aW1lcyBcXFovMiJdLFswLDFdLFsxLDIsIlxcY2RvdDIiXV0=
+\[\begin{tikzcd}
+	0 & {\Z\otimes \Z/2} & {\Z\otimes \Z/2}
+	\arrow[from=1-1, to=1-2]
+	\arrow["\cdot2", from=1-2, to=1-3]
+\end{tikzcd}\]
+    is not.
+\end{remark}
+
+\subsection{Flat modules - a first encounter}
+
+\begin{definition}
+    [flat module]
+    An \(R\)-module \(M\) is \emph{flat}\index{flat module} if for any injective \(R\)-module homomorphism \(N \to N'\), the map \(\T_M(f) : \T_M(N) \to \T_M(N')\) is injective.
+\end{definition}
+
+\begin{example}
+    \(\Z/2\) is not a flat \(\Z\)-module, as seen in the remark above.
+\end{example}
+
+\begin{example}
+    Free modules are flat. To see this, suppose \(f : N \to N'\) is an injective \(R\)-linear map. Then we have the commuting square
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCJSXntcXG9wbHVzIEl9XFxvdGltZXMgTiJdLFsyLDAsIlJee1xcb3BsdXMgSX1cXG90aW1lcyBOJyJdLFswLDEsIihSIFxcb3RpbWVzIE4pXntcXG9wbHVzIEl9Il0sWzIsMSwiKFJcXG90aW1lcyBOJylee1xcb3BsdXMgSX0iXSxbMCwyLCJOXntcXG9wbHVzIEl9Il0sWzIsMiwiKE4nKV57XFxvcGx1cyBJfSJdLFswLDEsIlxcaWQgXFxvdGltZXMgZiJdLFs0LDUsImZee1xcb3BsdXMgSX0iXSxbMCwyLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbMiw0LCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbMSwzLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbMyw1LCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XV0=
+\[\begin{tikzcd}
+	{R^{\oplus I}\otimes N} && {R^{\oplus I}\otimes N'} \\
+	{(R \otimes N)^{\oplus I}} && {(R\otimes N')^{\oplus I}} \\
+	{N^{\oplus I}} && {(N')^{\oplus I}}
+	\arrow["{\id \otimes f}", from=1-1, to=1-3]
+	\arrow["{f^{\oplus I}}", from=3-1, to=3-3]
+	\arrow[tail reversed, from=1-1, to=2-1]
+	\arrow[tail reversed, from=2-1, to=3-1]
+	\arrow[tail reversed, from=1-3, to=2-3]
+	\arrow[tail reversed, from=2-3, to=3-3]
+\end{tikzcd}\]
+    where the vertical maps are isomorphisms, and
+    \[f^{\oplus I}((n_i)_{i \in I}) = (f(n_i))_{i \in I}\]
+    It is clear that \(f^{\oplus I}\) is injective.
+\end{example}
+
+\begin{remark}
+    With this, we see that the base ring matters. \(\Z/2\) is not a flat \(\Z\)-module, but it is a flat \(\Z/2\)-module as it is free.
+\end{remark}
+
+\begin{definition}
+    [torsion free]
+    An \(R\)-module is \emph{torsion free}\index{torsion free} if for any \(r \in R, m \in M\), \(rm = 0\) implies that \(m = 0\) or \(r\) is a zero divisor.
+\end{definition}
+
+\begin{proposition}
+    Flat modules are torsion free.
+\end{proposition}
+
+\begin{proof}
+    Suppose \(M\) was not torsion free. Then there exists \(r_0 \in R, m_0 \in M\) with \(r_0\) not a zero divisor, \(m_0 \ne 0\), such that \(r_0m_0 = 0\). We can define a map
+    \begin{align*}
+        f : R &\to R \\
+        f(x) = r_0x
+    \end{align*}
+    \(f\) is injective as \(r_0\) is not a zero divisor. Thus, we have the square
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJNXFxvdGltZXMgUiJdLFsyLDAsIk1cXG90aW1lcyBSIl0sWzAsMSwiTSJdLFsyLDEsIk0iXSxbMCwxLCJcXGlkXFxvdGltZXMgZiJdLFswLDIsIiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dLFsxLDMsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dLFsyLDMsInJfMFxcY2RvdCIsMl1d
+\[\begin{tikzcd}
+	{M\otimes R} && {M\otimes R} \\
+	M && M
+	\arrow["{\id\otimes f}", from=1-1, to=1-3]
+	\arrow[tail reversed, from=1-1, to=2-1]
+	\arrow[tail reversed, from=1-3, to=2-3]
+	\arrow["{r_0\cdot}"', from=2-1, to=2-3]
+\end{tikzcd}\]
+    But the bottom map is not injective, as it sends \(m_0\) to zero.
+\end{proof}
+
+For a specical case of the above:
+
+\begin{proposition}
+    Let \(R\) be an integral domain, \(I\) a non-zero, non-unit ideal. Then \(R/I\) is not flat.
+\end{proposition}
+
+\begin{proof}
+    Since \(I \ne R\), \(R/I\) is non-zero. Choose \(x \in I\setminus 0\), and consider the map
+    \begin{align*}
+        f : R &\to R \\
+        f(r) &= xr
+    \end{align*}
+    This is an injective map. But the induced map on \(R \otimes (R/I) \cong R/I\) is multiplication by \(x\), which is the zero map. 
+\end{proof}
+
+\begin{proposition}
+    [criterion for flatness] Let \(M\) be an \(R\)-module. Then teh following are equivalent:
+
+    \begin{enumerate}[(i)]
+        \item \(\T_M\) preserves exactness of all exact sequences,
+        \item \(\T_M\) preserves exactness of short exact sequences,
+        \item \(\T_M\) is flat,
+        \item if \(f : N \to N'\) is \(R\)-linear and injective, \(N, N'\) are finitely generated \(R\)-modules, then \(\id_M \otimes f\) is injective.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \((i) \implies (ii) \implies (iii) \implies (iv)\) is clear.
+
+    For \((ii) \implies (i)\), suppose
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzEsMCwiQiJdLFsyLDAsIkMiXSxbMCwxLCJmIl0sWzEsMiwiZyJdXQ==
+\[\begin{tikzcd}
+	A & B & C
+	\arrow["f", from=1-1, to=1-2]
+	\arrow["g", from=1-2, to=1-3]
+\end{tikzcd}\]
+    is exact, then we have a short exact sequence
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxmcmFje0F9e1xca2VyKGYpfSJdLFsyLDAsIkIiXSxbMywwLCJcXGltKGcpIl0sWzQsMCwiMCJdLFswLDFdLFsxLDIsIlxcb3ZlcmxpbmUgZiJdLFsyLDMsImciXSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & {\frac{A}{\ker(f)}} & B & {\im(g)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["{\overline f}", from=1-2, to=1-3]
+	\arrow["g", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    Thus, we have a short exact sequence
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTVxcb3RpbWVzXFxmcmFje0F9e1xca2VyKGYpfSJdLFsyLDAsIk1cXG90aW1lcyBCIl0sWzMsMCwiTVxcb3RpbWVzIFxcaW0oZykiXSxbNCwwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+\[\begin{tikzcd}
+	0 & {M\otimes\frac{A}{\ker(f)}} & {M\otimes B} & {M\otimes \im(g)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    That is, \(\ker(\id_M \otimes g) = \im(\id_M \otimes \overline{f}) = \im(\id_M \otimes f)\). Thus the sequence
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJNXFxvdGltZXMgQSJdLFsxLDAsIk1cXG90aW1lcyBCIl0sWzIsMCwiTVxcb3RpbWVzIEMiXSxbMCwxXSxbMSwyXV0=
+\[\begin{tikzcd}
+	{M\otimes A} & {M\otimes B} & {M\otimes C}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+\end{tikzcd}\]
+    is exact.
+
+    We will omit the proof of \((iv) \implies (iii)\), it can be found in the lecturer's notes.
+
+    For \((iii) \implies (ii)\), we note that this follows from \(\T_M\) being right exact.
+\end{proof}
+
+\begin{proposition}
+    Let \(f : R \to S\) be a ring homomorphism, \(M\) is a flat \(R\)-module. Then \(S \otimes_R M\) is a flat \(S\)-module.
+\end{proposition}
+
+\begin{proof}
+    Let \(g : N \to N'\) be an injective \(S\)-linear map. Then the square
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCIoUyBcXG90aW1lc19SIE0pXFxvdGltZXNfUyBOIl0sWzIsMCwiKFMgXFxvdGltZXNfUiBNKVxcb3RpbWVzX1MgTiciXSxbMCwxLCJNXFxvdGltZXNfUiBOIl0sWzIsMSwiTVxcb3RpbWVzX1IgTiciXSxbMCwyLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbMCwxXSxbMSwzLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbMiwzXV0=
+\[\begin{tikzcd}
+	{(S \otimes_R M)\otimes_S N} && {(S \otimes_R M)\otimes_S N'} \\
+	{M\otimes_R N} && {M\otimes_R N'}
+	\arrow[tail reversed, from=1-1, to=2-1]
+	\arrow[from=1-1, to=1-3]
+	\arrow[tail reversed, from=1-3, to=2-3]
+	\arrow[from=2-1, to=2-3]
+\end{tikzcd}\]
+    commutes. But the bottom map is injective as \(M\) is flat.
+\end{proof}
 
 \printindex
 

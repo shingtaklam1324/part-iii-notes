@@ -767,12 +767,12 @@ As above, \(C^{k, \gamma}\) is a Banach space with the H\"older norm.
 \(L^p(U)\) with the \(\norm{\cdot}_{L^p}\) norm is a Banach space. We also define local versions,
 
 \begin{definition}
-    [\(L^p_{loc}\) space]
-    We say that \(u \in L^p_{loc}(U)\)\index{Lebesgue space!\(L^p_{loc}\)} if \(f \in L^p(V)\) for every \(V \Subset U\) (\(V \sse K \sse U\), where \(K\) is compact). Equivalently,
-    \[L^p_{loc}(U) = \bigcap_{V \Subset U}L^p(V)\]
+    [\(L^p_\loc\) space]
+    We say that \(u \in L^p_\loc(U)\)\index{Lebesgue space!\(L^p_\loc\)} if \(f \in L^p(V)\) for every \(V \Subset U\) (\(V \sse K \sse U\), where \(K\) is compact). Equivalently,
+    \[L^p_\loc(U) = \bigcap_{V \Subset U}L^p(V)\]
 \end{definition}
 
-Note that \(L^p_{loc}(U)\) is not Banach, on the other hand, it is a Fr\'echet space.
+Note that \(L^p_\loc(U)\) is not Banach, on the other hand, it is a Fr\'echet space.
 
 \begin{remark}
     If \(K \sse U\) is compact, \(U\) is open, then
@@ -786,7 +786,7 @@ That is, a notion of derivative for \(L^p\).
 
 \begin{definition}
     [weak derivative]
-    Suppose \(u, v \in L^1_{loc}(U)\), \(\alpha\) a multi-index. We say \(v\) is the \emph{\(\alpha\)-th weak derivative of \(U\)}\index{weak derivative} if
+    Suppose \(u, v \in L^1_\loc(U)\), \(\alpha\) a multi-index. We say \(v\) is the \emph{\(\alpha\)-th weak derivative of \(U\)}\index{weak derivative} if
     \[\int_U u D^\alpha \phi \dd x = (-1)^{\abs{\alpha}}\int_Uv\phi\dd x\]
     for all \(\phi \in C_c^\infty(U)\). We will also call the space \(C_c^\infty(U)\) the space of \emph{test functions}\index{test function}.
 \end{definition}
@@ -803,7 +803,7 @@ That is, a notion of derivative for \(L^p\).
 \end{example}
 
 \begin{lemma}
-    [uniqueness of weak derivative] Suppose \(v, \tilde v \in L^1_{loc}(U)\) are both the \(\alpha\)-th weak derivative of \(u \in L^1_{loc}(U)\), then \(v = \tilde v\) almost everywhere.
+    [uniqueness of weak derivative] Suppose \(v, \tilde v \in L^1_\loc(U)\) are both the \(\alpha\)-th weak derivative of \(u \in L^1_\loc(U)\), then \(v = \tilde v\) almost everywhere.
 \end{lemma}
 
 \begin{proof}
@@ -822,7 +822,7 @@ Suppose \(u\) is smooth, then the weak derivative agrees with the usual derivati
 
 \begin{definition}
     [Sobolev space] Define the \emph{Sobolev space}\index{Sobolev space!\(W^{k, p}\)}
-    \[W^{k, p}(U) = \left\{u \in L^1_{loc}(U) \mid u \in L^p(U) \text{, the weak derivatives }D^\alpha u\text{ exists for }\abs{\alpha} \le k\text{, }D^\alpha u \in L^p(U)\right\}\]
+    \[W^{k, p}(U) = \left\{u \in L^1_\loc(U) \mid u \in L^p(U) \text{, the weak derivatives }D^\alpha u\text{ exists for }\abs{\alpha} \le k\text{, }D^\alpha u \in L^p(U)\right\}\]
     with the \emph{Sobolev norm}
     \[\norm{u}_{W^{k,p}(U)} = \begin{cases}
         \left(\sum_{\abs{\alpha} = k}\int_U\abs{D^\alpha u}^p \dd x\right)^{1/p} & p < \infty \\
@@ -838,6 +838,8 @@ Suppose \(u\) is smooth, then the weak derivative agrees with the usual derivati
 
 The \(_0\) denotes that the function vanishes on the boundary.
 
+\lec
+
 \begin{example}
     Let \(n > 2, \lambda > 0\), and take \(U = B_1(0) \sse \R^n\) the open ball. Consider
     \[u(x) = \begin{cases}
@@ -845,8 +847,167 @@ The \(_0\) denotes that the function vanishes on the boundary.
         \text{anything} & x = 0
     \end{cases}\]
     When is \(u \in W^{p, 1}(U)\)?
+
+    First of all, we compute
+    \[\int_U\frac{1}{\abs{x}^\lambda}\dd x = C\int_0^1 r^{n-1-\lambda}\dd r\]
+    which is finite if and only if \(\lambda < n\). Moreover, \(u \in L^p(U)\) if and only if \(\lambda p < n\).
+
+    Let \(\phi \in C_c^\infty(B_1(0) \setminus \{0\})\), if \(u\) has a weak derivative \(v\), then
+    \[v_i = D_iu = -\frac{\lambda x_i}{\abs{x}^{\lambda + 2}}\]
+    on \(B_1(0)\setminus 0\). Thus,
+    \[\abs{D u} = \frac{\abs{\lambda}}{\abs{x}^{\lambda + 1}}\]
+    Hence \(v_i \in L^1\loc(U)\) if and only if \(\lambda + 1 < n\). Suppose \(\lambda + 1 < n\), then we claim that
+    \begin{align*}
+        v_i = \begin{cases}
+            -\frac{\lambda x_i}{\abs{x}^{\lambda + 1}} & x \ne 0 \\
+            \text{anything} & x = 0
+        \end{cases}
+    \end{align*}
+    is a weak derivative of \(u\) on \(U\).
+
+    For \(\phi \in C_c^\infty(U)\), by Stokes' theorem,
+    \[(-1)\int_{U \setminus B_\epsilon(0)}u \phi_{x_i}\dd x = \int_{U\setminus B_\epsilon(0)}D_iu \phi \dd x - \int_{\partial B_\epsilon(0)} u \phi n \vdot \dd S\]
+    Therefore, we can estimate
+    \[\abs{\int_{\partial B_\epsilon}u \phi n \vdot \dd S} = \abs{\phi}_{L^\infty}\abs{\int_{\partial B_\epsilon}\epsilon^{-\lambda}n \vdot \dd S} \le C \epsilon^{n-1-\lambda} \to 0\]
+    as \(\lambda \to 0\). Thus, by the dominated convergence theorem,
+    \[-\int_U u \phi_{x_i}\dd x = \int_U v_i\phi \dd x\]
 \end{example}
 
+\begin{remark}
+    \begin{enumerate}
+        \item Weak derivatives can exist even when the function is not continuous.
+        \item Since \(D_iu \in L^p(U)\) if and only if \(p(\lambda + 1) < n\), we see that
+        \[u \in W^{1, p}(U) \iff \lambda < \frac{n}{p} - 1\]
+        and if \(p > n\), we see that \(\lambda\) must be negative, and so it is continuous.
+
+        Heuristically, larger \(p\) gives us nicer functions.
+    \end{enumerate}
+\end{remark}
+
+\begin{theorem}
+    \(W^{k, p}(U)\) is a Banach space for \(k \in \N, 1 \le p \le \infty\).
+\end{theorem}
+
+\begin{proof}
+    First, we need to show that it is a normed vector space. This is straightforward, and for the triangle inequality we will need to use Minkowski's inequality
+    \[\left(\sum_{i=1}^\ell (a_i + b_i)^p\right)^{1/p} \le \left(\sum_{i=1}^n a_i^p\right)^{1/p} + \left(\sum_{i=1}^n b_i^p\right)^{1/p}\]
+
+    For completeness, we will use the completeness of \(L^p\). Let \((u_j)\) be a Cauchy sequence on \(W^{k, p}(U)\).
+
+    Note that \(\norm{D^\alpha v}_{L^p(U)} \le \norm{v}_{W^{k, p}(U)}\) for \(\abs{\alpha} \le k\). Setting \(v = u_j\), we see that \((D^\alpha u_j)_j\) is a Cauchy sequence in \(L^p\). But we know that \(L^p\) is complete, and so there exists a function \(u^\alpha \in L^p(U)\), with \(D^\alpha u_j \to u^\alpha\) in \(L^p\) for all \(\abs{\alpha}\le k\). We will set \(u = u^{(0, \dots, 0)}\).
+
+    \begin{claim}
+        \(u^\alpha\) is the \(\alpha\)-th weak derivative of \(u\). That is, \(D^\alpha u\) exists and \(D^\alpha u = u^\alpha\).
+    \end{claim}
+
+    \begin{proof}
+        Choose a test function \(\phi \in C_c^\infty(U)\). Since \(u_j \in W^{k, p}\), we know that \(D^\alpha u_j\) exists, and
+        \[(-1)^{\abs{\alpha}}\int_U u_j D^\alpha \phi \dd x = \int_U(D^\alpha u_j)\phi \dd x\]
+        for all \(j\). Taking \(j \to \infty\), using the fact that \(D^\alpha u_j \to u^\alpha\) (using H\"older, or the dominated convergence theorem), we get that
+        \[(-1)^{\abs{\alpha}}\int_U uD^\alpha \phi \dd x = \int_U u^\alpha \phi \dd x\]
+        and so \(D^\alpha u = u^\alpha \in L^p(U)\).
+    \end{proof}
+
+    Thus, \(u \in W^{k,p}(U)\).
+\end{proof}
+
+\subsection{Approximations of Sobolev spaces}
+
+\subsubsection*{Convolution and mollifiers}
+
+\begin{definition}
+    [standard mollifier]
+    Let
+    \[\eta(x) = \begin{cases}
+        C \exp(\frac{-1}{1-\abs{x}^2}) & \abs{x} < 1 \\
+        0 & \abs{x} \ge 1
+    \end{cases}\]
+    where \(C\) is chosen such that
+    \[\int_{\R^n}\eta(x)\dd x = 1\]
+    For \(\epsilon > 0\), we denote
+    \[\eta_\epsilon(x) = \frac{1}{\epsilon^n}\eta(x/\epsilon)\]
+    We call \(\eta_\epsilon\) to be the \emph{standard mollifer}\index{standard mollifier}.
+\end{definition}
+
+\begin{remark}
+    \begin{itemize}
+        \item \(\eta_\epsilon \in C_c^\infty(\R^n)\),
+        \item \(\Supp(\eta_\epsilon) = \overline{B_\epsilon(0)}\),
+        \item \(\int_{\R^n}\eta_\epsilon(x)\dd x = 1\)
+    \end{itemize}
+\end{remark}
+
+\begin{definition}
+    Given \(U \sse \R^n\) open, define
+    \[U_\epsilon = \left\{x \in U \mid d(x, \partial U) > \epsilon\right\}\]
+\end{definition}
+
+\begin{definition}
+    [mollification]
+    Given \(f \in L^1_\loc(U)\), the \emph{mollification of \(f\)}\index{mollification} is
+    \begin{align*}
+        f_\epsilon : U_\epsilon &\to \R \\
+        f_\epsilon(x) &= \eta_\epsilon * f(x) = \int_{U}\eta_\epsilon(x-y)f(y)\dd y = \int_{B_\epsilon(0)}\eta_\epsilon(y)f(x-y) \dd y
+    \end{align*}
+    where \(*\) denotes the convolution.
+\end{definition}
+
+We can think of \(f_\epsilon(x)\) as the average of \(f\) in an \(\epsilon\)-ball, weighted by \(\eta\).
+
+\begin{theorem}
+    [properties of mollification]
+    \index{mollification!properties of}
+    Let \(f \in L^1_\loc(U)\), then
+    \begin{enumerate}
+        \item \(f_\epsilon \in C^\infty(U_\epsilon)\),
+        \item \(f_\epsilon \to f\) a.e. on \(U\) as \(\epsilon\to 0\),
+        \item if \(f \in C^0(U)\), then \(f_\epsilon \to f\) locally uniformly (i.e. uniformly on \(K \sse U\) compact).
+        \item if \(1 \le p < \infty\), and \(f \in L^p_\loc(U)\), then \(f_\epsilon \to f\) in \(L^p_\loc(U)\). That is,
+        \[\norm{f_\epsilon - f}_{L^p(V)} \to 0\]
+        for all \(V \Subset U\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    See handout on moodle.
+\end{proof}
+
+In particular, there is a big improvement going from \(f \in L^1_\loc\) to \(f_\epsilon \in C^\infty\).
+
+\begin{lemma}
+    [local smooth approximation of Sobolev functions away from \(\partial U\)] \index{Sobolev approximation!local smooth approximation away from \(\partial U\)}Let \(u \in W^{k, p}(U)\) for some \(1 \le p < \infty\). Set \(u_\epsilon = \eta_\epsilon * u\) in \(U_\epsilon\). Then
+    \begin{enumerate}
+        \item \(u_\epsilon \in C^\infty(U_\epsilon)\) for all \(\epsilon > 0\),
+        \item \(u_\epsilon \to u\) in \(W^{k, p}_\loc(U)\). Note that for \(V \Subset U\), \(V \subseteq U_\epsilon\) for \(\epsilon\) sufficiently small.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    (i) follows from the theorem. For (ii),
+    \begin{claim}
+        \[D^\alpha u_\epsilon = D^\alpha(\eta_\epsilon * u) = \eta_\epsilon * D^\alpha u\]
+    \end{claim}
+    \begin{proof}
+        Since \(u_\epsilon \in C^\infty\), we can compute the classical derivative as follows:
+        \begin{align*}
+            D^\alpha_x u_\epsilon(x) &= D^\alpha_x\int_U \eta_\epsilon(x - y)u(y) \dd y \\
+            &= \int_U (D^\alpha_x\eta_\epsilon(x - y))u(y) \dd y \\
+            &= (-1)^\abs{\alpha}\int_U(D^\alpha_u\eta_\epsilon(x - y))u(y) \dd y \\
+            &= \int_U \eta_\epsilon(x - y)D^\alpha u(y) \dd y \\
+            &= (\eta_\epsilon * u)(x)
+        \end{align*}
+        See handout for justification of swapping the integral and derivative.
+    \end{proof}
+    Note for \(V \Subset U\), by (iv) of the theorem, since \(D^\alpha u \in L^p(U)\), then
+    \[D^\alpha u_\epsilon = \eta_\epsilon * D^\alpha u \to D^\alpha u\]
+    in \(L^p(V)\) as \(\epsilon \to 0\). Thus, for all \(V \Subset U\), and \(\delta > 0\), there exists \(\epsilon_0 = \epsilon_0(\delta, V)\) such that
+    \begin{align*}
+        \norm{u_\epsilon - u}_{W^{k, p}(V)}^p = \sum_{\abs{\alpha} \le k}\norm{D^\alpha u_\epsilon - D^\alpha u}_{L^p(V)}^p \le \delta
+    \end{align*}
+    for \(0 < \epsilon \le \epsilon_0\).
+\end{proof}
+
+In conclusion, \(u \in W^{k, p}(U)\) can be approximated by \(C^\infty\) functions away from \(\partial U\).
 \section{Elliptic PDEs}
 
 \section{Hyperbolic PDEs}
