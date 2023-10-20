@@ -921,6 +921,178 @@ a \emph{maximal flag}, and there is interesting geometry related to this.
     \[K(x, y) = \tr(\ad(x)\ad(y)) = (x, y)_{\ad}\]
 \end{definition}
 
+\lec
+
+\begin{theorem}
+    [Cartan-Killing criterion] 
+    \label{thm:cartan-killing}\index{Cartan-Killing criterion}
+    For a finite dimensional Lie algebra \(\mfg\), the following are equivalent:
+    \begin{enumerate}
+        \item \(\mfg\) is semisimple,
+        \item \(\Rad(\mfg) = 0\),
+        \item the Killing form of \(\mfg\) is non-degenerate.
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    \(\Rad(\mfg/\Rad(\mfg)) = 0\), since a suitable ideal of \(\mfg/\Rad(\mfg)\) would lift to give an ideal \(J\) of \(\mfg\), containing \(\Rad(\mfg)\), with \(J/\Rad(g)\) solvable. Hence \(J\) is solvable, and \(J \sse \Rad(\mfg)\).
+
+    Using this, \(\mfg/\Rad(\mfg)\) is semisimple.
+\end{remark}
+
+\begin{theorem}
+    [Levi's theorem] \index{Levi's theorem} Let \(k\) be a field with \(\Char(k) = 0\), and \(\mfg\) a finite dimensional Lie algebra over \(k\). Then there exists a Lie subalgebra \(\mfg'\) of \(\mfg\), with \(\mfg' \cap \Rad(\mfg) = 0\), and as vector spaces,
+    \[\mfg = \mfg' \oplus \Rad(\mfg)\]
+    and \(\mfg'\) is isomorphic to \(\Rad(\mfg)\), and thus semisimple. That is, the short exact sequence
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxSYWQoXFxtZmcpIl0sWzIsMCwiXFxtZmciXSxbMywwLCJcXG1mZy9cXFJhZChcXG1mZykiXSxbNCwwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+\[\begin{tikzcd}
+	0 & {\Rad(\mfg)} & \mfg & {\mfg/\Rad(\mfg)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    splits. This is called the \emph{Levi decomposition of \(\mfg\)}\index{Levi's theorem!Levi decomposition}, and \(\mfg'\) the \emph{Levi subalgebra of \(\mfg\)}\index{Levi's theorem!Levi subalgebra}.
+\end{theorem}
+
+\begin{proof}
+    [Not proven in the course] See Fulton-Harris appendix E.
+\end{proof}
+
+\begin{lemma}
+    Let \(\mfg\) be a Lie algebra,
+    \begin{enumerate}[(i)]
+        \item if \(I\) is an ideal of \(\mfg\), then so is \([I, I]\),
+        \item \(\Rad(\mfg) = 0\) if and only if \(\mfg\) has no non-trivial abelian ideals.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    For (i), if \(x, y \in I, z \in \mfg\), we need to show that
+    \[[z,[x,y]] \in [I,I]\]
+    Using the Jacobi identity,
+    \[[z, [x, y]] = -[x, [y, z]] - [y, [x, z]] \in [I, I]\]
+    as \(I\) is an ideal.
+
+    For (ii), it is clear that any abelian ideal is solvable. Conversely, if \(I\) is solvable, then the last non-zero term in the derived series of \(I\) is abelian.
+\end{proof}
+
+\begin{notation}
+    Define\index{orthogonal, \(\mfg^\perp\)}
+    \[\mfg^\perp = \left\{x \in \mfg \mid K(x, y) = 0 \text{ for all }x \in \mfg\right\}\]
+\end{notation}
+
+\begin{lemma}
+    \(\mfg^\perp\) is an ideal.
+\end{lemma}
+
+\begin{proof}
+    For \(x \in \mfg^\perp, y, z \in \mfg\), then \(K([x, y], z) = K(x, [y, z]) = 0\)
+\end{proof}
+
+\begin{lemma}
+    \label{lem:killing-form-on-ideal}
+    Let \(I\) be an ideal of \(\mfg\), and let \(K_I\) denote the Killing form of \(I\). Then
+    \[K_I(x, y) = K(x, y)\]
+    for all \(x, y \in I\).
+\end{lemma}
+
+\begin{proof}
+    Choose a basis for \(I\), and extend it to a basis of \(\mfg\). Given \(x, y \in I\), with respect to this basis,
+    \[\ad(x) = \begin{pmatrix}
+        A & * \\
+        0 & 0
+    \end{pmatrix}\]
+    where \(A = (\ad(x))\vert_I\), and similarly for \(\ad(y)\). Set \(B = (\ad(y))\vert_I\). Then
+    \[K_I(x, y) = \tr(AB) = \tr(\ad(x)\ad(y)) = K(x, y)\]
+\end{proof}
+
+\begin{theorem}
+    [Cartan's criterion (for solvability)] 
+    \label{thm:cartan-criterion}
+    \index{Cartan's criterion (for solvability)}
+    Suppose \(\mfg\) is a subalgebra of \(\gl(V)\), for \(V\) a finite dimensional vector space over \(\C\). If \(K(x, y) = 0\) for all \(x\in \mfg, y \in [\mfg, \mfg]\), then \(\mfg\) is solvable.
+
+    In other words, \(\mfg^{(1)} \le \mfg^\perp\).
+\end{theorem}
+
+\begin{proof}
+    See Humphreys 4.3 using Lie's theorem and the Jordan decomposition. For the Jordan decomposition, see \S8.
+\end{proof}
+
+\begin{corollary}
+    \begin{enumerate}[(i)]
+        \item if \(\mfg = \mfg^\perp\), then \(\mfg\) is solvable.
+        \item if \(\mfg\) is simple, then \(\mfg^\perp = 0\),
+        \item \(\mfg^\perp\) is solvable for any finite dimensional Lie algebra \(\mfg\).
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    (i) Consider the adjoint \(\ad : \mfg \to \gl(V)\). The image \(\ad(\mfg) = \mfg/\ker(\mfg) = \mfg/Z(\mfg)\). \(Z(\mfg)\) is solvable, since it is abelian, and by assumption \(\mfg = \mfg^\perp\). By \cref{thm:cartan-criterion}, \(\ad(\mfg)\) is solvable, and so \(\mfg\) is solvable.
+
+    (ii) Since \(\mfg^\perp\) is an ideal, and \(\mfg\) is simple, \(\mfg^\perp = 0\) or \(\mfg^\perp = \mfg\). In the second case, by (i) \(\mfg\) is solvable, contradicting the fact that \(\mfg\) is simple, as \([\mfg, \mfg] = \mfg\).
+
+    (iii) By \cref{lem:killing-form-on-ideal}, \((\mfg^\perp)^\perp = \mfg^\perp\), so by (i), \(\mfg^\perp\) is solvable.
+\end{proof}
+
+With this, we can now prove the Cartan-Killing criterion.
+
+\begin{proof}
+    [Proof of \cref{thm:cartan-killing}]
+
+    First we show (ii) \(\implies\) (iii). In this case, \(\mfg\) is solvable, and so \(\mfg^\perp \le \Rad(\mfg) = 0\). Thus \(K\) is non-degenerate.
+
+    For (iii) \(\implies\) (ii), let \(A\) be an abelian ideal of \(\mfg\). We will show that \(A \sse \mfg^\perp\). Choose \(a \in A, y \in \mfg\). Choose a basis for \(A\), and extend it to a basis of \(\mfg\). That is,
+    \[\ad(a) = \begin{pmatrix}
+        0 & * \\
+        0 & 0
+    \end{pmatrix} \qqtext{and} \ad(y) = \begin{pmatrix}
+        * & * \\
+        0 & *
+    \end{pmatrix}\]
+    Computing \(\tr(\ad(a)\ad(y))\), we find that it is zero. Thus \(A = 0\). Therefore, \(\Rad(\mfg)\) is non-zero, then \(\mfg^\perp\) is non-zero.
+
+    Now assume (ii) and (iii) hold. If \(\mfg\) is simple, then we are done. If not, choose a minimal non-zero ideal \(I\). Let
+    \[\mfg_I = \left\{x \in \mfg \mid K(x, y) \text{ for all }y \in I\right\}\]
+    This is an ideal of \(\mfg\).
+
+    \begin{claim}
+        \(\mfg = \mfg_I \oplus I\).
+    \end{claim}
+
+    \begin{proof}
+        Since \(I\) is simple (by minimality), and non-abelian (by (ii)),
+        \[I \cap \mfg_I \sse I^\perp = 0\]
+        Consider the map
+        % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXG1mZyJdLFsxLDAsIlxcbWZnXioiXSxbMiwwLCJJXioiXSxbMCwxLCJcXHNpbSJdLFsxLDJdXQ==
+\[\begin{tikzcd}
+	\mfg & {\mfg^*} & {I^*}
+	\arrow["\sim", from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+\end{tikzcd}\]
+        given by
+        \[x \mapsto K(x, \cdot)\]
+        The kernel of this map is \(\mfg_I\). Thus, \(\mfg/\mfg_I \cong I^* \cong I\) as vector spaces.
+    \end{proof}
+
+    Repeat this argument, with \(\mfg_I\) (choosing some minimal ideal of \(\mfg_I\)). We can do this as any ideal of \(\mfg_I\) is an ideal of \(\mfg\), and so \(\Rad(\mfg_I) = 0\).
+
+    \begin{claim}
+        \((\mfg_I)^\perp = 0\)
+    \end{claim}
+
+    \begin{proof}
+        Since if \((\mfg_I)^\perp\), then \(x \in \mfg^\perp\).
+    \end{proof}
+
+    This proves (i).
+
+    Finally, to show (i) \(\implies\) (ii), write
+    \[\mfg = \bigoplus_j I_j\]
+    where the \(I_j\) are simple ideals. Let \(\pi_j : \mfg \to I_j\) denote the projection.
+\end{proof}
+
 \printindex
 
 \end{document}

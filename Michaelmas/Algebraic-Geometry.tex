@@ -659,6 +659,123 @@ However, in general, \(\coker(\varphi)\) is not a sheaf.
     \end{enumerate}
 \end{remark}
 
+\lec
+
+\subsection{Moving between spaces}
+
+Given \(f : X \to Y\) continuous, with sheaves \(\mcF\) on \(X\) and \(\mcG\) on \(Y\).
+
+\begin{definition}
+    [pushforward, direct image] Define the \emph{presheaf pushforward}\index{presheaf pushforward} \(f_*\mcF\) by
+    \[f_*\mcF(U) = \mcF(f^{-1}(U))\]
+    for an open \(U \sse Y\).
+\end{definition}
+
+\begin{proposition}
+    The presheaf pushforward of a sheaf is a sheaf.
+\end{proposition}
+
+\begin{proof}
+    Trivial.
+\end{proof}
+
+\begin{definition}
+    [inverse image] The \emph{inverse image presheaf}\index{inverse image!presheaf} \((f^{-1}\mcG)^{\pre}\) is defined by
+    \[(f^{-1}\mcG)^{\pre}(V) = \frac{\left\{(s_U, U) \mid f(V) \sse U, s_U \in U\right\}}{\sim}\]
+    where \(\sim\) denotes sections which agree on a smaller open set containing \(V\).
+
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2023_10_20 (1).jpg}
+    \end{center}
+
+    The \emph{inverse image sheaf}\index{inverse image!sheaf} is defined by
+    \[f^{-1}\mcG = \left((f^{-1}\mcG)^{\pre}\right)^{\sh}\]
+\end{definition}
+
+\begin{example}
+    [was sheafification necessary?] Let \(Y\) be any topological space, \(X = Y \sqcup Y\). Let \(\mcG = \underline{\Z}\) be the consatnt sheaf, and \(\mcF = (f^{-1}\mcG)^{\pre}\).
+
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2023_10_20 (2).jpg}
+    \end{center}
+
+    Fix \(U \sse Y\) open, and \(V = f^{-1}(U)\). By definition, \(\mcF(U) = \mcG(V) = \Z\) assuming \(U\) is connected. But \(V = U \sqcup U\), and so
+    \[\mcF^{\sh}(V) = \mcG(U) \times \mcG(U) = \Z^2\]
+
+    Note in this case \(f\) is an open map, so the reason for requiring sheafification was not because \(f\) does not have to be open.
+\end{example}
+
+\begin{example}
+    Let \(\mcF\) be a sheaf on \(X\), \(\pi : X \to \{*\}\). Then \(\pi_*\mcF\) is a sheaf on a point. But a sheaf on a point is just an abelian group, in particular, specifically
+    \[\mcF(\pi^{-1}(*)) = \mcF(X)\]
+\end{example}
+
+\begin{notation}
+    For a sheaf \(\mcF\) on \(X\), write
+    \[\mcF(X) = \Gamma(X, \mcF) = \HH^0(X, \mcF)\]
+    for the global sections, or the zeroth cohomology with coefficients in \(\mcF\).
+\end{notation}
+
+For \(p \in X\), \(i : \{p\} \to X\), \(\mcG\) a sheaf on \(p\), i.e. an abelian group \(A\). Consider \(i_*(\mcG)\). The sheaf on \(X\) is
+\[(i_*\mcG)(U) = \begin{cases}
+    0 & p \notin U \\
+    A & p \in U
+\end{cases}\]
+We call this the \emph{skyscraper at \(p\) with value \(A\)}\index{skyscraper sheaf}.
+
+\section{Schemes}
+
+tl;dr: \(\Spec(A)\) with a sheaf \(\mcO_{\Spec(A)}\), with \(\mcO_{\Spec(A)}(U_f) = A_f\). Globalise to get a scheme.
+
+\begin{definition}
+    [localisation]
+    Let \(A\) be a ring, \(S \sse A\) closed under multiplication. The \emph{localisation of \(A\) at \(S\)}\index{localisation!at a subset} is
+    \[S^{-1}A = \frac{\left\{(a, s) \mid a \in A, s \in S\right\}}{\sim}\]
+    where \((a, s) \sim (a', s')\) if and only if there exists \(s'' \in S\) such that
+    \[s''(as' - a's) = 0\]
+\end{definition}
+
+For example, consider \(S = \{1, f, f^2, \dots\}\), or \(S = A \setminus \mfp\) where \(\mfp\) is a prime ideal.
+
+\begin{remark}
+    Note that the natural map \(A \to S^{-1}A\) need not be injective.
+\end{remark}
+
+\underline{What is going to happen?} We will define a sheaf \(\mcO_{\Spec(A)}\) on \(\Spec(A)\), such that
+\begin{itemize}
+    \item The stalk at a prime \(\mfp\) is the localisation \((A \setminus \mfp)^{-1}A\),
+    \item if \(U_f\) is a distinguised open, then \(\mcO_{\Spec(A)}(U_f) = A_f\).
+\end{itemize}
+
+\subsection{Sheaf on a base}
+
+Fix a topological space \(X\), and \(\mcB\) a basis for the topology.
+
+\begin{definition}
+    [sheaf on a base]
+    A \emph{sheaf \(F\) on the base \(\mcB\)}\index{sheaf!on a base} consists of assignments \(B_i \mapsto F(B_i)\), with restriction maps \(F(B_I) \to F(B_j)\) whenever \(B_J \sse B_i\), satisfying the usual relations when \(B_i \sse B_j \sse B_k\) and \(B_i = B_j\). Moreover, we have the additional axioms:
+    \begin{enumerate}[label=SB\arabic*.]
+        \item If \(B = \bigcup_i B_i\), with \(B, B_i \in \mcB\), \(f, g \in F(B)\), with \(f\vert_{B_i} = g\vert_{B_i}\) for all \(i\), then \(f = g\).
+        \item If \(B = \bigcup_i B_i\), with \(B, B_i \in \mcB\), with \(f_i \in F(B_i)\), such that for all \(B' \sse B_i \cap B_j\), \(f_i \vert_{B'} = f_j \vert_{B'}\), then there exists \(f \in F(B)\) with \(f\vert_{B_i} = f_i\).
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+    Let \(F\) be a sheaf on a base \(\mcB\) of \(X\). Then this uniquely determines a sheaf \(\mcF\), by \(\mcF(B_i) = F(B_i)\), agreeing with restriction maps.
+\end{proposition}
+
+\begin{proof}
+    We will define the stalks of \(\mcF\) first. Set
+    \[\mcF_p = \frac{\{(s_B, B) \mid p \in B \in \mcB, s_B \in F(B)\}}{\sim}\]
+    where \((s_B, B) \sim (s_{B'}, B')\) if there exists \(B'' \sse B \cap B'\) such that \(s_B\vert_{B''} = s_{B'}\vert_{B''}\).
+
+    We can then use the trick from sheafification, that is,
+    \[\mcF(U) = \left\{(f_p \in \mcF_p)_{p \in U} \mid (*)\right\}\]
+    where the condition \((*)\) is such that: for every \(p \in U\), there exists a basic open \(B\) containing \(p\), and \(s \in F(B)\), with \(s_q = f_q\) for all \(q \in B\). This is clearly a sheaf.
+
+    By the sheaf axioms, the natural maps \(F(B) \to \mcF(B)\) is an isomorphism by the sheaf axioms.
+\end{proof}
+
 \printindex
 
 \end{document}
