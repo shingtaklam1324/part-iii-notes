@@ -419,7 +419,7 @@ commutes, for all \(U \sse V\).
 
 In terms of category theory, the opens in \(X\) form a category, with morphisms given by inclusions. In this case, a presheaf is a contravariant functor \(\text{Opens}(X) \to \text{Ab}\), and a morphism is a natural transformation.
 
-A morphism \(\varphi : \mcF \to \mcG\) is \emph{injective}\index{injective!morphism of sheaves} (resp. \emph{surjective}\index{surjective!morphism of sheaves}) if \(\varphi(U) : \mcF(U) \to \mcG(U)\) is injective (resp. surjective) for all \(U \sse X\).
+A morphism \(\varphi : \mcF \to \mcG\) is \emph{injective}\index{injective!morphism of presheaves} (resp. \emph{surjective}\index{surjective!morphism of presheaves}) if \(\varphi(U) : \mcF(U) \to \mcG(U)\) is injective (resp. surjective) for all \(U \sse X\).
 
 \lec
 
@@ -573,7 +573,7 @@ which is well defined by definition of a morphism of sheaves.
     [Construction] Given a presheaf \(\mcF\) on \(X\), define
     \[\mcF^{\sh}(U) = \left\{f : U \to \bigsqcup_{p \in U}\mcF_p \ \bigg\vert\ (*)\right\}\]
     where the condition \((*)\) is that:
-    \(f(p) \in \mcF_p\) and for every \(p \in U\) there exists an open neighbourhood \(V_p \sse U\) of \(p\), and \(s \in \mcF(V_p)\) such that \((V_p, s) \in f(q) = \mcF_q\) for all \(q \in V_p\).
+    \(f(p) \in \mcF_p\) and for every \(p \in U\) there exists an open neighbourhood \(V_p \sse U\) of \(p\), and \(s \in \mcF(V_p)\) such that \((V_p, s) = f(q) \in \mcF_q\) for all \(q \in V_p\).
 
     It is clear that this is a sheaf, and we leave as an exercise to check that this satisfies the universal property.
 \end{proof}
@@ -618,6 +618,10 @@ However, in general, \(\coker(\varphi)\) is not a sheaf.
     [sheaf image, sheaf cokernel]
     Let \(\varphi : \mcF \to \mcG\) be a morphism of sheaves. We define the \emph{sheaf cokernel}\index{cokernel!as a sheaf} and the \emph{sheaf image}\index{image!as a sheaf} of \(\varphi\) to be \(\coker(\varphi)^{\sh}\) and \(\im(\varphi)^{\sh}\) respectively.
 \end{definition}
+
+We say that a morphism \(f : \mcF \to \mcG\) is \emph{injective}\index{injective!morphism of sheaves} if \(\ker(f) = 0\), and \emph{surjective}\index{surjective!morphism of sheaves} if \(\im(f) = \mcG\).
+
+\underline{Warning:} \(f : \mcF \to \mcG\) being surjective does \emph{not} imply that the map \(f_U : \mcF(U) \to \mcG(U)\) is surjective for all \(U\)\footnote{i.e. a surjective morphism of sheaves need not be surjective as a morphism of presheaves...}.
 
 \begin{remark}
     A crucial fact is that there exists an exact sequence
