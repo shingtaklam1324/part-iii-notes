@@ -4,6 +4,8 @@ Here are the notes which I am taking from Part III lectures. They should usually
 
 ## Michaelmas
 
+Note: Numbering has been redone on Oct 21, from `section.number` to `section.subsection.number`.
+
 * [Algebraic Geometry](Michaelmas/Algebraic-Geometry.pdf)
 * [Algebraic Topology](Michaelmas/Algebraic-Topology.pdf)
 * [Analysis of PDEs](Michaelmas/Analysis-of-PDEs.pdf)

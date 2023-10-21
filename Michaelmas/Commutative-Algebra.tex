@@ -1150,6 +1150,120 @@ For a specical case of the above:
     commutes. But the bottom map is injective as \(M\) is flat.
 \end{proof}
 
+\lec
+
+\subsection{Further examples of tensor products}
+
+\begin{example}
+    First consider \(x \otimes y \in \Q \otimes_Z (\Z/n)\). We can write
+    \[x \otimes y = n\frac{x}{n} \otimes y = \frac{x}{n} \otimes ny = 0\]
+    and so, \(\Q \otimes_\Z (\Z/n) = 0\). We used the fact that \(\Q\) is a \emph{divisible group}\index{divisible group}, that is, for all \(x \in \Q, n \in \N\), there exists \(y \in \Q\) such that \(ny = x\). Moreover, we also used the fact that \(\Z/n\) is torsion.
+
+    More generally,
+    \[\text{divisible} \otimes \text{torsion} = 0\]
+    and so
+    \[(\Q/\Z) \otimes_Z (\Q/\Z)\]
+
+    But for an \(R\)-module \(M\) which is non-zero, if \(M\) is finitely generated, then \(M \otimes_R M \ne 0\).
+\end{example}
+
+\begin{example}
+    Let \(V\) be a \(\Q\) vector space, then
+    \[\Q \otimes_\Q V = V\]
+    But in this case, we also have that
+    \[\Q \otimes_\Z V = V\]
+    with \(x \otimes v \mapsto xv\).
+
+    \begin{proof}
+        Every tensor in \(\Q \otimes_\Z V\) is pure, since we can write
+        \[\sum \frac{a_i}{b_i} \otimes v_i = \sum \frac{1}{b_i} \otimes (a_iv_i) = \sum \frac{1}{b_i} \otimes \frac{a_i}{b_i}v_i = \sum 1 \otimes \frac{a_i}{b_i}v_i = 1 \otimes \sum \frac{a_i}{b_i}\]
+        Clearly this map is surjective, and it is easy to see that if \(xv = 0\) then either \(x = 0\) or \(v = 0\).
+    \end{proof}
+\end{example}
+
+\begin{example}
+    Recall that
+    \[M \otimes_R \left(\bigoplus_{i \in I}N_i\right) \cong \bigoplus_{i \in I}(M \otimes N_i)\]
+    On the other hand, if we consider the direct product, we have a map
+    \begin{align*}
+        M \otimes \prod_i N_i \to \prod_i (M \otimes N_i) \\
+        m \otimes (n_i) \mapsto (m \otimes n_i)
+    \end{align*}
+    which is in general, not an isomorphism. For example, consider
+    \[\Q \otimes_\Z \prod_{n\ge1} \frac{\Z}{2^n} \to \prod_{n \ge 1}\Q \otimes \frac{\Z}{2^n}\]
+    But from above, \(\Q \otimes (\Z/2^n) = 0\), and so the right hand side is zero. For the left hand side, take
+    \[g = (1,1,\dots) \in \prod_{n \ge 1}\frac{\Z}{2^n}\]
+    Note that \(g\) has infinite order, and so it generates a subgroup isomorphic to \(Z\). But recall that
+    \[\Q \otimes_\Z \Z = \Q\]
+    With this, we have an injective map
+    \[\Q \otimes \inner{g} \inj \Q \otimes \prod_{n \ge 1}\frac{\Z}{2^n}\]
+    We will see later that \(\Q\) is a flat \(\Z\)-module.
+\end{example}
+
+\begin{example}
+    Consider \(\C \otimes_\R \C\) as an \(\C\)-algebra, where we first restrict scalars on the right copy of \(\C\), and extend scalars using the left copy.
+
+    Recall that as a \(\C\)-vector space,
+    \[\C \otimes_\R \C = \C \otimes_\R \R^2 \cong \C^2\]
+    and we have a basis \(\C \otimes_\R \C\), which is \(1 \otimes 1, 1 \otimes i\) as a \(\C\)-vector space.
+
+    To consider this as a \(\C\)-algebra, then
+    \[\C \otimes_\R \C \cong \C \otimes_\R \frac{\R[t]}{\inner{t^2 + 1}} \cong \frac{\C[t]}{\inner{t^2 + 1}} = \frac{\C[t]}{\inner{t-i}\inner{t+i}} \cong \frac{\C[t]}{\inner{t-i}} \times \frac{\C[t]}{\inner{t+i}} \cong \C \times \C\]
+    where we used the Chinese remainder theorem. On a pure tensor, we have
+    \[(a + bi) \otimes (c + di) \mapsto (a + bi) \otimes \underbrace{[c + dt]}_{\text{coset of }c + dt} \mapsto (a + bi)[c + dt]\]
+    We can compute this, to get
+    \[P = (ac + bdit) + (ibc + tad)\]
+    and we then have
+    \[P \mapsto (ac - bd + i(bc + ad), ac + bd + i(bc - ad))\]
+    If we set \(x = a + bi, y = c + di\), then the result is just
+    \((xy, x\overline y)\).
+\end{example}
+
+\section{Localisation}
+
+\begin{definition}
+    [multiplicative subset]
+    A \emph{multiplicative(ly closed) subset}\index{multiplicative subset} \(S \sse \R\) such that
+    \begin{enumerate}
+        \item \(1 \in S\),
+        \item if \(a, b \in S\), then \(ab \in S\).
+    \end{enumerate}
+\end{definition}
+
+If \(U \sse R\) is any set, then the \emph{multiplicative closure}\index{multiplicative closure} \(S\) of \(U\) is the set of
+\[\prod_{i=1}^n u_i\]
+where \(u_i \in U\), \(n \ge 0\).
+
+\begin{example}
+    If \(R\) is an integral domain, then \(S = R \setminus \{0\}\) is multiplicative. More generally, if \(\mfp \idealof R\) is a prime ideal (of any ring \(R\)), then \(S = R \setminus \mfp\) is multiplicative.
+\end{example}
+
+\begin{example}
+    If \(x \in R\), then \(S = \{1, x, x^2, \dots\}\) is multiplicative.
+\end{example}
+
+\begin{example}
+    \(\Q\) is obtained from \(\Z\) by adding inverses for the elements of the multiplicative subset \(\Z \setminus \{0\}\), and we have a ring homomorphism \(\Z \inj \Q\).
+\end{example}
+
+We will generalise this example to general rings \(R\), and with arbitrary multiplicative subsets \(S \sse R\). But in general, we will lose injectivity.
+
+\begin{definition}
+    [localisation]
+    Let \(S \sse R\) be a multiplicative set, \(M\) is an \(R\)-module. Consider the set \(M \times S\), with the relation \((m_1, s_1) \sim (m_2, s_2)\) if there exists \(u \in S\), such that
+    \[u(s_2m_1 - s_1m_2) = 0\]
+    This is an equivalence relation, and we write
+    \[\frac{m}{s} = [(m, s)]\]
+    for the equivalence class. Finally, we write
+    \[\frac{m_1}{s_1} + \frac{m_2}{s_2} = \frac{m_1s_2 + m_2s_1}{s_1s_2}\]
+    and
+    \[r \cdot \frac{m}{s} = \frac{rm}{s}\]
+    Writing \(S^{-1}M\) for the set of equivalence classes, the above makes \(S^{-1}M\) into an \(R\)-module. We call \(S^{-1}M\) the \emph{localisation of \(M\) at \(S\)}\index{localisation}.
+
+    If \(M = R\), we can make \(S^{-1}R\) into a ring by
+    \[\frac{r_1}{s_1}\cdot\frac{r_2}{s_2}\]
+\end{definition}
+
 \printindex
 
 \end{document}

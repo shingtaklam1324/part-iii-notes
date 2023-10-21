@@ -975,7 +975,7 @@ We can think of \(f_\epsilon(x)\) as the average of \(f\) in an \(\epsilon\)-bal
 In particular, there is a big improvement going from \(f \in L^1_\loc\) to \(f_\epsilon \in C^\infty\).
 
 \begin{lemma}
-    [local smooth approximation of Sobolev functions away from \(\partial U\)] \index{Sobolev approximation!local smooth approximation away from \(\partial U\)}Let \(u \in W^{k, p}(U)\) for some \(1 \le p < \infty\). Set \(u_\epsilon = \eta_\epsilon * u\) in \(U_\epsilon\). Then
+    [local smooth approximation of Sobolev functions away from \(\partial U\)] \index{Sobolev approximation!local smooth approximation away from \(\partial U\)}\label{lem:local-smooth-approx-away-from-boundary}Let \(u \in W^{k, p}(U)\) for some \(1 \le p < \infty\). Set \(u_\epsilon = \eta_\epsilon * u\) in \(U_\epsilon\). Then
     \begin{enumerate}
         \item \(u_\epsilon \in C^\infty(U_\epsilon)\) for all \(\epsilon > 0\),
         \item \(u_\epsilon \to u\) in \(W^{k, p}_\loc(U)\). Note that for \(V \Subset U\), \(V \subseteq U_\epsilon\) for \(\epsilon\) sufficiently small.
@@ -1008,6 +1008,115 @@ In particular, there is a big improvement going from \(f \in L^1_\loc\) to \(f_\
 \end{proof}
 
 In conclusion, \(u \in W^{k, p}(U)\) can be approximated by \(C^\infty\) functions away from \(\partial U\).
+
+\lec
+
+\begin{theorem}
+    [global Sobolev approximation globally away from \(\partial U\)]
+    \index{Sobolev approximation!global Sobolev approximation globally away from \(\partial U\)}\label{thm:global-sobolev-approx-away-from-boundary}
+    Suppose \(U \sse \R^n\) open bounded, and suppose \(u \in W^{k, p}(U)\), for \(1 \le p < \infty\). Then there exists a sequence \((u_j) \in C^\infty \cap W^{k, p}(U)\), such that \(u_j \to u\) in \(W^{k, p}(U)\).
+\end{theorem}
+
+\underline{Exercise:} Drop the assumption that \(U\) is bounded.
+
+\begin{remark}
+    Note that we don't assume \(u \in C^\infty(\overline U)\).
+\end{remark}
+
+\begin{proof}
+    \textbf{Step 1:} We have
+    \[U = \bigcup_{j=1}^\infty\]
+    where
+    \[U_j = \left\{x \in U \mid d(x, \partial U) > 1/j\right\}\]
+    and define \(V_j = U_{j+3} \setminus \overline{U_{j+1}} \Subset U\). Choose \(V_0 \Subset U\) such that \(U = \bigcup_{j=0}^\infty V_j\). Note in particular only the consecutive \(V_j\) intersect.
+
+    Let \(\xi_j\) be a \emph{partition of unity subordinate to \(V_j\)}. That is,
+    \begin{itemize}
+        \item \(0 \le \xi_j \le 1\),
+        \item \(\xi_j \in C_c^\infty(V_j)\),
+        \item \(\sum_{j=0}^\infty \xi_j(x) = 1\) for all \(x \in U\). Note at any point at most two \(\xi_j\) are non-zero.
+    \end{itemize}
+
+    Given \(u \in W^{k, p}(U)\), then we see that \(\xi_j u \in W^{k, p}(U)\), and \(\Supp(\xi_j u)\in V_j\).
+
+    \textbf{Step 2:} We would like to smooth out the split up function. Let \(W_j = U_{j+4} \setminus \overline{U_j} \supseteq V_j\). Let
+    \[u_j = \eta_{\epsilon_j} * (\xi_ju)\]
+    Fix \(\delta > 0\), for each \(j \ge 1\), we can choose \(\epsilon_j\) sufficiently small such that \(\Supp(u_j) \sse W_j\).
+
+    By \cref{lem:local-smooth-approx-away-from-boundary}, we have that \(u_j \to \xi_j u\) in \(W^{k, p}(W_j)\). With this, we can make
+    \[\norm{u_j -  \xi_j u}_{W^{k, p}(U)} = \norm{u_j - \xi_j u}_{W^{k, p}(U_j)} \le \frac{\delta}{2^{j+1}}\]
+
+    Summing everything together, let \(v = \sum_{j=0}^\infty u_j\). Note that each \(u_j\) is non-zero on finitely many \(W_j\), and so at each point it is a finite sum. With this, \(v\) is smooth. Also note that \(u = \sum_j \xi_j u\) on \(U\), and so for any \(V \Subset U\),
+    \[\norm{v - u}_{W^{k,p}(V)} \le \sum_{j=1}^\infty \norm{u_j - \xi_j u}_{W^{k, p}(V)} \le \delta \sum_{j=1}^\infty \frac{1}{2^{j+1}} = \delta\]
+    where we applied the triangle inequality. Since \(\delta\) is independent of \(V\),  taking the \(\sup\) over all \(V \Subset U\), we get that
+    \[\norm{v - u}_{W^{k, p}(U)} \le \delta\]
+\end{proof}
+
+\underline{Question:} Can we approximate \(u \in W^{k, p}(U)\) by \(u \in C^\infty(\overline U)\)?
+
+The issue here is that \(\partial U\) could be a problem. For example, we can consider \(\partial U\) to be the Cantor set.
+
+\begin{definition}
+    [\(C^{k, \delta}\)-domain]
+    Suppose \(U \sse \R^n\) is bounded and open. Then we say that \(\partial U\) is a \emph{\(\C^{k, \delta}\)-domain}\index{\(C^{k, \delta}\) domain} if for every \(p \in \partial U\), there exists \(r > 0\), and a function \(\gamma : \R^{n-1} \to \R\), with \(\gamma \in C^{k,\delta}(\R^{n-1})\), such that (after relabelling axes),
+    \[U \cap B_r(p) = \left\{(x', x_n) \in B_(p) \mid x_n > \gamma(x')\right\}\]
+\end{definition}
+
+\begin{theorem}
+    [smooth approximation of Sobolev functions up to \(\partial U\)]
+    \index{Sobolev approximation!smooth approximation up to \(\partial U\)}\label{thm:smooth-approx-up-to-boundary}
+    Let \(U \sse \R^n\) be open, bounded and \(\partial U\) a \(C^{0, 1}\) domain. Let \(u \in W^{k, p}(U)\), for some \(1 \le p < \infty\). Then there exists a sequence \((u_j) \in C^\infty(\overline U)\), such that \(u_j \to u\) in \(W^{k, p}(U)\).
+\end{theorem}
+
+\begin{proof}
+    \textbf{Step 1:} Fix \(x_0 \in \partial U\). Since \(\partial U\) is Lipschitz, there exists \(r > 0\) and a Lipschitz function \(\gamma : \R^{n-1} \to \R\), such that
+    \[U \cap B_r(x_0) = \left\{x \in B_r(x_0) \mid x_n > \gamma(x')\right\}\]
+    Let \(V = U \cap B_{r/2}(x_0)\).
+
+    \textbf{Step 2:} Define the shifted point \(x^\epsilon = x + \lambda \epsilon e_n\), for \(x \in V, \epsilon > 0\).
+
+    \begin{claim}
+        For \(\lambda > 0\) large enough, \(B_\epsilon(x^\epsilon) \sse U \cap B_r(x_0)\) for all \(\epsilon > 0\).
+    \end{claim}
+
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2023_10_21.jpg}
+    \end{center}
+
+    That is, we need to show that for \(y \in B_\epsilon(x^\epsilon)\), \(y_n > \gamma(y')\). As \(\gamma\) is Lipschitz, there exists a constant \(L > 0\) such that
+    \[\abs{\gamma(x') - \gamma(y')} \le L\abs{x' - y'}\]
+    So we have that
+    \[\abs{y' - (x^\epsilon)'} = \abs{y' - x'} < \epsilon\]
+    and so,
+    \[\gamma(y') \le \gamma(x') + L_\epsilon < x_n + L\epsilon\]
+    by rearranging \(y_n > x_n^\epsilon - \epsilon = x_n + \lambda\epsilon - \epsilon = x_n + (\lambda - 1)\epsilon\), we see that
+    \[y_n > \gamma(y')\]
+    if \(\lambda \ge L + 1\).
+
+    Define \(u_\epsilon(x) = u(x^\epsilon)\) for \(x \in V\). Set
+    \[v_{\delta, \epsilon} = \eta_\delta * u_\epsilon\]
+    for \(0 < \delta < \epsilon\). Then \(v_{\delta, \epsilon} \in C^\infty(\overline V)\). Fix \(\mu \ge 0\), then we note
+    \[\norm{v_{\delta, \epsilon} - u}_{W^{k, p}(V)} \le \norm{v_{\delta, \epsilon} - u_\epsilon}_{W^{k, p}(V)} + \underbrace{\norm{u_\epsilon - u}_{W^{k, p}(V)}}_{\text{ translation is continuous on \(W^{k, p}\)}}\]
+    We can choose \(\epsilon > 0\) such that the second term is at most \(\mu\). Fix \(\epsilon > 0\), we can choose \(\delta < \epsilon\) such that the first term is at most \(\mu\), using the same proof as in \cref{lem:local-smooth-approx-away-from-boundary}.
+
+    \textbf{Step 3:} Let \(x_0\) vary over the boundary, then the \(V\)s which we get will cover the boundary, which is compact, and so we have a finite subcover. That is, finitely many points \(x_1, \dots, x_N \in \partial U\) and radii \(r_i\), where
+    \[V_i = B_{r_i/2}(x_i) \cap U\]
+    Choose \(V_0 \Subset U\) such that
+    \[U = V_0 \cup V_0 \cup \cdots \cup V_N\]
+    By step 2, we have \(v_i \in C^\infty(\overline{V_i})\), such that \(\norm{v_i - u}_{W^{k, p}(V_i)} \le \mu\). By \cref{lem:local-smooth-approx-away-from-boundary} there exists \(v_0 \in C^\infty(\overline{V_0})\) such that \(\norm{v_0 - u}_{W^{k, p}(V_0)} \le \mu\).
+
+    \textbf{Step 4:} Summing everything together, using a partition of unity \(\xi_0, \dots, \xi_N\) subordinate to the open cover \(V_0, \dots, V_N\). Define
+    \[v = \sum_{i=0}^n\xi_i v_i\]
+    This sum is finite, and so \(v \in C^infty(\overline{U})\), and for \(\abs{\alpha} \le k\),
+    \begin{align*}
+        \norm{D^\alpha v - D^\alpha u}_{L^p(U)} &\le \sum_{i=0}^N\norm{D^\alpha(\xi_i(v_i - u))}_{L^p(V_i)} \\
+        &\le C_k\sum_{i=0}^N\norm{v_i - u}_{W^{k, p}(V_i)} \\
+        &= C_k(1+ N)\mu
+    \end{align*}
+
+    But \(\mu\) was arbitrary, and so we are done.
+\end{proof}
+
 \section{Elliptic PDEs}
 
 \section{Hyperbolic PDEs}

@@ -448,7 +448,7 @@ We will use the notation \(\pi : \T M \to M\) for the canonical projection map
 \end{remark}
 
 \begin{definition}
-    [smooth vector field] A \emph{smooth vector field}\index{smooth vector field} \(X\) on a manifold \(M\) is a smooth map \(X : M \to \T M\), such that \(\pi(X(p)) = p\). That is, \(X(p) \in \T_pM\).
+    [(smooth) vector field] A \emph{(smooth) vector field}\index{vector field} \(X\) on a manifold \(M\) is a smooth map \(X : M \to \T M\), such that \(\pi(X(p)) = p\). That is, \(X(p) \in \T_pM\).
 \end{definition}
 
 \begin{example}
@@ -787,9 +787,101 @@ The converse of the preimage theorem is only true locally.
     For any manifold \(M^n\), there exists an embedding \(\psi : M \inj \R^{2n}\).
 \end{theorem}
 
-On the examples sheet, we will show the result for \(\R^N\), and with the additional assumption that \(M\) is compact. It's not too difficult to show that an embedding into \(\R^{2n+1}\) exists, Reducing to \(2n\) is the main difficulty in this theorem. Moreover, this result is optimal, for example by considering
-\[\R\P^2\]
-which embeds into \(\R^4\) but not \(\R^3\).
+On the examples sheet, we will show the result for \(\R^N\), and with the additional assumption that \(M\) is compact. It's not too difficult to show that an embedding into \(\R^{2n+1}\) exists, Reducing to \(2n\) is the main difficulty in this theorem. Moreover, this result is optimal, for example by considering \(\R\P^2\) which embeds into \(\R^4\) but not \(\R^3\).
+
+\lec
+
+Using what we have done so far, we can now prove \cref{thm:matrix-lie-group-lie-alg-iso}. That is, for matrix Lie groups, the map
+\begin{align*}
+    \mfg &\to \ell(G) \\
+    \xi &\mapsto X_\xi
+\end{align*}
+is a Lie algebra isomorphism.
+
+\begin{proof}
+    We have shown before that \([X_\xi, X_\eta] = X_\zeta\) for some \(\zeta \in \mfg\). We would like to show that \(\zeta = [\xi, \eta] = \xi\eta - \eta\xi\).
+
+    First consider the case when \(G = \GL(n) \sse \Mat(n)\), which is an open subset. In this case, the Lie algebra is \(\mfg = \Mat(n)\). For \(g = (g^i_{\phantom{i}j}) \in G\), the left translation map is a linear function in the coordinates \(g^i_{\phantom{i}j}\). Thus, for \(g, h \in \GL(n)\), we have that
+    \begin{align*}
+        (\dd L_g)_h : \Mat(n) &\to \Mat(n) \\
+        A &\mapsto gA
+    \end{align*}
+    For \(A = (A^i_{\phantom{i}j}) \in \mfg\), we have that
+    \[X_A(\mfg) = \sum X^i_{\phantom i j}(g)\pdv{g^i_{\phantom i j}}\]
+    with
+    \[X^i_{\phantom i j}(g) = \sum_k g^i_{\phantom i k}A^k_{\phantom k j}\]
+    With this, the claim follows from a computation. That is, (using the summation convention),
+    \begin{align*}
+        g^i_{\phantom i k}\left(A^k_{\phantom k j}\pdv{g^i_{\phantom i j}}\left(g^\ell_{\phantom \ell p} B^p_{\phantom p q}\right) - B^k_{\phantom k j}\pdv{g^i_{\phantom i j}}\left(g^\ell_{\phantom \ell p} A^p_{\phantom p q}\right)\right) \pdv{g^\ell_{\phantom \ell q}}
+        &= g^i_{\phantom i k}\left(A^k_{\phantom kj}B^j_{\phantom jq}\delta^i_{\phantom i\ell} - B^k_{\phantom kj}A^j_{\phantom jq}\delta^i_{\phantom i\ell}\right)\pdv{g^\ell_{\phantom \ell q}} \\
+        &= g^i_{\phantom ik}(AB - BA)^k_{\phantom k q}\pdv{g^i_{\phantom j q}}
+    \end{align*}
+    Using this, we see that
+    \[[X_A, X_B] = X_{[A, B]}\]
+
+    Now note that the change of basis of \(\mfg\) from the identity chart as above, to the \(\log\) chart is given by
+    \[(\dd \log)_I = \id\]
+    Thus, the basis are the same, and so the above computation is valid in the \(\log\) chart as well.
+
+    Now consider a more general group satisfying our assumptions. The \(\log\) chart assumption shows that \(\iota : G \to \GL(n)\) is an immersion. Moreover, \(L_g : G \to G\) is a restriction of \(L_g : \GL(n) \to \GL(n)\), and its derivative the restriction of \(\dd L_g : \Mat(n) \to \Mat(n)\).
+
+    Using this, for \(\xi \in \mfg\), the left invariant vector field \(X_\xi \in \ell(G)\) is a restriction of \(X_\xi \in \ell(\GL(n))\). As such,
+    \[[X_\xi\vert_G, X_\eta\vert_G] = [X_\xi, X_\eta]\vert_G\]
+    We can use test functions which is constant in the variables which are transverse to \(G\) to see this. But we know that \([X_\xi, X_\eta] = X_{\xi, \eta}\) on \(\GL(n)\), and so we have that
+    \[X_{[\xi, \eta]}\vert_G = [X_\xi\vert_G, X_\eta\vert_G] \in \ell(G)\]
+\end{proof}
+
+\section{Differential forms}
+
+Let \(M^n\) be a manifold, \(p \in M\). We have defined the tangent space \(\T_pM\). Define the \emph{cotangent space of \(M\) at \(p\)}\index{cotangent space} to be
+\[\T_p^*M = (\T_pM)^* = \left\{\text{linear maps } \T_pM \to \R\right\}\]
+Choosing local coordinates \(x_i\) around \(p\), we have a basis
+\[\pdv{x_i} \in \T_pM\]
+for \(\T_pM\). This gives us a dual basis, which we will denote as
+\[\dd x_i \in \T_p^*M\]
+That is,
+\[\inner{\dd x_i, \pdv{x_j}} := \dd x_i\left(\pdv{x_j}\right) = \delta_{ij}\]
+For any \(a \in \T_p^*M\), we have that
+\[a = \sum_i a_i \dd x_i\]
+for \(a_I \in \R\). Recall if \(y_i\) is a different choice of local coordinates, then
+\[\pdv{y_j} = \sum_i \pdv{x_i}{y_j}\pdv{x_i}\]
+Then by standard linear algebra arguments,
+\[\dd x_i = \sum_j \pdv{x_i}{y_j}\dd y_j\]
+Thus, for
+\[a = \sum a_i \dd x_i = \sum b_i \dd y_i \in \T_p^*M\]
+we have that
+\[b_j = \sum_i a_i \pdv{x_i}{y_j}\]
+
+We can define the \emph{cotangent bundle of \(M\)}\index{cotangent bundle}, as
+\[\T M = \bigsqcup_{p \in M}\T_p^* M\]
+
+\begin{theorem}
+    \(\T^* M\) is a smooth manifold, with \(\dim(\T^* M) = 2\dim(M)\). Again, we have a projection map \(\pi : \T^* M \to M\), with \(\pi(p, a) = p\), which is a smooth map.
+\end{theorem}
+
+\begin{proof}
+    As for the tangent bundle. The only difference is the transformation law.
+\end{proof}
+
+\begin{definition}
+    [differential \(1\)-form] A \emph{((smooth) differential) \(1\)-form}\index{differential \(1\)-form} \(\alpha\) on \(M\), is by definition a smooth map \(\alpha : M \to \T^* M\), such that \(\pi \circ \alpha = \id\). That is, for all \(p \in M\), \(\alpha(p) \in \T_p^*M\).
+\end{definition}
+
+As for vector fields, in local coordinates \(x_i\), we have that
+\[\alpha\vert_U = \sum_i \alpha_i(p)\dd x_i\]
+where \(\alpha_i \in C^\infty(U)\). This is equivalent to saying that
+\[\inner{\alpha, X} \in C^\infty(M)\]
+for all \(X \in V(M)\). To see this, note that
+\[\inner{\alpha, \pdv{x_i}} = \alpha_i\]
+
+We will now recall/define some multilinear algebra. For \(r = 0,1, 2, \dots\), and a vector space \(V\), define the \emph{\(r\)-th exterior power of \(V^*\)} as
+\[\Lambda^rV^* = \left\{\text{alternating multilinear maps }\underbrace{V \times \cdots \times V}_{r \text{ copies}} \to \R\right\}\]
+In particular, if \(r = 0\), by convention \(\Lambda^0V^* = \R\), and if \(r = 1\), \(\Lambda^1V^* = V^*\). If \(r > \dim(V)\), then \(\Lambda^rV^* = 0\). 
+
+From this, we obtain the vector spaces \(\Lambda^r\T_p^* M\), and we can define the \emph{\(r\)-th exterior power of \(\T^*M\)} as
+\[\Lambda^r\T^* M = \bigsqcup_{p \in M}\Lambda^r\R_p^* M\]
+Consider a smooth map \(\alpha : M \to \Lambda^r\T^*M\), with \(\pi \circ \alpha = \id\). We call \(\alpha\) a \emph{differential \(r\)-form}\index{differential \(r\)-form}.
+
 
 \printindex
 
