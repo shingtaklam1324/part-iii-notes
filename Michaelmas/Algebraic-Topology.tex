@@ -1151,15 +1151,15 @@ Recall if \(f, g : X \to Y\) are homotopic, we would like to show that the induc
 \end{example}
 
 \begin{proposition}
-    If \((X, A)\) is a good pair, the natural map \((X, A) \to (X/A, A/A = \{*\})\), induces isomorphism
-    \[\HH_n(X, A) \to \HH_n(X/A, A/A) = \tilde H_*(X/A)\]
+    If \((X, A)\) is a good pair, the natural map \((X, A) \to (X/A, A/A = \{\bullet\})\), induces isomorphism
+    \[\HH_n(X, A) \to \HH_n(X/A, A/A) = \tilde \HH_*(X/A)\]
 \end{proposition}
 
 \begin{proof}
     Let \(A \sse U \sse X\) be as in the definition of a good pair, and note that \(\HH_*(A) = \HH_*(U)\), and as such, we have an isomorphism on relative homology
     \[\HH_*(X, A) \cong \HH_*(X, U)\]
     Since the homotopy \(H : U \times [0, 1] \to U\) is fixed on \(A\), it induces a homotopy on \(U/A\), and so
-    \[\frac{A}{A} = \{*\} \inj \frac{U}{A}\]
+    \[\frac{A}{A} = \{\bullet\} \inj \frac{U}{A}\]
     is also a neighbourhood deformation retract. With this,
     % https://q.uiver.app/#q=WzAsNixbMCwwLCJIXyooWCwgQSkiXSxbMSwwLCJIXyooWCxVKSJdLFsyLDAsIkhfKihYL0EsIFUvQSkiXSxbMCwyLCJIXyooWC9BLCBcXGJ1bGxldCkiXSxbMSwyLCJIXyooWC9BLCBVL0EpIl0sWzIsMiwiSF8qKChYL0EpL1xcYnVsbGV0LCAoVS9BKS9cXGJ1bGxldCkiXSxbMCwzXSxbMiw1LCJcXHNpbVxcdGV4dHtob21lb21vcnBoaXNtIG9mIHBhaXJzfSJdLFswLDEsIlxcY29uZyIsMV0sWzIsMSwiXFxzaW0iLDFdLFs1LDQsIlxcc2ltIiwxXSxbMyw0LCJcXGNvbmciLDFdXQ==
 \[\begin{tikzcd}
@@ -1178,11 +1178,11 @@ Recall if \(f, g : X \to Y\) are homotopic, we would like to show that the induc
 
 \begin{example}
     \begin{enumerate}[(i)]
-        \item \(\HH_j(D^n, \partial D^n) = \tilde H_j(D^n/\partial D^n) = \tilde H_j(S^n) = \begin{cases}
+        \item \(\HH_j(D^n, \partial D^n) = \tilde \HH_j(D^n/\partial D^n) = \tilde \HH_j(S^n) = \begin{cases}
             \Z & j = n \\
             0 & \text{otherwise}
         \end{cases}\)
-        \item \(\HH_j(S^2, S^1_{\text{eq}}) = \tilde H_j(S^2 \vee S^2) = \begin{cases}
+        \item \(\HH_j(S^2, S^1_{\text{eq}}) = \tilde \HH_j(S^2 \vee S^2) = \begin{cases}
             \Z\oplus \Z & j = 2 \\
             0 & \text{otherwise}
         \end{cases}\)
@@ -1191,7 +1191,7 @@ Recall if \(f, g : X \to Y\) are homotopic, we would like to show that the induc
             \includegraphics[scale=0.1]{diagrams/2023_10_23 (4).jpg}
         \end{center}
         \item A \emph{manifold} of dimension \(n\) is a Hausdorff topological space which is locally homeomorphic to \(\R^n\). If \(M^n\) is a manifold, \(x \in M\), then
-        \[H_j(M, M \setminus x) \underbrace{=}_{\text{by excision}} H_j(\R^n, \R^n \setminus 0) \underbrace{=}_{\text{by homotopy invariance}} H_j(D^n, \partial D^n) = \Z \text{ when j = n}\]
+        \[\HH_j(M, M \setminus x) \underbrace{=}_{\text{by excision}} \HH_j(\R^n, \R^n \setminus 0) \underbrace{=}_{\text{by homotopy invariance}} \HH_j(D^n, \partial D^n) = \Z \text{ when j = n}\]
         For excision, we choose an open set \(U\) which is homeomorphic to a ball, and remove the complement of \(U\).
         \begin{center}
             \includegraphics[scale=0.1]{diagrams/2023_10_23 (4).jpg}
@@ -1276,8 +1276,8 @@ We will use small simplices to prove Mayer-Vietoris and excision.
     where the vertical maps are induced by the inclusion, and all squares commute. Therefore, we have long exact sequences in homology and natural maps between them,
     % https://q.uiver.app/#q=WzAsMTQsWzEsMCwiSF9pKEEpIl0sWzIsMCwiSF9pKENfKl5cXG1jVShYKSkiXSxbMywwLCJIX2koQ18qXlxcbWNVKFgpL0NfKihBKSJdLFs0LDAsIkhfe2ktMX0oQSkiXSxbMSwxLCJIX2koQSkiXSxbMiwxLCJIX2koWCkiXSxbMywxLCJIX2koWCwgQSkiXSxbNCwxLCJIX3tpLTF9KEEpIl0sWzUsMCwiSF97aS0xfShDXypeXFxtY1UoWCkpIl0sWzUsMSwiSF97aS0xfShYKSJdLFs2LDAsIlxcY2RvdHMiXSxbNiwxLCJcXGNkb3RzIl0sWzAsMCwiXFxjZG90cyJdLFswLDEsIlxcY2RvdHMiXSxbMyw4XSxbNyw5XSxbOCwxMF0sWzksMTFdLFs4LDksIlxcc2ltIiwxXSxbMyw3LCI9IiwxXSxbMTIsMF0sWzEzLDRdLFswLDQsIj0iLDFdLFswLDFdLFs0LDVdLFsxLDUsIlxcc2ltIiwxXSxbMSwyXSxbNSw2XSxbMiw2XSxbNiw3XSxbMiwzXV0=
 \[\begin{tikzcd}
-	\cdots & {H_i(A)} & {H_i(C_*^\mcU(X))} & {H_i(C_*^\mcU(X)/C_*(A)} & {H_{i-1}(A)} & {H_{i-1}(C_*^\mcU(X))} & \cdots \\
-	\cdots & {H_i(A)} & {H_i(X)} & {H_i(X, A)} & {H_{i-1}(A)} & {H_{i-1}(X)} & \cdots
+	\cdots & {\HH_i(A)} & {\HH_i(C_*^\mcU(X))} & {\HH_i(C_*^\mcU(X)/C_*(A)} & {\HH_{i-1}(A)} & {\HH_{i-1}(C_*^\mcU(X))} & \cdots \\
+	\cdots & {\HH_i(A)} & {\HH_i(X)} & {\HH_i(X, A)} & {\HH_{i-1}(A)} & {\HH_{i-1}(X)} & \cdots
 	\arrow[from=1-5, to=1-6]
 	\arrow[from=2-5, to=2-6]
 	\arrow[from=1-6, to=1-7]
@@ -1297,7 +1297,7 @@ We will use small simplices to prove Mayer-Vietoris and excision.
 	\arrow[from=1-4, to=1-5]
 \end{tikzcd}\]
     where \(=\) are identity maps, \(\sim\) is an isomorphism by the small simplices theorem, and so the middle map is an isomorphism by the five lemma. But we have that
-    \[H_i(X, A) = H_i(C_*(X)/C_*(A)) = H_i(C_*(B)/C_*(A \cap B)) = H_i(B, A \cap B) = H_*(X \setminus Z, A \setminus Z)\]
+    \[\HH_i(X, A) = \HH_i(C_*(X)/C_*(A)) = \HH_i(C_*(B)/C_*(A \cap B)) = \HH_i(B, A \cap B) = \HH_*(X \setminus Z, A \setminus Z)\]
 \end{proof}
 
 Small simplices uses \emph{barycentric subdivision}.
