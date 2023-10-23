@@ -757,7 +757,7 @@ Fix a topological space \(X\), and \(\mcB\) a basis for the topology.
 
 \begin{definition}
     [sheaf on a base]
-    A \emph{sheaf \(F\) on the base \(\mcB\)}\index{sheaf!on a base} consists of assignments \(B_i \mapsto F(B_i)\), with restriction maps \(F(B_I) \to F(B_j)\) whenever \(B_J \sse B_i\), satisfying the usual relations when \(B_i \sse B_j \sse B_k\) and \(B_i = B_j\). Moreover, we have the additional axioms:
+    A \emph{sheaf \(F\) on the base \(\mcB\)}\index{sheaf on a base} consists of assignments \(B_i \mapsto F(B_i)\), with restriction maps \(F(B_I) \to F(B_j)\) whenever \(B_J \sse B_i\), satisfying the usual relations when \(B_i \sse B_j \sse B_k\) and \(B_i = B_j\). Moreover, we have the additional axioms:
     \begin{enumerate}[label=SB\arabic*.]
         \item If \(B = \bigcup_i B_i\), with \(B, B_i \in \mcB\), \(f, g \in F(B)\), with \(f\vert_{B_i} = g\vert_{B_i}\) for all \(i\), then \(f = g\).
         \item If \(B = \bigcup_i B_i\), with \(B, B_i \in \mcB\), with \(f_i \in F(B_i)\), such that for all \(B' \sse B_i \cap B_j\), \(f_i \vert_{B'} = f_j \vert_{B'}\), then there exists \(f \in F(B)\) with \(f\vert_{B_i} = f_i\).
@@ -765,6 +765,7 @@ Fix a topological space \(X\), and \(\mcB\) a basis for the topology.
 \end{definition}
 
 \begin{proposition}
+    \index{sheaf!from a sheaf on a base}
     Let \(F\) be a sheaf on a base \(\mcB\) of \(X\). Then this uniquely determines a sheaf \(\mcF\), by \(\mcF(B_i) = F(B_i)\), agreeing with restriction maps.
 \end{proposition}
 
@@ -779,6 +780,116 @@ Fix a topological space \(X\), and \(\mcB\) a basis for the topology.
 
     By the sheaf axioms, the natural maps \(F(B) \to \mcF(B)\) is an isomorphism by the sheaf axioms.
 \end{proof}
+
+\lec
+
+Recall \(\Spec(A)\) is a topological space, with distinguised open sets \(\{U_f\}_{f \in A}\). Moreover, \(U_f = U_g\) if and only if \(f\) and \(g\) are powers of some \(h \in A\), and if \(U_f = U_g\), then \(A_f \cong A_g\). Therefore, the assignment
+\[U_f \mapsto A_f\]
+is well-defined.
+
+\begin{proposition}
+    \label{prop:sheaf-of-rings-on-base}
+    The assignment \(U_f \to A_f\) defines a sheaf of rings on the base \(\{U_f\}\) of \(\Spec(A)\).
+\end{proposition}
+
+An immediate consequence is that \(\Spec(A)\) inherits a sheaf of rings, denoted \(\mcO_{\Spec(A)}\), called the \emph{structure sheaf}.
+
+\begin{proof}
+    [Prelude] Suppose \(\{U_{f_i}\}_{i \in I}\) covers \(\Spec(A)\), then there exists a finite subcover. That is, \(\Spec(A)\) is quasicompact. This is on examples sheet 1, but also:
+
+    Since the \(U_{f_i}\) cover, there is no prime ideal \(\mfp \idealof A\) containing all \(f_i\). Equivalently,
+    \[\sum_{i \in I}\inner{f_i} = \inner{1}\]
+    But we can write \(1\) as a finite sum \(1 = \sum a_i f_i\). But then if \(J \sse I\) are the indices with \(a_i \ne 0\), then \(\{U_{f_i}\}_{i \in J}\) cover. 
+\end{proof}
+
+\begin{proof}
+    [Proof of \cref{prop:sheaf-of-rings-on-base}] We need to check SB1 and SB2. We will check these for the basis open \(B = \Spec(A)\). The general case is similar (replace \(A\) with \(A_f\)).
+
+    \textbf{SB1:} Suppose we have a cover
+    \[\Spec(A) = \bigcup_{i=1}^n U_{f_i}\]
+    By the prelude, it suffices to consider the finite case. Given \(s \in A\) such that \(s \vert_{U_{f_i}} = 0\) for all \(i\), then by the definition of localisation, we have that \(f_i^m s =0\) for some \(m\) large enough. But \(\inner{1} = \inner{f_i^m}_{i=1}^n\) for any \(m > 0\), as the \(U_{f_i}\) cover, which then implies the \(U_{f_i^m}\) cover.
+
+    With this,
+    \[s = s \cdot 1 = s \cdot \sum_{i=1}^n r_i f_i^m = \sum_{i=1}^n r_i s_if_i^m = 0\]
+
+    \textbf{SB2:} Say
+    \[\Spec(A) = \bigcup_{i \in I}U_{f_i}\]
+    and choose elements in each \(A_{f_i}\), which agree on \(A_{f_if_j}\). That is, we have \(s_i \in A_{f_i}\), with the images of \(s_i, s_j\) in \(A_{f_if_j}\) agreeing. We need to build \(s \in A\) with these localisations. 
+    
+    First suppose \(I\) is finite. On \(A_{f_i}\), we have the element
+    \[\frac{a_i}{f_i^{\ell_i}} \in A_{f_i}\]
+    We will write \(g_i = f_i^{\ell_i}\), and note that \(U_{f_i} = U_{g_i}\).
+
+    On overlaps, restrict to \(A_{g_ig_j}\). Then we have that
+    \[(g_ig_j)^{m_{ij}}(a_i g_j - a_j g_i) = 0\]
+    Rewriting this using algebra and the fact that \(U_f = U_{f^k}\) for all \(k\). By taking the largest, we can assume \(m = m_{ij}\). We write
+    \[b_i = a_i g_i^m \qquad h_i = g_i^{m+1}\]
+    Using this, the element we chose in \(A_{f_i}\), becomes \(b_i/h_i\). But now \(U_{f_i} = U_{h_i}\) cover \(\Spec(A)\), and so we can write
+    \[1 = \sum_i r_i h_i\]
+    Now we construct
+    \[r = \sum r_i b_i\]
+    with \(r_i\) as above. This restricts correctly to \(b_i/h_i\) on \(U_{h_i}\) (i.e. in the localisation \(A_{h_i}\)).
+
+    When \(I\) is infinite, choose a finite subcover, or equivalently, \(\inner{f_1, \dots, f_n} = A\), and use the above to build \(r \in A\). But given \(\inner{f_1, \dots, f_n, f_\alpha} = A\), the same construction gives a new element \(r'\). But \(r' = r\) by SB1.
+\end{proof}
+
+\begin{definition}[structure sheaf]
+    The \emph{structure sheaf on \(\Spec(A)\)}\index{structure sheaf!of \(\Spec(A)\)} is the sheaf associated to the sheaf on the base sending
+    \[U_f \mapsto A_f\]
+    The sheaf is denoted \(\mcO_{\Spec(A)}\).
+\end{definition}
+
+\begin{remark}
+    \[\mcO_{\Spec(A), \mfp} = A_\mfp\]
+\end{remark}
+
+\begin{definition}
+    [ringed space] A \emph{ringed space}\index{ringed space} \((X, \mcO_X)\) is a topological space \(X\), with a sheaf of rings \(\mcO_X\) on \(X\).
+\end{definition}
+
+We note that any open subset of a ringed space is naturally a ringed space, with
+\[\mcO_U(V) = \mcO_X(V)\]
+for all \(V \sse U \sse X\) open.
+
+\begin{definition}
+    [isomorphism of ringed spaces]
+
+    An \emph{isomorphism of ringed spaces \((X, \mcO_X) \to (Y, \mcO_Y)\)}\index{isomorphism!of ringed spaces} is
+    \begin{itemize}
+        \item a homeomorphism \(\pi : X \to Y\),
+        \item an isomorphism of sheaves on \(Y\), \(\mcO_Y \to \pi_*\mcO_X\).
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    We could have also chosen \(\pi^{-1}\mcO_Y \to \mcO_X\).
+\end{remark}
+
+\begin{definition}
+    [affine scheme] An \emph{affine scheme}\index{affine scheme} is a ringed space \((X, \mcO_X)\) which is isomorphic to \((\Spec(A), \mcO_{\Spec(A)})\).
+\end{definition}
+
+\begin{definition}
+    [scheme] A \emph{scheme}\index{scheme} is a ringed space \((X, \mcO_X)\), that is locally isomorphic to an affine scheme.
+
+    In other words, for every \(x \in X\), there exists \(x \in U \sse X\) open, with \((U, \mcO_U)\) being an affine scheme.
+\end{definition}
+
+\subsection{Examples of schemes}
+
+\begin{example}
+    \(\Spec(A)\) is a scheme.
+\end{example}
+
+\begin{example}
+    [Open subschemes] \index{open subscheme}Let \(X\) be a scheme, \(U \sse X\) an open subset. We can take
+    \[\mcO_U = \mcO_X\vert_U\]
+    to be the structure sheaf of \(U\), making \(U\) into a scheme. This is because the \(\{U_f\}\)s form a basis of the topology on \(\Spec(A)\).
+\end{example}
+
+\begin{example}
+    Take \(X = \Spec(\C[x, y])\), and \(U = X \setminus \{\inner{x, y}\}\). The scheme \(U\) is \emph{not} an affine scheme.
+\end{example}
 
 \printindex
 

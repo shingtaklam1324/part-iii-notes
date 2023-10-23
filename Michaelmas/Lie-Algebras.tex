@@ -521,7 +521,7 @@ If \(V\) is irreducible, then \(\sigma\) is a scalar multiple of \(\id_V\). That
     [Casimir element]
     Let \(V\) be a finite dimensional representation of \(\sl_2\). Then
     \[\Omega = ef + fe + \frac{1}{2}h^2 \in \gl(V)\]
-    is called the \emph{Casimir element (of \(\sl_2\))}\index{Casimir element}.
+    is called the \emph{Casimir element (of \(\sl_2\))}\index{Casimir element!of \(\sl_2\)}.
 \end{definition}
 
 In fact, \(\Omega\) is \emph{central}.
@@ -1011,7 +1011,7 @@ a \emph{maximal flag}, and there is interesting geometry related to this.
     [Cartan's criterion (for solvability)] 
     \label{thm:cartan-criterion}
     \index{Cartan's criterion (for solvability)}
-    Suppose \(\mfg\) is a subalgebra of \(\gl(V)\), for \(V\) a finite dimensional vector space over \(\C\). If \(K(x, y) = 0\) for all \(x\in \mfg, y \in [\mfg, \mfg]\), then \(\mfg\) is solvable.
+    Suppose \(\mfg\) is a subalgebra of \(\gl(V)\), for \(V\) a finite dimensional vector space over \(\C\). \(\mfg\) is solvable if and only if \(\tr(xy) = 0\) for all \(x \in \mfg, y \in [\mfg, \mfg]\).
 
     In other words, \(\mfg^{(1)} \le \mfg^\perp\).
 \end{theorem}
@@ -1091,6 +1091,172 @@ With this, we can now prove the Cartan-Killing criterion.
     Finally, to show (i) \(\implies\) (ii), write
     \[\mfg = \bigoplus_j I_j\]
     where the \(I_j\) are simple ideals. Let \(\pi_j : \mfg \to I_j\) denote the projection.
+
+\lec
+
+    \begin{claim}
+        If \(J\) is an ideal of \(\mfg\), then \(\pi_j(J)\) is an ideal of \(I_j\).
+    \end{claim}
+
+    Now if \(A\) is an abelian ideal of \(\mfg\), then \(\pi_j(A)\) is an abelian ideal of \(I_j\), and so \(\pi_j(A) = 0\) for all \(j\). With this, \(A = 0\).
+\end{proof}
+
+\begin{theorem}
+    [Weyl] Any finite dimensional representation of a semisimple Lie algebra is completely reducible.
+\end{theorem}
+
+\begin{proof}
+    Almost the same as for \(\sl_2(\C)\), as in \cref{thm:weyl}. The main ingredient follows from a Casimir element.
+\end{proof}
+
+\underline{Exercise:} Any ideal or quotient of a semisimple Lie algebra is semisimple.
+
+For the Casimir element, let \(\varphi : \mfg \to \gl(V)\) be an irreducible representation of a semisimple Lie algebra \(\mfg\). Without loss of generality, assume \(\varphi\) is faithful (if not, we can consider \(\mfg/\ker(\varphi)\)). We know by \cref{thm:cartan-killing} that the trace form \((\cdot, \cdot)_V\) is non-degenerate. Choose a basis \(x_1, \dots, x_n\) for \(\mfg\). With respect to the trace form, we have a dual basis \(y_1, \dots, y_n\) for \(\mfg\). That is,
+\[(x_i,y_j)_V = \delta_{ij}\]
+
+\begin{definition}
+    [Casimir element]
+    Define the \emph{Casimir element associated with \(\varphi\)}\index{Casimir element!of a representation of a semisimple Lie algebra}
+    \[\Omega_{\varphi} = \sum_i \varphi(x_i)\varphi(y_i)\]
+\end{definition}
+
+\begin{remark}
+    \begin{itemize}
+        \item \(\Omega_\varphi \in \gl(V)\),
+        \item \(\Omega_\varphi\) commutes with \(\varphi(x)\) for all \(x \in \mfg\). In particular, by Schur's lemma, \(\Omega_\varphi\) is a scalar multiple of \(\id_V\), and
+        \[\tr(\Omega_\varphi) = \sum\tr(\varphi(x_i)\varphi(y_i)) = \dim(\mfg)\]
+        From this, we also see that \(\Omega_\varphi\) is independent of the choice of basis of \(\mfg\) which we chose. 
+    \end{itemize}
+\end{remark}
+
+\begin{example}
+    If \(\mfg = \sl_2 \le \gl_2\), let \(V = \C^2\) and \(\varphi = \id\) is the defining representation. Recall the basis
+    \[e = \begin{pmatrix}
+        0 & 1 \\
+        0 & 0
+    \end{pmatrix} \quad f = \begin{pmatrix}
+        0 & 0 \\
+        1 & 0 
+    \end{pmatrix} \quad h = \begin{pmatrix}
+        1 & 0 \\
+        0 & -1
+    \end{pmatrix}\]
+    Some easy linear algebra gives a dual basis with respect to the trace form, which is \(\{f, \frac{1}{2}h, e\}\) (in the same order). With this,
+    \[\Omega_{\varphi} = ef + fe + \frac{1}{2}h^2 = \begin{pmatrix}
+        3/2 & 0 \\
+        0 & 3/2
+    \end{pmatrix}\]
+    which is the same as the one we obtained earlier.
+\end{example}
+
+\section{Jordan decomposition}
+
+Two observations:
+
+\begin{enumerate}
+    \item If \(\mfg\) is a simple Lie algebra, \(\varphi : \mfg \to \gl(V)\) is a finite dimensional representation, then \(\varphi(\mfg) \sse \sl(V)\). This is because \([\mfg, \mfg] = \mfg\), and so 
+    \[\varphi(\mfg) = \varphi([\mfg, \mfg]) = [\varphi(\mfg), \varphi(\mfg)] \le [\gl(V), \gl(V)] = \sl(V)\]
+    \item Recall from Linear algebra that if \(x \in \gl(V)\), then there exists a basis of \(V\) such that \(x\) a block diagonal matrix, with Jordan blocks of the form
+    \[\begin{pmatrix}
+        \lambda & 1 & \cdots & 0 \\
+        & \ddots & \ddots & \vdots \\
+        & & \ddots & 1 \\
+        & & & \lambda
+    \end{pmatrix}\] 
+\end{enumerate}
+
+\begin{definition}
+    [nilpotent, semisimple] We say \(x \in \gl(V)\) is \emph{nilpotent}\index{nilpotent} if \(x^n = 0\) for some \(n\). We say \(x\) is \emph{semisimple}\index{semisimple} if the roots of its minimal polynomial are distinct, that is, it is diagonalisable.
+\end{definition}
+
+
+\begin{proposition}
+    [Jordan decomposition]
+    \label{prop:jordan-decomposition}
+    If \(x \in \gl(V)\), where \(V\) is finite dimensional. Then
+    \begin{enumerate}[(i)]
+        \item there exists unique elements \(x_s, x_n \in \gl(V)\), where \(x_s\) is semisimple and \(x_n\) is nilpotent, with
+        \[x = x_s + x_n\]
+        and \([x_s, x_n] = 0\).
+        \item there exists polynomials \(p_s, p_t \in \C[t]\), without constant terms, such that \(x_s = p_s(x)\) and \(x_n = p_n(x)\). In particular, \(x_s\) and \(x_n\) will commute with any \(y \in \gl(V)\) with \([x, y] = 0\).
+        \item if \(A \le B \le V\) are subspaces, and \(x(B) \sse A\), then \(x_s(B) \sse A\) and \(x_n(B) \sse A\).
+    \end{enumerate}
+    The decomposition \(x = x_s + x_n\) is called the \emph{(additive) Jordan(-Chevalley) decomposition of \(x\)}\index{Jordan decomposition}. \(x_s\) and \(x_n\) are called the \emph{semisimple part}\index{semisimple!part} and the \emph{nilpotent part}\index{nilpotent!part} of \(x\) respectively.
+\end{proposition}
+
+\begin{proof}
+    Routine linear algebra. See Humphreys \S4.2.
+\end{proof}
+
+\begin{example}
+    If \(x\) is represented by a single Jordan block
+    \[x = \begin{pmatrix}
+        \lambda & 1 & \cdots & 0 \\
+        & \ddots & \ddots & \vdots \\
+        & & \ddots & 1 \\
+        & & & \lambda
+    \end{pmatrix}\] 
+    then the Jordan decomposition is
+    \[x_s = \begin{pmatrix}
+        \lambda &  & & 0 \\
+        & \ddots &  &  \\
+        & & \ddots &  \\
+        & & & \lambda
+    \end{pmatrix} \qquad x_n = \begin{pmatrix}
+        0 & 1 & \cdots & 0 \\
+        & \ddots & \ddots & \vdots \\
+        & & \ddots & 1 \\
+        & & & 0
+    \end{pmatrix}\]
+    i.e. the diagonal and nilpotent parts. 
+\end{example}
+
+\subsubsection*{Why is this valuable?}
+
+Suppose \(\mfg\) is a finite dimensional linear Lie algebra. Then we have an adjoint representation \(\ad : \mfg \to \gl(\mfg)\). If \(x \in \gl(V)\) is nilpotent, then so is \(\ad(x)\). Similarly, if \(x\) is semisimple, then so is \(\ad(x)\).
+
+\begin{lemma}
+    Let \(x \in \mfg \le \gl(V)\), where \(V\) is finite dimensional. Let \(x = x_s + x_n\) be its Jordan decomposition. Then \(\ad(x) = \ad(x_s) + \ad(x_n)\) is the Jordan decomposition of \(\ad(x) \in \gl(\mfg)\).
+\end{lemma}
+
+\begin{proof}
+    \(\ad(x_s)\) and \(\ad(x_n)\) are semisimple and nilpotent respectively, they commute since
+    \[[\ad(x_s),\ad(x_n)] = \ad([x_s, x_n]) = \ad(0) = 0\]
+    Thus, by uniqueness in \cref{prop:jordan-decomposition}, the Jordan decomposition must be as stated.
+\end{proof}
+
+\begin{theorem}
+    Suppose \(\mfg\) is a semisimple Lie algebra, which is a subalgebra of \(\gl(V)\). Let \(x \in \mfg\), then \(x_s, x_n \in \mfg\).
+\end{theorem}
+
+\begin{proof}
+    Let
+    \[N(\mfg) = \left\{y \in \gl(V) \mid [y, z] \in \mfg \text{ for all }z \in \mfg\right\}\]
+    be the \emph{normaliser of \(\mfg\) in \(\gl(V)\)}\index{normaliser, \(N(\mfg)\)}.
+
+    \begin{claim}
+        \begin{enumerate}[(i)]
+            \item \(N(\mfg)\) is a subalgebra of \(\gl(V)\), containing \(\mfg\) as an ideal.
+            \item \(x_s, x_n \in N(\mfg)\).
+        \end{enumerate}
+    \end{claim}
+
+    \begin{proof}
+        (i) is clear from the definition of the normaliser. For (ii), let \(z \in \mfg\), we have that
+        \[[x_s, z] = \ad(x_s)(z) = \ad(x)_s(z)\]
+        By \cref{prop:jordan-decomposition} (ii), this is in \(\mfg\), as \(\ad(x)_s\) is a polynomial in \(\ad(x)\) with no constant term. But for \(z \in \mfg\), as \(x \in \mfg\), \(\ad(x)(z) = [x,z] \in \mfg\).
+    \end{proof}
+
+    Let \(W\) be an irreducible subrepresentation of \(V\), and define
+    \[\mfg_W = \left\{y \in \gl(V) \mid yw \in W \text{ for all }w \in W \text{ and }\tr(y\vert_W) = 0\right\}\]
+
+    \begin{claim}
+        \(\mfg\) is a subalgebra of \(\mfg_W\).
+    \end{claim}
+
+    \begin{proof}
+        \(W\) is a subrepresentation of \(\mfg\), and so it is stabilised by \(\mfg\), and also the image of \(\mfg\) in \(\gl(W)\), say \(\overline{\mfg}\), the image is also semisimple.
+    \end{proof}
 \end{proof}
 
 \printindex

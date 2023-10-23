@@ -428,6 +428,7 @@ which is exact at all places. That is, \(\alpha\) is injective, \(\beta\) is sur
 
 \begin{theorem}
     [Mayer-Vietoris]
+    \label{thm:mayer-vietoris}
     \index{Mayer-Vietoris}
     If \(X = A \cup B\), with \(A, B\) open subsets of \(X\). Then there exists \emph{Mayer-Vietoris boundary homomorphism}\index{Mayer-Vietoris!homomorphism}
     \[\partial_{MV} : \HH_{i+!}(X) \to \HH_i(A \cap B)\]
@@ -1075,7 +1076,7 @@ Recall if \(f, g : X \to Y\) are homotopic, we would like to show that the induc
 \subsection{Excision}
 
 \begin{theorem}
-    [Excision] \index{excision} Let \(X\) be a topological space, \(A \sse X\) a subspace, \(Z \sse X\) a subspace with \(\Cl(Z) \sse \Int(A)\). Then the inclusion
+    [Excision] \index{excision}\label{thm:excision} Let \(X\) be a topological space, \(A \sse X\) a subspace, \(Z \sse X\) a subspace with \(\Cl(Z) \sse \Int(A)\). Then the inclusion
     \[i : (X\setminus \Z, A \setminus Z) \to (X, A)\]
     induces an isomorphism on relative homology
     \[i_* : \HH_n(X \setminus Z, A \setminus Z) \to \HH_n(X, A)\]
@@ -1112,6 +1113,194 @@ Recall if \(f, g : X \to Y\) are homotopic, we would like to show that the induc
 \begin{proof}
     Follows from the five lemma and the LES of relative homology. 
 \end{proof}
+
+\lec
+
+\subsection{Relative homology}
+
+\begin{definition}
+    [Reduced homology] If \(X\) is a topological space, \(x_0 \in X\) is a base point, then we define the \emph{reduced homology of \(X\)}\index{reduced homology, \(\tilde \HH_*(X)\)} as
+    \[\tilde \HH_*(X) = \HH_*(X, x_0)\]
+    It is easy to see that \(\tilde \HH_i(X) = \HH_i(X)\) for \(i > 0\), and \(\tilde\HH_i(X) \oplus \Z = \HH_i(X)\). 
+\end{definition}
+
+\begin{definition}
+    [good pair]
+    A pair \((X, A)\) is \emph{good}\index{good pair} if \(A \sse X\) is closed, and \(A\) a neighbourhood deformation retract. That is, there exists an open neighbourhood \(A \sse U \sse X\) of \(A\), and a homotopy \(H : U \times [0, 1] \to U\), with
+    \begin{itemize}
+        \item \(H(u, 0) = u\),
+        \item \(H(u, 1) \in A\) for all \(u \in U\),
+        \item \(H(a, t) = a\) for all \(a \in A, t \in [0, 1]\).
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    One example would be a loop on \(\Sigma_2\), where we can choose an annular neighbourhood.
+
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2023_10_23 (1).jpg}
+    \end{center}
+
+    On the other hand, consider
+
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2023_10_23 (2).jpg}
+    \end{center}
+
+    There is no neighbourhood retract fixing \(A\).
+\end{example}
+
+\begin{proposition}
+    If \((X, A)\) is a good pair, the natural map \((X, A) \to (X/A, A/A = \{*\})\), induces isomorphism
+    \[\HH_n(X, A) \to \HH_n(X/A, A/A) = \tilde H_*(X/A)\]
+\end{proposition}
+
+\begin{proof}
+    Let \(A \sse U \sse X\) be as in the definition of a good pair, and note that \(\HH_*(A) = \HH_*(U)\), and as such, we have an isomorphism on relative homology
+    \[\HH_*(X, A) \cong \HH_*(X, U)\]
+    Since the homotopy \(H : U \times [0, 1] \to U\) is fixed on \(A\), it induces a homotopy on \(U/A\), and so
+    \[\frac{A}{A} = \{*\} \inj \frac{U}{A}\]
+    is also a neighbourhood deformation retract. With this,
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCJIXyooWCwgQSkiXSxbMSwwLCJIXyooWCxVKSJdLFsyLDAsIkhfKihYL0EsIFUvQSkiXSxbMCwyLCJIXyooWC9BLCBcXGJ1bGxldCkiXSxbMSwyLCJIXyooWC9BLCBVL0EpIl0sWzIsMiwiSF8qKChYL0EpL1xcYnVsbGV0LCAoVS9BKS9cXGJ1bGxldCkiXSxbMCwzXSxbMiw1LCJcXHNpbVxcdGV4dHtob21lb21vcnBoaXNtIG9mIHBhaXJzfSJdLFswLDEsIlxcY29uZyIsMV0sWzIsMSwiXFxzaW0iLDFdLFs1LDQsIlxcc2ltIiwxXSxbMyw0LCJcXGNvbmciLDFdXQ==
+\[\begin{tikzcd}
+	{H_*(X, A)} & {H_*(X,U)} & {H_*(X/A, U/A)} \\
+	\\
+	{H_*(X/A, \bullet)} & {H_*(X/A, U/A)} & {H_*((X/A)/\bullet, (U/A)/\bullet)}
+	\arrow[from=1-1, to=3-1]
+	\arrow["{\sim\text{homeomorphism of pairs}}", from=1-3, to=3-3]
+	\arrow["\cong"{description}, from=1-1, to=1-2]
+	\arrow["\sim"{description}, from=1-3, to=1-2]
+	\arrow["\sim"{description}, from=3-3, to=3-2]
+	\arrow["\cong"{description}, from=3-1, to=3-2]
+\end{tikzcd}\]
+    and so the left map is an isomorphism. Note \(\sim\) is an isomorphism by excision, and \(\cong\) is an isomorphism by the above, from the homotopy.
+\end{proof}
+
+\begin{example}
+    \begin{enumerate}[(i)]
+        \item \(\HH_j(D^n, \partial D^n) = \tilde H_j(D^n/\partial D^n) = \tilde H_j(S^n) = \begin{cases}
+            \Z & j = n \\
+            0 & \text{otherwise}
+        \end{cases}\)
+        \item \(\HH_j(S^2, S^1_{\text{eq}}) = \tilde H_j(S^2 \vee S^2) = \begin{cases}
+            \Z\oplus \Z & j = 2 \\
+            0 & \text{otherwise}
+        \end{cases}\)
+        Since we can think of \(S^2/S^1\) as \(S^2 \vee S^2\) via
+        \begin{center}
+            \includegraphics[scale=0.1]{diagrams/2023_10_23 (4).jpg}
+        \end{center}
+        \item A \emph{manifold} of dimension \(n\) is a Hausdorff topological space which is locally homeomorphic to \(\R^n\). If \(M^n\) is a manifold, \(x \in M\), then
+        \[H_j(M, M \setminus x) \underbrace{=}_{\text{by excision}} H_j(\R^n, \R^n \setminus 0) \underbrace{=}_{\text{by homotopy invariance}} H_j(D^n, \partial D^n) = \Z \text{ when j = n}\]
+        For excision, we choose an open set \(U\) which is homeomorphic to a ball, and remove the complement of \(U\).
+        \begin{center}
+            \includegraphics[scale=0.1]{diagrams/2023_10_23 (4).jpg}
+        \end{center}
+    \end{enumerate}
+\end{example}
+
+\subsection{Small simplices theorem}
+
+Both the Mayer-Vietoris property and excision will follow from the \emph{small simplices theorem}.
+
+\begin{definition}
+    [chain complex adapted to a cover]
+    Let \(X\) be a topological space,
+    \[\mcU = \left\{U_\alpha\right\}_{\alpha \in I}\]
+    be such that \(\{\Int(U_\alpha)\}_{\alpha \in I}\) is an open cover of \(X\). Let
+    \[C_j^\mcU(X) = \left\{\sum_\text{finite} a_j \sigma_i \ \big\vert\ a_i \in \Z, \sigma_i : \Delta^i \to X, \im(\sigma_i) \sse U_{\alpha(\sigma_i)} \text{ for some }\alpha(\sigma_i) \in I\right\}\]
+    This defines a subcomplex of \(C_*(X)\) with the usual boundary map.
+\end{definition}
+
+\begin{theorem}
+    [small simplices] \index{small simplices theorem} The inclusion \(C_*^\mcU(X) \inj C_*(X)\) induces an isomorphism on homology.
+\end{theorem}
+
+\begin{remark}
+    If \(X, Y\) are spaces with covers \(\mcU, \mcV\), and if \(f : X \to Y\) sends each \(U_\alpha\) to some \(V_{f(\alpha)}\), then \(f\) induces a map
+    \[f_* : C_j^\mcU(X) \to C_*^\mcV(Y)\] 
+    But \((X, \mcU) \mapsto C_*^\mcU(X)\) is \emph{not} functorial for arbitrary maps.
+\end{remark}
+
+We will use small simplices to prove Mayer-Vietoris and excision.
+
+\begin{proof}
+    [Proof of Mayer-Vietoris, \cref{thm:mayer-vietoris}]
+    \index{Mayer-Vietoris!proof}
+    Let \(\mcU = \{A, B\}\), where \(A, B \sse X\) open. Then we have an SES of chain complexes
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiQ18qKEEgXFxjYXAgQikiXSxbMiwwLCJDXyooQSlcXG9wbHVzIENfKihCKSJdLFszLDAsIkNfKl5cXG1jVShYKSJdLFs0LDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & {C_*(A \cap B)} & {C_*(A)\oplus C_*(B)} & {C_*^\mcU(X)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    The last map is surjective because we have taken the subgroup \(C_*^\mcU(X)\). By the Snake lemma and the small simplices theorem, we get the Mayer-Vietoris sequence.
+\end{proof}
+
+\begin{remark}
+    \begin{enumerate}[(i)]
+        \item The boundary map is what we wrote down in the special case earlier.
+        \item The naturality of Mayer-Vietoris is the naturality of the map
+        \[C_*^\mcU(X) \to C_*^\mcV(Y)\]
+        where \(\mcU = \{A, B\}, \mcV = \{C, D\}\) and \(f(A) \sse C, f(B) \sse D\).
+    \end{enumerate}
+\end{remark}
+
+\begin{proof}
+    [Proof of excision, \cref{thm:excision}]
+
+    \index{excision!proof}
+    Recall we have \(Z \sse A \sse X\), \(\Cl(Z) \sse \Int(A)\). Let \(B = X \setminus Z\), \(\mcU = \{A, B\}\). Then \(\Int(A) \cup \Int(B) = X\), and so we can apply the small simplices theorem.
+
+    Consider
+    \[\frac{C_n^{\mcU}(X)}{C_n(A)} = \frac{C_n(B)}{C_n(A \cap B)} = \text{free ab. group of simplices in }B\text{ not wholly contained in }A\]
+    and so we have the short exact sequences
+    % https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMCJdLFsxLDAsIkNfKihBKSJdLFsyLDAsIkNfKl5cXG1jVShYKSJdLFszLDAsIkNfKl57XFxtY1V9KFgpL0NfKihBKSJdLFs0LDAsIjAiXSxbMCwxLCIwIl0sWzEsMSwiQ18qKEEpIl0sWzIsMSwiQ18qKEEpIl0sWzMsMSwiQ18qKFgpL0NfKihBKSJdLFs0LDEsIjAiXSxbMSw2LCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsyLDcsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzMsOCwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XSxbNSw2XSxbNiw3XSxbNyw4XSxbOCw5XV0=
+\[\begin{tikzcd}
+	0 & {C_*(A)} & {C_*^\mcU(X)} & {C_*^{\mcU}(X)/C_*(A)} & 0 \\
+	0 & {C_*(A)} & {C_*(A)} & {C_*(X)/C_*(A)} & 0
+	\arrow[hook, from=1-2, to=2-2]
+	\arrow[hook, from=1-3, to=2-3]
+	\arrow[hook, from=1-4, to=2-4]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+    where the vertical maps are induced by the inclusion, and all squares commute. Therefore, we have long exact sequences in homology and natural maps between them,
+    % https://q.uiver.app/#q=WzAsMTQsWzEsMCwiSF9pKEEpIl0sWzIsMCwiSF9pKENfKl5cXG1jVShYKSkiXSxbMywwLCJIX2koQ18qXlxcbWNVKFgpL0NfKihBKSJdLFs0LDAsIkhfe2ktMX0oQSkiXSxbMSwxLCJIX2koQSkiXSxbMiwxLCJIX2koWCkiXSxbMywxLCJIX2koWCwgQSkiXSxbNCwxLCJIX3tpLTF9KEEpIl0sWzUsMCwiSF97aS0xfShDXypeXFxtY1UoWCkpIl0sWzUsMSwiSF97aS0xfShYKSJdLFs2LDAsIlxcY2RvdHMiXSxbNiwxLCJcXGNkb3RzIl0sWzAsMCwiXFxjZG90cyJdLFswLDEsIlxcY2RvdHMiXSxbMyw4XSxbNyw5XSxbOCwxMF0sWzksMTFdLFs4LDksIlxcc2ltIiwxXSxbMyw3LCI9IiwxXSxbMTIsMF0sWzEzLDRdLFswLDQsIj0iLDFdLFswLDFdLFs0LDVdLFsxLDUsIlxcc2ltIiwxXSxbMSwyXSxbNSw2XSxbMiw2XSxbNiw3XSxbMiwzXV0=
+\[\begin{tikzcd}
+	\cdots & {H_i(A)} & {H_i(C_*^\mcU(X))} & {H_i(C_*^\mcU(X)/C_*(A)} & {H_{i-1}(A)} & {H_{i-1}(C_*^\mcU(X))} & \cdots \\
+	\cdots & {H_i(A)} & {H_i(X)} & {H_i(X, A)} & {H_{i-1}(A)} & {H_{i-1}(X)} & \cdots
+	\arrow[from=1-5, to=1-6]
+	\arrow[from=2-5, to=2-6]
+	\arrow[from=1-6, to=1-7]
+	\arrow[from=2-6, to=2-7]
+	\arrow["\sim"{description}, from=1-6, to=2-6]
+	\arrow["{=}"{description}, from=1-5, to=2-5]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=2-1, to=2-2]
+	\arrow["{=}"{description}, from=1-2, to=2-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=2-2, to=2-3]
+	\arrow["\sim"{description}, from=1-3, to=2-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=1-4, to=2-4]
+	\arrow[from=2-4, to=2-5]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    where \(=\) are identity maps, \(\sim\) is an isomorphism by the small simplices theorem, and so the middle map is an isomorphism by the five lemma. But we have that
+    \[H_i(X, A) = H_i(C_*(X)/C_*(A)) = H_i(C_*(B)/C_*(A \cap B)) = H_i(B, A \cap B) = H_*(X \setminus Z, A \setminus Z)\]
+\end{proof}
+
+Small simplices uses \emph{barycentric subdivision}.
 
 \printindex
 
