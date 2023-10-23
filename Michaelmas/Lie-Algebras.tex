@@ -1213,7 +1213,9 @@ Two observations:
 
 \subsubsection*{Why is this valuable?}
 
-Suppose \(\mfg\) is a finite dimensional linear Lie algebra. Then we have an adjoint representation \(\ad : \mfg \to \gl(\mfg)\). If \(x \in \gl(V)\) is nilpotent, then so is \(\ad(x)\). Similarly, if \(x\) is semisimple, then so is \(\ad(x)\).
+% Suppose \(\mfg\) is a finite dimensional linear Lie algebra. Then we have an adjoint representation \(\ad : \mfg \to \gl(\mfg)\). If \(x \in \gl(V)\) is nilpotent, then so is \(\ad(x)\). Similarly, if \(x\) is semisimple, then so is \(\ad(x)\).
+
+Let \(V\) be a finite dimensional vector space. We can consider the adjoint representation \(\ad : \gl(V) \to \gl(\gl(V))\). If \(x \in \gl(V)\) is semisimple, then so is \(\ad(x)\). Similarly, if \(x\) is nilpotent, then so is \(\ad(x)\).
 
 \begin{lemma}
     Let \(x \in \mfg \le \gl(V)\), where \(V\) is finite dimensional. Let \(x = x_s + x_n\) be its Jordan decomposition. Then \(\ad(x) = \ad(x_s) + \ad(x_n)\) is the Jordan decomposition of \(\ad(x) \in \gl(\mfg)\).
