@@ -879,8 +879,124 @@ We will now recall/define some multilinear algebra. For \(r = 0,1, 2, \dots\), a
 In particular, if \(r = 0\), by convention \(\Lambda^0V^* = \R\), and if \(r = 1\), \(\Lambda^1V^* = V^*\). If \(r > \dim(V)\), then \(\Lambda^rV^* = 0\). 
 
 From this, we obtain the vector spaces \(\Lambda^r\T_p^* M\), and we can define the \emph{\(r\)-th exterior power of \(\T^*M\)} as
-\[\Lambda^r\T^* M = \bigsqcup_{p \in M}\Lambda^r\R_p^* M\]
+\[\Lambda^r\T^* M = \bigsqcup_{p \in M}\Lambda^r\T_p^* M\]
 Consider a smooth map \(\alpha : M \to \Lambda^r\T^*M\), with \(\pi \circ \alpha = \id\). We call \(\alpha\) a \emph{differential \(r\)-form}\index{differential \(r\)-form}.
+
+\lec
+
+This is a vector space, with dimension \(\dim(\Lambda^r\T_p^* M) = {n \choose r}\). To see this, we can consider the basis
+\[\dd x_{i_1} \wedge \cdots \wedge \dd x_{i_r} \text{ with }1 \le i_1 < \cdots < i_r \le n\]
+By definition,
+\[(\dd x_{i_1} \wedge \cdots \wedge \dd x_{i_r})(v_1, \dots, v_r) := \det((\dd x_{i_k}(v_\ell))_{k, \ell})\]
+
+In particular, we see that \(\wedge\) is antisymmetric, and this extends by linearity and induction on \(p, q\), to extend it to an assosiative bilinear product
+\[\Lambda^p \T_x^*M \times \Lambda^q \T_x^* M \to \Lambda^{p+q}\T_x^* M\]
+
+\begin{notation}
+    [multi-index notation] If \(I = (i_1, \dots, i_r)\), then we write \(\abs{I} = r\), and
+    \[\dd x_I = \dd x_{i_1} \wedge \cdots \wedge \dd x_{i_r}\]
+\end{notation}
+
+The transformation law from \(\dd x_I\) to \(\dd y_J\) is given by
+\[\dd y_J = \sum_{\abs{I} = r}\left(\prod_{k=1}^r\pdv{y_{j_k}}{x_{i_k}}\right)\dd x_I\]
+Using this, we can show that \(\Lambda^r \T^* M\) is a smooth manifold, with dimension \(n + {n \choose r}\). The projection map \(\pi : \Lambda^r \T^*M \to M\) is smooth, and we call \(\Lambda^r\T^*M\) the \emph{bundle of \(r\)-forms}\index{bundle of \(r\)-forms, \(\Lambda^r\T^*M\)}.
+
+\begin{definition}
+    [smooth differential \(r\)-form]
+    A \emph{((smooth) differential) \(r\)-form}\index{differential \(r\)-form} is a section \(\alpha\) of \(\Lambda^r\T^*M\). The \emph{degree} of \(\alpha\) is \(r\).
+\end{definition}
+
+Note that \(\alpha\) as above is smooth if and only if for any \(X_1, \dots, X_r\) vector fields on \(M\), \(\alpha(X_1, \dots, X_n) = 0\). In local coordinates, we can write
+\[\alpha = \sum_{\abs{I} = r}\alpha_I \dd x_I\]
+where the \(\alpha_I\) are smooth functions.
+
+\begin{definition}
+    [space of \(r\)-forms] For a manifold \(M\), we write \(\Omega^r(M)\)\index{space of \(r\)-forms, \(\Omega^r(M)\)} for the space of all \(r\)-forms on \(M\). By convention, \(\Omega^0(M) = C^\infty(M)\).
+\end{definition}
+
+\subsection{Orientability}
+
+\begin{theorem}
+    For any \(n\)-dimensional manifold, the following are equivalent:
+    \begin{enumerate}[(a)]
+        \item There exists a nowhere vanishing \(\omega \in \Omega^n(M)\).
+        \item There exists a collection of coordinate charts \((\varphi_\alpha, U_\alpha)\) such that
+        \begin{itemize}
+            \item \(\bigcup_\alpha U_\alpha = M\),
+            \item for \(\alpha, \beta\) with corresponding coordinates \(x_i, y_j\), we have
+            \[\det(\pdv{y_j}{x_i}) > 0\]
+        \end{itemize}
+        \item \(\Lambda^n \T^* M\) is isomorphic to \(M \times \R\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \textbf{(a) \(\implies\) (b):} From the transformation law and taking \(r = n\), we see that
+    \begin{align*}
+        \dd x_1 \wedge \cdots \wedge \dd x_n &=\left(\sum_{i_1}\pdv{x_1}{y_{i_1}}\dd y_{i_1}\right) \wedge \cdots \wedge \left(\sum_{i_n}\pdv{x_n}{y_{i_n}}\dd y_{i_n}\right) \\
+        &= \left(\sum_{\sigma \in S_n}\sign(\sigma)\pdv{x_1}{y_{\sigma(1)}}\cdots \pdv{x_n}{y_{\sigma(n)}}\right) \\
+        &= \det(\pdv{x_i}{y_j})\dd y_1 \wedge \cdots \wedge \dd y_n
+    \end{align*}
+    
+    Given \(\omega\) as in (a), consider an open cover by coordinate neighbourhoods \(U_\alpha\), with all \(U_\alpha\) connected. In this case,
+    \[\omega\vert_{U_\alpha} = f_\alpha(x) \dd x^\alpha_1 \wedge \cdots \wedge \dd x^\alpha_n\]
+    We can assume without loss of generality that \(f_\alpha > 0\) on each coordinate neighbourhood, but then
+    \[f_\alpha = \det(\pdv{x^\alpha_i}{x^\beta_j})f_\beta\]
+    and so the determinant must be positive.
+
+    \textbf{(b) \(\implies\) (a)}: We will assume the following theorem without proof:
+    \begin{theorem}
+        For every open cover \(M = \bigcup_\alpha U_\alpha\), we can find a countable collection of smooth functions \(\rho_i \in C^\infty(M)\), such that
+        \begin{enumerate}[(i)]
+            \item \(\Supp(\rho_i)\) is compact, and contained in some \(U_\alpha\),
+            \item the \(\rho_i\) are locally finite, that is, given \(x \in M\), there exists a neighbourhood \(W_x\) of \(x\), such that all but finitely many \(\rho_i\) are identically zero on \(W_x\).
+            \item \(\rho_i(x) \in [0, 1]\), and for any \(x \in M\),
+            \[\sum_i \rho_i(x) = 1\]
+        \end{enumerate}
+        We call \(\{\rho_i\}\) a \emph{partition of unity subordinate to \(U_\alpha\)}\index{partition of unity}.
+    \end{theorem}
+
+    For any \(\alpha\), define \(\omega_\alpha = \dd x^\alpha_1 \wedge \cdots \wedge \dd x^\alpha_n \in \Omega^n(U_\alpha)\). By passing to a subcollection, we may assume we only have countably many \(\alpha\), and say we have a parition of unity \(\rho_\alpha\) subordinate to \(\{U_\alpha\}\). Then
+    \[\rho_\alpha\omega_\alpha \in \Omega^n(M)\]
+    and using this, we can define
+    \[\omega = \sum \rho_\alpha \omega_\alpha\]
+    Since the sum is locally finite, \(\omega\) is well defined. Moreover, since the \(\rho_\alpha\) are nonnegative, and
+    \[\det(\pdv{x_i^\alpha}{x_j^\beta}) > 0\]
+    \(\omega\) never vanishes.
+
+    For \textbf{(c) \(\implies\) (a)}, suppose we have an isomorphism \(\Phi : \Lambda^n\T^* M \to M \times \R\) of vector bundles, consider \(f : M \to M \times \R\), given by \(f(x) = (x, 1)\). Then \(\Phi^{-1} \circ f \in \Omega^n(M)\) never vanishes.
+
+    Conversely, given a non-zero \(\omega\), notice for any \((p, \xi) \in \Lambda^n \T^* M\), there exists \(a_\xi\) such that \(\xi = a_\xi\omega(p)\). Thus, we can define
+    \[\Phi(p, \xi) = (\pi(\xi), a_\xi)\]
+    We leave as an exercise to check that \(\Phi\) is a diffeomorphism.
+\end{proof}
+
+\begin{definition}
+    [orientable] A manifold \(M\) satisfying any of the conditions in the above theorem is called \emph{orientable}\index{orientable}.
+\end{definition}
+
+Suppose \(M\) is connected. then there are \emph{two} choices of \emph{orientation}\index{orientation}, given by respectively:
+\begin{enumerate}[(a)]
+    \item \(\omega\) up to rescaling by a positive function,
+    \item a choice of an open up to `positive compatibility'.
+    \item a choice of \(\Phi\) up to compositions \((x, a) \mapsto (x, h(x)a)\), where \(h \in C^\infty(M)\) is positive.
+\end{enumerate}
+
+\begin{definition}
+    [oriented] A manifold \(M\) with a choice of orientation is called \emph{oriented}\index{oriented}.
+\end{definition}
+
+\subsection{Exterior derivative}
+
+Consider \(f \in C^\infty(M)\). Formally, it is a smooth map \(f : M \to \R\) between manifolds, and so we have a differential
+\[\dd f_p : \T_p M \to \T_{f(p)}\R = \R\]
+which depends on \(p\) in a smooth way. Then
+\[\dd f \in \Omega^1(M)\]
+
+\begin{remark}
+    A coordinate \(x_i : U \to \R\) is a smooth function, and so \(\dd x_i\) is a \(1\)-form.    
+\end{remark}
+
 
 
 \printindex

@@ -1117,6 +1117,144 @@ The issue here is that \(\partial U\) could be a problem. For example, we can co
     But \(\mu\) was arbitrary, and so we are done.
 \end{proof}
 
+\lec
+
+To conclude, we consider some examples of functions:
+
+\begin{itemize}
+    \item \(\abs{x} \notin C^\infty(-1, 1)\), but it is in \(W^{1,1}(-1, 1)\).
+    \item \(1/x\) is \(C^\infty\) and \(L^1_\loc\) on \((0, 1)\), but not \(C^\infty(\overline{(-1,1)})\) or \(W^{1, 1}\).
+\end{itemize}
+and so, \(C^\infty(U), C^\infty(\overline U) \not\subseteq W^{k,p}(U)\).
+
+\subsection{Extensions and traces}
+
+Suppose \(U \sse \R^n\) is open and bounded, \(u \in W^{k,p}(U)\). We would like to extend \(u\) to \(\overline{u} : \R^n \to \R\). What happens if we set
+\begin{align*}
+    \overline u = \begin{cases}
+        u & \text{ on }U \\
+        0 & \text{ on }U^c
+    \end{cases}
+\end{align*}
+This is okay for \(L^p\), but not for \(W^{k, p}\) as the derivatives become an issue. Moreover, we can expect at most \(\overline u \in W^{k, p}(\R^n)\).
+
+
+\begin{theorem}
+    [Calderon, Stein] Suppose \(U \sse \R^n\) is open and bounded, and \(\partial U\) is \(C^1\). Choose \(V\) bounded in \(\R^n\), with \(U \Subset V\). Let \(1 \le p < \infty\). Then there exists a bounded linear operator
+    \begin{align*}
+        E : W^{1, p}(U) &\to W^{1, p}(\R^n) \\
+        u &\mapsto \overline u
+    \end{align*}
+    such that for all \(u \in W^{1, p}(U)\),
+    \begin{itemize}[(i)]
+        \item \(\overline{u}\vert_U = u\) a.e.
+        \item \(\Supp(E(u)) \sse V\),
+        \item There exists a constant \(C\) depending only on \(U, V, p\), such that \[\norm{E(u)}_{W^{1,p}(\R^n)} \le C\norm{u}_{W^{1, p}(U)}\]
+    \end{itemize}
+
+    We call \(Eu\) the \emph{extension of \(U\) to \(R^n\)}\index{extension}.
+\end{theorem}
+
+\begin{proof}
+    \textbf{Step 1:} Fix \(p \in \partial U\), and suppose \(\partial U\) is flat near \(p\). We may assume there exists \(r > 0\) such that
+    \begin{align*}
+        B^+ &= B_r(p) \cap \{x_n \ge 0\} \sse \overline{U} \\
+        B^- &= B_r(p) \cap \{x_n < 0\} \sse \R^n \setminus \overline{U}
+    \end{align*}
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2023_10_24 (1).jpg}
+    \end{center}
+    Suppose also that \(u \in C^1(\overline U)\).Denote \(x' = (x_1, \dots, x_{n-1})\). We define
+    \[\overline{u}(x) = \begin{cases}
+        u(x) & \text{ if }x \in B^+ \\
+        -3u(x', -x_n) + 4u(x', -x_n/2) & \text{ if }x \in B^-
+    \end{cases}\]
+    which is called a \emph{higher order reflection of \(u\) from \(B^+\) to \(B^-\)}\index{higher order reflection}
+    \begin{claim}
+        \(\overline{u} \in C^1(B_r(p))\)
+    \end{claim}
+    \begin{proof}
+        Clearly \(\overline{u}\) is continuous. Computing the derivatives:
+        \[\partial_{x_n}\overline{u} = \begin{cases}
+            \partial_{x_n}u(x) & x \in B^+ \\
+            3\partial_{x_n}u(x', -x_n) - 2\partial_{x_n}u(x', -x_n/2) & x \in B^-
+        \end{cases}\]
+        Similarly,
+        \[\partial_{x_i}\overline{u} = \begin{cases}
+            \partial_{x_i}\overline(u) & x \in B^+ \\
+            -3\partial_{x_i}u(x', -x_n) + 4\partial_{x_i}u(x', -x_n/2) & x \in B^-
+        \end{cases}\]
+        and so the derivative is continuous. 
+    \end{proof}
+    We can also check that the inequality holds in this case.
+
+    \textbf{Step 2:} Suppose \(\partial U\) is not flat near \(p\). Since \(\partial U\) is \(C^1\), there exists \(r > 0\) and \(\gamma : \R^{n-1} \to \R\), such that
+    \[U \cap B_r(p) = \left\{x \mid x_n > \gamma(x')\right\}\]
+    
+    Define
+    \begin{align*}
+        \Phi : \R^n &\to \R^n \\
+        \Phi(x) &= (x_1, \dots, x_{n-1}, x_n - \gamma(x'))
+    \end{align*}
+    We can see that \(\Phi\) maps \(\partial U\) to \(\{y_n=0\}\), and it is invertible with \(C^1\) inverse
+    \[\Psi(y) = (y_1, \dots, y_{n-1}, y_n + \gamma(y'))\]
+    with
+    \begin{itemize}
+        \item \(\Phi(U \cap B_r(p)) \sse \{y_n > 0\}\)
+        \item \(\det(D\Phi) = \det(D\Psi) = 1\)
+    \end{itemize}
+    \begin{center}
+        \includegraphics[scale=0.15]{diagrams/2023_10_24 (2).jpg}
+    \end{center}
+    Moreover, there exists a neighbourhood \(W\) of \(p\), with \(\Phi(W) = B_s(\tilde p)\) for some \(s > 0\). In this case,
+    \[\Phi(U \cap W) = B_s(\tilde p) \cap \{y_n > 0\} = B^+\]
+    Define \(v(y) = u(\Psi(y))\) for \(y \in B_+\). Then \(v\) is \(C^1\), and so by step 1 there exists an extension \(\overline{v} \in C^1(B_s(\tilde p))\) with \(\overline v\vert_{B^+} = v\) and
+    \[\norm{\overline v}_{W^{1, p}(B_s(\tilde p))} \le C\norm{v}_{W^{1, p}(B^+)}\]
+    Define \(\overline u(x) = \overline{v}(\Phi(x))\), then \(\overline{u} \in C^1(W)\), and
+    \[\norm{\overline u}_{W^{1, p}(W)} \le C\norm{u}_{W^{1, p}(U)}\]
+    which we will see on examples sheet 1.
+
+    \textbf{Step 3:} Now we have local extensions near all \(p \in \partial U\). We assume \(U\) is bounded, and so we have an open cover \(\{W_0, \dots, W_N\}\), with
+    \[U \sse \bigcup_{i=0}^N W_i\]
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2023_10_24 (3).jpg}
+    \end{center}
+    and we have extensions \(\overline u_i \in C^1(W_i)\). Let \((\xi_i)_{i=0}^N\) be a partition of unity subordinate to \(\{W_i\}\). Let
+    \[\overline{u} = \sum_{i=0}^N \xi_i \overline{u_i}\]
+    where \(\overline{u_0} = u\). Then \(\overline u\vert_U = u\) ae., and
+    \[\overline{u} \in C_c^1(\R^n)\]
+    with
+    \[\norm{\overline u}_{W^{1, p}(\R^n)} \le C\norm{u}_{W^{1, p}(U)}\]
+
+    We may assume \(\Supp(\overline u) \sse V\), since \(U \Subset V\), for example by using a cutoff function.
+
+    \textbf{Step 4:} Given \(u \in W^{1, p}(U)\), by \cref{thm:smooth-approx-up-to-boundary}, there exists a sequence \((u_j) \in C^\infty(\overline U)\) with \(u_j \to u\) in \(W^{1,p}(U)\).
+
+    \begin{claim}
+        \((E(u_j))_j\) is a Cauchy sequence in \(W^{1, p}(\R^n)\).
+    \end{claim}
+
+    \begin{proof}
+        By the previous steps, we have that \(E(u_j) \in W^{1, p}(\R^n)\). By linearity,
+        \[\norm{E(u_j) - E(u_k)}_{W^{1, p}(\R^n)} = \norm{E(u_j - u_k)}_{W^{1, p}(\R^n)} \le C\norm{u_j - u_k}_{W^{1, p}(U)}\]
+        But we know that \((u_j)\) is convergent, and thus Cauchy in \(W^{1, p}(U)\).
+    \end{proof}
+    Since \(W^{1, p}(\R^n)\) is complete, the sequence converges and we define
+    \[E(u) = \lim_j E(u_j)\]
+\end{proof}
+
+\begin{remark}
+    If \(\partial U\) is \(C^k\), then we have the extension operators
+    \[E : W^{k, p}(U) \to W^{k, p}(\R^n)\]
+    Given \(u \in C^k(\overline U)\), we set
+    \[\overline{u} = \begin{cases}
+        u(x) & x\in B_+ \\
+        \sum_{j=1}^k c_ju(x', -x_n/j) & x \in B_-
+    \end{cases}\] 
+    To match at the boundary, we need
+    \[\sum_{j=1}^kc_j\left(\frac{-1}{j}\right)^m = 1\]
+    for all \(m = 0, \dots, k-1\).
+\end{remark}
 \section{Elliptic PDEs}
 
 \section{Hyperbolic PDEs}

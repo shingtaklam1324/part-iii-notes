@@ -1248,21 +1248,156 @@ where \(u_i \in U\), \(n \ge 0\).
 
 We will generalise this example to general rings \(R\), and with arbitrary multiplicative subsets \(S \sse R\). But in general, we will lose injectivity.
 
+\lec
+
+\subsection{Construction}
+
 \begin{definition}
     [localisation]
     Let \(S \sse R\) be a multiplicative set, \(M\) is an \(R\)-module. Consider the set \(M \times S\), with the relation \((m_1, s_1) \sim (m_2, s_2)\) if there exists \(u \in S\), such that
     \[u(s_2m_1 - s_1m_2) = 0\]
-    This is an equivalence relation, and we write
+    This is an equivalence relation, and we  \(S^{-1}M\) for the set of equivalence classes. We write
     \[\frac{m}{s} = [(m, s)]\]
     for the equivalence class. Finally, we write
     \[\frac{m_1}{s_1} + \frac{m_2}{s_2} = \frac{m_1s_2 + m_2s_1}{s_1s_2}\]
     and
     \[r \cdot \frac{m}{s} = \frac{rm}{s}\]
-    Writing \(S^{-1}M\) for the set of equivalence classes, the above makes \(S^{-1}M\) into an \(R\)-module. We call \(S^{-1}M\) the \emph{localisation of \(M\) at \(S\)}\index{localisation}.
+    The above makes \(S^{-1}M\) into an \(R\)-module. We call \(S^{-1}M\) the \emph{localisation of \(M\) at \(S\)}\index{localisation!of a module}.
 
-    If \(M = R\), we can make \(S^{-1}R\) into a ring by
+    If \(M = R\), we can make \(S^{-1}R\)\index{localisation!of a ring} into a ring by
     \[\frac{r_1}{s_1}\cdot\frac{r_2}{s_2}\]
+    
+    Next, we note that we have an \(S^{-1}R\)-module structure on \(S^{-1}M\), via
+    \[\frac{r}{s}\cdot \frac{m}{t} = \frac{rm}{st}\]
+
+    We have localisation maps:
+    \begin{align*}
+        R &\to S^{-1}R \\
+        r &\mapsto \frac{r}{1}
+    \end{align*}
+    which is a ring homomorphism, and
+    \begin{align*}
+        M &\to S^[-1] M \\
+        m &\mapsto \frac{m}{1}
+    \end{align*}
+    which is an \(R\)-linear map.
 \end{definition}
+
+We check that \(\sim\) above defines an equivalence relation: Reflexivity and symmetry are clear.  Say \((m_1, s_1) \sim (m_2, s_2)\) and \((m_2, s_2) \sim (m_3, s_3)\). That is, there exists \(u, v \in S\) such that
+\[u(s_2m_1 - s_1m_2) = v(s_3m_2 - s_2m_3) = 0\]
+Multiplying the first term by \(vs_3\) and the second by \(us_1\), we get
+\begin{align*}
+    uvs_2s_3m_1 &= uvs_3s_1m_2 \\
+    uvs_1s_3m_2 &= uvs_1s_2m_3
+\end{align*}
+and so, we have that
+\[uvs_2(s_3m_1 - s_1m_3) = 0\]
+Since \(S\) is multiplicatively closed, we are done.
+
+\begin{proposition}
+    [universal property of \(S^{-1}R\)] \index{universal property of!localisation of a ring}Let \(U \sse R\) be any subset, and let \(S \sse R\) be the multiplicative closure of \(U\). Let \(f : R \to B\) be a ring homomorphism, such that \(f(u)\) is a unit for all \(u \in U\). Then there exists a unique ring homomorphism \(h : S^{-1}R \to B\), such that the diagram
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJSIl0sWzIsMCwiU157LTF9UiJdLFsyLDIsIkIiXSxbMCwyLCJmIiwyXSxbMCwxLCJyIFxcbWFwc3RvIFxcZnJhY3tyfXsxfSJdLFsxLDIsImgiXV0=
+\[\begin{tikzcd}
+	R && {S^{-1}R} \\
+	\\
+	&& B
+	\arrow["f"', from=1-1, to=3-3]
+	\arrow["{r \mapsto \frac{r}{1}}", from=1-1, to=1-3]
+	\arrow["h", from=1-3, to=3-3]
+\end{tikzcd}\]
+    commutes. That is,
+    \[f(r) = h\left(\frac{r}{1}\right)\]
+\end{proposition}
+
+Another way of thinking about this is that we have a bijection
+\[\Hom_\text{Ring}(S^{-1}R, B) \bij \left\{\varphi : R \to B\text{ ring hom., with }\varphi(U) \sse B^\times\right\}\]
+given by sending \(f\) to \(r \mapsto f\left(\frac{r}{1}\right)\).
+
+\begin{proof}
+    Let \(f : R \to B\) be a ring homomorphism, with \(f(U) \sse B^\times\). In this case, \(f(S) \sse B^\times\) as well. We want \(h : S^{-1}R \to B\), with
+    \[f(r) = h\left(\frac{r}{1}\right)\]
+    First, such \(h\) must satisfy:
+    \[1 = h(1) = h \left(\frac{1}{s}\cdot \frac{s}{1}\right) = h\left(\frac{1}{s}\right)f(s)\]
+    Thus, we must have that \(h(1/s) = f(s)^{-1}\). With this, we have
+    \[h\left(\frac{r}{s}\right) = h\left(\frac{r}{1}\right)h\left(\frac{1}{s}\right) = f(r)f(s)^{-1}\]
+    But we need to check if \(h\) is well defined. That is, if \(r_1/s_1 = r_2/s_2\), then there exists \(t \in S\) such that \(t(s_2r_1 - s_1r_2) = 0\), or equivalently,
+    \[ts_2r_1 = ts_1r_2\]
+    Applying \(f\), we get
+    \[f(t)f(s_2)f(r_1) = f(t)f(s_1)f(r_2)\]
+    But every element in the above equality are in \(B^ \times\), and so we are done. It is easy to check that \(h\) is a ring homomorphism.
+\end{proof}
+
+\begin{proposition}
+    If \((A, j)\) satisfies the same universal property of \((S^{-1}R, \iota)\), where \(\iota(r) = r/1\), then there exists an isomorphism \(S^{-1}R \to A\), sending
+    \[\frac{r}{s} \mapsto j(r)j(s)^{-1}\]
+\end{proposition}
+
+\subsubsection*{Facts}
+
+\begin{enumerate}
+    \item Take \(r/s \in S^{-1}R\), then
+    \[\frac{r}{s} = \frac{0}{1} \iff \text{ there exists } u \in S \text{ with } ur = 0\]
+    \item \(S^{-1}R = 0\) if and only if \(0 \in S\).
+    \item \[\ker(\iota : R \to S^{-1}R) = \left\{r \in R \mid \text{ there exists }u \in S \text{ with }ur = 0\right\}\]
+    \item In particular, \(\iota\) is injective if and only if \(S\) does not contain any zero divisors.
+    \item \(\iota\) is always an epimorphism\footnote{A morphism \(f : X \to Y\) (in some category) is called an \emph{epimorphism}\index{epimorphism} if for all \(g_1, g_2 : Y \to Z\), with \(g_1 \circ f = g_2 \circ f\), we have \(g_1 = g_2\).}, but usually not surjective. For example, \(\iota : \Z \to \Q\) is an epimorphism. If we have \(f, g : \Q \to A\) ring homomorphisms, with \(f \circ \iota = g \circ \iota\), then \(f = g\).
+\end{enumerate}
+
+\begin{example}
+    For \(f \in R\), let \(S = \{f^n \mid n \ge 0\}\). Then we define \(R_f = S^{-1}R\).
+
+    If \(R = \Z, f = 2\), then
+    \[R_f = \left\{\frac{a}{2^n}\ \big\vert\ a \in \Z, n \ge 0\right\} = \Z\left[\frac{1}{2}\right]\]
+\end{example}
+
+\begin{notation}
+    In this course, we will write:
+    \begin{itemize}
+        \item \(\Z/n\) for the finite ring,
+        \item \(\Z_2\) for the \(2\)-adic integers,
+        \item \(\Z[1/2]\) for the above ring.
+    \end{itemize}
+\end{notation}
+
+\begin{example}
+    For a ring \(R\), let \(\Spec(R)\) denote its prime spectrum\index{spectrum, \(\Spec(R)\)}. For \(\mfp \in \Spec(R)\), we can let \(S = R \setminus \mfp\), and we write \(R_\mfp = (R\setminus \mfp)^{-1}R\).
+
+    If \(R = \Z\), \(p = \inner{3}\), then
+    \[\Z_{\inner{3}} = \left\{\frac{a}{b}\ \big\vert\ a, b \in \Z, 3 \nmid b\right\}\]
+\end{example}
+
+\begin{proposition}
+    If \(M\) is an \(R\)-module, \(S \sse R\) a multiplicative subset, then we have an isomorphism:
+    \begin{align*}
+        \frac{S^{-1}R} \otimes_R M &\to S^{-1}M \\
+        \frac{r}{s} \otimes m &\mapsto \frac{rm}{s}
+    \end{align*}
+\end{proposition}
+
+\begin{proof}
+    We can define a bilinear map
+    \begin{align*}
+        S^{-1}R \times M &\to S^{-1}M \\
+        \left(\frac{r}{s}, m\right) &\mapsto \frac{rm}{s}
+    \end{align*}
+    and thus, by the universal property we haev \(\varphi : S^{-1}R \otimes_R M \to S^{-1}M\). This is \(R\)-linear, and it is easy to see that \(\varphi\) is also \(S^{-1}R\)-linear. It is clear that \(\varphi\) is surjective, since
+    \[\varphi\left(\frac{1}{s} \otimes m\right) = \frac{m}{s}\]
+
+    We want to show that every tensor
+    \[t = \sum_i \frac{r_i}{s_i} \otimes m_i \in S^{-1}R \otimes_R M\]
+    is prime. Define \(s = \prod_i s_i\), and \(t_j = \prod_{i \ne j}s_i\). In this case,
+    \begin{align*}
+        \sum \frac{r_i}{s_i} \otimes m_i &= \sum \frac{1}{s_i} \otimes (r_i m_i) \\
+        &= \sum \frac{t_i}{s} \otimes (r_i m_i) \\
+        &= \frac{1}{s} \otimes \left(\sum_i r_it_im_i\right)
+    \end{align*}
+    Using this, if
+    \[\varphi\left(\frac{1}{s} \otimes m\right) = \frac{m}{s} = 0 = \frac{0}{1}\]
+    That is, there exists \(u \in S\), such that \(um = 0\). In this case,
+    \[\frac{1}{s} \otimes m = \frac{u}{us} \otimes m = \frac{1}{us} \otimes (um) = 0\]
+\end{proof}
+
+With this, \(S^{-1}R \otimes (\cdots)\) acts on \(R\)-modules. But in fact, it also acts on \(R\)-linear maps.
 
 \printindex
 
