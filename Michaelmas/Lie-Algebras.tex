@@ -497,7 +497,7 @@ We will show \emph{Weyl's theorem}.
 
 \begin{theorem}
     \label{thm:weyl}
-    \index{Weyl's theorem}
+    \index{Weyl's theorem!for \(\sl_2\)}
     Every finite dimensional representation of \(\sl_2\) is completely reducible.
 \end{theorem}
 
@@ -1102,7 +1102,7 @@ With this, we can now prove the Cartan-Killing criterion.
 \end{proof}
 
 \begin{theorem}
-    [Weyl] Any finite dimensional representation of a semisimple Lie algebra is completely reducible.
+    [Weyl] \label{thm:semisimple-weyl}\index{Weyl's theorem}Any finite dimensional representation of a semisimple Lie algebra is completely reducible.
 \end{theorem}
 
 \begin{proof}
@@ -1228,6 +1228,7 @@ Let \(V\) be a finite dimensional vector space. We can consider the adjoint repr
 \end{proof}
 
 \begin{theorem}
+    \label{thm:semisimple-nilpotent-parts-in}
     Suppose \(\mfg\) is a semisimple Lie algebra, which is a subalgebra of \(\gl(V)\). Let \(x \in \mfg\), then \(x_s, x_n \in \mfg\).
 \end{theorem}
 
@@ -1257,9 +1258,107 @@ Let \(V\) be a finite dimensional vector space. We can consider the adjoint repr
     \end{claim}
 
     \begin{proof}
-        \(W\) is a subrepresentation of \(\mfg\), and so it is stabilised by \(\mfg\), and also the image of \(\mfg\) in \(\gl(W)\), say \(\overline{\mfg}\), the image is also semisimple.
+        \(W\) is a subrepresentation of \(\mfg\), and so it is stabilised by \(\mfg\), and also the image of \(\mfg\) in \(\gl(W)\), say \(\overline{\mfg}\), is also semisimple. 
+        
+\lec
+        
+        With this, \([\overline{\mfg}, \overline{\mfg}] = \overline{\mfg}\), and so every element of \(\overline{\mfg}\) is a sum of commutators, and all of the traces are zero, and so \(\mfg \le \mfg_W\).
     \end{proof}
+
+    Using this, \(\tr(x \vert_W) = 0\). Note \(x_s, x_n\) are polynomials in \(x\), and so they stabilise everything that \(x\) does. Moreover, \(\tr(x_n\vert_W) = 0\) as \(x_n \vert_W\) is nilpotent. Thus, \(\tr(x_s\vert_W) = \tr(x\vert_W) -\tr(x_n\vert_W) = 0\). Using this, \(x_s, x_n \in \mfg_W\) for all \(W\).
+
+    To finish, define 
+    \[\mfg' = N(\mfg) \cap \bigcap_{W \le V \text{ irred subrep}}\mfg_W\]
+    \begin{claim}
+        \(\mfg = \mfg'\).
+    \end{claim}
+
+    \begin{proof}
+        Since \(\mfg' \le N(\mfg)\), \(\mfg\) is an ideal of \(\mfg'\). Then \(\mfg\) is a subrepresentation of \(\mfg'\) under the adjoint representation of \(\mfg\). By Weyl's theorem\footnote{applied to the representation \(\mfg'\) of the semisimple Lie algebra \(\mfg\)}, \(\mfg' = \mfg \oplus U\) as representations. It suffices to show \(U = 0\). 
+        
+        Choose \(u \in U\), then as \(\mfg\) is an ideal, \([u,\mfg] \sse \mfg\). But \(\ad(\mfg)(U) \sse U\), and so \([u, \mfg] \sse U\). Hence \([u, \mfg] = 0\), and so \(u\) commutes with every element of \(\mfg\). Using this, \(u\) is a \(\mfg\)-endomorphism \(V \to V\), and so it stabilises every irreducible subrepresentation \(W\).
+
+        By Schur's lemma, \(u \vert_W = \lambda \id_W\) for some scalar \(\lambda \in \C\). But \(\tr(u\vert_W) = 0\) since \(u \in \mfg_W\), and so \(\lambda = 0\). But every representation splits as a direct sum of irreducibles, and so \(u\) must be zero.
+    \end{proof}
+    By the above, we see that \(x_s, x_n\) is in each set on the right hand side, and so \(x_s, x_n \in \mfg\).
 \end{proof}
+
+For \(\mfg \le \gl(V)\) a semisimple Lie algebra, we can define an \emph{abstract Jordan decomposition}\index{abstract Jordan decomposition}
+\[\ad(x) = \ad(x)_s + \ad(x)_n\]
+Since \(\ad\) is faithful, as \(\mfg\) is semisimple, \(\mfg\) is isomorphic to \(\ad(\mfg) \le \gl(\mfg)\). By \cref{thm:semisimple-nilpotent-parts-in}, \(\ad(x)_s, \ad(x)_n \in \ad(\mfg)\), and so there exists \(x_s, x_n \in \mfg\) such that \(x = x_s + x_n\).
+
+Suppose \(\mfg \le \gl(V)\) for some \(V\), with \(x = x_s + x_n\). Then since \(\ad(x_n) = \ad(x)_n\) and \(\ad(x_s) = \ad(x)_s\), the abstract Jordan decomposition is just the usual Jordan decomposition.
+
+\begin{corollary}
+    Let \(\varphi : \mfg \to \gl(V)\) be any representation of a semisimple Lie algebra \(\mfg\). Choose \(x \in \mfg\), and let it have a Jordan decomposition \(x = x_s + x_n\), then
+    \[\varphi(x_s) = \varphi(x)_s \qqtext{and}\varphi(x_n) = \varphi(x)_n\]
+    defines a Jordan decomposition of \(\varphi(x)\).
+\end{corollary}
+
+\begin{proof}
+    See Corollary 5.11 of the notes by David Stuart on Moodle. It needs semisimplicity, and the fact that we are working over \(\C\). It fails if we work over a field with positive characteristic.
+\end{proof}
+
+\section{Groups of automorphisms}
+
+Omitted for now, it may come at the end, or it may not.
+
+\section{Cartan subalgebras and root space decompositions}
+
+In this section, \(\mfg\) is a finite dimensional semisimple Lie algebra over \(\C\).
+
+\begin{definition}
+    [toral subalgebra] A subalgebra \(\mft\) of \(\mfg\) is \emph{toral}\index{toral subalgebra} if
+    \begin{enumerate}
+        \item \(\mft\) is abelian,
+        \item \(\ad(x)\) is semisimple for all \(x \in \mft\).
+    \end{enumerate}
+
+    A maximal toral subalgebra is called a \emph{maximal torus}\index{maximal torus}, or a \emph{Cartan subalgebra}\index{Cartan subalgebra} (CSA).
+\end{definition}
+
+\begin{remark}
+    Many authors, including Humphreys define Cartan subalgebras as a nilpotent subalgebra which equals its normaliser in \(\mfg\). That is,
+    \[\mft = \left\{x \in \mfg \mid [x, \mft] \sse \mft\right\}\]
+    This is equivalent to our definition.
+\end{remark}
+
+\begin{example}
+    If \(\mfg \le \sl_n, \gl_n\), with \(\mft\) being the set of diagonal matrices, then \(\mft\) is a maximal torus. It is true for \(\so_n\) and \(\sp_{2n}\) as well.
+\end{example}
+
+\begin{lemma}
+    \label{lem:simultaneuous-eigenspace}
+    Let \(t_1, \dots, t_n \in \End(V)\) which pairwise commute, and are all semisimple. Suppose \(\lambda = (\lambda_1, \dots, \lambda_n) \in \C^n\), and define
+    \[V_\lambda = \left\{v \in V \mid t_iv = \lambda_i v \text{ for all }i\right\}\]
+    That is, the simultaneuous eigenspaces for the \(t_i\). Then
+    \[V = \bigoplus_{\lambda \in \C^n}V_\lambda\]
+\end{lemma}
+
+\begin{proof}
+    By induction on \(n\). \(n=1\) is true by definition. For \(n > 1\), we know by induction that
+    \[V = \bigoplus_{\lambda' \in \C^{n-1}}V_{\lambda'}\]
+    for the action of \(t_1, \dots, t_{n-1}\). Then since the \(t_i\) commute,
+    \[t_n(V_{\lambda'}) \sse V_{\lambda'}\]
+    for all \(\lambda'\). By decomposing each \(V_{\lambda'}\) in terms of \(t_n\) eigenspaces, we are done.
+\end{proof}
+
+\begin{lemma}
+    Any \(\mfg\) contains a Cartan subalgebra.
+\end{lemma}
+
+\begin{proof}
+    Needs Engel's theorem (Examples sheet 2), and Zorn's lemma. See Stuart's notes.
+\end{proof}
+
+Recasting \cref{lem:simultaneuous-eigenspace}, suppose we have \(\mfh \le \gl(V)\) with a basis of commuting semisimple elements \(t_1, \dots, t_n\). Take \(\lambda \in \C^n\), this corresponds the element of \(\mfh^*\), given by
+\[t_i \mapsto \lambda_i\]
+Then
+\[V_\lambda = \left\{v \in V \mid h v = \lambda(h)v \text{ for all }h \in \mfh\right\}\]
+In our situation, fix a Cartan subalgebra \(\mft \le \mfg\), then
+\[\mfg = \bigoplus_{\lambda \in \mft^*} \mfg_\lambda\]
+where 
+\[\mfg_\lambda = \left\{x \in \mfg \mid [t, x] = \lambda(t)x \text{ for all }x \in \mft\right\}\]
 
 \printindex
 

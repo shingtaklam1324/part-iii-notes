@@ -783,7 +783,7 @@ Fix a topological space \(X\), and \(\mcB\) a basis for the topology.
 
 \lec
 
-Recall \(\Spec(A)\) is a topological space, with distinguised open sets \(\{U_f\}_{f \in A}\). Moreover, \(U_f = U_g\) if and only if \(f\) and \(g\) are powers of some \(h \in A\), and if \(U_f = U_g\), then \(A_f \cong A_g\). Therefore, the assignment
+Recall \(\Spec(A)\) is a topological space, with distinguised open sets \(\{U_f\}_{f \in A}\). Moreover, \(U_f = U_g\) if and only if \(f^n = ga\) and \(g^m = fb\) for some \(m, n \in \N, a, b \in A\). Thus, if \(U_f = U_g\), then \(A_f \cong A_g\). Therefore, the assignment
 \[U_f \mapsto A_f\]
 is well-defined.
 
@@ -881,15 +881,88 @@ for all \(V \sse U \sse X\) open.
     \(\Spec(A)\) is a scheme.
 \end{example}
 
+\lec
+
 \begin{example}
-    [Open subschemes] \index{open subscheme}Let \(X\) be a scheme, \(U \sse X\) an open subset. We can take
-    \[\mcO_U = \mcO_X\vert_U\]
-    to be the structure sheaf of \(U\), making \(U\) into a scheme. This is because the \(\{U_f\}\)s form a basis of the topology on \(\Spec(A)\).
+    [Open subschemes] \index{open subscheme}Let \(X\) be a scheme, \(U \sse X\) an open subset. We write \(i : U \inj X\) for the inclusion map. Using this, we can define
+    \[\mcO_U = \mcO_X\vert_U := i^{-1}\mcO_X\]
+\end{example}
+
+\begin{proposition}
+    The ringed space \((U, \mcO_U)\) is a scheme.
+\end{proposition}
+
+A simple case of this is to take \(X = \Spec(A)\), and the distinguished open \(U = U_f\). Then
+\[(U, \mcO_U) \cong (\Spec(A_f), \mcO_{\Spec(A_f)})\]
+\begin{proof}
+    Let \(p \in U \sse X\). Since \(X\) is a scheme, we can find \(V_p\) such that \(V_p\) is isomorphic to an affine scheme. Take \(V_p \cap U\) with structure sheaf via restriction. Note however \(V_p \cap U\) may not be affine.
+
+    Since \(V_p\) is affine, say \(V_p \cong \Spec(B)\). The distinguished opens form a basis for the Zariski topology on \(\Spec(B)\). So we've reduced to the simple case as above.
+\end{proof}
+
+We define \emph{affine space}\index{affine space, \(\aff k n\)}
+\[\aff k n = \Spec(k[x_1, \dots, x_n])\]
+
+\begin{example}
+    Take \(U = \aff k {n^2} \setminus \{\det(x_{ij}) = 0\}\). That is, ``\(U\) is \(\GL(n, k)\)'' roughly speaking. Eventually we will show multiplication \(U \times U \to U\) is a morphism of schemes.
 \end{example}
 
 \begin{example}
-    Take \(X = \Spec(\C[x, y])\), and \(U = X \setminus \{\inner{x, y}\}\). The scheme \(U\) is \emph{not} an affine scheme.
+    [a non-affine scheme]
+    Let \(X = \aff k 2\), \(U = X \setminus \{\inner{x, y}\}\). Roughly speaking, we have \(k^2 \setminus 0\).
+
+    \begin{claim}
+        \(U\) is not affine.
+    \end{claim}
+    \begin{proof}
+        Suppose it was. We can compute \(\mcO_U(U)\). Write \(U_x = \aff k 2 \setminus \van(x)\), and define \(U_y = \aff k 2 \setminus \van(y)\). Observe \(U = U_x \cup U_y\), and
+        \[U_x \cap U_y = \aff k 2 \setminus \van(xy)\]
+        With this,
+        \begin{align*}
+            \mcO_U(U_x) &= k[x, x^{-1}, y] \\
+            \mcO_U(U_y) &= k[x, y, y^{-1}] \\
+            \mcO_U(U_x \cap U_y) &= k[x,x^{-1},y,y^{-1}]
+        \end{align*}
+        and the restriction maps \(\mcO_U(U_x) \to \mcO_U(U_{xy})\) are the obvious ones. By the sheaf axioms,
+        \[\mcO_U(U) = k[x, x^{-1}, y] \cap k[x, y, y^{-1}]\]
+        where we compute the intersection in \(k[x, x^{-1}, y, y^{-1}]\). This means that
+        \[\mcO_U(U) = k[x, y]\]
+        Contradiction. One way to see this is that in \(U\), there exists a maximal ideal in the global section ring with empty vanishing locuz, namely the maximal ideal \(\inner{x, y}\).
+    \end{proof}
 \end{example}
+
+\subsection{Interlude - gluing sheaves}
+
+Let \(X\) be a topological space, with a cover \(\{U_\alpha\}\). Suppose we have sheaves \(\mcF_\alpha\) on \(U_\alpha\), and isomorphisms of sheaves
+\[\phi_{\alpha\beta} : \mcF_\alpha\vert_{U_\alpha \cap U_\beta} \to \mcF_\beta\vert_{U_\alpha \cap U_\beta}\]
+Such that \(\varphi_{\alpha\alpha} = \id\), \(\varphi_{\alpha\beta} = \varphi_{\beta\alpha}^{-1}\), and the cocycle condition
+\[\phi_{\beta\gamma} \circ \phi_{\alpha\beta} = \phi_{\alpha\gamma} \text{ on }U_\alpha \cap U_\beta \cap U_\gamma\]
+
+\begin{proposition}
+    We can build a sheaf \(\mcF\) on \(X\). Given \(V \sse X\) open, define
+    \[\mcF(V) = \left\{(s_\alpha)_\alpha \mid s_\alpha \in \mcF_\alpha(U_\alpha \cap V) \text{ such that }\phi_{\alpha\beta}(s_\alpha\vert_{V \cap U_\alpha \cap U_\beta}) = s_\beta\vert_{V \cap U_\alpha \cap U_\beta}\right\}\]
+    Moreover, \(\mcF\vert_{U_\alpha} = \mcF_\alpha\) on \(U\).
+\end{proposition}
+
+\begin{proof}
+    [\(\mcF\) is a presheaf] Given \((s_\alpha) \in \mcF_V\), \(W \sse V\) open, we can take
+    \[(s_\alpha)\vert_W = \left(\res^{V \cap U_\alpha}_{W \cap U_\alpha}(s_\alpha)\right)_\alpha\]
+    We need to check that this lies in \(\mcF(W)\). But this follows from the sheaf axioms.
+
+    \emph{\(\mcF\) is a sheaf.} The sheaf axioms are clear.
+
+    \emph{Restriction.} We need to build an isomorphism \(\mcF\vert_{U_{\gamma}} \cong \mcF_\gamma\). Define a morphism \(\mcF_\gamma \to \mcF\vert_{U_\gamma}\), where for \(V \sse U_\gamma\), \(s \in \mcF_\gamma(V)\), define the image to be
+    \[\left(\phi_{\gamma\alpha}(s\vert_{V \cap U_\alpha})\right)_{\alpha}\]
+    We need to check that this is in \(\mcF\vert_{U_\gamma}(V) = \mcF(V)\). But this follows from the cocycle condition, as
+    \[\phi_{\alpha\beta}\circ \phi_{\gamma\alpha}(s\vert_{V \cap U_\alpha \cap U_\beta}) = \phi_{\gamma\beta}(s\vert_{V \cap U_\alpha \cap U_\beta})\]
+    It is easy to see that this is an isomorphism.
+\end{proof}
+
+\subsection{More schemes}
+
+Let \((X, \mcO_X), (Y, \mcO_Y)\) be schemes, with opens \(U \sse X, V \sse Y\) and an isomorphism \((U, \mcO_X\vert_U) \cong (V, \mcO_Y\vert_V)\) as ringed spaces. We can glue both topological spaces and schemes, that is,
+\[\frac{X \sqcup Y}{U \sim V}\]
+and the sheaf is glued as in the previous construction.
 
 \printindex
 
