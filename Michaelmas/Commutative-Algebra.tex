@@ -1399,6 +1399,171 @@ given by sending \(f\) to \(r \mapsto f\left(\frac{r}{1}\right)\).
 
 With this, \(S^{-1}R \otimes (\cdots)\) acts on \(R\)-modules. But in fact, it also acts on \(R\)-linear maps.
 
+\lec
+
+\begin{proposition}
+    [localisation is a functor] Let \(M\) be an \(R\)-module, \(S \sse R\) a multiplicative subset. Let \(f : N \to N'\) be an \(R\)-linear map. Then the following square commutes:
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJTXnstMX1SXFxvdGltZXMgTiJdLFsyLDAsIlNeey0xfVIgXFxvdGltZXMgTiciXSxbMCwyLCJTXnstMX1OIl0sWzIsMiwiU157LTF9TiciXSxbMCwyLCJcXHNpbSJdLFsxLDMsIlxcc2ltIl0sWzAsMSwiXFxpZF97U157LTF9Un0gXFxvdGltZXMgZiJdLFsyLDMsIlNeey0xfShmKSIsMl1d
+\[\begin{tikzcd}
+	{S^{-1}R\otimes N} && {S^{-1}R \otimes N'} \\
+	\\
+	{S^{-1}N} && {S^{-1}N'}
+	\arrow["\sim", from=1-1, to=3-1]
+	\arrow["\sim", from=1-3, to=3-3]
+	\arrow["{\id_{S^{-1}R} \otimes f}", from=1-1, to=1-3]
+	\arrow["{S^{-1}(f)}"', from=3-1, to=3-3]
+\end{tikzcd}\]
+    In particular,
+    \[(S^{-1}f)\left(\frac{n}{s}\right) = \frac{f(n)}{s}\]
+\end{proposition}
+
+With this, the functors \(S^{-1}R \otimes (\cdot)\) and \(S^{-1}(\cdot)\) are naturally isomorphic.
+
+\begin{remark}
+    Let \(A\) be an \(R\)-algebra, \(S^{-1}R \otimes A \to S^{-1}A\) is \(S^{-1}R\)-linear, and also an isomorphism of \(S^{-1}R\)-algebras.
+\end{remark}
+
+\begin{lemma}
+    If \(M\) is an \(S^{-1}R\)-module, then, we can restrict scalars on \(M\) from \(S^{-1}R\) to \(R\), then apply \(S^{-1}(\cdot)\). Then
+    \[S^{-1}M \cong M\]
+    as \(S^{-1}R\)-modules. Equivalently,
+    \[M \cong S^{-1}R \otimes M\]
+    as \(S^{-1}R\)-modules.
+\end{lemma}
+
+\begin{proof}
+    We can see that the map
+    \begin{align}
+        M &\to S^{-1}M \\
+        m &\mapsto \frac{m}{1}
+    \end{align}
+    is \(S^{-1}R\)-linear. Surjectivity and injectivity are clear.
+\end{proof}
+
+\begin{proposition}
+    Let \(M\) be an \(R\)-module, \(L\) an \(S^{-1}R\)-module, \(f : M \to L\) is \(R\)-linear. Then there exists a unique \(h : S^{-1}M \to L\) which is \(S^{-1}R\)-linear, such that
+    \[f(m) = h\left(\frac{m}{1}\right)\]
+\end{proposition}
+
+\begin{proof}
+    We know that \(S^{-1}(\cdot) \otimes S^{-1}R \otimes (\cdot)\), and so it suffices to prove the result for the tensor product. With this, the localisation map is
+    \begin{align*}
+        \iota : M &\to S^{-1}R \otimes M \\
+        m &\mapsto \frac{1}{1} \otimes m
+    \end{align*}
+    Let \(f : M \to L\) be \(R\)-linear. We then have that
+    \[h : \id_{S^{-1}R} \otimes f : S^{-1}R \otimes_R M \to S^{-1}R \otimes_R L\]
+    But the previous lemma shows that \(S^{-1}R \otimes_R L \cong L\) as \(S^{-1}R\)-modules. In particular,
+    \[h\left(\frac{r}{s} \otimes m\right) = \frac{r}{s}f(m)\]
+    For the uniqueness of \(h\), it follows from the fact that elements of the form \(\frac{1}{1} \otimes m\) generate \(S^{-1}R \otimes_R M\) as an \(S^{-1}R\)-module.
+\end{proof}
+
+\begin{proposition}
+    [the functor \(S^{-1}R\) is exact] If
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzEsMCwiQiJdLFsyLDAsIkMiXSxbMCwxLCJmIl0sWzEsMiwiZyJdXQ==
+\[\begin{tikzcd}
+	A & B & C
+	\arrow["f", from=1-1, to=1-2]
+	\arrow["g", from=1-2, to=1-3]
+\end{tikzcd}\]
+    is an exact sequence of \(R\)-modules, then
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJTXnstMX1BIl0sWzIsMCwiU157LTF9QiJdLFs0LDAsIlNeey0xfUMiXSxbMCwxLCJTXnstMX1mIl0sWzEsMiwiU157LTF9ZyJdXQ==
+\[\begin{tikzcd}
+	{S^{-1}A} && {S^{-1}B} && {S^{-1}C}
+	\arrow["{S^{-1}f}", from=1-1, to=1-3]
+	\arrow["{S^{-1}g}", from=1-3, to=1-5]
+\end{tikzcd}\]
+    is an exact sequence of \(S^{-1}R\)-modules.
+\end{proposition}
+
+\begin{proof}
+    \[(S^{-1}g) \circ (S^{-1}f) = S^{-1}(g \circ f) = S^{-1}(0) = 0\]
+    and so \(\im(S^{-1}f) \sse \ker(S^{-1}g)\). Let
+    \[\frac{b}{s} \in \ker(S^{-1}g)\]
+    Then
+    \[\frac{g(b)}{s} = \frac{0}{1}\]
+    That is, there exists \(u \in S\), such that \(u\cdot g(b) = 0\). But \(g\) is \(R\)-linear, \(u \in R\), and so \(g(ub) = 0\), which means that \(ub \in \ker(g) = \im(f)\). Thus, there exists \(a \in A\) such that \(f(a) = ub\). Now
+    \[\frac{b}{s} = \frac{ub}{us} = \frac{f(a)}{us} = S^{-1}f\left(\frac{a}{us}\right) \in \im(S^{-1}f)\]
+\end{proof}
+
+Equivalently, \(S^{-1}R\) is a flat \(R\)-module. Suppose \(\iota : N \to M\) is the inclusion map, then
+\[S^{-1}\iota : S^{-1}N \to S^{-1}M\]
+is injective, and so the expression
+\[\frac{n}{s}\]
+makes sense in \(S^{-1}N\) \emph{and} \(S^{-1}(M)\).
+
+\begin{proposition}
+    Let \(M\) be an \(R\)-module, \(N, P\) submodules of \(M\). Then
+    \begin{enumerate}[(i)]
+        \item \(S^{-1}(N + P) = S^{-1}N + S^{-1}P\).
+        \item \(S^{-1}(N \cap P) = S^{-1}N \cap S^{-1}P\),
+        \item \((S^{-1}M)/(S^{-1}N) \cong S^{-1}(M/N)\) as \(S^{-1}R\) modules via
+        \[\frac{m}{s} + S^{-1}N \bij \frac{m + N}{s}\]
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    For (i), the left hand side consists of elements of the form \(\frac{n + p}{s}\), and the right hand side consists of elements of the form \(\frac{n}{s_1} + \frac{p}{s_2}\). The result is then clear.
+
+    For (ii), \(\sse\) is clear. Given \(x \in S^{-1}N \cap S^{-1}P\), that is,
+    \[x = \frac{n}{s_1} = \frac{p}{s_2}\]
+    for \(n \in N, p \in P, s_1, s_2 \in S\). But then there exists \(u \in S\), such that \(us_2n = us_1p =: w \in N \cap P\). With this,
+    \[x - \frac{n}{s_1} = \frac{us_2n}{us_1s_2} = \frac{w}{us_1s_2} \in S^{-1}(N \cap P)\]
+
+    For (iii), consider the exact sequence
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTiJdLFsyLDAsIk0iXSxbMywwLCJNL04iXSxbNCwwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+\[\begin{tikzcd}
+	0 & N & M & {M/N} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    Applying the exact functor \(S^{-1}\),
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiU157LTF9TiJdLFsyLDAsIlNeey0xfU0iXSxbMywwLCJTXnstMX0oTS9OKSJdLFs0LDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & {S^{-1}N} & {S^{-1}M} & {S^{-1}(M/N)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    But this immediately gives that
+    \[S^{-1}(M/N) \cong \frac{S^{-1}M}{S^{-1}N}\]
+    as \(S^{-1}R\)-modules. Computing the respective maps gives the result.
+\end{proof}
+
+\begin{proposition}
+    If \(M, N\) are \(R\)-modules, then
+    \[S^{-1}M \otimes_{S^{-1}R} S^{-1}N \cong S^{-1}(M \otimes_R N)\]
+\end{proposition}
+
+\begin{proof}
+    We have the isomorphism from extension of scalars:
+    \[(S^{-1}R \otimes_R M) \otimes_{S^{-1}R} (S^{-1}R \otimes_R N) \cong S^{-1}R \otimes_R (M \otimes_R N)\]
+\end{proof}
+
+A special case of this is that if \(\mfp\) is a prime ideal of \(R\), then
+\[M_\mfp \otimes_{R_\mfp} N_\mfp = (M \otimes_R N)_\mfp\]
+
+\subsection{Extension and contraction of ideals}
+
+Recall if \(f : A \to B\) is a ring homomorphism, we define the \emph{contraction of \(\mfb \idealof B\)}\index{contraction of an ideal} as
+\[\mfb^c = f^{-1}(\mfb) \idealof A\]
+and the \emph{extension of \(\mfa \idealof A\)}\index{extension of an ideal} as
+\[\mfa^e = \inner{f(\mfa)} \idealof B\]
+In examples sheet 1, we have a bijection
+\[\{\text{contracted ideals of }A\} \bij \{\text{extended ideals of }B\}\]
+To see this, we have that an ideal \(\mfa\) is contracted if and only if \(\mfa = \mfa^{ec}\), and an ideal \(\mfb\) is extended if and only if \(\mfb = \mfb^{ce}\), and so the bijection is given by extension/contraction.
+
+Let \(S\) be a multiplicative subset of \(R\), and we will consider the ring homomorphism \(R \to S^{-1}R\), given by \(r \mapsto r/1\). For an ideal \(\mfa\) of \(R\), we have the \emph{extension}
+\[\mfa^e = S^{-1}\mfa \idealof S^{-1}R\]
+and for an ideal \(\mfb\) of \(S^{-1}R\), we have the contraction \(\mfb^c \idealof R\).
+
+\begin{proposition}
+    \[\mfa^e = S^{-1}\mfa = \left\{\frac{a}{s} \ \bigg\vert\ a \in \mfa, s \in S\right\}\]
+\end{proposition}
+
 \printindex
 
 \end{document}

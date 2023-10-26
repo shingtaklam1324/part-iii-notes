@@ -1255,6 +1255,163 @@ This is okay for \(L^p\), but not for \(W^{k, p}\) as the derivatives become an 
     \[\sum_{j=1}^kc_j\left(\frac{-1}{j}\right)^m = 1\]
     for all \(m = 0, \dots, k-1\).
 \end{remark}
+
+\lec
+
+\subsubsection*{Traces}
+
+If we have \(u \in C^0(\overline U)\), then \(u \vert_{\partial U}\) makes sense. But for \(u \in W^{k, p}(U)\), then \(u\vert_{\partial U}\) does not make sense, as \(\partial U\) has measure zero.
+
+\begin{theorem}
+    Let \(U\) be open bounded and \(\partial U\) is \(C^1\). Then there exists a bounded linear operator
+    \[T : W^{1, p}(U) \to L^p(\partial U)\]
+    called the \emph{trace of \(u\) on \(\partial U\)}\index{trace}, such that
+    \begin{enumerate}[(i)]
+        \item \(T(u) = u\vert_{\partial U}\) if \(u \in W^{1, p}(U) \cap C^0(\overline U)\),
+        \item \(\norm{T(u)}_{L^p(\partial U)} \le C \norm{u}_{W^{1, p}(U)}\) for all \(u \in W^{k, p}(U)\), where \(C\) depends only on \(U, p\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    We have \(u, Du \in L^p\), which is giving us the control of \(u\) on the boundary.
+\end{remark}
+
+\begin{proof}
+    [Sketch proof] See examples sheet 2. Suppose \(u \in C^1(\overline U)\), and \(\partial U\) is flat near \(p\). Let
+    \begin{align*}
+        B^+ &= B_r(p) \cap \{x_n \ge 0\} \sse \overline U \\
+        B^- &= B_r(p) \cap \{x_n < 0\} \sse \R^n \setminus U
+    \end{align*}
+    as before, and let \(\Gamma\) be the portion of \(\partial U\) within \(B_r(p)\). Choose \(\xi \in C_c^\infty(B_r(p))\) such that \(0 \le \xi \le 1\) on \(B_r(p)\), and \(\xi = 1\) on \(B_{r/2}(p)\). Then
+    \begin{align*}
+        \int_\Gamma \abs{u(x', 0)}^p \dd x' &\le \int_{B_r(p) \cap \{x_n = 0\}} \xi \abs{u(x', 0)}^p \dd x' \\
+        &\underbrace{=}_{\text{FTC}} (-1)\int_{B^+}\partial x_n(\xi\abs{u}^p)\dd x_n \dd x' \\
+        &= (-1)\int_{B^+}\abs{u^p}\partial_{x_n}\xi + p \abs{u}^{p-1}\sign(u)\partial_{x_n}u \xi \dd x \\
+        &\underbrace{\le}_{\text{Young's inequality}} C_p\int_{B^+}\abs{u}^p + \abs{Du}^p \dd x \\
+        &= C_p\norm{u}^p_{W^{1, p}(U)}
+    \end{align*}
+
+    In Sheet 2, we will extend to general \(\partial U\) using a partition unity, and the fact that it is compact. Then define
+    \[T(u) = u\vert_{\partial U}\]
+    for \(u \in C^1(\overline U)\), and we have that
+    \[\norm{T(u)}_{L^p(\partial U)} \le C\norm{u}_{W^{1, p}(U)}\]
+    Using density of \(C^\infty(\overline U)\) in \(W^{1, p}(U)\), we are done.
+\end{proof}
+
+\begin{remark}
+    \begin{itemize}
+        \item The map \(T\) above is not surjective, however in the case of \(T : \HH^s \to \HH^{s-1/2}\), it is surjective.
+        \item Recall \(W^{k,p}_0(U)\) is the closure of \(C_c^\infty(U)\) in \(W^{k, p}(U)\). If \(u \in W^{k,p}_0(U)\), then there exists \((u_j) \sse C_c^\infty(U)\), such that \(u_j \to u\) in \(W^{k, p}(U)\). In particular,
+        \[T(u) = T(\lim_j u_j) = \lim_j T(u_j) = 0\]
+        In fact, the converse is true also. If \(T(u) = 0\), then \(u \in W^{1, p}_0(U)\).
+        \item if \(u \in W^{k, p}(U)\), then we can define trace operators for \(Du, \dots, D^{k-1}(U)\).
+    \end{itemize}
+\end{remark}
+
+\subsection{Sobolev inqualities}
+
+In this case, the basic idea is that we can trade differentiability (measured by \(k\)) for integrability (measured by \(p\)). Note it does not work the other way. For example, if \(f' \in L^1(\R)\) then \(f \in L^\infty(\R)\), but the converse is not true.
+
+The idea is that we will prove estimates of the form
+\[\norm{u}_{L_q(\R^n)} \le C\norm{D u}_{L^p(\R^n)} \left(+ \norm{u}_{L^p(\R^n)}\right)\]
+
+We have three cases:
+\begin{enumerate}
+    \item \(1 \le p < n\),
+    \item \(p = n\),
+    \item \(n < p \le \infty\).
+\end{enumerate}
+
+\begin{lemma}
+    Let \(n \ge 2\), and \(f_1, \dots, f_n \in L^{n-1}(\R^{n-1})\). Then for \(1 \le i \le n\), define 
+    \[\widetilde x_i = (x_1, \dots, x_{i-1}, x_{i+1}, \dots, x_n) \in \R^{n-1}\]
+    and
+    \[f(x) = \prod_{i=1}^n f_i(\widetilde x_i) : \R^n \to \R\]
+    Then \(f \in L^1(\R^n)\), with
+    \[\norm{f}_{L^1(\R^n)} \le \prod_{i=1}^n \norm{f_i}_{L^{n-1}(\R^{n-1})}\]
+\end{lemma}
+
+\begin{proof}
+    We induct on \(n\). The case \(n = 2\) gives
+    \[f(x_1, x_2) = f_1(x_1)f_2(x_2)\]
+    But
+    \begin{align*}
+        \norm{f}_{L^1(\R^2)} &= \int_{\R^2}\abs{f_1(x_1)}\abs{f_2(x_2)}\dd x_1 \dd x_2 \\
+        &= \int_\R \abs{f_1(x_1)}\dd x_1 \int \abs{f_2(x_2)}\dd x_2 \\
+        &= \norm{f_1}_{L^1(\R)}\norm{f_2}_{L^1(\R)}
+    \end{align*}
+    Suppose the result is true for \(n\). Write
+    \[F(x) = f_1(\widetilde x_1) \cdots f_n (\widetilde x_n)\]
+    and so \(f(x) = F(x)f_{n+1}(\tilde x_{n+1})\). Fix \(x_{n+1}\) and integrate over \(x_1, \dots, x_n\):
+    \begin{align*}
+        \int_{\R^n}\abs{f(\xi_1, \dots, \xi_n, x_{n+1})} \dd \xi_1 \cdots \dd x_n &= \int_{\R^n}\abs{F(\xi, x_{n+1})} \abs{f_{n+1}(\xi)}\dd \xi \\
+        &\underbrace{=}_{\text{H\"older}} \norm{F(\cdot, x_{n+1})}_{L^{n/(n-1)}(\R^n)}\norm{f_{n+1}}_{L^n(\R^n)}
+    \end{align*}
+    By the induction hypothesis, if \(q = n/(n-1)\), then
+    \begin{align*}
+        \norm{F(\cdot, x_{n+1})}_{L^{n/(n-1)}(\R^n)} &= \norm{F(\cdot, x_{n+1}^q)}^{1/q}_{L^1(\R^n)} \\
+        &\le \prod_{i=1}^n \norm{f_i(\cdot, x_{n+1})^{n/(n-1)}}^{(n-1)/n}_{L^{n-1}(\R^n)} \\
+        &= \prod_{i=1}^n \norm{f(\cdot, x_{n+1})}_{L^n(\R^{n-1})}
+    \end{align*}
+    Integrating over \(x_{n+1}\),
+    \begin{align*}
+        \norm{f}_{L1(\R^{n+1})} &\le \norm{f_{n+1}}_{L^n(\R^n)}\int_\R \prod_{i=1}^n \norm{f_i(\cdot, x_{n+1})}_{L^n(\R^{n-1})}\dd x_{n+1} \\
+        &\le \norm{f_{n+1}}_{L^n(\R^n)}\prod_{i=1}^n\left(\int_\R \norm{f_i(\cdot, x_{n+1})}_{L^n(\R^{n-1})}^n \dd x_{n+1}\right)^{1/n} \\
+        &= \prod_{i=1}^{n+1}\norm{f_i}_{L^n(\R^n)}
+    \end{align*}
+    Where we used the generalised H\"older inequality with \(p = n\), that is,
+    \[\norm{\prod_i f_i}_{L^1} \le \prod_{i=1}^n \norm{f_i}_{L^{p_i}}\]
+    where \(\sum \frac{1}{p_i} = 1\).
+\end{proof}
+
+\begin{theorem}
+    [Gagliado-Nirenberg-Sobolev inequality]
+    \label{thm:Gagliado-Nirenberg-Sobolev}
+    \index{Gagliado-Nirenberg-Sobolev inequality}
+    Suppose \(1\le p < n\), set
+    \[p^* = \frac{np}{n-p}\]
+    for the \emph{Sobolev conjugate of \(p\)}\index{Sobolev conjugate}. Then we have a continuous embedding
+    \[W^{1, p}(\R^n) \sse L^{p^*}(\R^n)\]
+    That is, there exists a constant \(C\) depending only on \(n, p\), such that
+    \[\norm{f}_{L^{p^*}(\R^n)} \le C\norm{D u}_{L^q(\R^n)}\]
+\end{theorem}
+
+\begin{remark}
+    \begin{enumerate}
+        \item \(p^* > p\).
+        \item Nothing is said about \(\norm{Du}_{L^{p^*}}\).
+    \end{enumerate}
+\end{remark}
+
+\subsubsection*{Intuition}
+
+Consider \(f : \R^2 \to \R\). \(L^p\) measures the width and the height of the function. For example, if we have
+\[f_1 = A 1_W\]
+then
+\[\norm{f_1}_{L^p} = \abs{A}\vol(W)^{1/p} = \abs{A}V^{1/p}\]
+Now consider \(\phi \in C_c^\infty(\R^n)\) with \(\phi(x) \le 1\), and let
+\[f_2(x) = \phi(x)e^{i\omega \cdot x}\]
+Then we know \(\abs{f_2}(x) \le 1\), and \(\Supp(f_2) \sse C\) is uniformly bounded in \(\omega\). With this,
+\[\partial_1f_2 =  \phi'e^{i\omega \cdot x} + i\phi \omega_1e^{i\omega\cdot x}\]
+Thus, \(Df_2\) is \emph{not} uniformly bounded in \(\omega\).
+
+Next, consider
+\[f_3(x) = \abs{\omega}^{-k}\phi(x)e^{i \omega \cdot x}\]
+and so, we have a uniform bound in \(\omega\) of \(D^\ell f_3\) for \(\ell \le k\).
+
+Finally, let
+\[f_4(x) = A\phi(x/R)e^{i\omega \cdot x}\]
+Then
+\[\norm{f_4}^p_{W^{1, p}} \sim \int_{\abs{x} \le R}\abs{A\phi e^{i\omega \vdot x}}^p + \int_{\abs{x} \le R}\abs{\frac{A}{R}\phi'e^{i\omega \cdot x} + A\phi \omega e^{i\omega\vdot x}}^p \sim \abs{A}C^{1/p}\abs{\omega}\]
+Now recall the uncertainty principle:
+\[\delta_x \delta_p \ge \frac{\bar h}{2} > 0\]
+Thus,
+\[\text{volume} \times \text{frequency} \ge c > 0\]
+Thus, a function with frequency \(\omega\) must be spread out on a ball of radius \(\ge 1/\omega\). Thus, the support must have measure \(\ge \omega^{-n}\). With this, \(\omega \ge V^{-n}\), and so
+\[\norm{f}_{W^{1, p} \ge \abs{A}V^{1/p - 1/n}} = \abs{A}V^{p^*} = \norm{f}_{L^{p^*}}\]
+
+See ``Tery Tao uncertainty principle'' for more details.
+
 \section{Elliptic PDEs}
 
 \section{Hyperbolic PDEs}

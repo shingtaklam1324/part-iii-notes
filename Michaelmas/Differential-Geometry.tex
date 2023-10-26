@@ -997,7 +997,107 @@ which depends on \(p\) in a smooth way. Then
     A coordinate \(x_i : U \to \R\) is a smooth function, and so \(\dd x_i\) is a \(1\)-form.    
 \end{remark}
 
+\lec
 
+% ES2 is out, questions 1 and 2
+
+\begin{theorem}
+    There exists a unique \(\R\)-linear map \(\dd : \Omega^k(M) \to \Omega^{k+1}(M)\), determined by
+    \begin{enumerate}[(i)]
+        \item If \(f \in \Omega^0(M) = C^\infty(M)\), then \(\dd f\) is just the differential. That is,
+        \[\dd f = \sum_i \pdv{f}{x_i}\dd x_i\]
+        \item \(\dd(\omega \wedge \eta) = (\dd\omega)\wedge \eta + (-1)^{\deg(\omega)}\omega \wedge \dd\eta\)
+        \item \(\dd^2 = 0\).
+    \end{enumerate}
+    The map \(\dd\) is called the \emph{exterior derivative}\index{exterior derivative}.
+\end{theorem}
+
+\begin{proof}
+    Consider a coordinate neighbourhood \(U \sse M\), with coordinates \(x_i\). Consider \(\omega \in \Omega^r(M)\), with
+    \[\omega\vert_U = f(x)\dd x_I\]
+    We can assume this since \(\dd\) is linear. By (ii), (iii) and then (i),
+    \begin{align*}
+        \dd(\omega\vert_U) &= \dd(f(x)\dd x_I) = \dd f \wedge \dd x_I + f(x)\sum_{k=1}^r\left(\cdots \wedge (-1)^{k-1}\dd\dd x_{i_k} \wedge \cdots\right) \\
+        &= \sum_{i=1}^m \pdv{f}{x_i}\dd x_i \wedge \dd x_I \tag{\(*\)}
+    \end{align*}
+
+    Using this definition, (i) is clear, (ii) can be verified by a computation, and (iii) follows from the symmetry of mixed partial derivatives, since
+    \[\pdv[2]{f}{x_i}{x_j} = \pdv[2]{f}{x_j}{x_i}\]
+    we have that
+    \[\sum_{i, j}\pdv[2]{f}{x_i}{x_j}\dd x_i \wedge \dd x_j = 0\]
+
+    Using this, we have shown uniqueness since it is well defined and unique with respect to anny choice of local coordinates. To show existence, we need to show that it is well defined with respect to a change of coordinates. But by \((*)\), \((\dd\omega)_p\) is determined by \(\omega\) restricted to any neighbourhood of \(p\).
+
+    Thus, to show that \(\dd\) is well defined, it suffices to consider the intersection of coordinate neighbourhoods. Let \(y_i\) be the other coordinates. The same computation as above gives an operator \(\delta\). We want to show that \(\delta = \dd\). With this,
+    \[\delta(f(x)\dd x_I) = \delta f \wedge \dd x_I + \sum_k\left(\cdots \wedge (-1)^{k-1}\delta\dd x_{i_k}\wedge \cdots\right)\]
+    Now \(\delta f = \dd f\) as the differential is well defined, and \(\delta(x_{i_k}) = \dd x_{i_k}\) as well. Thus, \(\delta\dd x_{i_k} = \delta^2 x_{i_k} = 0\). With this, we find that
+    \[\delta(f(x)\dd x_I) = \dd f \wedge \dd x_I\]
+    as required.
+\end{proof}
+
+\begin{definition}
+    [pullback] Let \(f : M \to N\) be a smooth map between manifolds. Then we have a map
+    \[f^* : \T^*_{f(p)}N \to \T^*_pM\]
+    and more generally, we have
+    \[f^* : \Omega^r(N) \to \Omega^r(M)\]
+    which we call the \emph{pullback map of \(f\)}\index{pullback!of differential forms}. By definition,
+    \[(f^*\alpha)_p(v_1, \dots, v_r) = \alpha_{f(p)}((\dd f)_pv_1, \dots, (\dd f)_p v_r)\]
+    for every \(r\)-form \(\alpha\) on \(N\), \(p \in M, v_1, \dots, v_r \in \T_pM\).
+\end{definition}
+
+\begin{remark}
+    \begin{itemize}
+        \item \(f^*\) is defined for any smooth map. Compare this to the pushforward of vector fields, which is defined only when \(f\) is a diffeomorphism.
+        \item \((f \circ g)^* = g^* \circ f^*\).
+        \item \(f^*(\alpha \wedge \beta) = f^*(\alpha) \wedge f^*(\beta)\). In particular, for any \(h \in C^\infty(N)\), \(f^*(h\alpha) = (h \circ f)f^*\alpha\). That is, \(f^*\) is \(C^\infty(\cdot)\)-linear.
+        \item \(\dd(f^*\alpha) = f^*(\dd\alpha)\). To see this, it suffices to do this in local coordinates, i.e. we can take \(M, N\) to be open subsets of Euclidean space. Moreover, we can assume \(\alpha = \dd y_j\), \(v = \pdv{x_k}\), since we know both operators are \(\R\)-linear, and we can use the Leibniz rule to extend to general \(r\)-forms. In this case, \(f\) becomes \(y_j = y_j(x)\), and we have that
+        \[(f^*\dd y_j)\left(\pdv{x_k}\right) = \dd y_j\left((\dd f)\pdv{x_k}\right) = \dd y_j\left(\sum_\ell\pdv{y_\ell}{x_k}\pdv{y_\ell}\right) = \pdv{y_j}{x_k}\]
+        We see that \(f^*\) is determined by
+        \[f^*\dd y_j = \sum_{k=1}^n \pdv{y_j}{x_k}\dd x_k = \dd(y_j \circ f) = \dd(f^*y_j)\]
+    \end{itemize}
+\end{remark}
+
+\subsection{de Rham cohomology}
+
+We will write \(\dd_r\) for \(\dd : \Omega^r(M) \to \Omega^{r+1}(M)\). That is, we have
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxPbWVnYV4wKE0pIl0sWzIsMCwiXFxPbWVnYV4xKE0pIl0sWzMsMCwiXFxPbWVnYV4yKE0pIl0sWzQsMCwiXFxjZG90cyJdLFswLDFdLFsxLDIsIlxcZGRfMCJdLFsyLDMsIlxcZGRfMSJdLFszLDQsIlxcZGRfMiJdXQ==
+\[\begin{tikzcd}
+	0 & {\Omega^0(M)} & {\Omega^1(M)} & {\Omega^2(M)} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow["{\dd_0}", from=1-2, to=1-3]
+	\arrow["{\dd_1}", from=1-3, to=1-4]
+	\arrow["{\dd_2}", from=1-4, to=1-5]
+\end{tikzcd}\]
+If \(\alpha = \dd\beta\), then \(\dd\alpha = 0\). The converse may not hold. We can use this:
+
+\begin{definition}
+    [exact form] If \(\alpha = \dd\beta\) for some \(\beta\), we say that \(\alpha\) is \emph{exact}. Equivalently, \(\alpha \in \im(\dd_r)\) for some \(r\).
+\end{definition}
+
+\begin{definition}
+    [closed form] If \(\alpha \in \ker(\dd_r)\), then we say that \(\alpha\) is \emph{exact}.
+\end{definition}
+
+Since \(\dd^2 = 0\), \(\im(\dd_{r-1}) \sse \ker(\dd_r)\). Moreover, it is a vector subspace.
+
+\begin{definition}
+    [de Rham cohomology]
+    The vector space
+    \[\HH^r(M) = \frac{\ker(\dd_r)}{\im(\dd_{r-1})}\]
+    is called the \emph{\(r\)-th de Rham cohomology group of \(M\)}\index{de Rham cohomology}. We write
+    \[\HH^* = \bigoplus_r \HH^r(M)\]
+\end{definition}
+
+\begin{proposition}
+    If \(f : M \to N\) is smooth, the pullback \(f^* : \Omega^r(N) \to \Omega^r(M)\) descends to the quotient, i.e. we have a homomorphism
+    \[f^* : \HH^r(N) \to \HH^r(M)\]
+    Moreover, as for pullback of forms,
+    \[(g \circ f^*) = f^* \circ g^*\]
+\end{proposition}
+
+\begin{proof}
+    This follows from \(f^*\dd = \dd f^*\) (i.e. \(f^*\) is a chain map).
+\end{proof}
 
 \printindex
 
