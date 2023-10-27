@@ -1274,7 +1274,7 @@ Let \(V\) be a finite dimensional vector space. We can consider the adjoint repr
     \end{claim}
 
     \begin{proof}
-        Since \(\mfg' \le N(\mfg)\), \(\mfg\) is an ideal of \(\mfg'\). Then \(\mfg\) is a subrepresentation of \(\mfg'\) under the adjoint representation of \(\mfg\). By Weyl's theorem\footnote{applied to the representation \(\mfg'\) of the semisimple Lie algebra \(\mfg\)}, \(\mfg' = \mfg \oplus U\) as representations. It suffices to show \(U = 0\). 
+        Since \(\mfg' \le N(\mfg)\), \(\mfg\) is an ideal of \(\mfg'\). Then \(\mfg\) is a subrepresentation of \(\mfg'\) under the adjoint action of \(\mfg\). By Weyl's theorem\footnote{applied to the representation \(\mfg'\) of the semisimple Lie algebra \(\mfg\)}, \(\mfg' = \mfg \oplus U\) as representations. It suffices to show \(U = 0\). 
         
         Choose \(u \in U\), then as \(\mfg\) is an ideal, \([u,\mfg] \sse \mfg\). But \(\ad(\mfg)(U) \sse U\), and so \([u, \mfg] \sse U\). Hence \([u, \mfg] = 0\), and so \(u\) commutes with every element of \(\mfg\). Using this, \(u\) is a \(\mfg\)-endomorphism \(V \to V\), and so it stabilises every irreducible subrepresentation \(W\).
 
@@ -1348,7 +1348,7 @@ In this section, \(\mfg\) is a finite dimensional semisimple Lie algebra over \(
 \end{lemma}
 
 \begin{proof}
-    Needs Engel's theorem (Examples sheet 2), and Zorn's lemma. See Stuart's notes.
+    Needs Engel's theorem (Examples sheet 2), and Zorn's lemma. See David Stuart's notes.
 \end{proof}
 
 Recasting \cref{lem:simultaneuous-eigenspace}, suppose we have \(\mfh \le \gl(V)\) with a basis of commuting semisimple elements \(t_1, \dots, t_n\). Take \(\lambda \in \C^n\), this corresponds the element of \(\mfh^*\), given by
@@ -1360,6 +1360,160 @@ In our situation, fix a Cartan subalgebra \(\mft \le \mfg\), then
 where 
 \[\mfg_\lambda = \left\{x \in \mfg \mid [t, x] = \lambda(t)x \text{ for all }x \in \mft\right\}\]
 
+\lec
+
+\begin{definition}
+    [root] Let
+    \[\Phi = \{\alpha \in \mft^* \setminus \{0\} \mid \mfg_\alpha \ne 0\}\]
+    The elements of \(\Phi\) are the \emph{roots of \(\mfg\) with respect to \(\mft\)}\index{root}. If \(\alpha \in \Phi\), then \(\mfg_\alpha\) is called a \emph{root space}\index{root space}.
+\end{definition}
+
+With this, we have
+\[\mfg = \mfg_0 \oplus \bigoplus_{\alpha \in \Phi}\mfg_\alpha\]
+which is the \emph{root space decomposition}\index{root space decomposition}, or the \emph{Cartan decomposition}\index{Cartan decomposition} of \(\mfg\).
+
+\begin{proposition}
+    \begin{enumerate}[(i)]
+        \item For all \(\alpha, \beta \in \mft^*\), \([\mfg_\alpha, \mfg_\beta] \sse \mfg_{\alpha + \beta}\),
+        \item If \(\alpha \in \Phi\), \(x \in \mfg_\alpha\), then \(\ad(x)\) is nilpotent.
+        \item If \(\alpha + \beta \ne 0\), then \(K(\mfg_\alpha, \mfg_\beta) = 0\) for all \(\alpha, \beta \in \mfg^*\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    For (i), let \(x \in \mfg_\alpha, y \in \mfg_\beta\), \(t \in \mft\). We have the Jacobi identity:
+    \[[t,[x,y]] = - [x, [y, t]] - [y, [t, x]] = [x, [t, y]] - \alpha(t)[y, x] = \beta(t)[x, y] - \alpha(t)[y, x] = (\alpha + \beta)(t)[x, y]\]
+    Note Fulton-Harris calls this the \emph{fundamental calculation}\index{fundamental calculation}.
+
+    For (ii), use (i) and the fact that \(\mfg\) is finite dimensional.
+
+    For (iii), if \(\alpha + \beta \ne 0\), we can find \(t \in \mft\) such \((\alpha + \beta)(t) \ne 0\). Fix such a \(t \in \mft\), \(x \in \mfg_\alpha\) and \(y \in \mfg_\beta\). Then
+    \[\alpha(t)K(x, y) = K([t,x], y) = -K([x,t],y) = -K(x, [t, y]) = -\beta(t)K(x,y)\]
+    and so \((\alpha + \beta)(t)K(x, y) = 0\). But by assumption \(\alpha(t) + \beta(t) \ne 0\), and so \(K(x, y) = 0\).
+\end{proof}
+
+\begin{corollary}
+    \begin{enumerate}[(i)]
+        \item The Killing form restricted to \(\mfg_0\) is non-degenerate.
+        \item If \(\alpha \in \Phi\), then \(-\alpha \in \Phi\).
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    For (i), if \(z \in \mfg_0\), with \(K(z, x) = 0\) for all \(x \in \mfg_0\), then by (iii), we know that \(\mfg_0\) is orthogonal to all \(\mfg_\alpha\) with \(\alpha \ne 0\). If \(x \in \mfg\), we can write it as
+    \[x = x_0 + \sum_{\alpha \in \Phi}x_\alpha\]
+    with \(x_\alpha \in \mfg_\alpha\). Using this, we see that \(K(z, x) = 0\) for all \(x \in \mfg\). By non-degeneracy of the Killing form (as \(\mfg\) is semisimple), we must have that \(z = 0\).
+    
+    For (ii), the proof is similar.
+\end{proof}
+
+\begin{proposition}
+    \[\mfg_0 = \mft\]
+\end{proposition}
+
+\begin{proof}
+    See Humphreys \S8.2.
+\end{proof}
+
+\begin{corollary}
+    The Killing form is non-degenerate when restricted to \(\mft\). In particular, the map
+    \begin{align*}
+        \mft &\to \mft^* \\
+        t &\mapsto K(t, \cdot)
+    \end{align*}
+    is an isomorphism of vector spaces. We denote the inverse map as \(\lambda \mapsto t_\lambda\), where \(t_\lambda\) is called the \emph{coroot associated to \(\lambda\)}\index{coroot}, defined by
+    \[K(t_\lambda, x) = \lambda(x)\]
+    for all \(x \in \mfg\).
+\end{corollary}
+
+\begin{example}
+    For \(\mfg = \sl_2\), \(\mft = \Span\{h\}\). Define \(\alpha \in \mft^*\) by \(\alpha(h) = 2\). Then \(\mfg_\alpha = \Span\{e\}\), and \(\mfg_{-\alpha} = \Span\{f\}\). With this,
+    \[\sl_2 = \mft \oplus \mfg_{\alpha} \oplus \mfg_{-\alpha}\]
+\end{example}
+
+\begin{example}
+    For \(\mfg = \sl_3\), the Cartan subalgebra is \(\mft = \Span\{h_1, h_2\}\), where
+    \[h_1 = \begin{pmatrix}
+        1 \\
+        & -1 \\
+        & & 0
+    \end{pmatrix}\quad h_2 = \begin{pmatrix}
+        0 \\
+        & 1\\
+        & & -1
+    \end{pmatrix}\]
+    Let \(\alpha_i \in \mft^*\) be such that
+    \[\alpha_i\begin{pmatrix}
+        a_1 \\
+        & a_2 \\
+        & & a_3
+    \end{pmatrix} = a_i\]
+    Then
+    \[\sl_3 = \mft \oplus \mfg_{\alpha_1 - \alpha_2} \oplus \mfg_{\alpha_1 - \alpha_3} \oplus \mfg_{\alpha_2 - \alpha_3} \oplus \mfg_{\alpha_2 - \alpha_1} \oplus \mfg_{\alpha_3 - \alpha_1} \oplus \mfg_{\alpha_3 - \alpha_2}\]
+    where
+    \[\mfg_{\alpha_i - \alpha_j} = \Span\{e_{i,j}\}\]
+    We can decompose the adjoint in a similar fashion. Moreover, this generalises to \(\mfg = \sl_n\), with \(\mft\) being the diagonal.
+
+    Similarly, the diagonal matrices form the Cartan subalgebra of \(\so_n, \sp_{2n}\).
+\end{example}
+
+\begin{proposition}
+    Let \(\alpha \in \Phi\) be a root, \(e_\alpha \in \mfg_\alpha\), then there exists \(f_\alpha \in \mfg_{-\alpha}\), such that
+    \[\mfm_\alpha = \Span\{e_\alpha, f_\alpha, h_\alpha = [e_\alpha, f_\alpha]\} \cong \sl_2\]
+\end{proposition}
+
+We're saying that every semisimple Lie algebra is ``made up from \(\sl_2\)s''.
+
+Note that if \(t \in \mft\) and it satisfies \(\alpha(t) = 0\), for all \(\alpha \in \Phi\), then \(t = 0\), since if \(\alpha \in \Phi\), \(x \in \mfg_\alpha\) non-zero, then
+\[0 = \alpha(t)x = [t, x]\]
+Since a toral subalgebra is by definition abelian, this holds for all of \(\mfg\), and so \(t \in Z(\mfg)\).
+
+\begin{lemma}
+    \(\Phi\) spans \(\mft^*\).
+\end{lemma}
+
+\begin{proof}
+    If not, then there exists \(t \ne 0\) such that \(\alpha(t) = 0\) for all \(\alpha \in \Phi\).
+\end{proof}
+
+\begin{lemma}
+    \([\mfg_\alpha, \mfg_{-\alpha}]\) is one-dimensional.
+\end{lemma}
+
+\begin{proof}
+    Take \(x \in \mfg_\alpha, y \in \mfg_\alpha\), then \([x, y] \in \mft\). Let \(t \in \mft\), so
+    \[K([x, y], t) = K(x, [y, t]) = -K(x, [t, y]) = \alpha(t)K(x, y)\]
+    Hence \([x, y] = K(x, y)t_\alpha\). With this,
+    \[[\mfg_\alpha, \mfg_{-\alpha}] \sse \Span\{t_\alpha\}\]
+    and so the dimension is at most one. But by non-degeneracy, we can find \(x, y\) such that \(K(x, y) \ne 0\), and so the dimension is one.
+\end{proof}
+
+\begin{lemma}
+    \(\alpha(t_\alpha) \ne 0\).
+\end{lemma}
+
+\begin{proof}
+    Since the Killing form is non-degenerate, and rescaling is possible, we may choose \(x \in \mfg_\alpha, y \in \mfg_{-\alpha}\) such that \(K(x, y) = 1\). Then
+    \begin{align*}
+        [x, y] &= t_\alpha \\
+        [t_\alpha, x] &= \alpha(t_\alpha)x \\
+        [t_\alpha, y] &= -\alpha(t_\alpha)y
+    \end{align*}
+    Thus, the space \(\mfh = \Span\{x, y, t_\alpha\}\) is a subalgebra of \(\mfg\). Suppose \(\alpha(t_\alpha) = 0\). Then, \([\mfh, \mfh] = \Span\{t_\alpha\}\), and so \(\mfh\) is solvable. Now consider the adjoint representation
+    \[\ad : \mfg \to \gl(\mfg)\]
+    This shows that \(\mfh\) embeds as a solvable Lie subalgebra of \(\gl(\mfg)\). By Lie's theorem, we can assume \(\ad(\mfh)\) is a subset of the space of upper triangular matrices. With this, \(\ad(t_\alpha) = [\ad(x), \ad(y)]\) is strictly upper triangular. Hence \(\ad(t_\alpha)\) is nilpotent, but \(\ad(t_\alpha)\) is semisimple\footnote{This follows from \(t_\alpha \in \mft\).}, and so \(\ad(t_\alpha) = 0\). Thus,
+    \[t_\alpha \in Z(\mfg) = 0\]
+    Contraduction, as \(\alpha \ne 0\) implies \(t_\alpha \ne 0\).
+\end{proof}
+
+\begin{lemma}
+    \([[\mfg_\alpha, \mfg_{-\alpha}], \mfg_\alpha] \ne 0\).
+\end{lemma}
+
+\begin{proof}
+    If \(x \in \mfg_\alpha, y \in \mfg_{-\alpha}\) with \(K(x, y) \ne 0\), then for all \(z \in \mfg_\alpha\),
+    \[[[x,y],z] = K(x,y)[t_\alpha, z] = K(x, y)\alpha(t_\alpha)z\] 
+\end{proof}
 \printindex
 
 \end{document}

@@ -931,6 +931,12 @@ We define \emph{affine space}\index{affine space, \(\aff k n\)}
     \end{proof}
 \end{example}
 
+\begin{example}
+    More generally, let \(X\) be a scheme, \(f \in \Gamma(X, \mcO_X) = \mcO_X(X)\). Fix \(p \in X\), then we can consider the stalk \(\mcO_{X,p}\). This is of the form \(A_\mfp\), where \(A\) is a ring and \(\mfp\idealof A\) is a prime ideal. In particular, \(A_\mfp\) has a unique maximal ideal, namely \(\mfp A_\mfp\). We say that \(f\) \emph{vanishes at \(p\)} if its image in \(A_\mfp/\mfp A_\mfp\) is zero. Equivalently, if \(f\) is in \(\mfp A_\mfp\).
+
+    Here, we're using an isomorphism \(V_p\) open to \(\Spec(A)\). For \(f \in \Gamma(X, \mcO_X)\), the set \(\van(f) \sse X\) which is the \emph{vanishing locus} of \(f\) is well defined.
+\end{example}
+
 \subsection{Interlude - gluing sheaves}
 
 Let \(X\) be a topological space, with a cover \(\{U_\alpha\}\). Suppose we have sheaves \(\mcF_\alpha\) on \(U_\alpha\), and isomorphisms of sheaves
@@ -961,8 +967,100 @@ Such that \(\varphi_{\alpha\alpha} = \id\), \(\varphi_{\alpha\beta} = \varphi_{\
 \subsection{More schemes}
 
 Let \((X, \mcO_X), (Y, \mcO_Y)\) be schemes, with opens \(U \sse X, V \sse Y\) and an isomorphism \((U, \mcO_X\vert_U) \cong (V, \mcO_Y\vert_V)\) as ringed spaces. We can glue both topological spaces and schemes, that is,
-\[\frac{X \sqcup Y}{U \sim V}\]
-and the sheaf is glued as in the previous construction.
+\[S = \frac{X \sqcup Y}{U \sim V}\]
+\lec
+By definition of the quotient topology, the images of \(X\) and \(Y\) in \(S\) form an open cover, with intersection being the image of \(U\) (or \(V\)). We can then glue the structure sheafs of these open sets as before.
+
+Note that in this case, there is no cocycle condition to check.
+
+\begin{example}
+    [bug-eyed line, line with two origin] Let \(k\) be a fieodl, and \(X = \Spec(k[t]), Y = \Spec(k[u])\). Set
+    \[U = \Spec(k[t, t^{-1}]) = \Spec(k[t]_t) \quad V = \Spec(k[u]_u)\]
+    These are distinguised opens. We have natural isomorphism
+    \begin{align*}
+        U &\to V \\
+        t &\mapsfrom u
+    \end{align*}
+    of rings, which is formally, induced by the above map \(k[u]_u \to k[v]_v\), then apply the contravariant functor.
+
+    On the level of topological spaces, \(X = Y = \aff k 1\), \(U = \aff k 1 \setminus \{\inner{t}\}\), which is \(\aff k 1\) with a point removed. In this case,
+    \[\frac{X \sqcup Y}{\sim}\]
+    looks like a line with two origins.
+
+    The open sets in the scheme are:
+
+    \begin{enumerate}
+        \item Suppose \(W \sse X \sse S\) or \(W \sse Y \sse S\), these are `nice' open sets. 
+        \item If \(W = S \setminus \{p_1, \dots, p_r\}\), where \(p_i \in U \cup V\). The simplest case is when \(W = S\).
+        
+        What is \(\mcO_S(S)\)? We can use the sheaf axioms to show that \(\mcO_S(S) \cong k[t]\) as above. With this, we see that \(S\) is not an affine scheme.
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    [projective line]
+    Let \(X = \Spec(k[t])\), \(Y = \Spec(k[s])\), \(U = \Spec(k[t, t^{-1}])\) and \(V = \Spec(k[s, s^{-1}])\) as above. We now glue along \(s \mapsto t^{-1}\), and we call the result \(\bb P^1_k\) for the resulting scheme (for now).
+\end{example}
+
+\begin{proposition}
+    \(\mcO_{\P^1}(\P^1) = k\)
+\end{proposition}
+
+\begin{proof}
+    The only elements of \(k[t, t^{-1}]\) which are polynomials in \(t\) and \(t^{-1}\) are the constants.
+\end{proof}
+
+In particular, \(\P^1\) is not affine.
+
+\begin{example}
+    We can similarly build \(S = \aff k 2\) with a doubled origin. This has the property where there exists affine open subschemes \(U_1, U_2 \sse S\), such that \(U_1 \cap U_2\) is not affine.
+\end{example}
+
+\begin{proposition}
+    [gluing schemes]
+
+    Given schemes \((X_i)_{i \in I}\), open subschemes \(X_{ij} \sse X_i\), with \(X_{ii} = X_i\), isomorphisms \(f_{ij} : X_{ij} \to X_{ji}\), such that \(f_{ii} = \id\), satisfying the cocycle conditions
+    \begin{align*}
+        f_{ij} &= f_{ji}^{-1} \\
+        f_{ik}\vert_{X_{ij\cap X_{ik}}} &= f_{jk}\vert_{X_{ji} \cap X_{jk}} \circ f_{ij}\vert_{X_{ij} \cap X_{ik}}
+    \end{align*}
+    Then there exists a unique scheme \(X\), with an open cover by \(X\), glued along \(X_{ij} \sim X_{ji}\). 
+\end{proposition}
+
+\begin{example}
+    [projective space] Let \(A\) be any ring, 
+    \[X_i = \Spec\left(A\left[\frac{x_0}{x_i}, \dots, \frac{x_n}{x_i}\right]\right)\]
+    and
+    \[X_{ij} = X_j \setminus \van\left(\frac{x_j}{x_i}\right)\]
+    with isomorphisms
+    \begin{align*}
+        X_{ij} &\to X_{ji} \\
+        \frac{x_k}{x_i} &\mapsto \frac{x_k}{x_j} \cdot \left(\frac{x_i}{x_j}\right)^{-1}
+    \end{align*}
+    The resulting scheme is called projective \(n\)-space \(\P^n_A\)\index{projective space, \(\P^n_A\)}.
+\end{example}
+
+\underline{Exercise:} \(\Gamma(\P^n_A, \mcO_{\P^n_A}) = A\).
+
+\subsection{The \(\Proj\) construction}
+
+\begin{definition}
+    [\(\Z\)-grading]
+    A \emph{\(\Z\)-grading} on a ring \(A\) is a decomposition of
+    \[A = \bigoplus_{i \in \Z}A_i\]
+    as abelian groups, such that multiplication respects the grading, that is:
+    \[A_iA_j \sse A_{i+j}\]
+\end{definition}
+
+\begin{example}
+    Let \(A = k[x_0, \dots, x_n]\), we write \(A_d\) for the set of degree \(d\)-homogeneous polynomials (and \(0\)).
+
+    If \(I \sse k[x_0, \dots, x_n]\) is a homogeneous ideal (i.e. generated by homogeneous elements, of possibly different degrees). Then \(k[x_0, \dots, x_n]/I\) is also naturally graded.
+\end{example}
+
+Note by definition \(A_0\) is always a subring. Throughout, we will make the \textbf{assumption} that the degree \(1\) elements generate \(A\) as an \(A_0\)-algebra. That is,
+\[A = A_0[A_1]\]
+as \(A_0\) algebras.
 
 \printindex
 

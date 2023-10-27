@@ -1454,6 +1454,175 @@ Singular homology is most effective on `nice' spaces. One example would be \emph
     A finite cell complex is compact.
 \end{remark}
 
+\lec
+
+\begin{definition}
+    [subcomplex]
+    A \emph{subcomplex of \(X\)}\index{subcomplex} is a closed subspace of \(X\) which is a union of cells of \(X\).
+\end{definition}
+
+\subsection{Homology of cell complexes}
+
+\begin{lemma}
+    \begin{enumerate}[(i)]
+        \item \(A \sse X\) is open (resp. closed) if and only if its preimage in any cell is open (resp. closed), through the composition
+        \[\varphi_\alpha : D_\alpha \inj X_{n+1}\sqcup \bigsqcup_{\beta} D_\beta \surj X_n \inj X\]
+        We call \(\varphi_\alpha\) the \emph{characteristic map of the cell \(D_\alpha\)}\index{characteristic map}. Note its restriction to the boundary is the attaching map.
+        \item Cell complexes are Hausdorff and locally contractible. In particular, connected and path connected are equivalent.
+        \item If \(Z \sse X\) is compact, then \(Z \sse X_N\) for some \(N\).
+        \item If \(A \sse X\) is a subcomplex, then the pair \((X, A)\) is good.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Exercises, or see Hatcher.
+\end{proof}
+
+\begin{corollary}
+    If \(A \sse X\) is a subcomplex, then \(\HH_*(X, A) \cong \widetilde H_*(X/A)\). In particular,
+    \[\HH_i(X_k, X_{k-1}) = \begin{cases}
+        \Z^{\oplus I_k} & i = k \\
+        0 & \text{ otherwise }
+    \end{cases}\]
+\end{corollary}
+
+\begin{proof}
+    \[\frac{X_k}{X_{k-1}} = \bigvee_{I_k}S^k\]
+    Result follows by Mayer-Vietoris, we note that
+    \[\left(\bigsqcup_{\alpha \in I_k}S_\alpha^k, \bigsqcup_{\alpha \in I_k} \{x_\alpha\}\right)\]
+    is a good pair, and the quotient is the wedge sum. Thus, the reduced homology of the wedge sum is given by the relative homology
+    \[\HH_*\left(\bigsqcup S^k, \bigsqcup \{x_k\}\right) = \bigoplus \HH_*(S^k, x_k)\]
+\end{proof}
+
+\begin{proposition}
+    Let \(X\) be a cell complex.
+    \begin{enumerate}[(i)]
+        \item \(\HH_k(X_n) = 0\) for all \(k > n\),
+        \item The inclusion \(X_n \inj X\) induces an isomorphism of \(\HH_k(X_n) \cong \HH_k(X)\) for \(k < n\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    For (i), consider the long exact sequence given by \((X_n, X_{n-1})\),
+    % https://q.uiver.app/#q=WzAsNixbMSwwLCJcXEhIX3trKzF9KFhfbiwgWF97bi0xfSkiXSxbMiwwLCJcXEhIX2soWF97bi0xfSkiXSxbMywwLCJcXEhIX2soWF9uKSJdLFs0LDAsIlxcSEhfayhYX24sIFhfe24tMX0pIl0sWzUsMCwiXFxjZG90cyJdLFswLDAsIlxcY2RvdHMiXSxbNSwwXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+\[\begin{tikzcd}
+	\cdots & {\HH_{k+1}(X_n, X_{n-1})} & {\HH_k(X_{n-1})} & {\HH_k(X_n)} & {\HH_k(X_n, X_{n-1})} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+\end{tikzcd}\]
+    if \(k > n\), then \(\HH_k(X_n, X_{n-1}) = \HH_{k+1}(X_n, X_{n-1})\) as it is a wedge of spheres, and so
+    \[\HH_k(X_{n-1}) \cong \HH_k(X_n)\]
+    But we can iterate this, since \(k > n > n - 1\), and so
+    \[\HH_k(X_n) \cong \HH_k(X_{n-1}) \cong \cdots \cong \HH_k(X_0) = 0\]
+    since \(X_0\) is a discrete set.
+
+    For (ii), consider the same sequence
+    % https://q.uiver.app/#q=WzAsNixbMSwwLCJcXEhIX3trKzF9KFhfbiwgWF97bi0xfSkiXSxbMiwwLCJcXEhIX2soWF97bi0xfSkiXSxbMywwLCJcXEhIX2soWF9uKSJdLFs0LDAsIlxcSEhfayhYX24sIFhfe24tMX0pIl0sWzUsMCwiXFxjZG90cyJdLFswLDAsIlxcY2RvdHMiXSxbNSwwXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+\[\begin{tikzcd}
+	\cdots & {\HH_{k+1}(X_n, X_{n-1})} & {\HH_k(X_{n-1})} & {\HH_k(X_n)} & {\HH_k(X_n, X_{n-1})} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+\end{tikzcd}\]
+    as above, with \(k < n - 1\). In this case, \(k + 1 < n\) and \(k < n\), and so the same logic shows
+    \[\HH_k(X_{n-1}) \cong \HH_k(X_n) \cong \HH_k(X_N)\]
+    for all \(N \ge n\). If \(X\) is finite dimensional, then we are done. In general, if \(\alpha \in \HH_k(X)\), then it is represented by a finite collection of \(k\)-simplices. But this is a compact space, and so it lies within \(X_N\) for some \(N\), and so \(\alpha\) lies in the image of the map \(\HH_k(X_N) \to \HH_k(X)\). Conversely, if we have \(\alpha \in \HH_k(X)\) bounding a \(k+1\)-chain, then that union of simplices lies in \(X_{N'}\) for some \(N' \ge N\), and so \(\alpha = 0\) in \(\HH_k(X_{N'})\).
+\end{proof}
+
+\begin{corollary}
+    If \(X\) is a finite cell complex of dimension \(N\), then \(\HH_j(X) = 0\) for all \(j > N\).
+\end{corollary}
+
+\begin{definition}
+    [cellular chain complex]
+    We define the \emph{cellular chain complex}\index{cellular chain complex} \(C_*^\cell(X)\) of a cell complex \(X\) (with its cell structure) via
+    \[C_k^\cell(X) := \HH_*(X_k, X_{k-1}) = \text{free abelian group on \(k\)-cells}\]
+    with the differential defined as:
+    % https://q.uiver.app/#q=WzAsNSxbMCwxLCJcXEhIX3trKzF9KFhfe2srMX0sWF9rKSJdLFsyLDEsIlxcSEhfayhYX2ssIFhfe2stMX0pIl0sWzQsMSwiXFxISF97ay0xfShYX3trLTF9LCBYX3trLTJ9KSJdLFsxLDAsIlxcSEhfayhYX2spIl0sWzMsMiwiXFxISF97ay0xfShYX3trLTF9KSJdLFswLDMsIiIsMix7ImNvbG91ciI6WzAsNjAsNjBdfV0sWzMsMSwiIiwyLHsiY29sb3VyIjpbMzAsNjAsNjBdfV0sWzEsNCwiIiwyLHsiY29sb3VyIjpbMzAsNjAsNjBdfV0sWzQsMiwiIiwyLHsiY29sb3VyIjpbMCw2MCw2MF19XSxbMCwxLCJcXHBhcnRpYWxeXFxjZWxsX3trKzF9IiwyXSxbMSwyLCJcXHBhcnRpYWxeXFxjZWxsX2siLDJdXQ==
+\[\begin{tikzcd}
+	& {\HH_k(X_k)} \\
+	{\HH_{k+1}(X_{k+1},X_k)} && {\HH_k(X_k, X_{k-1})} && {\HH_{k-1}(X_{k-1}, X_{k-2})} \\
+	&&& {\HH_{k-1}(X_{k-1})}
+	\arrow[color={rgb,255:red,214;green,92;blue,92}, from=2-1, to=1-2]
+	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=1-2, to=2-3]
+	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=2-3, to=3-4]
+	\arrow[color={rgb,255:red,214;green,92;blue,92}, from=3-4, to=2-5]
+	\arrow["{\partial^\cell_{k+1}}"', from=2-1, to=2-3]
+	\arrow["{\partial^\cell_k}"', from=2-3, to=2-5]
+\end{tikzcd}\]
+    where the diagonal maps are defined using the long exact sequence of a pair. We will write \(\HH_*^\cell(X)\) for the homology of the chain complex \(C_*^\cell(X)\). 
+\end{definition}
+
+\begin{claim}
+    \(\partial_k^\cell \circ \partial_{k+1}^\cell = 0\). 
+\end{claim}
+
+\begin{proof}
+    The composition \(\partial_k^\cell \circ \partial_{k+1}^\cell\) includes two consecutive maps (the orange ones in the above diagram) in the long exact sequence of the pair \((X_k, X_{k-1})\), which compose to zero. As such, \(\partial_k^\cell \circ \partial_{k+1}^\cell = 0\).
+\end{proof}
+
+Note \(C_*^\cell(X)\) depends on the choice of cell structure on \(X\).
+
+\begin{proposition}
+    \index{isomorphism!of cellular and singular cohomology}
+    \(\HH_*(X) \cong \HH_*^\cell(X)\).
+\end{proposition}
+
+\begin{proof}
+    Consider the diagram
+% https://q.uiver.app/#q=WzAsOSxbMCwzLCJcXEhIX3trKzF9KFhfe2srMX0sWF9rKSJdLFsyLDMsIlxcSEhfayhYX2ssIFhfe2stMX0pIl0sWzQsMywiXFxISF97ay0xfShYX3trLTF9LCBYX3trLTJ9KSJdLFsxLDIsIlxcSEhfayhYX2spIl0sWzMsNCwiXFxISF97ay0xfShYX3trLTF9KSJdLFswLDEsIjA9XFxISF9rKFhfe2stMX0pIl0sWzIsNSwiMD1cXEhIX3trLTF9KFhfe2stMn0pIl0sWzIsMSwiXFxISF9rKFhfe2srMX0pPVxcSEhfayhYKSJdLFszLDAsIjAiXSxbMCwzLCJcXHBhcnRpYWxfe2srMX0iXSxbMywxLCJpX2siXSxbMSw0LCJcXHBhcnRpYWxfayIsMl0sWzQsMiwiaV97ay0xfSIsMl0sWzAsMSwiXFxwYXJ0aWFsXlxcY2VsbF97aysxfSIsMl0sWzEsMiwiXFxwYXJ0aWFsXlxcY2VsbF9rIiwyXSxbNiw0XSxbNSwzXSxbMyw3XSxbNyw4XV0=
+\[\begin{tikzcd}
+	&&& 0 \\
+	{0=\HH_k(X_{k-1})} && {\HH_k(X_{k+1})=\HH_k(X)} \\
+	& {\HH_k(X_k)} \\
+	{\HH_{k+1}(X_{k+1},X_k)} && {\HH_k(X_k, X_{k-1})} && {\HH_{k-1}(X_{k-1}, X_{k-2})} \\
+	&&& {\HH_{k-1}(X_{k-1})} \\
+	&& {0=\HH_{k-1}(X_{k-2})}
+	\arrow["{\partial_{k+1}}", from=4-1, to=3-2]
+	\arrow["{i_k}", from=3-2, to=4-3]
+	\arrow["{\partial_k}"', from=4-3, to=5-4]
+	\arrow["{i_{k-1}}"', from=5-4, to=4-5]
+	\arrow["{\partial^\cell_{k+1}}"', from=4-1, to=4-3]
+	\arrow["{\partial^\cell_k}"', from=4-3, to=4-5]
+	\arrow[from=6-3, to=5-4]
+	\arrow[from=2-1, to=3-2]
+	\arrow[from=3-2, to=2-3]
+	\arrow[from=2-3, to=1-4]
+\end{tikzcd}\]
+    From this, we have that
+    \[\HH_k(X) = \frac{\HH_k(X_k)}{\im(\partial_{k+1})} = \frac{i_k(\HH_k(X_k))}{\im(i_k \circ \partial_{k+1})} = \frac{\ker(\partial_k)}{\im(\partial_{k+1}^\cell)} = \frac{\ker(i_{k-1} \circ \partial_k)}{\im(\partial_{k+1}^\cell)} = \frac{\ker(\partial_k^\cell)}{\im(\partial_{k+1}^\cell)} = \HH_k^\cell(X)\]
+\end{proof}
+
+\begin{corollary}
+    Let \(X\) be a finite cell complex. Then
+    \begin{enumerate}[(i)]
+        \item \(\HH_k(X)\) is a finitely generated abelian group of rank at most \(n_k = \abs{I_k}\),
+        \item if \(\HH_k(X) \ne 0\), every cell structure must contain \(k\)-cells.
+        \item if \(X\) admist a cell structure with cells in only even dimension, then \(\HH_*(X) \cong C_*^\cell(X)\).
+        \item if \(F\) is a field, then \(\HH_*(X;F)\) is a finite dimensional \(F\)-vector space.
+    \end{enumerate}
+\end{corollary}
+
+For (iii), we saw that \(\C\P^n\) satisfies the requirements on examples sheet 1, and the same is true for the Grassmannian \(\Gr(k, \C^n)\) of \(k\)-dimensional linear subspaces of \(\C^n\) (where \(\Gr(1, \C^n) = \C\P^{n-1}\)), and various other spaces in complex algebraic geometry.
+
+The same sort of argument as for \(\C\P^n\) shows that \(\R\P^n\) has a single cell in each degree \(0 \le i \le n\), that is, the cellular chain complex is
+% https://q.uiver.app/#q=WzAsNyxbMCwwLCIwIl0sWzEsMCwiXFxaIl0sWzIsMCwiXFxaIl0sWzMsMCwiXFxjZG90cyJdLFs0LDAsIlxcWiJdLFs1LDAsIlxcWiJdLFs2LDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XSxbNCw1XSxbNSw2XV0=
+\[\begin{tikzcd}
+	0 & \Z & \Z & \cdots & \Z & \Z & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+	\arrow[from=1-6, to=1-7]
+\end{tikzcd}\]
+But we need new tools to compute the cellular boundary.
+
 \printindex
 
 \end{document}
