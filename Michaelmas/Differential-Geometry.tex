@@ -1099,6 +1099,112 @@ Since \(\dd^2 = 0\), \(\im(\dd_{r-1}) \sse \ker(\dd_r)\). Moreover, it is a vect
     This follows from \(f^*\dd = \dd f^*\) (i.e. \(f^*\) is a chain map).
 \end{proof}
 
+\lec
+
+In particular, if \(f\) is a diffeomorphism, then \(f^* : \HH^*(N) \to \HH^*(M)\) is an isomorphism. The converse is false, for example
+\[\HH^*(\R\P^3) \cong \HH^*(S^3)\]
+but they are diffeomorphic (not even homeomorphic, for example consider \(\pi_1\)).
+
+\begin{theorem}
+    [de Rham]
+    \index{de Rham's theorem}
+    \[\HH^r_{\text{dR}}(M) \cong \HH^r(M; \R)\]
+    where the right hand side is the singular cohomology of \(M\) as a topological space, with real coefficients.
+\end{theorem}
+
+If \(M\) is connected, then \(\HH^0(M) = \R\), as it is just the space of constant functions (i.e. functions with zero differential).
+
+\begin{theorem}
+    [Poincar\'e lemma] 
+    \label{thm:poincare-lemma}
+    \index{Poincar\'e lemma}
+    Suppose \(U \sse \R^n\) is an open ball, \(\alpha \in \Omega^k(U)\), for some \(k > 0\), with \(\dd\alpha = 0\). Then \(\alpha\) is exact, that is, we can find \(\beta \in \Omega^{k-1}(U)\), with \(\alpha = \dd\beta\).
+\end{theorem}
+
+\begin{corollary}
+    \[\HH^k(U) = \begin{cases}
+        \R & k = 0 \\
+        0 & \text{otherwise}
+    \end{cases}\]
+\end{corollary}
+
+\begin{proof}
+    [Sketch proof of \cref{thm:poincare-lemma}] The main idea is to invert the exterior derivative \(\dd\), by constructing appropriate integral operators,
+    \[h_k : \Omega^k(U) \to \Omega^{k-1}(U)\]
+    with
+    \[h_{k+1} \circ \dd_k + \dd_{k-1} \circ h_k = \id_{\Omega^k(U)}\]
+    That is, \(h\) defines a homotopy between \(\id\) and the zero map on the de Rham cochain complex.
+\end{proof}
+
+\subsection{Integration}
+
+Throughout, assume \(M\) is a oriented \(n\)-manifold, with orientation given by positively oriented charts \((U_\alpha, \varphi_\alpha)\).
+
+Let \(\omega \in \Omega^n(M)\), and suppose \(\Supp(\omega)\) is compact\footnote{This is different to lectures, but I'll use the definition that
+\[\Supp(\omega) = \overline{\{p \in M \mid \omega(p) \ne 0\}}\]}. If \(\Supp(\omega) \sse U_\alpha\) for some \(\alpha\), with local coordinates \(x_i\), then we can write
+\[\omega\vert_{U_\alpha} = f(x)\dd x_1 \wedge \cdots \wedge \dd x_n\]
+In this case, we define
+\[\int_M \omega = \int_{\varphi_\alpha(U_\alpha)}f(x)\dd x_1 \cdots \dd x_n\]
+where the right hand side is the integral over a subset of \(\R^n\), i.e. Riemann/Lebesgue integration.
+
+To see that this is well defined, suppose \(\Supp(\omega) \sse U_\beta\), and \(U_\beta\) has local coordinates \(y_j\), then
+\[\omega\vert_{U_\beta} = h(y)\dd y_1 \wedge \cdots \wedge \dd y_n\]
+In this case,
+\begin{align*}
+    \int_{\varphi_\beta(U_\beta)} h(y)\dd y_1\cdots \dd y_n &= \int_{\varphi_\alpha(U_\alpha)}h(y(x))\abs{\det\left(\pdv{y_i}{x_j}\right)}\dd x_1 \cdots \dd x_n \\
+    &= \int_{\varphi_\alpha(U_\alpha)}h(y(x))\det\left(\pdv{y_i}{x_j}\right)\dd x_1 \cdots \dd x_n \\
+    &= \int_{\varphi_\alpha(U_\alpha)}f(x)\dd x_1 \wedge \cdots \wedge \dd x_n
+\end{align*}
+
+For more general \(n\)-forms with compact support, use a parition of unity \(\{\rho_i\}\) subordinate to a finite cover \(\{U_i\}\) of \(\Supp(\omega)\) by coordinate patches \(U_1, \dots, U_N\). Let \(U_0 = M \setminus \Supp(\omega)\).
+\begin{definition}
+    [integral of a differential form]
+    The \emph{integral of \(\omega\)}\index{integral of a differential form} is
+    \[\int_M \omega = \sum_{i=1}^N \int_{U_i}\rho_i\omega\]
+\end{definition}
+Basic properties:
+\begin{itemize}
+    \item it is linear in \(\omega\),
+    \item it is additive when we integrate over disjoint coordinate neighbourhoods,
+    \item it is independent of the choice of a parition of unity. If \(\{\tilde\rho_j\}\) is a different partition of unity, then
+    \[\sum_i \int_{U_i} \rho_i\omega = \sum_{i, j}\int_{U_i} \rho_i\tilde\rho_j\omega = \sum_{i, j}\int_{U_i \cap \tilde U_j}\rho_i\tilde\rho_j \omega\]
+    Swapping \(\rho_i\) and \(\tilde\rho_j\) gives the same result, and so we are done.
+\end{itemize}
+
+\begin{theorem}
+    [Stoke's for manifolds without boundary] \index{Stoke's theorem}If \(\eta \in \Omega^{n-1}(M)\) is compactly supported, then
+    \[\int_M \dd \eta = 0\]
+\end{theorem}
+
+Note \(\eta\) being compactly supported implies \(\dd\eta\) is compactly supported, but the converse is false.
+
+\begin{proof}
+    As above, let \(U_1, \dots, U_N\) be a positively oriented coordinate neighbourhoods covering \(\Supp(\eta)\), and let \(U_0 = M \setminus \Supp(\eta)\), which is positively oriented with respect to \(U_1, \dots, U_N\). Choose a partition of unity subordinate to \(\{U_0, \dots, U_N\}\). Then
+    \[\dd \eta = \dd\left(\sum_{i=1}^N \rho_i\eta\right) = \sum_{i=1}^N \dd(\rho_i\eta)\]
+    By additivity, suffices to show
+    \[\int_M \dd(\rho_i\eta) = 0\]
+    Fix \(i\), and choose local coordinates \(x_k\) on \(U_i\). Without loss of generality,
+    \[\rho_i\eta = h(x) \dd x_2 \wedge \cdots \dd x_n\]
+    We can do this as the integral is linear. Then
+    \[\dd(\rho_i\eta) = \pdv{h}{x_i}\dd x_1 \wedge \cdots \dd x_n\]
+    Integrating, choose \(R\) large enough such that
+    \begin{align*}
+        \int_{\R^n}\dd(\rho_i\eta) &= \int_{\R^{n-1}}\left(\int_{x_1=-R}^R\pdv{h}{x_1}\dd x_1\right)\dd x_2 \cdots \dd x_n \\
+        &= \int_{\R^{n-1}}h(R, x_2, \dots, x_n) - h(-R, x_2, \dots, x_n)\dd x_2\cdots \dd x_n \\
+        &= 0
+    \end{align*}
+    as we can assume \(h(R, x_2, \dots, x_n) = h(-R, x_2, \dots, x_n) = 0\).
+\end{proof}
+
+\begin{corollary}
+    [integration by parts] \index{integration by parts}Assume \(\alpha, \beta\) are differential forms on \(M\), at least one is compactly supported, with \(\deg(\alpha) + \deg(\beta) = \dim(M) - 1\). Then
+    \[\int_M \alpha \wedge \dd \beta = (-1)^{\deg(\alpha) + 1}\int_M (\dd\alpha) \wedge \beta\]
+\end{corollary}
+
+\begin{proof}
+    Apply Stokes to \(\eta = \alpha \wedge\beta\), which is compactly supported.
+\end{proof}
+
 \printindex
 
 \end{document}

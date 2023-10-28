@@ -1322,6 +1322,8 @@ We have three cases:
     \item \(n < p \le \infty\).
 \end{enumerate}
 
+\subsubsection*{Case 1: \(1 \le p < n\)}
+
 \begin{lemma}
     Let \(n \ge 2\), and \(f_1, \dots, f_n \in L^{n-1}(\R^{n-1})\). Then for \(1 \le i \le n\), define 
     \[\widetilde x_i = (x_1, \dots, x_{i-1}, x_{i+1}, \dots, x_n) \in \R^{n-1}\]
@@ -1373,7 +1375,10 @@ We have three cases:
     for the \emph{Sobolev conjugate of \(p\)}\index{Sobolev conjugate}. Then we have a continuous embedding
     \[W^{1, p}(\R^n) \sse L^{p^*}(\R^n)\]
     That is, there exists a constant \(C\) depending only on \(n, p\), such that
-    \[\norm{f}_{L^{p^*}(\R^n)} \le C\norm{D u}_{L^q(\R^n)}\]
+    \begin{equation}
+        \label{eq:gns}
+        \norm{f}_{L^{p^*}(\R^n)} \le C\norm{D u}_{L^q(\R^n)}
+    \end{equation}
 \end{theorem}
 
 \begin{remark}
@@ -1411,6 +1416,145 @@ Thus, a function with frequency \(\omega\) must be spread out on a ball of radiu
 \[\norm{f}_{W^{1, p} \ge \abs{A}V^{1/p - 1/n}} = \abs{A}V^{p^*} = \norm{f}_{L^{p^*}}\]
 
 See ``Tery Tao uncertainty principle'' for more details.
+
+\lec
+
+\begin{remark}
+    \begin{itemize}
+        \item If \(u \equiv 1\), then it wouldn't satisfy \cref{eq:gns}, and so it is essential that we are in \(W^{1, p}\).
+        \item Proof follows from density of \(C_c^\infty(\R^n)\) in \(W^{k, p}_0(\R^n) = W^{k,p}(\R^n)\).
+    \end{itemize}
+\end{remark}
+
+\begin{proof}
+    \textbf{Step 1:} We can assume \(u \in C_c^\infty(\R^n)\), and first consider the case \(p = 1\). By FTC and compact support,
+    \[u(x) = \int_{-\infty}^{x_i}\partial_{x_i}u(x_1, \dots, x_{i-1}, y_i, x_{i+1}, \dots, x_n)\dd y_i\]
+    which means that
+    \[\abs{u(x)} \le \underbrace{\int_{-\infty}^\infty \abs{Du(x_1, \dots, x_{i-1}, y_i, x_{i+1}, \dots, x_n)}}_{=f_i(\tilde x_i)\dd y_i}\]
+    Thus,
+    \[\abs{u(x)}^n \le f_1(\tilde x_1)\cdots f_n(\tilde x_n)\]
+    Integrating over \(x \in \R^n\),
+    \[\norm{\abs{u}}^{n/(n-1)}_{L^1(\R^n)} \le \norm{\prod_{i=1}^n \left(f_i(\tilde x_i)\right)^{1/(n-1)}}_{L^1{\R^n}} \le \prod_{i=1}^n \norm{f_i^{1/(n-1)}}_{L^{n-1}(\R^{n-1})} = \norm{Du}_{L^1(\R^n)}^{n/(n-1)}\]
+    With this,
+    \[\norm{u}_{L^{n/(n-1)}(\R^n)} \le \norm{Du}_{L^1(\R^n)}\]
+    and in this case, \(p^* = n/(n-1)\). Since \(C_c^\infty(\R^n)\) is dense in \(W^{1, 1}(\R^n)\), result follows by density.
+    
+    \textbf{Step 2:} Now suppose \(p > 1\), consider \(v(x) = \abs{u(x)}^\gamma\). Then
+    \[Dv = \gamma \sign(u)\abs{u}^{\gamma - 1}Du\]
+    and
+    \begin{align*}
+        \left(\int_{\R^n}\abs{u}^{\gamma n/(n-1)} \dd x\right)^{(n-1)/n} &= \norm{\abs{u}^\gamma}_{L^{n/(n-1)}(\R^n)} \\
+        &\le \norm{D(\abs{u}^\gamma)}_{L^1(\R^n)} \\
+        &\le \gamma\int_{\R^n}\abs{u}^{\gamma - 1}\abs{D u}\dd x \\
+        &\underbrace{\le}_{\text{H\"older}} \gamma \left(\abs{u}^{(\gamma - 1)p/(p-1)}\dd x\right)^{1 - \frac{1}{p}}\left(\int_{\R^n}\abs{D u}^p\right)^{1/p}
+    \end{align*}
+    Choose \(\gamma\) to match the exponents of \(u\) in the integrals, i.e.
+    \[\gamma = \frac{p(n-1)}{n-p}\]
+    In particular,
+    \[\frac{\gamma n}{n-1} = p^*\]
+    and so we have that
+    \begin{align*}
+        \left(\int_{\R^n}\abs{u}^{p^*}\right)^{(n-1)/n} \le \frac{p(n-1)}{n-p}\left(\int_{\R^n}\abs{u}^{p^*}\right)^{(p-1)/p}\norm{Du}_{L^p(\R^n)}
+    \end{align*}
+    Which then implies that
+    \[\norm{u}_{L^{p^*}(\R^n)} \le \underbrace{\frac{p(n-1)}{n-p}}_{=: C}\norm{Du}_{L^p(\R^n)} \le C\norm{u}_{W^{1, p}(\R^n)}\]
+    We can then conclude by density.
+\end{proof}
+
+Note in particular \(C \to \infty\) as \(p \to n\).
+
+\begin{corollary}
+    [GNS for \(U \sse \R^n\)]\index{Gagliado-Nirenberg-Sobolev inequality!for \(U \sse \R^n\)} Suppose \(U \sse \R^n\) is open and bounded, with \(C^1\) boundary. Let \(1 \le p < n\). If \(p^* = \frac{np}{n-p}\), then
+    \[W^{1, p}(U) \sse L^{p^*}(U)\]
+    and the embedding is continuous. That is, there exists \(C = C(U, p, n)\) such that
+    \[\norm{u}_{L^{p^*}(U)} \le C\norm{u}_{W^{1, p}(U)}\]
+    for all \(u \in W^{1, p}(U)\).
+\end{corollary}
+
+\begin{proof}
+    Exercise. Use the extension theorem and the GNS inequality for \(\R^n\).
+\end{proof}
+
+\begin{corollary}
+    [Poincar\'e inequality]\index{Poincar\'e inequality}Let \(U \sse \R^n\) be open and bounded. Suppose \(u \in W_0^{1, p}(U)\), for some \(1 \le p < n\). Then there exists a constant \(C = C(p, q, n, U)\) such that
+    \[\norm{u}_{L^q(U)} \le C\norm{Du}_{L^p(U)}\]
+    for each \(1 \le q \le p^*\). In particular, as \(1 \le p \le p^*\), we get
+    \[\norm{u}_{L^p(U)} \le C\norm{Du}_{L^p(U)}\]
+\end{corollary}
+
+\begin{remark}
+    \begin{enumerate}[(i)]
+        \item On \(W^{1, p}(U)\) with \(U\) bounded, the \(W^{1, p}\) norm is equivalent to \(\norm{Du}_{L^p(U)}\).
+        \item We do need that \(u \in W^{1, p}_0\), to kill off constant functions, which have derivative zero.
+    \end{enumerate}
+\end{remark}
+
+\begin{proof}
+    We will use that \(W^{1, p}_0(U)\) is the closure of \(C_c^\infty(U)\) under the \(W^{1, p}(U)\) norm. That is, given \(u \in W^{1, p}_0(U)\), there exists \(u_n \in C_c^\infty(U)\) such that \(\norm{u_n - u}_{W^{1, p}(U)} \to 0\). Since \(u_n\) is smooth, and vanishes near \(\partial U\), we can extend \(\overline{u_n} = 0\) on \(\R^n \setminus U\), with \(\overline{u_n} \in C_c^\infty(\R^n)\).
+
+    Applying \cref{thm:Gagliado-Nirenberg-Sobolev},
+    \[\norm{\overline{u_n}}_{L^{p^*}(\R^n)} \le C \norm{D\overline{u_n}}_{L^p(\R^n)}\]
+    Sending \(n \to \infty\) and noting that \(\overline u\) vanishes on \(\R^n \setminus U\), we get the result for \(q = p^*\). In general, we use H\"older: since \(\abs{U} < \infty\),
+    \[\norm{u}_{L^q(U)} \le C\norm{u}_{L^{p^*}(U)} \le C'\norm{Du}_{L^p(U)}\]  
+\end{proof}
+
+\subsubsection*{Case 2: \(p = n\)}
+
+In this case, \(p^* \to \infty\), and so we may expect
+\[\norm{u}_{L^\infty(U)} \le C\norm{u}_{W^{1, n}}\]
+But this is false for \(n > 1\). One dimensional PDEs are boring, so we won't continue with this case.
+
+\subsubsection*{Case 3: \(n < p < \infty\)}
+
+We might expect in this case that it is ``better than \(L^\infty\)'', i.e. continuous.
+
+\begin{theorem}
+    [Morrey's inequality] \index{Morrey's inequality}Let \(n < p < \infty\), then there exists \(C = C(p, n)\) such that for \(u \in C_c^\infty(\R^n)\),
+    \[\norm{u}_{C^{0, \gamma}(\R^n)} \le C \norm{u}_{W^{1, p}(\R^n)} \qqtext{for} \gamma = 1 - \frac{n}{p} < 1\]
+    That is, we have an embedding
+    \[W^{1, p}(\R^n) \inj C^{0, \gamma}(\R^n)\]
+\end{theorem}
+
+\begin{proof}
+    Let \(Q\) be an open cube of side length \(r\), containing \(0\), and set
+    \[\overline u = \frac{1}{\abs{Q}}\int_Q u(x)\dd x\]
+    for the average of \(u\) over \(Q\). Then
+    \[\abs{\overline u - u(0)} \le \frac{1}{\abs{Q}}\int_Q\abs{u(x) - u(0)}\dd x\]
+    Since \(u \in C_c^\infty(\R^n)\), by the fundamental theorem of calculus and the chain rule,
+    \begin{align*}
+        u(x) - u(0) &= \int_0^1 \dv{t}(u(tx))\dd t \\
+        &= \sum_{i=1}^n \int_0^1 x^i \pdv{u}{x^i}(tx)\dd t
+    \end{align*}
+    Thus,
+    \[\abs{u(x) - u(0)} \le r\sum_{i=1}^n \int_0^1 \abs{\partial_{x_i}u(tx)}\dd t\]
+    This then gives us that
+    \begin{align*}
+        \abs{\overline u - u(0)} &\le \frac{r}{\abs{Q}}\int_Q\int_0^1 \sum_{i=1}^n \abs{\partial_{x_i}u(tx)}\dd t \dd x \\
+        &= \frac{r}{\abs{Q}}\int_0^1 t^{-n}\left(\sum_{i=1}^n \int_{tQ} \partial_{x_n}u(y)\dd y\right) \dd t \\
+        &\le \frac{r}{\abs{Q}}\int_0^1 t^{-n}\left(\sum_i \norm{\partial_{x_i}u}_{L^p(tQ)}\abs{tQ}^{1/q}\right)\dd t \\
+        &\le \frac{r}{r^n}\int_0^1 t^{-n}\norm{Du}_{L^p(\R^n)}t^{n/q}r^{n/q}\dd t \\
+        &= \frac{r^{1-n/p}}{1 - n/p}\norm{Du}_{L^p(\R^n)}
+    \end{align*}
+    That is,
+    \[\abs{\overline u - u(0)} \le \frac{r^\gamma}{\gamma}\norm{Du}_{L^p(\R^n)}\]
+    By translation invariance,
+    \[\abs{\overline u - u(x)} \le \frac{r^\gamma}{\gamma}\norm{Du}_{L^p(\R^n)}\]
+    for all \(x \in Q\). Thus, by the triangle inequality,
+    \[\abs{u(x) - u(y)} \le \abs{u(x) - \overline u} + \abs{\overline u - u(y)} \le 2\frac{r^\gamma}{\gamma}\norm{Du}_{L^p(\R^n)}\]
+    for all \(x, y \in Q\). But for \(x, y \in Q\), there exists a cube \(Q\) of side length \(r = 2\abs{x - y}\) such that \(x, y \in Q\), which means that
+    \[\frac{\abs{u(x) - u(y)}}{\abs{x - y}^\gamma} \le C \norm{Du}_{L^p(\R^n)}\]
+    Note the left hand side is independent of \(r\), and so the inequality is true for all \(x, y \in \R^n\). Thus,
+    \[[u]_{C^{0, \gamma}(\R^n)} \le C\norm{Du}_{L^p(\R^n)}\]
+    Finally, we would like to control \(\sup_{x \in \R^n}\abs{u(x)}\), note that any \(x \in \R^n\) belongs to a cube with side length \(1\). In particular,
+    \begin{align*}
+        \abs{u(x)} &\le \abs{\overline u} + \abs{u(x) - \overline u} \\
+        &\le \int_Q\abs{u(x)}\dd x + C \norm{Du}_{L^p} \\
+        &\le \norm{u}_{L^p(\R^n)}\norm{1}_{L^q(Q)} + C\norm{Du}_{L^p(\R^n)} \\
+        &\le C\norm{u}_{W^{1, p}(\R^n)}
+    \end{align*}
+    Note the constant is independent of the choice of \(x\). That is,
+    \[\norm{u}_{C^{0, \gamma}(\R^n)} \le C\norm{u}_{W^{1, p}(\R^n)}\]
+\end{proof}
 
 \section{Elliptic PDEs}
 
