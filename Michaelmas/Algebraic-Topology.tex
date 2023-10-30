@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage[subsec]{../../Style}
+\usepackage{../../quiver}
 
 \title{Algebraic Topology}
 \author{Shing Tak Lam}
@@ -1622,6 +1623,205 @@ The same sort of argument as for \(\C\P^n\) shows that \(\R\P^n\) has a single c
 	\arrow[from=1-6, to=1-7]
 \end{tikzcd}\]
 But we need new tools to compute the cellular boundary.
+
+\lec
+
+That is, if \(e_\alpha\) is a \(k\)-cell, then
+\[\partial_k^\cell(e_\alpha) = \sum_{\beta}d_{\alpha\beta}e_\beta\]
+of \(k-1\)-cells. We would like to find the \(d_{\alpha\beta} \in \Z\).
+
+\begin{lemma}
+    \(d_{\alpha\beta}\) is the degree of the following map on spheres:
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCJTXntrLTF9X1xcYWxwaGEiXSxbMiwwLCJYX3trLTF9Il0sWzQsMCwiWF97ay0xfS9YX3trLTJ9Il0sWzYsMCwiXFxiaWd2ZWVfe1xcYmV0YX1TXntrLTF9X1xcYmV0YSJdLFs4LDAsIlNee2stMX1fXFxiZXRhIl0sWzAsMSwiXFx2YXJwaGlfXFxhbHBoYSJdLFsxLDIsIiIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFsyLDMsIlxcc2ltIl0sWzMsNCwiXFx0ZXh0e3Byb2p9IiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV1d
+\[\begin{tikzcd}
+	{S^{k-1}_\alpha} && {X_{k-1}} && {X_{k-1}/X_{k-2}} && {\bigvee_{\beta}S^{k-1}_\beta} && {S^{k-1}_\beta}
+	\arrow["{\varphi_\alpha}", from=1-1, to=1-3]
+	\arrow[two heads, from=1-3, to=1-5]
+	\arrow["\sim", from=1-5, to=1-7]
+	\arrow["{\text{proj}}", two heads, from=1-7, to=1-9]
+\end{tikzcd}\]
+\end{lemma}
+
+\begin{remark}
+    For this to be well defined (and not just defined up to a sign), we need to fix isomorphisms \(\HH_{k-1}(S^{k-1}) \cong \Z\).
+\end{remark}
+
+\begin{proof}
+    Consider
+    % https://q.uiver.app/#q=WzAsNyxbMCwwLCJcXEhIX2soRF9cXGFscGhhXmssIFxccGFydGlhbCBEX1xcYWxwaGFeaykiXSxbMCwyLCJcXEhIX2soWF9rLCBYX3trLTF9KSJdLFsyLDAsIlxcSEhfe2stMX0oXFxwYXJ0aWFsIERfXFxhbHBoYV5rKSJdLFs0LDAsIlxcSEhfe2stMX0oU19cXGJldGFee2stMX0pIl0sWzIsNCwiXFxISF97ay0xfShYX3trLTF9LCBYX3trLTJ9KSJdLFsyLDIsIlxcSEhfe2stMX0oWF97ay0xfSkiXSxbNCw0LCJcXHRpbGRlIEhfe2stMX0oWF97ay0xfS9YX3trLTJ9KSJdLFswLDEsIlxcdmFycGhpX1xcYWxwaGEiXSxbMCwyLCJcXHBhcnRpYWxfe0xFU30iLDJdLFsyLDNdLFsxLDQsIlxccGFydGlhbF9rXlxcY2VsbCIsMl0sWzIsNSwiXFx2YXJwaGlfXFxhbHBoYVxcdmVydF97XFxwYXJ0aWFsIERfXFxhbHBoYV5rfSIsMl0sWzEsNSwiXFxwYXJ0aWFsX3tMRVN9Il0sWzUsNF0sWzQsNiwiXFxjb25nIl0sWzYsMywiXFx0ZXh0e2NvbGxhcHNlfSIsMl0sWzAsMiwiXFxjb25nIl1d
+\[\begin{tikzcd}
+	{\HH_k(D_\alpha^k, \partial D_\alpha^k)} && {\HH_{k-1}(\partial D_\alpha^k)} && {\HH_{k-1}(S_\beta^{k-1})} \\
+	\\
+	{\HH_k(X_k, X_{k-1})} && {\HH_{k-1}(X_{k-1})} \\
+	\\
+	&& {\HH_{k-1}(X_{k-1}, X_{k-2})} && {\tilde H_{k-1}(X_{k-1}/X_{k-2})}
+	\arrow["{\varphi_\alpha}", from=1-1, to=3-1]
+	\arrow["{\partial_{LES}}"', from=1-1, to=1-3]
+	\arrow[from=1-3, to=1-5]
+	\arrow["{\partial_k^\cell}"', from=3-1, to=5-3]
+	\arrow["{\varphi_\alpha\vert_{\partial D_\alpha^k}}"', from=1-3, to=3-3]
+	\arrow["{\partial_{LES}}", from=3-1, to=3-3]
+	\arrow[from=3-3, to=5-3]
+	\arrow["\cong", from=5-3, to=5-5]
+	\arrow["{\text{collapse}}"', from=5-5, to=1-5]
+	\arrow["\cong", from=1-1, to=1-3]
+\end{tikzcd}\]
+    Chasing a generator around this diagram:
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCIxIl0sWzIsMCwiMSJdLFs0LDAsIlxcZGVnKGZfe1xcYWxwaGFcXGJldGF9KSJdLFswLDIsImVfXFxhbHBoYSJdLFsyLDQsIlxcc3VtIGRfe1xcYWxwaGFcXGJldGF9ZV9cXGJldGEiXSxbNCw0LCJkX3tcXGFscGhhXFxiZXRhfWVfXFxiZXRhIl0sWzAsMSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFsxLDIsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbMCwzLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzMsNCwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs0LDUsIiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNSwyLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV1d
+\[\begin{tikzcd}
+	1 && 1 && {\deg(f_{\alpha\beta})} \\
+	\\
+	{e_\alpha} \\
+	\\
+	&& {\sum d_{\alpha\beta}e_\beta} && {d_{\alpha\beta}e_\beta}
+	\arrow[maps to, from=1-1, to=1-3]
+	\arrow[maps to, from=1-3, to=1-5]
+	\arrow[maps to, from=1-1, to=3-1]
+	\arrow[maps to, from=3-1, to=5-3]
+	\arrow[maps to, from=5-3, to=5-5]
+	\arrow[maps to, from=5-5, to=1-5]
+\end{tikzcd}\]
+    The result then follows.
+\end{proof}
+
+This is useful if we can compute the degree of maps between spheres.
+
+Suppose \(f : S^n \to S^n\) and \(y \in S^n\) has finitely many preimages
+\[f^{-1}(y) = \{x_1, \dots, x_m\}\]
+In this case, we can choose pairwise disjoint discs \(U_i\) containing \(x_i\), and a disc \(V\) containing \(y\) such that \(f(U_i) \sse V\). Then \(f\) defines a map
+\[(U_i, x_i) \to (V, y)\]
+This then defines a map
+\[\Z \cong \HH_n(U_i, U_i \setminus x) \to \HH_n(V, V \setminus y) = \Z\]
+Moreover, recall that the isomorphisms above are from excision, and so the maps above are between the \emph{same} copy of \(\Z\). With this, we have a \emph{local degree of \(f\) at \(x\)}\index{local degree}. We will write
+\[\deg_{x_i}(f) \text{ or }\deg_f(x_i) \in \Z\]
+for this.
+
+\begin{lemma}
+    Under the assumption that such a \(y\) exists,
+    \[\deg(f) = \sum_{i=1}^m \deg_{x_i}(f)\]
+\end{lemma}
+
+\begin{proof}
+    We have the diagram
+    % https://q.uiver.app/#q=WzAsNyxbMCwwLCJcXEhIX24oU15uKSJdLFsyLDAsIlxcSEhfbihTXm4pIl0sWzAsMiwiXFxISF9uKFNebiwgU15uIFxcc2V0bWludXNcXHt4XzEsIFxcZG90cywgeF9uXFx9KSJdLFsyLDIsIlxcSEhfbihTXm4sIFNebiBcXHNldG1pbnVzXFx7eVxcfSkiXSxbMCw0LCJcXEhIX24oXFxiaWdzcWN1cF9pIFVfaSwgXFxiaWdzcWN1cF9pIChVX2kgXFxzZXRtaW51c1xce3hfaVxcfSkpIl0sWzIsNCwiXFxISF9uKFYsIFYgXFxzZXRtaW51cyBcXHt5XFx9KSJdLFswLDYsIlxcYmlnb3BsdXNfe2k9MX1ebSBcXEhIX24oVV9pLCBVX2kgXFxzZXRtaW51cyB4X2kpIl0sWzAsMSwiXFxkZWcoZikiXSxbMCwyXSxbMiwzLCJmXyoiLDJdLFsxLDNdLFs0LDIsIlxcY29uZyJdLFs0LDIsIlxcdGV4dHtleGNpc2lvbn0iLDJdLFs1LDMsIlxcY29uZyIsMl0sWzUsMywiXFx0ZXh0e2V4Y2lzaW9ufSJdLFs0LDVdLFs0LDYsIlxcY29uZyIsMl0sWzYsNSwiXFxiaWdvcGx1cyBcXGRlZ197eF9pfShmKSIsMl1d
+\[\begin{tikzcd}
+	{\HH_n(S^n)} && {\HH_n(S^n)} \\
+	\\
+	{\HH_n(S^n, S^n \setminus\{x_1, \dots, x_n\})} && {\HH_n(S^n, S^n \setminus\{y\})} \\
+	\\
+	{\HH_n(\bigsqcup_i U_i, \bigsqcup_i (U_i \setminus\{x_i\}))} && {\HH_n(V, V \setminus \{y\})} \\
+	\\
+	{\bigoplus_{i=1}^m \HH_n(U_i, U_i \setminus x_i)}
+	\arrow["{\deg(f)}", from=1-1, to=1-3]
+	\arrow[from=1-1, to=3-1]
+	\arrow["{f_*}"', from=3-1, to=3-3]
+	\arrow[from=1-3, to=3-3]
+	\arrow["\cong", from=5-1, to=3-1]
+	\arrow["{\text{excision}}"', from=5-1, to=3-1]
+	\arrow["\cong"', from=5-3, to=3-3]
+	\arrow["{\text{excision}}", from=5-3, to=3-3]
+	\arrow[from=5-1, to=5-3]
+	\arrow["\cong"', from=5-1, to=7-1]
+	\arrow["{\bigoplus \deg_{x_i}(f)}"', from=7-1, to=5-3]
+\end{tikzcd}\]
+    and the result follows from the fact that the diagram commutes.
+\end{proof}
+
+\begin{example}
+    By the same argument as for \(\C\P^n\), \(\R\P^n\) has a cell structure of the form
+    \[e^n \cup \R\P^{n-1}\]
+    That is, there is an \(i\)-cell for \(0 \le i \le n\). The attaching map \(\partial e^n = S^{n-1} \to \R\P^{n-1}\) is the canonical \(2 : 1\) map. With this, the cellular complex is:
+    % https://q.uiver.app/#q=WzAsOCxbMSwwLCJcXFoiXSxbMiwwLCJcXFoiXSxbMywwLCJcXGNkb3RzIl0sWzUsMCwiXFxaIl0sWzYsMCwiXFxaIl0sWzAsMCwiMCJdLFs3LDAsIjAiXSxbNCwwLCJcXFoiXSxbNSwwXSxbMCwxXSxbMSwyXSxbMyw0LCIwIiwyXSxbNCw2XSxbMiw3XSxbNywzXV0=
+\[\begin{tikzcd}
+	0 & \Z & \Z & \cdots & \Z & \Z & \Z & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow["0"', from=1-6, to=1-7]
+	\arrow[from=1-7, to=1-8]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+\end{tikzcd}\]
+    Consider
+    \[\partial_k^\cell : C_k^\cell \to C_{k-1}^\cell\]
+    This is induced by
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXHBhcnRpYWwgRF5rID0gU157ay0xfSJdLFsxLDAsIlxcUlxcUF57ay0xfSJdLFsyLDAsIlxcUlxcUF57ay0xfS9cXFJcXFBee2stMn0gPSBTXntrLTF9Il0sWzAsMV0sWzEsMl1d
+\[\begin{tikzcd}
+	{\partial D^k = S^{k-1}} & {\R\P^{k-1}} & {\R\P^{k-1}/\R\P^{k-2} = S^{k-1}}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+\end{tikzcd}\]
+    Let \(\eta\) be the composition. At a general point \(p\) of the image \(S^{k-1}\), \(p\) has two preimages under \(\eta\). Moreover, near each of the preimages, \(\eta\) is a homeomorphism. Fix \(V \sse \R\P^{k-1}\) an open disc, under the map \(S^{K-1} \to \R\P^{k-1}\), \(V\) has two (disjoint) preimages, \(U_1, U_2\), with \(\eta\vert_{U_2} = \eta\vert_{U_1} \circ \text{(antipodal)}\), and so
+    \[\deg_{x_1}(f) = (-1)^k\deg_{x_2}(f)\]
+    With this, \(\partial_k^\cell\) is multiplication by \(1 + (-1)^k\) (possibly up to a sign). The complex then becomes
+    % https://q.uiver.app/#q=WzAsOCxbNiwwLCJcXFoiXSxbNywwLCIwIl0sWzUsMCwiXFxaIl0sWzQsMCwiXFxaIl0sWzMsMCwiXFxaIl0sWzIsMCwiXFxjZG90cyJdLFsxLDAsIlxcWiJdLFswLDAsIlxcWiJdLFswLDFdLFszLDIsIjIiLDJdLFsyLDAsIjAiLDJdLFs0LDMsIjAiLDJdLFs1LDRdLFs3LDZdLFs2LDVdXQ==
+\[\begin{tikzcd}
+	\Z & \Z & \cdots & \Z & \Z & \Z & \Z & 0
+	\arrow[from=1-7, to=1-8]
+	\arrow["2"', from=1-5, to=1-6]
+	\arrow["0"', from=1-6, to=1-7]
+	\arrow["0"', from=1-4, to=1-5]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+\end{tikzcd}\]
+    and so the homology is
+    \begin{align*}
+        \HH_*(\R\P^n) = \begin{cases}
+            \Z & * = 0 \\
+            \Z/2 & 0 < * < n, * \text{ odd} \\
+            \Z & * = n, n \text{ odd} \\
+            0 & \text{otherwise}
+        \end{cases}
+    \end{align*}
+\end{example}
+
+\begin{example}
+    [Exercise] If \(p(z)\) is a complex polynomial, then \(p\) extends to a continuous map \(\hat p : \C_\infty \to \C_\infty\) of degree \(\deg(p)\), and if \(x \in \C\) is a root of \(p\), the local degree \(\deg_x(\hat p)\) is the multiplicity of the root.
+
+    c.f. the fundamental theorem of algebra.
+\end{example}
+
+\begin{remark}
+    If \(f : S^n \to S^n\) is a \emph{smooth map}, then \(f^{-1}(y)\) is finite if \(y\) is a \emph{regular value}, and by Sard's theorem the set of critical values has measure zero, and as such, the set of regular values is dense.
+
+    Moreover, every continuous map \(S^n \to S^n\) is homotopic to a smooth map.
+\end{remark}
+
+\subsection{Digression on cohomology}
+
+Set \(C^*_\cell(X) = \Hom(C_*^\cell(X), \Z)\), and \(\partial^*_\cell\) for the adjoint of \(\partial_*^\cell\). Consider
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXEhIXmkoWF9pLCBYX3tpLTF9KSJdLFsyLDAsIlxcSEheaShYX2kpIl0sWzQsMCwiXFxISF57aSsxfShYX3tpKzF9LCBYX2kpIl0sWzAsMV0sWzEsMl0sWzAsMiwiXFx0ZXh0e2NhbmRpZGF0ZSBmb3IgfVxccGFydGlhbF4qX1xcY2VsbCIsMix7ImN1cnZlIjozfV1d
+\[\begin{tikzcd}
+	{\HH^i(X_i, X_{i-1})} && {\HH^i(X_i)} && {\HH^{i+1}(X_{i+1}, X_i)}
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-3, to=1-5]
+	\arrow["{\text{candidate for }\partial^*_\cell}"', curve={height=18pt}, from=1-1, to=1-5]
+\end{tikzcd}\]
+But on examples sheet 2, we show that the diagram below
+% https://q.uiver.app/#q=WzAsNixbMCwwLCJcXEhIXmkoWF9pLCBYX3tpLTF9KSJdLFsyLDAsIlxcSEheaShYX2kpIl0sWzQsMCwiXFxISF57aSsxfShYX3tpKzF9LCBYX2kpIl0sWzAsMiwiXFxIb20oXFxISF9pKFhfaSwgWF97aS0xfSksIFxcWikiXSxbMiwyLCJcXEhvbShcXEhIX2koWF9pKSwgXFxaKSJdLFs0LDIsIlxcSG9tKFxcSEhfe2krMX0oWF97aSsxfSwgWF9pKSwgXFxaKSJdLFswLDFdLFsxLDJdLFswLDMsIlxcY29uZyIsMl0sWzMsNF0sWzQsNV0sWzIsNSwiXFxjb25nIl0sWzEsNF0sWzMsNSwiXFx0ZXh0e2Fkam9pbnQgdG8gfVxccGFydGlhbF9rXlxcY2VsbCIsMix7ImN1cnZlIjozfV1d
+\[\begin{tikzcd}
+	{\HH^i(X_i, X_{i-1})} && {\HH^i(X_i)} && {\HH^{i+1}(X_{i+1}, X_i)} \\
+	\\
+	{\Hom(\HH_i(X_i, X_{i-1}), \Z)} && {\Hom(\HH_i(X_i), \Z)} && {\Hom(\HH_{i+1}(X_{i+1}, X_i), \Z)}
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-3, to=1-5]
+	\arrow["\cong"', from=1-1, to=3-1]
+	\arrow[from=3-1, to=3-3]
+	\arrow[from=3-3, to=3-5]
+	\arrow["\cong", from=1-5, to=3-5]
+	\arrow[from=1-3, to=3-3]
+	\arrow["{\text{adjoint to }\partial_k^\cell}"', curve={height=18pt}, from=3-1, to=3-5]
+\end{tikzcd}\]
+commutes. Thus, we could have defined
+\[C^i_\cell(X) = \HH^i(X_i, X_{i-1})\]
+and the boundary operators will have given the same cochain complex. Note however in the diagram above, the middle map need not be an isomorphism.
+
+\begin{proposition}
+    Let \(X\) be a finite cell complex. Then
+    \[\HH^i(X) \cong \frac{\HH_i(X)}{\Tor(\HH_i(X))} \oplus \Tor(\HH_{i-1}(X))\]
+    where for an abelian group \(A\), \(\Tor(A)\) is the subgroup of torsion elements.
+\end{proposition}
 
 \printindex
 

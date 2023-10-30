@@ -512,7 +512,7 @@ We will need a few facts. Let \(\mfg\) be a Lie algebra, \(\varphi : \mfg \to \g
 
 \underline{Fact 1:}
 \[\ker(\sigma - \lambda \id_V)\]
-is a subrepresentaion of \(V\), for all \(\lambda \in \C\).
+is a subrepresentation of \(V\), for all \(\lambda \in \C\).
 
 \underline{Fact 2:}
 If \(V\) is irreducible, then \(\sigma\) is a scalar multiple of \(\id_V\). That is, Schur's Lemma.
@@ -545,7 +545,7 @@ In fact, \(\Omega\) is \emph{central}.
 \end{proof}
 
 \begin{proof}
-    [Proof of \cref{thm:weyl}] Let \(\varphi : \sl_2 \to \gl(V)\) be a finite dimensional representation of \(\sl_2\). Let \(W \le V\) be a subrepresentaion. We need to find a subrepresentaion \(U \le V\), such that
+    [Proof of \cref{thm:weyl}] Let \(\varphi : \sl_2 \to \gl(V)\) be a finite dimensional representation of \(\sl_2\). Let \(W \le V\) be a subrepresentation. We need to find a subrepresentaion \(U \le V\), such that
     \[V \cong W \oplus U\]
 
     \textbf{Case 1: \(W\) has codimension \(1\)}. So \(V/W \cong V(0)\).
@@ -1373,6 +1373,7 @@ With this, we have
 which is the \emph{root space decomposition}\index{root space decomposition}, or the \emph{Cartan decomposition}\index{Cartan decomposition} of \(\mfg\).
 
 \begin{proposition}
+    \label{prop:root-space-properties}
     \begin{enumerate}[(i)]
         \item For all \(\alpha, \beta \in \mft^*\), \([\mfg_\alpha, \mfg_\beta] \sse \mfg_{\alpha + \beta}\),
         \item If \(\alpha \in \Phi\), \(x \in \mfg_\alpha\), then \(\ad(x)\) is nilpotent.
@@ -1458,8 +1459,10 @@ which is the \emph{root space decomposition}\index{root space decomposition}, or
 \end{example}
 
 \begin{proposition}
+    \label{prop:exists-sl2}
     Let \(\alpha \in \Phi\) be a root, \(e_\alpha \in \mfg_\alpha\), then there exists \(f_\alpha \in \mfg_{-\alpha}\), such that
     \[\mfm_\alpha = \Span\{e_\alpha, f_\alpha, h_\alpha = [e_\alpha, f_\alpha]\} \cong \sl_2\]
+    We call \(e_\alpha, f_\alpha, h_\alpha\) an \emph{\(\sl_2\)-triple}\index{sl2-triple@\(\sl_2\)-triple}.
 \end{proposition}
 
 We're saying that every semisimple Lie algebra is ``made up from \(\sl_2\)s''.
@@ -1503,7 +1506,7 @@ Since a toral subalgebra is by definition abelian, this holds for all of \(\mfg\
     \[\ad : \mfg \to \gl(\mfg)\]
     This shows that \(\mfh\) embeds as a solvable Lie subalgebra of \(\gl(\mfg)\). By Lie's theorem, we can assume \(\ad(\mfh)\) is a subset of the space of upper triangular matrices. With this, \(\ad(t_\alpha) = [\ad(x), \ad(y)]\) is strictly upper triangular. Hence \(\ad(t_\alpha)\) is nilpotent, but \(\ad(t_\alpha)\) is semisimple\footnote{This follows from \(t_\alpha \in \mft\).}, and so \(\ad(t_\alpha) = 0\). Thus,
     \[t_\alpha \in Z(\mfg) = 0\]
-    Contraduction, as \(\alpha \ne 0\) implies \(t_\alpha \ne 0\).
+    Contradiction, as \(\alpha \ne 0\) implies \(t_\alpha \ne 0\).
 \end{proof}
 
 \begin{lemma}
@@ -1514,6 +1517,118 @@ Since a toral subalgebra is by definition abelian, this holds for all of \(\mfg\
     If \(x \in \mfg_\alpha, y \in \mfg_{-\alpha}\) with \(K(x, y) \ne 0\), then for all \(z \in \mfg_\alpha\),
     \[[[x,y],z] = K(x,y)[t_\alpha, z] = K(x, y)\alpha(t_\alpha)z\] 
 \end{proof}
+
+\lec
+
+\begin{proof}
+    [Proof of \cref{prop:exists-sl2}] Take \(e_\alpha \in \mfg_\alpha\), and find \(f_\alpha \in \mfg_{-\alpha}\) such that
+    \[K(e_\alpha, f_\alpha) = \frac{2}{\alpha(t_\alpha)}\]
+    Define
+    \[h_\alpha = \frac{2}{K(t_\alpha, t_\alpha)}t_\alpha\]
+    We can check that this satisfies the \(\sl_2\) relations.
+    \begin{align*}
+        [e_\alpha, f_\alpha] &= K(e_\alpha, f_\alpha)t_\alpha = h_\alpha \\
+        [h_\alpha, e_\alpha] &= \frac{2}{\alpha(t_\alpha)}[t_\alpha, e_\alpha] = 2e_\alpha \\
+        [h_\alpha, f_\alpha] &= -2f_\alpha
+    \end{align*}
+    and so \(\mfm_\alpha \cong \sl_2\). 
+\end{proof}
+
+\underline{Exercise:} Show that weights add. If \(\mfg\) is semisimple, with root space decomposition
+\[\mfg = \mft \oplus \bigoplus_\alpha \mfg_\alpha\]
+and \(V, W\) representations of \(\mfg\), with weight spaces \(V_\alpha, W_\alpha\). Then
+\begin{enumerate}
+    \item \(\mfg_\alpha \circ V_\beta \sse V_{\alpha + \beta}\)
+    \item \(V_\alpha \otimes W_\beta \sse (V \otimes W)_{\alpha + \beta}\).
+\end{enumerate}
+
+\begin{lemma}
+    \begin{enumerate}
+        \item if \(V\) is a finite dimensional representation of \(\mfg\), then \(V\vert_{\mfm_\alpha}\) is a finite dimensional representation of \(\mfm_\alpha\),
+        \item for \(\beta \in \Phi\), or \(\beta = 0\), let
+        \[V = \bigoplus_{c \in \C}\mfg_{\beta \oplus c\alpha}\]
+        where we sum over \(c \in \C\) such that \(\beta + c\alpha \in \Phi\). This is a representation of \(\mfm_\alpha\) under the adjoint action.
+
+        We call \(V\) the \emph{\(\alpha\)-root string through \(\beta\)}\index{root string}
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    (i) is true by generic facts about restrictions. For (ii), it follows by \cref{prop:root-space-properties}.
+\end{proof}
+
+\begin{proposition}
+    Let \(\alpha \in \Phi\). Then the root spaces \(\mfg_{\pm\alpha}\) are 1-dimensional. Moreover, the if \(c\alpha \in \Phi\), for some \(c \in \C\), then \(c = \pm 1\).
+\end{proposition}
+
+\begin{proof}
+    Suppose \(c\alpha \in \Phi\), then \(h_\alpha\) takes \(c\alpha(h_\alpha)= 2c\) as an eigenvalue. The eigenvalues of \(h_\alpha\) are integers, and so either \(c \in \Z\), or \(c \in \Z + \frac{1}{2}\).
+
+    Write
+    \[V = \mft \oplus\bigoplus_{c\alpha \in \Phi}\mfg_\alpha\]
+    Let \(K = \ker(\alpha) \le \mft\). We can check that \(K + \mfm_\alpha\) is an \(\mfm_\alpha\)-subrepresentation of \(V\). By Weyl's theorem, as a representation of \(\mfm_\alpha\),
+    \[V = K \oplus \mfm_\alpha \oplus W\]
+    where \(W\) is a complementary subrepresentation. Suppose either of the conclusions in the statement are false. Then \(W \ne 0\). Let \(W_0 \le W\) be an irreducible subrepresentation. We know \(W_0 \cong V(s)\) for some \(s\). Then \(W_0\) has a highest weight vector \(w_0\), with \(w_0 \in \mfg_{c\alpha}\) for some \(c\), and
+    \[[h_\alpha, v_0] = sv_0\]
+    \textbf{Case 1: \(s\) is even.} In this case, \(0\) is an eigenvalue of \(h_\alpha\). Let \(e\) be the eigenvector. But the zero eigenspace of \(\mfh_\alpha\) on \(V\) is \(\mft\), which is contained in \(K \oplus \mfm_\alpha\). Thus, \(e \in (K \oplus \mfm_\alpha) \cap W_0 = 0\). Contradiction.
+
+    \underline{Aside:} If \(2\alpha\) is a root, then \(h_\alpha\) has \(2\alpha(h_\alpha) = 4\) as an eigenvalue, but the eigenvalues of \(h_\alpha\) on \(K \oplus m_\alpha\) are \(0, 2, -2\). So the only way this could happen is if \(W\) contains an irreducible subrepresentaion \(V(s)\), where \(s\) is even. With this, if \(\alpha\) is a root, then \(2\alpha\) is not a root.
+
+    \textbf{Case 2: \(s\) is odd.} In this case, \(1\) is an eigenvalue of \(h_\alpha\). As \(\alpha(h_\alpha) = 2\), this means that \(\frac{1}{2}\alpha\) is a root. But then by the above,
+    \[\alpha = 2\cdot\frac{1}{2}\alpha\]
+    is not a root. Contradiction.
+\end{proof}
+
+\underline{Exercise:} We have a canonical identification \(\mfm_\alpha = \mfm_{-\alpha}\) and \(h_\alpha = h_{-\alpha}\).
+
+\begin{proposition}
+    Let \(\alpha, \beta \in \Phi\) such that \(\alpha \ne \pm \beta\). Then
+    \begin{enumerate}[(i)]
+        \item \(\beta(h_\alpha) \in \Z\), and we call these the \emph{Cartan integers}\index{Cartan integers}.
+        \item there exists integers \(p, q \ge 0\) such that if \(r \in \Z\), then
+        \[\beta + r\alpha \in \Phi \iff -p \le r \le q\]
+        Moreover, \(p - q = \beta(h_\alpha)\).
+        \item \([\mfg_\alpha, \mfg_\beta] = \mfg_{\alpha + \beta}\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    For (i), consider
+    \[V = \bigoplus_{r \in \Z}\mfg_{\beta + r\alpha}\]
+    and let \(\mfm_\alpha\) act on \(V\) by the adjoint action. Let
+    \[q = \max\left\{r \in \Z \mid \beta + r\alpha \in \Phi\right\}\]
+    In particular, \(\beta + q\alpha\) is a root. Choose \(v \in \mfg_{\beta + q\alpha}\) non-zero. Then
+    \[[e_\alpha, v] \in \mfg_{\beta + (q+1)\alpha} = 0\]
+    and
+    \[[h_\alpha, v] = (\beta + q\alpha)(h_\alpha)(v) \in \Span\{v\}\]
+    Thus, \(v\) is a highest weight vector, with weight \((\beta + q\alpha)(h_\alpha)\). With this, by \(\sl_2\) representation theory,
+    \[\beta(h_\alpha) + q\alpha(h_\alpha) \in \Z_{\ge 0}\]
+    and so
+    \[\beta(h_\alpha) + 2q \in \Z_{\ge 0}\]
+    which means that \(\beta(h_\alpha) \in \Z\).
+
+    For (ii), recall from \cref{lem:span-f-subrep} that
+    \[W = \Span\{v, fv, f^2v, \dots\}\]
+    is an irreducible representation of \(V\), and so \(h_\alpha\) acts by
+    \[\begin{pmatrix}
+        (\beta + q\alpha)(h_\alpha) \\
+        & (\beta + (q-1)\alpha)(h_\alpha) \\
+        & & \ddots \\
+        & & & -(\beta + q\alpha)(h_\alpha)
+    \end{pmatrix}\]
+    In particular,
+    \[W = \bigoplus_{r = -p}^q \mfg_{\beta + r\alpha}\]
+    for some \(p\), where
+    \[p = \min\{r \in  \Z \mid \beta - r\alpha \in \Phi\}\]
+
+    Suppose \(W' \le V\) is a proper subrepresentation. Then \(W'\) contains a highest weight vector \(w \in \mfg_\gamma\), for some \(\gamma\). Then
+    \[0 \le \gamma(h_\alpha) < -(\beta + q\alpha)(h_\alpha) \le 0\]
+    Contradiction. Finally,
+    \[(\beta - p\alpha)(h_\alpha) = -(\beta + q\alpha)(h_\alpha)\]
+    and rearranging,
+    \[\beta(h_\alpha) = p - q\]
+\end{proof}
+
 \printindex
 
 \end{document}
