@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage[subsec]{../../Style}
+\usepackage{../../Style}
 
 \title{Differential Geometry}
 \author{Shing Tak Lam}
@@ -972,7 +972,7 @@ where the \(\alpha_I\) are smooth functions.
 \end{proof}
 
 \begin{definition}
-    [orientable] A manifold \(M\) satisfying any of the conditions in the above theorem is called \emph{orientable}\index{orientable}.
+    [orientable] A manifold \(M\) satisfying any of the conditions in the above theorem is called \emph{orientable}\index{orientable!manifold}.
 \end{definition}
 
 Suppose \(M\) is connected. then there are \emph{two} choices of \emph{orientation}\index{orientation}, given by respectively:
@@ -983,7 +983,7 @@ Suppose \(M\) is connected. then there are \emph{two} choices of \emph{orientati
 \end{enumerate}
 
 \begin{definition}
-    [oriented] A manifold \(M\) with a choice of orientation is called \emph{oriented}\index{oriented}.
+    [oriented] A manifold \(M\) with a choice of orientation is called \emph{oriented}\index{oriented!manifold}.
 \end{definition}
 
 \subsection{Exterior derivative}
@@ -1204,6 +1204,136 @@ Note \(\eta\) being compactly supported implies \(\dd\eta\) is compactly support
 \begin{proof}
     Apply Stokes to \(\eta = \alpha \wedge\beta\), which is compactly supported.
 \end{proof}
+
+\lec
+
+\section{Vector bundles}
+
+\begin{definition}
+    [vector bundle] A \emph{vector bundle \(E\) over a manifold \(B\)}\index{vector bundle} is
+    \begin{enumerate}
+        \item a smooth manifold \(E\),
+        \item a surjective submersion \(\pi : E \to B\), i.e. \(\pi\) is smooth, and \((\dd\pi)_p\) is surjective,
+    \end{enumerate}
+    Moreover,
+    \begin{enumerate}[(i)]
+        \item there exists a (finite dimensional) vector space \(V\), such that for all \(p \in B\), \(E_p = \pi^{-1}(p)\) is a vector space isomorphic to \(V\),
+        \item for any \(p \in B\), there exists an open neighbourhood \(U\) of \(p\), and a diffeomorphism \(\Phi_U\) making the diagram
+        % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXHBpXnstMX0oVSkiXSxbMiwwLCJVIFxcdGltZXMgViJdLFsxLDIsIlUiXSxbMCwxLCJcXFBoaV9VIl0sWzAsMiwiXFxwaSIsMl0sWzEsMiwiXFxwcl8xIl1d
+        \[\begin{tikzcd}
+            {\pi^{-1}(U)} && {U \times V} \\
+            \\
+            & U
+            \arrow["{\Phi_U}", from=1-1, to=1-3]
+            \arrow["\pi"', from=1-1, to=3-2]
+            \arrow["{\pr_1}", from=1-3, to=3-2]
+        \end{tikzcd}\]
+        commute.
+        \item for each \(p \in U\), the restriction \(\Phi_U : E_p \to \{p\} \times V \cong V\) is a linear isomorphism.
+    \end{enumerate}
+
+    We call 
+    \begin{itemize}
+        \item \(B\) the \emph{base}\index{base space}, 
+        \item \(E\) the \emph{total space}\index{total space}, 
+        \item \(\pi\) the \emph{bundle projection}\index{bundle projection},
+        \item \(V\) the \emph{typical fibre}\index{typical fibre}, if \(V\) is a real vector space, we call \(E\to B\) a \emph{real vector bundle}\index{real vector bundle}, and if \(V\) is a complex vector space, then we call \(E \to B\) a \emph{complex vector bundle}\index{complex vector bundle}.
+        \item \(\dim(V)\) is the \emph{rank of the vector bundle}\index{rank!of a vector bundle}\footnote{Note in the case of a complex vector bundle this depends on the real/complex dimension.},
+        \item \(\Phi_U\) a \emph{local trivialisation over \(U\)}\index{local trivialisation},
+        \item \(U\) is a \emph{trivialising neighbourhood}\index{trivialising neighbourhood}
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    Note surjectivity of \(\pi\) follows from (i), and the fact that it is a submersion follows from (ii).
+\end{remark}
+
+\begin{definition}
+    [(local) section] A \emph{section}\index{section} of a vector bundle \(E \to B\) is a smooth map \(s : B \to E\) such that \(\pi \circ s = \id_B\). A \emph{local section}\index{local section} is a smooth map \(s ; U \to E\), with \(\pi \circ s = \id_U\).
+\end{definition}
+
+\begin{example}
+    [product] If \(E = B \times V\), \(E \to B\) is a vector bundle, and the space of sections is just \(C^\infty(B, V)\).
+\end{example}
+
+\begin{example}
+    [(co)tangent space] \(\T M\) and \(\T^*M\) are real vector bundles of rank \(n = \dim(M)\). The sections are vector fields and \(1\)-forms respectively. In general, these are non-trivial, i.e. they are not products.
+
+    In general, \(\Lambda^r\T^*M\) is also a real vector bundle, and sections are \(r\)-forms. If \(\T M\) is trivial, then so are the bundles of differential forms.
+\end{example}
+
+\begin{example}
+    [tautological vector bundle] Over \(\R\P^n, \C\P^n\) (or more generally, Grassmannians), we have the \emph{tautological vector bundle}\index{tautological vector bundle}.
+
+    Say \(B = \C\P^n\), take
+    \[E = \bigsqcup_{\ell \text{ line in }\C^{n+1}\text{ through 0}}\ell\]
+    The bundle projection sends
+    \[\pi : E\ni \ell \mapsto \ell \in \C\P^n\]
+    We can check that this is a rank \(1\) complex vector bundle (i.e. a complex line bundle).
+\end{example}
+
+\subsection{Structure group and transition functions}
+
+Let \((U_\alpha, \Phi_\alpha), (U_\beta, \Phi_\beta)\) be local trivialisations of \(E\). In this case, we have that for \(b \in U_\alpha \cap U_\beta, v \in V\),
+\[\Phi_\beta \circ \Phi_\alpha^{-1}(b, v) = (b, \psi_{\beta\alpha}(b)v)\]
+where \(\psi_{\beta\alpha} : U_\alpha \cap U_\beta \to \GL(V)\) is smooth.
+
+\begin{definition}
+    [transition functions] The \(\psi_{\beta\alpha}\) are called the \emph{transition functions}\index{transition functions}.
+\end{definition}
+
+The transition functions satisfy the following:
+\begin{itemize}
+    \item \(\psi_{\alpha\alpha}(b) = \id\),
+    \item \(\psi_{\alpha\beta}(b)\psi_{\beta\alpha}(b) = \id\),
+    \item \(\psi_{\alpha\beta}(b)\psi_{\beta\gamma}(b)\psi_{\gamma\alpha}(b) = \id\)
+\end{itemize}
+which we call the \emph{cocycle conditions}\index{cocycle conditions}.
+
+\begin{example}
+    [(co)tangent bundle]
+    In the case of the (co)tangent bundles, with the charts defined earlier, the transition functions are given by the derivatives (or the dual matrix)
+    \[\left(
+        \pdv{x_i}{y_j}
+    \right)_{i, j}\]
+\end{example}
+
+\begin{proposition}
+    The following data:
+    \begin{itemize}
+        \item base manifold \(B\),
+        \item trivialising neighbourhoods \(\{U_\alpha\}_{\alpha \in A}\) covering \(B\),
+        \item maps \(\psi_{\beta\alpha} : U_\alpha \cap U_\beta \to \GL(V)\) smooth, satisfying the cocycle condition.
+    \end{itemize}
+    determines a vector bundle \(E\) over \(B\), with typical fibre \(V\).
+\end{proposition}
+
+The proof is called the Steenrod construction.
+
+\begin{proof}
+    First we define the total space
+    \[E := \frac{\bigsqcup_{\alpha \in A}(U_\alpha \times V)}{\sim}\]
+    where \(U_\alpha \times V \ni (b, v) \sim (b, \psi_{\beta\alpha}(b)v) \in U_\beta \times V\).
+
+    Without loss of generality, we may assume that the \(U_\alpha \sse B\) are coordinate neighbourhoods, with charts \(\varphi_\alpha\) Then
+    \[\widetilde\varphi_\alpha = (\varphi_\alpha, \id_V)\]
+    for each \(\alpha\) is a chart on \(U_\alpha \times V\). This implies that \(E\) is a manifold, as these form a smooth structure. The definitions of \(\pi\) and the existence of local trivialisations are clear.
+\end{proof}
+
+\begin{definition}
+    [\(G\)-structure, structure group]
+    Let \(E \to B\) be a real vector bundle with typical fibre \(V\). Let \(G \le \GL(V)\) be a subgroup. Suppose there exists local trivialisations \((U_\alpha, \Phi_\alpha)\) covering \(B\), where the transition maps \(\psi_{\alpha\beta}(b) \in G\) for all \(b \in U_\alpha \cap U_\beta\). We call this a \emph{\(G\)-structure on \(E \to B\)}\index{G-structure@\(G\)-structure}, and that \(E\) has \(G\) as a \emph{structure group}\index{structure group}.
+\end{definition}
+
+\begin{example}
+    If \(G = \{\id\}\), then \(E\) has a global trivialisation \(\Phi : E \to B \times V\).
+
+    If \(G = \GL_+(V)\) is the subgroup of matrices with positive determinant. Then a \(G\)-structure on \(E\) is an orientation of \(E\). If \(E = \T M\), then this determines an orientation of \(M\).
+\end{example}
+
+\begin{definition}
+    [orientable, oriented] A vector bundle \(E \to B\) is \emph{orientable}\index{orientable!vector bundle} if it admits a \(\GL_+(V)\) structure. \(E \to B\) is \emph{oriented}\index{oriented!vector bundle} if we made a choice of orientation.
+\end{definition}
 
 \printindex
 

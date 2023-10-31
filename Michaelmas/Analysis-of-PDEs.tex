@@ -1556,7 +1556,146 @@ We might expect in this case that it is ``better than \(L^\infty\)'', i.e. conti
     \[\norm{u}_{C^{0, \gamma}(\R^n)} \le C\norm{u}_{W^{1, p}(\R^n)}\]
 \end{proof}
 
-\section{Elliptic PDEs}
+\lec
+
+\begin{corollary}
+    For \(n < p < \infty\), and \(u \in W^{1, p}(\R^n)\), then there exists a unique \(u^*\) with \(u^* = u\) a.e., and \(u^*\) is continuous with
+    \[\norm{u^*}_{C^{0, \gamma}(\R^n)} \le C\norm{u}_{W^{1, p}(\R^n)}\]
+\end{corollary}
+
+\begin{corollary}
+    Suppose \(n < p < \infty\), \(u \in W^{1, p}(U)\) for \(U \sse \R^n\) open bounded, with \(\partial U\) being \(C^1\). Then there exists a unique \(u^* \in C^{0, \gamma}(\R^n)\), \(\gamma = 1 - \frac{n}{p}\), \(u = u^*\) a.e. on \(U\), and
+    \[\norm{u^*}_{C^{0, \gamma}(U)} \le C\norm{u}_{W^{1, p}(U)}\]
+    where \(C\) depends only on \(U, p, n\).
+\end{corollary}
+
+\begin{proof}
+    By the extension theorem, there exists \(\overline u \in W^{1, p}(\R^n)\), with \(\Supp(u)\) compact, \(\overline{u} = u\) a.e. on \(U\). Thus, there exists a sequence \((u_j) \in C_c^\infty(\R^n)\) with \(u_j \to \overline u\) in \(W^{1,p}(\R^n)\). Note by Morrey's inequality,
+    \[\norm{u_m - u_j}_{C^{0, \gamma}(\R^n)} \le C\norm{u_m - u_j}_{W^{1, p}(\R^n)}\]
+    and so \((u_j)\) is Cauchy in the Banach space \(C^{0, \gamma}(\R^n)\), and so there exists a limit \(\overline u^* \in C^{0, \gamma}(\R^n)\). Then \(u^* = \overline u^*\vert_U\) satisfies the requirements.
+\end{proof}
+
+In summary, if \(U \sse \R^n\) is open, bounded and has \(C^1\) boundary, then:
+
+\begin{itemize}
+    \item if \(1 \le p < n\), then we have a continuous embedding
+    \[W^{1, p}(U) \inj L^{p^*}(U)\]
+    where
+    \[\frac{1}{p_*} = \frac{1}{p} - \frac{1}{n}\]
+    and so \(p^* > p\).
+    \item If \(n < p < \infty\), then
+    \[W^{1, p}(U) \inj C^{0, \gamma}(U)\]
+    where
+    \[\gamma = 1 - \frac{n}{p}\]
+\end{itemize}
+
+\begin{example}
+    Let \(n = 3\), \(u \in W^{2, 2}\). Then \(u, Du \in W^{1,2}\). \(p = 2 < 3\), and we have \(p^* = 6\), hence \(u, Du \in L^6\). Thus, \(u \in W^{1, 6}\), and \(6 > 3 = n\) so \(u \in C^{0, 1/2}\).
+\end{example}
+
+\section{Second order elliptic boundary value problems}
+
+In this section, let \(U\) be an open bounded subset of \(\R^n\), with \(C^1\) boundary.
+
+For \(u \in C^2(\overline U)\), define
+\[Lu = -\sum_{i, j=1}^n(a^{ij}(x)u_{x_i})_{x_j} + \sum_{i=1}^n b^i(x)u_{x_i} + c(x)u\]
+where \(a^{ij}, b^i, c\) are functions on \(U\). We assume \(a^{ij}, b^i, c\) are \(L^\infty\), and \(a^{ij} = a^{ji}\). This form is called \emph{divergence form}\index{divergence form}, since it looks like
+\[\grad\cdot(A \grad u)\]
+If \(a^{ij} \in C^1(\overline U)\), then we can rewrite \(L\) in \emph{non-divergence form}\index{non-divergence form}
+\[Lu = -\sum_{i, j=1}^n a^{ij}(x)u_{x_ix_j} + \sum_{i=1}^n \tilde b^i(x)u_{x_i} + cu\]
+
+We will study the divergence form, since it is adapted to Hilbert space methods. The non-divergence form is better for maximum principles, and Dirichlet energies. The second form is the topic of the Part III Elliptic PDEs course.
+
+\begin{definition}
+    We say \(L\) is \emph{elliptic}\index{elliptic} if
+    \[\sum_{i, j}a_{ij}\xi_i\xi_j > 0\]
+    for all \(x \in U, \xi \in \R^n \setminus 0\). We say that \(L\) is \emph{uniformly elliptic}\index{uniformly elliptic} if there exists a constant \(\theta > 0\), such that
+    \[\sum_{i, j}a^{ij}(x)\xi_i\xi_j \ge \theta\norm{\xi}^2\]
+    for all \(x \in U, \xi \in \R^n\). 
+\end{definition}
+
+Note some references call uniformly elliptic: strongly or strictly elliptic.
+
+\subsection{Weak formulation and Lax-Milgram}
+
+We will consider the boundary value problem
+\begin{equation}
+    \label{eq:elliptic-bvp}
+    \begin{cases}
+        Lu = f &\text{on }U \\
+        u\vert_{\partial U} = 0
+    \end{cases}
+\end{equation}
+with \(f \in L^2(U), a^{ij}, b^i, c \in L^\infty(U)\).
+
+Suppose \(u \in C^2(\overline U)\) solves \cref{eq:elliptic-bvp} pointwise a.e.. Take any \(v \in C^2(\overline U)\) with \(v\vert_{\partial U} = 0\), we get (using summation convention)
+\begin{align*}
+    \int_U f v \dd x &= \int_U -v(a^{ij}u_{x_i})_{x_j} + vb^j u_{x_j} + cuv \dd x \\
+    &= \underbrace{-\int_{\partial U}va^{ij}u_{x_i}n_j \dd S}_{=0} + \int_U a^{ij}u_{x_i}v_{x_j} + bu_{x_i}v + cuv \dd x
+\end{align*}
+and so,
+\begin{equation}
+    \label{eq:weak-elliptic}
+    \int_U vf \dd x = B[u, v]
+\end{equation}
+for all \(v \in C^2(\overline U)\) with \(v\vert_{\partial U} = 0\), where
+\[B[u, v] = \int_U a^{ij}u_{x_i}v_{x_j} + bu_{x_i}v + cuv \dd x\]
+With this, if \(u \in C^2(\overline U)\) solves \cref{eq:elliptic-bvp}, then \cref{eq:weak-elliptic} holds. Conversely, if \(u \in C^2(\overline U)\) with \(u\vert_{\partial U} = 0\) and satisfying \cref{eq:weak-elliptic}, then by integration by parts, we get that
+\[\int_U (f - Lu)v \dd x = 0\]
+for all \(v \in C_c^\infty(U)\). Thus, \(Lu = f\) pointwise a.e. on \(U\).
+
+In conclusion, if \(u \in C^2(\overline U)\), with \(u\vert_{\partial U} = 0\), then \(u\) satisfies \cref{eq:elliptic-bvp} if and only if it satisfies \cref{eq:weak-elliptic}.
+
+But we note that \cref{eq:weak-elliptic} makes sesne for \(v \in H_0^1(U)\) and \(u \in H^1\). To encode the boundary conditions, we can assume \(u \in H_0^1(U)\).
+
+\begin{definition}
+    [weak solution] We say that \(u \in H^1_0(U)\) is a \emph{weak solution}\index{weak solution!to elliptic boundary value problem} of \cref{eq:elliptic-bvp} for given \(f \in L^2(U)\) if
+    \[B[u, v] = \inner{f, v}_{L^2(U)}\]
+    for all \(v \in H_0^1(U)\).
+\end{definition}
+
+\begin{theorem}
+    [Lax-Milgram] Let \(H\) be a real Hilbert space, with inner product \(\inner{\cdot, \cdot}\). Suppose \(B : H \times H \to \R\) is bilinear, such that there exists constants \(\alpha, \beta > 0\) such that
+    \begin{enumerate}[(i)]
+        \item (Boundedness) \(\abs{B[u, v]} \le \alpha \norm{u}\norm{v}\) for all \(u, v \in H\), 
+        \item (Coercivity) \(\beta\norm{u}^2 \le B[u, u]\) for all \(u \in H\).
+    \end{enumerate}
+    Then if \(f \in H^*\), there exists a unique \(u \in H\) such that
+    \[B(u, v) = \inner{f, v}\]
+    for all \(v \in H\).
+\end{theorem}
+
+We will defer the proof to the next lecture.
+
+\begin{example}
+    Recall that \(H^k = W^{k, 2}\) is a Hilbert space. Consider the boundary value problem
+    \[\begin{cases}
+        Lu = -\Delta u + cu = 0 & \text{on }U \\
+        u = f \in L^2(U) & \text{on }\partial U
+    \end{cases}\]
+    where \(c \ge 0\). In this case,
+    \[B[u, v] = \int_U\grad u \cdot \grad v + cuv \dd x\]
+    For boundedness, by H\"older (or Cauchy-Schwarz),
+    \[\abs{B[u, v]} \le (1 + c)\norm{u}_{H^1}\norm{v}_{H^1}\]
+    For coercivity,
+    \[B[u, u] = \norm{\grad u}_{L^2(U)}^2 + c\norm{u}_{L^2(U)}^2 \ge \norm{\grad u}_{L^2(U)}^2 \ge \tilde C\norm{u}_{H^1(U)}^2\]
+    where for the last inequality, we used the Poincare inequality. Thus, we can apply Lax-Milgram with \(H = H_0^1\).
+\end{example}
+
+\begin{corollary}
+    [of Lax-Milgram, stability] With the assumptions of Lax-Milgram, let \(u_i\) be the unique solution to
+    \[B[u_i, v] = \inner{f_i, v}\]
+    for all \(v \in H\). Then
+    \[\norm{u_1 - u_2}_H \le \frac{1}{\beta}\norm{f_1 - f_2}_{H^*}\]
+\end{corollary}
+
+\begin{proof}
+    Since \(B[u_i, v] = \inner{f_i, v}\), by bilinearity,
+    \[B[u_1 - u_2, v] = \inner{f_1 - f_2, v}\]
+    Choosing \(v = u_1 - u_2\), then
+    \[\beta\norm{v}^2 \le B[u_1 - u_2, v] = \inner{f_1 - f_2, v} \le \norm{f_1 - f_2}\norm{v}\]
+    where we use Cauchy-Schwarz for the last inequality.
+\end{proof}
 
 \section{Hyperbolic PDEs}
 

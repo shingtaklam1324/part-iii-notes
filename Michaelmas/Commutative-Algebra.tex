@@ -1671,6 +1671,170 @@ If \(I \idealof R\) is an ideal, then the \emph{radical of \(I\)} is
     This is not the zero ring, since we did not invert zero. Therefore, \((R/I)_{\overline x}\) has a prime ideal, which corresponds to a prime ideal of \(R/I\) which avoids \(\overline x\), which in turn, corresponds to a prime ideal of \(R\), which contains \(I\), and avoids \(x\).
 \end{proof}
 
+\lec
+
+\subsection{Local properties}
+
+\begin{definition}
+    [local ring]
+    A ring \(R\) is \emph{local}\index{local ring} if it has a unique maximal ideal. We write \((R, \mfm)\) for the local ring \(R\) with maximal ideal \(\mfm\).
+\end{definition}
+
+\begin{example}
+    Let \(\mfp \in \Spec(R)\). Then recall that we have a bijection
+    \[\{\mfq \in \Spec(R) \mid \mfq \sse \mfp\} \bij \Spec(R_\mfp)\]
+    given by extension and contraction. With this, all prime ideals of \(R_\mfp\) are contained in \(\mfp R_\mfp\). Thus, \((R_\mfp, \mfp R_\mfp)\) is a local ring.
+
+    In particular, \(\Z_{\inner2}\) is a local ring, and the unique maximal ideal is
+    \[\inner{2}\Z_{\inner{2}} = \left\{\frac{2a}{b} \ \bigg\vert\ a, b \in \Z, 2 \nmid b\right\}\]
+\end{example}
+
+\begin{proposition}
+    \label{prop:zero-local}
+    Let \(M\) be an \(R\)-module. Then the following are equivalent:
+    \begin{enumerate}[(i)]
+        \item \(M = 0\),
+        \item \(M_\mfp = 0\) for all \(\mfp \in \Spec(R)\),
+        \item \(M_\mfm = 0\) for all \(\mfm \in \maxSpec(R)\).
+    \end{enumerate}
+    That is, being zero is a local property (i.e. it is localisable and local to global).
+\end{proposition}
+
+\begin{proof}
+    The implications \((i) \implies (ii) \implies (iii)\) is clear. Suppose (iii) holds, and suppose for contradiction there exists \(m \in M\) non-zero. Consider
+    \[\Ann_R(m) = \left\{r \in R \mid rm = 0\right\} \idealof R\]
+    Since \(m \ne 0\), \(1 \notin \Ann_R(m)\). Take a maximal ideal \(\mfm\) containing \(\Ann_R(m)\). In this case,
+    \[\frac{m}{1} = 0 \in M_\mfm\]
+    That is, \(um = 0\) for some \(u \in R \setminus \mfm\). But in this case, \(u \notin \Ann_R(m)\). Contradiction.
+\end{proof}
+
+\begin{proposition}
+    \label{prop:inj-local}
+    Lte \(f : M \to N\) be an \(R\)-linear map. Then the following are equivalent:
+    \begin{enumerate}[(i)]
+        \item \(f\) is injective,
+        \item \(f_\mfp : M_\mfp \to N_\mfp\) is injective for every \(\mfp \in \Spec(R)\),
+        \item \(f_\mfm : M_\mfm \to N_\mfm\) is injective for every \(\mfm \in \maxSpec(R)\),
+    \end{enumerate}
+    The same statements holds for surjectivity.
+\end{proposition}
+
+Recall
+\[f_\mfp\left(\frac{m}{s}\right) = \frac{f(m)}{s}\]
+
+\begin{proof}
+    Suppose (i) holds. Since localising at \(\mfp\) is an exact functor, (ii) follows. (ii) implies (iii) is by definition.
+
+    Suppose (iii) holds. We have the exact sequence
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiXFxrZXIoZikiXSxbMiwwLCJNIl0sWzMsMCwiTiJdLFswLDFdLFsxLDIsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzIsMywiZiJdXQ==
+\[\begin{tikzcd}
+	0 & {\ker(f)} & M & N
+	\arrow[from=1-1, to=1-2]
+	\arrow[hook, from=1-2, to=1-3]
+	\arrow["f", from=1-3, to=1-4]
+\end{tikzcd}\]
+    Localising at \(\mfm\), we get
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiXFxrZXIoZilfe1xcbWZtfSJdLFsyLDAsIk1fXFxtZm0iXSxbMywwLCJOX1xcbWZtIl0sWzAsMV0sWzEsMl0sWzIsMywiZl9cXG1mbSJdXQ==
+\[\begin{tikzcd}
+	0 & {\ker(f)_{\mfm}} & {M_\mfm} & {N_\mfm}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow["{f_\mfm}", from=1-3, to=1-4]
+\end{tikzcd} \tag{\(*\)}\]
+    which is exact as localisation is an exact functor. But \((*)\) shows that
+    \[\ker(f_\mfm) = \ker(f)_\mfm\]
+    But we assumed \(\ker(f_\mfm) = 0\), and so \(\ker(f)_\mfm = 0\) for all maximal ideals \(\mfm\). Thus, by \cref{prop:zero-local}, \(\ker(f) = 0\).
+\end{proof}
+
+\begin{proposition}
+    Let \(M\) be an \(R\)-module. Then the following are equivalent:
+    \begin{enumerate}[(i)]
+        \item \(M\) is a flat \(R\)-module,
+        \item \(M_\mfp\) is a flat \(R_\mfp\)-module for all \(\mfp \in \Spec(R)\),
+        \item \(M_\mfm\) is a flat \(R_\mfm\)-module for all \(\mfm \in \maxSpec(R)\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    For (i)\(\implies\)(ii), since \(M_\mfp \cong R_\mfp \otimes_R M\) as \(R_\mfp\)-modules, and we have shown that extension of scalars preserves flatness. As usual, (ii) \(\implies\) (iii) is trivial.
+
+    Suppose (iii) holds. Suppose \(f : N \to P\) is \(R\)-linear and injective. Fix a maximal ideal \(\mfm \in \maxSpec(R)\). Then \(f_\mfm : N_\mfm \to P_\mfm\) is injective by \cref{prop:inj-local}. Then
+    % https://q.uiver.app/#q=WzAsMixbMCwwLCJOX1xcbWZtIFxcb3RpbWVzIE1fXFxtZm0iXSxbMiwwLCJQX1xcbWZtXFxvdGltZXMgTV9cXG1mbSJdLFswLDEsImZfXFxtZm0gXFxvdGltZXMgXFxpZCJdXQ==
+\[\begin{tikzcd}
+	{N_\mfm \otimes M_\mfm} && {P_\mfm\otimes M_\mfm}
+	\arrow["{f_\mfm \otimes \id}", from=1-1, to=1-3]
+\end{tikzcd}\]
+    is injective by (iii). But we have isomorphisms \((N \otimes_R M)_\mfm \cong N_\mfm \otimes_{R_\mfm} M_\mfm\), and using this,
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJOX1xcbWZtIFxcb3RpbWVzIE1fXFxtZm0iXSxbMiwwLCJQX1xcbWZtXFxvdGltZXMgTV9cXG1mbSJdLFswLDIsIihOXFxvdGltZXNfUk0pX1xcbWZtIl0sWzIsMiwiKFAgXFxvdGltZXNfUiBNKV9cXG1mbSJdLFswLDEsImZfXFxtZm0gXFxvdGltZXMgXFxpZCJdLFsyLDMsIihmXFxvdGltZXNcXGlkKV9cXG1mbSJdLFswLDIsIlxcc2ltIiwxLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsxLDMsIlxcc2ltIiwxLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==
+\[\begin{tikzcd}
+	{N_\mfm \otimes M_\mfm} && {P_\mfm\otimes M_\mfm} \\
+	\\
+	{(N\otimes_RM)_\mfm} && {(P \otimes_R M)_\mfm}
+	\arrow["{f_\mfm \otimes \id}", from=1-1, to=1-3]
+	\arrow["{(f\otimes\id)_\mfm}", from=3-1, to=3-3]
+	\arrow["\sim"{description}, no head, from=1-1, to=3-1]
+	\arrow["\sim"{description}, no head, from=1-3, to=3-3]
+\end{tikzcd}\]
+    the bottom map must be injective. But then \((f \otimes \id)_\mfm\) is injective for all \(\mfm\), and so \(f \otimes \id\) is injective by \cref{prop:inj-local}.
+\end{proof}
+
+\begin{example}
+    An \(R\)-module \(M\) is \emph{locally free}\index{locally free} if \(M_\mfp\) is a free \(R_\mfp\) module for every \(\mfp \in \Spec(R)\).
+
+    Take \(R = \C \times \C\). The set of prime ideals of \(R\) is just
+    \[\{\C \times 0, 0 \times \C\}\]
+    But then we have a ring homomorphism
+    \begin{align*}
+        \C \times \C &\to \C \\
+        (a, b)&= b
+    \end{align*}
+    This sends \(\C \times \C \setminus \C \times 0\) to units, and so we have a ring homomorphism
+    \begin{align*}
+        (\C \times \C)_{\C \times 0} &\to \C \\
+        \frac{(a, b)}{(c, d)} &\mapsto \frac{b}{d}
+    \end{align*}
+    This is a bijection. With this, \((\C \times \C)_{\C \times 0} \cong (\C \times \C)_{0 \times \C}\) are fields, and so every \(\C \times \C\)-module \(M\) is locally free.
+
+    Now consider \(M = \C \times \{0\}\) as an \(\C \times \C\)-module. This is not free (it is not zero, and it is not free of rank \(\ge 1\)). Thus, \(M\) is locally free but not free.
+\end{example}
+
+\subsection{Localisation as a quotient}
+
+Let \(U \sse R\) be a subset, \(S \sse R\) be its multiplicative closure. Define
+\[R_U = \frac{R[\{T_u : u \in U\}]}{\inner{uT_u \mid u \in U}}\]
+Denote the ideal \(I_U = \inner{uT_u \mid u \in U}\). Let \(\overline u, \overline{T_u}\) denote the images of \(u, T_u\) respectively.
+
+\begin{claim}
+    \(R_U\) is isomorphic to \(S^{-1}R\) as rings, and also as \(R\)-algebras. The isomorphism is given by
+
+    \begin{align*}
+        R_U &\bij S^{-1}R \\
+        \overline{T_u}&\mapsto \frac{1}{u} \\
+        \overline r \overline{T_{u_1}} \cdots \overline{T_{u_n}} &\mapsfrom \frac{r}{u_1\cdots u_n}
+    \end{align*}
+\end{claim}
+
+\begin{proof}
+    We will show that \(R_U\) satisfies the universal property of localisation. Let \(A\) be any ring, \(f : R \to A\) any ring homomorphism, sending \(U\) to units.
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJSIl0sWzIsMCwiUl9VIl0sWzIsMiwiQSJdLFswLDIsImYiLDJdLFswLDFdLFsxLDIsIlxcZXhpc3QhaCJdXQ==
+\[\begin{tikzcd}
+	R && {R_U} \\
+	\\
+	&& A
+	\arrow["f"', from=1-1, to=3-3]
+	\arrow[from=1-1, to=1-3]
+	\arrow["{\exists!h}", from=1-3, to=3-3]
+\end{tikzcd}\]
+    Since \(A\) is an \(R\)-algebra via \(f\), the diagram commutes if and only if \(h\) is an \(R\)-algebra as well. But we have the bijection
+    \[\Hom_{R-\text{alg}}(R_U, A) \bij \left\{\varphi : U \to A \mid f(u)\varphi(u) = 1\right\}\]
+    But the set on the right hand side has one elmeent.
+\end{proof}
+
+\begin{example}
+    For \(x \in R\), we can invert \(x\), and we have that
+    \[R_x \cong \frac{R[t]}{\inner{tx - 1}}\]
+\end{example}
+
 \printindex
 
 \end{document}
