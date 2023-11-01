@@ -1582,6 +1582,7 @@ and \(V, W\) representations of \(\mfg\), with weight spaces \(V_\alpha, W_\alph
 \underline{Exercise:} We have a canonical identification \(\mfm_\alpha = \mfm_{-\alpha}\) and \(h_\alpha = h_{-\alpha}\).
 
 \begin{proposition}
+    \label{prop:root-string-properties}
     Let \(\alpha, \beta \in \Phi\) such that \(\alpha \ne \pm \beta\). Then
     \begin{enumerate}[(i)]
         \item \(\beta(h_\alpha) \in \Z\), and we call these the \emph{Cartan integers}\index{Cartan integers}.
@@ -1627,7 +1628,182 @@ and \(V, W\) representations of \(\mfg\), with weight spaces \(V_\alpha, W_\alph
     \[(\beta - p\alpha)(h_\alpha) = -(\beta + q\alpha)(h_\alpha)\]
     and rearranging,
     \[\beta(h_\alpha) = p - q\]
+
+    \lec
+
+    For (iii), we already know that \([\mfg_\alpha, \mfg_\beta] \sse \mfg_{\alpha + \beta}\). Thus, if \(\alpha + \beta\) is not a root we are done. On the other hand, if \(\alpha + \beta\) is a root, choose \(v \in \mfg_\beta\) non-zero. Suppose \([e_\alpha, v] = 0\), then \(v\) is a highest weight vector for \(v\). Contradiction. Thus, \([e_\alpha, v] \ne 0\), and \(\mfg_{\alpha + \beta}\) is spanned by it, as it is one-dimensional.
 \end{proof}
+
+\begin{definition}
+    [reflection]
+    For \(\alpha \in \Phi\), define the \emph{reflection at \(\alpha\)} by
+    \begin{align*}
+        w_\alpha : \mft^* &\to \mft^* \\
+        w_\alpha(\beta)&=\beta - \beta(h_\alpha)\alpha
+    \end{align*}
+\end{definition}
+
+\begin{corollary}
+    [of \cref{prop:root-string-properties}] \(w_\alpha(\Phi) = \Phi\).
+\end{corollary}
+
+\begin{proof}
+    Let \(\beta \in \Phi\), let \(p, q\) be as in \cref{prop:root-string-properties}. We need to show that \(\beta - \beta(h_\alpha)\alpha \in \Phi\). We have that
+    \[\beta - \beta(h_\alpha)\alpha = \beta - (p-q)\alpha\]
+    But
+    \[-p \le -(p-q) \le q\]
+    and so this lives in the root string.
+\end{proof}
+
+\textbf{image}
+
+\(w_\alpha\) is the reflection in the \emph{root hyperplane}
+\[H_\alpha = \left\{\lambda \in \mft^* \mid \lambda(h_\alpha) = 0\right\}\]
+and this reflection preserves \(\Phi\). We will now define a root system as something with the nice properties of \(\Phi\), and we'll show that there is a correspondence
+\[\{\text{root systems}\} \bij \{\text{semisimple Lie algebras}\}\]
+
+\section{Root systems}
+
+\subsection{Roots in Euclidean space} 
+
+Recall that \(\Phi\) spans \(\mft^*\).
+
+\begin{proposition}
+    Define a bilinear form on \(\mft^*\) by
+    \[\inner{\lambda, \mu} = K(t_\lambda, t_\mu)\]
+    where \(K\) is the Killing form\footnote{of \(\mfg\) restricted to \(\mft\)}, \(\lambda, \mu \in \mft^*\). Then
+    \begin{enumerate}[(i)]
+        \item If \(\alpha, \beta \in \Phi\), then \(\inner{\alpha, \beta} \in \Q\).
+        \item If \(\alpha_1, \dots, \alpha_\ell\) is a basis of \(\mft^*\), and \(\beta \in \Phi\), then \(\beta = \sum_i c_i\alpha_i\), with \(c_i \in \Q\). That is,
+        \[\dim_\Q(\Phi) = \dim_\C(\mft)\]
+        \item \(\inner{\cdot, \cdot}\) is positive definite on \(\Span_\Q(\Phi)\). 
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    See Grojnowski notes, Proposition 4.7. For (i), note
+    \[\beta(h_\alpha) = \frac{2\inner{\alpha,\beta}}{\inner{\alpha, \alpha}}\]
+\end{proof}
+
+\subsection{Abstract root systems}
+
+Let \((E, \pinner{\cdot, \cdot})\) be a real Euclidean space. If \(\alpha \in E\) is non-zero, define
+\begin{align*}
+    \alpha^\vee : E &\to \R \\
+    \alpha^\vee(\lambda) &= \frac{2\pinner{\alpha, \lambda}}{\pinner{\alpha, \alpha}}
+\end{align*}
+and we define
+\begin{align*}
+    w_\alpha : E &\to E \\
+    w_\alpha(\lambda) &= \lambda - \alpha^\vee(\lambda)
+\end{align*}
+
+\begin{definition}
+    [root system] A finite subset \(\Phi \sse E\) is a \emph{root system}\index{root system} if
+    \begin{enumerate}
+        \item \(0 \notin \Phi\), \(\Phi\) spans \(E\),
+        \item if \(\alpha, \beta \in \Phi\), then \(\beta^\vee(\alpha) \in \Z\),
+        \item if \(\alpha \in \Phi\), then \(w_\alpha(\Phi) = \Phi\),
+        \item if \(\alpha, c\alpha \in \Phi\), then \(c = \pm 1\).
+    \end{enumerate}
+    Each \(\alpha \in \Phi\) is called a \emph{root}.
+\end{definition}
+
+\begin{remark}
+    Removing 4. gives a \emph{``non-reduced'' root system}.
+\end{remark}
+
+\begin{notation}
+    If \(\mu \in E, \lambda \in E^*\), we will write
+    \[\inner{\mu, \lambda} = \lambda(\mu)\]
+    and so \(\inner{\beta, \alpha^\vee} = \alpha^\vee(\beta)\).
+\end{notation}
+
+\begin{example}
+    If \(\mfg\) is a semisimple Lie algebra, \(\mft \le \mft\) a Cartan subalgebra, \(\Phi\) is the set of roots associated to \(\Phi\), then \(\Phi\) is a root system in \(\Span_\R(\Phi)\). 
+\end{example}
+
+\begin{definition}
+    [rank] The \emph{rank}\index{rank} of a root system \((\Phi, E)\) is \(\dim_\R(E)\).
+\end{definition}
+
+\begin{definition}
+    [isomorphism] Given root systems \((\Phi, E), (\Phi', E')\), an \emph{isomorphism}\index{isomorphism!of root systems} is a linear isomorphism \(\rho : E \to E'\), with
+    \begin{enumerate}
+        \item \(\rho(\Phi) = \Phi'\),
+        \item \(\inner{\rho(\alpha), \rho(\beta)^\vee} = \inner{\alpha, \beta^\vee}\) for all \(\alpha, \beta \in \Phi\).
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    [rank 1] In this case, we only have the \(A_1\)\index{\(A_1\)} root system, \(E = \R, \pinner{x, y} = xy\), and \(\Phi = \{\alpha, -\alpha\}\) for some \(\alpha \ne 0\), \(\inner{\alpha, \alpha^\vee} = 2\).
+
+    \begin{center}
+        \includegraphics[scale=0.075]{diagrams/root-systems/A1.jpg}
+    \end{center}
+\end{example}
+
+\begin{example}
+    [\(A_1 \times A_1\)] \index{\(A_1 \times A_1\)} \(E = \R^2\), \(\Phi = \{\pm \alpha, \pm\beta\}\), given by the standard basis vectors \(\pm e_1, \pm e_2\).
+    
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/root-systems/A1xA1.jpg}
+    \end{center}
+\end{example}
+
+\begin{example}
+    [\(A_2\)] \index{\(A_2\)} In this case,
+    \[\Phi = \{\pm \alpha, \pm\beta, \pm (\alpha + \beta)\}\]
+    
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/root-systems/A2.jpg}
+    \end{center}
+\end{example}
+
+\begin{example}
+    [\(B_2\)] \index{\(B_2\)}In this case,
+    \[\Phi = \{\pm \alpha, \pm \beta, \pm (\alpha + \beta), \pm (2\alpha + \beta)\}\]
+    
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/root-systems/B2.jpg}
+    \end{center}
+\end{example}
+
+\begin{example}
+    [\(G_2\)] \index{\(G_2\)} In this case, the root lattice is:
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/root-systems/G2.jpg}
+    \end{center}
+\end{example}
+
+Returning to Lie algebras,
+
+\begin{example}
+    \[\sl_2 = \inner{h} \oplus \mfg_\alpha \oplus \mfg_{-\alpha}\]
+    with \(\alpha(h) = 2\). Taking \(h\) as the generator for the Cartan subalgebra, \(\sl_2\) has root system \(A_1\).
+
+    Analogously, \(\sl_3\) has root system \(A_2\), if we set
+    \begin{align*}
+        h_1 = \begin{pmatrix}
+            1 \\
+            &-1 \\
+            & & 0
+        \end{pmatrix} \qquad h_2 = \begin{pmatrix}
+            0 \\
+            & 1\\
+            & & -1
+        \end{pmatrix}
+    \end{align*}
+    Then \(\alpha(h_1) = 2, \alpha(h_2) = -1\), \(\beta(h_1) = -1, \beta(h_2) = 2\).
+
+    Finally, \(\sp_4\) and \(\so_5\) have root system \(B_2\).
+\end{example}
+
+\begin{definition}
+    [Weyl group] The \emph{Weyl group}\index{Weyl group} of \((\Phi, E)\) is a the subgroup \(\msW\) of \(\GL(E)\) generated by the \(w_\alpha\).
+\end{definition}
+
+\underline{Exercise:} \(\msW\) is finite.
 
 \printindex
 

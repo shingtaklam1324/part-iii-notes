@@ -1818,9 +1818,218 @@ commutes. Thus, we could have defined
 and the boundary operators will have given the same cochain complex. Note however in the diagram above, the middle map need not be an isomorphism.
 
 \begin{proposition}
-    Let \(X\) be a finite cell complex. Then
+    Let \(X\) be a finite cell complex. Then we have a (non-canonical) isomorphism
     \[\HH^i(X) \cong \frac{\HH_i(X)}{\Tor(\HH_i(X))} \oplus \Tor(\HH_{i-1}(X))\]
     where for an abelian group \(A\), \(\Tor(A)\) is the subgroup of torsion elements.
+\end{proposition}
+
+\lec
+
+\begin{proof}
+    This is pure algebra. Let \(C_*\) be a chain complex, such that the chain groups \(C_i\) are finitely generated and free. Let \(C^*\) be the corresponding cochain complex, and then corresponding relation holds. That is,
+    \[\HH^j(X) \cong \frac{\HH_j(X)}{\Tor(\HH_j(X))} \oplus \Tor(\HH_{j-1}(X))\]
+    and so, all we are using is that for a finite cell complex, \(C_*^\cell\) is finitely generated and free,
+
+    Break the chain complex into a sequence of short exact seqeuences
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiWl9uIl0sWzIsMCwiQ19uIl0sWzMsMCwiQl97bi0xfSJdLFs0LDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & {Z_n} & {C_n} & {B_{n-1}} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    and
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiQl9uIl0sWzIsMCwiWl9uIl0sWzMsMCwiXFxISF9uKENfKikiXSxbNCwwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+\[\begin{tikzcd}
+	0 & {B_n} & {Z_n} & {\HH_n(C_*)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    where \(Z_n = \ker(\partial : C_n \to C_{n-1})\), \(B_{n-1} = \im(\partial : C_n \to C_{n-1})\). In the top sequence, all of the groups are free. So we can split the top sequence. That is, there exists \(\alpha_n : B_{n-1} \to C_n\) such that \(\partial_n \alpha_n = \id\). Then we have a (non-canonical) isomorphism
+    \[C_n \cong Z_n \oplus B_{n-1}\]
+    With this, the chain complex looks like
+    % https://q.uiver.app/#q=WzAsNSxbMSwwLCJaX3tuKzF9XFxvcGx1cyBCX24iXSxbMiwwLCJaX25cXG9wbHVzIEJfe24tMX0iXSxbMywwLCJcXFpfe24tMX1cXG9wbHVzIEJfe24tMn0iXSxbMCwwLCJcXGNkb3RzIl0sWzQsMCwiXFxjZG90cyJdLFszLDBdLFswLDFdLFsxLDJdLFsyLDRdXQ==
+\[\begin{tikzcd}
+	\cdots & {Z_{n+1}\oplus B_n} & {Z_n\oplus B_{n-1}} & {\Z_{n-1}\oplus B_{n-2}} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    In terms of this decomposition, \(\partial(B_n) \sse Z_n\). That is, \(C_*\) breaks down as a direct sum of length two complexes.
+
+    We can simplify this further. By choosing helpful bases for \(B_n\) and \(Z_{n-1}\) using the Smith normal form, which says that using a \(\Z\)-change of basis, we can write
+    \[\partial_n = \begin{pmatrix}
+        d_1 \\
+        & \ddots \\
+        & & d_k \\
+        & & & 0 \\
+        & & & & \ddots \\
+        & & & & & 0
+    \end{pmatrix}\]
+    where \(d_1 \mid d_2, d_2 \mid d_3\) and so on. Then \(C_*\) is broken into a direct sum of two kinds of complex:
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiXFxaIl0sWzIsMCwiXFxaIl0sWzMsMCwiMCJdLFswLDFdLFsxLDIsImQiXSxbMiwzXV0=
+\[\begin{tikzcd}
+	0 & \Z & \Z & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["d", from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    for \(d \ne 0\), and
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiXFxaIl0sWzIsMCwiXFxaIl0sWzMsMCwiMCJdLFswLDFdLFsxLDIsIjAiXSxbMiwzXV0=
+\[\begin{tikzcd}
+	0 & \Z & \Z & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["0", from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    For these two very simple complexes, the claim in the proposition is clear.
+\end{proof}
+
+\begin{remark}
+    For abelian groups \(H, G\), let \index{Ext@\(\Ext^1\)}
+    \[\Ext^1(H, G) = \frac{\left\{0 \to G \to J \to H\right\}}{\sim}\]
+    be extensions of \(H\) by \(G\), modulo an equivalence relation where there exists \(\phi : J_1 \to J_2\) making
+    % https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMCJdLFsxLDAsIkciXSxbMiwwLCJKXzEiXSxbMywwLCJIIl0sWzQsMCwiMCJdLFswLDEsIjAiXSxbMSwxLCJHIl0sWzIsMSwiSl8yIl0sWzMsMSwiSCJdLFs0LDEsIjAiXSxbMSw2LCI9IiwxXSxbMyw4LCI9IiwxXSxbMiw3LCJcXHBoaSIsMV0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF0sWzUsNl0sWzYsN10sWzcsOF0sWzgsOV1d
+\[\begin{tikzcd}
+	0 & G & {J_1} & H & 0 \\
+	0 & G & {J_2} & H & 0
+	\arrow["{=}"{description}, from=1-2, to=2-2]
+	\arrow["{=}"{description}, from=1-4, to=2-4]
+	\arrow["\phi"{description}, from=1-3, to=2-3]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+    commute. Note by the five lemma, \(\phi\) is an isomorphism.
+\end{remark}
+
+\begin{theorem}
+    [universal coefficient] There are exact sequences (for \emph{any} topological space \(X\)),
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxFeHReMShcXEhIX3tuLTF9KFgpLEcpIl0sWzIsMCwiXFxISF5uKFg7IEcpIl0sWzMsMCwiXFxIb20oXFxISF9uKFgpO0cpIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & {\Ext^1(\HH_{n-1}(X),G)} & {\HH^n(X; G)} & {\Hom(\HH_n(X);G)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    which are (non-canonically) split.
+\end{theorem}
+
+\begin{proof}
+    Omitted.
+\end{proof}
+
+Recall if \(X\) is a finite cell complex, then \(\HH_i(X)\) is a finitely generated abelian group, and \(\HH_i(X; F)\) is a finite dimensional \(F\)-vector space.
+
+\begin{definition}
+    [Euler characteristic] If \(X\) is a finite cell complex, we define its \emph{Euler characteristic}\index{Euler characteristic}
+    \[\chi(X) = \sum_{i\ge0}(-1)^i\rank_\Z(\HH_i(X))\]
+    and more generally, if \(F\) is a field,
+    \[\chi(X, F) = \sum_i(-1)^i \dim(\HH_i(X; F))\]
+\end{definition}
+
+\begin{lemma}
+    If \(X\) is a finite cell complex, then
+    \[\chi(X) = \sum_i (-1)^i N_i\]
+    where \(X\) has \(N_i\) \(i\)-cells in its cell structure.
+\end{lemma}
+
+\begin{proof}
+    Recall our short exact sequences 
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiWl9uIl0sWzIsMCwiQ19uIl0sWzMsMCwiQl97bi0xfSJdLFs0LDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & {Z_n} & {C_n} & {B_{n-1}} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    and
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiQl9uIl0sWzIsMCwiWl9uIl0sWzMsMCwiXFxISF9uKFgpIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & {B_n} & {Z_n} & {\HH_n(X)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    where \(C_* = C_*^\cell(X)\). Say \(N_n = \rank(C_n), z_n = \rank(Z_n)\) and \(b_n = \rank(B_n)\). Then
+    \[N_n = z_n + b_{n-1} \qqtext{ and }\rank(\HH_n(X)) = z_n - b_n\]
+    Substituting,
+    \begin{align*}
+        \sum_k (-1)^k \rank_\Z(\HH_k(X)) &= \sum_{k\ge 0}(-1)^k(z_k - b_k) \\
+        &= \sum_{k\ ge 0}\left(z_k - \left(N_{k+1} - z_{k+1}\right)\right) \\
+        &= \sum_{k \ge 0}(-1)^{k+1}N_{k+1} + z_0 \\
+        &= \sum_{k\ge 0}(-1)^kN_k
+    \end{align*}
+    since \(z_0 = N_0\).
+\end{proof}
+
+The same computation shows that \(\chi(X; F) = \sum(-1)^k N_k\), and so the Euler characteristic is independent of our choice of field.
+
+\begin{example}
+    \(\chi(S^4) = 2, \chi(\C\P^3) = 3\) and so \(S^4\) is not homotopy equivalent to \(\C\P^3\). 
+\end{example}
+
+\begin{example}
+    If \(X\) is a union of two subcomplexes \(A, B\), then
+    \[\chi(X) = \chi(A) + \chi(B) - \chi(A \cap B)\]
+\end{example}
+
+\begin{example}
+    If \(X, Y\) are finite cell complexes, then \(X \times Y\) admits a cell structure, such that the open cells in \(X \times Y\) are products of open cells in \(X\) and open cells in \(Y\). Then
+    \[\chi(X \times Y) = \chi(X)\chi(Y)\]
+\end{example}
+
+\section{Generalised homology theories}
+
+\begin{definition}
+    A \emph{generalised homology theory}\index{generalised homology theory} is an assignment
+    \[(X, A) \mapsto h_*(X, A) = \bigoplus_{i \in \Z}h_i(X, A)\]
+    of a graded abelian group to a pair \((X, A)\), where \(X\) is a topological space and \(A \sse X\) a subspace. This needs to satisfy:
+
+    \begin{enumerate}
+        \item (functoriality) A map \(f : (X, A) \to (Y, B)\) induces \(f_* : h_*(X, A) \to h_*(Y, B)\), with \(\id_* = \id\) and \((f \circ g)_* = f_* \circ g_*\),
+        \item (homotopy invariance) if \(f \simeq g\) as maps of pairs, \(f_* = g_*\),
+        \item (long exact sequence) writing \(h_i(X) = h_i(X, \emptyset)\), we have a long exact sequence
+        % https://q.uiver.app/#q=WzAsNixbMSwwLCJoX2koQSkiXSxbMiwwLCJoX2koWCkiXSxbMywwLCJoX2koWCxBKSJdLFs0LDAsImhfe2ktMX0oQSkiXSxbNSwwLCJcXGNkb3RzIl0sWzAsMCwiXFxjZG90cyJdLFs1LDBdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+    \[\begin{tikzcd}
+        \cdots & {h_i(A)} & {h_i(X)} & {h_i(X,A)} & {h_{i-1}(A)} & \cdots
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+        \arrow[from=1-5, to=1-6]
+    \end{tikzcd}\]
+        which is natural. The maps \(h_i(A) \to h_i(X)\) and \(h_i(X) \to h_i(X, A)\) are induced by inclusion.
+        \item (excision) If \(\Cl(Z) \sse \Int(A)\), then
+        \[h_i(X \setminus Z, A \setminus Z) \cong h_*(X, A)\]
+        via the inclusion map.
+        \item (unions)
+        \[\bigoplus_\alpha h_*(X_\alpha) \cong h_*\left(\bigsqcup_\alpha X_\alpha\right)\]
+        via the sum of the inclusion maps.
+    \end{enumerate}
+    These are called the \emph{Eilenberg-Steenrod axioms}\index{Eilenberg-Steenrod axioms}, and \(h_*(\{\text{pt}\})\) are called the \emph{coefficients}\index{coefficients} of the theory.
+\end{definition}
+
+\begin{example}
+    We can build examples of the form
+    \[(X, A) \mapsto \HH_*(X, A) \otimes_\Z R\]
+    where \(R\) is an abelian group. A `meta-theorem' says that interesting generalised homology theories are not from chain complexes.
+\end{example}
+
+\begin{proposition}
+    If \(h_*, k_*\) are generalised homology theories on the set of pairs \((X, A)\) of a cell complex and a subcomplex, and if \(\Phi : h_* \to k_*\) is a natural transformation, then \(\Phi\) being an isomorphism on a point implies it is an isomorphism on all such pairs.
 \end{proposition}
 
 \printindex

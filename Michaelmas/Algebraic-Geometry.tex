@@ -1146,12 +1146,107 @@ We have seen some maps, which \emph{should} be morphisms. For example, for \(U \
 Given a scheme \((X, \mcO_X)\), the stalks \(\mcO_{X, p}\) are local rings, that is there is a unique maximal ideal \(\mfm_{X, p}\). Given a function \(f \in \mcO_X(U)\), \(p \in U\), we can ask: Does \(f\) vanish at \(p\). That is, is \(f_p \in \mfm_{X, p}\)?
 
 \begin{definition}
-    [morphism of ringed spaces] A morphism \(f : (X, \mcO_X) \to (Y, \mcO_Y)\) is
+    [morphism of ringed spaces] A morphism\index{morphism!of ringed spaces} \(f : (X, \mcO_X) \to (Y, \mcO_Y)\) is
     \begin{enumerate}
-        \item \(f : X \to Y\) continuous,
-        \item \(f^\sharp : \mcO_Y \to f_*\mcO_X\) morphism of sheaves of rings on \(Y\).
+        \item a continuous map \(f : X \to Y\),
+        \item a morphism of sheaves of rings on \(Y\), \(f^\sharp : \mcO_Y \to f_*\mcO_X\).
     \end{enumerate}
 \end{definition}
+
+\lec
+
+\underline{Warning:} It is possible to find \((f, f^\sharp)\) a morphism between schemes \((X, \mcO_X), (Y, \mcO_Y)\), with \(U \sse Y\) open, \(q \in U\), \(h \in \mcO_Y(U)\), such that \(h\) vanishes at \(q\), and
+\[f^\sharp(h) \in \mcO_X(f^{-1}(U))\]
+which does not vanish at \(p \in X\) with \(f(p) = q\).
+
+Observe that: given a morphism \(f : X \to Y\) of ringed spaces, for \(p \in X\), we have an induced map
+\[f^\sharp : \mcO_{Y, f(p)} \to \mcO_{X, p}\]
+That is, given \(s \in \mcO_{Y, f(p)}\), we can represent it as \((s_U, U)\) where \(U \sse U\) open, \(f(p) \in U\) and \(s_U \in \mcO_Y(U)\).
+
+With this, \(f^\sharp(s_U) \in \mcO_X(f^{-1}(U))\), and so the pair \((f^\#(s_U), f^{-1}(U))\) defines an element of \(\mcO_{X, p}\).
+
+\begin{definition}
+    [locally ringed space]
+    Let \((X, \mcO_X)\) be a ringed space. It is \emph{locally ringed}\index{locally ringed space} if for all \(p \in X\), \(\mcO_{X, p}\) is a local ring. A \emph{morphism of locally ringed spaces}\index{morphism!of locally ringed spaces}
+    \[(f, f^\sharp) : (X, \mcO_X) \to (Y, \mcO_Y)\]
+    is a morphism of ringed spaces, such that if \(\mfm_p\) denotes the maximal ideal in \(\mcO_{X,p}\) and \(\mfm_{f(p)}\) is the maximal ideal of \(\mcO_{Y, f(p)}\), then
+    \[f^\sharp(\mfm_{f(p)}) \sse \mfm_p\]
+\end{definition}
+
+\begin{definition}
+    [morphism of schemes] A \emph{morphism of schemes}\index{morphism!of schemes} \(X \to Y\) is a morphism between the locally ringed spaces  \((X, \mcO_X) \to (Y, \mcO_Y)\). 
+\end{definition}
+
+\begin{theorem}
+    There is a natural bijection
+    \[\{\text{morphisms of schemes } \Spec(B) \to \Spec(A)\} \bij \{\text{ring homomorphisms }A \to B\}\]
+\end{theorem}
+
+Recall that a section \(s \in \mcF(U)\) is a coherent collection of elements \(s(p) \in \mcF_p\) for all \(p \in U\).
+
+\begin{proof}
+    We'll show that every ring homomorphism induce a morphism of schemes, and every morphism between schemes arises via this construction.
+
+    Given a ring homomorphism \(\varphi : A \to B\), we have an associated continuous map
+    \[\widetilde\varphi = \varphi^{-1} : \Spec(B) \to \Spec(A)\]
+    We will now build \(f^\sharp : \mcO_{\Spec(A)} \to \widetilde\varphi_*\mcO_{\Spec(B)}\).
+
+    At stalk level, take the map
+    \begin{align*}
+        A_{\varphi^{-1}(\mfp)} &\to B_\mfp \\
+        \frac{a}{s} &\mapsto \frac{\varphi(a)}{\varphi(s)}
+    \end{align*}
+    induced by \(\varphi\). Note that if \(s \notin \varphi^{-1}(\mfp)\), then \(\varphi(s) \notin \mfp\). This is automatically local, i.e. it sends the maximal ideal \(\mfm_{f^{-1}(p)} \idealof A_\mfp\) to the maximal ideal \(\mfm_p \idealof B_\mfp\).
+
+    Given \(U \sse \Spec(A)\), we need to define
+    \[\varphi^\sharp : \mcO_{\Spec(A)}(U) \to \mcO_{\Spec(B)}(\widetilde\varphi^{-1}(U))\]
+    where \(\widetilde\varphi^{-1}(U)\) means take the preimage of \(U\) under \(\varphi^{-1}\). An element \(s \in \mcO_{\Spec(A)}(U)\) is a collection of assignments \((\mfp \mapsto s(\mfp))_{\mfp \in U}\), where \(\mfp \in U, s_\mfp \in A_\mfp\). We define
+    \[\varphi^\sharp : \left(s \mapsto s(\mfp)\right)_{\mfp \in U} \mapsto \left(\mfq \mapsto \varphi_\mfq(s(\varphi^{-1}(\mfq)))\right)_{\mfq \in \widetilde\varphi^{-1}(U)}\]
+    We can check that this glues.
+
+    Conversely, suppose \((f, f^\#) : \Spec(B) \to \Spec(A)\) is a morphism of schemes. Using the fact that we have a ring homomorphism
+    \[A = \mcO_{\Spec(A)}(\Spec(A)) \to \mcO_{\Spec(B)}(\Spec(B)) = B\]
+    we get a ring homomorphism \(g : A \to B\). We need to check that \(\widetilde g = f : \Spec(B) \to \Spec(A)\), and the construction from the first part gives the correct map on strcture sheaves.
+
+    The maps on stalks are compatible with restriction. That is, the diagram
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEdhbW1hKFxcbWNPX3tcXFNwZWMoQSl9LFxcU3BlYyhBKSkiXSxbMiwwLCJcXEdhbW1hKFxcbWNPX3tcXFNwZWMoQil9LFxcU3BlYyhCKSkiXSxbMCwyLCJcXG1jT197XFxTcGVjKEEpLGYoXFxtZnApfSJdLFsyLDIsIlxcbWNPX3tcXFNwZWMoQiksXFxtZnB9Il0sWzAsMl0sWzAsMV0sWzEsM10sWzIsM11d
+\[\begin{tikzcd}
+	{\Gamma(\mcO_{\Spec(A)},\Spec(A))} && {\Gamma(\mcO_{\Spec(B)},\Spec(B))} \\
+	\\
+	{\mcO_{\Spec(A),f(\mfp)}} && {\mcO_{\Spec(B),\mfp}}
+	\arrow[from=1-1, to=3-1]
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-3, to=3-3]
+	\arrow[from=3-1, to=3-3]
+\end{tikzcd}\]
+    commutes. Equivalently, the diagram
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzIsMCwiQiJdLFswLDIsIkFfe2YoXFxtZnApfSJdLFsyLDIsIkJfXFxtZnAiXSxbMCwxLCJnIl0sWzAsMl0sWzEsM10sWzIsMywiZl5cXHNoYXJwIiwyXV0=
+\[\begin{tikzcd}
+	A && B \\
+	\\
+	{A_{f(\mfp)}} && {B_\mfp}
+	\arrow["g", from=1-1, to=1-3]
+	\arrow[from=1-1, to=3-1]
+	\arrow[from=1-3, to=3-3]
+	\arrow["{f^\sharp}"', from=3-1, to=3-3]
+\end{tikzcd}\]
+    commutes. Since the morphism is local, \((f^\sharp)^{-1}(\mfp B_\mfp) = f(\mfp)A_{\mfp}\). By commutativity of the diagram, \(g^{-1} = f\), and the structure sheaf maps agree at stalk level by construction.
+\end{proof}
+
+\subsection{Housekeeping}
+
+\begin{definition}
+    [open immersion, closed immersion]
+    Let \(X, Y\) be schemes. A morphism of schemes \(f : X \to Y\) is an \emph{open immersion}\index{open immersion} if \(f\) induces an isomorphism of \(X\) onto an open subscheme of \(Y\), \((U, \mcO_Y\vert_U)\) where \(U \sse Y\) is open.
+
+    A morphism \(g : X \to Y\) is a \emph{closed immersion}\index{closed immersion} if the map on topological space is a homeomorphism onto a closed subset of \(Y\), and \(\mfg^\sharp : \mcO_Y \to g_*\mcO_X\) is surjective.
+\end{definition}
+
+\begin{example}
+    Consider the ring homomorphism
+    \[k[x] \mapsto \frac{k[t]}{t^2}\]
+    Taking spectra, we have a closed immersion.
+\end{example}
 
 \printindex
 
