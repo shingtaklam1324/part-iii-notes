@@ -1639,7 +1639,7 @@ and so,
     \int_U vf \dd x = B[u, v]
 \end{equation}
 for all \(v \in C^2(\overline U)\) with \(v\vert_{\partial U} = 0\), where
-\[B[u, v] = \int_U a^{ij}u_{x_i}v_{x_j} + bu_{x_i}v + cuv \dd x\]
+\[B[u, v] = \int_U a^{ij}u_{x_i}v_{x_j} + b^iu_{x_i}v + cuv \dd x\]
 With this, if \(u \in C^2(\overline U)\) solves \cref{eq:elliptic-bvp}, then \cref{eq:weak-elliptic} holds. Conversely, if \(u \in C^2(\overline U)\) with \(u\vert_{\partial U} = 0\) and satisfying \cref{eq:weak-elliptic}, then by integration by parts, we get that
 \[\int_U (f - Lu)v \dd x = 0\]
 for all \(v \in C_c^\infty(U)\). Thus, \(Lu = f\) pointwise a.e. on \(U\).
@@ -1655,7 +1655,7 @@ But we note that \cref{eq:weak-elliptic} makes sesne for \(v \in H_0^1(U)\) and 
 \end{definition}
 
 \begin{theorem}
-    [Lax-Milgram] Let \(H\) be a real Hilbert space, with inner product \(\inner{\cdot, \cdot}\). Suppose \(B : H \times H \to \R\) is bilinear, such that there exists constants \(\alpha, \beta > 0\) such that
+    [Lax-Milgram] \label{thm:lax-milgram} Let \(H\) be a real Hilbert space, with inner product \(\inner{\cdot, \cdot}\). Suppose \(B : H \times H \to \R\) is bilinear, such that there exists constants \(\alpha, \beta > 0\) such that
     \begin{enumerate}[(i)]
         \item (Boundedness) \(\abs{B[u, v]} \le \alpha \norm{u}\norm{v}\) for all \(u, v \in H\), 
         \item (Coercivity) \(\beta\norm{u}^2 \le B[u, u]\) for all \(u \in H\).
@@ -1670,10 +1670,10 @@ We will defer the proof to the next lecture.
 \begin{example}
     Recall that \(H^k = W^{k, 2}\) is a Hilbert space. Consider the boundary value problem
     \[\begin{cases}
-        Lu = -\Delta u + cu = 0 & \text{on }U \\
-        u = f \in L^2(U) & \text{on }\partial U
+        Lu = -\Delta u + cu = f & \text{on }U \\
+        u = 0 & \text{on }\partial U
     \end{cases}\]
-    where \(c \ge 0\). In this case,
+    where \(c \ge 0\), \(f \in L^2(U)\). In this case,
     \[B[u, v] = \int_U\grad u \cdot \grad v + cuv \dd x\]
     For boundedness, by H\"older (or Cauchy-Schwarz),
     \[\abs{B[u, v]} \le (1 + c)\norm{u}_{H^1}\norm{v}_{H^1}\]
@@ -1695,6 +1695,125 @@ We will defer the proof to the next lecture.
     Choosing \(v = u_1 - u_2\), then
     \[\beta\norm{v}^2 \le B[u_1 - u_2, v] = \inner{f_1 - f_2, v} \le \norm{f_1 - f_2}\norm{v}\]
     where we use Cauchy-Schwarz for the last inequality.
+\end{proof}
+
+\lec
+
+\begin{proof}
+    [Proof of \cref{thm:lax-milgram}]
+
+    \textbf{Step 1:} For each fixed \(u \in H\), define \(\varphi_u(v) = B[u, v]\). This is a bounded linear functional on \(H\), i.e. \(\varphi_u \in H^*\). Applying the Riesz representation theorem, there exists a unique \(w_u \in H\) such that
+    \[\varphi_u(v) = \pinner{w_u, v} = B[u, v]\]
+    for all \(v \in H\). In particular, we have a map
+    \begin{align*}
+        A : H &\to H \\
+        u &\mapsto w_u
+    \end{align*}
+    and we have that \(B[u, v] = \pinner{Au, v}\) for all \(v \in H\).
+
+    \textbf{Step 2:} \(A\) is bounded. If \(\lambda_1, \lambda_2 \in \R\), \(u_1, u_2 \in H\), then for each \(v \in H\), we have the following:
+    \begin{align*}
+        \pinner{A(\lambda_1 u_1 + \lambda_2 u_2), v} &= B[\lambda_1u_1 + \lambda_2 u_2, v] \\
+        &=\lambda_1B[u_1, v] + \lambda_2B[u_2, v] \\
+        &= \lambda_1\pinner{Au_1, v} + \lambda_2\pinner{Au_2, v} \\
+        &= \pinner{\lambda_1 Au_1 + \lambda_2 Au_2, v}
+    \end{align*}
+    and so \(A\) is linear. Moreover,
+    \[\norm{Au}^2 = \pinner{Au, Au} = B[u, Au] \le \alpha\norm{u}\norm{Au}\]
+    Hence \(\norm{Au} \le \alpha\norm{u}\). Thus \(A\) is bounded, with \(\norm{A} \le \alpha\).
+
+    \textbf{Step 3:} We will show that \(A\) is injective and \(A(H)\) is closed.
+    \[\beta\norm{u}^2 \le B[u, u] = \pinner{Au, u} \le \norm{Au}\norm{u}\]
+    With this, \(\beta\norm{u} \le \norm{Au}\). That is, \(A\) is bounded below, hence \(A\) is injective and the image is closed\footnote{If \((Au_j)\) is Cauchy, then so is \((u_j)\)}.
+
+    \textbf{Step 4:} We will show that \(A\) is surjective. Since \(A(H)\) is a closed subspace of \(H\), which is a Hilbert space, and so we can write
+    \[H = A(H) \oplus A(H)^\perp\]
+    With this, it suffices to show \(A(H)^\perp = 0\). For \(w \in A(H)^\perp\),
+    \[\beta\norm{w}^2 \le B[w, w] = \pinner{Aw, w} = 0\]
+    \(\norm{w} = 0\), and so \(A(H)^\perp = 0\). With this, \(A\) is bijective with bounded inverse.
+
+    \textbf{Step 5:} We would like to solve the following problem: Given \(f \in H^*\), we would like to find \(u\) such that \(B[u, v] = \inner{f, v}\) for all \(v \in H\). By the Riesz representation theorem, there exists a unique \(w_f \in H\) such that \(\inner{f, v} = \pinner{w_f, v}\) for all \(v \in H\). Now let \(u = A^{-1}w_f\). Then
+    \[B[u, v] = \pinner{Au, v} = \pinner{w_f, v} = \inner{f, v}\]
+    i.e. \(B[u, \cdot] = f\).
+
+    \textbf{Step 6:} For uniqueness, if \(u_1, u_2\) satisfy \(B[u_j, \cdot] = f\), then
+    \[B[u_1 = u_2, v] = 0\]
+    for all \(v \in H\). Setting \(v = u_1 - u_2\), and using coercivity we are done.
+\end{proof}
+
+\begin{theorem}
+    [energy estimates for \(B\)] 
+    \index{Energy estimates}
+    Suppose
+    \[Lu = -(a^{ij}u_{x_i})_{x_j} + b^iu_{x_i} + cu\]
+    where \(a^{ij} = a^{ji}, b^i, c \in L^\infty(U)\), and suppose \(L\) is uniformly elliptic. If
+    \[B[u, v] = \int a^{ij}u_{x_i}v_{x_j} + b^iu_{x_i}v + cuv \dd x\]
+    is the associated bilinear form. Then there exists \(\alpha, \beta > 0, \gamma \ge 0\), such that for all \(u, v \in H_0^1(U)\).
+    \begin{enumerate}[(i)]
+        \item \(\abs{B[u, v]} \le \alpha\norm{u}_{H_0^1(U)}\norm{v}_{H_0^1(U)}\),
+        \item (Garding's inequality\index{Garding's inequality}) \(\beta\norm{u}^2_{H_0^1(U)} \le B[u, u] + \gamma\norm{u}_{L^2(U)}^2\)
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    In PDE theory, ``energy'' refers to \(L^2\).
+\end{remark}
+
+\begin{proof}
+    For (i),
+    \begin{align*}
+        \abs{B[u, v]} &\le \sum_{i, j}\norm{a^{ij}}_{L^\infty(U)}\int_U\abs{Du}\abs{Dv}\dd x + \sum_i \norm{b^i}_{L^\infty(U)}\int_U \abs{Du}\abs{v}\dd x + \norm{c}_{L^\infty(U)}\int_U \abs{u}\abs{v}\dd x \\
+        &\le \alpha\norm{u}_{H^1_0}\norm{v}_{H^1_0}
+    \end{align*}
+    where in the last step we used Cauchy-Schwarz, and collecting terms.
+
+    For (ii), we will use uniform ellipticity.
+    \begin{align*}
+        \theta \int_U \abs{Du}^2 \dd x &\le \int_U a^{ij}u_{x_i}u_{x_j} \dd x \\
+        &= B[u, u] - \int_U(b^i u_{x_i}u + cu^2)\dd x\\
+        &= \le B[u, u] + \sum_i \norm{b^i}_{L^\infty}\int_U \abs{Du}\abs{u}\dd x + \norm{c}_{L^\infty(U)}\int_U u^2 \dd x
+    \end{align*}
+    By Young's inequality with
+    \[\abs{ab} = \sqrt{2\epsilon}\abs{a}\frac{\abs{b}}{\sqrt{2\epsilon}}\]
+    we get that
+    \[\int_U \abs{Du}\abs{u}\dd x \le \epsilon\int_U\abs{Du}^2 \dd x + \frac{1}{2\epsilon}\int_U \abs{u}^2 \dd x\]
+    Choose \(\epsilon\) such that
+    \[\epsilon\sum_i\norm{\beta_i}_{L^\infty(U)} \le \frac{\theta}{2}\]
+    This then gives us that
+    \[\frac{\theta}{2} \int_U\abs{D u}^2 \dd x \le B[u, u] + c\int_U\abs{u}^2\dd x\]
+    Adding to this the Poincar\'e inequality, we get that
+    \[\beta\norm{u}^2_{H^1_0(U)} \le B[u, u] + \gamma\norm{u}^2_{L^2(U)}\]
+\end{proof}
+
+\begin{remark}
+    If \(B\) is a bilinear form for the operator \(L\) with \(b^i = c = 0\), then \(\gamma = 0\). In this case, we get
+    \[\theta\int_U \abs{D u}^2 \dd x \le B[u, u]\]
+    and if we add the Poincar\'e inequality, we get
+    \[\norm{u}^2_{H^1_0(U)} \le cB[u, u]\]
+    which is Garding's inequality with \(\gamma = 0\). In this case, we can apply Lax-Milgram directly.
+\end{remark}
+
+On the other hand, if \(\gamma > 0\), we can't apply Lax-Milgram.
+
+\begin{theorem}
+    Let \(L\) be as above, then there exists a \(\gamma > 0\) such that for any \(\mu \ge \gamma\), and any \(f \in L^2(U)\), there exists a unique solution \(u \in H^1_0(U)\) to the boundary value problem
+    \begin{equation}
+        \label{eq:elliptic-bvp-modified}
+        \begin{cases}
+            L_\mu u = Lu + \mu u = f & \text{in }U \\
+            u = 0 & \text{on }\partial U
+        \end{cases}
+    \end{equation}
+    Moreover, there exists \(C > 0\) such that
+    \[\norm{u}_{H^1(U)} \le C\norm{f}_{L^2(U)}\]
+\end{theorem}
+
+\begin{proof}
+    \textbf{Step 1:} Let \(\gamma\) be from Garding's inequality, i.e.
+    \[\beta\norm{u}^2_{H_0^1} \le B[u, u] + \gamma\norm{u}^2_{L^2(U)}\]
+    Let \(\mu \ge \gamma\), and set
+    \[B_\mu[u, v] = B[u, v] + \mu\pinner{u, v}_{L^2}\]
+    which is the bilinear form for the operator \(L_\mu\) in \cref{eq:elliptic-bvp-modified}. In this case, \(B_\mu\) satisfies the conditions of Lax-Milgram.
 \end{proof}
 
 \section{Hyperbolic PDEs}

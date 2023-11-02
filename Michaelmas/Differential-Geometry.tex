@@ -1279,7 +1279,7 @@ Let \((U_\alpha, \Phi_\alpha), (U_\beta, \Phi_\beta)\) be local trivialisations 
 where \(\psi_{\beta\alpha} : U_\alpha \cap U_\beta \to \GL(V)\) is smooth.
 
 \begin{definition}
-    [transition functions] The \(\psi_{\beta\alpha}\) are called the \emph{transition functions}\index{transition functions}.
+    [transition functions] The \(\psi_{\beta\alpha}\) are called the \emph{transition functions}\index{transition functions!of a vector bundle}.
 \end{definition}
 
 The transition functions satisfy the following:
@@ -1327,13 +1327,133 @@ The proof is called the Steenrod construction.
 
 \begin{example}
     If \(G = \{\id\}\), then \(E\) has a global trivialisation \(\Phi : E \to B \times V\).
-
+    
     If \(G = \GL_+(V)\) is the subgroup of matrices with positive determinant. Then a \(G\)-structure on \(E\) is an orientation of \(E\). If \(E = \T M\), then this determines an orientation of \(M\).
 \end{example}
 
 \begin{definition}
     [orientable, oriented] A vector bundle \(E \to B\) is \emph{orientable}\index{orientable!vector bundle} if it admits a \(\GL_+(V)\) structure. \(E \to B\) is \emph{oriented}\index{oriented!vector bundle} if we made a choice of orientation.
 \end{definition}
+
+\lec
+
+\begin{example}
+    [orthogonal trivialisations] Let \(E\) be a real vector bundle, if \(G = O(V)\), then there exists an invariantly defined \emph{inner product} on each fibre \(E_p\). More precisely, this is obtained via a linear isometry \(E_p \to (\R^k, \inner{\cdot, \cdot})\). The respective \(\Phi_{\alpha\beta}\) giving the \(O(V)\) structure are then called \emph{orthogonal (local) trivialisations}\index{orthogonal trivialisation}.
+
+    In particular, if \(G = \SO(V) = \GL_+(V) \cap O(V)\), then this is equivalent to a choice of an inner product as well as an orientation on the fibres. 
+\end{example}
+
+\begin{example}
+    Say now \(E\) is a real vector bundle with rank \(2m\). Then we can consider \(G = \GL(m, \C) \le \GL(2m, \R)\). For all \(p \in B\), there exists \(J_p \in \GL(E_p)\), with \(J_p^2 = -\id_{E_p}\). Moreover, \(J_p\) depends smoothly on \(p\). This corresponds to \(J_0\) on \(\R^{2n} = \C^n\), defined by multiplication by \(i\). This naturally makes \(E\) into a complex vector bundle.
+
+    If \(E = \T M\), a \(\GL(n, \C)\)-structure on \(M\) is called an \emph{almost complex structure}\index{almost complex structure} on \(M\).
+\end{example}
+
+\begin{example}
+    If \(G = U(k) \sse \GL(k, \C)\), we get a \emph{unitary structure}, analogous to the orthogonal case. The trivialisations are called \emph{unitary trivialisations}\index{unitary trivialisation}.
+\end{example}
+
+More generally, if \(G\) preserves a tensor \(T\) on \(V\) under the inclusion \(G \to \GL(V)\) (or the appropriate action on the dual), then a \(G\)-structure induces a family \(T_p\) of tensors on \(E_p\), which are equivalent to \(T\) under the trivialisations.
+
+In general, existence of a \(G\)-structure for a given \(G\) can be a non-trivial problem. But for \(G = O(V)\) and \(G = U(V)\), the answer is yes.
+
+\subsection{Principal bundles}
+
+Let \(G\) be a Lie group, with identity element \(1_G\).
+
+\begin{definition}
+    [smooth free right action] A \emph{smooth free right action}\index{smooth free right action} of \(G\) on a manifold \(P\) is a smooth map
+    \begin{align*}
+        P \times G &\to P \\
+        (p, h) &\mapsto p\cdot h
+    \end{align*}
+    where
+    \begin{itemize}[(i)]
+        \item free: If \(p\cdot h = p\), then \(h = 1_G\),
+        \item \((p\cdot h_1)\cdot h_2 = p\cdot (h_1h_2)\). 
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    The fact that it is a right action implies that the map \(p \mapsto ph\) is a diffeomorphism for all \(h \in G\).
+\end{remark}
+
+\begin{definition}
+    [principal bundle] Let \(G\) be a Lie group. A \emph{principal \(G\)-bundle}\index{principal bundle} \(P\) over a manifold \(B\) is
+    \begin{enumerate}
+        \item a smooth manifold \(P\), with a smooth free right action of \(G\) on \(P\),
+        \item a surjective submersion \(\pi : P \to B\),
+    \end{enumerate}
+    Moreover, 
+    \begin{enumerate}[(i)]
+        \item 
+        for any \(b \in B\), there exists an open neighbourhood \(U\) of \(b\) and a diffeomorphism \(\Phi_U\) making the diagram
+        % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXHBpXnstMX0oVSkiXSxbMiwwLCJVIFxcdGltZXMgRyJdLFsxLDIsIlUiXSxbMCwyLCJcXHBpIiwyXSxbMCwxLCJcXHBoaV9VIl0sWzEsMiwiXFxwcl8xIl1d
+        \[\begin{tikzcd}
+            {\pi^{-1}(U)} && {U \times G} \\
+            \\
+            & U
+            \arrow["\pi"', from=1-1, to=3-2]
+            \arrow["{\phi_U}", from=1-1, to=1-3]
+            \arrow["{\pr_1}", from=1-3, to=3-2]
+        \end{tikzcd}\]
+        commute.
+        \item \(\Phi_U\) commutes with the action of \(G\). That is,
+        \[\Phi_U(ph) = (b, gh) = (\pi(p), gh)\]
+        where \(\Phi_U(p) = (b, g)\). 
+    \end{enumerate}
+    We call
+\end{definition}
+
+\begin{remark}
+    From the definitions, it follows that the fibres \(\pi^{-1}(p)\) are embedded submanifolds, diffeomorphic to \(G\). By analogy, we will call \(P\) the total space, \(B\) the base and so on.
+\end{remark}
+
+\begin{remark}
+    [Warning] If \(P \to B\) is a fibre bundle, where each fibre is a Lie group, \(P\) does not have to be a principal bundle, since we don't need to have a right action on each fibre.
+\end{remark}
+
+Similar to the case of a vector bundle, we have: For every \(b \in U_\alpha \cap U_\beta\), consider
+\[\Phi_\beta \circ \Phi_\alpha^{-1}(b, g) = (b, \psi_{\beta\alpha}(b, g))\]
+where
+\[\psi_{\beta\alpha}(b, \cdot) : G \to G\]
+The requirement that \(\Phi_U\) commutes with the \(G\)-action gives that
+\[\psi_{\beta\alpha}(b, gh) = \psi_{\beta\alpha}(b, g)h\]
+for any \(g, h \in G\). We will abuse notation, and write
+\[\psi_{\beta\alpha}(b) := \psi_{\beta\alpha}(b, 1_G)\]
+Using this, we get that
+\[\psi_{\beta\alpha}(b, g) = \psi_{\beta\alpha}(b)g = L_{\psi_{\beta\alpha}(b)}g\]
+With this, we have maps
+\[\psi_{\beta\alpha} : U_\alpha \cap U_\beta \to G\]
+which are called the \emph{transition functions}\index{transition functions!of a principal bundle}, and these satisfy the same cocycle conditions as for vector bundles.
+
+\begin{theorem}
+    Given the data:
+    \begin{itemize}
+        \item base manifold \(B\),
+        \item trivialising neighbourhoods \(\{U_\alpha\}\) covering \(B\),
+        \item maps \(\psi_{\beta\alpha} : U_\alpha \cap U_\beta \to G\) satisfying the cocycle conditions,
+    \end{itemize}
+    Let
+    \[P = \frac{\bigsqcup(U_\alpha \times G)}{\sim}\]
+    where \(U_\alpha \times G \ni (b, h) \sim (b, \psi_{\beta\alpha}(b)h) \in U_\beta \times G\). Then \(P\) is a principal \(G\)-bundle, with proiection map induced by the projections on each element of the disjoint union, with transition functions \(\{\psi_{\beta\alpha}\}\). The right multiplication action is given by right multiplication on each element in the disjoint union.
+\end{theorem}
+
+\begin{proof}
+    Basically the same as the vector bundle case.
+\end{proof}
+
+\begin{remark}
+    If the \(G\)-action on a manifold \(P\) is smooth, free and proper, that is the map \(P \times G \to P\) is proper, i.e. the preimage of a compact set is compact. Then we can make the orbit space \(P/G\) into a manifold, and we can define \(B = P/G\) and \(\pi\) is the quotient map. This then defines a principal bundle \(P \to B\).
+\end{remark}
+
+\begin{remark}
+    Let \(G\) be a matrix Lie group. Suppose we have a vector bundle \(E \to B\) with a \(G\)-structure, with transition maps \(\psi_{\beta\alpha}\). From this we can obtain a principal \(G\)-bundle.
+
+    Conversely, if we have a principal \(G\)-bundle, we can make a vector bundle \(E \to B\) using the transition functions.
+
+    We then say that \(E\) is \emph{associated to the principal \(G\)-bundle \(P \to B\)}.
+\end{remark}
 
 \printindex
 

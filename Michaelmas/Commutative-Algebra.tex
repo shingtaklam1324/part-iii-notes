@@ -1835,6 +1835,166 @@ Denote the ideal \(I_U = \inner{uT_u \mid u \in U}\). Let \(\overline u, \overli
     \[R_x \cong \frac{R[t]}{\inner{tx - 1}}\]
 \end{example}
 
+\lec
+
+\section{Nakayama's lemma}
+
+\begin{proposition}
+    [Cayley-Hamilton]
+    \label{prop:Cayley-Hamilton}
+    \index{Cayley-Hamilton}
+    Let \(M\) be a finitely generated \(R\)-module, \(f : M \to M\) an \(R\)-linear map, \(mfa \idealof R\) an ideal, with \(f(M) \sse \mfa M\). Then
+    \[f^n + a_1f^{n-1} + a_n \id = 0\]
+    where \(a_i \in \mfa\).
+\end{proposition}
+
+\begin{proof}
+    Say \(M = \Span_R\{m_1, \dots, m_n\}\), then \(\mfa M = \Span_{\mfa}\{m_1, \dots, m_n\}\). Therefore,
+    \[\begin{pmatrix}
+        f(m_1) \\
+        \vdots \\
+        f(m_n)
+    \end{pmatrix} = P\begin{pmatrix}
+        m_1 \\
+        \vdots \\
+        m_n
+    \end{pmatrix}\]
+    where \(P \in \Mat_n(\mfa)\). Take \(\rho : R \to \End(M)\) to be the structure ring homomorphism of \(M\) as an \(R\)-module, then we can define
+    \begin{align*}
+        R[t] &\to \End_R(M) \\
+        t &\mapsto f
+    \end{align*}
+    which makes \(M\) into an \(R[t]\)-module. Using this,
+    \[t \cdot \begin{pmatrix}
+        m_1 \\
+        \vdots \\
+        m_n
+    \end{pmatrix} = P \begin{pmatrix}
+        m_1 \\
+        \vdots \\
+        m_n
+    \end{pmatrix}\]
+    and so
+    \[Q \begin{pmatrix}
+        m_1 \\ \vdots \\ m_n = 0
+    \end{pmatrix}\]
+    where \(Q = t\cdot I_n - P = 0\). Multiplying by \(\adj(Q)\), we get that
+    \[\det(Q) \begin{pmatrix}
+        m_1 \\ \vdots \\ m_n
+    \end{pmatrix} = 0\]
+    Hence \(\det(Q) m = 0\) for all \(m \in M\), and so \(m \mapsto \det(Q)m\) is the zero map. But then \(\det(Q)\) gives the polynomial as required.
+\end{proof}
+
+\begin{corollary}
+    \label{cor:am=m}
+    Let \(M\) be a finitely generated \(R\)-module. \(\mfa \idealof R\) an ideal, if \(\mfa M = M\), then there exists \(a \in \mfa\) such that \(am = m\) for every \(m \in M\).
+\end{corollary}
+
+\begin{proof}
+    Apply Cayley-Hamilton with \(f = \id_M\), we get that
+    \[(1 + a_1 + \cdots + a_n)\id_M = 0\]
+    and so we can take \(a = -(a_1 + \dots + a_n)\).
+\end{proof}
+
+\begin{definition}
+    [Jacobson radical] The \emph{Jacobson radical}\index{Jacobson radical} of a ring \(R\) is
+    \[J(R) = \bigcap_{\mfm \idealof R \text{ maximal}}\mfm\]
+\end{definition}
+
+\begin{example}
+    If \((R, \mfm)\) is a local ring, then \(J(R) = \mfm\). On the other hand, \(J(\Z) = 0\).
+\end{example}
+
+\begin{proposition}
+    \label{prop:mem-jacobson-iff}
+    For \(x \in R\), \(x \in J(R)\) if and only if \(1 - xy\) is a unit in \(R\) for every \(y \in R\).
+\end{proposition}
+
+\begin{proof}
+    Suppose that \(x \in J(R)\), and suppose for contradiction that \(1 - xy\) is not a unit, for some \(y \in R\). With this, \(1 - xy\) is contained in a maximal ideal \(\mfm\). Since \(x \in J(R)\), \(x \in \mfm\). Thus,
+    \[1 = (1 - xy) + xy \in \mfm\]
+    Contradiction. On the other hand, if \(x \notin J(R)\), then there exists a maximal ideal \(\mfm\) such that \(x \notin \mfm\). Then \(\mfm + \inner{x} = R\). In particular, there exists \(t \in \mfm, y \in R\) such that \(t + xy = 1\). In this case, \(1 - xy = t \in \mfm\), and so it is not a unit.
+\end{proof}
+
+\begin{proposition}
+    [Nakayama's lemma] 
+    \label{prop:nakayama}
+    \index{Nakayama's lemma}
+    Let \(M\) be a finitely generated \(R\)-module, \(\mfa \le J(R)\) is an ideal of \(R\), with \(\mfa M = M\). Then \(M = 0\).
+\end{proposition}
+
+\begin{proof}
+    By \cref{cor:am=m}, there exists \(a \in \mfa\) such that \(am = m\) for all \(m \in M\). By \cref{prop:mem-jacobson-iff}, \(1 = a\) is a unit, and so we can multiply by \((1 -a)^{-1}\), to get that
+    \[m = (1-a)^{-1}(1-a)m = (1-a)^{-1}\cdot0 = 0\]
+\end{proof}
+
+\begin{corollary}
+    Let \(M\) be a finitely generated \(R\)-module, \(N \le M\) an \(R\)-submodule, \(\mfa \le J(R)\) an ideal, such that
+    \[N + \mfa M = M\]
+    then \(N = M\).
+\end{corollary}
+
+\begin{proof}
+    \[\mfa \cdot \left(\frac{M}{N}\right) = \frac{\mfa M + N}{N} = \frac{M}{N}\]
+    Therefore, by Nakayama, \(M/N = 0\), and so \(N = M\).
+\end{proof}
+
+\section{Integral and finite extensions}
+
+\begin{definition}
+    [integral]
+    Let \(A\) be an \(R\)-algebra, \(x \in A\) is \emph{integral over \(R\)}\index{integral} if there exists \(f \in R[t]\) monic, such that \(f(x) = 0\).
+\end{definition}
+
+\begin{example}
+    If \(K\) is a field, \(A\) is a \(K\)-algebra, \(x \in A\), then \(x\) is integral over \(K\) if and only if it is algebraic over \(K\).
+\end{example}
+
+\begin{example}
+    We will see later 
+    \begin{enumerate}
+        \item the elements of \(\Q\) which are integral over \(\Z\) is just \(\Z\), 
+        \item the \(\Z\) integral elements of \(\Q(\sqrt 2)\) is \(\Z[\sqrt 2]\),
+        \item the \(\Z\) integral elements of \(\Q(\sqrt 5)\) is \(\Z\left[\frac{1+\sqrt{5}}{2}\right]\)
+    \end{enumerate}
+    To see this, we can also recall Part II Number Fields and the ring of integers of a number field.
+\end{example}
+
+\begin{definition}
+    [faithful]
+    An \(R\)-module \(M\) is \emph{faithful}\index{faithful} if the structure ring homomorphism \(R \to \End_R(M)\) is injective.
+
+    That is, for every non-zero \(r \in R\), there exists \(m \in M\) such that \(rm \ne 0\).
+\end{definition}
+
+\begin{example}
+    Let \(R \sse A\) be rings, and so \(A\) is an \(R\)-module in a natural way. It must be faithful, since we have \(r1 = r\).
+\end{example}
+
+\begin{proposition}
+    Let \(R \sse A\) be rings, \(x \in A\). Then \(R[x] \sse A\) is a subring, which makes \(A\) into an \(R[x]\)-algebra (and thus an \(R[x]\)-module). Then \(x\) is \(R[x]\)-integral if and only if there exists \(M \sse A\) such that
+    \begin{enumerate}
+        \item \(M\) is a faithful \(R[x]\)-module, that is, \(M\) is an \(R\)-submodule of \(A\), \(xM \sse M\), and \(R[x] \to \End_{R[x]}(M)\) is injective,
+        \item \(M\) is finitely generated as an \(R\)-module.
+    \end{enumerate} 
+\end{proposition}
+
+\begin{proof}
+    Suppose such an \(M\) exists. With this, we have an \(R\)-linear map \(f : M \to M\),
+    \[f(m) = xm\]
+    Since \(M\) is a finitely generated \(R\)-module, we can apply Cayley-Hamilton (\cref{prop:Cayley-Hamilton}), to get
+    \[f^n + r_1 f^{n-1} + \dots + r_n = 0\]
+    where \(r_i \in R\). Evaluating at \(m \in M\), we get that
+    \[(x^n + r_1x^{n-1} + \cdots + r_n)(m) = 0\]
+    Since \(M\) is a faithful \(R[x]\)-module,
+    \(x^n + f_1x^{n-1} + \cdots + r_n = 0\)
+    That is, \(x\) is integral over \(R\). Now suppose \(x\) is integral over \(R\). Then
+    \[x^n + r_1x^{n-1} + \cdots + r_n = 0\]
+    for some \(r_i \in R\). Take
+    \[M = \Span_R\{1, x, \cdots, x^{n-1}\}\]
+    satisfies \(xM = M\), and as \(1 \in M\), it is faithful. The fact that it is finitely generated is clear by definition.
+\end{proof}
+
 \printindex
 
 \end{document}
