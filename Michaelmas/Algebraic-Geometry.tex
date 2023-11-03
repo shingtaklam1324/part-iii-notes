@@ -1248,6 +1248,161 @@ Recall that a section \(s \in \mcF(U)\) is a coherent collection of elements \(s
     Taking spectra, we have a closed immersion.
 \end{example}
 
+\lec
+
+\begin{definition}
+    [closed subscheme]
+    Let \(Y\) be a scheme. Then a \emph{closed subscheme}\index{closed subscheme} of \(Y\) is an equivalence class of closed immersions \(X \to Y\), where \((X \to Y) \sim (X' \to Y)\) are equivalent if there is an isomorphism making the triangle
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJYJyJdLFsyLDAsIlgiXSxbMSwyLCJZIl0sWzAsMl0sWzAsMSwiXFxzaW0iXSxbMSwyXV0=
+\[\begin{tikzcd}
+	{X'} && X \\
+	\\
+	& Y
+	\arrow[from=1-1, to=3-2]
+	\arrow["\sim", from=1-1, to=1-3]
+	\arrow[from=1-3, to=3-2]
+\end{tikzcd}\]
+    commute.
+\end{definition}
+
+\begin{example}
+    [typical example of closed immersion] If \(A\) is a ring, \(I \idealof A\) is an ideal, then the natural map
+    \[\Spec(A/I) \to \Spec(A)\]
+    is a closed immersion.
+\end{example}
+
+\subsection{Fibre products}
+
+A fibre product will simultaneuously capture/generalise
+\begin{itemize}
+    \item product of schemes,
+    \item if \(X_1, X_2 \sse Y\) are closed subschemes, then \(X_1 \cap X_2\) is also a closed subscheme,
+    \item given a morphism \(f : X \to Y\), and a subscheme \(Z \sse Y\), the preimage \(f6{-1}(Z)\) is a subscheme of \(X\). One special case would be the preimage of a point.
+\end{itemize}
+
+\begin{definition}
+    [fibre product]
+    \index{fibre product}
+    Consider a diagram
+    % https://q.uiver.app/#q=WzAsMyxbMiwwLCJYIl0sWzIsMiwiUyJdLFswLDIsIlkiXSxbMiwxXSxbMCwxXV0=
+\[\begin{tikzcd}
+	&& X \\
+	\\
+	Y && S
+	\arrow[from=3-1, to=3-3]
+	\arrow[from=1-3, to=3-3]
+\end{tikzcd}\]
+    The fibre product is a scheme \(X \times_S Y\) filling in the diagram
+    % https://q.uiver.app/#q=WzAsNCxbMiwwLCJYIl0sWzIsMiwiUyJdLFswLDIsIlkiXSxbMCwwLCJYXFx0aW1lc19TWSJdLFsyLDFdLFswLDFdLFszLDAsInBfWCJdLFszLDIsInBfWSIsMl1d
+\[\begin{tikzcd}
+	{X\times_SY} && X \\
+	\\
+	Y && S
+	\arrow[from=3-1, to=3-3]
+	\arrow[from=1-3, to=3-3]
+	\arrow["{p_X}", from=1-1, to=1-3]
+	\arrow["{p_Y}"', from=1-1, to=3-1]
+\end{tikzcd}\]
+    such that for any other scheme \(Z\), with commuting diagram
+    % https://q.uiver.app/#q=WzAsNCxbMiwwLCJYIl0sWzIsMiwiUyJdLFswLDIsIlkiXSxbMCwwLCJaIl0sWzIsMV0sWzAsMV0sWzMsMF0sWzMsMl1d
+\[\begin{tikzcd}
+	Z && X \\
+	\\
+	Y && S
+	\arrow[from=3-1, to=3-3]
+	\arrow[from=1-3, to=3-3]
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-1, to=3-1]
+\end{tikzcd}\]
+    there exists a unique morphisms of schemes \(Z \to X \times_SY\), making
+    % https://q.uiver.app/#q=WzAsNSxbMywxLCJYIl0sWzMsMywiUyJdLFsxLDMsIlkiXSxbMCwwLCJaIl0sWzEsMSwiWFxcdGltZXNfU1kiXSxbMiwxXSxbMCwxXSxbMywyLCIiLDIseyJjdXJ2ZSI6MX1dLFs0LDAsInBfWCJdLFs0LDIsInBfWSJdLFszLDAsIiIsMCx7ImN1cnZlIjotMX1dLFszLDRdXQ==
+\[\begin{tikzcd}
+	Z \\
+	& {X\times_SY} && X \\
+	\\
+	& Y && S
+	\arrow[from=4-2, to=4-4]
+	\arrow[from=2-4, to=4-4]
+	\arrow[curve={height=6pt}, from=1-1, to=4-2]
+	\arrow["{p_X}", from=2-2, to=2-4]
+	\arrow["{p_Y}", from=2-2, to=4-2]
+	\arrow[curve={height=-6pt}, from=1-1, to=2-4]
+	\arrow[from=1-1, to=2-2]
+\end{tikzcd}\]
+    commute.
+\end{definition}
+
+As usual, if \(X \times_S Y\) exists, then it is unique up to unique isomorphism.
+
+\begin{remark}
+    We can similarly define the fibre product for sets. If we have
+    % https://q.uiver.app/#q=WzAsMyxbMiwyLCJTIl0sWzAsMiwiWSJdLFsyLDAsIlgiXSxbMSwwLCJyX1kiXSxbMiwwLCJyX1giLDJdXQ==
+\[\begin{tikzcd}
+	&& X \\
+	\\
+	Y && S
+	\arrow["{r_Y}", from=3-1, to=3-3]
+	\arrow["{r_X}"', from=1-3, to=3-3]
+\end{tikzcd}\]
+    Then
+    \[X \times_S Y = \{(x, y) \in X \times Y \mid r_X(x) = r_Y(y)\}\]
+    In particular, if \(S\) is a single point, then \(X \times_S Y\) is \(X \times Y\).
+
+    The fibre product also makes sense for topological spaces, with the same definition as above, and with the subspace topology.
+
+    Say \(r_X : X \to S\) is a map of sets, \(Y = \{*\}\), with \(r_Y(*) = s\). Then \(X \times_Y S\) is just \(r_X^{-1}(s)\).
+
+    Finally, if \(r_X, r_Y\) are inclusion of subsets, then the fibre product is the intersection.
+\end{remark}
+
+\begin{theorem}
+    Fibre product of schemes exist.
+\end{theorem}
+
+For full details, see Hartshorne Chapter 2 Theorem 3.3.
+
+\begin{proof}
+    \textbf{Step 1: Let \(X, Y, S\) be affine schemes.} Say \(X = \Spec(A), Y = \Spec(B), S = \Spec(R)\). Then the fibre product \(X\times_S Y\) exists, and it is isomorphic to
+    \[\Spec(A \otimes_R B)\]
+    That is, we will check that the universal property is satisfied. That is, given any scheme \(Z\) with morphisms
+    % https://q.uiver.app/#q=WzAsNCxbMiwyLCJTIl0sWzAsMiwiWSJdLFsyLDAsIlgiXSxbMCwwLCJaIl0sWzMsMl0sWzMsMV0sWzEsMF0sWzIsMF1d
+\[\begin{tikzcd}
+	Z && X \\
+	\\
+	Y && S
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-1, to=3-1]
+	\arrow[from=3-1, to=3-3]
+	\arrow[from=1-3, to=3-3]
+\end{tikzcd}\]
+    there exists a unique morphism \(Z \to \Spec(A \otimes_R B)\). If \(Z\) is affine, then it is clear, using the corresponding morphisms of rings, and the universal property of tensor products.
+
+    \underline{Fact (Examples sheet 2):} A scheme theoretic map \(Z \to \Spec(A \otimes_R B)\) is the same data as \(A \otimes_R B \to \Gamma(Z, \mcO_Z)\).
+
+    \textbf{Step 2: Now let \(X, Y, S\) be any schemes.} If \(X \times_S Y\) exists, \(U \sse X\) is an open subscheme, then \(U \times_S Y\) also exists. To see this, take the inverse image of \(U\) under the projection \(X \times_Y S \to X\), with the open subscheme structure.
+
+    If \(X\) is covered by opens \(X_i\), if \(X_i \times_S Y\) exists for all \(i\), then \(X \times_S Y\) exists. This is because the schemes will glue together. Note that in this case there are no cocycle conditions.
+
+    \textbf{Step 3: Let \(X\) be any scheme, \(S, Y\) are affine}, then by steps 1 and 2, \(X \times_S Y\) exists.
+
+    \textbf{Step 4: Let \(X, Y\) be any scheme, \(S\) is affine}. This is because we can exchange \(X\) and \(Y\) in the above.
+
+    \textbf{Step 5: Let \(X, Y, S\) be any schemes.} Say \(S\) is covered by affines \(S_i\). Let \(X_i, Y_i\) be the preimages of \(S_i\) in \(X\) and \(Y\) respectively. Since the \(S_i\) are affine, \(X_i \times_{S_i}Y_i\) exists. By the universal property, \(X_i \times_{S_i} Y_i = X_i \times_S Y_i\). Finally, we glue these together to get \(X \times_S Y\).
+\end{proof}
+
+\begin{example}
+    \(\P^n_\C = \P^n_\Z \times_{\Spec(\Z)} \Spec(\C)\), where \(\Spec(C) \to \Spec(\Z)\) is induced by \(\Z \inj \C\), and \(\P^n_\Z \to \Spec(\Z)\) is induced locally by the inclusion \(\Z \to \Z[x_1/x_0, \dots, x_n/x_0]\).
+    
+    Recall from commutative algebra that
+    \[\Z[x] \otimes_\Z \C = \C[x]\]
+\end{example}
+
+\begin{example}
+    Let \(C = \Spec\left(\frac{\C[x, y]}{\inner{y - x^2}}\right)\), \(L = \Spec\left(\frac{\C[x, y]}{\inner{y}}\right)\). We have natural maps \(C \to \aff \C 2\) and \(L \to \aff \C 2\). In fact, the morphisms are closed immersions. By some algebra:
+    \[C \times_{\aff \C 2} L \cong \Spec\left(\frac{C[x]}{\inner{x^2}}\right)\]
+    In this case, we have one `point' at the intersection, but it keeps track of the multiplicity.
+\end{example}
+
 \printindex
 
 \end{document}

@@ -1991,9 +1991,10 @@ The same computation shows that \(\chi(X; F) = \sum(-1)^k N_k\), and so the Eule
     \[\chi(X \times Y) = \chi(X)\chi(Y)\]
 \end{example}
 
-\section{Generalised homology theories}
+\subsection{Generalised homology theories}
 
 \begin{definition}
+    [generalised homology theory]
     A \emph{generalised homology theory}\index{generalised homology theory} is an assignment
     \[(X, A) \mapsto h_*(X, A) = \bigoplus_{i \in \Z}h_i(X, A)\]
     of a graded abelian group to a pair \((X, A)\), where \(X\) is a topological space and \(A \sse X\) a subspace. This needs to satisfy:
@@ -2031,6 +2032,149 @@ The same computation shows that \(\chi(X; F) = \sum(-1)^k N_k\), and so the Eule
 \begin{proposition}
     If \(h_*, k_*\) are generalised homology theories on the set of pairs \((X, A)\) of a cell complex and a subcomplex, and if \(\Phi : h_* \to k_*\) is a natural transformation, then \(\Phi\) being an isomorphism on a point implies it is an isomorphism on all such pairs.
 \end{proposition}
+
+\lec
+
+\begin{proof}
+    [Outline proof where \(X\) is finite dimensional]
+    We induct on \(\dim(X)\). If \(X = X_0\), then \(X\) is a discrete set and the unions axiom implies the result.
+
+    Suppose inductively \(\Phi : h_*(X, A) \to k_*(X, A)\) is an isomorphism whenever \(\dim(X) \le n-1\). Let \(X\) be an \(n\)-dimensional cell complex. In this case, we have long exact sequences
+    % https://q.uiver.app/#q=WzAsMTAsWzAsMCwiaF97aSsxfShYLCBYX3tuLTF9KSJdLFsyLDAsImhfaShYX3tuLTF9KSJdLFs0LDAsImhfaShYKSJdLFs2LDAsImhfaShYLCBYX3tuLTF9KSJdLFs4LDAsImhfe2ktMX0oWF97bi0xfSkiXSxbMCwyLCJrX3tpKzF9KFgsIFhfe24tMX0pIl0sWzIsMiwia19pKFhfe24tMX0pIl0sWzQsMiwia19pKFgpIl0sWzYsMiwia19pKFgsIFhfe24tMX0pIl0sWzgsMiwia197aS0xfShYX3tuLTF9KSJdLFswLDUsIlxcUGhpIiwxXSxbMSw2LCJcXFBoaSIsMl0sWzIsNywiXFxQaGkiLDFdLFszLDgsIlxcUGhpIiwxXSxbNCw5LCJcXFBoaSIsMl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF0sWzgsOV0sWzcsOF0sWzYsN10sWzUsNl0sWzEsNiwiXFxjb25nIl0sWzQsOSwiXFxjb25nIl1d
+\[\begin{tikzcd}
+	{h_{i+1}(X, X_{n-1})} && {h_i(X_{n-1})} && {h_i(X)} && {h_i(X, X_{n-1})} && {h_{i-1}(X_{n-1})} \\
+	\\
+	{k_{i+1}(X, X_{n-1})} && {k_i(X_{n-1})} && {k_i(X)} && {k_i(X, X_{n-1})} && {k_{i-1}(X_{n-1})}
+	\arrow["\Phi"{description}, from=1-1, to=3-1]
+	\arrow["\Phi"', from=1-3, to=3-3]
+	\arrow["\Phi"{description}, from=1-5, to=3-5]
+	\arrow["\Phi"{description}, from=1-7, to=3-7]
+	\arrow["\Phi"', from=1-9, to=3-9]
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-3, to=1-5]
+	\arrow[from=1-5, to=1-7]
+	\arrow[from=1-7, to=1-9]
+	\arrow[from=3-7, to=3-9]
+	\arrow[from=3-5, to=3-7]
+	\arrow[from=3-3, to=3-5]
+	\arrow[from=3-1, to=3-3]
+	\arrow["\cong", from=1-3, to=3-3]
+	\arrow["\cong", from=1-9, to=3-9]
+\end{tikzcd}\]
+    By the five lemma, if \(\Phi\) is an isomorphism on \(h_i(X, X_{n-1})\) for all \(i\), then it is an isomorphism on \(h_i(X)\). But by excision,
+    \[h_*(X, X_{n-1}) = h_*(X_n, X_{n-1}) \cong h_*\left(\bigsqcup_\alpha D_\alpha^n, \bigsqcup_\alpha \partial D_\alpha^n\right)\]
+    Here, we are using the fact that \(X_{n-1}\) has a neighbourhood \(N_\epsilon(X_{n-1}) \sse X_n\) for all \(\epsilon\) sufficiently small, whcih are constructed cell by cell, and retract onto the boundary on each cell. By the unions axiom,
+    \[h_*\left(\bigsqcup_\alpha D_\alpha^n, \bigsqcup_\alpha \partial D_\alpha^n\right) = \bigoplus_\alpha h_*(D_\alpha^n, \partial D_\alpha^n)\]
+    Now consider the LES of the pair
+    % https://q.uiver.app/#q=WzAsMTAsWzAsMCwiaF9pKFxccGFydGlhbCBEXm4pIl0sWzIsMCwiaF9pKERebikiXSxbNCwwLCJoX2koRF5uLCBcXHBhcnRpYWwgRF5uKSJdLFs2LDAsImhfe2ktMX0oXFxwYXJ0aWFsIERebikiXSxbOCwwLCJoX3tpLTF9KERebikiXSxbMCwyLCJrX2koXFxwYXJ0aWFsIERebikiXSxbMiwyLCJrX2koRF5uKSJdLFs0LDIsImtfaShEXm4sIFxccGFydGlhbCBEXm4pIl0sWzYsMiwia197aS0xfShcXHBhcnRpYWwgRF5uKSJdLFs4LDIsImtfe2ktMX0oRF5uKSJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdLFs1LDZdLFs2LDddLFs3LDhdLFs4LDldLFs0LDksIlxcUGhpIiwxXSxbMyw4LCJcXFBoaSIsMV0sWzAsNSwiXFxQaGkiLDFdLFsxLDYsIlxcUGhpIiwxXSxbMiw3LCJcXFBoaSIsMV1d
+\[\begin{tikzcd}
+	{h_i(\partial D^n)} && {h_i(D^n)} && {h_i(D^n, \partial D^n)} && {h_{i-1}(\partial D^n)} && {h_{i-1}(D^n)} \\
+	\\
+	{k_i(\partial D^n)} && {k_i(D^n)} && {k_i(D^n, \partial D^n)} && {k_{i-1}(\partial D^n)} && {k_{i-1}(D^n)}
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-3, to=1-5]
+	\arrow[from=1-5, to=1-7]
+	\arrow[from=1-7, to=1-9]
+	\arrow[from=3-1, to=3-3]
+	\arrow[from=3-3, to=3-5]
+	\arrow[from=3-5, to=3-7]
+	\arrow[from=3-7, to=3-9]
+	\arrow["\Phi"{description}, from=1-9, to=3-9]
+	\arrow["\Phi"{description}, from=1-7, to=3-7]
+	\arrow["\Phi"{description}, from=1-1, to=3-1]
+	\arrow["\Phi"{description}, from=1-3, to=3-3]
+	\arrow["\Phi"{description}, from=1-5, to=3-5]
+\end{tikzcd}\]
+    Using the fact that \(\partial D^n\) is \((n-1)\)-dimensional, and \(D^n\) is contractible (and using homotopy invariance), by the five lemma the middle map is an isomorphism. Hence by induction, we have that
+    \[\Phi_{(X, \emptyset)} : h_*(X) \to k_*(X)\]
+    is an isomorphism when \(\dim(X) = n\). Now the same argument with the LES of the pair and the five lemma shows that \(\Phi_{(X, A)}\) is an isomorphism if \(X\) is a cell complex and \(A\) is a subcomplex.
+\end{proof}
+
+\begin{remark}
+    The result is true for infinite dimensional cell pairs, but it uses the ``telescope construction'', see Hatcher.
+\end{remark}
+
+\begin{remark}
+    There is a corresponding notion of a generalised cohomology theory. We replace the covariant functor \(h_*\) with a contravariant functor \(h^*\), reverse the long exact sequence, and replace the direct sum with the direct product in the unions axiom.
+
+    The analogue of the previous proposition holds with the same proof.
+\end{remark}
+
+\section{Cohomology}
+
+\subsection{Cup product}
+
+\begin{definition}
+    [cup product]
+    Let \(X\) be any topological space, \(\phi \in C^k(X), \psi \in C^\ell(X)\), then their \emph{cup product}\index{cup product} \(\phi \smile \psi \in C^{k+\ell}(X)\) is 
+    \[(\phi \smile \psi)(\sigma : [v_0, \dots, v_{k+\ell}] \to X) = \phi\left(\sigma\vert_{[v_0, \dots, v_k]}\right)\psi\left(\sigma\vert_{[v_k, \dots, v_{k+\ell}]}\right)\]
+\end{definition}
+
+\begin{notation}
+    We will write \(\phi \cdot \psi = \phi \smile \psi\).
+\end{notation}
+
+\begin{lemma}
+    If \(\partial^* : C^*(X) \to C^{*+!}(X)\) is the boundary operator, then
+    \[\partial^*(\phi \cdot \psi) = (\partial^*\phi)\cdot \psi + (-1)^k\phi \cdot \partial^*\psi\] 
+\end{lemma}
+
+\begin{proof}
+    Let \([v_0, \dots, v_{k+\ell+1}]\) be a \((k+\ell + 1)\)-simples of \(X\). Then
+    \begin{align*}
+        (\partial^*\phi)\psi([v_0, \dots, v_{k+\ell+1}]) = \sum_{i=0}^{k+1}(-1)^i\phi([v_0, \dots, \widehat{v_i}, \dots, v_{k+1}])\psi([v_{k+1}, \dots, v_{k+\ell + 1}])
+    \end{align*}
+    On the other hand,
+    \begin{align*}
+        (-1)^k\phi(\partial^*)([v_0, \dots, v_{k+\ell+1}]) = \phi([v_0, \dots, v_k])\sum_{i=k}^{k+\ell+1}(-1)^i\psi([v_k, \dots, \widehat{v_i}, \dots, v_{k+\ell+1}])
+    \end{align*}
+    where the indexing on the right hand side absorbed the sign \((-1)^k\).
+
+    In the two expressions, there is only one term which appears twice, which are
+    \[(-1)^{k+1}\phi([v_0, \dots, v_k])\psi([v_{k+1}, \dots, v_{k+\ell + 1}]) + (-1)^k\phi([v_0, \dots, v_k])\psi([v_{k+1}, \dots, v_{k+\ell + 1}]) = 0\]
+    and cancel. The remaining terms give
+    \[(\phi\psi)\left(\sum_{i=0}^{k+\ell + 1}(-1)^i[v_0, \dots, \widehat{v_i}, \dots, v_{k+\ell+1}]\right) = (\phi\psi)(\partial\sigma) = \partial^*(\phi\psi)(\sigma)\]
+\end{proof}
+
+\begin{corollary}
+    Cup product descends to cohomology, and so it induces a map
+    \[\HH^k(X) \times \HH^\ell(X) \to \HH^{k+\ell}(X)\]
+    which makes \(\HH^*(X)\) into a graded unital ring.
+\end{corollary}
+
+\begin{proof}
+    Let \(\phi \in C^k(X)\), \(\psi \in C^\ell(X)\) be cocycles, The lemma gives that \(\partial^*(\phi\psi) = 0\), and so \([\phi\psi]\) represents a cohomology class in \(\HH^{k+\ell}(X)\). Next, we need to show that this is independent of choices.
+
+    A general representative of \([\phi]\) is \(\phi + \partial^*\alpha\), then \(\phi\psi\) becomes
+    \[(\phi + \partial^*\alpha)\psi = \phi\psi + (\partial^*\alpha)\psi = \phi\psi + \partial^*(\alpha\psi)\]
+    With this, the element
+    \[[\phi][\psi] = [\phi\psi]\]
+    is well defined.
+
+    Recall we have an element \(1 \in C^0(X)\), given by \(1(p) = 1\) for all \(p \in X\). With this,
+    \[\partial^* 1(\sigma) = 1(v_0) - 1(v_1) = 1 - 1 = 0\]
+    and so \(\partial^*1 = 0\). With this, we have an associated element \(1 = [1] \in \HH^0(X)\). It is easy to see that \(1\psi = \psi\) and \(\psi1=\psi\), and so this is a unit.
+\end{proof}
+
+\begin{remark}
+    [on coefficients] Recall for any abelian group \(G\), we have \(C_j(X; G)\) for chains with coefficients in \(G\), and a corresponding cochain group 
+    \[C^j(X; G) = \Hom_\Z(C_j(X; \Z), G)\]
+    If \(G\) is a commutative (not necessarily unital) ring, then we can define cup product on \(C^*(X; G)\), which induces a cup product on \(\HH^*(X; G)\), making it into a graded (not necessarily unital) ring. If \(G\) is a unital ring, then \(\HH^*(X; G)\) is a unital ring.
+\end{remark}
+
+\begin{proposition}
+    [Properties of the cup product]
+    \begin{enumerate}
+        \item (associativity) \((\phi \cdot \psi)\cdot\tau = \phi\cdot(\psi\cdot\tau)\),
+        \item if \(f : X \to Y\) is a continuous map, then the induced map \(f^* : \HH^*(Y) \to \HH^*(X)\) is a ring homomorphism. In fact, this is already true at the cochain level.
+        \item The \emph{cross product}\index{cross product} is
+        \begin{align*}
+            \HH^i(Y) \times \HH^j(Z) &\to \HH^{i+j}(Y \times Z) \\
+            (\phi, \psi) &\mapsto \pr_Y^*\phi \cdot \pr_Z^*\psi
+        \end{align*}
+    \end{enumerate}
+\end{proposition}
+
 
 \printindex
 
