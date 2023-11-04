@@ -1796,7 +1796,7 @@ We will defer the proof to the next lecture.
 On the other hand, if \(\gamma > 0\), we can't apply Lax-Milgram.
 
 \begin{theorem}
-    Let \(L\) be as above, then there exists a \(\gamma > 0\) such that for any \(\mu \ge \gamma\), and any \(f \in L^2(U)\), there exists a unique solution \(u \in H^1_0(U)\) to the boundary value problem
+    Let \(L\) be as above, then there exists a \(\gamma \ge 0\) such that for any \(\mu \ge \gamma\), and any \(f \in L^2(U)\), there exists a unique solution \(u \in H^1_0(U)\) to the boundary value problem
     \begin{equation}
         \label{eq:elliptic-bvp-modified}
         \begin{cases}
@@ -1809,11 +1809,130 @@ On the other hand, if \(\gamma > 0\), we can't apply Lax-Milgram.
 \end{theorem}
 
 \begin{proof}
-    \textbf{Step 1:} Let \(\gamma\) be from Garding's inequality, i.e.
+    Let \(\gamma\) be from Garding's inequality, i.e.
     \[\beta\norm{u}^2_{H_0^1} \le B[u, u] + \gamma\norm{u}^2_{L^2(U)}\]
     Let \(\mu \ge \gamma\), and set
     \[B_\mu[u, v] = B[u, v] + \mu\pinner{u, v}_{L^2}\]
     which is the bilinear form for the operator \(L_\mu\) in \cref{eq:elliptic-bvp-modified}. In this case, \(B_\mu\) satisfies the conditions of Lax-Milgram.
+
+\lec
+
+    Given \(f \in L^2(U)\), and set \(\inner{f, v} = (f, v)_{L^2(U)}\). This is a bounded linear functional on \(L^2(U)\), i.e. \(f \mapsto (f, \cdot) \in (L^2(U))^*\). In particular, this is a bounded linear functional on \(H_0^1\). We can apply Lax-Milgtam to find a unique \(u \in H_0^1(U)\) with
+    \[B_\mu[u, v] = \inner{f, v} = \pinner{f, v}_{L^2(U)}\]
+    for all \(v \in H_0^1\). Finally,
+    \[\beta\norm{u}_{H_0^1(U)}^2 \le B_\mu[u, u] = \pinner{f, u}_{L^2(U)} \le \norm{f}_{L^2(U)}\norm{u}_{L^2(U)} \le \norm{f}_{L^2(U)} \norm{u}_{H_0^1(U)}\]
+\end{proof}
+
+So far, the solutions only live in \(H_0^1\), and we need to pay a price for the \(\mu\).
+
+\subsection{Compactness results in PDEs}
+
+Recall the following results:
+
+\begin{itemize}
+    \item Bolzano-Weierstra\ss - closed unit ball in \(\R^n\) is sequentially compact. 
+    \item Recall for a metric space, the following are equivalent:
+    \begin{enumerate}[(i)]
+        \item compactness,
+        \item sequential compactness,
+        \item completeness and totally boundedness
+    \end{enumerate}
+    \item If \(H\) is an infinite dimensional Hilbert space, then \(\{x \in H \mid \norm{x} \le 1\}\) is not compact.
+\end{itemize}
+
+We will consider a weaker topology to recover compactness, since the topology induced by the norm is too strong.
+
+\begin{definition}
+    [weak convergence]
+    Suppose \(H\) is a Hilbert space, \((u_j) \sse H\) a sequence, then we say that
+    \emph{\(u_j\) converges weakly to \(u \in H\)}\index{weak convergence} if for all \(w \in H\),
+    \[\pinner{u_j, w} \to (u, w)\]
+    and we write \(u_j \weak u\).
+\end{definition}
+
+\begin{remark}
+    If the weak limit exists, then it is unique.
+\end{remark}
+
+\begin{proposition}
+    [Banach-Alaoglu for a separable Hilbert space] \index{Banach-Alaoglu}Let \(H\) be a separable Hilbert space, and suppose we have a bounded sequence \((u_n) \sse H\). Then \((u_n)\) has a weakly convergent subsequence.
+
+    That is, the closed unit ball in \(H\) is weakly sequentially compact.
+\end{proposition}
+
+\begin{proof}
+    Diagonal argument, see AoF. Or deduce from the below, since any Hilbert space is reflexive, and so the weak and weak-\(*\) topologies agree.
+\end{proof}
+
+\begin{theorem}
+    [Banach Alaoglu]
+    Let \(X\) be a Banach space, then the closed unit ball in \(X^*\) is compact in the weak-\(*\) topology on \(X^*\).
+\end{theorem}
+
+\begin{lemma}
+    [Poincar\'e again] 
+    \index{Poincar\'e inequality}
+    Suppose \(u \in H^1(\R^n)\), and \(Q = (\xi_1, \xi_1 + L) \times \cdots \times (\xi_n, \xi_n + L)\) be a cube with side lengths \(L\). Then
+    \begin{enumerate}[(i)]
+        \item \[\norm{u}_{L^2(Q)}^2 \le \frac{1}{\abs{Q}}\left(\int_Q u \dd x\right)^2 + \frac{nL^2}{2}\norm{Du}^2_{L^2(Q)}\]
+        \item \[\norm{u - \overline u}_{L^2(Q)} \le \frac{nL^2}{2}\norm{Du}^2_{L^2(Q)}\]
+        where
+        \[\overline u = \frac{1}{\abs{Q}}\int_Q u(x)\dd x\]
+    \end{enumerate}
+    In particular, if \(\overline u = 0\) we recover the previous Poincar\'e inequality.
+\end{lemma}
+
+\begin{proof}
+    For (i), since \(\partial Q\) is Lipschitz, we apply the approximation theorem, to get \(C^\infty(\overline Q)\) are dense in \(H^1(Q)\). Consider \(u \in C^\infty(\overline Q)\). For \(x, y \in Q\), we use the fundamental theorem of calculus to get
+    \begin{align*}
+        u(x) - u(y) = \int_{y_1}^{x_1}\dv{t}u(t, x_2, \cdots, x_n)\dd t + \int_{y_2}^{x_1}\dv{t}u(y_1, t, x_3, \cdots, x_n)\dd t + \cdots + \int_{y_n}^{x_n}\dv{t}u(y_1, \dots, y_{n-1}, t)\dd t
+    \end{align*}
+    Squaring, to get
+    \begin{align*}
+        u(x)^2 + u(y)^2 - 2u(x)u(y) \le n\left(\int_{y_1}^{x_1}\dv{t}u(t, x_2, \dots, x_n)\dd t\right)^2 + \cdots + n\left(\int_{y_1}^{x_1}\dv{t}u(y_1, \dots, y_{n-1}, t)\dd t\right)^2
+    \end{align*}
+    where we use Cauchy-Schwarz to get that
+    \[(a_1 + \cdots + a_n)^2 \le n(a_1^2 + \cdots + a_n^2)\]
+    Integrating over \(x, y \in Q\),
+    \[\int_Q\int_Q(\text{LHS})\dd x \dd y = 2 \abs{Q}\norm{u}^2_{L^2(Q)} = 2\left(\int_Qu(x)\dd x\right)^2\]
+    For the right hand side,
+    \begin{align*}
+        I_1 &= \left(\int_{y_1}^{x_1}\dv{t}u(t, x_2, \cdots, x_n)\dd t\right)^2 \le \left(\int_{y_1}^{x_1}\dd t\right)\left(\int_{y_1}^{x_1}\left(\dv{t}u(t, x_2, \dots, x_n)\right)^2 \dd t\right) \\
+        &\le L\int_{\xi_1}^{\xi_1 + L}\left(\dv{t}u(t, x_2, \dots, x_n)\right)^2 \dd t
+    \end{align*}
+    Hence combining the terms,
+    \[2\abs{Q}\norm{u}^2_{L^2(Q)} - 2\left(\int u(x)\dd x\right)^2 \le L^2n\abs{Q}\norm{D u}^2_{L^2(Q)}\]
+    Rearranging gives the result.
+
+    For (ii), consider \(\eta \in C_c^\infty\), with \(\eta = 1\) on \(Q\). Then
+    \[\int_Q (U - \overline u \eta) \dd x = 0\]
+    and we can then use (i).
+\end{proof}
+
+Recall if \(1 \le p < n\), we have an embedding \(W^{1, p} \inj L^{p^*}\).
+
+\begin{theorem}
+    [Rellich-Kondrachov] \index{Rellich-Kondrachov}Suppose \(U \sse \R^n\) be open with \(C^1\) boundary. Let \((u_n)\) be a bounded sequence in \(H^1(U)\). Then there exists \(u \in H^1(U)\), and a subsequence \((u_{n_j})\) such that \(u_{n_j} \weak u\) in \(H^1(U)\), and \(u_{n_j} \to u\) in \(L^2(U)\).
+\end{theorem}
+
+\begin{proof}
+    By the extension theorem, we have an extension \(\overline{u_n} \in H^1(\R^n)\), with \(\Supp(\overline{u_n}) \sse Q\) for some cube \(Q\). Moreover, the extension operator \(E : H^1(U) \to H_0^1(Q)\) is bounded. In particular,
+    \[\norm{\overline{u_n}}_{H^1(Q)} \le C\norm{u_n}_{H^1(U)} \le CK\]
+    for some \(K\). Now \(H_0^1(Q)\) is a separable Hilbert space, so by Banach-Alaoglu there exists \(u \in H_0^1(Q)\), with \(\overline{u_{n_j}} \weak u\) in \(H_0^1(Q)\), and
+    \[\norm{u}_{H^1(Q)} \le c\]
+    We claim that \(w_j = \overline{u_{n_j}} \to u\) in \(L^2(Q)\).
+
+    To see this, fix \(\delta > 0\) and divide \(Q\) into \(k\) subcubes \(\{Q_a\}_{a=1}^k\), of side lengths \(0 < \ell < \delta\), intersecting only on their faces. Then
+    \[\norm{w_j - u}^2_{L^2(Q)} \le \sum_{a=1}^k\norm{w_j - u}^2_{L^2(Q)} \le \sum_{a=1}^k \left(\frac{1}{\abs{Q_a}}\left(\int_{Q_a}(w_j - u)\dd x\right)^2\right) + \frac{n^2\delta^2}{2}\norm{D w_j - Du}^2_{L^2(Q)}\]
+    Fix \(\epsilon > 0\), since \(w_j, u \in H_0^1(Q)\), then \(\norm{Dw_j - Du}^2_{L^2(Q)} \le C\) for some \(C\). Fix \(\delta > 0\) such that
+    \[\frac{n^2\delta^2}{2}\norm{Dw_j - Du}_{L^2(Q)}^2 < \frac{\epsilon}{2}\]
+    This then fixes \(k\). Note that the map
+    \[f \mapsto \int_Q f(x)\dd x\]
+    is a bounded linear functional on \(H_0^1(Q)\), and so by weak convergence,
+    \[\int_{Q_a}(w_j - u)\dd x \to 0\]
+    This is true for all \(a\). Since \(k\) is fixed and finite, choose \(j\) large enough so that 
+    \[\sum_{a=1}^k \left(\frac{1}{\abs{Q_a}}\left(\int_{Q_a}(w_j - u)\dd x\right)^2\right) < \frac{\epsilon}{2}\]
+    Using this, \(\norm{w_j - u}_{L^2(Q)}^2 < \epsilon\).
 \end{proof}
 
 \section{Hyperbolic PDEs}

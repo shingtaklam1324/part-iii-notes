@@ -1450,10 +1450,122 @@ which are called the \emph{transition functions}\index{transition functions!of a
 \begin{remark}
     Let \(G\) be a matrix Lie group. Suppose we have a vector bundle \(E \to B\) with a \(G\)-structure, with transition maps \(\psi_{\beta\alpha}\). From this we can obtain a principal \(G\)-bundle.
 
-    Conversely, if we have a principal \(G\)-bundle, we can make a vector bundle \(E \to B\) using the transition functions.
+    Conversely, if we have a principal \(G\)-bundle, and a smooth faithful representation \(G \to \GL(V)\), we can make a vector bundle \(E \to B\) using the transition functions.
 
-    We then say that \(E\) is \emph{associated to the principal \(G\)-bundle \(P \to B\)}.
+    We then say that \(E\) is \emph{associated to the principal \(G\)-bundle \(P \to B\)} (and vice versa).
 \end{remark}
+
+\lec
+
+\begin{example}
+    If \(E = \T M\), \(\dim(M) = n\), taking \(G = \GL(n, \R)\), then the principal bundle \(P\) is called a \emph{frame bundle}\index{frame bundle}, and each fibre \(P_p\) is the set of a bases of the vector space \(\T_p M\), by considering the columnes of an invertible matrix.
+
+    If \(G = \mathrm O(n)\)< then \(P\) is called an \emph{orthonormal frame bundle}\index{orthonormal frame bundle}, and each fibre is the set of orthonormal bases of \(\T_pM\).
+\end{example}
+
+\subsection{Hopf bundle}
+
+\index{Hopf bundle}
+
+A Hopf bundle is an example of a tautological complex line bundle over \(\C\P^1\). Recall that the fibre over \((z_1 : z_2) \in \C\P^1\) is the complex line spanned by \((z_1, z_2)\) in \(\C^2\). We will work out the transition functions, and appeal to the Steenrod construction.
+
+Write \(U_i = \left\{(z_1 : z_2) \in \C\P^1 \mid z_i \ne 0\right\}\). \(U_1 \cup U_2\) is an open cover of \(\C\P^1\). Write \(z = z_2 / z_1\) for the local coordinate on \(U_1\), and \(\zeta = z_1/z_2 = 1/z\) for the local coordinate on \(U_2\).
+
+Set
+\begin{align*}
+    \Phi_1 : \pi^{-1}(U_1) &\to U_1 \times \C \\
+    (w, wz) &\mapsto ((1:z), w\sqrt{1 + \abs{z}^2})
+\end{align*}
+and
+\begin{align*}
+    \Phi_2 : \pi^{-1}(U_2) &\to U_2 \times \C \\
+    (\zeta w, w) &\mapsto ((\zeta:1), w\sqrt{\abs{\zeta}^2 + 1})
+\end{align*}
+We can compute
+\[\Phi_1^{-1}((1 : z), \widetilde w) = \left(\frac{\widetilde w}{\sqrt{1 + \abs{z}^2}}, \frac{\widetilde w}{\sqrt{1 + \abs{z}^2}}z\right)\]
+If \(z \ne 0\), then
+\begin{align*}
+    \Phi_2 \circ \Phi_1^{-1}((1 : z), \widetilde w) &= \Phi_2\left(\frac{\widetilde w}{\zeta\sqrt{1 + \abs{\zeta}^{-2}}}\zeta,\frac{\widetilde w}{\zeta\sqrt{1 + \abs{\zeta}^{-2}}}\right) \\
+    &= \left((\zeta: 1), \frac{\abs{\zeta}}{\zeta}\widetilde w\right) \\
+    &= \left((1 : z), \frac{z}{\abs{z}}\widetilde w\right)
+\end{align*}
+Hence the transition function is
+\[\psi_{21}((1 : z)) = \frac{z}{\abs{z}}\]
+and
+\[\psi_{12}((\zeta:1)) = \frac{\abs{z}}{z} = \frac{\zeta}{\abs{\zeta}}\]
+Note that the cocycle conditions are trivial as we only have two transition functions. Note
+\[\psi_{12}, \psi_{21} : U_1 \cap U_2 \to \mathrm U(1) = S^1 \sse \C^\times = \GL(1, \C)\]
+
+With this, the Hopf bundle admits a \(\mathrm U(1)\) structure. Explicitly,
+\[\norm{(w, wz)} = \abs{w}\sqrt{1 + \abs{z}^2}\]
+and we have a similar computation for \(\pi^{-1}(U_2)\). If we now remove the zero section, then we have an isomorphism
+\[E \setminus \{\text{image of zero section}\} \cong \C^2 \setminus \{(0, 0)\})\]
+which is the total space of an associated \(\GL(1, \C)\)-bundle.
+
+The associated principal \(\mathrm U(1) = S^1\) bundle has total space
+\[P = \{(w_1, w_2) \in \C^2 \mid \abs{w_1}^2 + \abs{w_2}^2 = 1\} = S^3\]
+and the bundle projection will send \((w_1, w_2) \to (w_1:w_2) \in \C\P^1 \cong S^2\).
+
+We can see that the Hopf bundle is not the trivial bundle, since \(S^3\) and \(S^2 \times S^1\) are not homeomorphic.
+
+\subsection{Pullback}
+
+\begin{definition}
+    [pullback]
+    Let \(\pi : E \to B\) be a vector bundle. and suppose we have a smooth map \(f : M \to B\). Then we can define the \emph{pullback}\index{pullback!of vector bundles} \(f^*E\) of \(E \to B\) as a vector bundle \(\widetilde \pi : f^*E \to M\), such that
+    \begin{enumerate}
+        \item the typical fibres are the same,
+        \item there exists a smooth map \(F\) making the diagram
+        % https://q.uiver.app/#q=WzAsNCxbMCwwLCJmXipFIl0sWzIsMCwiRSJdLFsyLDIsIkIiXSxbMCwyLCJNIl0sWzAsMSwiRiJdLFsxLDIsIlxccGkiXSxbMCwzLCJcXHdpZGV0aWxkZVxccGkiLDJdLFszLDIsImYiLDJdXQ==
+        \[\begin{tikzcd}
+            {f^*E} && E \\
+            \\
+            M && B
+            \arrow["F", from=1-1, to=1-3]
+            \arrow["\pi", from=1-3, to=3-3]
+            \arrow["\widetilde\pi"', from=1-1, to=3-1]
+            \arrow["f"', from=3-1, to=3-3]
+        \end{tikzcd}\]
+        commute, and \(F : (f^*E)_p \to E_{f(p)}\) is a linear isomoprhism for all \(p \in E\).
+    \end{enumerate}
+\end{definition}
+
+From the definition, it follows that if \((\Phi, U)\) is a trivialisation of \(\pi\), then we have a trivialisation \(\tilde\Phi\) with
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHBpXnstMX0oVSkiXSxbMiwwLCJVIFxcdGltZXMgViJdLFswLDIsIlxcd2lkZXRpbGRlXFxwaV57LTF9KFxccGleey0xfShVKSkiXSxbMiwyLCJmXnstMX0oVSlcXHRpbWVzIFYiXSxbMCwxLCJcXFBoaSJdLFsyLDAsIkYiXSxbMywxLCJmIFxcdGltZXMgXFxpZF9WIiwyXSxbMiwzLCJcXHRpbGRlXFxQaGkiLDJdXQ==
+\[\begin{tikzcd}
+	{\pi^{-1}(U)} && {U \times V} \\
+	\\
+	{\widetilde\pi^{-1}(\pi^{-1}(U))} && {f^{-1}(U)\times V}
+	\arrow["\Phi", from=1-1, to=1-3]
+	\arrow["F", from=3-1, to=1-1]
+	\arrow["{f \times \id_V}"', from=3-3, to=1-3]
+	\arrow["\tilde\Phi"', from=3-1, to=3-3]
+\end{tikzcd}\]
+That is, we induce a local trivialisation of \(f^*E\) over \(f^{-1}(U)\).
+
+\begin{example}
+    If \(B = \{\pt\}\), then \(E \cong V\), and
+    \[\widetilde\Phi : x \mapsto (\tilde\pi(x), F(x)) \in M \times V\]
+    trivialises \(f^*E\) over \(M\). 
+\end{example}
+
+\begin{example}
+    Let \(M = B \times X\), \(f = \pr_1 : B \times X \to X\). Then \(f^*E\) is ``trivial in the \(X\)-direction''. More precisely, \(f^*E =  E \times X\), with bundle projection \(\widetilde\pi = \pi \times \id_X\).
+\end{example}
+
+\begin{example}
+    In this case, if \(M = \pt\), then
+    \[F : f^*E \cong C \inj E\]
+    embeds \(V\) as a fibre \(E_{f(\pt)}\).
+\end{example}
+
+In general, \(f^*E\) is determined by pulling back transition functions, that is,
+\[f^*\psi_{\beta\alpha} = \psi_{\beta\alpha}\circ f : f^{-1}(U_\alpha \cap U_\beta) \to \GL(V)\]
+This gives an alternative definition of the pullback.
+
+By replacing ``vector bundle'' with ``principal \(G\)-bundle'', \(V\) with \(G\), \(\GL(V)\) with \(G\), we can define the pullback of a principal \(G\)-bundle.
+
+In particular, if \(E\) is associated to \(P\), then \(f^*E\) is associated to \(f^*P\).
 
 \printindex
 
