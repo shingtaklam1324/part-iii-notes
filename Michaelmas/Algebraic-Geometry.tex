@@ -974,7 +974,9 @@ By definition of the quotient topology, the images of \(X\) and \(Y\) in \(S\) f
 Note that in this case, there is no cocycle condition to check.
 
 \begin{example}
-    [bug-eyed line, line with two origin] Let \(k\) be a fieodl, and \(X = \Spec(k[t]), Y = \Spec(k[u])\). Set
+    [bug-eyed line, line with two origin] 
+    \label{ex:bug-eyed-line}
+    Let \(k\) be a fieodl, and \(X = \Spec(k[t]), Y = \Spec(k[u])\). Set
     \[U = \Spec(k[t, t^{-1}]) = \Spec(k[t]_t) \quad V = \Spec(k[u]_u)\]
     These are distinguised opens. We have natural isomorphism
     \begin{align*}
@@ -1402,6 +1404,164 @@ For full details, see Hartshorne Chapter 2 Theorem 3.3.
     \[C \times_{\aff \C 2} L \cong \Spec\left(\frac{C[x]}{\inner{x^2}}\right)\]
     In this case, we have one `point' at the intersection, but it keeps track of the multiplicity.
 \end{example}
+
+\lec
+
+For the definitions which are omitted from letcures, see Examples Sheet 2 or Hartshorne.
+
+\begin{definition}
+    [base scheme, scheme over]
+    In scheme theory, we often fix a scheme \(S\), and we refer to it as the \emph{base scheme}\index{base scheme}. We then work over a fixed base, and consider schemes \(X\) with a fixed morphism \(X \to S\), called \emph{schemes over \(S\)}\index{scheme over}. These form a category \(\Sch/S\), with morphisms being commuting triples
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJYIl0sWzIsMCwiWSJdLFsxLDIsIlMiXSxbMCwyXSxbMCwxXSxbMSwyXV0=
+\[\begin{tikzcd}
+	X && Y \\
+	\\
+	& S
+	\arrow[from=1-1, to=3-2]
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-3, to=3-2]
+\end{tikzcd}\]
+\end{definition}
+A typical example would be \(S = \Spec(k)\), or \(S = \Spec(\Z)\). The product of \(X, Y\) in \(\Sch/S\) is the fibre product \(X \times_S Y\).
+
+\subsection{Separated morphisms}
+
+For motivation, recall that a topological space \(X\) is Hausdorff if the diagonal \(\Delta_X \sse X \times X\) is closed.
+
+\begin{definition}
+    [diagonal]
+    Let \(X \to S\) be a morphism of schemes. Then the \emph{diagonal}\index{diagonal} is the morphism
+    \[\Delta_X/S : X \to X \times_S X\]
+    induced by the following diagram
+    % https://q.uiver.app/#q=WzAsNSxbMSwxLCJYXFx0aW1lc19TWCJdLFszLDEsIlgiXSxbMSwzLCJYIl0sWzMsMywiUyJdLFswLDAsIlgiXSxbMiwzXSxbMSwzXSxbMCwyXSxbMCwxXSxbNCwxLCJcXGlkIiwwLHsiY3VydmUiOi0xfV0sWzQsMiwiIiwwLHsiY3VydmUiOjF9XSxbNCwwLCJcXERlbHRhX3tYL1N9IiwxXV0=
+\[\begin{tikzcd}
+	X \\
+	& {X\times_SX} && X \\
+	\\
+	& X && S
+	\arrow[from=4-2, to=4-4]
+	\arrow[from=2-4, to=4-4]
+	\arrow[from=2-2, to=4-2]
+	\arrow[from=2-2, to=2-4]
+	\arrow["\id", curve={height=-6pt}, from=1-1, to=2-4]
+	\arrow[curve={height=6pt}, from=1-1, to=4-2]
+	\arrow["{\Delta_{X/S}}"{description}, from=1-1, to=2-2]
+\end{tikzcd}\]
+    If \(X, S\) are clear, we will just write \(\Delta\).
+\end{definition}
+
+\begin{example}
+    If \(U, V \sse X\) are open subschemes, where \(S = \Spec(k)\), \(k\) a field, then
+    \[\Delta^{-1}(U \times_S V) = U \cap V\]
+    For some abstract nonsense, the diagrams
+    % https://q.uiver.app/#q=WzAsOCxbMCwwLCJBIFxcdGltZXNfQyBCIl0sWzIsMCwiQSJdLFswLDIsIkIiXSxbMiwyLCJDIl0sWzUsMCwiQVxcdGltZXNfQ0IiXSxbNywwLCJBIFxcdGltZXMgQiJdLFs1LDIsIkMiXSxbNywyLCJDIFxcdGltZXMgQyJdLFs0LDZdLFs2LDcsIlxcRGVsdGEiXSxbNCw1XSxbNSw3XSxbMCwxXSxbMSwzXSxbMCwyXSxbMiwzXV0=
+\[\begin{tikzcd}
+	{A \times_C B} && A &&& {A\times_CB} && {A \times B} \\
+	\\
+	B && C &&& C && {C \times C}
+	\arrow[from=1-6, to=3-6]
+	\arrow["\Delta", from=3-6, to=3-8]
+	\arrow[from=1-6, to=1-8]
+	\arrow[from=1-8, to=3-8]
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-3, to=3-3]
+	\arrow[from=1-1, to=3-1]
+	\arrow[from=3-1, to=3-3]
+\end{tikzcd}\]
+    are ``the same''.
+\end{example}
+
+\begin{definition}
+    [separated]
+    A morphism \(X \to S\) is \emph{separated}\index{separated} if \(\Delta_{X/S} : X \to X \times_S X\) is a closed immersion. 
+\end{definition}
+
+That is, the algebraic geometer's version of Hausdorff.
+
+\begin{example}
+    \label{ex:diag-poly-closed}
+    Say \(X = \Spec(\C[t])\) and \(S = \Spec(\C)\), \(X \to S\) induced by \(\C \to \C[t]\), then
+    \[X \times_S X = \Spec(\C[t]\otimes_\C \C[t]) = \Spec(\C[t, u])\]
+    The diagonal map \(\Delta\) is induced by taking \(\Spec\) of
+    \begin{align*}
+        \C[t] \otimes_\C \C[t] &\to \C[t] \\
+        f \otimes g &\mapsto fg
+    \end{align*}
+    To see that \(\Delta\) is closed, the map above is clearly surjective.
+\end{example}
+
+\begin{proposition}
+    Let \(X \to S\) be a morphism of schemes. Then there exists a factorisation of \(\Delta_{X/S}\), with
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJYIl0sWzIsMCwiVSJdLFs0LDAsIlggXFx0aW1lc19TWCJdLFswLDEsIlxcdGV4dHtjbG9zZWQgaW1tLn0iXSxbMSwyLCJcXHRleHR7b3BlbiBpbW0ufSJdLFswLDIsIlxcRGVsdGFfe1gvU30iLDIseyJjdXJ2ZSI6M31dXQ==
+\[\begin{tikzcd}
+	X && U && {X \times_SX}
+	\arrow["{\text{closed imm.}}", from=1-1, to=1-3]
+	\arrow["{\text{open imm.}}", from=1-3, to=1-5]
+	\arrow["{\Delta_{X/S}}"', curve={height=18pt}, from=1-1, to=1-5]
+\end{tikzcd}\]
+    That is, it is a \emph{locally closed immersion}\index{locally closed immersion}.
+\end{proposition}
+
+\begin{proof}
+    Let \(g : X \to S\) be the morphism of schemes. Say \(S\) is covered by open affines \(\{V_i\}\), and suppose \(X\) is covered by affine opens \(\{U_{ij}\}\), where for fixed \(i\),
+    \[g^{-1}(V_i) = \bigcup_j U_{ij}\]
+
+    We have morphisms \(U_{ij} \to V_i\) induced by
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCJVX3tpan0iXSxbMiwwLCJnXnstMX0oVl9pKSJdLFs0LDAsIlZfaSJdLFsyLDIsIlgiXSxbNCwyLCJTIl0sWzEsMiwiZyJdLFsxLDNdLFsyLDRdLFszLDRdLFswLDFdXQ==
+\[\begin{tikzcd}
+	{U_{ij}} && {g^{-1}(V_i)} && {V_i} \\
+	\\
+	&& X && S
+	\arrow["g", from=1-3, to=1-5]
+	\arrow[from=1-3, to=3-3]
+	\arrow[from=1-5, to=3-5]
+	\arrow[from=3-3, to=3-5]
+	\arrow[from=1-1, to=1-3]
+\end{tikzcd}\]
+    Now observe \(U_{ij} \times_{V_i} U_{ij}\) is an affine open in \(X \times_S X\), and their union over \(i, j\) contains the image of \(\Delta_{X/S}\), and
+    \[\Delta^{=1}(U_{ij} \times_{V_i} U_{ij}) = U_{ij} \sse X\] 
+    Take
+    \[U = \bigcup_{i, j}U_{ij} \times_{V_i}U_{ij}\]
+    The second map is clearly an open immersion. Now observe that to check a morphism \(T \to T'\) is a closed immersion, it suffices to check this locally on the codomain. That is, for \(U_{ij}\) affine, the diagonal gives a map \(U_{ij} \to U_{ij} \times_{V_i}U_{ij}\), which is clearly\footnote{See \cref{ex:diag-poly-closed}, the idea is the same once we unfold the definitions.} a closed immersion.
+\end{proof}
+
+\begin{proposition}
+    \label{prop:aff-morphism-separated}
+    If \(X \to S\) is a morphism of affine schemes, then \(\Delta_{X/S}\) is a closed immersion.
+\end{proposition}
+
+\begin{proof}
+    For \(X = \Spec(A)\), \(S = \Spec(B)\), \(X \to S = \Spec(B \to A)\), then the map
+    \[A \otimes_B A \to A\]
+    is surjective.
+\end{proof}
+
+\begin{example}
+    Recall the bug-eyed line from \cref{ex:bug-eyed-line}. That is,
+    \[X = \frac{\aff k 1 \sqcup \aff k 1}{\sim}\]
+    where we glued along \(U = \aff k 1 \setminus \{0\}\), using
+    \begin{align*}
+        k[u, u^{-1}] &\to k[t, t^{-1}] \\
+        u &\mapsto t
+    \end{align*}
+    We claim that this is not separated over \(S = \Spec(k)\). We can compute \(X \times_S X\) using a gluing construction of the fibre product, giving a plane with doubled axes and 4 origins. But the diagonal only contains two out of the four origins, and this is not a closed subset.
+\end{example}
+
+\begin{example}
+    [to check/wait for] Open and closed immersions are always separated.
+\end{example}
+
+An easy consequence of \cref{prop:aff-morphism-separated} is that if \(X \to S\) is a morphism of schemes, if \(\im(\Delta_{X/S})\) is closed as a topological subspace, then \(X \to S\) is separated.
+
+To see this, a locally closed immersion where the image is closed is a closed immersion.
+
+\begin{proposition}
+    Let \(A\) be a ring, then the morphism \(\P^n_A \to \Spec(A)\) is separated.
+\end{proposition}
+
+\begin{proposition}
+    Let \(k\) be a field, \(X \to \Spec(k)\) is morphism of schemes, and \(U, V \sse X\) be affine opens. If \(X \to \Spec(k)\) is separated, then \(U \cap V\) is also affine.
+\end{proposition}
 
 \printindex
 

@@ -2175,6 +2175,170 @@ The same computation shows that \(\chi(X; F) = \sum(-1)^k N_k\), and so the Eule
     \end{enumerate}
 \end{proposition}
 
+\lec
+
+\begin{example}
+    If \(X = \{*\}\), then
+    \[\HH^*(X) = \begin{cases}
+        \Z & * = 0 \\
+        0 & \text{otherwise}
+    \end{cases}\]
+    In this case, \(\HH^*(X) = \Z\) has its usual ring structure.
+\end{example}
+
+\begin{example}
+    Now consider \(X = S^n\), where \(n > 1\). Then
+    \[\HH^*(S^n) = \begin{cases}
+        \Z & * = 0, n \\
+        0 & \text{otherwise}
+    \end{cases}\]
+    If \(x\) is a generator of \(\HH^n(S^n)\), then \(x \cdot x \in \HH^{2n}{S^n} = 0\), and so
+    \[\HH^*(S^n) = \frac{\Z[x]}{\inner{x^2}}\]
+    where \(\abs{x} = n\).
+\end{example}
+
+\begin{notation}
+    We write \(\abs{x} = k\) for the \emph{degree}\index{degree!of a cohomoloogy class} of \(x \in \HH^k(X)\). 
+\end{notation}
+
+\begin{example}
+    If \(X, Y\) are cell complexes, \(x_0 \in X, y_0 \in Y\), then we have maps
+    % https://q.uiver.app/#q=WzAsMyxbMiwwLCJYIFxcdmVlIFkiXSxbMCwxLCJYIl0sWzQsMSwiWSJdLFswLDEsInBfWCIsMCx7ImN1cnZlIjotMX1dLFswLDIsInBfWSIsMix7ImN1cnZlIjoxfV0sWzEsMCwiaV9YIiwwLHsiY3VydmUiOi0xfV0sWzIsMCwiaV9ZIiwyLHsiY3VydmUiOjF9XV0=
+\[\begin{tikzcd}
+	&& {X \vee Y} \\
+	X &&&& Y
+	\arrow["{p_X}", curve={height=-6pt}, from=1-3, to=2-1]
+	\arrow["{p_Y}"', curve={height=6pt}, from=1-3, to=2-5]
+	\arrow["{i_X}", curve={height=-6pt}, from=2-1, to=1-3]
+	\arrow["{i_Y}"', curve={height=6pt}, from=2-5, to=1-3]
+\end{tikzcd}\]
+    where \(p_X\) is given by collapsing \(Y\) and \(i_X\) is the inclusion map. This gives us ring homomorphisms
+    \[p_X^* : \HH^*(X) \to \HH^*(X \vee Y)\]
+    Since \(x_0, y_0\) are neighbourhood deformation retracts, we have an open vover of \(X \vee Y\) and using Mayer-Vietoris, we have that
+    \[\widetilde \HH^*(X) \oplus \widetilde \HH^*(Y) \to \widetilde \HH^*(X \vee Y)\]
+    is an isomorphism of abelian groups. Hence we know \(\HH^*(X \vee Y)\) in terms of \(\HH^*(X)\) and \(\HH^*(Y)\). With this, if \(\alpha \in \HH^i(X), \beta \in \HH^j(Y)\), with \(i, j > 0\), then \(\alpha \cdot \beta = 0\).
+
+    More simply,
+    \[\HH^*(X \sqcup Y) = \HH^*(X) \oplus \HH^*(Y)\]
+    as rings.
+\end{example}
+
+\begin{proposition}
+    \(\HH^*(X)\) is a \emph{graded commutative ring}, that is, if \(\phi \in \HH^k(X), \psi \in \HH^\ell(X)\), then
+    \[\phi \cdot \psi = (-1)^{k\ell}\psi\cdot\phi\]
+\end{proposition}
+
+\begin{remark}
+    If \(R\) is a commutative ring, then \(\HH^*(X;R)\) is a graded-commutative ring. Moreover, unlike associativity, this is \emph{not} true at the cochain level.
+\end{remark}
+
+\begin{example}
+    Suppose \(X\) has
+    \[\HH^*(X) = \begin{cases}
+        \Z & * = 0, 3, 6 \\
+        0 & \text{otherwise}
+    \end{cases}\]
+    For degree reasons, the only possible non-trivial cup product is
+    \[\HH^3(X) \times \HH^3(X) \to \HH^6(X)\]
+    But if \(\theta \in \HH^3(X)\) is a generator, then by graded commutativity,
+    \[\theta \cdot \theta = -\theta \cdot \theta\]
+    and so \(\theta \cdot \theta = 0\) since \(\HH^6(X)\) is torsion free.
+\end{example}
+
+\begin{theorem}
+    [K\"unneth] Let \(Y\) be a space be such that \(\HH^i(Y)\) is free and finitely generated for all \(i\). Then the cross product
+    \[\HH^k(X) \times \HH^\ell(Y) \to \HH^{k + \ell}(X \times Y)\]
+    induces an isomorphism of \emph{graded rings}
+    \[\bigoplus_{k + \ell = n}\HH^k(X) \otimes \HH^\ell(Y) \to \HH^{k+\ell}(X \times Y)\]
+    whenever \(X\) is a finite cell complex.
+\end{theorem}
+
+\begin{remark}
+    In general, cross product induces a homomorphism
+    \[\HH^*(X; R) \otimes_R \HH^*(Y; R) \to \HH^*(X \times Y; R)\]
+    of abelian groups, and if we declare the left hand side is a (graded) ring via
+    \[(a \otimes b)(c \otimes d) = (-1)^{\abs{b}\abs{c}}(ac) \otimes (bd)\]
+    and so the map from the cross product is a ring homomorphism. In the case of the K\"unneth formula, we then obtain an isomorphism of rings.
+\end{remark}
+
+\begin{example}
+    Recall
+    \[\HH^*(S^1) = \frac{\Z[x]}{x^2}\]
+    with \(\abs{x} =1\). Equivalently, this is \(\Lambda(x)\), exterior algebra on one generator (i.e \(\Lambda^*\Z\)).
+    
+    Recall additively,
+    \[\HH^*(T^2) = \begin{cases}
+        \Z & * = 0, 2 \\
+        \Z^2 & * = 1 \\
+        0 & \text{otherwise}
+    \end{cases}\]
+    In terms of the K\"unneth formula,
+    \begin{align*}
+        \HH^0(T^2) &= \HH^0(S^1) \otimes \HH^0(S^1) \\
+        \HH^1(T^2) &= \HH^0(S^1) \otimes \HH^1(S^1) \oplus \HH^1(S^1) \otimes \HH^0(S^1) \\
+        \HH^2(T^2) &= \HH^1(S^1) \otimes \HH^1(S^1)
+    \end{align*}
+    if \(x_i \in \HH^1(S^1)\) is a generator for the \(i\)-th factor, then the map \(\HH^1(T^2) \times \HH^1(T^2) \to \HH^2(T^2)\) will be
+    \[(1 \otimes x_2)(x_1 \otimes 1) = -x_2x_1\]
+    This is isomorphic to the exterior algebra \(\Lambda(x_1, x_2)\). Iteratotively,
+    \[\HH^*(T^n) = \Lambda(x_1, \dots, x_n)\]
+    where \(\HH^1(\T^n) \cong \Z^n\) has generators \(x_1, \dots, x_n\).
+\end{example}
+
+\begin{example}
+    By Mayer-Vietoris, we know that
+    \[\HH^*(\Sigma_g) = \begin{cases}
+        \Z & * = 0, 2 \\
+        \Z^{2g} & * = 1
+    \end{cases}\]
+    Let \(1 \in \HH^0(\Sigma_g)\) and \(u \in \HH^2(\Sigma_g)\) be generators.
+    \begin{claim}
+        \[\HH^*(\Sigma_g) = \frac{\Z\inner{x_1, y_1, \dots, x_g, y_g}}{\inner{x_ix_j = y_iy_j = 0, x_iy_j = \delta_{ij}u}}\]
+        (and with the relations from skew-commutativity).
+    \end{claim}
+
+    \begin{proof}
+        By collapsing the purple subspace
+        \begin{center}
+            \includegraphics[scale=0.1]{diagrams/2023_11_06 12_43 Office Lens (2).jpg}
+        \end{center}
+        we have a projection map \(\pi : \Sigma_g \to \bigvee_{i=1}^g T_i^2\). We also have a natural inclusion map \(p : \bigsqcup_i T_i^2 \to \bigvee_{i=1}^g T_i^2\).
+
+        The maps \(\pi^*\) and \(p^*\) are ring homomorphisms on cohomology, and they define isomorphism on \(\HH^1\). In particular,
+        \[\HH^i(\bigsqcup_i T^2) \cong \bigoplus_{i=1}^n \Lambda(x_i, y_i)\]
+        where \(\abs{x_i} = \abs{y_i} = 1\), and generate \(\HH^1(T^2_i)\). Since \(p^*, \pi^*\) are ring homomorphisms on \(\HH^1\), we can use these to define classes in \(\HH^1(\Sigma_g)\).
+
+        On \(\HH^2\), we have
+        % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXFo9IFxcSEheaShcXFNpZ21hX2cpIl0sWzIsMCwiXFxISF4yKFxcYmlndmVlX3tpPTF9XmcgVF9pXjIpID0gXFxaXmciXSxbMiwyLCJcXEhIXjIoXFxiaWdzcWN1cF9pIFRfaV4yKSA9IFxcWl5nIl0sWzEsMCwiXFxwaV4qIiwyXSxbMSwyLCJwXioiXV0=
+\[\begin{tikzcd}
+	{\Z= \HH^i(\Sigma_g)} && {\HH^2(\bigvee_{i=1}^g T_i^2) = \Z^g} \\
+	\\
+	&& {\HH^2(\bigsqcup_i T_i^2) = \Z^g}
+	\arrow["{\pi^*}"', from=1-3, to=1-1]
+	\arrow["{p^*}", from=1-3, to=3-3]
+\end{tikzcd}\]
+        and if \(u_i = x_iy_i \in \HH^2(T^2_i)\) are generators, we need to show that the map \(\Z^g \to \Z\) sends \(u_i\) to \(u\). To see this, we need to consider the map
+        \[\HH^2(T^2) \to \HH^2(\Sigma_g)\]
+        when \(\Sigma_g \to T^2\) is the map to one factor. Recall from out computation of degree of maps between spheres that if we have a point with finite preimage, we can express
+        \[\deg(f) = \sum_i \deg_{x_i}(f)\]
+        as a sum of the local degree. The same argument works in this case, and so the degree is well defined.
+
+        Thus, up to changing the sign of \(y_j\), we get the result we want, since the degree of the map \(\Sigma_g \to T^2\) is 1.
+    \end{proof}
+\end{example}
+
+\begin{corollary}
+    Let \(f : S^n \to T^n\) be any map, and \(n > 1\). Then \(f\) has degree zero, where \(\deg(f) : \HH^n(T^n) \to \HH^n(S^n)\).
+\end{corollary}
+
+\begin{proof}
+    \(f\) induces a ring homomorphism from
+    \[\HH^*(T^n) = \Lambda(x_1, \dots, x_n)\]
+    to
+    \[\HH^*(S^n) = \frac{\Z[u]}{u^2}\]
+    Since \(n > 1\), \(\HH^1(S^n) = 0\), and so \(f^*(x_i) = 0\). Hence
+    \[f^*(x_1\cdots x_n) = f^*(x_1)\cdots f^*(x_n) = 0\]
+\end{proof}
 
 \printindex
 
