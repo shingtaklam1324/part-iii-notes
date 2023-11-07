@@ -1567,6 +1567,131 @@ By replacing ``vector bundle'' with ``principal \(G\)-bundle'', \(V\) with \(G\)
 
 In particular, if \(E\) is associated to \(P\), then \(f^*E\) is associated to \(f^*P\).
 
+\lec
+
+\subsection{Morphisms of (vector) bundles}
+
+Let \(\pi : E \to B\), \(\pi' : E' \to B'\) be vector bundles, with typical fibres \(V, V'\) respectively. Let \(f : B \to B'\) be a smooth map.
+
+\begin{definition}
+    [morphism of vector bundle] A \emph{vector bundle morphism covering \(f\)}\index{morphism of vector bundles} is a smooth map \(F : E \to E'\), such that
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJFIl0sWzIsMCwiRSciXSxbMCwyLCJCIl0sWzIsMiwiQiciXSxbMCwyLCJcXHBpIiwyXSxbMSwzLCJcXHBpIl0sWzAsMSwiRiJdLFsyLDMsImYiLDJdXQ==
+\[\begin{tikzcd}
+	E && {E'} \\
+	\\
+	B && {B'}
+	\arrow["\pi"', from=1-1, to=3-1]
+	\arrow["\pi", from=1-3, to=3-3]
+	\arrow["F", from=1-1, to=1-3]
+	\arrow["f"', from=3-1, to=3-3]
+\end{tikzcd}\]
+    commutes, and the morphism on any fibre
+    \[F_p : E_p \to E'_{f(p)}\]
+    is a linear map.
+\end{definition}
+
+Then for each local trivialisation \((\Phi, U)\) for \(E \to B\), and \((\Phi', U')\) for \(E' \to B'\), with \(f(U) \sse U'\). Set
+\[F_U = \Phi' \circ F\vert_{\pi^{-1}(U)} \circ \Phi^{-1}\]
+Then
+\[F_U(b, v) = (f(b), h(b)v)\]
+where \(h(b) \in L(V, V')\) a linear map, \(b \mapsto h(b)\) smooth.
+
+\begin{example}
+    If \(\varphi : M \to N\) is a smooth map, then \(\dd\varphi : \T M \to \T N\) is a morphism of vector bundles covering \(\varphi\).
+\end{example}
+
+\begin{example}
+    Let \(\pi : E \to B\) be a vector bundle, \(f : M \to B\) a smooth map, then the pullback \(f^*E \to M\) gives us a morphism of vector bundles \(f^*E \to E\) covering \(f\).
+\end{example}
+
+\begin{example}
+    Suppose \(B' = B\), and \(f \in \Diff(B)\). Then if \(F\) is a morphism of vector bundles covering \(f\), and each map on fibres is an isomorphism, then \(F\) is an \emph{isomorphism of vector bundles covering \(f\)}\index{isomorphism of vector bundles}.
+
+    If \(f = \id\), \(E = E'\), with \(\pi' = \pi\), then we call \(F\) a \emph{vector bundle automorphism of \(E\)}\index{automorphism of vector bundles}, and we denote the group of automorphisms as \(\Aut(E)\). In this case, each \(h(b) \in \GL(V)\), and so we have a smooth map \(h : U \to \GL(V)\).
+\end{example}
+
+\begin{example}
+    If \(E\) admits a \(G\) structure for some \(G \le \GL(V)\), then
+    \[\Aut_G(E) = \left\{F \in \Aut(E) \mid F \text{ preserves the }G\text{ structure}\right\}\]
+    makes sense. In terms of local trivialisations, then the maps are \(h : U \to G\) instead. In mathematical physics, we call \(\mcG = \Aut_G(E)\) the \emph{the group of gauge transformations}. For example, \(G = \mathrm{U}(1), \mathrm{SU}(2), \mathrm{SU}(3), \SO(3)\) and so on.
+\end{example}
+
+\section{Connections on vector bundles}
+
+Let \(\pi : E \to B\) be a real vector bundle of rank \(m\), i.e. with typical fibre \(\R^m\). Let \(s \in \Gamma(E)\) be a section, then locally,
+\[s_U = \pr_2 \circ \Phi \circ (s\vert_U) : U \to \R^n\]
+is a vector valued function. We would like to extend the differential calculus. Locally, we have
+\[\dd s_U : \T_b B \to \R^m\]
+but we also have
+\[\dd s : \T_b B \to \T_{s(b)}E\]
+In this case, \(\dim(\R^m) = m\), but \(\dim(\T_{s(b)}E) = \dim(B) + m\). Intuitively, we have extra dimensions coming from the base manifold \(B\).
+
+Throughout, we will fix notation:
+\begin{itemize}
+    \item \(\dim(B) = n\),
+    \item \(U \sse B\) is a coordinate neighbourhood and a trivialising neighbourhood for \(E\), with local coordinates \((x^k)_{k=1}^n\), and with coordinates \((a^j)_{j=1}^m\) on the fibres.
+    \item We will use the summation convention on \(i, j \in \{1, \dots, m\}\) and \(k, \ell \in \{1, \dots, n\}\), but not on Greek indices.
+\end{itemize}
+
+Let \(\Phi : \pi^{-1}(U) \to U \times \R^m\) be a local trivialisation. \(\pi^{-1}(b) = E_b\) is a submanifold, and we have local coordinates
+\[\T_pE_b = \Span\left\{\pdv{a^j}\right\}\]
+This allows us to identify
+\[\T_pE = \Span\left\{\pdv{x^k}, \pdv{a^j}\right\}\]
+
+\begin{definition}
+    [vertical, horizontal subspace]
+    The subspace \(\T v_pE = \ker(\dd\pi_p)\) is called the \emph{vertical subspace}\index{vertical subspace} at \(p \in E\).
+
+    A subspace \(S_p \sse \T_pE\) is a \emph{horizontal subspace}\index{horizontal subspace} if
+    \[S_p \oplus \T v_pE = \T_p E\]
+\end{definition}
+In this case, we know that \(\dim(S_p) = n\) for all \(p\) from linear algebra. However, it is not determined by \(\pi\).
+
+Any \(n\)-dimensional subspace of \(\T_pE \cong R^{n+m}\) is given by
+\[\bigcap_{i=1}^m \ker(\theta_p^i)\]
+where the \(\theta_p^1, \dots, \theta_p^m \in \T_p^*E \cong (\R^{n+m})^*\) are linearly independent. In this case,
+\[S_p = \left\{v \in \T_pM \mid \theta^i_p(v) = 0 \text{ for all }i\right\}\]
+where
+\[\theta^i_p = f^i_k\dd x^k + g^i_j \dd a^j\]
+for constants \(f^i_k, g^i_j\). Suppose \(c \in \T_pE\) is vertical, that is,
+\[c = c^j \pdv{a^j}\]
+(i.e. it has no \(\pdv{x^k}\) components). If \(c \ne 0\), then there exists \(i\) such that
+\[\theta^i_p(c) \ne 0\]
+Equivalently,
+\[g^i_j c^i \ne 0\]
+That is, we require the matrix \((g^i_j)\) to be invertible. Let its inverse be \((h^i_j)\). Now consider
+\[\tilde\theta^i = h^i_j\theta^j = \dd a^i + e^i_k\dd x^k\]
+Letting \(p\) vary in \(\pi^{-1}(U)\), we get functions \(e^i_k : \pi^{-1}(U) \to \R\). We obtain
+\begin{proposition}
+    Every field \(S = \{S_p\}_{p \in E}\) of horizontal subspaces can be given in local trivialisations as
+    \[S_p = \bigcap_{i=1}^m \ker(\theta^i_p)\]
+    with
+    \[\theta^i_p = \dd a^i + e^i_k(x, a)\dd x^k\]
+    for some smooth \(e^i_k : U \times \R^n \to \R\). If the \(e^i_k\) are smooth, we say that \(S\) is smooth.
+\end{proposition}
+
+\begin{definition}
+    [connection] A smooth field \(S = \{S_p\}_{p \in E}\) of subspaces is a \emph{connection}\index{connection} on a vector bundle \(E\) if
+    \begin{enumerate}
+        \item all \(S_p\) are horizontal,
+        \item all the \(e^i_k\) are linear in \(a \in \R^m\).
+    \end{enumerate} 
+\end{definition}
+In this case, we can write
+\[e^i_k(x, a) = \Gamma^i_{jk}(x)a^j\]
+for some \(\Gamma^i_{jk} : U \to \R\) smooth. Thus,
+\[\theta^i = \dd a^i + \Gamma^i_{jk}(x)a^j\dd x^k = \dd a^i + A^i_j a^j\]
+where \(A^i_j = \Gamma^i_{jk}(x)\dd x^k\) is a matrix of differential \(1\)-forms. We can then consider the matrix \(A = (A^i_j)\), and we would like to consider the transformation laws.
+
+Suppose \((U', \Phi')\) is another trivialisation, with \(U \cap U' \ne \emptyset\). We will use \(i', j'\) indices for coordinates with respect to \(U'\). Write \(\Psi = (\Phi_i^{i'})_{i, i' = 1}^m\) for the transition function from \(\Phi'\) to \(\Phi\). In this case, \(\Psi^{-1} = (\Phi^{i'}_i)\).
+
+Note that
+\[\Psi^i_{i'}\Psi^{i'}_j = \delta^i_j\]
+Now suppose
+\[a^{i'} = \Psi^{i'}_ia^i\]
+Then
+\[\dd a^{i'} = \left(\dd \Psi^{i'}_i\right)a^i + \Psi^{i'}_i \dd a^i\]
+
 \printindex
 
 \end{document}

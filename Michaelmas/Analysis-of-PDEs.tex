@@ -1598,7 +1598,10 @@ In summary, if \(U \sse \R^n\) is open, bounded and has \(C^1\) boundary, then:
 In this section, let \(U\) be an open bounded subset of \(\R^n\), with \(C^1\) boundary.
 
 For \(u \in C^2(\overline U)\), define
-\[Lu = -\sum_{i, j=1}^n(a^{ij}(x)u_{x_i})_{x_j} + \sum_{i=1}^n b^i(x)u_{x_i} + c(x)u\]
+\begin{equation}
+    \label{eq:elliptic-operator-div-form}
+    Lu = -\sum_{i, j=1}^n(a^{ij}(x)u_{x_i})_{x_j} + \sum_{i=1}^n b^i(x)u_{x_i} + c(x)u
+\end{equation}
 where \(a^{ij}, b^i, c\) are functions on \(U\). We assume \(a^{ij}, b^i, c\) are \(L^\infty\), and \(a^{ij} = a^{ji}\). This form is called \emph{divergence form}\index{divergence form}, since it looks like
 \[\grad\cdot(A \grad u)\]
 If \(a^{ij} \in C^1(\overline U)\), then we can rewrite \(L\) in \emph{non-divergence form}\index{non-divergence form}
@@ -1796,6 +1799,7 @@ We will defer the proof to the next lecture.
 On the other hand, if \(\gamma > 0\), we can't apply Lax-Milgram.
 
 \begin{theorem}
+    \label{thm:gamma-exists-unique}
     Let \(L\) be as above, then there exists a \(\gamma \ge 0\) such that for any \(\mu \ge \gamma\), and any \(f \in L^2(U)\), there exists a unique solution \(u \in H^1_0(U)\) to the boundary value problem
     \begin{equation}
         \label{eq:elliptic-bvp-modified}
@@ -1933,6 +1937,182 @@ Recall if \(1 \le p < n\), we have an embedding \(W^{1, p} \inj L^{p^*}\).
     This is true for all \(a\). Since \(k\) is fixed and finite, choose \(j\) large enough so that 
     \[\sum_{a=1}^k \left(\frac{1}{\abs{Q_a}}\left(\int_{Q_a}(w_j - u)\dd x\right)^2\right) < \frac{\epsilon}{2}\]
     Using this, \(\norm{w_j - u}_{L^2(Q)}^2 < \epsilon\).
+\end{proof}
+
+\subsection{Fredholm alternative and spectra of elliptic PDEs}
+
+\begin{definition}
+    [adjoint, compact]
+    Let \(H\) be a Hilbert space, and consider \(K \in \mcB(H)\).
+    \begin{enumerate}
+        \item the \emph{adjoint of \(K\)}\index{adjoint}, denoted \(K^\dagger\) is the unique operator, such that
+        \[\pinner{x, K^\dagger y} = \pinner{Kx, y}\]
+        for all \(x, y \in H\).
+        
+        We say that \(K\) is \emph{self-adjoint}\index{self-adjoint} if \(K^\dagger = K\).
+        \item \(K\) is \emph{compact}\index{compact operator} if for each bounded sequence \((u_j) \sse H\), there exists a subsequence \((u_{j_k})\) such that \(K(u_{j_k})\) converges strongly in \(H\). 
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    [Key example] Let \(K : L^2(U) \to H^1(U)\) be a bounded linear operator. SInce \(H^1 \inj L^2\), we can think of \(K \in \mcB(L^2(U))\).
+
+    \begin{claim}
+        \(K \in \mcB(L^2(U))\) is compact.
+    \end{claim}
+
+    \begin{proof}
+        Let \((u_j) \sse L^2(U)\) is a bounded sequence, then
+        \[\norm{K(u_j)}_{H^1} \le \norm{K}\norm{u_j}_{L^2(U)}\]
+        and so \((K(u_j))\) is a bounded sequence in \(H^1\). By Rellich-Kondrachov, there exists a subsequence \((u_{j_k})\), such that \(K(u_{j_k})\) converges strongly in \(L^2(U)\). 
+    \end{proof}
+\end{example}
+
+The idea is that if we are looking at the equation
+\[\Delta u = f\]
+we can view this as a map
+\begin{align*}
+    \HH^1(U) &\to L^2(U) \\
+    u &\mapsto f
+\end{align*}
+Finding a solution is the inverse map \(K : L^2(U) \to H^1(U)\), with \(K(f) = u\). This map will be compact.
+
+\begin{theorem}
+    [Fredhold alternative for compact operators] 
+    \index{Fredholm alternative!for compact operators}
+    Let \(H\) be a Hilbert space, \(K \in \mcB(H)\) compact. Then
+    \begin{enumerate}[(i)]
+        \item \(\ker(I - K)\) is finite dimensional,
+        \item \(\im(I - K)\) is closed,
+        \item \(\im(I - K) = \ker(I - K^\dagger)^\perp\),
+        \item \(\ker(I - K) = 0\) if and only if \(\im(I - K) = H\),
+        \item \(\dim(\ker(I - K)) = \dim(\ker(I - K^\dagger))\)
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Appendix D.5 of Evans.
+\end{proof}
+
+Note (iii) and (iv) are referred to as the \emph{Fredholm alternative}. Applied to linear algebra, we would like to consider the equation
+\[Ax = b\]
+We have the alternative:
+\begin{enumerate}[(a)]
+    \item \(A\) is invertible, \(A^{-1}\) exists, and so the inhomogeneous problem has a unique solution,
+    \item \(\ker(A)\) is non-trivial. The homogeneous equation \(Ax = 0\) admits non-trivial solutions. Moreover, from (iii), \(\im(A) = \ker(A^\T)^\perp\), and so the inhomogeneous equation has a solution if and only if \(b \in \ker(A^\T)^\perp\), and so
+    \[y^\T b = 0\]
+    for all \(y \in \ker(A^\T)\), i.e. \(A^\T y = 0\).
+\end{enumerate}
+
+Restating (iii) and (iv), we have
+\begin{enumerate}[(I)]
+    \item for each \(f \in H\), \((I - K)u = f\) has a unique solution,
+    \item or the homogeneous equation \((I - K)u = 0\) has a non-trivial solution. In this case, the space of solutions \((I - K)u\) is finite dimensional, and \((I - K)u = f\) has a solution if and only if \(f \in \ker(I - K^\dagger)^\perp\).
+\end{enumerate}
+
+\begin{definition}
+    [resolvent and spectrum]
+    Let \(H\) be a real Hilbert space, \(A \in \mcB(H)\). The \emph{resolvent (set)}\index{resolvent} of \(A\) is
+    \[\rho(A) = \left\{\lambda \in \R \mid A - \lambda I \text{ is invertible}\right\}\]
+    The \emph{real spectrum}\index{spectrum} of \(A\) is
+    \[\sigma(A) = \R \setminus \rho(A)\]
+    We also define the \emph{point spectrum}\index{point spectrum}
+    \[\sigma_p(A) = \left\{\eta \in \sigma(A) \mid \ker(A - \eta I) \ne 0\right\}\]
+    If \(Aw = \eta w\), we call \(w\) an \emph{eigenvector}\index{eigenvector}.
+\end{definition}
+
+\begin{remark}
+    \(\rho(A)\) is open, and \(\sigma(A)\) is closed.
+\end{remark}
+
+\begin{theorem}
+    [spectrum of compact operator] Suppose \(H\) is a separable infinite dimensional Hilbert space, with \(K \in \mcB(H)\) compact. Then
+    \begin{enumerate}[(i)]
+        \item \(0 \in \sigma(K)\),
+        \item \(\sigma(K) \setminus \{0\} = \sigma_p(K) \setminus \{0\}\),
+        \item \(\sigma(K) \setminus \{0\}\) is countable. Say \(\sigma(K) \setminus \{0\} = \{\lambda_i\}_{i \in \N}\), then (up to reordering) \(\lambda_i \to 0\),
+        \item if \(K\) is in addition self-adjoint, then there exists a countable orthonormal basis for \(H\) consisting of eigenvectors for \(K\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    II Linear Analysis.
+\end{proof}
+
+\subsubsection{Application to elliptic PDEs}
+
+Consider \cref{eq:elliptic-operator-div-form} as before, with \(L\) uniformly elliptic on \(U \sse \R^n\). The bilinear form associated to \(L\) is
+\[B[u, v] = \int_U a^{ij}u_{x_i}v_j + b^iu_{x_i}v + cuv \dd x\]
+
+\begin{definition}
+    [formal adjoint, adjoint bilinear form]
+    We define the formal adjoint to \(L\) as
+    \[L^\dagger v = -\sum_{i,j}(a^{ij}v_{x_i})_{x_j} - \sum_i b^i u_{x_i} + \left(c - \sum_i b^i_{x_i}\right)v\]
+    and the adjoint bilinear form is given by
+    \[B^\dagger[v, u] = B[u, v]\]
+\end{definition}
+
+We say \(v \in H_0^1(U)\) is a \emph{weak solution} of the \emph{adjoint problem}
+\[\begin{cases}
+    L^\dagger v = f & \text{ in }U \\
+    v = 0 & \text{ on }\partial U
+\end{cases}\]
+if
+\[B^\dagger[w, v] = \pinner{f, w}_{L^2}\]
+for all \(w \in H_0^1(U)\).
+
+Note if \(b^i \in C^1(U)\), then \(B^\dagger\) is the same bilinear form as \(B\).
+
+\begin{theorem}
+    [Fredholm alternative for elliptic boundary value problem]
+    \index{Fredholm alternative!for elliptive boundary value problems}
+    Consider
+    \begin{equation}
+        \label{eq:fredholm-alt-elliptic-bvp}
+        \begin{cases}
+            Lu = f & \text{in }U \\
+            u = 0 & \text{on }\partial U
+        \end{cases}
+    \end{equation}
+    Then
+    \begin{enumerate}[(I)]
+        \item for each \(f \in L^2(U)\), \cref{eq:fredholm-alt-elliptic-bvp} admits a unique weak solution, or
+        \item there exists a non-trivial weak solution to the homogeneous problem (i.e. \(f = 0\)), and \(\dim(N) = \dim(N^\dagger)\), where
+        \[N = \left\{\text{weak solutions to homogeneous equation}\right\} \sse H_0^1(U)\]
+        and
+        \[N^\dagger = \left\{\text{weak solutions to the homogenous adjoint equation}\right\}\]
+        With this, \cref{eq:fredholm-alt-elliptic-bvp} has a unique solution if and only if
+        \[\pinner{f, v}_{L^2} = 0\]
+        for all \(v \in N^\dagger\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    By \cref{thm:gamma-exists-unique}, there exists \(\gamma > 0\) such that for every \(f \in L^2(U)\), there exists a unique weal solution \(u \in H_0^1(U)\) to
+    \[\begin{cases}
+        L_\gamma u = f &\text{in }U \\
+        u = 0 &\text{on }\partial U
+    \end{cases}\]
+    where \(L_\gamma u =L u + \gamma u\). We also have an associated bilinear form
+    \[B_\gamma[u, v] = B[u, v] + \gamma\pinner{u, v}_{L^2}\]
+    and we have that
+    \[B_\gamma[u, v] = \pinner{f,v}_{L^2}\]
+    for all \(v \in H^1_0\), and \(\norm{u}_{H^1} \le C\norm{f}_{L^2}\).
+
+    Write \(L_\gamma^{-1}(f) = u\) for the solution operator. This is well defined as the solution exists and is unique. We can check that this is linear. The inequality above shows that
+    \[\norm{L_\gamma^{-1}(f)}_{\HH^1} \le C\norm{f}_{L^2}\]
+    and so
+    \[L_\gamma^{-1} : L^2 \to H_0^1\]
+    is bounded, hence \(L_\gamma^{-1} : L^2 \to L^2\) is compact.
+
+    Observe that for \(g \in L^2\), then \(L_\gamma^{-1}(g) = w\) if and only if \(B_\gamma[w, v] = \pinner{g, v}\) for all \(v \in H_0^1(U)\). Now suppose \(u \in H_0^1\) is a weak solution to \cref{eq:fredholm-alt-elliptic-bvp}, that is,
+    \[B[u, v] = \pinner{f, v}\]
+    for all \(v \in H_0^1\), and so
+    \[B_\gamma[u, v] = \inner{f + \gamma u, v}\]
+    for all \(v \in H_0^1\). Thus, \(u\) solves \cref{eq:fredholm-alt-elliptic-bvp} weakly if and only if
+    \[u = L_\gamma^{-1}(f + \gamma u) = L_\gamma^{-1}(f) + \gamma L_\gamma^{-1}(u)\]
+    which is true if and only if \((I - K)u = h\), where
+    \[K = \gamma L_\gamma^{-1} \qqtext{and} h = L_\gamma^{-1}(f)\]
 \end{proof}
 
 \section{Hyperbolic PDEs}
