@@ -2224,6 +2224,7 @@ The same computation shows that \(\chi(X; F) = \sum(-1)^k N_k\), and so the Eule
 \end{example}
 
 \begin{proposition}
+    \label{prop:graded-commutative}
     \(\HH^*(X)\) is a \emph{graded commutative ring}, that is, if \(\phi \in \HH^k(X), \psi \in \HH^\ell(X)\), then
     \[\phi \cdot \psi = (-1)^{k\ell}\psi\cdot\phi\]
 \end{proposition}
@@ -2246,7 +2247,9 @@ The same computation shows that \(\chi(X; F) = \sum(-1)^k N_k\), and so the Eule
 \end{example}
 
 \begin{theorem}
-    [K\"unneth] Let \(Y\) be a space be such that \(\HH^i(Y)\) is free and finitely generated for all \(i\). Then the cross product
+    [K\"unneth] 
+    \label{thm:kunneth}
+    Let \(Y\) be a space be such that \(\HH^i(Y)\) is free and finitely generated for all \(i\). Then the cross product
     \[\HH^k(X) \times \HH^\ell(Y) \to \HH^{k + \ell}(X \times Y)\]
     induces an isomorphism of \emph{graded rings}
     \[\bigoplus_{k + \ell = n}\HH^k(X) \otimes \HH^\ell(Y) \to \HH^{k+\ell}(X \times Y)\]
@@ -2338,6 +2341,106 @@ The same computation shows that \(\chi(X; F) = \sum(-1)^k N_k\), and so the Eule
     \[\HH^*(S^n) = \frac{\Z[u]}{u^2}\]
     Since \(n > 1\), \(\HH^1(S^n) = 0\), and so \(f^*(x_i) = 0\). Hence
     \[f^*(x_1\cdots x_n) = f^*(x_1)\cdots f^*(x_n) = 0\]
+\end{proof}
+
+\lec
+
+\begin{proof}
+    [Proof of \cref{thm:kunneth}]
+
+    Recall that
+    \[C^*(X, A) = \left\{f \in C^*(X) \mid C_*(A) \sse \ker(f)\right\}\]
+    If \(\varphi \in C^k(X, A), \psi \in C^\ell(X)\), then for \(\sigma : \Delta{k+\ell} \to A\) a simplex in \(A\),
+    \[\varphi \cdot \psi(\sigma) = \varphi(\text{front of }\sigma)\psi(\text{back of }sigma)\]
+    and so \(\varphi \cdot \psi \in C^{k+\ell}(X, A)\). From this, we have a relative cup product
+    \[\HH^k(X, A) \times \HH^\ell(X) \to \HH^{k+\ell}(X, A)\]
+    In particular, \(\HH^*(X, A)\) is a graded ring, but it is typically not unital. We also have a relative cross product,
+    \[C^k(X, A) \otimes C^\ell(Y) \to C^{k + \ell}(X \times Y, A \times Y)\]
+    and this induces a map on cohomoloogy
+    \[\HH^k(X, A) \otimes \HH^\ell(Y) \to \HH^{k + \ell}(X \times Y, A \times Y)\]
+
+    Now consider the associations for fixed \(Y\), with cellular pairs \((X, A)\),
+    \begin{align*}
+        h^*(X, A) &:= \HH^*(X, A) \otimes \HH^*(Y) \\
+        k^*(X, A) &:= \HH^*(X \times Y, A \times Y)
+    \end{align*}
+    and the relative cup product defines a map \(\Phi : h^*(X, A) \to k^*(X, A)\). If \((X, A) = (\pt, \emptyset)\), then
+    \[\Phi : h^*(\pt) = \Z \otimes \HH^*(Y) \cong \HH^*(\pt \times Y) = \HH^*(Y)\]
+    By our discussion of generalised cohomology theories, if \(\Phi\) is a natural transformation, and if \(h^*, k^*\) are generalised cohomology theories, then \(\Phi\) will be an isomorphism for all cellular pairs \((X, A)\).
+
+    \textbf{\(h^*, k^*\) are generalised cohomology theories:} For \(k^*\), all the axioms follow by our known properties of singular cohomology. For \(h^*\), naturality, homotopy invariance and excision are immediate. The long exact sequence and unions axioms hold as we are assuming that \(\HH^i(Y)\) is finitely generated and free. That is, if \(M\) is finitely generated and free, then
+    \begin{enumerate}[(i)]
+        \item the functor \(\T_M(N) = M \otimes N\) is exact (i.e. it preserves exact sequences),
+        \item \(M \otimes \prod_\alpha N_\alpha = \prod_\alpha(M \otimes N_\alpha)\),
+    \end{enumerate}
+
+    \textbf{\(\Phi\) is a natural transformation}
+
+    We know the cup product and cross products are natural for maps of spaces. So naturality, homotopy invariance and excision axioms are fine. Consider 
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhIXmsoQSlcXG90aW1lc1xcSEheXFxlbGwoWSkiXSxbMiwwLCJcXEhIXntrKzF9KFgsIEEpXFxvdGltZXMgXFxISF5cXGVsbChZKSJdLFswLDIsIlxcSEhee2srXFxlbGx9KEEgXFx0aW1lcyBZKSJdLFsyLDIsIlxcSEhee2srXFxlbGwrMX0oWCBcXHRpbWVzIFksIEEgXFx0aW1lcyBZKSJdLFsxLDMsIlxcUGhpIiwxXSxbMCwyLCJcXFBoaSIsMV0sWzAsMSwiXFxwYXJ0aWFsX1xcbGVzXFxvdGltZXNcXGlkIiwxXSxbMiwzLCJcXHBhcnRpYWxfXFxsZXMiLDFdXQ==
+    \[\begin{tikzcd}
+        {\HH^k(A)\otimes\HH^\ell(Y)} && {\HH^{k+1}(X, A)\otimes \HH^\ell(Y)} \\
+        \\
+        {\HH^{k+\ell}(A \times Y)} && {\HH^{k+\ell+1}(X \times Y, A \times Y)}
+        \arrow["\Phi"{description}, from=1-3, to=3-3]
+        \arrow["\Phi"{description}, from=1-1, to=3-1]
+        \arrow["{\partial_\les\otimes\id}"{description}, from=1-1, to=1-3]
+        \arrow["{\partial_\les}"{description}, from=3-1, to=3-3]
+    \end{tikzcd}\]
+    We need the square to commute and then \(\Phi\) will be compatible with the long exact sequences.
+
+    Recall given \(\phi \in C^k(A)\) with \(\partial^*\phi = 0\), we extend it to \(\widehat \phi \in C^k(X)\), and set
+    \[\partial_\les[\phi] = \partial^*[\widehat\phi]\]
+    Thus, if \(\phi \in C^\ell(Y)\) is any cocyle, then \(\widehat\phi \times \psi\) is an extension of \(\phi \times \psi\) from \(A \times Y\) to \(X \times Y\). Hence the square commutes.
+\end{proof}
+
+% I will defer the details to you equipped with Hatcher and a vat of gin.
+
+\begin{proof}
+    [Sketch proof of \cref{prop:graded-commutative}]
+
+    Let \(\epsilon_n = (-1)^{n(n+1)/2}\), and
+    \begin{align*}
+        \rho : C_n(X) &\to C_n(X) \\
+        [v_0, \dots, v_n] &\mapsto \epsilon_n[v_0, \dots, v_n]
+    \end{align*}
+
+    \begin{claim}
+        \(\rho\) is a chain map, which is chain homotopic to the identity.
+    \end{claim}
+
+    Given the claim,
+    \begin{align*}
+        (\rho^*\phi)\cdot(\rho^*(\psi))([v_0, \dots, v_{k+\ell}]) &= \phi(\epsilon_k[v_k, \dots, v_n])\psi(\epsilon_\ell[v_{k+\ell}, \dots, v_k])
+    \end{align*}
+    whereas
+    \[\rho^*(\psi\cdot\phi) = \epsilon_{k+\ell}\psi([v_{k+\ell}, \dots, v_k])\phi([v_k, \dots, v_0])\]
+    and we also have that
+    \[\epsilon_k\epsilon_\ell = (-1)^{k\ell}\epsilon_{k+\ell}\]
+    and \(\rho\) being chain homotopic to \(\id\) shows that \(\rho^* = \id\) on \(\HH^*\), and the result then follows.
+
+    To see that \(\rho\) is a chain map, we can just compute. We would like the diagram to commute
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJDX24oWCkiXSxbMCwyLCJDX24oWCkiXSxbMiwwLCJDX3tuLTF9KFgpIl0sWzIsMiwiQ197bi0xfShYKSJdLFsxLDAsIlxccmhvIiwxXSxbMywyLCJcXHJobyIsMV0sWzAsMiwiXFxwYXJ0aWFsIiwxXSxbMSwzLCJcXHBhcnRpYWwiLDFdXQ==
+    \[\begin{tikzcd}
+        {C_n(X)} && {C_{n-1}(X)} \\
+        \\
+        {C_n(X)} && {C_{n-1}(X)}
+        \arrow["\rho"{description}, from=3-1, to=1-1]
+        \arrow["\rho"{description}, from=3-3, to=1-3]
+        \arrow["\partial"{description}, from=1-1, to=1-3]
+        \arrow["\partial"{description}, from=3-1, to=3-3]
+    \end{tikzcd}\]
+    But
+    \[\partial(\rho\sigma) = \epsilon_n \sum (-1)^i \sigma\vert_{[v_n, \dots, \widehat{v_{n-i}}, \dots, v_0]}\]
+    and
+    \[\rho(\partial\sigma) = \epsilon_{n-1}\sum (-1)^{n-i} \sigma\vert_{[v_n, \dots, \widehat{v_{n-i}}, \dots, v_0]}\]
+    Since \(\epsilon_n = (-1)^n \epsilon_{n-1}\), we are done.
+
+    For the homotopy, we will need a \emph{twisted prism operator}. We want \(P : C_n(X) \to C_{n+1}(X)\) such that
+    \[\partial P + P\partial = \rho - \id\]
+
+    If \(\pi : \Delta^n \times [0, 1]^n \to \Delta^n\) is the projection map, define
+    \[P\sigma = \sum_i (-1)^i\epsilon_{n-i}\pi([v_0, \dots, v_i, w_n, \dots, w_i])\]
 \end{proof}
 
 \printindex

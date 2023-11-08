@@ -1487,7 +1487,9 @@ That is, the algebraic geometer's version of Hausdorff.
         \C[t] \otimes_\C \C[t] &\to \C[t] \\
         f \otimes g &\mapsto fg
     \end{align*}
-    To see that \(\Delta\) is closed, the map above is clearly surjective.
+    To see that \(\Delta\) is closed, the map above is clearly surjective. More generally,
+    \[\aff k n \to \Spec(k)\]
+    is separated.
 \end{example}
 
 \begin{proposition}
@@ -1548,7 +1550,9 @@ That is, the algebraic geometer's version of Hausdorff.
 \end{example}
 
 \begin{example}
-    [to check/wait for] Open and closed immersions are always separated.
+    [to check/wait for] Open and closed immersions are always separated. In the closed immersion case, the key observation is that
+    \[\frac{A}{I} \otimes_A \frac{A}{I} = \frac{A}{I + I} = \frac{A}{I}\]
+    and so the diagonal map is just the identity.
 \end{example}
 
 An easy consequence of \cref{prop:aff-morphism-separated} is that if \(X \to S\) is a morphism of schemes, if \(\im(\Delta_{X/S})\) is closed as a topological subspace, then \(X \to S\) is separated.
@@ -1556,11 +1560,118 @@ An easy consequence of \cref{prop:aff-morphism-separated} is that if \(X \to S\)
 To see this, a locally closed immersion where the image is closed is a closed immersion.
 
 \begin{proposition}
-    Let \(A\) be a ring, then the morphism \(\P^n_A \to \Spec(A)\) is separated.
+    Let \(k\) be a field, \(X \to \Spec(k)\) is morphism of schemes, and \(U, V \sse X\) be affine opens. If \(X \to \Spec(k)\) is separated, then \(U \cap V\) is also affine.
 \end{proposition}
 
+\lec
+
 \begin{proposition}
-    Let \(k\) be a field, \(X \to \Spec(k)\) is morphism of schemes, and \(U, V \sse X\) be affine opens. If \(X \to \Spec(k)\) is separated, then \(U \cap V\) is also affine.
+    Composition of separated morphisms is separated. 
+\end{proposition}
+
+\begin{example}
+    [base change]
+    Composition of separated morphisms is separated. Suppose \(X \to S\) is separated, \(S' \to S\) arbitrary, then the map \(X \times_S S' \to S'\) coming from the fibre product is also separated.
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJYXFx0aW1lc19TIFMnIl0sWzIsMCwiWCJdLFswLDIsIlMnIl0sWzIsMiwiUyJdLFswLDFdLFsxLDNdLFsyLDNdLFswLDJdXQ==
+    \[\begin{tikzcd}
+        {X\times_S S'} && X \\
+        \\
+        {S'} && S
+        \arrow[from=1-1, to=1-3]
+        \arrow[from=1-3, to=3-3]
+        \arrow[from=3-1, to=3-3]
+        \arrow[from=1-1, to=3-1]
+    \end{tikzcd}\]
+    This will be on examples sheet 3.
+\end{example}
+
+Intuitively, ``a morphism is separated if each fibre is Hausdorff''.
+
+\begin{proposition}
+    Let \(A\) be a ring, then the morphism \(\P^n_R \to \Spec(R)\) is separated.
+\end{proposition}
+
+\begin{proof}
+     We would like to show that in the following diagram
+     % https://q.uiver.app/#q=WzAsNSxbMCwwLCJcXFBebl9SIl0sWzIsMCwiXFxQXm5fUlxcdGltZXNfUlxcUF5uX1IiXSxbNCwwLCJcXFBebl9SIl0sWzIsMiwiXFxQXm5fUiJdLFs0LDIsIlxcU3BlYyhSKSJdLFswLDEsIlxcRGVsdGEiXSxbMSwzXSxbMSwyXSxbMiw0XSxbMyw0XV0=
+\[\begin{tikzcd}
+	{\P^n_R} && {\P^n_R\times_R\P^n_R} && {\P^n_R} \\
+	\\
+	&& {\P^n_R} && {\Spec(R)}
+	\arrow["\Delta", from=1-1, to=1-3]
+	\arrow[from=1-3, to=3-3]
+	\arrow[from=1-3, to=1-5]
+	\arrow[from=1-5, to=3-5]
+	\arrow[from=3-3, to=3-5]
+\end{tikzcd}\]
+    the map \(\Delta\) is closed. By abuse of notation, we write \(A \times_R B\) for \(A \times_{\Spec(R)} B\). It suffices to check this on an open cover of \(\P^n_R \times_R \P^n_R\). Let \(A = R[x_0, \dots, x_n]\) with the usual grading, and let \(U_i = \Spec((A[1/x_i])_{\deg = 0})\). From our discussion of \(\Proj\), the \(U_i\)'s cover \(\P^n_R\). Now
+    \[U_i \times_R U_j = \Spec\left(R\left[\frac{x_0}{x_i}, \dots, \frac{x_n}{x_i}, \frac{y_0}{y_j}, \cdots, \frac{y_n}{y_j}\right]\right)\]
+    Observe the restriction of \(\Delta\) to \(\Delta^{-1}(U_i \times U_j)\) is precisely
+    \begin{align*}
+        U_i \cap U_j &\to U_i \times_R U_j
+    \end{align*}
+    given on rings by
+    \begin{align*}
+        R\left[\frac{x_0}{x_i}, \dots, \frac{x_n}{x_i}\right]\left[\frac{x_i}{x_j}\right]&\leftarrow R\left[\frac{x_0}{x_i}, \dots, \frac{x_n}{x_i}, \frac{y_0}{y_j}, \cdots, \frac{y_n}{y_j}\right] \\
+    \end{align*}
+    by sending \(y_k\) to \(x_k\). This is clearly a surjection, and the \(U_i \times_R U_j\) cover, and so the map is closed. 
+\end{proof}
+
+Let \(k = \overline{k}\) be an algebraically closed field, \(X \to \Spec(k)\) be a scheme over \(\Spec(k)\). We say \(X\) is of \emph{finite type} if there exists an open cover \(\{U_\alpha\}\) of affines covering \(X\), with each \(\mcO_X(U_\alpha)\) being a finitely generated \(k\)-algebra.
+
+We say \(X\) is \emph{reduced}\index{reduced} if for all opens \(U \sse X\), \(\mcO_X(U)\) has no non-zero nilpotents (i.e. it is a reduced ring).
+
+\begin{definition}
+    [variety]
+    \(X \to \Spec(k)\) is a \emph{variety}\index{variety} if it is reduced, of finite type and separated.
+\end{definition}
+
+\begin{example}
+    Part II AG.
+\end{example}
+
+\subsection{Properness}
+
+\begin{definition}
+    [finite type]
+    Let \(f : X \to S\) be a morphism of schemes, then \(f\) is of \emph{finite type}\index{finite type} if there exists an affine open cover of \(S\) by \(\{V_\alpha\}\), where \(V_\alpha = \Spec(A_\alpha)\), and corresponding covers \(\{U_{\alpha\beta}\}\) of \(f^{-1}(V_\alpha)\) by open affines, with each \(U_{\alpha\beta} = \Spec(B_{\alpha\beta})\), such that \(B_{\alpha\beta}\) is a finitely generated \(A_\alpha\)-algebra, and for each \(\alpha\), we can cover \(f^{-1}(V_\alpha)\) by finitely many \(U_{\alpha\beta}\).
+\end{definition}
+
+\begin{definition}
+    [universally closed]
+    Suppose \(f : X \to S\) is a closed map (topologically). It is \emph{universally closed}\index{universally closed} if for any \(S' \to S\), the induced map \(X \times_S S' \to S'\) is also closed.
+\end{definition}
+
+\begin{definition}
+    [proper] We say that \(f\) is \emph{proper}\index{proper} if it is separated, finite type and universally closed.
+\end{definition}
+
+\begin{example}
+    [check/wait]
+    Closed immersions are proper.
+\end{example}
+
+\begin{example}
+    [non-example] The obvious map \(\aff k 1 \to \Spec(k)\) is not proper. It is clearly separated and finite type, and so it suffices to show that it is not univerally closed. The map \(\aff k 1 \to \Spec(k)\) is closed. Now consider the base extension
+    % https://q.uiver.app/#q=WzAsNCxbMCwyLCJcXGFmZiBrIDEiXSxbMCwwLCJcXGFmZiBrMiJdLFsyLDIsIlxcU3BlYyhrKSJdLFsyLDAsIlxcYWZmIGsxIl0sWzEsMF0sWzEsM10sWzMsMl0sWzAsMl1d
+    \[\begin{tikzcd}
+        {\aff k2} && {\aff k1} \\
+        \\
+        {\aff k 1} && {\Spec(k)}
+        \arrow[from=1-1, to=3-1]
+        \arrow[from=1-1, to=1-3]
+        \arrow[from=1-3, to=3-3]
+        \arrow[from=3-1, to=3-3]
+    \end{tikzcd}\]
+    Intuitively, the map \(\aff k 2 \to \aff k 1\) is the projection map. But this is not necessarily a closed map. For ``example'', consider \(xy = 1\). The projection onto the \(x\)-axis is \(\aff k 1 \setminus \{0\}\).
+
+    More precisely, let \(Z = \van(xy - 1)\), then the projection of \(Z\) is not Zariski closed.
+\end{example}
+
+Observe if \(X \to S\) is proper, then any base extension \(X \times_S S' \to S'\) is also proper.
+
+\begin{proposition}
+    Let \(R\) be any ring, then the map \(\P^n_R \to \Spec(R)\) is proper.
 \end{proposition}
 
 \printindex
