@@ -2236,6 +2236,124 @@ Geometrically, \(xy - 1\) is a hyperbola. The projection onto the \(x\)-axis is 
     By Noether normalisation, we have a finite extension \(k[x_1, \dots, x_\ell] \le L\) where the \(x_i\) are algebraically independent. Moreover, this is an integral extension, and so \(k[x_1, \dots, x_\ell]\) is a field. So \(\ell = 0\). Hence \(k \le L\) is a finite extension.
 \end{proof}
 
+\lec
+
+From now on, fix a field extension \(\Omega/k\), where \(\Omega\) is algebraically closed.
+
+\begin{definition}
+    [vanishing locus, algebraic set] For \(S \sse k[T_1, \dots, T_n]\), define
+    \[\van(S) = \left\{x \in \Omega^n \mid f(x) = 0 \text{ for all }f \in S\right\}\]
+    we call such sets \emph{algebtaic sets}\index{algebraic set}
+\end{definition}
+
+\begin{definition}
+    [ideal of a subset] \index{ideal of a subset} For \(X \sse \Omega^n\), define
+    \[I(X) = \left\{f \in k[T_1, \dots, T_n] \mid f(x) = 0 \text{ for all }x \in X\right\}\]
+\end{definition}
+
+\begin{remark}
+    Note \(\van(S) = \van(\inner{S})\).
+\end{remark}
+
+Recall from field theory that if \(L/k\) is a finite field extension, then there exists a \(k\)-homomorphism \(L \to \Omega\).
+
+\begin{theorem}
+    \index{Nullstellensatz}
+    Let \(\mfa \idealof k[T_1, \dots, T_n]\) be an ideal. Then
+    \begin{enumerate}[(i)]
+        \item (Weak Nullstellensatz) \(\van(\mfa) = \emptyset\) if and only if \(1 \in \mfa\),
+        \item (Strong Nullstellensatz) \(I(\van(\mfa)) = \sqrt{a}\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    For (i), \(\impliedby\) is clear. Now suppose \(1 \notin \mfa\). Hence there exists a maximal ideal \(\mfm\) of \(k[T_1, \dots, T_n]\) containing \(\mfa\), and so \(L = k[T_1, \dots, T_n]/\mfm\) is a field, and it is also finitely generated as a \(k\)-algebra. By Zariski's lemma, \(\dim_k(L) < \infty\). Hence there exists a \(k\)-homomorphism \(L \to \Omega\).
+
+    Consider the composition \(\varphi : k[T_1, \dots, T_n] \to L \to \Omega\). In this case, \(\ker(\varphi) = \mfm\). Define 
+    \[x = (\varphi(T_1), \dots, \varphi(T_n)) \in \Omega^n\]
+    Then for \(f \in k[T_1, \dots, T_n]\),
+    \[\varphi(f) = f(\overline x)\]
+    Hence for all \(f \in \mfa \sse \mfm\), 
+    \[f(\overline{x}) = \varphi(f) = 0\]
+
+    For (ii), let \(f \in \sqrt{\mfa}\). Then then \(f^\ell \in \mfa\) for some \(\ell\), and thus \(f^\ell(x) = 0\) for all \(x \in \van(\mfa)\). But we are working in a field, and so \(f(x) = 0\) for all \(x \in \van(\mfa)\), i.e. \(f \in I(\van(\mfa))\).
+
+    Conversely, take \(f \in I(\van(\mfa))\). We want to show that \(f \in \sqrt{\mfa}\). Equivalently, \(\overline{f}\) is nilpotent in \(R = k[T_1, \dots, T_n]/\mfa\). In turn, this is equivalent to
+    \[R_{\overline f} = 0\]
+    But recall that
+    \[R_{\overline f} = \frac{R[T_1, \dots, T_n, U]}{\mfa^e + \inner{Uf - 1}}\]
+    Let \(\mfb = \mfa^e + \inner{UF - 1}\). Hence we need to show that \(1 \in \mfb\). By the Weak Nullstellensatz, it suffices to show \(\van{\mfb} = \emptyset\).
+
+    Take \(x = (x_1, \dots, x_n, u) \in \van(\mfb) \sse \Omega^{n+1}\). Let \(x' = (x_1, \dots, x_n)\), then
+    \[x' \in \van(\mfa)\]
+    Hence \(f(x')\), since \(f \in I(\van(\mfa))\). Considering the canonical embedding \(k[T_1, \dots, T_n] \inj k[T_1, \dots, T_n, U]\), \(f(x') = 0\). Now \((Uf - 1)(x) = -1 \ne 0\), contradiction, as \(Uf -1 \in \mfb\).
+\end{proof}
+
+Recall \(\sqrt{\sqrt{I}} = \sqrt{I}\), and we have that
+\begin{enumerate}
+    \item if \(X \sse Y \sse \Omega^n\), then \(I(Y) \sse I(X)\),
+    \item if \(S \sse T \sse k[T_1, \dots, T_n]\), then \(\van(T) \sse \van(S)\),
+    \item if \(S \sse k[T_1, \dots, T_n]\), then \(S = I(\van(S))\),
+    \item if \(X \sse \Omega^n\), then \(X \sse \van(I(X))\).
+    \item if \(X \sse \Omega^n\) is an algebraic set, then \(X = \van(I(X))\). This follows from writing \(X = \van(\mfa)\).
+    \item if \(X \sse \Omega^n\), then \(I(X)\) is a radical ideal.
+\end{enumerate}
+
+\begin{proposition}
+    We have a bijection
+    \begin{align*}
+        \{\text{alg. subsets of }\Omega^n\} &\bij \left\{\text{radical ideals in }k[T_1, \dots, T_n]\right\} \\
+        X &\mapsto I(X) \\
+        \van(\mfa) &\mapsfrom \mfa
+    \end{align*}
+\end{proposition}
+
+\begin{proof}
+    We know \(I(X)\) is radical, and \(X = \van(I(X))\). Now take \(\mfa \in k[T_1, \dots, T_n]\) a radical ideal, then by the strong Nullstellensatz
+    \[I(\van(\mfa)) = \sqrt{\mfa} = \mfa\] 
+\end{proof}
+
+\begin{remark}
+    Note that we defined algebraic subsets with respect to \(k \sse \Omega\).
+\end{remark}
+
+\begin{corollary}
+    Let \(\Omega\) be an algebraically closed field. Then we have a bijection
+    \begin{align*}
+        \Omega^n &\bij \{\text{maximal ideals of }\Omega[T_1, \dots, T_n]\} \\
+        x = (x_1, \dots, x_n) &\mapsto \mfm_x = (T_1 - x_1, \dots, T_n - x_n)
+    \end{align*}
+\end{corollary}
+
+\begin{proof}
+    Since \(\Omega[T_1, \dots, T_n]/\mfm_x = \Omega\), \(\mfm_x\) is a maximal ideal. Moreover, \(\mfm_x\) is the ideal of polynomials which vanish on \(x\). To see this,
+    \[\mfm_x \sse I(\{x\})\]
+    But \(\mfm_x\) is maximal, and \(I(\{x\})\) is a proper ideal, and so equality holds. Moreover, \(\van(\mfm_x) = \{x\}\). The claim follows from the inclusion reversing bijection from before.
+\end{proof}
+
+Finally, note that every prime ideal is radical.
+
+\begin{definition}
+    [irreducible] \(X \sse \Omega^n\) is \emph{irreducible}\index{irreducible!algebraic set} if \(X\) is not the union \(X = X_1 \cup X_2\), \(X_1, X_2\) algebraic and \(X \ne X_1, X_2\).
+\end{definition}
+
+\begin{proposition}
+    Let \(X \sse \Omega^n\) be an algebraic set. Then \(X\) is irreducible if and only if \(I(X)\) is prime.
+\end{proposition}
+
+\begin{proof}
+    See notes, or Part II Algebraic Geometry.
+\end{proof}
+
+\section{Integral and finite extensions again}
+
+\begin{definition}
+    [integral over an ideal]
+    If \(A \sse B\), \(\mfa \idealof A\), \(x \in B\) is \emph{integral over \(\mfb\)}\index{integral!element over an ideal} if
+    \[x^n + a_1x^{n-1} + \cdots + a_n = 0\]
+    where \(a_i \in \mfa\).
+\end{definition}
+
 \printindex
 
 \end{document}

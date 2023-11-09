@@ -1681,9 +1681,9 @@ In this case, we can write
 \[e^i_k(x, a) = \Gamma^i_{jk}(x)a^j\]
 for some \(\Gamma^i_{jk} : U \to \R\) smooth. Thus,
 \[\theta^i = \dd a^i + \Gamma^i_{jk}(x)a^j\dd x^k = \dd a^i + A^i_j a^j\]
-where \(A^i_j = \Gamma^i_{jk}(x)\dd x^k\) is a matrix of differential \(1\)-forms. We can then consider the matrix \(A = (A^i_j)\), and we would like to consider the transformation laws.
+where \(A^i_j = \Gamma^i_{jk}(x)\dd x^k\) is a matrix of differential \(1\)-forms. We can then consider the matrix \(A = (A^i_j)\), and we would like to consider the transformation law for it.
 
-Suppose \((U', \Phi')\) is another trivialisation, with \(U \cap U' \ne \emptyset\). We will use \(i', j'\) indices for coordinates with respect to \(U'\). Write \(\Psi = (\Phi_i^{i'})_{i, i' = 1}^m\) for the transition function from \(\Phi'\) to \(\Phi\). In this case, \(\Psi^{-1} = (\Phi^{i'}_i)\).
+Suppose \((U', \Phi')\) is another trivialisation, with \(U \cap U' \ne \emptyset\). We will use \(i', j'\) indices for coordinates with respect to \(U'\). Write \(\Psi^{-1} = (\Phi_i^{i'})_{i, i' = 1}^m\) for the transition function from \(\Phi'\) to \(\Phi\).
 
 Note that
 \[\Psi^i_{i'}\Psi^{i'}_j = \delta^i_j\]
@@ -1691,7 +1691,76 @@ Now suppose
 \[a^{i'} = \Psi^{i'}_ia^i\]
 Then
 \[\dd a^{i'} = \left(\dd \Psi^{i'}_i\right)a^i + \Psi^{i'}_i \dd a^i\]
+\lec
+But we also have that
+\[\theta^{i'} = \dd a^{i'} + A^{i'}_{j'}a^{j'}\]
+and so
+\[\theta^{i'} = (\dd \Psi_j^{i'})a^j + \Psi_j^{i'}\dd a^j + A^{i'}_{j'}\dd a^{j'}\]
+Next, note that
+\[\theta^i = \Psi^i_{i'}\theta^{i'} = \dd a^i + (\Psi^i_{i'}\dd \Psi_j^{i'} + \Psi_i^{i'}A_{j'}^{i'}\Psi_j^{j'})a_j\]
+Therefore,
+\[A^i_j = \Psi^i_{i'}\dd \Psi_j^{i'} + \Psi_i^{i'}A_{j'}^{i'}\Psi_j^{j'}\]
+Writing \(A^\Phi = (A_i^j)\) and so
+\[A^{\Phi'} = A^{\Psi \circ \Phi} = (A_{i'}^{j'})\]
+and so
+\begin{equation}
+    \label{eq:connection-transformation-law}
+    A^{\Psi \circ \Phi} = \Psi A^\Phi \Psi^{-1} - (\dd \Psi)\Psi^{-1} = \Psi A^\Phi \Psi^{-1} + \Psi \dd(\Psi^{-1})
+\end{equation}
 
+\begin{theorem}
+    Every choice of (local) matrices of one-forms \((A^i_j)\) satisfying \cref{eq:connection-transformation-law} defines a connection on \(E\).
+\end{theorem}
+
+\begin{remark}
+    Note that \cref{eq:connection-transformation-law} shows that the \((A^i_j)\) will \emph{not} define a matrix valued \(1\)-form, since it has a different transformation law.
+
+    One way to see this is that \(A^\Phi = 0\) does not imply that \(A^{\Psi \circ \Phi} = 0\).
+\end{remark}
+
+\begin{remark}
+    We can consider \(\Psi\) as a local expression for an element of \(\Aut(E)\), and then \cref{eq:connection-transformation-law} defines a natural action of \(\Aut(E)\) on the space of all connections.
+\end{remark}
+
+Consider local trivialisations \(\Phi_\alpha, \Phi_\beta : \pi^{-1}(U) \to U \times V\). If we have \(G_\alpha \in \End(V)\), with respect to the trivialisation \(\Phi_\alpha\), then\footnote{No summation}
+\[G_\beta = \Psi_{\beta\alpha}G_\alpha\Psi_{\alpha\beta}\]
+This defines an action of \(\GL(V)\) on \(\End(V)\), and so we can use the Steenrod construction to get a vector bundle \(\End(E)\), called the \emph{endomorphism bundle of \(E\)}\index{endomorphism bundle}. The fibres are \(\End(E)_b = \End(E_b) \cong \End(V)\).
+
+With this, we have a well defined subset \(\GL(E)\), where each typical fibre is \(\GL(E)_p = \GL(E_p)\). \textbf{This is not a principal bundle.} For example, it has a global section \(b \mapsto \id_{E_b}\), and it is not trivial. Moreover,
+\[\Gamma(\GL(E)) = \Aut(E)\]
+Hence elements of \(\Aut(E)\) can also be considered as sections of \(\End(E)\).
+
+Similarly to the above, we can consider typical fibre
+\[\{\R^n \times \cdots \times \R^n \to V \mid \text{ multilinear and alternating}\}\]
+which gives the bundle of differential \(r\)-forms with values in fibres of \(E\).
+
+\begin{center}
+    \begin{tabular}{c c c c}
+        vector bundle & typical fibre & transition functions & space of sections \\
+        \hline
+        \(E\) & \(V\) & \(v \mapsto \Psi_{\beta\alpha}v\) & \(\Gamma(E)\) \\
+        \(\End(E)\) & \(\End(V)\) & \(G \mapsto \Psi_{\beta\alpha}G\Psi_{\alpha\beta}\) & \(\Gamma(\End(E))\) \\
+        \(\T^*B \otimes E\) & \(L(\R^n, V) = (\R^n)^* \otimes V\) & \(v_k \dd x^k \mapsto (\Psi_{\beta\alpha}v_k) \pdv{x^k}{x^{k'}}\dd x^{k'}\) & \(\Omega^1_B(E)\) \\
+        \(\Lambda^r(\T^* B) \otimes E\) & \(\Lambda^r(\R^n)^* \otimes V\) & \(v_K \dd x^K \mapsto (\Psi_{\beta\alpha}v_K) \pdv{x^K}{x^{K'}}\dd x^{K'}\) & \(\Omega_B^r(E)\) \\
+        \(\T^*B \otimes \End(E)\) & \((\R^n)^* \otimes \End(V)\) & \(G_k \dd x^k \mapsto (\Psi_{\beta\alpha}G_k\Psi_{\alpha\beta})\pdv{x^k}{x^{k'}}\dd x^{k'}\) & \(\Omega^1_B(\End(E))\) \\
+        \(\Lambda^r\T^*B \otimes \End(E)\) & \(\Lambda^r(\R^n)^* \otimes \End(V)\) & & \(\Omega^r_B(\End(E))\)
+    \end{tabular}
+\end{center}
+where \(\pdv{x^K}{x^{K'}}\) is the appropriate change of coordinates for \(1\)-forms. In particular, from \cref{eq:connection-transformation-law}, we find that if \(A, \widetilde A\) are \(1\)-forms, then
+\[A - \widetilde A = \Omega_B^1(\End(E))\]
+and so we can think of the space of all connections on \(E\) as an affine space with underlying vector space \(\Omega_B^1(\End(E))\).
+
+\begin{definition}
+    [coariant derivative] A \emph{covariant derivative}\index{covariant derivative} on a real vector bundle \(E \to B\) is an \(R\)-linear map \(\grad^E : \Gamma(E) \to \Omega^1_B(E)\), with the Leibniz rule
+    \[\grad^E(fs) = \dd f \otimes s + f \grad^E s\]
+    for \(f \in C^\infty(B)\) and \(s \in \Gamma(E)\).
+\end{definition}
+
+\begin{example}
+    Let \(A\) be a connection on \(E\), given in local trivialisations by \(A = (A^i_j)\), \(A^i_j \in \Omega^1(U)\). Define
+    \[(d_As)\vert_U = (\dd s + As)\vert_U = (\dd s^i + A^i_j s^j)_{i=1}^m\]
+    This is the covariant derivative associated ot the connection \(A\).
+\end{example}
 \printindex
 
 \end{document}

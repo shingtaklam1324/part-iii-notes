@@ -1939,6 +1939,8 @@ Recall if \(1 \le p < n\), we have an embedding \(W^{1, p} \inj L^{p^*}\).
     Using this, \(\norm{w_j - u}_{L^2(Q)}^2 < \epsilon\).
 \end{proof}
 
+\lec
+
 \subsection{Fredholm alternative and spectra of elliptic PDEs}
 
 \begin{definition}
@@ -1978,7 +1980,7 @@ we can view this as a map
 Finding a solution is the inverse map \(K : L^2(U) \to H^1(U)\), with \(K(f) = u\). This map will be compact.
 
 \begin{theorem}
-    [Fredhold alternative for compact operators] 
+    [Fredholm alternative for compact operators] 
     \index{Fredholm alternative!for compact operators}
     Let \(H\) be a Hilbert space, \(K \in \mcB(H)\) compact. Then
     \begin{enumerate}[(i)]
@@ -2026,7 +2028,9 @@ Restating (iii) and (iv), we have
 \end{remark}
 
 \begin{theorem}
-    [spectrum of compact operator] Suppose \(H\) is a separable infinite dimensional Hilbert space, with \(K \in \mcB(H)\) compact. Then
+    [spectrum of compact operator] 
+    \label{thm:compact-spectrum}
+    Suppose \(H\) is a separable infinite dimensional Hilbert space, with \(K \in \mcB(H)\) compact. Then
     \begin{enumerate}[(i)]
         \item \(0 \in \sigma(K)\),
         \item \(\sigma(K) \setminus \{0\} = \sigma_p(K) \setminus \{0\}\),
@@ -2066,7 +2070,8 @@ Note if \(b^i \in C^1(U)\), then \(B^\dagger\) is the same bilinear form as \(B\
 \begin{theorem}
     [Fredholm alternative for elliptic boundary value problem]
     \index{Fredholm alternative!for elliptive boundary value problems}
-    Consider
+    \label{thm:fredholm-elliptic-bvp}
+    Consider for bounded \(U\) with \(C^1\) boundary,
     \begin{equation}
         \label{eq:fredholm-alt-elliptic-bvp}
         \begin{cases}
@@ -2113,7 +2118,139 @@ Note if \(b^i \in C^1(U)\), then \(B^\dagger\) is the same bilinear form as \(B\
     \[u = L_\gamma^{-1}(f + \gamma u) = L_\gamma^{-1}(f) + \gamma L_\gamma^{-1}(u)\]
     which is true if and only if \((I - K)u = h\), where
     \[K = \gamma L_\gamma^{-1} \qqtext{and} h = L_\gamma^{-1}(f)\]
+\lec
+
+Observe the map \(K : L^2 \to L^2\) is also compact, and so we can apply the Fredholm theorem for compact operators, and either:
+\begin{enumerate}[(I)]
+    \item for all \(h \in L^2\), \(u - Ku = h\) has a unique solution \(u \in L^2\),
+    \item there exists \(0 \ne u \in L^2\) with \(u - Ku = 0\).
+\end{enumerate}
+Suppose (I) holds. Set \(h = L_\gamma^{-1}(f)\), then there exists a unique \(u \in L^2\) with
+\[u = \gamma L_\gamma^{-1}(u) + L_\gamma^{-1}(u)\]
+Since \(L_\gamma^{-1} : L_2 \to H_0^1\), \(u \in H_0^1\) and by the above, \(u\) is a weak solution of \cref{eq:fredholm-alt-elliptic-bvp}.
+
+Now suppose (II) holds. Then there exists \(u \in L^2\) non-zero, with \(u = Ku = \gamma L_\gamma^{-1}(u)\). As above, \(u \in H^1_0\). Use the definition of \(L_\gamma^{-1}\) to see that
+\[B[u, v] + \gamma\pinner{u, v}_{L^2} = \pinner{\gamma u, v}_{L^2}\]
+for all \(v \in L^2\). Hence \(B[u, v] = 0\) for all \(v \in H^1_0\). That is, \(u \in N\). Moreover, \(\dim(N) = \dim(\ker(I - K)) = \dim(\ker(I - K^\dagger))\).
+
+\begin{claim}
+    Let \(v \in L^2\), then \((I - K^\dagger)v = 0\) if and only if \(B^\dagger[v, w] = 0\) for all \(w \in H^1_0\).
+\end{claim}
+\begin{proof}
+    \begin{align*}
+        (I - K^\dagger)v = 0 &\iff \pinner{v, w}_{L^2} = \pinner{v, Kw}_{L^2} \text{ for all }w \in L^2 \\
+        &\iff \pinner{v, w}_{L^2} = \pinner{v, \gamma L_\gamma^{-1}(w)}_{L^2} \text{ for all }w \in L^2
+    \end{align*}
+    But note that any weak solution to
+    \[\begin{cases}
+        L_\gamma \overline w = \overline f &\text{on }U \\
+        \overline w = 0 &\text{on }\partial U
+    \end{cases}\]
+    obeys
+    \[B[\overline w, \varphi] + \gamma\pinner{\overline w, \varphi}_{L^2} = \pinner{\overline f, \varphi}_{L^2}\]
+    So if we take \(\overline f = w\),  then we have \(\overline{w} = L_\gamma^{-1}(w)\). Hence
+    \[B[L_\gamma^{-1}(w), v] + \gamma\pinner{L_\gamma^{-1}(w), v} = \pinner{w, v}_{L^2}\]
+    Hence the above is true if and only if
+    \begin{align*}
+        &\iff 
+        B[L_\gamma^{-1}(w), v] + \gamma\pinner{L_\gamma^{-1}(w), v}_{L^2} = \pinner{v, \gamma L_\gamma^{-1}(w)}_{L^2} \text{ for all }w \in L^2 \\
+        &\iff B[L_\gamma^{-1}(w), v] = 0 \text{ for all }w \in L^2 \\
+        &\iff B^\dagger[v, L_\gamma^{-1}(w)] = 0 \text{ for all }w\in L^2
+    \end{align*}
+    On examples sheet 3, \(\im(L_\gamma^{-1})\) is dense, and so we have that
+    \[v = K^\dagger v \iff B^\dagger[v, w] = 0\]
 \end{proof}
+It remains to prove that \cref{eq:fredholm-alt-elliptic-bvp} has a weak solution if and only if \(\pinner{f, v}_{L^2} = 0\) for all \(v \in N^\dagger\). Now note
+\[\text{\cref{eq:fredholm-alt-elliptic-bvp} has a solution} \iff (I - K)u = L_\gamma^{-1}f \iff L_\gamma^{-1}(f) \in \Im(I - K) = \ker(I - K^\dagger)^\perp\]
+That is, we need \(\pinner{v, L_\gamma^{-1}(f)}_{L^2} = 0\) for all \(v \in \ker(I - K^\dagger)\). But for all \(v \in \ker(I - K^\dagger)\),
+\[0 = \pinner{v, L_\gamma^{-1}(f)}_{L^2} = \pinner{v, \frac{1}{\gamma}Kf}_{L^2} - \frac{1}{\gamma}(K^\dagger v, f) = \frac{1}{\gamma}\pinner{v, f}_{L^2}\]
+and so \(\pinner{v, f}_{L^2} = 0\) for all \(v \in \ker(I - K^\dagger)\).
+\end{proof}
+
+\begin{remark}
+    In this proof, given \(L\), we see that for \(\gamma\) large, \(L_\gamma\) is a bounded inverible linear map, the map \(L_\gamma^{-1} = (L + \gamma I)^{-1}\) is called the \emph{resolvent of \(L\)}. The fact that \(L_\gamma^{-1} : L^2 \to L^2\) is compact is expressed as \emph{\(L\) has compact resolvent}.
+\end{remark}
+
+\begin{theorem}
+    \index{spectum!of ellipic differential operators}
+    Under the same assumptions as in \cref{thm:fredholm-elliptic-bvp},
+    \begin{enumerate}[(i)]
+        \item there exists a countable set \(\Sigma \sse \R\) such that the boundary value problem
+        \begin{equation}
+            \label{eq:elliptic-bvp-spectrum}
+            \begin{cases}
+                Lu = \lambda u + f &\text{in }U \\
+                u = 0 & \text{on }\partial U
+            \end{cases}
+        \end{equation}
+        has a weak solution for all \(f \in L^2(U)\) if and only if \(\lambda \notin \Sigma\).
+        \item if \(\Sigma\) is infinite, then \(\Sigma = \{\lambda_k\}_{k \in \N}\). After reordering, then
+        \[\lambda_1 < \lambda_2 < \cdots\]
+        with \(\lambda_k \to \infty\) as \(k \to \infty\).
+        \item for each \(\lambda \in \Sigma\), there exists a finite dimensional space
+        \[\mcE(\lambda) = \left\{u \in H^1 \mid u \text{ is a weak solution to the homog. problem }Lu = \lambda u\right\}\]
+    \end{enumerate}
+    We call \(\lambda \in \Sigma\) an \emph{eigenvalue} of \(L\), and elements of \(\mcE(\lambda)\) are the corresponding \emph{eigenfunctions}.
+\end{theorem}
+
+\begin{proof}
+    Choose \(\gamma > 0\) as in \cref{eq:fredholm-alt-elliptic-bvp}. Choose \(\mu \ge \gamma\), then \(L_\mu = L + \mu I\) is invertible, and
+    \[L_\mu^{-1} : L^2 \to L^2\]
+    is compact. If \(\lambda \le -\gamma\), then the problem
+    \[\begin{cases}
+        Lu - \lambda u = f & \text{in }U \\
+        u = 0&\text{on }\partial U
+    \end{cases}\]
+    Thus, \(\Sigma \sse (-\gamma, \infty)\). If \(\lambda > -\gamma\), then solving \cref{eq:elliptic-bvp-spectrum} is equivalent to solving
+    \begin{equation}
+        \label{eq:elliptic-bvp-spectrum-2}
+        \begin{cases}
+            (L - \lambda I)u = f &\text{in }U \\
+            u = 0 &\text{on }\partial U
+        \end{cases}
+    \end{equation}
+    Applying \cref{thm:fredholm-elliptic-bvp} to \(L - \lambda I\), \cref{eq:elliptic-bvp-spectrum-2} has a unique weak solution for all \(f \in L^2\) if and only if \(u = 0\) is the unique solution to
+    \[\begin{cases}
+        (L - \lambda I)u = 0 &\text{in }U \\
+        u = 0 &\text{on }\partial U
+    \end{cases}\]
+    That is, case (II) in \cref{thm:fredholm-elliptic-bvp} does not occur. This is true if and only if \(u = 0\) is the only solution to
+    \[\begin{cases}
+        Lu + \gamma u = (\lambda + \gamma)u &\text{in }U \\
+        u = 0 &\text{on }\partial U
+    \end{cases}\]
+    which is true if and only if \(u =0\) is the only solution to
+    \[u = L_\gamma^{-1}((\lambda + \gamma)u) = \frac{\gamma + \lambda}{\gamma}K(u)\]
+    which is saying \(u = 0\) is the only solution to
+    \[K(u) = \frac{\gamma}{\gamma + \lambda}u\]
+    That is, \(\gamma/(\gamma + \lambda)\) is \emph{not} an eigenvalue of \(K\). So
+    \[\lambda \in \Sigma \iff \mu = \frac{\gamma}{\gamma + \lambda}\text{ is an eigenvalue of }K\]
+    But recall \cref{thm:compact-spectrum}, the set of eigenvalues of \(K\) is either finite, or countably infinite and converging to zero. In the second case, if
+    \[\mu_k \to 0 \text{ then }\lambda_k \to \infty\]
+    The fact that \(\mcE(\lambda)\) is finite dimensional follows from the Fredholm alternative.
+\end{proof}
+
+\begin{remark}
+    If \(\lambda \notin \Sigma\), then there exists \(C(\lambda) > 0\) such that
+    \[\norm{u}_{L^2} \le C(\lambda)\norm{f}_{L^2}\]  
+    As \(\lambda\) approaches an eigenvalue, \(C(\lambda) \to \infty\).  
+\end{remark}
+
+\subsection{Self-adjoint positive operators}
+
+\begin{definition}
+    [formally self adjoint]
+    The operator \(L\) is \emph{formally self-adjoint}\index{formally self-adjoint} if \(L = L^\dagger\). Equivalently, \(b^i = 0\) for all \(i\).
+\end{definition}
+
+If \(L\) is self adjoint, then \(B[u, v] = B[v, u]\).
+
+\begin{definition}
+    [positive] We say \(L\) is \emph{positive}\index{positive} if there exists \(\beta > 0\) such that
+    \[\beta\norm{u}^2_{H^1} \le B[u, u]\]
+    for all \(u \in H^1_0\).
+\end{definition}
+That is, \(B\) is coercive.
 
 \section{Hyperbolic PDEs}
 
