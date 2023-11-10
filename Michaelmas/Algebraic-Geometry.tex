@@ -7,6 +7,8 @@
 \author{Shing Tak Lam}
 \date{Michaelmas 2023\footnote{Based on lectures by Dhruv Ranganathan. Last updated \today.}}
 
+\newcommand{\powers}[1]{\llbracket #1 \rrbracket}
+
 \makeindex
 
 \begin{document}
@@ -1670,9 +1672,68 @@ We say \(X\) is \emph{reduced}\index{reduced} if for all opens \(U \sse X\), \(\
 
 Observe if \(X \to S\) is proper, then any base extension \(X \times_S S' \to S'\) is also proper.
 
+\lec
+
+\begin{notation}
+    If the morphism is \(X \to \Spec(k)\), often we say ``\(X\) is proper'', or ``\(X\) is separated''.
+\end{notation}
+
+\begin{example}
+    Line with two origins is neither separated nor universally closed.
+\end{example}
+
 \begin{proposition}
     Let \(R\) be any ring, then the map \(\P^n_R \to \Spec(R)\) is proper.
 \end{proposition}
+
+Observe that a morphism \(X \to S\) being universally closed is stable under base extension. Since we already saw \(\P^n_R \to \Spec(R)\) is separated, and finite type is clear. Hence all we need to check is the case \(R = \Z\), since
+\[\P^n_R = \P^n_\Z \times_{\Spec(\Z)} \Spec(R)\] 
+
+\begin{proof}
+    We must show that for any \(Y \to \Spec(Z)\), the base extension \(\P^n_\Z \times_{\Spec(\Z)} Y \to Y\) is closed. But \(Y\) is covered by affine schemes of the form \(\Spec(R)\), and closedness is local on the target, it suffices to show \(\P^n_R \to \Spec(R)\) is closed. Let \(Z \sse \P^n_R\) be Zariski closed. That is, \(Z = \van(g_1, \dots)\) of homogeneous polynomials \(g_i\). If \(\pi : \P^n_R \to \Spec(R)\) is the map, then we would like to show that \(\pi(Z)\) is a closed set in \(\Spec(R)\).
+
+    That is, we need equations for \(\pi(Z)\). Equvialently, we need to characterise those primes \(\mfp \idealof R\) such that \(\pi^{-1}(\mfp) \cap Z\) is non-empty.
+
+    Let \(K(\mfp) = \Frac(R/\mfp)\), and then we have a morphism \(\Spec(K(\mfp)) \to \Spec(R)\). We would like to know for which \(\mfp\) is \(Z_\mfp = Z \times_{\Spec(R)} \Spec(K(\mfp))\) non-empty.
+
+    What is \(Z_\mfp\)? We take the equations \(g_1, g_2, \dots\), which are homogeneous polynomials with coefficients in \(R\). Reducing \(\mod \mfp\), we get \(\overline{\mfg_1}, \overline{\mfg_2}, \dots\), which has coefficients in \(K(\mfp)\).
+
+    So \(Z_\mfp\) is non-empty if and only if \(\overline{\mfg_1}, \overline{\mfg_2}, \dots\) cut out more than origin in \(\aff{K(\mfp)}{n+1}\). Thus,
+    \[Z_\mfp \text{ is non-empty } \iff \sqrt{\inner{\overline{g_1}, \overline{g_2}, \dots}}\not\supseteq \inner{x_0, \dots, x_n}\]
+    where \(\P^n_R = \Spec(R[x_0, \dots, x_n])\).
+
+    Equivalently, for all positive integers \(d\),
+    \[\inner{x_0, \dots, x_n}^d \not\subseteq \pinner{\overline{g_1}, \overline{g_2}, \dots}\]
+    Write \(A = R[x_0, \dots, x_n]\) with the usual grading. Non-containment is equivalent to the map
+    \[\bigoplus_i A_{d - \deg(g_i)} \to A_d\]
+    given by
+    \[(f_i)_i \mapsto \sum_i f_ig_i\]
+    being non-surjective \(\mathrm{mod } \mfp\) (equivalently in \(K(\mfp)\)), for all \(d\). The condition is given by vanishing of maximal minors of the matrix associated to the above map, which is infinitely many polynomials in the \(g_i\).
+\end{proof}
+
+From now on, all schemes will be assumed to be Noetherian. That is, it has a finite cover by open subschemes of the form \(\Spec(R)\), where \(R\) is a Noetherian ring.
+
+\subsection{Valuative criteria (for separatedness and properness)}
+
+Recall a \emph{discete valuation ring}\index{discrete valuation ring} is a local PID\footnote{As we are assuming the ring is Noetherian.}.
+
+\begin{example}
+    \(\C\powers t\) is a DVR, and so is
+    \[\mcO_{\mathbb A^1, 0} = \left\{\frac{f(t)}{g(t)} \ \bigg\vert\ g(0) \ne 0\right\}\]
+    Moreover, so are \(\Z_{\inner{\mfp}}\) (localisation) and \(\Z_p\) (\(p\)-adic integers). 
+\end{example}
+
+Let \(A\) be a discrete valuation ring, then \(\Spec(A)\) consists of two points, \(0 \idealof A\) and the maximal ideal \(\mfm \idealof A\). The topology on \(\Spec(A)\) has:
+\begin{itemize}
+    \item \(\{0\}\) is dense,
+    \item \(\mfm\) is closed.
+\end{itemize}
+Any generator \(\pi\) of \(\mfm\) is called a \emph{uniformiser}\index{uniformiser} or a \emph{uniformising parameter}\index{uniformising parameter}.
+
+In \(\C\powers t\), \(\inner{t}\) is a maximal ideal, and the units are power series with non-zero constant coefficient. Intuitively, \(\C[t]\) is the line, \(\C\powers t\) is the ``germ of the curve at \(0\)''.
+
+Any element \(a \in A\) can be written as \(u\pi^k\), where \(u \in A\) is a unit, \(k\) is unique. The integer \(k\) is called the \emph{valuation of \(a\)}\index{valuation}. This gives a map
+\[\val : A \setminus 0 \to \N\]
 
 \printindex
 

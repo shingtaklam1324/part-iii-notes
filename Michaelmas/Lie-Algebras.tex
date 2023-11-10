@@ -2196,6 +2196,125 @@ The Coxeter graph determines \(\inner{\alpha_i, \alpha_j^\vee}\) in the case whe
     \end{enumerate}
 \end{example}
 
+\lec
+
+\begin{remark}
+    The maximum number of edges between two vertices in a Dynkin diagram is 3, and a root system is simply laced if and only if its Dynkin diagram has no multiple edges.
+\end{remark}
+
+\underline{Exercise: \(\Phi\) is irreducible if and only if its Dynkin diagram is (simply) connected.}
+
+\begin{theorem}
+    Let \(\Phi\) be an irreducible root system, then its Dynkin diagram is one of the following:
+
+    \begin{enumerate}[(I)]
+        \item Classical root systems (with rank \(\ell\)):
+        \begin{itemize}
+            \item \(A_\ell\) (\(\ell \ge 1\)): \dynkin A{}
+            \item \(B_\ell\) (\(\ell \ge 2\)): \dynkin B{}
+            \item \(C_\ell\) (\(\ell \ge 3\)): \dynkin C{}
+            \item \(D_\ell\) (\(\ell \ge 4\)): \dynkin D{}
+        \end{itemize}
+        \item Exceptional root systems:
+        \begin{itemize}
+            \item \(E_6\): \dynkin E6
+            \item \(E_7\): \dynkin E7
+            \item \(E_8\): \dynkin E8
+            \item \(F_4\): \dynkin F4
+            \item \(G_2\): \dynkin G2
+        \end{itemize}
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    The restriction on \(\ell\) is included so that we don't have repetitions. For example, \(B_2 = C_2\) and so on.
+\end{remark}
+
+\begin{proof}
+    See Humphreys. Alternatively, do five pages of Euclidean geometry.
+\end{proof}
+
+\begin{theorem}
+    For every Dynkin diagram \(\mcD\) listed above, there exists a simple Lie algebra \(\mfg\) with a Cartan subalgebra \(\mft\), roots \(\Phi\) corresponding to \(\mft\), such that the Dynkin diagram corresponding to \(\Phi\) is \(\mcD\).
+\end{theorem}
+
+\begin{proof}
+    [Proof sketch] For \(A_\ell\), let \(e_1, \dots, e_{\ell + 1}\) be the standard basis of \(\R^{\ell + 1}\). Let
+    \[\Phi = \left\{e_i - e_j \mid i \ne j\right\} \sse \R^{\ell + 1}\]
+    We can see that \(\Phi\) spans an \(\ell\)-dimensional subspace \(E\) of \(\R^{\ell + 1}\). Then \(\Phi\) is a root system in \(E\), and it has a root basis given by
+    \[\alpha_i = e_i - e_{i+1}\]
+    Note for \(i < j\),
+    \[e_i - e_j = (e_i - e_{i+1}) + (e_[i+1] - e_{i+2}) + \cdots + (e_{j-1} - e_j)\]
+    Also,
+    \[\inner{\alpha_i, \alpha_j^\vee} = \begin{cases}
+        -1 & \abs{i - j} = 1 \\
+        2 & i = j \\
+        0 & \text{otherwise}
+    \end{cases}\]
+    Hence the Dynkin diagram in this case is \(A_\ell\):
+    
+    \begin{center}
+        \dynkin[labels={\alpha_1, \alpha_2,\alpha_{\ell-1}, \alpha_\ell}, scale=2.5]A{}
+    \end{center}
+    
+    Now note \(w_{\alpha_i}\) flips the \(i\)-th and \(i+1\)-th coordinates, so \(W = S_{\ell + 1}\). The corresponding Lie algebra is \(\sl_{\ell + 1}(\C)\), with Cartan subalgebra \(\mft\) of diagonal matrices, and
+    \[\alpha_i\left(\begin{pmatrix}
+        t_1 \\
+        & \ddots \\
+        & & t_{\ell + 1}
+    \end{pmatrix}\right) = t_i - t_{i+1}\]
+
+    For the other classical root systems, with \(e_i\) a basis of \(\R^\ell\) and \(\mft\) the Cartan subalgebra of diagonal matrices.
+
+    \begin{center}
+        \begin{tabular}{c | c c c c c}
+            Type & \(\Phi \sse \R^\ell\) & \(\Delta \sse \Phi\) & \(W\) & \(\mfg\) & Dimension \\
+            \hline
+            \(B_\ell\) & \(\{\pm e_i, \pm e_i \pm e_j \mid i \ne j\}\) & \(\{e_{i} - e_{i+1}\} \cup \{e_\ell\}\) & \(S_\ell \ltimes C_2^\ell\) & \(\so_{2\ell + 1}\) & \(2\ell^2 + \ell\) \\
+            \(C_\ell\) & \(\{\pm 2e_i, \pm e_i \pm e_j \mid i \ne j\}\) & \(\{e_i - e_{i+1}\} \cup \{2e_\ell\}\) & \(S_\ell \ltimes C_2^\ell\) & \(\sp_{2\ell}\) & \(2\ell^2 + \ell\) \\
+            \(D_\ell\) & \(\{\pm e_i \pm e_j \mid i \ne j\}\) & \(\{e_i - e_{i+1}\} \cup \{e_{\ell - 1} + e_\ell\}\) & \(S_\ell \ltimes C_2^{\ell - 1}\) & \(\so_{2\ell}\) & \(2\ell^2 - \ell\) \\
+        \end{tabular}
+    \end{center}
+
+    For the Weyl group for \(B_\ell\), \(S_\ell\) acts on the coordinates, and \(C_2\) acts as a sign change on each coordinate.
+
+    For the exceptional types, see Humphreys (or Erdmann and Wildon). We summarise some of the results:
+    \begin{itemize}
+        \item \(G_2\), there are 12 roots, \(E = \inner{e_1 + e_2 + e_3}^\perp \le \R^3\)
+        \item \(F_4\), \(E = \R^4\), \(\abs{\Phi} = 48\), \(\abs{W} = 1152\),
+        \item \(E_6, E_7, E_8\): First do \(E_8\), and find root systems of types \(E_7, E_6\) as subsets. For \(E_8\): \(E = \R^8\), \(\abs{\Phi} = 240\), \(\abs{W} = 2^14 \cdot 3^5 \cdot 5^2 \cdot 7\).
+    \end{itemize}
+\end{proof}
+
+For \(E_8\), let \(\alpha_1, \dots, \alpha_8\) be its root basis, and we have a \emph{Coxeter element}
+\[w_c = \prod_{i=1}^8 w_{\alpha_i}\]
+which has order 30. There is a plane of \(\R^8\), on which \(w_c\) acts as a rotation. Image stolen from Wikipedia:
+
+\begin{center}
+    \includegraphics[scale=0.15]{diagrams/E8Petrie.svg.png}
+\end{center}
+
+\begin{remark}
+    To look up root systems, see the \href{http://www.liegroups.org/dissemination/spherical/explorer/cgi-bin/rootSystem.cgi}{Spherical explorer}.
+\end{remark}
+
+\begin{remark}
+    To do computations, it is useful to compute things in terms of a root basis.
+\end{remark}
+
+\begin{remark}
+    We have Lie algebras \(\mfg_2, \mff_4, \mfe_6, \mfe_7, \mfe_8\) corresponding to the exceptional Lie algebras.
+
+    In particular, \(\mfg_2\) is the algebra of ``derivations of octonions \(\mathbb O\)'', where a \emph{derivation} is a linear map \(\delta\) such that
+    \[\delta(ab) = \delta(a)b + a\delta(b)\]
+
+    \(\mathbb O\) is an \(8\)-dimensional normed division algebra over \(\R\), and it has a one-dimensional centre \(\Span\{1\}\), on which \(\mfg_2\) acts trivially. There is a representation \(\mfg_2 \to \so_7\), which is the lowest dimensional non-trivial representation. See Humphreys \S19.3. Others can be constructed, see Fulton-Harris \S22.4.
+\end{remark}
+
+\begin{remark}
+    Given \(\Phi\), there is a natural construction of a Lie algebra with \(\Phi\) as its root system.
+\end{remark}
+
 \printindex
 
 \end{document}
