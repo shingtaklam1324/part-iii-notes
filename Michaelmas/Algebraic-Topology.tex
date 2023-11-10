@@ -2504,7 +2504,9 @@ Now consider
 \[\C\P^1 \times \text{ some generic, i.e. pairwise distinct points } \sse (\C\P^1)^n\]
 The image under \(\pi\) is a line in \(\C\P^n\). Hence we can choose \(x\) so that it restricts to \(u_1\). By symmetry (i.e. \(S_n\)-equivariance), \(\pi^*(x) = u_1 + \cdots + u_n\).
 
-In this case, \(\pi^*(x^n) = \deg(\pi)u_1\cdots u_n\). But then the right hand side is non-zero, and so \(x^n \ne 0\). In fact, \((u_1 + \cdots + u_n)^n = n!u_1\cdots u_n\). Hence \(x^i \ne 0\) for all \(1 \le i \le n\). Moreover, \(x^i\) is the generator of \(\HH^{2i}(\C\P^n)\).
+In this case, \(\pi^*(x^n) = \deg(\pi)u_1\cdots u_n\). But then the right hand side is non-zero, and so \(x^n \ne 0\). In fact, \((u_1 + \cdots + u_n)^n = n!u_1\cdots u_n\). Hence \(x^i \ne 0\) for all \(1 \le i \le n\). Moreover, \(x^i\) is the generator of \(\HH^{2i}(\C\P^n)\)\footnote{To see this, note that the inclusion \(\C\P^{n-1} \inj \C\P^n\) induces isomorphisms
+\[\HH^{i}(\C\P^{n-1}) \cong \HH^i(\C\P^n)\]
+for \(0 \le i \le 2n-2\), and so if we show that \(x^n\) generates \(\HH^{2n}(\C\P^n)\), then under the above isomorphism, \(x^n\) also generates \(\HH^{2n}(\C\P^{n+k})\) for any \(k \ge 0\). The result then follows by induction.}.
 
 \begin{corollary}
     A map \(f : \C\P^2 \to \C\P^2\) cannot have degree \(-1\).
