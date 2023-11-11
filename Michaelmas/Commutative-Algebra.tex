@@ -1091,9 +1091,9 @@ For a specical case of the above:
 \end{proposition}
 
 \begin{proof}
-    \((i) \implies (ii) \implies (iii) \implies (iv)\) is clear.
+    (i) \(\implies\) (ii) \(\implies\) (iii) \(\implies\) (iv) is clear.
 
-    For \((ii) \implies (i)\), suppose
+    For (ii) \(\implies\) (i), suppose
     % https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzEsMCwiQiJdLFsyLDAsIkMiXSxbMCwxLCJmIl0sWzEsMiwiZyJdXQ==
 \[\begin{tikzcd}
 	A & B & C
@@ -1127,9 +1127,9 @@ For a specical case of the above:
 \end{tikzcd}\]
     is exact.
 
-    We will omit the proof of \((iv) \implies (iii)\), it can be found in the lecturer's notes.
+    We will omit the proof of (iv) \(\implies\) (iii), it can be found in the lecturer's notes.
 
-    For \((iii) \implies (ii)\), we note that this follows from \(\T_M\) being right exact.
+    For (iii) \(\implies\) (ii), we note that this follows from \(\T_M\) being right exact.
 \end{proof}
 
 \begin{proposition}
@@ -2243,12 +2243,12 @@ From now on, fix a field extension \(\Omega/k\), where \(\Omega\) is algebraical
 \begin{definition}
     [vanishing locus, algebraic set] For \(S \sse k[T_1, \dots, T_n]\), define
     \[\van(S) = \left\{x \in \Omega^n \mid f(x) = 0 \text{ for all }f \in S\right\}\]
-    we call such sets \emph{algebtaic sets}\index{algebraic set}
+    we call such sets \emph{\(k\)-algebraic sets}\index{k-algebraic set@\(k\)-algebraic set}
 \end{definition}
 
 \begin{definition}
     [ideal of a subset] \index{ideal of a subset} For \(X \sse \Omega^n\), define
-    \[I(X) = \left\{f \in k[T_1, \dots, T_n] \mid f(x) = 0 \text{ for all }x \in X\right\}\]
+    \[I(X) = \left\{f \in k[T_1, \dots, T_n] \mid f(x) = 0 \text{ for all }x \in X\right\}\idealof k[T_1, \dots, T_n]\]
 \end{definition}
 
 \begin{remark}
@@ -2262,7 +2262,7 @@ Recall from field theory that if \(L/k\) is a finite field extension, then there
     Let \(\mfa \idealof k[T_1, \dots, T_n]\) be an ideal. Then
     \begin{enumerate}[(i)]
         \item (Weak Nullstellensatz) \(\van(\mfa) = \emptyset\) if and only if \(1 \in \mfa\),
-        \item (Strong Nullstellensatz) \(I(\van(\mfa)) = \sqrt{a}\).
+        \item (Strong Nullstellensatz) \(I(\van(\mfa)) = \sqrt{\mfa}\).
     \end{enumerate}
 \end{theorem}
 
@@ -2302,7 +2302,7 @@ Recall \(\sqrt{\sqrt{I}} = \sqrt{I}\), and we have that
 \begin{proposition}
     We have a bijection
     \begin{align*}
-        \{\text{alg. subsets of }\Omega^n\} &\bij \left\{\text{radical ideals in }k[T_1, \dots, T_n]\right\} \\
+        \{k\text{-alg. subsets of }\Omega^n\} &\bij \left\{\text{radical ideals in }k[T_1, \dots, T_n]\right\} \\
         X &\mapsto I(X) \\
         \van(\mfa) &\mapsfrom \mfa
     \end{align*}
@@ -2318,7 +2318,7 @@ Recall \(\sqrt{\sqrt{I}} = \sqrt{I}\), and we have that
 \end{remark}
 
 \begin{corollary}
-    Let \(\Omega\) be an algebraically closed field. Then we have a bijection
+    Under the above correspondence, maximal ideals correspond to minimal non-empty algebraic sets. In particular, let \(k = \Omega\) be an algebraically closed field. Then we have a bijection
     \begin{align*}
         \Omega^n &\bij \{\text{maximal ideals of }\Omega[T_1, \dots, T_n]\} \\
         x = (x_1, \dots, x_n) &\mapsto \mfm_x = (T_1 - x_1, \dots, T_n - x_n)
@@ -2326,10 +2326,19 @@ Recall \(\sqrt{\sqrt{I}} = \sqrt{I}\), and we have that
 \end{corollary}
 
 \begin{proof}
+    The first part is just the fact that \(\van\) and \(I\) are order reversing.
+
     Since \(\Omega[T_1, \dots, T_n]/\mfm_x = \Omega\), \(\mfm_x\) is a maximal ideal. Moreover, \(\mfm_x\) is the ideal of polynomials which vanish on \(x\). To see this,
     \[\mfm_x \sse I(\{x\})\]
     But \(\mfm_x\) is maximal, and \(I(\{x\})\) is a proper ideal, and so equality holds. Moreover, \(\van(\mfm_x) = \{x\}\). The claim follows from the inclusion reversing bijection from before.
 \end{proof}
+
+Note that the requirement that \(k = \Omega\) above is necessary. Consider the field extension \(\C/\R\). In \(\R[t]\), \(\inner{t^2 + 1}\) is a maximal ideal, but it corresponds to the points \(\{i, -i\} \sse \C\). In general, for \(\Omega/k\) as above, each point \(x \in k^n\) is a minimal \(k\)-algebraic subsets of \(\Omega^n\), but there can be more. If \(\Char(k) = 0\), then \(x \in \Omega^n\) is \(k\)-algebraic if and only if the coordinates are in \(k\). More generally, if \(\Omega/k\) is separable.
+
+On the other hand, if \(k = \bb F_p(x)\) is the field of rational functions over \(\bb F_p\), \(\Omega = \overline k\), \(n = 1\). Consider the polynomial
+\[T^p - x \in k[T]\]
+By Frobenius and that \(k\) is algebraically closed, \(T^p - x = (T - x^{1/p})^p\) over \(\Omega\). Hence
+\[\van(T^p - x) = \{x^{1/p}\}\]
 
 Finally, note that every prime ideal is radical.
 
@@ -2349,10 +2358,112 @@ Finally, note that every prime ideal is radical.
 
 \begin{definition}
     [integral over an ideal]
-    If \(A \sse B\), \(\mfa \idealof A\), \(x \in B\) is \emph{integral over \(\mfb\)}\index{integral!element over an ideal} if
+    If \(A \sse B\), \(\mfa \idealof A\), \(x \in B\) is \emph{integral over \(\mfa\)}\index{integral!element over an ideal} if
     \[x^n + a_1x^{n-1} + \cdots + a_n = 0\]
     where \(a_i \in \mfa\).
 \end{definition}
+
+\lec
+
+\begin{definition}
+    [integral closure over an ideal]
+
+    If \(A \sse B\) rings, \(\mfa \idealof A\), then the \emph{integral closure of \(\mfa\) in \(B\)}\index{integral closure!over an ideal} is
+    \[\{x \in B \mid x \text{ is }\mfa\text{-integral}\}\]
+\end{definition}
+
+\begin{proposition}
+    If \(A \sse B\) are rings, \(\overline{A}\) the integral closure of \(A \sse B\), \(\mfa \sse A\) is an ideal. Then the integral closure of \(\mfa\) in \(B\) is
+    \[\sqrt{\mfa \overline A}\]
+    where we take the radical in \(\overline A\).
+\end{proposition}
+
+\begin{proof}
+    Suppose \(b \in B\) is \(\mfa\)-integral, then
+    \[b^n + a_1b^{n-1} + a_n = 0\]
+    with \(a_i \in \mfa\). In particular, \(\mfb\) is integral over \(A\), and therefore, \(b_0, \dots, b_{n-1} \in \overline A\). Using the above,
+    \[b^n \in \mfa \overline A\]
+    and so \(b \in \sqrt{\mfa\overline A}\).
+
+    Now suppose \(b \in \sqrt{\mfa \overline A}\). Then \(b^n \in \mfa \overline A\) for some \(n\), and so
+    \[b^n = \sum_{i=1}^m a_i x_i \tag{\(*\)}\]
+    where \(a_i \in \mfa\), \(x_i \in \overline A\). Define the algebra
+    \[M := A[x_1, \dots, x_m]\]
+    Since each \(x_i\) is integral over \(A\), \(M\) is a finite \(A\)-algebra. Moreover, from \((*)\), \(b^nM \sse \mfa M\). Now define \(f : M \to M\),
+    \[f(m) = b^nm\]
+    This satisfies \(f(M) \sse \mfa M\), and \(f\) is \(A\)-linear. Therefore, by Cayley-Hamilton,
+    \[f^\ell + \alpha_1f^{\ell - 1} + \cdots + \alpha_\ell = 0 \in \End_R(M)\]
+    where each \(\alpha_i \in \mfa\). Evaluating this at \(1 \in A\), we get that
+    \[b^{n\ell} + \alpha_1 b^{n(\ell - 1)} + \cdots + \alpha_\ell = 0 \in B\]
+    and so \(b\) is \(\mfa\)-integral.
+\end{proof}
+
+\begin{corollary}
+    Suppose \(A \sse B\) are rings, \(\mfa \idealof A\), \(b \in B\), then \(b\) is \(\mfa\)-integral if and only if \(b\) is \(\sqrt{\mfa}\)-integral.
+\end{corollary}
+
+\begin{proof}
+    By the proposition, it suffices to show
+    \[\sqrt{\mfa \overline A} = \sqrt{\sqrt{\mfa}\,\overline A}\]
+    \(\sse\) is clear. For \(\supseteq\), note that in general, \(\sqrt{I}^e \sse \sqrt{I^e}\). Applying this to the above, we have that
+    \[\sqrt\mfa\,\overline A \sse \sqrt{\mfa\overline A}\]
+    and so
+    \[\sqrt{\sqrt{\mfa}\,\overline A} \sse \sqrt{\mfa\overline A}\]
+\end{proof}
+
+\begin{proposition}
+    Let \(A\) be an integrally closed\footnote{in \(\Frac(A)\)} integral domain, and \(A \sse B\) rings, \(B\) is an integral domain, and an ideal \(\mfa \idealof A\). Let \(b \in B\), We have a field extension \(\Frac(B)/\Frac(A)\), and the following are equivalent:
+    \begin{enumerate}[(i)]
+        \item \(b\) is integral over \(\mfa\)
+        \item \(b\) is algebraic over \(\Frac(A)\), with minimal polynomial over \(\Frac(A)\) of the form
+        \[T^n + a_1T^{n-1} + \cdots + a_0\]
+        where \(a_i \in \sqrt{\mfa}\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Suppose (ii) holds, then \(b\) is integral over \(\sqrt{\mfa}\) by definition. By the corollary, \(b\) is integral over \(\mfa\).
+
+    Now suppose (i) holds. Let \(F = \Frac(A)\). Then we have that
+    \[b^n + a_1b^{n-1} + \cdots + a_n = 0\]
+    where \(a_i \in \mfa\). Set
+    \[h(T) = T^n + a_1T^{n-1} + \cdots + a_n \in F[T]\]
+    Then \(h(b) = 0\), and so \(b\) is algebraic over \(\Frac(A)\). Now let \(f\) be the minimial polynomial of \(b\) over \(F\). Let \(\Omega/F\) be an algebraically closed field. In this case,
+    \[f = \prod_{i=1}^\ell(T - \alpha_i) \tag{\(*\)}\]
+    where each \(\alpha_i \in \Omega\). We would like to show that the coefficient of \(f\) are in \(\sqrt{\mfa}\). Since \(A\) is integrally closed, the integral closure of \(\mfa\) in \(F\) is \(\sqrt{\mfa} \idealof A\). Thus, it suffices to show that the coefficients of \(f\) are \(\mfa\)-integral. Note that by definition, the coefficient of \(f\) are in \(F\).
+
+    Expanding \((*)\), we see the coefficients of \(f\) are sums of products of the \(\alpha_i\). By the proposition, the integral closure of \(\mfa\) in \(\Omega\) is closed under sums and products (as it is an ideal). Therefore, we need to show that each \(\alpha_i\) is integral over \(A\).
+
+    In this case, \(\alpha_i\) and \(b\) have the same minimal polynomial over \(\Frac(A)\), and therefore, there exists \(\varphi_i : F(b) \to F(\alpha_i)\), which is a \(F\)-homomorphism, with \(\varphi_i(b) = \alpha_i\). Since \(h\) has coefficients in \(F\),
+    \[h(\alpha_i) = h(\varphi_i(b)) = \varphi(h_i(b)) = 0\]
+\end{proof}
+
+\subsection{Cohen-Seidenberg theorems (going up/down)}
+
+Let \(\iota : A \inj B\) be the inclusion map. Then we have a pullback
+\begin{align*}
+    i^* : \Spec(B) &\to \Spec(A) \\
+    \mfq *\mapsto \mfq \cap A
+\end{align*}
+We are interested in studying \(i^*\), in particular its fibres.
+
+\begin{proposition}
+    [incomparability] If \(A \sse B\) is an integral extension, \(\mfq, \mfq' \in \Spec(B)\), \(\mfq \sse \mfa'\), and \(\mfq \cap A = \mfq' \cap A\). Then \(\mfq = \mfq'\).
+\end{proposition}
+
+That is, the elements of the fibres are pairwise incomparable.
+
+\begin{proof}
+    Let \(\mfp = \mfq \cap A = \mfq' \cap A\), and \(S = A\setminus \mfp\). \(\mfq\) and \(\mfq'\) are prime ideals of \(B\) not intersecting \(S\), So
+    \[\mfq = (S^{-1}\mfq)^c\]
+    where by \(S^{-1}\mfq\), we mean the extension of \(\mfq\) to \(S^{-1}B\). Note this is not the localisation of \(B\) at \(\mfp\), since \(\mfp\) need not be a prime in \(B\). Similarly, \(\mfq' = (S^{-1}\mfq')^c\). We would like to show that
+    \[S^{-1}\mfq = S^{-1}\mfq'\]
+    To see this,
+    \[S^{-1}\mfq \cap A_\mfp = S^{-1}\mfq \cap S^{-1}A = S^{-1}(\mfq \cap A) = S^{-1}\mfp = \mfp A_\mfp\]
+    Similarly, \(S^{-1}\mfq' \cap A_{\mfp} = \mfp A_\mfp\), which is the unique maximal ideal of \(A_\mfp\).
+
+    Since \(A \sse B\) is an integral extension, so is \(A_\mfp \sse S^{-1}B\). Therefore, the contractions \(S^{-1}\mfq, S^{-1}\mfq'\) are maximal ideals of \(S^{-1}B\). But \(\mfq \sse \mfq'\), and so they are equal.
+\end{proof}
 
 \printindex
 

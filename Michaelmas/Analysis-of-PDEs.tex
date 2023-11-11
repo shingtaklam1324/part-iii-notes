@@ -2252,6 +2252,126 @@ If \(L\) is self adjoint, then \(B[u, v] = B[v, u]\).
 \end{definition}
 That is, \(B\) is coercive.
 
+\lec
+
+\begin{theorem}
+    [eigenvalues of symmetric elliptic operators] Let \(L\) be uniformly elliptic, formally self-adjoint, positive operator on \(U\). Then we can represent the eigenvalues of \(L\) as a sequence
+    \[0 < \lambda_1 \le \lambda_2 \le \cdots\]
+    with multiplicity, i.e \(\lambda\) appears \(\dim(\mcE(\lambda))\) times. Moreover, there exists an orthonormal basis of \(L^2\), consisting of eigenfunctions \(\{w_k\}\), with
+    \[\begin{cases}
+        Lw_k = \lambda w_k & \text{on }U \\
+        w_k = 0 &\text{on }\partial U
+    \end{cases}\]
+    and each \(w_k \in H^1_0(U)\).
+\end{theorem}
+
+\begin{proof}
+    By positivity, Lax-Milgram implies that \(L\) is invertible. Moreover, \(L^{-1} : L^2(U) \to H^1_0(U)\) is bounded. Denote \(S = L^{-1} : L^2(U) \to L^2(U)\). Then \(S\) is compact.
+
+    \begin{claim}
+        \(S\) is self-adjoint.
+    \end{claim}
+
+    \begin{proof}
+        Choose \(f, g \in L^2(U)\), then \(Sf = u\) means \(u \in H^1_0(U)\) is the unique weak solution to
+        \[\begin{cases}
+            Lu = f &\text{in }U \\
+            u = 0&\text{on }\partial U
+        \end{cases}\]
+        The same statement applies to \(Sg = v\). That is,
+        \[B[u, w] = \pinner{f, w}_{L^2}\]
+        for all \(w \in H_0^1\), and
+        \[B[v, \varphi] = \pinner{g, \varphi}_{L^2}\]
+        for all \(\varphi \in H_0^1\). With this,
+        \begin{align*}
+            \pinner{Sf, g}_{L^2} &= \pinner{u, g}_{L^2} \\
+            &= B[v, u] \\
+            &= B[u, v] \\
+            &= \pinner{f, v}_{L^2} \\
+            &= \pinner{f, Sg}_{L^2}
+        \end{align*}
+    \end{proof}
+
+    Now by \cref{thm:compact-spectrum} (spectrum of compact self-adjoint operators), there exists a sequence of eigenvalues \((\mu_k)_k \sse \R\), such that \(\mu_k \to 0\), and there exists \(w_k \in L^2(U)\), such that \(\{w_k\}\) is an orthonormal basis of \(L^2\), with \(S w_k = \mu_k w_k\). Equivalently, \(L^{-1}w_k = \mu_k w_k \in H^1_0\), and so \(Lw_k = \lambda_k w_k\), where \(\lambda_k = 1/\mu_k\). Positivity of \(\lambda_k\) follows from positivity of \(L\), and so the positivity of \(S\).
+\end{proof}
+
+\subsection{Elliptic regularity}
+
+In this section, we will assume \(U \sse \R^n\) is an open bounded domain, \(V \Subset U\). Our goal is to improve the regulaity of the weak solutions \(u \in H^1_0(U)\), to say \(u \in C^2(\overline U)\).
+
+\begin{example}
+    [motivating examples]
+    Let \(u \in C_c^\infty(\R^n)\) be a solution to
+    \[-\Delta u = f\]
+    Then
+    \begin{align*}
+        \int_{\R^n}f^2 \dd x &= \int_{\R^n}(\Delta u)^2 \dd x\\
+        &=\sum_{i, j}\int_{\R^n}(D_iD_i u)(D_j D_j u)\dd x
+    \end{align*}
+    Integrating by parts twice,
+    \begin{align*}
+        &= \sum_{i, j}\int_{\R^n}(D_iD_ju)(D_iD_ju) \dd x \\
+        &= \norm{D^2 u}^2_{L^2(\R^n)}
+    \end{align*}
+    That is, we have that
+    \[\norm{D^2u}_{L^2(\R^n)} \le \norm{\Delta u}_{L^2(\R^n)}\]
+    and so all second derivatives are controlled in \(L^2\) by \(\Delta u\).
+\end{example}
+
+However, if \(u \in H^1\), then \(D^2 u\) may not exist (even weakly). Thus, we will approximate the derivatives.
+
+\begin{definition}
+    [difference quotient]
+    For \(0 < \abs{h} < d(V, \partial U)\) (required so we stay awy from the boundary), define the \emph{difference quotient}\index{difference quotient}
+    \[\Delta^h_iu(x) = \frac{u(x + he_i) - u(x)}{h}\]
+    for \(x \in V, i = 1, \dots, n\). Write
+    \[\Delta^h u = (\Delta^h_1u, \dots, \Delta^h_nu)\]
+\end{definition}
+
+\begin{remark}
+    Suppose \(u \in L^2\), then \(\Delta^hu \in L^2(V)\), and
+    \[D(\Delta^hu) = \Delta^h(Du)\]
+    Hence if \(u \in H^1(U)\), then \(\Delta^hu \in H^1(V)\).
+\end{remark}
+
+\begin{lemma}
+    Suppose \(u \in L^2(U)\), then \(u \in H^1(V)\) if and only if there exists \(C > 0\), such that for all \(h\) with \(0 < \abs{h} < \frac{1}{2}d(V, \partial U)\), with
+    \[\norm{\Delta^hu}_{L^2(V)} \le C\]
+    Moreover, there exists \(\widetilde C\) such that
+    \[\frac{1}{\widetilde C}\norm{Du}_{L^2(V)} \le \norm{\Delta^hu}_{L^2(V)} \le \tilde C\norm{Du}_{L^2(V)}\]
+    That is, the difference quotient is equivalent to the derivative, sometimes written
+    \[\norm{Du}_{L^2(V)} \simeq \norm{\Delta^hu}_{L^2(V)}\]
+\end{lemma}
+
+\begin{proof}
+    Examples sheet 3.
+\end{proof}
+
+\begin{theorem}
+    [interior regularity] Suppose \(L\) is uniformly elliptic on \(U\), and assume \(a^{ij} \in C^1(U)\) and \(b^i, c \in L^\infty(U)\), \(f \in L^2(U)\). Suppose \(u \in H^1(U)\) satisfies 
+    \[B[u, v] = \pinner{f, v}_{L^2}\] 
+    for all \(v \in H^1_0(U)\), then \(u \in H^2_\loc(U)\), and for each \(V \Subset U\),
+    \[\norm{u}_{H^2(V)} \le C\left(\norm{f}_{L^2(U)} + \norm{u}_{L^2(U)}\right)\]
+    with \(C = C(a, b, c, V, U, n)\), but not on \(f\) or \(u\).
+\end{theorem}
+
+\begin{remark}
+    The result says that we gain two weak derivatives by solving the equation. We can also write the inequality as
+    \[\norm{u}_{H^2(V)} \le C\left(\norm{Lu}_{L^2(U)} + \norm{u}_{L^2(U)}\right)\]
+\end{remark}
+
+\begin{proof}
+    \textbf{Step 1:} Fix \(V \Subset U\), and choose \(W\) such that \(V \Subset W \Subset U\). Let \(\xi \in C_c^\infty(W)\), such that \(0 \le \xi \le 1\), \(\xi\vert_V = 1, \xi\vert_{\partial W} = 0\). We can rewrite the weak equation as
+    \[\int_U a^{ij}D_i u D_j v \dd x = \int_U \tilde f v \dd x\]
+    where
+    \[\tilde f = f - b^iD_i u - cu \in L^2(U)\]
+    Let \(v = -\Delta_k^{-h}(\xi^2\Delta_k^hu)\) for \(k\) fixed, \(h\) as before. Note by previous comments, \(v \in H^1_0(W)\), and approximates \(D^2u\). Set
+    \begin{align*}
+        A &= \int_U a^{ij}D_iu D_jv \dd x \\
+        B &= \int_U \tilde f v \dd x
+    \end{align*}
+\end{proof}
+
 \section{Hyperbolic PDEs}
 
 \printindex

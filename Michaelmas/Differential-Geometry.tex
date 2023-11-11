@@ -1756,11 +1756,132 @@ and so we can think of the space of all connections on \(E\) as an affine space 
     for \(f \in C^\infty(B)\) and \(s \in \Gamma(E)\).
 \end{definition}
 
+\lec
+
 \begin{example}
     Let \(A\) be a connection on \(E\), given in local trivialisations by \(A = (A^i_j)\), \(A^i_j \in \Omega^1(U)\). Define
     \[(d_As)\vert_U = (\dd s + As)\vert_U = (\dd s^i + A^i_j s^j)_{i=1}^m\]
-    This is the covariant derivative associated ot the connection \(A\).
-\end{example}
-\printindex
+    where \(s = (s^i)\). This is the \emph{covariant derivative associated to the connection \(A\)}\index{covariant derivative!associated to a connection}.
 
+    In parricular, if \(U\) is a coordinate neighbourhood, then
+    \[(\dd_As)^i = \left(\pdv{s^i}{x^k} + \Gamma^i_{jk}(x)s^j\right)\dd x^k\]
+    in terms of local coordinates \(x^k\).
+
+    We need to check that this is defined independent of a choice of local trivialisation. Suppose \((\Phi', U')\) is another trivialisation, Let the transition function be \(\psi : U \cap U' \to \GL(V)\) from \(\Phi'\) to \(\Phi\). Then
+    \begin{align*}
+        s &= \psi s' \\
+        A &= \psi A' \psi^{-1} - (\dd \psi)\psi^{-1}
+    \end{align*}
+    Substituting, locally
+    \begin{align*}
+        \dd_As &= \dd s + As \\
+        &= \dd (\psi s) + (\psi A' \psi^{-1} - (\dd \psi)\psi^{-1})\psi s' \\
+        &= \psi \dd s' + (\dd \psi)s' + \psi A' S' - (\dd \psi)s' \\
+        &= \psi(\dd s' + A's') \\
+        &= \psi(\dd_{A'}s')
+    \end{align*}
+    and so we have the correct transformation law for \(\dd_A s \in \Omega^1_B(E)\).
+\end{example}
+
+Suppose \(E\) has an inner product \(\inner{\cdot, \cdot}\) on fibres, then a connection \(A\) on the real (resp. complex) vector bundle \(E \to B\) is \emph{orthogonal}\index{orthogonal connection} (resp. \emph{unitary}\index{unitary connection}), if for any \(s_1, s_2 \in \Gamma(E)\), then
+\[\dd \inner{s_1, s_2} = \inner{\dd_A s_1, s_2} + \inner{s_1, \dd_A s_2}\]
+where the right hand side is a one-form, and we take inner product on the \(E\)-component.
+
+\begin{theorem}
+    Every covariant derivative \(\grad^E\) on \(E \to B\) is of the form \(\grad^E = \dd_A \) for some connection \(A\).
+\end{theorem}
+
+\begin{proof}
+    First of all,
+    \begin{claim}
+        Every covariant derivative is a local operator. That is, for any \(U \sse B\) open, if we have sections \(s_1, s_2 \in \Gamma(E)\) with \(s_1\vert_U = s_2\vert_U\), then
+        \[(\grad^Es_1)\vert_U = (\grad^Es_2)\vert_U\]
+    \end{claim}
+
+    \begin{proof}
+        For all \(b \in U\), choose \(U_0 \sse U\), \(b \in U_0\) with \(U_0 \sse \overline{U_0} \sse U\). In particular, we have a smooth function \(\alpha\), with
+        \[\alpha = \begin{cases}
+            1 & \text{on }U_0 \\
+            0 & \text{outside }U
+        \end{cases}\]
+        and \(0 \le \alpha \le 1\). With this, \(\alpha(s_1 - s_2) = 0\). By linearity,
+        \[0 = \grad^E(\alpha(s_1 - s_2)) = \dd \alpha \otimes (s_1 - s_2) + \alpha \grad^E(s_1 - s_2)\]
+        Since \(s_1 - s_2\) vanishes at \(b\), and \(\alpha = 1\) at \(b\), \(\grad^E s_1 = \grad^E s_2\) at \(b\).
+    \end{proof}
+
+    Therefore, it suffices to work in an arbitrary trivialisation over a coordinate neighbourhood \(U\) say. In this,
+    \[s = (s^1, \dots, s^m) = s^i e_i\]
+    where \(e_1, \dots, e_m\) is the standard basis of \(\R^m\), which defines local sections over \(U\). Each \(s^i : U \to \R\) is smooth. We define
+    \[\Gamma^i_{jk} = \left(\left(\grad^E e_j\right) \cdot \pdv{x^k}\right)^i\]
+    which is a function \(U \to \R\). Using this, we can compute
+    \begin{align*}
+        \grad^E s &= \grad^E(s^i e_i) \\
+        &= \left(\dd s^i + s^j\Gamma^i_{jk}\dd x^k\right) \otimes e_i \\
+        &= \dd_A s
+    \end{align*}
+    The previous example shows that \(A^i_j = \Gamma^i_{jk}\dd x^k\) is a well defined connection, i.e. it has the correct transformation law.
+\end{proof}
+
+With this, we have obtained three different views of connections:
+
+\begin{enumerate}
+    \item field of horizontal subspaces,
+    \item matrix valued \(1\)-forms \(A^i_j\), or scalars \(\Gamma^i_{jk}\),
+    \item a covariant derivative
+\end{enumerate}
+
+Moreover, we can extend \(\dd_A : \Omega_B^r(E) \to \Omega_B^{r+1}(E)\), by requiring
+\[\dd_A (\sigma \wedge \omega) = (\dd_A \sigma)\wedge \omega + (-1)^{\deg(\sigma)}\sigma \wedge \dd \omega\]
+In local trivialisations,
+\begin{align*}
+    \dd_A(s_I \dd x^I) &= (\dd_As_I) \wedge \dd x^I \\
+    &= \dd(s_I\dd x^I) + A \wedge (s_I \dd x^I)
+\end{align*}
+Furthermore, we can extend \(\dd_A : \Omega^r_B(\End(E)) \to \Omega^{r+1}_B(\End(E))\), via
+\[(\dd_A C)s = \dd_A(Cs) - C(\dd_A s)\]
+for \(C \in \Gamma(\End(E)), s \in \Gamma(E)\). More generally,
+\[(\dd_A\mu) \wedge \sigma = \dd_A(\mu \wedge \sigma) - (-1)^{\deg(\mu)}\mu \wedge \dd_A\sigma\]
+for any \(\mu \in \Omega_B^p(\End(E))\), \(q \in \Omega^q_B(E)\). Using this, 
+\[\dd_A(\mu_1 \wedge \mu_2) = (\dd_A\mu_1) \wedge \mu_2 + (-1)^{\deg(\mu_1)}\mu_1 \wedge (\dd_A \mu_2)\]
+
+\begin{example}
+    For \(\mu \in \Omega_B^2(\End(E))\), the above implies that locally,
+    \[\dd_A\mu = \dd\mu + A \wedge \mu - \mu \wedge A\]
+\end{example}
+
+\subsection{Curvature}
+
+Repeated applying the covariant derivative, we have
+% https://q.uiver.app/#q=WzAsNixbMCwwLCJcXEdhbW1hKEUpID0gXFxPbWVnYV4wX0IoRSkiXSxbMSwwLCJcXE9tZWdhXjFfQihFKSJdLFsyLDAsIlxcY2RvdHMiXSxbMywwLCJcXE9tZWdhX0Jee24tMX0oRSkiXSxbNCwwLCJcXE9tZWdhX0JebihFKCJdLFs1LDAsIjAiXSxbMCwxLCJcXGRkX0EiXSxbMSwyXSxbMiwzXSxbMyw0LCJcXGRkX0EiXSxbNCw1XV0=
+\[\begin{tikzcd}
+	{\Gamma(E) = \Omega^0_B(E)} & {\Omega^1_B(E)} & \cdots & {\Omega_B^{n-1}(E)} & {\Omega_B^n(E(} & 0
+	\arrow["{\dd_A}", from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow["{\dd_A}", from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+\end{tikzcd}\]
+For \(s \in \Gamma(E)\), locally,
+\begin{align*}
+    \dd_A(\dd_A s) &= \dd(\dd s + As) + A \wedge (\dd s + As) \\
+    &= \dd A \wedge s - A \wedge \dd s + A \wedge \dd s + A \wedge A \wedge s \\
+    &= (\dd A + A \wedge A) \wedge s
+\end{align*}
+That is, it is the wedge of \(s\) with a two-form. Moreover, for any smooth function,
+\[\dd_A(\dd_A(fs)) = f\dd_A(\dd_As)\]
+Hence it is \(C^\infty(B)\)-linear. Note that
+\[(A \wedge A)^i_j = \Gamma^i_{pk}\dd x^k \wedge \Gamma^{p}_{j\ell}\dd x^\ell = \Gamma^i_{pk}\Gamma^p_{jl}\dd x^k \wedge \dd x^\ell\]
+and so it need not vanish.
+\begin{definition}
+    [curvature] The form
+    \[F(A) = \dd A + A \wedge A \in \Omega^2_B(\End(E))\]
+    is called the \emph{curvature}\index{curvature} of \(A\).
+\end{definition}
+Note that the curvature is independent of local trivialisations as the \(A\)s are.
+
+In coordinates,
+\[F(A) = F(A)^i_{j, k\ell}\dd x^k\wedge \dd x^\ell\]
+In particular, \(F(A)^i_{j, k\ell} = -F(A)^i_{j, \ell, k}\), and the components are expressed in terms of \(\Gamma^i_{jk}\) and \(\pdv{\Gamma^i_{jk}}{x^\ell}\).
+
+\printindex
 \end{document}
