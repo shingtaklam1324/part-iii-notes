@@ -2533,7 +2533,9 @@ Let \(X\) be any space, \(K_1, K_2 \sse X\) be compact subsets. If \(K_1 \sse K_
     \[\dirlim_{K \sse X \text{ compact}}\HH^*(X, X \setminus K)\]
 \end{definition}
 
-Review of direct limits: Let \(A\) be a poset, such that for any \(a, b \in A\), there exists \(c \in A\) with \(a \le c, b \le c\).
+\subsubsection{Crash course on direct limits}
+
+Let \(A\) be a poset, such that for any \(a, b \in A\), there exists \(c \in A\) with \(a \le c, b \le c\).
 
 A \emph{direct limit of abelian groups on \(A\)}\index{direct limit of abelian groups}: Given the data
 \begin{itemize}
@@ -2552,6 +2554,175 @@ This makes \(\dirlim_a G_a\) into an abelian group.
 
 If \(\Gamma \sse A\) is \emph{cofinal}\index{cofinal}, that is, for all \(a \in A\), there exists \(\gamma \in \Gamma\), with \(a \le \gamma\), then
 \[\dirlim_{a \in A} G_a = \dirlim_{\gamma \in \Gamma} G_\gamma\]
+
+\lec
+
+\begin{example}
+    Let \(A = \N\) with its usual order, \(G_a = \Z/p^a\) for a fixed prime \(p\). The maps are
+    \begin{align*}
+        \frac{\Z}{p^a} &\to \frac{\Z}{p^{a+1}} \\
+        x &\mapsto px
+    \end{align*}
+    The direct limit is
+    \[\dirlim_A G_a = \Z(p^\infty) = \left\{z \in S^1 \mid z \text{ is a }p^n\text{ root of unity for some }n \in \N\right\}\]
+    The result is called the \emph{Pr\"ufer group}
+\end{example}
+
+\begin{example}
+    Let \(A = \N\) again, with \(n \le m \iff m \mid n\), and groups \(G_a = \Z\), and \(\rho_{ab}\) is multiplication by \(b/a\). In this case,
+    \[\dirlim_A G_a = \Q\]
+    Note that the elements \((n!)\) form a cofinal family, and so we have that the limit is
+    % https://q.uiver.app/#q=WzAsNSxbMSwwLCJcXFoiXSxbMiwwLCJcXFoiXSxbMywwLCJcXFoiXSxbNCwwLCJcXGNkb3RzIl0sWzAsMCwiXFxaIl0sWzAsMSwiXFxjZG90IDIiXSxbMSwyLCJcXGNkb3QgMyJdLFsyLDNdLFs0LDAsIlxcY2RvdCAxIl1d
+    \[\begin{tikzcd}
+        \Z & \Z & \Z & \Z & \cdots
+        \arrow["{\cdot 2}", from=1-2, to=1-3]
+        \arrow["{\cdot 3}", from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+        \arrow["{\cdot 1}", from=1-1, to=1-2]
+    \end{tikzcd}\]
+    Equivalently,
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFoiXSxbMSwwLCJcXGZyYWN7MX17MiF9XFxaIl0sWzIsMCwiXFxmcmFjezF9ezMhfVxcWiJdLFszLDAsIlxcY2RvdHMiXSxbMCwxLCJcXGlkIl0sWzEsMiwiXFxpZCJdLFsyLDMsIlxcaWQiXV0=
+    \[\begin{tikzcd}
+        \Z & {\frac{1}{2!}\Z} & {\frac{1}{3!}\Z} & \cdots
+        \arrow["\id", from=1-1, to=1-2]
+        \arrow["\id", from=1-2, to=1-3]
+        \arrow["\id", from=1-3, to=1-4]
+    \end{tikzcd}\]
+    and so the limit is
+    \[\bigcup_{n \in \N}\frac{1}{n!}\Z = \Q\]
+\end{example}
+
+\begin{example}
+    If \(X\) is a compact set, then the poset \(\mcK\) of compact subsets of \(X\) ordered by inclusion has a final element, namely \(X\), and so
+    \[\HH^*_\ct(X) = \dirlim_\mcK \HH^*(X, X \setminus K) = \HH^*(X, X \setminus X) = \HH^*(X)\]
+\end{example}
+
+\begin{example}
+    \[\HH^*_\ct(\R^n) = \begin{cases}
+        \Z & * = 0 \\
+        0 &\text{otherwise}
+    \end{cases}\]
+    By Heine-Borel, every compact \(K \sse \R^n\) lies in \(\overline{B}(0, N)\) for some \(N\), and so
+    \[\dirlim_K \HH^*(\R^n, \R^n \setminus K) = \dirlim_N \HH^*(\R^n, \R^n\setminus \overline{B}(0, 1))\]
+    But via the long exact sequence of the pair, and homotopy invariance,
+    \[\HH^*(\R^n, \R^{n} \setminus \overline{B}(0, N)) \to \HH^{i-1}(S^{n-1})\]
+    Moreover, this is compatible with the inclusion \(\overline{B}(0, N) \sse \overline{B}(0, N+1)\), and so the direct limit is just
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFoiXSxbMSwwLCJcXFoiXSxbMiwwLCJcXFoiXSxbMywwLCJcXGNkb3RzIl0sWzAsMSwiXFxpZCJdLFsxLDIsIlxcaWQiXSxbMiwzXV0=
+\[\begin{tikzcd}
+	\Z & \Z & \Z & \cdots
+	\arrow["\id", from=1-1, to=1-2]
+	\arrow["\id", from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    which is \(\Z\), where the only non-zero degree is when \(* = n\).
+\end{example}
+
+Note that
+\[\HH^*_\ct(\{\pt\}) = \begin{cases}
+    \Z & * = 0 \\
+    0 & \text{otherwise}
+\end{cases} \qquad \HH^*_\ct(\R^n) = \begin{cases}
+    \Z & * = n \\
+    0 & \text{otherwise}
+\end{cases}\]
+and so it is \emph{not} homotopy invariant. Moreover, it is \emph{not} functorial either. On the other hand, if \(f : X \to Y\) is continuous, closed and proper, then it induces a map
+\[\HH^*_\ct(Y) \to \HH^*_\ct(X)\]
+
+On the other hand, if \(i : U \to X\) is the inclusion of an open set in a Hausdorff space \(X\), then we have an \emph{extension by zero}\index{extension by zero} map \(i_* : \HH^*_\ct(U) \to \HH^*_\ct(X)\), using the fact that if \(K \sse U\) is compact, then \(K \sse X\) is compact. This gives a map from compact sets on \(U\) to compact sets on \(X\), which gives an induced map on cohomology. In particular, we are interested in the case when \(X\) is a manifold and \(U \sse X\) is a disc.
+
+\section{Cohomology of manifolds}
+
+Recall in this course, an \(n\)-manifold is a Hausdorff space locally homeomorphic to \(\R^n\).
+
+\subsection{Orientation}
+
+\begin{definition}
+    [local orientation] Let \(R\) be a unital commuative ring (most importantly \(\Z\) and \(\Z/2\)). A \emph{local \(R\)-orientation}\index{local orientation} for a manifold \(M\) at \(x \in M\) is a choice of generator
+    \[\epsilon_x \in \HH_n(M, M \setminus x; R) \cong R\]
+\end{definition}
+Recall by excision, \(\HH_n(M, M \setminus x; R) \cong \HH_n(U, U \setminus x)\), where \(U\) is an open ball.
+
+\begin{definition}
+    [oriented] A manifold \(M\) is \emph{\(R\)-oriented}\index{oriented} if we have chosen local orientations \(\epsilon_x\) for all \(x \in M\), such that if \(\varphi : U \to \R^n\) is a chart on \(M\) in a preferred atlas, such that for all \(p_i \in U \sse M\),
+    \[\HH_n(M, M \setminus p_i) \cong \HH_n(\R^n, \R^n \setminus \varphi(p_i))\]
+    by excision above, and we can define a map of pairs \((\R^n, \R^n \setminus \varphi(p_1)) \to (\R^n, \R^n \setminus \varphi(p_2))\) by translation, which induces an isomorphism on the right hand side. This induces an isomorphism
+    \[\psi : \HH_n(M, M \setminus p_1) \to \HH_n(M, M \setminus p_2)\]
+    we require \(\psi(\epsilon_{p_1}) = \epsilon_{p_2}\).
+
+    Diagramatically, \(\psi\) is given by
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCJcXEhIX24oTSwgTSBcXHNldG1pbnVzIHApIl0sWzIsMCwiXFxISF9uKFUsIFUgXFxzZXRtaW51cyBwKSJdLFs0LDAsIlxcSEhfbihcXFJebiwgXFxSXm4gXFxzZXRtaW51cyBcXHZhcnBoaShwKSkiXSxbNCwxLCJcXEhIX24oXFxSXm4sIFxcUl5uXFxzZXRtaW51cyBcXHZhcnBoaShxKSkiXSxbMiwxLCJcXEhIX24oVSwgVSBcXHNldG1pbnVzIHApIl0sWzAsMSwiXFxISF9uKE0sIE1cXHNldG1pbnVzIHEpIl0sWzAsNSwiXFxwc2kiLDJdLFswLDEsIlxcdGV4dHtleGNpc2lvbn0iXSxbNSw0LCJcXHRleHR7ZXhjaXNpb259IiwyXSxbMSwyLCJcXHRleHR7Y2hhcnR9Il0sWzQsMywiXFx0ZXh0e2NoYXJ0fSIsMl0sWzIsMywiXFx0ZXh0e3RyYW5zbGF0aW9ufSJdXQ==
+\[\begin{tikzcd}
+	{\HH_n(M, M \setminus p)} && {\HH_n(U, U \setminus p)} && {\HH_n(\R^n, \R^n \setminus \varphi(p))} \\
+	{\HH_n(M, M\setminus q)} && {\HH_n(U, U \setminus p)} && {\HH_n(\R^n, \R^n\setminus \varphi(q))}
+	\arrow["\psi"', from=1-1, to=2-1]
+	\arrow["{\text{excision}}", from=1-1, to=1-3]
+	\arrow["{\text{excision}}"', from=2-1, to=2-3]
+	\arrow["{\text{chart}}", from=1-3, to=1-5]
+	\arrow["{\text{chart}}"', from=2-3, to=2-5]
+	\arrow["{\text{translation}}", from=1-5, to=2-5]
+\end{tikzcd}\]
+\end{definition}
+
+\begin{remark}
+    If \(U, V \sse \R^n\) are open, \(f : U \to V\) is a homeomorphism is \emph{orientation preserving}\index{orientation preserving} if for all \(x \in U, f(x) \in V\),
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCJcXEhIX24oXFxSXm4sIFxcUl5uXFxzZXRtaW51cyAwKSJdLFsyLDAsIlxcSEhfbihcXFJebiwgXFxSXm4gXFxzZXRtaW51cyB4KSJdLFs0LDAsIlxcSEhfbihVLCBVXFxzZXRtaW51cyB4KSJdLFs0LDEsIlxcSEhfbihWLCBWXFxzZXRtaW51cyB4KSJdLFsyLDEsIlxcSEhfbihcXFJebiwgXFxSXm4gXFxzZXRtaW51cyB5KSJdLFswLDEsIlxcSEhfbihcXFJebiwgXFxSXm4gXFxzZXRtaW51cyAwKSJdLFswLDEsIlxcdGV4dHt0cmFuc2xhdGlvbn0iXSxbNSw0LCJcXHRleHR7dHJhbnNsYXRpb259IiwyXSxbMSwyLCJcXHRleHR7ZXhjaXNpb259Il0sWzQsMywiXFx0ZXh0e2V4Y2lzaW9ufSIsMl0sWzIsMywiZl8qIl0sWzAsNSwiXFxpZCIsMl1d
+\[\begin{tikzcd}
+	{\HH_n(\R^n, \R^n\setminus 0)} && {\HH_n(\R^n, \R^n \setminus x)} && {\HH_n(U, U\setminus x)} \\
+	{\HH_n(\R^n, \R^n \setminus 0)} && {\HH_n(\R^n, \R^n \setminus y)} && {\HH_n(V, V\setminus x)}
+	\arrow["{\text{translation}}", from=1-1, to=1-3]
+	\arrow["{\text{translation}}"', from=2-1, to=2-3]
+	\arrow["{\text{excision}}", from=1-3, to=1-5]
+	\arrow["{\text{excision}}"', from=2-3, to=2-5]
+	\arrow["{f_*}", from=1-5, to=2-5]
+	\arrow["\id"', from=1-1, to=2-1]
+\end{tikzcd}\]
+    commutes. Then \(M\) is orientable if it admits an atlas \(\{U_\alpha, \varphi_\alpha\}\) of charts where the transition maps are orientation preserving.
+\end{remark}
+
+\begin{remark}
+    If \(R = \Z/2\), then \(\Z/2\) has only one generator, and so all manifolds are \(\Z/2\) orientable.
+\end{remark}
+
+\begin{theorem}
+    [Poincar\'e duality] \index{Poincar\'e duality}Let \(R\) be an \(R\)-oriented manifold of dimension \(n\), then there is a distinguised isomorphism
+    \[D : \HH^i_\ct(M; R) \to \HH_{n-i}(M; R)\]
+    In particular, if \(M\) is compact, then
+    \[D : \HH^i(M; R) \to \HH_{n-i}(M; R)\]
+\end{theorem}
+
+\begin{remark}
+    By considering \(R = \Z\) and \(M\) being \(\R\P^2\) or the Klein bottle, we see that we need the orientability requirement.
+\end{remark}
+
+The isomorphism \(D\) is obtained from the \emph{cap product}.
+
+\subsection{Cap product}
+
+\begin{definition}
+    [cap product]
+    Let \(X\) be any topological space, the \emph{cap product}\index{cap product} is
+    \begin{align*}
+        \frown : C_k(X) \otimes C^\ell(X) &\to C_{k - \ell}(X) \\
+        [v_0, \dots, v_k] \otimes \psi &\mapsto \psi([v_0, \dots, v_\ell])[v_\ell, \dots, v_k]
+    \end{align*}
+    for \(\ell \le k\), and \(0\) if \(\ell > k\).
+\end{definition}
+
+\begin{lemma}
+    For any space \(X\),
+    \begin{enumerate}[(i)]
+        \item \(\partial(\sigma \frown \phi) = (-1)^\ell(\partial\sigma \frown \phi - \sigma \frown \partial^*\phi)\) for \(\sigma \in C_k(X), \phi \in C^\ell(X)\). Indeed, \(\frown\) induces a pairing
+        \[\HH_K(X) \otimes \HH^\ell(X) \to \HH_{k - \ell}(X)\]
+        \item Given a map \(f : X \to Y\),
+        \[f_*(\alpha) \frown \psi = f_*(\alpha \frown f^*(\psi))\]
+        for \(\alpha \in \HH_k(X), \psi \in \HH^\ell(Y)\).
+        \item \[\psi(\sigma \frown \phi) = (\phi \smile \psi)(\sigma) \in \Z\]
+        For \(\sigma \in C_{k+\ell}(X), \phi \in C^k(X), \psi \in C^\ell(X)\),
+        \item for a pair \((X, A)\), there is a \emph{relative cap product}\index{relative cap product}
+        \[C_k(X, A) \otimes C^\ell(X, A) \to C_{k - \ell}(X)\]
+        which descends to coohomology.  
+    \end{enumerate}
+\end{lemma}
 
 \printindex
 

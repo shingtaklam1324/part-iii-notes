@@ -8,6 +8,7 @@
 \date{Michaelmas 2023\footnote{Based on lectures by Dhruv Ranganathan. Last updated \today.}}
 
 \newcommand{\powers}[1]{\llbracket #1 \rrbracket}
+\newcommand{\laur}[1]{(\!(#1)\!)}
 
 \makeindex
 
@@ -759,7 +760,7 @@ Fix a topological space \(X\), and \(\mcB\) a basis for the topology.
 
 \begin{definition}
     [sheaf on a base]
-    A \emph{sheaf \(F\) on the base \(\mcB\)}\index{sheaf on a base} consists of assignments \(B_i \mapsto F(B_i)\), with restriction maps \(F(B_I) \to F(B_j)\) whenever \(B_J \sse B_i\), satisfying the usual relations when \(B_i \sse B_j \sse B_k\) and \(B_i = B_j\). Moreover, we have the additional axioms:
+    A \emph{sheaf \(F\) on the base \(\mcB\)}\index{sheaf!on a base} consists of assignments \(B_i \mapsto F(B_i)\), with restriction maps \(F(B_I) \to F(B_j)\) whenever \(B_J \sse B_i\), satisfying the usual relations when \(B_i \sse B_j \sse B_k\) and \(B_i = B_j\). Moreover, we have the additional axioms:
     \begin{enumerate}[label=SB\arabic*.]
         \item If \(B = \bigcup_i B_i\), with \(B, B_i \in \mcB\), \(f, g \in F(B)\), with \(f\vert_{B_i} = g\vert_{B_i}\) for all \(i\), then \(f = g\).
         \item If \(B = \bigcup_i B_i\), with \(B, B_i \in \mcB\), with \(f_i \in F(B_i)\), such that for all \(B' \sse B_i \cap B_j\), \(f_i \vert_{B'} = f_j \vert_{B'}\), then there exists \(f \in F(B)\) with \(f\vert_{B_i} = f_i\).
@@ -1734,6 +1735,110 @@ In \(\C\powers t\), \(\inner{t}\) is a maximal ideal, and the units are power se
 
 Any element \(a \in A\) can be written as \(u\pi^k\), where \(u \in A\) is a unit, \(k\) is unique. The integer \(k\) is called the \emph{valuation of \(a\)}\index{valuation}. This gives a map
 \[\val : A \setminus 0 \to \N\]
+
+\lec
+
+\(K = \Frac(A)\) is a \emph{valued field}\index{valued field} and \(\val\) extends to a map
+\[\val : K^\times \to \Z\]
+with \(\val(a/b) = \val(a) - \val(b)\).
+
+If we take \(A = k\powers t\), then \(K = k\laur t\), and the valuation of
+\[a_\ell t^\ell + a_{\ell+1}t^{\ell+1} + \cdots\]
+with \(a_\ell \ne 0\) is \(\ell\).
+
+In this case, we have an open immersion \(\Spec(K) \to \Spec(A)\). As an analogy, we can think of \(\Spec(K)\) as the punctured unit disc, and \(\Spec(A)\) as the unit disc. Intuitively, if we map \(\Spec(K)\) to a ``compact'' space, we can extend it to \(\Spec(A)\) by ``filling in the origin''.
+
+Fianlly, recall (sequential) compactness and Hausdorff can be stated in terms of sequences. \(\Spec(K)\) will be out version of sequences.
+
+\begin{theorem}
+    [valuative criterion]
+    \index{valuative criterion}
+    If \(f : X \to Y\) is a morphism of schemes, then \(f\) is separated if and only if for any discrete valuating ring \(A\), with fraction field \(K\), given the following diagram
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFNwZWMoSykiXSxbMCwyLCJcXFNwZWMoQSkiXSxbMiwwLCJYIl0sWzIsMiwiWSJdLFswLDFdLFswLDJdLFsyLDMsImYiXSxbMSwzXSxbMSwyLCJnIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+    \[\begin{tikzcd}
+        {\Spec(K)} && X \\
+        \\
+        {\Spec(A)} && Y
+        \arrow[from=1-1, to=3-1]
+        \arrow[from=1-1, to=1-3]
+        \arrow["f", from=1-3, to=3-3]
+        \arrow[from=3-1, to=3-3]
+        \arrow["g"{description}, dashed, from=3-1, to=1-3]
+    \end{tikzcd}\]
+    with the solid arrows, there exists \emph{at most} one choice of \(g\). Similarly, \(f\) is universally closed if and only if there exists \emph{at least} one choice of \(g\).
+\end{theorem}
+
+\begin{proof}
+    Omitted, therefore non-examinable.
+\end{proof}
+
+\begin{corollary}
+    \begin{enumerate}[(i)]
+        \item \(\P^n_R \to \Spec(R)\) is proper,
+        \item \(\aff R n \to \Spec(R)\) is not proper, but it is separated,
+        \item closed immersions are proper, and so if we have \(f : Z \to \P^n_R\) is closed, then the induced map \(Z \to \Spec(R)\) is proper,
+        \item composition of proper (resp. separated) morphisms is proper (resp. separated),
+        \item if \(f : X \to Y\) is proper, \(Y' \to Y\) arbitrary, then the map \(X \times_Y Y' \to Y'\) is also proper.
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    For (i) and (iv), see Dhruv's notes. For (v) see Hartshorne. Otherwise omitted. However we will verify some of the statements in some examples.
+
+    \textbf{\(\aff k 1 \to \Spec(k)\) is not proper (i.e. not universally closed)}. Say \(\aff k 1 = \Spec(k[x]), A = k \powers t, K = k\laur t\).
+    % https://q.uiver.app/#q=WzAsNCxbMiwyLCJcXFNwZWMoaykiXSxbMiwwLCJcXGFmZiBrIDEiXSxbMCwwLCJcXFNwZWMoUikiXSxbMCwyLCJcXFNwZWMoQSkiXSxbMiwzXSxbMiwxXSxbMSwwXSxbMywwXV0=
+    \[\begin{tikzcd}
+        {\Spec(K)} && {\aff k 1} \\
+        \\
+        {\Spec(A)} && {\Spec(k)}
+        \arrow[from=1-1, to=3-1]
+        \arrow[from=1-1, to=1-3]
+        \arrow[from=1-3, to=3-3]
+        \arrow[from=3-1, to=3-3]
+    \end{tikzcd}\]
+    Let \(\varphi : \Spec(K) \to \aff k 1\) be induced by the map on rings,
+    \begin{align*}
+        k[x] &\to k\laur t \\
+        x &\mapsto \frac{1}{t}
+    \end{align*}
+    This doesn't factor through \(k\powers t\), and so it does not extend.
+
+    \underline{Exercise:} Use valuative criteria to show that if \(\Spec(A) \to \Spec(k)\) is proper, then \(\Spec(A)\) is finite.
+
+    Observe if \(\aff k 1\) is replaced by \(\P^1_k\), then there is always an an affine chart in \(\P^1_k\), such that the map above looks like \(x \mapsto t\).
+\end{proof}
+
+\section{Modules over \(\mcO_X\)}
+
+\subsection{Motivation}
+
+\begin{example}
+    [please forget all scheme theory] Consider the variety
+    \[\C \mathrm{P}^n = \frac{\C^{n+1}\setminus 0}{\C^*}\]
+    On this, we have a structure sheaf \(\mcO_{\C \mathrm{P}^n}\), and if \(U \sse \C \mathrm{P}^n\) is Zariski open, then
+    \[\mcO_{\C\mathrm{P}^n}(U) = \left\{\frac{P(x)}{Q(x)} \ \bigg\vert\ P, Q \text{ homogenous of the same degree}, P/Q\text{ regular on U}\right\}\]
+    For any integer \(d\), we can consider the sheaf of abelian groups \(\mcO_{\C\mathrm P^n}(d)\), given by
+    \[\mcO_{\C\mathrm P^n}(d)(U) = \left\{\frac{P(x)}{Q(x)} \ \bigg\vert\ P, Q \text{ homogenous with }\deg(P) - \deg(Q) = d, P/Q \text{ regular on U}\right\}\]
+    In fact, \(\mcO_{\C\mathrm P^n}(d)(U)\) is an \(\mcO_{\C\mathrm P^n}(U)\) module in the natural way.
+\end{example}
+
+\begin{example}
+    [please remember all of scheme theory] Let \(A\) be a ring, \(M\) an \(A\)-module. Define a sheaf \(\mcF_M\) on \(\Spec(A)\) of abelian groups, if \(U_f \sse \Spec(A)\) is a distinguished open, then we can set
+    \[\mcF_M(U) = M_f\]
+    which is the localisation. On general opens, use sheaf on a base construction.
+\end{example}
+
+\subsection{Definitions}
+
+Fix a ringed space \((X, \mcO_X)\).
+
+\begin{definition}
+    [sheaf of \(\mcO_X\)-modules] A \emph{sheaf of \(\mcO_X\)-modules}\index{sheaf!of \(\mcO_X\)-modules} is a sheaf \(\mcF\) of groups, along with a map \(\mcO_X(U) \to \mcF(U) \to \mcF(U)\) making \(\mcF(U)\) into an \(\mcO_X(U)\)-module. Moreover, we require this to be compatible with restrictions, i.e.
+    \[(r \cdot m)\vert_V = r\vert_V \cdot m\vert_V\]
+\end{definition}
+
+Similarly, we can define a sheaf of \(\mcO_X\)-algebras. A \emph{morphism between sheaves of \(\mcO_X\)-modules}\index{morphism!of sheaves of \(\mcO_X\)-modules} is defined in the usual way, that is, a morphism between sheaves of abelian groups compatible with the \(\mcO_X\)-module structure.
+
 
 \printindex
 
