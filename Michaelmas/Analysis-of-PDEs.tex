@@ -2335,6 +2335,7 @@ However, if \(u \in H^1\), then \(D^2 u\) may not exist (even weakly). Thus, we 
 \end{remark}
 
 \begin{lemma}
+    \label{lem:diff-quot-equiv}
     Suppose \(u \in L^2(U)\), then \(u \in H^1(V)\) if and only if there exists \(C > 0\), such that for all \(h\) with \(0 < \abs{h} < \frac{1}{2}d(V, \partial U)\), with
     \[\norm{\Delta^hu}_{L^2(V)} \le C\]
     Moreover, there exists \(\widetilde C\) such that
@@ -2348,8 +2349,11 @@ However, if \(u \in H^1\), then \(D^2 u\) may not exist (even weakly). Thus, we 
 \end{proof}
 
 \begin{theorem}
-    [interior regularity] Suppose \(L\) is uniformly elliptic on \(U\), and assume \(a^{ij} \in C^1(U)\) and \(b^i, c \in L^\infty(U)\), \(f \in L^2(U)\). Suppose \(u \in H^1(U)\) satisfies 
-    \[B[u, v] = \pinner{f, v}_{L^2}\] 
+    [interior regularity] \index{interior regularity} Suppose \(L\) is uniformly elliptic on \(U\), and assume \(a^{ij} \in C^1(U)\) and \(b^i, c \in L^\infty(U)\), \(f \in L^2(U)\). Suppose \(u \in H^1(U)\) satisfies 
+    \begin{equation}
+        \label{eq:interior-regularity}
+        B[u, v] = \pinner{f, v}_{L^2}
+    \end{equation}
     for all \(v \in H^1_0(U)\), then \(u \in H^2_\loc(U)\), and for each \(V \Subset U\),
     \[\norm{u}_{H^2(V)} \le C\left(\norm{f}_{L^2(U)} + \norm{u}_{L^2(U)}\right)\]
     with \(C = C(a, b, c, V, U, n)\), but not on \(f\) or \(u\).
@@ -2365,12 +2369,101 @@ However, if \(u \in H^1\), then \(D^2 u\) may not exist (even weakly). Thus, we 
     \[\int_U a^{ij}D_i u D_j v \dd x = \int_U \tilde f v \dd x\]
     where
     \[\tilde f = f - b^iD_i u - cu \in L^2(U)\]
-    Let \(v = -\Delta_k^{-h}(\xi^2\Delta_k^hu)\) for \(k\) fixed, \(h\) as before. Note by previous comments, \(v \in H^1_0(W)\), and approximates \(D^2u\). Set
+    Let \(v = -\Delta_k^{-h}(\xi^2\Delta_k^hu)\) for \(k\) fixed, \(0 < \abs{h} < d(W, \partial U)\). Note by previous comments, \(v \in H^1_0(W)\), and approximates \(D^2u\). Set
     \begin{align*}
-        A &= \int_U a^{ij}D_iu D_jv \dd x \\
+        A &= \int_U a^{ij}u_{x_i} v_{x_j} \dd x \\
         B &= \int_U \tilde f v \dd x
     \end{align*}
+\lec
+    Observe for \(\psi, \phi \in L^2(U)\) supported in \(W\), then
+    \begin{align*}
+        \int_U \psi(x)\left(\Delta_k^{-h}\phi(x)\right) \dd x = - \int_U (\Delta_k^h\psi(x))\phi(x)\dd x
+    \end{align*}
+    which is integration by parts for the difference quotient. Moreover,
+    \[\Delta_j^h(\psi\phi)(x) = \frac{\psi(x + h e_k)\phi(x + he_k) - \psi(x)\phi(x)}{h} = (\tau_k^h\psi)(x) \Delta_k^h\phi(x) + (\Delta_k^h\psi)(x)\phi(x)\]
+    where
+    \[\tau_k^h\psi(x) = \psi(x + he_k)\]
+    is the \emph{translation operator}.
+
+    \textbf{Step 2 (Bounding \(A\)):} Using the above,
+    \begin{align*}
+        A &= -\int_U a^{ij}u_{x_i}\Delta_k^{-h}((\xi^2 \Delta_k^h u)_{x_j})\dd x \\
+        &= \int_U \Delta_k^h(a^{ij}u_{x_i})(\xi^2 \Delta_k^h u)_{x_j} \dd x \\
+        &= \int_U \left((\tau^h_k a^{ij})\Delta^h_k u_{x_i} + (\Delta^h_ka^{ij}u_{x_i})\right)\left(\xi^2 \Delta^h_ku_{x_j} + 2\xi \xi_{x_j}\Delta^h_k u\right)\dd x \\
+        &= A_1 + A_2
+    \end{align*}
+    where
+    \begin{align*}
+        A_1 &= \int_U \xi^2(\tau_k^h a^{ij})(\Delta_k^h u_{x_i})(\Delta_k^h u_{x_j}) \dd x
+    \end{align*}
+    By uniform ellipticity,
+    \[\tau_k^h a^{ij}\eta_i\eta_j \ge \theta \abs{\eta}^2\]
+    Applying with \(\eta_i = \Delta_k^hu_{x_i}\), we get that
+    \[A_1 \ge \theta \int_U \xi^2\abs{\Delta_k^h(D u)}^2 \dd x\]
+
+    Next,
+    \[A_2 = \int_U(\Delta_k^h a^{ij})u_{x_i}\xi^2\Delta_k^hu_{x_j} + 2 \xi(\Delta_k^h a_{ij})u_{x_i}\xi_j\Delta_k^h u + 2 \xi(\tau_k^ha^{ij})(\Delta_k^hu_{x_i})\xi_{x_i}\Delta_k^hu \dd x\]
+    Since \(a^{ij} \in C^2(U)\), and \(\xi\) is bounded,
+    \[\abs{A_2} \le C \int_W \xi\abs{Du}\abs{\Delta_k^h(Du)} + \xi\abs{Du}\abs{\Delta_k^hu} + \xi\abs{\Delta_k^h(Du)}\abs{\Delta_k^h u}\dd x\]
+    We are interested in \(\Delta_k^h(Du)\). We can use Young's inequality
+    \[\le \epsilon\int_W \xi^2\abs{\Delta_k^h(D u)}^2 \dd x + \frac{C}{\epsilon}\int_W\abs{Du}^2 + \abs{\Delta_k^hu}^2 \dd x\]
+    By \cref{lem:diff-quot-equiv},
+    \[\le \epsilon\int_W\xi^2\abs{\Delta_k^h(Du)}^2 \dd x + \frac{C}{\epsilon}\int_W\abs{Du}^2 \dd x\]
+    Set \(\epsilon = \theta/2\), and use \(A_2 \ge -\abs{A_2}\), we find that
+    \[A = A_1 + A_2 \ge \frac{\theta}{2}\int_W\xi^2\abs{\Delta_k^h(D u)}^2 \dd x - C \int_W\abs{Du}^2 \dd x\]
+
+    \textbf{Step 3 (Bounding \(B\)):}
+    \begin{align*}
+        \abs{B} &\le C\int_W \left(\abs{f} + \abs{Du} + \abs{u}\right)\abs{\Delta_k^{-h}(\xi^2\Delta_k^h u)} \dd x
+    \end{align*}
+    Applying \cref{lem:diff-quot-equiv} again, and \((a + b)^2 \le 2a^2 + 2b^2\),
+    \begin{align*}
+        \int_W\abs{\Delta_k^h(\xi^2\Delta_k^h)}^2 \dd x &\le C\int_W\abs{D(\xi^2\Delta_k^hu)}^2 \dd x \\
+        &\le C\int_W\abs{\xi}^2 \abs{D\xi}^2 \abs{\Delta_k^hu}^2 \dd x + C \int_W \xi^2 \abs{\Delta_k^h(Du)}^2 \\
+        &\le C\int_W \abs{Du}^2 + C \int_W \xi^2 \abs{\Delta_k^h(Du)}^2 \dd x
+    \end{align*}
+    By Young's inequality on \(\abs{B}\),
+    \[\abs{B} \le \epsilon\int_U \xi^2\abs{\Delta_k^h(Du)}^2 \dd x + \frac{C}{\epsilon}\int_W(\abs{f}^2 + u^2 + \abs{D u}^2) \dd x\]
+    Set \(\epsilon = \theta/4\).
+
+    \textbf{Step 4:} Since \(A = B\), we have that \(\abs{A} = \abs{B}\). Using the bounds that we have:
+    \[\frac{\theta}{2}\int_U\xi^2\abs{\Delta_k^h(D u)}^2 \dd x - C \int_W\abs{Du}^2 \dd x \le \abs{A} = \abs{B} \le \frac{\theta}{4}\int_U \xi^2 \abs{\Delta_k^h(Du)}^2 \dd x + C \int_W(f^2 + u^2 + \abs{Du}^2)\dd x\]
+    Rearranging,
+    \[\int_U\xi^2 \abs{\Delta_k^h(Du)}^2 \dd x \le C \int_Wf^2 + u^2 + \abs{Du}^2 \dd x\]
+    Since \(\xi\vert_V = 1\), we get that if \(u \in H^1(V)\) solves \cref{eq:interior-regularity}, then
+    \[\int_V \abs{\Delta_k^h(Du)}^2 \dd x \le C \int_W f^2 + u^2 + \abs{Du}^2 \dd x\]
+    Since \(C\) is independent of \(h\) (track every step), we can apply \cref{lem:diff-quot-equiv}, \(Du \in H^2(V)\) and so \(u \in H^2_\loc(U)\), with
+    \[\norm{u}_{H^2(V)} \le C \left(\norm{f}_{L^2(W)} + \norm{u}_{H^1(W)}\right)\]
+
+    \textbf{Step 5: Removing the dependency on \(\norm{Du}_{L^2(W)}\)}. Let \(\xi \in C_c^\infty(U)\) (be a different test function) with \(\xi\vert_W = 1\). Set \(v = \xi^2 u\) in \cref{eq:interior-regularity}, to get
+    \[\int_U a^{ij}u_{x_i}(\xi^2u)_{x_j} + b^iu_{x_i} + cu^2\xi^2\dd x = \int_U \xi^2 fu \dd x\]
+    By the same proof as in Garding's inequality, we can rearrange to get
+    \[\norm{Du}^2_{L^2(W)} \le C\left(B[u, u] + \gamma\norm{u}^2_{L^2(W)}\right) \le C\left(\norm{f}^2_{L^2(W)} + \norm{u}^2_{L^2(W)}\right)\]
+    Hence we have that
+    \[\norm{u}_{H^1(W)} \le C\left(\norm{f}_{L^2(W)} + \norm{u}_{L^2(W)}\right)\]
+    and so we have the expression
+    \[\norm{u}_{H^2(V)} \le C\left(\norm{f}_{L^2(W)} + \norm{u}_{L^2(W)}\right)\]
 \end{proof}
+
+\begin{remark}
+    \begin{enumerate}
+        \item This is a local result. To have \(u \in H^2(V)\), for \(V \Subset U\), it is enough to have \(f \in L^2(W)\), where \(V \Subset W \Subset U\). That is, if \(f\notin L^2\) near the boundary, we don't see this in our estimates.
+        \item We can now show that the equation \(Lu = f\) holds pointwise a.e. To see this, \(u \in H^2_\loc(U)\), and so \(Lu \in L^2_\loc(U)\). Take \(V \Subset U\). For \(v \in C_c^\infty(U)\), then from \cref{eq:interior-regularity},
+        \[\pinner{Lu - f, v}_{L^2(U)}= 0\]
+        Since \(Lu - f \in L^2(V)\), it holds pointwise a.e. on \(V\).
+    \end{enumerate}
+\end{remark}
+
+\begin{theorem}
+    [higher order interior regularity]
+    \index{interior regularity!higher order}
+    If \(a^{ij}, b^i, c \in C^m(U)\), and \(f \in H^m(U)\), then \(u \in H^{m+2}(U)\) and for all \(V \Subset W \Subset U\),
+    \[\norm{u}_{H^{m+2}(V)} \le C\left(\norm{f}_{H^m(U)} + \norm{u}_{L^2(U)}\right)\]
+\end{theorem}
+
+\begin{remark}
+    We also have a H\"older theory of elliptic regularity, i.e. if \(f \in C^{k, \gamma}(U)\) then \(u \in C^{k+2, \gamma}(U)\).
+\end{remark}
 
 \section{Hyperbolic PDEs}
 

@@ -1883,5 +1883,125 @@ In coordinates,
 \[F(A) = F(A)^i_{j, k\ell}\dd x^k\wedge \dd x^\ell\]
 In particular, \(F(A)^i_{j, k\ell} = -F(A)^i_{j, \ell, k}\), and the components are expressed in terms of \(\Gamma^i_{jk}\) and \(\pdv{\Gamma^i_{jk}}{x^\ell}\).
 
+\lec
+
+\begin{definition}
+    [flat] A connection \(A\) is \emph{flat}\index{flat!connection} if \(F(A) = 0\). A \emph{flat vector bundle}\index{flat!vector bundle} \(E \to B\) is a vector bundle with a choice of a flat connection.
+\end{definition}
+
+\begin{example}
+    Let \(E = B \times \R^m\), and we can choose
+    \[\dd_A = \dd : \C^\infty(B, \R^m) \to \Omega^1(B) \otimes \R^m\]
+    This connection is called the \emph{trivial product connection}. The converse is only true locally (Examples Sheet 3 Q6).
+\end{example}
+
+\begin{definition}
+    [covariantly constant]
+    A section \(s \in \Gamma(E)\) is \emph{(covariantly) constant}\index{covariantly constant} with respect to a connection \(A\), if \(\dd_As = 0\).
+\end{definition}
+
+\begin{theorem}
+    [second Bianchi identity] For any connection \(A\) on \(E \to B\),
+    \[\dd_A(F(A)) = 0\]
+\end{theorem}
+
+\begin{proof}
+    Let \(s \in \Gamma(E)\), then
+    \[\dd_A(F(A)s) = \dd_A(F(A))s + F(A) \wedge \dd_As\]
+    On the other hand,
+    \[\dd_A(F(A)s) = \dd_A(\dd_A\dd_As) = (\dd_A\dd_A)\dd_As = F(A)\wedge \dd_As\]
+    Hence \(\dd_A(F(A))s = 0\) for any section \(s\), which is true if and only if \(\dd_A(F(A)) = 0\).
+\end{proof}
+
+\section{Riemannian geometry}
+
+\begin{definition}
+    [Riemannian metric, Riemannian manifold]
+    A \emph{Riemannian metric}\index{Riemannian metric} \(g\) on \(M\) is a field of positive definition symmetric bilinear forms
+    \[g_p : \T_pM \times \T_pM \to \R\]
+    which is smooth in \(p\). A \emph{Riemannian manifold}\index{Riemannian manifold} is a pair \((M, g)\) of a manifold \(M\) with a Riemannian metric \(g\) on \(M\).
+\end{definition}
+Equivalently, we can define it as a section of \(S^2\T^*M\) which is positve definite on each fibre. In terms of vector fields, let \(X, Y\) be vector fields on \(M\), then \(g(X, Y) : M \to \R\) is smooth. On each coordinate neighbourhood \(U\) with coordinates \(x^i\), we have
+\[g_{ij} = g\left(\pdv{x^i}, \pdv{x^j}\right) \in C^\infty(U)\]
+Note symmetry becomes \(g_{ij} = g_{ji}\). In local coordinates, we can write
+\[g = g_{ij}\dd x^i \dd x^j\]
+Formally, 
+\[\dd x^i \dd x^j = \frac{1}{2}\left(\dd x^i \otimes \dd x^j + \dd x^j \otimes \dd x^i\right)\]
+\begin{example}
+    If \(r = r(u, v)\) is a parametrisation for a surface in \(\R^3\), then we have the first fundamental form
+    \[E \dd u^2 + 2F\dd u \dd v + G \dd v^2\]
+    where \(E = g_{11}, F = g_{12} = g_{21}, G = g_{22}\).
+\end{example}
+
+\begin{theorem}
+    Every manifold \(M\) admits a Riemannian metric.
+\end{theorem}
+\begin{proof}
+    Every vector bundle admits an inner product, using a partition of unity. Apply the result to \(\T M\).
+\end{proof}
+
+If \(F : M \to N\) is a smooth map of manifolds, \(g\) a Riemannian metric on \(N\), we can define
+\[F^*g(v, w) = g(\dd F(v), \dd F(w))\]
+which is a symmetric bilinear form, which is nonnegative definite. If \(F\) is an immersion then \(F^*g\) is a Riemannian metric. For example, if \(M \sse N\) is a submanifold, we have a metric given by restriction.
+
+\begin{definition}
+    [connection] A \emph{connection}\index{connection!on a manifold} on a manifold \(M\) is a connection on \(\T M \to M\).
+\end{definition}
+
+Recall local coordinates \(x^i\) on \(U \sse M\) gives us a trivialisation of \(\T M\), with
+\[\T M \vert_U = \T U \cong U \times \Span\left\{\pdv{x_i}\right\}\]
+The transition functions are determined by Jacobian matrices 
+\[\psi^i_{i'} = \pdv{x^i}{x^{i'}}\]
+Note we use the convention \(\psi^{-1} = (\psi^{i'}_i)\). The coefficients \(\Gamma^i_{jk}\) of a connection on \(M\) are called \emph{Christoffel symbols}\index{Christoffel symbols}. The transformation law for the connection \(1\)-forms \(A^i_j\) gives
+\[\Gamma^i_{jk} = \Gamma^{i'}_{j'k'}\psi^{i}_{i'}\psi^{j'}_j\pdv{x^{k'}}{x^k} + \psi^i_{i'}\pdv{\psi^{i'}_j}{x^k}\]
+Thus for a connection on a manifold,
+\[\Gamma^i_{jk} = \Gamma^{i'}_{j'k'}\pdv{x^i}{x^{i'}}\pdv{x^{j'}}{x^j}\pdv{x^{k'}}{x^k} + \pdv{x^i}{x^{i'}}\pdv[2]{x^{i'}}{x^j}{x^k}\]
+Now if
+\[\widetilde\Gamma^i_{jk} = \Gamma^i_{kj}\]
+then the \(\widetilde\Gamma\) have the correct transformation law, and so they give us a well defined connection.
+
+\begin{definition}
+    [torsion]
+    Define the \emph{torsion}\index{torsion} of the connection as
+    \[T^i_{jk} = \Gamma^i_{jk} - \Gamma^i_{kj} \in \Omega^1_M(\End(\T M))\]
+\end{definition}
+
+Formally, in local coordinates we should write
+\[T^i_{jk}\dd x^k\]
+which is a well defined \(1\)-form. If \(X, Y \in V(M)\), then consider
+\[T(X, Y) = T^i_{jk}X^jY^k\pdv{x_i} \in V(M)\]
+By construction, \(T(X, Y) = -T(Y, X)\). Thus, we can also write
+\[T \in \Omega^2_M(\T M)\]
+
+\begin{definition}
+    [symmetric] A connection \(A\) on \(M\) is \emph{symmetric}\index{symmetric!connection}, or \emph{torsion-free}\index{torsion-free} if \(T = 0\). In local coordinates,
+    \[\Gamma^i_{jk} = \Gamma^i_{kj}\]
+\end{definition}
+
+Denote the covariant derivative on \(M\) by \(D : V(M) = \Omega^0_M(\R M) \to \Omega^1_M(\T M)\). If \(\alpha \in \Omega^1(\T M), X \in V(M)\), then \(\alpha(X) \in \Omega^0(\T M) = V(M)\). We will write
+\[D_X Y = (DY)(X)\]
+and so we have a map \(D_X : V(M) \to V(M)\). In local coordinates,
+\[(D_X Y)^i\pdv{x_i} = \left(X^j\pdv{Y^i}{x^j} - \Gamma^i_{jk}Y^jX^k\right)\pdv{x_i}\]
+
+\begin{proposition}
+    A connection \(D\) is symmetric if and only if
+    \[D_XY - D_YX = [X, Y]\]
+    for all vector fields \(X, Y\).
+\end{proposition}
+\begin{proof}
+    Stare at the above line.
+\end{proof}
+
+\begin{theorem}
+    [Levi-Civita connection]
+    On each Riemannian manifold \((M, g)\), there exists a unique connection \(D\) such that
+    \begin{enumerate}
+        \item \(D\) is orthogonal, that is for all \(X, Y, Z \in V(M)\),
+        \[Zg(X, Y) = g(D_Z X, Y) + g(X, D_Z Y)\]
+        \item \(D\) is symmetric.
+    \end{enumerate}
+    We call \(D\) the \emph{Levi-Civita connection of \(g\)}\index{Levi-Civita connection}.
+\end{theorem}
+
 \printindex
 \end{document}

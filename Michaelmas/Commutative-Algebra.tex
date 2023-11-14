@@ -2412,6 +2412,7 @@ Finally, note that every prime ideal is radical.
 \end{proof}
 
 \begin{proposition}
+    \label{prop:integral-min-poly}
     Let \(A\) be an integrally closed\footnote{in \(\Frac(A)\)} integral domain, and \(A \sse B\) rings, \(B\) is an integral domain, and an ideal \(\mfa \idealof A\). Let \(b \in B\), We have a field extension \(\Frac(B)/\Frac(A)\), and the following are equivalent:
     \begin{enumerate}[(i)]
         \item \(b\) is integral over \(\mfa\)
@@ -2438,7 +2439,7 @@ Finally, note that every prime ideal is radical.
     \[h(\alpha_i) = h(\varphi_i(b)) = \varphi(h_i(b)) = 0\]
 \end{proof}
 
-\subsection{Cohen-Seidenberg theorems (going up/down)}
+\subsection{Cohen-Seidenberg theorems}
 
 Let \(\iota : A \inj B\) be the inclusion map. Then we have a pullback
 \begin{align*}
@@ -2464,6 +2465,127 @@ That is, the elements of the fibres are pairwise incomparable.
 
     Since \(A \sse B\) is an integral extension, so is \(A_\mfp \sse S^{-1}B\). Therefore, the contractions \(S^{-1}\mfq, S^{-1}\mfq'\) are maximal ideals of \(S^{-1}B\). But \(\mfq \sse \mfq'\), and so they are equal.
 \end{proof}
+
+\lec
+
+\begin{proposition}
+    [lying over] \index{lying over}Let \(A \sse B\) be an integral extension, \(\mfp \in \Spec(A)\). Then there exists \(\mfq \in \Spec(B)\) with \(\mfq \cap A = \mfp\).
+
+    Equivalently, the natural map \(\Spec(B) \to \Spec(A)\) is surjective.
+\end{proposition}
+
+\begin{proof}
+    Let \(S = A \setminus \mfp\), then we have the commutative diagram
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzIsMCwiQiJdLFswLDIsIkFfXFxtZnA9U157LTF9QSJdLFsyLDIsIlNeey0xfUIiXSxbMCwyXSxbMCwxXSxbMSwzLCJcXGJldGEiXSxbMiwzXV0=
+\[\begin{tikzcd}
+	A && B \\
+	\\
+	{A_\mfp=S^{-1}A} && {S^{-1}B}
+	\arrow[from=1-1, to=3-1]
+	\arrow[from=1-1, to=1-3]
+	\arrow["\beta", from=1-3, to=3-3]
+	\arrow[from=3-1, to=3-3]
+\end{tikzcd}\]
+    Take \(\mfm \in \maxSpec(S^{-1}B)\). Since \(S^{-1}A \sse S^{-1}B\) is an integral extension, and so \(\mfm \cap S^{-1}A \in \maxSpec(S^{-1}A) = \{\mfp A_\mfp\}\). Hence \(\mfm \cap S^{-1}A = \mfp A_\mfp\). Under the localisation map, \(\mfp A_\mfp\) contracts to \(\mfp\). Thus, \(\mfm\) contracts to \(\mfp\), and so \(\mfq = \beta^{-1}(\mfm)\) has \(\mfq \cap A = \mfp\).
+\end{proof}
+
+\begin{proposition}
+    [going up] \index{going up}
+    Let \(A \sse B\) be an integral extension of rings, let \(\mfp_1, \mfp_2 \in \Spec(A)\), \(\mfq_1 \in \Spec(B)\), with \(\mfp_1 \sse \mfp_2\), \(\mfq_1^c = \mfp_1\). That is,
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXG1mcV8xIl0sWzAsMiwiXFxtZnBfMSJdLFsyLDIsIlxcbWZwXzIiXSxbMSwyLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsxLDAsIiIsMix7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+\[\begin{tikzcd}
+	{\mfq_1} \\
+	\\
+	{\mfp_1} && {\mfp_2}
+	\arrow[hook, from=3-1, to=3-3]
+	\arrow[no head, from=3-1, to=1-1]
+\end{tikzcd}\]
+    there exists \(\mfq_2 \in \Spec(B)\), with \(\mfq_1 \sse \mfq_2\), and \(\mfq_2^c = \mfp_2\). Note that in the diagram we use vertical line with no arrows to denote contraction.
+\end{proposition}
+
+\begin{proof}
+    \(\mfp_1 = \mfq_1 \cap A\), and so we have an injective map \(A/\mfp_1 \to B/\mfq_1\). This is an integral extension. From lying over, there exists a prime ideal \(\mfq_2/\mfq_1 \in \Spec(B/\mfq_1)\), with \(\mfq_2 \in \Spec(B)\), which contracts to \(\mfp_2/\mfp_1 \in \Spec(A/\mfp_1)\).
+
+    \begin{claim}
+        \(\mfq_2 \cap A = \mfp_2\).
+    \end{claim}
+
+    For this, consider the diagram
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzIsMCwiQiJdLFswLDIsIkEvXFxtZnBfMSJdLFsyLDIsIkIvXFxtZnFfMSJdLFswLDJdLFsyLDNdLFswLDFdLFsxLDNdXQ==
+\[\begin{tikzcd}
+	A && B \\
+	\\
+	{A/\mfp_1} && {B/\mfq_1}
+	\arrow[from=1-1, to=3-1]
+	\arrow[from=3-1, to=3-3]
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-3, to=3-3]
+\end{tikzcd}\]
+    Contracting along the bottom left we get \(\mfp_2\), and contracting along thr right gives \(\mfq_2\).
+\end{proof}
+
+\begin{proposition}
+    [going down] \index{going down}Let \(A \sse B\) be an integral extension of integral domains, and assume \(A\) is integrally closed. Consider the diagram
+    % https://q.uiver.app/#q=WzAsMyxbMCwyLCJcXG1mcF8xIl0sWzAsMCwiXFxtZnFfMSJdLFsyLDIsIlxcbWZwXzIiXSxbMiwwLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6ImJvdHRvbSJ9fX1dLFsxLDAsIiIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+    \[\begin{tikzcd}
+        {\mfq_1} \\
+        \\
+        {\mfp_1} && {\mfp_2}
+        \arrow[hook', from=3-3, to=3-1]
+        \arrow[no head, from=1-1, to=3-1]
+    \end{tikzcd}\]
+    Then there exists a prime \(\mfq_2 \in \Spec(B)\) with \(\mfq_2 \cap A = \mfp_2\).
+\end{proposition}
+
+\begin{proof}
+    Consider the map
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzIsMCwiQiJdLFs0LDAsIkJfe1xcbWZxXzF9Il0sWzAsMSwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMSwyLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dXQ==
+    \[\begin{tikzcd}
+        A && B && {B_{\mfq_1}}
+        \arrow[hook, from=1-1, to=1-3]
+        \arrow[hook, from=1-3, to=1-5]
+    \end{tikzcd}\]
+
+    \begin{claim}
+        There exists \(\mfn \in \Spec(B_{\mfq_1})\) such that \(\mfn \cap A = \mfp_2\).
+    \end{claim}
+    Assuming the claim, \((\mfn \cap B) \cap A = \mfp_2\), and \(\mfn \cap B\) is a prime ideal of \(B\) contained in \(\mfq_1\).
+
+    To prove the claim, it suffices to show that
+    \[(\mfp_2B)B_{\mfq_1} = \mfp_2B_{\mfq_1} \cap A \sse \mfp_2\]
+    Take \(y/s \in (\mfp_2B)B_{\mfq_1} \cap A\), with \(y \in \mfp_2B\), \(s \in B \setminus \mfq_1\). Now \(A \sse B\) is an integral extension, therefore the integral closure of \(\mfp_2\) in \(B\) is \(\sqrt{\mfp_2B}\). Thus, \(y\) is integral over \(\mfp_2\). Since \(A\) is integrally closed, by \cref{prop:integral-min-poly}, \(y \in \Frac(A)\) is algebraic over \(\Frac(A)\), and the minimal polynomial has the form
+    \[y^r + u_1y^{r-1} + \cdots + u_r = 0\]
+    where \(u_i \in \mfp_2\) (note any prime ideal is radical). We can then write
+    \[y = \frac{y}{s}s\]
+    \(y, s \in B \sse \Frac(B), y/s \in A \sse \Frac(A)\), and so we have
+    \[\left(\frac{y}{s}s\right)^r + u_1\left(\frac{y}{s}s\right)^{r-1} + \cdots + u_r = 0\]
+    Multiply through by \((s/y)^r\),
+    \[s^r + \frac{s}{y}u_1 s^{r-1} + \cdots + \left(\frac{s}{y}\right)^r u_r = 0 \tag{\(*\)}\]
+    This is the minimal polynomial of \(s\) over \(\Frac(A)\), since the process above is reversible. But \(s \in B\), and so \(s\) is integral over \(A\). Therefore, the coefficients of \((*)\) must all be in \(A\), again by \cref{prop:integral-min-poly}.
+
+    Suppose for contradiction \(y/s \notin \mfp_2\). Then
+    \[u_i = \left(\frac{y}{s}\right)^i \left(\frac{s}{y}\right)^i u_i\]
+    Then \((y/s)^i \in A \setminus \mfp_2\), and we know that \((s/y)^i u_i \in A\). Since \(u_i \in \mfp_2\), we must have that \((s/y)^iu_i \in \mfp_2\). With this, by \((*)\),
+    \[s^r \in \mfp_2B \sse \mfp_1B = (\mfq_1 \cap A)B \sse \mfq_1\]
+    Hence \(s \in \mfq_1\). Contradiction.
+\end{proof}
+
+\section{Primary decomposition}
+
+\begin{definition}
+    [primary ideal]
+    Let \(I\) be an ideal of \(R\), then \(I\) is \emph{primary}\index{primary ideal} if \(R/I\) is non-zero, and every zero divisor in \(R/I\) is nilpotent.
+\end{definition}
+
+\begin{remark}
+    Contrast this with \(I\) being prime if \(R/I\) is an integral domain, and \(I\) is radical if \(R/I\) has no non-zero nilpotent elements.
+
+    In particular, any prime ideal is radical and primary. Note \(R\) is radical, but not prime nor primary.
+\end{remark}
+
+\begin{example}
+    In \(\Z\), \(\inner{6}\) is radical, but not primary, since in \(\R/6\), there are no non-zero nilpotent elements, but \(2 \times 3 = 6\). But \(\inner{9}\) is primary, but not radical.
+\end{example}
 
 \printindex
 
