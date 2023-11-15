@@ -1168,7 +1168,7 @@ Observe that: given a morphism \(f : X \to Y\) of ringed spaces, for \(p \in X\)
 \[f^\sharp : \mcO_{Y, f(p)} \to \mcO_{X, p}\]
 That is, given \(s \in \mcO_{Y, f(p)}\), we can represent it as \((s_U, U)\) where \(U \sse U\) open, \(f(p) \in U\) and \(s_U \in \mcO_Y(U)\).
 
-With this, \(f^\sharp(s_U) \in \mcO_X(f^{-1}(U))\), and so the pair \((f^\#(s_U), f^{-1}(U))\) defines an element of \(\mcO_{X, p}\).
+With this, \(f^\sharp(s_U) \in \mcO_X(f^{-1}(U))\), and so the pair \((f^\sharp(s_U), f^{-1}(U))\) defines an element of \(\mcO_{X, p}\).
 
 \begin{definition}
     [locally ringed space]
@@ -1209,7 +1209,7 @@ Recall that a section \(s \in \mcF(U)\) is a coherent collection of elements \(s
     \[\varphi^\sharp : \left(s \mapsto s(\mfp)\right)_{\mfp \in U} \mapsto \left(\mfq \mapsto \varphi_\mfq(s(\varphi^{-1}(\mfq)))\right)_{\mfq \in \widetilde\varphi^{-1}(U)}\]
     We can check that this glues.
 
-    Conversely, suppose \((f, f^\#) : \Spec(B) \to \Spec(A)\) is a morphism of schemes. Using the fact that we have a ring homomorphism
+    Conversely, suppose \((f, f^\sharp) : \Spec(B) \to \Spec(A)\) is a morphism of schemes. Using the fact that we have a ring homomorphism
     \[A = \mcO_{\Spec(A)}(\Spec(A)) \to \mcO_{\Spec(B)}(\Spec(B)) = B\]
     we get a ring homomorphism \(g : A \to B\). We need to check that \(\widetilde g = f : \Spec(B) \to \Spec(A)\), and the construction from the first part gives the correct map on strcture sheaves.
 
@@ -1828,6 +1828,8 @@ Fianlly, recall (sequential) compactness and Hausdorff can be stated in terms of
     which is the localisation. On general opens, use sheaf on a base construction.
 \end{example}
 
+Another way to think about this as the Algebraic Geometry analogue of vector bundles.
+
 \subsection{Definitions}
 
 Fix a ringed space \((X, \mcO_X)\).
@@ -1839,6 +1841,82 @@ Fix a ringed space \((X, \mcO_X)\).
 
 Similarly, we can define a sheaf of \(\mcO_X\)-algebras. A \emph{morphism between sheaves of \(\mcO_X\)-modules}\index{morphism!of sheaves of \(\mcO_X\)-modules} is defined in the usual way, that is, a morphism between sheaves of abelian groups compatible with the \(\mcO_X\)-module structure.
 
+\lec
+
+\begin{example}
+    [sheaf associated to a module]
+    \index{sheaf!associated to a module}
+    If \(X = \Spec(A), M\) an \(A\)-module, then we have a sheaf \(M^{\sh}\) on \(X\), such that
+    \[M^{\sh}(U_f) = M_f\]
+    and we extend it to all opens.
+\end{example}
+
+We have basic operations:
+\begin{itemize}
+    \item give a morphism \(f : \mcF \to \mcG\) of (sheaves of) \(\mcO_X\)-modules, we have \(\ker(f)\), \(\coker(f)\), \(\im(f)\),
+    \item we can take direct sums, direct products, tensor product, \(\Hom\)s,
+\end{itemize}
+which extend in the ``natural way''. Note \(\coker, \im\) and tensor product requires sheafification.
+
+The sheaf tensor product \(\mcF \otimes_{\mcO_X}\mcG\) has
+\[(\mcF \otimes_{\mcO_X} \mcG)(U) = \mcF(U) \otimes_{\mcO_X(U)} \mcG(U)\]
+and we can then sheafify this.
+
+If \(f : X \to Y\) is a morphism of ringed spaces (or schemes), and given an \(\mcO_X\)-module \(\mcF\), the \emph{pushforward}\index{pushforward!of a sheaf of \(\mcO_X\)-modules} \(f_*\mcF\) is a sheaf of abelian groups, but we have a map \(f^\sharp : \mcO_Y \to f_*\mcO_X\). This gives \(f_*\mcF\) and \(\mcO_Y\)-module structure.
+
+Given \(U \sse Y\) open, \(a \in \mcO_Y(U)\), \(m \in f_*\mcF(U) = \mcF(f^{-1}(U))\), we define
+\[am := f^\sharp(a)m\]
+where we note that \(f^\sharp(a) \in \mcO_X(f^{-1}(U))\). Conversely, if \(\mcG\) is a sheaf of \(\mcO_Y\)-modules, then we define the \emph{pullback}\index{pullback!of a sheaf of \(\mcO_X\)-modules} sheaf
+\[f^*\mcG = f^{-1}\mcG \otimes_{f^{-1}\mcO_y}\mcO_X\]
+where the \(f^{-1}\mcO_Y\)-module structure on \(\mcO_X\) is defined via the adjoint to \(f^\#\). See examples sheet 1 Q14.
+
+\subsection{\(\mcO_X\)-modules on schemes and quasi-coherence}
+
+\begin{definition}
+    [(quasi-)coherent sheaf]
+    A \emph{quasi-coherent sheaf \(\mcF\) (on a scheme of \(X\))}\index{quasi-coherent sheaf} of \(\mcO_X\)-modules is a sheaf of \(\mcO_X\)-modules \(\mcF\), such that there exists a cover of \(X\) by affines \(U_i\), such that \(\mcF\vert_{U_i}\) is the sheaf associated to a module over the ring \(\mcO_X(U_i)\).
+
+    If the module over the \(\mcO_X(U_i)\) can be taken to be finitely generated, we say that \(\mcF\) is \emph{coherent}\index{coherent sheaf}\footnote{Recall we assumed our schemes are Noetherian.}.
+\end{definition}
+
+\begin{example}
+    On any scheme, \(\mcO_X\) is quasi-coherent (in fact coherent). More generally, \(\mcO_X^{\oplus n}\) is coherent. On the other hand, \(\mcO_X^{\oplus I}\) is quasi-coherent but not coherent if \(I\) is infinite.
+\end{example}
+
+\begin{example}
+    If \(i : X \inj Y\) is a closed module, then \(i_*\mcO_X\) is a quasi-coherent \(\mcO_Y\)-module. Say \(U = \Spec(A) \sse Y\) is affine, then \(X \cap U \inj U\) gives an ideal \(I \idealof A\), which is the kernel of the map on structure sheafs \(\mcO_Y(U) \surj \mcO_X(X \cap U)\). On \(U\), \(i_*\mcO_X\vert_U\) is the sheaf associated to the \(A\)-module \(A/I\).
+\end{example}
+
+\begin{proposition}
+    \label{prop:quasi-coherent-iff}
+    An \(\mcO_X\)-module \(\mcF\) is quasi-coherent if and only if for any open affine \(U = \Spec(A) \sse X\), \(\mcF\vert_U\) is the sheaf associated to a module over \(A\).
+
+    Similarly, \(\mcF\) is coherent if and only if each \(\mcF\vert_U\) is finitely generated as an \(A\)-module.
+\end{proposition}
+
+\begin{lemma}
+    Let \(X = \Spec(A)\) be a scheme, \(f \in A\), \(\mcF\) a quasi-coherent \(\mcO_X\)-module. Let \(s \in \Gamma(X, \mcF)\). Then
+    \begin{enumerate}[(i)]
+        \item if \(s\) restricts to zero on \(U_f\), then \(f^ns = 0\) for some \(n\).
+        \item if \(t \in \mcF(U_f)\), then for some \(n\), \(f^n t\) is the restriction of a global section of \(\mcF\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    There exists some cover of \(X\) by affine opens \(V = \Spec(B)\), such that
+    \[\mcF_V = M^{\sh}\]
+    for a \(B\)-module \(M\). But we can cover \(V\) by distinguished affines of the form \(U_g\) for some \(g \in A\). In this case,
+    \[\mcF\vert_{U_g} = \left(M \otimes_B A_g\right)^{\sh}\]
+    since \(\mcF\vert_V\) is already quasi-coherent. But recall that \(\Spec(A)\) is quasi-compact, i.e. every open cover has a finite subcover, and so finitely many \(g_i, U_{g_i}\) and \(M_i\) will suffice to cover \(X\) by open such that
+    \[\mcF\vert_{U_{g_i}} = M_i^{\sh}\]
+    Result then follows from formal properties of localisation. See Hartshorne for details.
+\end{proof}
+
+\begin{proof}
+    [Proof of \cref{prop:quasi-coherent-iff}] Let \(\mcF\) be a quasicoherent sheaf on \(X\). Given \(U \sse X\) open, \(\mcF\vert_U\) is also quasi-coherent. Hence we can reduce to the case when \(X = \Spec(A)\). Take \(M = \mcF(X)\), and \(M^{\sh}\) the associated sheaf. We claim that \(M^{\sh} \cong F\).
+
+    Let \(\alpha : M^{\sh} \to \mcF\) be the map given by restricting global sections (e.g. via stalks). Moreover, \(\alpha\) is an isomorphism at stalk level. But this is just the lemma.
+\end{proof}
 
 \printindex
 

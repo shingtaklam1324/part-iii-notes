@@ -2,6 +2,7 @@
 
 \usepackage{../../Style}
 \usepackage{dynkin-diagrams}
+\usepackage{rank-2-roots}
 
 \title{Lie Algebras and their Representations}
 \author{Shing Tak Lam}
@@ -2439,6 +2440,116 @@ Note
     \item if \(\lambda \in X\), with \(w(\lambda) \in X\) for all \(w \in W\), since \(\inner{\lambda, \alpha^\vee} = \inner{w(\lambda), w(\alpha)^\vee}\).
     \item the root lattice is a lattice in \(E\), since it is the \(\Z\)-span of an \(\R\)-basis.
 \end{itemize}
+
+\lec
+
+\begin{lemma}
+    \label{lem:in-weight-lattice-iff-base}
+    \(\lambda \in X\) if and only if \(\inner{\lambda, \alpha^\vee} \in \Z\) for all \(\alpha \in \Delta\).
+\end{lemma}
+
+\begin{proof}
+    Examples sheet 3.
+\end{proof}
+
+\begin{definition}
+    [fundamental weights]
+    For each \(1 \le i \le \ell\), define \(\omega_i \in E\) by
+    \[\inner{\omega_i, \alpha_j^\vee} = \delta_{ij}\]
+    We call the \(\{\omega_i\}\) the \emph{fundamental weights with respect to \(\Delta\)}\index{fundamental weights}.
+\end{definition}
+
+By \cref{lem:in-weight-lattice-iff-base},
+\[X = \left\{\sum_i c_i \omega_i \ \bigg\vert\ c_i \in \Z\right\}\]
+Moreover, \(X/\Z\Phi\) is a finite group, called the \emph{fundamental group}\index{fundamental group}. Moreover,
+\[\abs{\frac{X}{\Z\Phi}} = \det(C)\]
+where \(C\) is the Cartan matrix of \(\mfg\). The number \(\abs{X/\Z\Phi}\) is sometimes called the \emph{index of connection}\index{index of connection}.
+
+\begin{example}
+    For \(\mfg = \sl_2\), \(\Phi = \{\pm \alpha\}\), \(\Z\Phi = \Z\alpha\), and \(\inner{\alpha, \alpha^\vee} = 2\), and so \(X = \Z(\alpha/2)\). In this case, \(\abs{X/\Z\Phi} = 2 = \det(\begin{pmatrix}
+        2
+    \end{pmatrix})\). More generally for type \(A_\ell\), \(\abs{X/\Z\Phi} = \ell + 1\).
+\end{example}
+
+\begin{definition}
+    [dominant]
+    \(\lambda \in X\) is called \emph{dominant}\index{dominant} if \(\inner{\lambda, \alpha^\vee} \ge 0\) for all \(\alpha \in \Phi^+\). If the inequality is strict, it is called \emph{strongly dominant}\index{strongly dominant}. The set of dominant weights is denoted \(X^+\).
+\end{definition}
+
+This is equivalent to:
+\begin{itemize}
+    \item \(\lambda\) lies in the closure of the fundamental Weyl chamber with respect to \(\Delta\),
+    \item \(\lambda = \sum_i c_i \omega_i\), where each \(c_i \ge 0\).
+\end{itemize}
+
+Now assume \(\mfg\) is a semisimple Lie algebra, with a Cartan subalgebra \(\mft\) and root system \(\Phi\). Choose \(e_\alpha \in \mfg_\alpha\) for each \(\alpha \in \Phi\), with
+\[[e_\alpha, e_{-\alpha}] = h_\alpha\]
+and \(\varphi : \mfg \to \gl(V)\) a finite dimensional representation over \(\C\).
+
+\begin{lemma}
+    \[V = \bigoplus_{\lambda \in \mft^*}V_\lambda\]
+    where
+    \[V_\lambda = \left\{v \in V \mid tv = \lambda(t)v \text{ for all }t \in \mft\right\}\]    
+\end{lemma}
+
+\begin{proof}
+    Clear from \cref{lem:simultaneuous-eigenspace}, where the commuting semsimple elements are the basis elements of \(\mft\).
+\end{proof}
+
+Recall for \(\lambda, \mu \in \mft^*\), we write
+\[\mu \le \lambda \iff \lambda - \mu = \sum_i k_i \alpha_i\]
+where each \(k_i \ge 0\). If \(V\) is a representation of \(\mfg\), we say
+\begin{itemize}
+    \item The \emph{weight} of a non-zero \(v \in V\) is \(\lambda\) if \(v \in V_\lambda\),
+    \item \(\lambda \in \mft^*\) is a \emph{highest weight} if \(V_\lambda \ne 0\) and \(V_\mu\) is non-zero for all \(\mu \le \lambda\).
+\end{itemize}
+
+\begin{proposition}
+    \begin{enumerate}[(i)]
+        \item if \(v \in V_\lambda\), then \(e_\alpha V_\lambda = V_{\alpha + \lambda}\),
+        \item if \(V_\lambda\) is non-zero, then \(\lambda \in X\). That is, \(\lambda(h_\alpha) \in \Z\) for all \(\alpha\),
+        \item \(\dim(V_\lambda) = \dim(V_{w(\lambda)})\) for all \(w \in W\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    For (i), fix \(t \in \mft\). Then
+    \[t(e_\alpha v) = ([t, e_\alpha] + e_\alpha t)v = \alpha(t)e_\alpha v + e_\alpha \lambda(t)v = (\alpha + \lambda)(t)e_\alpha v\]
+
+    For (ii), consider \(V\vert_{\mfm_\alpha}\). Then \(h_\alpha\) acts by integer weights, so \(\lambda(h_\alpha) \in \Z\).
+
+    For (iii), first of all, it is enough to assume \(w = w_\alpha\). Now
+    \[V \vert_{\mfm_\alpha} = \bigoplus_j V^{(j)}\]
+    where \(V^{(j)}\) are \(\mfm_\alpha\) irreducible representations. The \(h_\alpha\) weight spaces of \(V^{(j)}\) are \(1\)-dimensional, and so we can choose a basis \(v_1, \dots, v_n\) for \(V_\lambda\), with each \(v_i\) being in a distinct \(V^{(j)}\). Now it suffices to show that given \(v_i \in V^{(j)}\), there exists \(x \in \mfm_\alpha\) such that \(xv_i \in V_{w_\alpha(\lambda)}\). But we know that \(w_\alpha(\lambda) = \lambda - \inner{\lambda, \alpha^\vee}\alpha\), and that the set
+    \[\{e^k_\alpha v_i, e^k_{-\alpha}v_i \mid \alpha \in \Z\}\]
+    spans \(V^{(j)}\).
+
+    Define \(M = \max\{k \mid e_\alpha^kv_i \ne 0\}\), \(m = \max\{k \mid e_{-\alpha}^kv_i \ne 0\}\). We need to prove that
+    \[-m \le -\inner{\lambda, \alpha^\vee} \le M\]
+    However
+    \[(\lambda + M\alpha)(h_\alpha) = -(\lambda - m\alpha)(h_\alpha)\]
+    and so \(\lambda(h_\alpha) = m - M\). But \(\lambda(h_\alpha) = \inner{\lambda, \alpha^\vee}\) and so we are done.
+\end{proof}
+
+\begin{definition}
+    [highest weight vector] \(v \in V\) is a \emph{highest weight vector} \index{highest weight vector} if 
+    \begin{itemize}
+        \item \(v \ne 0\),
+        \item \(v \in V_\lambda\) for some \(\lambda\),
+        \item \(e_\alpha v = 0\) for all \(\alpha \in \Phi^+\).
+    \end{itemize}
+\end{definition}
+In the examples sheet, we show that there is a root \(\alpha_0\) of maximal height with respect to the basis \(\Delta\) called the \emph{highest root}\index{highest root}. Any non-zero element of \(\mfg_{\alpha_0}\) is a highest weight vector with respect to the adjoint action.
+
+\section{The PBW theorem}
+
+\begin{example}
+    Let \(\mfg = \sl_3\), the root lattice is
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2023_11_15 13_09 Office Lens.jpg}
+    \end{center}
+    and we have a unique highest weight \(\alpha_1 + \alpha_2\).
+\end{example}
 
 \printindex
 

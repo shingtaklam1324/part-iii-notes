@@ -2711,8 +2711,8 @@ The isomorphism \(D\) is obtained from the \emph{cap product}.
 \begin{lemma}
     For any space \(X\),
     \begin{enumerate}[(i)]
-        \item \(\partial(\sigma \frown \phi) = (-1)^\ell(\partial\sigma \frown \phi - \sigma \frown \partial^*\phi)\) for \(\sigma \in C_k(X), \phi \in C^\ell(X)\). Indeed, \(\frown\) induces a pairing
-        \[\HH_K(X) \otimes \HH^\ell(X) \to \HH_{k - \ell}(X)\]
+        \item \(\partial(\sigma \frown \phi) = (-1)^\ell(\partial\sigma \frown \phi - \sigma \frown \partial^*\phi)\) for \(\sigma \in C_k(X), \phi \in C^\ell(X)\). Indeed, \(\frown\) induces a pairing (for \(\ell \le k\))
+        \[\HH_k(X) \otimes \HH^\ell(X) \to \HH_{k - \ell}(X)\]
         \item Given a map \(f : X \to Y\),
         \[f_*(\alpha) \frown \psi = f_*(\alpha \frown f^*(\psi))\]
         for \(\alpha \in \HH_k(X), \psi \in \HH^\ell(Y)\).
@@ -2724,6 +2724,109 @@ The isomorphism \(D\) is obtained from the \emph{cap product}.
     \end{enumerate}
 \end{lemma}
 
+\begin{proof}
+    For (i),
+    \begin{align*}
+        \partial\sigma \frown \phi &= \sum_{i=0}^\ell\phi([v_0, \dots, \widehat{v_i}, \dots, v_{\ell + 1}])[v_{\ell + 1}, \dots, v_k] + \sum_{i=\ell + 1}^k(-1)^i\phi([v_0, \dots, v_\ell])[v_\ell, \dots, \widehat{v_i}, \dots, v_k] \\
+        \sigma \frown \partial^*\phi &= \sum_{i=0}^{\ell + 1}(-1)^i\phi([v_0, \dots, \widehat{v_i}, \dots, v_{\ell + 1}])[v_{\ell + 1}, \dots, v_k] \\
+        \partial(\sigma \frown \phi) &= \sum_{i=\ell}^k(-1)^{i + \ell}\phi([v_0, \dots, v_\ell])[v_\ell, \dots, \widehat{v_i}, \dots, v_k]
+    \end{align*}
+    Rearrange/compare terms to get the result. 
+    
+    For (ii), and (iii), they hold at chain lebel from definitions. Say at the level of (co)homology we have for (ii)
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCJcXEhIX2soWClcXG90aW1lc1xcSEheXFxlbGwoWSkiXSxbMiwwLCJcXEhIX2soWSlcXG90aW1lcyBcXEhIXlxcZWxsKFkpIl0sWzQsMCwiXFxISF97ay1cXGVsbH0oWSkiXSxbMCwyLCJcXEhIX2soWCkgXFxvdGltZXMgXFxISF5cXGVsbChZKSJdLFsyLDIsIlxcSEhfayhYKSBcXG90aW1lc1xcSEheXFxlbGwoWCkiXSxbNCwyLCJcXEhIX3trLVxcZWxsfShYKSJdLFswLDEsImZfKlxcb3RpbWVzIFxcaWQiXSxbMSwyLCJcXGZyb3duIl0sWzAsMywiIiwyLHsib2Zmc2V0IjotMSwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFswLDMsIiIsMix7Im9mZnNldCI6MSwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFszLDQsIlxcaWRcXG90aW1lcyBmXioiLDJdLFs0LDUsIlxcZnJvd24iLDJdLFs1LDIsImZfKiIsMl1d
+    \[\begin{tikzcd}
+        {\HH_k(X)\otimes\HH^\ell(Y)} && {\HH_k(Y)\otimes \HH^\ell(Y)} && {\HH_{k-\ell}(Y)} \\
+        \\
+        {\HH_k(X) \otimes \HH^\ell(Y)} && {\HH_k(X) \otimes\HH^\ell(X)} && {\HH_{k-\ell}(X)}
+        \arrow["{f_*\otimes \id}", from=1-1, to=1-3]
+        \arrow["\frown", from=1-3, to=1-5]
+        \arrow[shift left, no head, from=1-1, to=3-1]
+        \arrow[shift right, no head, from=1-1, to=3-1]
+        \arrow["{\id\otimes f^*}"', from=3-1, to=3-3]
+        \arrow["\frown"', from=3-3, to=3-5]
+        \arrow["{f_*}"', from=3-5, to=1-5]
+    \end{tikzcd}\]
+    and for (iii)
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhIXlxcZWxsKFgpIl0sWzIsMCwiXFxIb20oXFxISF9cXGVsbChYKSwgXFxaKSJdLFswLDIsIlxcSEhee2sgKyBcXGVsbH0oWCkiXSxbMiwyLCJcXEhvbShcXEhIX3trK1xcZWxsfShYKSwgXFxaKSJdLFswLDIsIlxccGhpXFxzbWlsZSBcXGNkb3QiLDJdLFswLDFdLFsyLDNdLFsxLDMsIihcXGNkb3QgXFxmcm93biBcXHBoaSleKiJdXQ==
+    \[\begin{tikzcd}
+        {\HH^\ell(X)} && {\Hom(\HH_\ell(X), \Z)} \\
+        \\
+        {\HH^{k + \ell}(X)} && {\Hom(\HH_{k+\ell}(X), \Z)}
+        \arrow["{\phi\smile \cdot}"', from=1-1, to=3-1]
+        \arrow[from=1-1, to=1-3]
+        \arrow[from=3-1, to=3-3]
+        \arrow["{(\cdot \frown \phi)^*}", from=1-3, to=3-3]
+    \end{tikzcd}\]
+    Note that the horizontal maps in (iii) don't need to be isomorphism, but if we worked over a field, then they would be.
+
+    \textit{Ivan lost (iv) somewhere...}
+\end{proof}
+
+We want to define the map \(D\) from the statment of Poincar\'e duality.
+
+\begin{proposition}
+    \label{prop:exists-orientation-on-cpct}
+    Let \(M\) be an oriented \(n\)-manifold, and so we have \(\omega_x \in \HH_n(M, M \setminus x)\) which are coherent. Then for each \(K \sse M\) compact, there exists a unique \(\omega_K \in \HH_n(M, M \setminus K)\) such that the map on pairs
+    \[(M, M \setminus K) \to (M, M \setminus x)\]
+    sends \(\omega_K\) to \(\omega_x\) for all \(x \in K\). Note that \(\HH_i(M, M \setminus K) = 0\) for \(i > n\). 
+\end{proposition}
+
+Given the proposition, then \(M\) be oriented, \(K \sse L \sse M\) be compact. We can consider
+% https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXEhIX2koTSwgTSBcXHNldG1pbnVzIEwpIl0sWzAsMiwiXFxISF9pKE0sIE0gXFxzZXRtaW51cyBLKSJdLFsyLDAsIlxcSEheayhNLCBNIFxcc2V0bWludXMgTCkiXSxbMSwwLCJcXG90aW1lcyJdLFsyLDIsIlxcSEheayhNLCBNIFxcc2V0bWludXMgSykiXSxbMSwyLCJcXG90aW1lcyJdLFs0LDAsIlxcSEhfe2kta30oTSkiXSxbNCwyLCJcXEhIX3tpLWt9KE0pIl0sWzAsMV0sWzQsMl0sWzIsNiwiXFxmcm93biJdLFs0LDcsIlxcZnJvd24iLDJdLFs2LDcsIiIsMCx7Im9mZnNldCI6MSwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs2LDcsIiIsMSx7Im9mZnNldCI6LTEsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+\[\begin{tikzcd}[column sep=tiny]
+	{\HH_i(M, M \setminus L)} & \otimes & {\HH^k(M, M \setminus L)} && {\HH_{i-k}(M)} \\
+	\\
+	{\HH_i(M, M \setminus K)} & \otimes & {\HH^k(M, M \setminus K)} && {\HH_{i-k}(M)}
+	\arrow[from=1-1, to=3-1]
+	\arrow[from=3-3, to=1-3]
+	\arrow["\frown", from=1-3, to=1-5]
+	\arrow["\frown"', from=3-3, to=3-5]
+	\arrow[shift right, no head, from=1-5, to=3-5]
+	\arrow[shift left, no head, from=1-5, to=3-5]
+\end{tikzcd}\]
+    where the vertical maps are induced from the inclusion \(i\) (of pairs). Now
+    \[\omega_K \frown \phi = i_*\omega_L \frown \phi = \omega_L \frown i^*\phi\]
+    since by uniqueness, \(i_*\omega_L = \omega_K\).
+
+    The map \(\phi \mapsto \omega_k \frown \phi\) is compatible with the maps in the directed system definining \(\HH^*_\ct\) via invlusions \(K \inj L\). So there exists an induced map \(\HH^k_\ct(M) \to \HH_{n-k}(M)\).
+
+    Moreover, if \(M\) is compact, then we have \(\omega_M \in \HH_n(M)\), and \(D(\phi) = \omega_M \cap \phi\) is called the \emph{fundamental class}, denoted by \([M]\).
+
+    \begin{proof}
+        [Proof of \cref{prop:exists-orientation-on-cpct}] We will prove this for more and more general classes of \(K\). We say that \(K \sse M\) compact is \emph{good} if it satisfies the conclusions of the proposition.
+
+        \textbf{Step 1: If \(A, B, A \cap B\) are good, then so is \(A \cup B\)}. In this case, we have
+        % https://q.uiver.app/#q=WzAsNixbMSwwLCJcXEhIX3tuKzF9KE0sIE0gXFxzZXRtaW51cyBBIFxcY2FwIEIpIl0sWzIsMCwiXFxISF9uKE0sIE0gXFxzZXRtaW51cyBBIFxcY3VwIEIpIl0sWzMsMCwiXFxISF9uKE0sIE1cXHNldG1pbnVzIEEpXFxvcGx1c1xcSEhfbihNLCBNXFxzZXRtaW51cyBCKSJdLFs0LDAsIlxcSEhfbihNLCBNIFxcc2V0bWludXMgQSBcXGNhcCBCKSJdLFswLDAsIlxcY2RvdHMiXSxbNSwwLCJcXGNkb3RzIl0sWzQsMF0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNV1d
+        \[\begin{tikzcd}[column sep=tiny]
+            \cdots & {\HH_{n+1}(M, M \setminus A \cap B)} & {\HH_n(M, M \setminus A \cup B)} & {\HH_n(M, M\setminus A)\oplus\HH_n(M, M\setminus B)} & {\HH_n(M, M \setminus A \cap B)} & \cdots
+            \arrow[from=1-1, to=1-2]
+            \arrow[from=1-2, to=1-3]
+            \arrow[from=1-3, to=1-4]
+            \arrow[from=1-4, to=1-5]
+            \arrow[from=1-5, to=1-6]
+        \end{tikzcd}\]
+        By uniqueness, \(\omega_A \mapsto \omega_{A \cap B}\) and \(\omega_B \mapsto \omega_{A \cap B}\) under relative inclusions. Hence the map
+        \[\HH_n(M, M \setminus A) \oplus \HH_n(M, M \setminus B) \to \HH_n(M, M \setminus A \cap B)\]
+        is zero. Hence we have a class \(\omega_{A \cup B}\) mapping to \(\omega_A\) and \(\omega_B\). By assumption, \(\HH_{n+1}(M, M\setminus A \cap B)\) is zero, and so \(\omega_{A \cup B}\) is unique. Moreover, for all \(x \in A \cup B\), by construction \(\omega_{A \cup B} \mapsto \omega_x\). Finally, \(\HH_i(M, M \setminus A \cup B) = 0\) for \(i > n\) by exactness of the Mayer-Vietoris sequence.
+
+        \textbf{Step 2: If \(K \sse \R^n\) is convex, then \(K\) is good.} If so, then \(\HH_*(\R^n, \R^n \setminus K) = \HH_*(\R^n, \R^n \setminus 0)\). But this case is easy, since we can use translations. Using step 1, finite unions of convex sets is good.
+
+        \textbf{Step 3: Every compact set \(K \sse \R^n\) is good.} If \(K \sse \R^n\) is compact, then \(K \sse B = \overline{B}(0, R)\) for some \(R > 0\). Define \(\omega_K\) to be the restriction of \(\omega_B\) to \(K\), via
+        \[(\R^n, \R^n \setminus B) \to (\R^n, \R^n \setminus K)\]
+        We will write \(\omega_K = \omega_B\vert_K\). Since \(\omega_B \mapsto \omega_x\) under restriction, so does \(\omega_K\). So what we need is uniqueness. That is, we need to know that no other element of \(\HH_n(\R^n, \R^n \setminus K)\) also satisfies the requirement that it pushes forward to \(\omega_x\) for all \(x \in K\).
+
+        That is, we want to know if that if \(\lambda \in \HH_n(\R^n, \R^n \setminus K)\), with \(\lambda\vert_x = 0\) for all \(x \in K\), then \(\lambda = 0\). Suppose we have such a \(\lambda\). So \(\lambda\) is represented by a chain, and \(\partial\lambda\) is a finite union of simplices in \(\R^n \setminus K\). Thus there exists a finite union of balls \(B_j\) such that
+        \begin{itemize}
+            \item \(K \sse \widetilde K = \bigcup_j B_j\)
+            \item \(\partial \lambda \cap \tilde K = \emptyset\)
+        \end{itemize}
+        That is,
+        \[\lambda \in \im(\HH_n(\R^n, \R^n \setminus \widetilde K) \to \HH_n(\R^n, \R^n \setminus K))\]
+        But \(\tilde K\) is a finite union of convex sets, so it is good. Hence \(\lambda = 0\) by the uniqueness for \(\tilde K\).
+
+        \textbf{Step 4: If \(K \sse M\) is compact, it is good.} We can write \(K\) as a finite union of \(K_i\), where each \(K_i\) is a compact subset of the coordinate neighbourhoods. Each \(K_i\) is good, and so their union is good by step 1.
+    \end{proof}
 \printindex
 
 \end{document}
