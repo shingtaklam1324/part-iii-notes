@@ -2596,7 +2596,7 @@ Let \(u \in C^2(U_T)\), which satisfies the initial boundary value problem
 
 We will perform an energy estimate. Multiply the PDE by \(u_t\), integrating by parts over \(U_t = (0, t) \times U\) for \(t \in (0, T)\), we get
 \[0 = \int_{U_t}u_{tt}u_t - u_t \Delta u \dd x \dd t\]
-Recall \(\grad \cdot (g \grad h) = \grad g \cdot \grad h + g \Delta h\), and so we get
+In what follows, \(D\) will denote the derivative with respect to the space variables only.Recall \(\grad \cdot (g \grad h) = \grad g \cdot \grad h + g \Delta h\), and so we get
 \begin{align*}
     &= \int_{U_t}\left(\frac{1}{2}\partial_t(u_t^2) - \div_x(u_tDu) + Du_t Du\right) \dd x \dd t \\
     &= \int_{U_t}\frac{1}{2}\partial_t\left((u_t)^2 + \abs{Du}^2\right) - \div_x(u_tDu) \dd x \dd t \\
