@@ -2583,9 +2583,97 @@ That is, the elements of the fibres are pairwise incomparable.
     In particular, any prime ideal is radical and primary. Note \(R\) is radical, but not prime nor primary.
 \end{remark}
 
+\lec
+
 \begin{example}
     In \(\Z\), \(\inner{6}\) is radical, but not primary, since in \(\R/6\), there are no non-zero nilpotent elements, but \(2 \times 3 = 6\). But \(\inner{9}\) is primary, but not radical.
+
+    More generally, for \(x \ne 0\),
+    \begin{itemize}
+        \item \(\inner{x}\) if and only if \(x\) is prime,
+        \item \(\inner{x}\) is radical if and only if \(x\) is square free,
+        \item \(\inner{x}\) is primary if and only if \(x = p^n\) for some prime \(p\).
+    \end{itemize}
 \end{example}
+
+\begin{proposition}
+    Let \(I \idealof R\) be a proper ideal.
+    \begin{enumerate}[(i)]
+        \item if \(I\) is primary, then \(\mfp = \inner{I}\) is prime, and we say that \(I\) is \(\mfp\)-primary,
+        \item if \(\sqrt{I}\) is maximal, then \(I\) is primary,
+        \item if \(\mfq_1, \dots, \mfq_n\) are all \(\mfp\)-primary, then so is \(\mfq_1 \cap \cdots \cap \mfq_n\),
+        \item if \(I\) has a \emph{primary decomposition}\index{primary decomposition}, i.e.
+        \[I = \mfq_1 \cap \cdots \cap \mfq_n \tag{\(*\)}\]
+        where \(\mfq_i\) is primary, then \(I\) has a \emph{minimal primary decomposition}\index{minimal prime decomposition}, i.e. like \((*)\), but \(\sqrt{\mfq_1}, \dots, \sqrt{\mfq_n}\) are distinct, and none of the \(\mfq_i\) can be dropped, 
+        \item if \(R\) is Noetherian, then every ideal \(I\) has a primary decomposition
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Examples sheet.
+\end{proof}
+
+\begin{example}
+    In \(\Z\),
+    \[\inner{90} = \inner{2} \cap \inner{3^2} \cap \inner{5}\]
+\end{example}
+
+\begin{example}
+    For a prime ideal \(\mfp\) of \(R\), if \(\mfp^n\) is primary, then \(\mfp^n\) is \(\mfp\)-primary, as \(\sqrt{\mfp^n} = \mfp\).
+    \begin{enumerate}
+        \item \textbf{Not every primary ideal is a power of a prime}. Let \(R = k[x, y]\), \(\mfq = \inner{x, y^2}\). To see that \(\mfq\) is primary, \(\sqrt{\mfq} = \inner{x, y}\), which is a maximal ideal, and so \(\mfq\) is \(\inner{x, y}\)-primary. Alternatively, \(k[x, y]/\mfq = k[y]/\inner{y^2}\). If \(f \in k[y]\) and \(f + \inner{y^2}\) is a zero divisor, then \(y\) divides \(f\), and so \(f + \inner{y^2}\) is nilpotent.
+        
+        On the other hand, if \(\mfq = \mfp^n\), then \(\sqrt{\mfq} = \mfp\), but \(\sqrt{\mfq} = \inner{x, y}\). But we have that
+        \[\inner{x, y}^2 \subset \inner{x, y^2} \subset \inner{x, y}\]
+
+        \item \textbf{Power of a prime does not have to be primary.} Let \(R = k[x, y, z]/\inner{xy - z^2} = k[\overline{x}, \overline y, \overline z]\), Let \(\mfp = \inner{\overline x, \overline z}\). We will show that \(\mfp\) is prime, but \(\mfp^2\) is not primary. In this case,
+        \[R/\mfp = k[y]\]
+        which is an integral domain, and so \(\mfp\) is prime. On the other hand,
+        \[\mfp^2 = \inner{\overline{x}^2, \overline{x}\overline{z}, \overline{z}^2}\]
+        With this,
+        \[\overline{x}\overline{y} = \overline{z}^2 \in \mfp^2\]
+        so the image of \(\overline{x}\overline{y}\) in \(R/\mfp^2\) is zero. But \(\overline{x} + \mfp^2 \ne 0\), and so \(\overline{y} + \mfp^2\) is a zero divisor in \(R/\mfp^2\). But
+        \[R/\mfp^2 = k[x, y, z]/\inner{xy - z^2, x^2, xz, z^2}\]
+        and no power of \(y\) is in \(\inner{xy - z^2, x^2, xz, z^2}\).
+    \end{enumerate}
+\end{example}
+
+\begin{theorem}
+    Let \(I = \mfq_1 \cap \cdots \cap \mfq_n\) be a minimal primary decomposition. Let \(\mfp_i = \sqrt{\mfq_i}\), then
+    \begin{enumerate}[(i)]
+        \item (\emph{associated primes of \(I\)}\index{associated prime}) \(\mfp_1, \dots, \mfp_n\) are determined only by \(I\),
+        \item (\emph{isolated primes of \(I\)}\index{isolated prime}) the minimal elements amongst the \(\mfp_1, \dots, \mfp_n\) are exactly the minimal primes of \(R\) containing \(I\),
+        \item if \(\mfp_1, \dots, \mfp_t\) are the isolated primes of \(I\), then \(\mfq_1, \dots, \mfq_t\) are determined only by \(I\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Examples sheet.
+\end{proof}
+
+\begin{definition}
+    [embedded primes] The \emph{embedded primes}\index{embedded primes} of \(I\) are the associated primes which are not isolated.
+\end{definition}
+
+\begin{example}
+    Let \(R = k[x, y]\), \(I = \inner{x^2, xy}\). Then we have primary decompositions
+    \[I = \inner{x} \cap \inner{x, y}^2 = \inner{x} \cap \inner{x^2, y}\]
+    In this case, \(\sqrt{\inner{x}} = \inner{x}\), \(\sqrt{\inner{x, y}^2} = \inner{x, y}\), and \(\sqrt{\inner{x^2, y}} = \inner{x, y}\).
+
+    In this case, the associated primes are \(\inner{x}, \inner{x, y}\), which don't depend on the decomposition. In particular, \(\inner{x}\) is isolated and \(\inner{x, y}\) is embedded.
+
+    Thining about this geometrically, \(\van(\inner{x, y}) \sse \van{\inner{x}}\), which is why we call them \emph{embedded}.
+\end{example}
+
+If \(I = \mfq_1 \cap \cdots \cap \mfq_n\) is a minimal primary decomposition, \(\mfp_i = \sqrt{\mfq_i}\). Say \(\mfp_1, \dots, \mfp_t\) are the isolated primes. Then
+\[\sqrt{I} = \sqrt{\mfq_1} \cap \cdots \cap \sqrt{\mfq_t} = \mfp_1 \cap \cdots \cap \mfp_t\]
+which is a (minimal) primary decomposition of \(\sqrt{I}\), and all associated primes are isolated. Thus, going from \(I\) ot \(\sqrt{I}\) is the same as forgetting the embedded primes of \(I\). 
+
+Geometrically, in \(k[t_1, \dots, t_n]\), where \(k \sse \C\) is a subfield, then
+\[\van(I) = \van(\sqrt{I})\]
+and \(I(\van(I)) = \sqrt{I}\), thus \(\van(I)\) only sees \(\sqrt{I}\), or equivalently, it forgets about the embedded primes.
+
+\section{Direct and inverse limits}
 
 \printindex
 

@@ -2349,7 +2349,7 @@ However, if \(u \in H^1\), then \(D^2 u\) may not exist (even weakly). Thus, we 
 \end{proof}
 
 \begin{theorem}
-    [interior regularity] \index{interior regularity} Suppose \(L\) is uniformly elliptic on \(U\), and assume \(a^{ij} \in C^1(U)\) and \(b^i, c \in L^\infty(U)\), \(f \in L^2(U)\). Suppose \(u \in H^1(U)\) satisfies 
+    [interior regularity] \index{interior regularity} \label{thm:int-regularity} Suppose \(L\) is uniformly elliptic on \(U\), and assume \(a^{ij} \in C^1(U)\) and \(b^i, c \in L^\infty(U)\), \(f \in L^2(U)\). Suppose \(u \in H^1(U)\) satisfies 
     \begin{equation}
         \label{eq:interior-regularity}
         B[u, v] = \pinner{f, v}_{L^2}
@@ -2465,7 +2465,146 @@ However, if \(u \in H^1\), then \(D^2 u\) may not exist (even weakly). Thus, we 
     We also have a H\"older theory of elliptic regularity, i.e. if \(f \in C^{k, \gamma}(U)\) then \(u \in C^{k+2, \gamma}(U)\).
 \end{remark}
 
+\lec
+
+\begin{remark}
+    Recall if \(m\) is large enough, i.e. \(m > n/2\), then
+    \[H^{m+2}_\loc(U) \inj C^2_\loc(U)\]
+    and so if \(a^{ij}, b^i, c, f \in C^\infty(U)\), then \(u\) is also smooth.
+\end{remark}
+
+\begin{theorem}
+    [boundary \(H^2\) regularity]
+    \label{thm:boundary-regularity}
+    \index{boundary \(H^2\) regularity}
+    Suppose \(a^{ij} \in C^1(\overline U), b^i, c \in L^\infty(U)\), \(f \in L^2(U)\), and \(\partial U\) is \(C^2\). Suppose \(u \in H^1_0(U)\) is a weak solution to
+    \begin{equation}
+        \label{eq:int-reg-elliptic-bvp}
+        \begin{cases}
+            Lu = f & \text{in }U \\
+            u = 0 &\text{on }\partial U
+        \end{cases}
+    \end{equation}
+    Then \(u \in H^2(U)\), and
+    \[\norm{u}_{H^2(U)} \le C\left(\norm{f}_{L^2(U)} + \norm{u}_{L^2(U)}\right)\]
+\end{theorem}
+
+\begin{proof}
+    [Sketch proof] We focus on the case
+    \[U = B_1(0) \cap \{x_n > 0\}\]
+    Let \(V = B_{1/2}(0) \cap \{x_n > 0\}\) and \(\xi \in C_x^\infty(B_1(0))\) with \(\xi = 1\) on \(V\), \(0 \le \xi \le 1\). Since \(u \in H^1_0\) is a weak solution,
+    \[\int_U a^{ij}u_{x_i}v_{x_j} = \int_U \tilde f v\]
+    for all \(v \in H_0^1(U)\). Choose \(0 < \abs{h} < \frac{1}{4}d(\Supp(\xi), \partial B_1(0))\). Consider
+    \[v = -\Delta_k^{-h(\xi^2\Delta_k^hu)}\]
+    for \(k = 1, \dots, n-1\) fixed.
+
+    \begin{claim*}
+        \(v \in H_0^1(U)\).
+    \end{claim*}
+
+    \begin{proof}
+        \begin{align*}
+            v(x) &= \frac{-1}{h}\Delta_k^{-h}(\xi^2(x)(u(x + he_k) - u(x))) \\
+            &= \frac{1}{h^2}\left(\xi^2(x - h e_k)(u(x) - u(x - h e_k)) - \xi^2(x)u(x + he_k - u(x))\right)
+        \end{align*}
+        The translation is horizontal, and \(Tu\vert_{x_n = 0} = 0\), and so
+        \[T(u(x \pm he_k))\vert_{x_n = 0}\]
+        for all \(\abs{x} < 1 - h\). When \(x_n = 0, \abs{x} \ge 1 - h\), we have that \(\xi(x) = 0\) and \(\xi(x - he_k) = 0\).
+    \end{proof}
+    Repeating the proof of \cref{thm:int-regularity} to conclude
+    \[\int_V\abs{\Delta_k^h(Du)}^2\dd x \le C\int_U f^2 + u^2 + \abs{Du}^2 \dd x\]
+    where \(C\) does not depend on \(h\). Hence
+    \[D_ku \in H^1(V)\]
+    for \(k = 1, \dots, n-1\), with
+    \[\norm{D_kD_iu}_{L^2(V)} \le C(\norm{f}_{L_2(U)} + \norm{u}_{H^1(U)})\]
+    where \(i = 1, \dots, n\).
+
+    Hence it suffices to consider \(u_{x_nx_n}\). We will use the equation for this. Write the PDE as
+    \[a^{nn}u_{x_nx_n} = F = - \sum_{i + j < 2n}a^{ij}u_{x_ix_j} - \sum_i b^iu_{x_i} - cu + f\]
+    By uniform ellipticity,
+    \[a^{nn} = \sum a^{ij}\xi_i\xi_j \ge \theta\norm{\xi}^2 = \theta > 0\]
+    where \(\xi = (0, \dots, 0, 1)\).
+
+    By the bound above, we can bound all of the terms of \(F\), and so \(F \in L^2(V)\), and
+    \[u_{x_nx_n} = \frac{1}{a^{nn}}F \in L^2(V)\]
+    and
+    \[\norm{u}_{H^2(V)} \le C(\norm{f}_{L^2(U)} + \norm{u}_{H^1(U)})\]
+    From the proof of Garding's inequality, we can replace \(\norm{u}_{H^1(U)}\) with \(\norm{u}_{L^2(U)}\) in the above.
+
+    To finish, we cover the boundary with a finite union of \(V_i\)s, and sum using a partition of unity. See Evans for details.
+\end{proof}
+
+\begin{corollary}
+    Under the assumptions of \cref{thm:boundary-regularity}, if \(u\) is the unique weak solution to the boundary value problem \cref{eq:int-reg-elliptic-bvp}, then we have that
+    \[\norm{u}_{H^2(U)} \le C\norm{f}_{L^2(U)} = C\norm{Lu}_{L^2(U)}\]
+    i.e. we can drop the \(\norm{u}_{L^2(U)}\) terms.
+\end{corollary}
+
+That is, the \(\norm{u}_{L^2(U)}\) measures the kernel of \(L\), and so if the solution is unique, the kernel is zero.
+
+\begin{remark}
+    We can get higher regularity. If \(a^{ij}, b^i, c \in C^{m+1}(\overline U), f \in H^m(\overline U)\), \(\partial U\) is \(C^{m+2}\),  and \(u \in H^1_0\) a weak solution, then \(u \in H^{m+2}(U)\) and
+    \[\norm{u}_{H^{m+2}(U)} \le C(\norm{f}_{H^m(U)} + \norm{u}_{L^2(U)})\]
+\end{remark}
+
+\begin{remark}
+    If everything is smooth, then \(u\) is smooth. For example, if \(Lu = \lambda u\), then \(L - \lambda I\) is uniformly elliptic, and
+    \[(L - \lambda I)u  = 0 \in C^\infty\]
+    and so the eigenfunctions are smooth.
+\end{remark}
+
 \section{Hyperbolic PDEs}
+
+We will consider \emph{second order linear PDE} of the form
+\begin{equation}
+    \label{eq:hyp-pde}
+    \sum_{i=1}^{n+1} (a^{ij}u_{y_i})_{y_j} + \sum_{i=1}^{n+1} a^i(u)u_{y_i} + a(y)u = f
+\end{equation}
+with \(y \in \R^{n+1}\), \(a^{ij} = a^{ji}\), \(a^{ij}, a^i, a \in C^\infty(\R^{n+1})\). This equation is \emph{hyperbolic} if the quadratic form
+\[q(\xi) = \sum_{i, j=1}^{n+1}a^{ij}(y)\xi_i \xi_j\]
+has signature \((+, -, \dots, -)\) for all \(y \in \R^{n+1}\). That is, at each \(y \in \R^{n+1}\), after a change of basis, we can write \(q\) as
+\[\lambda_{n+1}^2\xi_{n+1}^2 - \sum_{i=1}^n \lambda_i^2\xi_i^2\]
+where each \(\lambda_i > 0\).
+
+We call \(q\) the \emph{principal symbol}\index{principal symbol} of the PDE. By a coordinate transformation, locally we can put \cref{eq:hyp-pde} in the form
+\begin{equation}
+    \label{eq:hyperbolic-local-form}
+    u_{tt} - \sum_{i, j=1}^n (a^{ij}(x, t)u_{x_i})_{x_j} + \sum_{i=1}^{n+1} b^i(x, t)u_{x_i} + c(x, t)u
+\end{equation}
+where \((y_1, \dots, y_{n+1}) = (x_1, \dots, x_n, t)\).
+
+Note if we assume
+\[\sum_{i, j}a^{ij}\xi_i\xi_j \ge \theta\norm{\xi^2}\]
+then since the coefficient of \(u_{tt}\) is \(1\), which is non-zero, then we see that
+\[\{(x, t) \mid t = 0\}\]
+is a non-characteristic surface of the PDE. In principle, we can solve the PDE with analytic data \(u, u_t\) at \(t = 0\).
+
+\subsection{Hyperbolic initial boundary value problems}
+
+Suppose \(U \sse \R^n\) is open bounded with \(C^1\) boundary. Define
+\[U_T = (0, T) \times U \qquad \Sigma_t = \{t\} \times U \qquad \partial^*U_t = [0, T] \times \partial U\]
+
+Using this,
+\[\partial U_T = \Sigma_0 \cup \Sigma_1 \cup \partial^*U_T\]
+Let \(u \in C^2(U_T)\), which satisfies the initial boundary value problem
+\[\begin{cases}
+    u_{tt} = \Delta u & \text{in }U_T \\
+    u = \psi_0 & \text{on }\Sigma_0 \\
+    u_t = \psi_1 & \text{on }\Sigma_0 \\
+    u = 0 & \text{on }\partial^*U_T
+\end{cases}\]
+
+We will perform an energy estimate. Multiply the PDE by \(u_t\), integrating by parts over \(U_t = (0, t) \times U\) for \(t \in (0, T)\), we get
+\[0 = \int_{U_t}u_{tt}u_t - u_t \Delta u \dd x \dd t\]
+Recall \(\grad \cdot (g \grad h) = \grad g \cdot \grad h + g \Delta h\), and so we get
+\begin{align*}
+    &= \int_{U_t}\left(\frac{1}{2}\partial_t(u_t^2) - \div_x(u_tDu) + Du_t Du\right) \dd x \dd t \\
+    &= \int_{U_t}\frac{1}{2}\partial_t\left((u_t)^2 + \abs{Du}^2\right) - \div_x(u_tDu) \dd x \dd t \\
+    &= \frac{1}{2}\int_{\Sigma_t}(u_t^2 + \abs{Du}^2)\dd x - \frac{1}{2}\int_{\Sigma_0}(u_t)^2 + \abs{Du}^2 \dd x
+\end{align*}
+where we use the divergence theorem, and the fact that \(u\) vanishes on \(\partial^*U_t\). Hence we have that
+\[\int_{\Sigma_t}u_t^2 + \abs{Du}^2 \dd x = \int_{\Sigma_0} \psi_1^2 + \abs{D\psi_0}^2 \dd x\]
+WE call this an energy estimate as the energy is conserved, where \(u_t\) is kinetic energy and \(\abs{Du}^2\) is potential energy.
 
 \printindex
 

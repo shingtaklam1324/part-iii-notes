@@ -2003,5 +2003,88 @@ and so we have a map \(D_X : V(M) \to V(M)\). In local coordinates,
     We call \(D\) the \emph{Levi-Civita connection of \(g\)}\index{Levi-Civita connection}.
 \end{theorem}
 
+\lec
+
+Note that for a vector field \(X\), we have a derivation \(D_X\), which is determined by the following properties:
+\begin{enumerate}[(a)]
+    \item \(D_XY\) is linear in \(Y\),
+    \item \(D_X(hY) = (Xh)Y + h D_XY\),
+    \item \(D_{fX}Y = fD_XY\),
+\end{enumerate}
+
+\begin{proof}
+    \textbf{Step 1: Uniqueness.} We will show that the \(\Gamma^i_{jk}\) are uniquely determined in each trivialisation. First,
+    \[D\pdv{x_i} = \Gamma^p_{ik}\pdv{x^p} \otimes \dd x^k\]
+    We will write \(\partial_i := \pdv{x^i}\). Using (i), set \(X = \partial_i, Y = \partial_j, Z = \partial_k\), we get
+    \begin{align*}
+        \partial_k g_{ij} &= \Gamma^p_{ik}g_{pj} + \Gamma^p_{jk}g_{ip} \tag{i}
+    \end{align*}
+    We can apply a cyclic permutation of \(i, j, k\) to get
+    \begin{align*}
+        \partial_jg_{ki} &= \Gamma^p_{kj}g_{pi} + \Gamma^p_{ij}g_{kp} \tag{ii} \\
+        \partial_jg_{jk} &= \Gamma^p_{ji}g_{pk} + \Gamma^p_{ki}g_{jp} \tag{iii}
+    \end{align*}
+    Let \((g^{iq}) = (g_{iq})^{-1}\) be the inverse matrix. Then for example, 
+    \[\Gamma^p_{jk}g_{pq}g^{iq} = \Gamma^p_{jk}g_{pq}\delta^i_p = \Gamma^i_{jk}\]
+    Now consider (i) \(+\) (ii) \(-\) (iii). We get (using the fact that \(g\) and \(\Gamma\)) are symmetric,
+    \begin{align*}
+        \partial_k g_{ij} + \partial_j g_{ki} - \partial_i g_{jk} &= 2\Gamma^p_{jk}g_{pi}
+    \end{align*}
+    and so
+    \begin{equation}
+        \label{eq:Christoffel-local}
+        \Gamma^i_{jk} = \frac{1}{2}g^{iq}\left(\pdv{g_{qj}}{x^k} + \pdv{g_{qk}}{x^j} - \pdv{g_{jk}}{x^q}\right)
+    \end{equation}
+    Hence there is at most once choice of the Christoffel symbols, given by \cref{eq:Christoffel-local}. We can also write this in a coordinate-free manner, as
+    \[g(D_XY, Z) = \frac{1}{2}\left(Xg(Y, Z) + Yg(Z, X) - Zg(X, Y) - g(Y, [X, Z]) - g(Z, [Y, X]) + g(X, [Z, Y])\right) \tag{\(\dagger\)}\]
+
+    \textbf{Step 2: Existence.} We will check properties (a), (b), (c) as above for \(D_X\), which is determined by (\(\dagger\)). (a) is clear.
+
+    For (c), let \(f \in C^\infty(M)\), then recall \([fX, Z] = (fX)Z - Z(fX) = f[X, Z] - (Zf)X\). With this,
+    \begin{align*}
+        g(D_{fX}Y, Z)&= \frac{1}{2}\big(fX g(Y, Z) + Y(fg(Z, X)) - Z(fg(X, Y)) - fg(Y, [X, Z]) + (Zf)g(X, Y) \\
+        &\quad-fg(Z, [Y, X]) + (Yf)g(Z, X) + fg(X, [Z, Y])\big) \\
+        &= fg(D_XY, Z) \\
+        &= g(f D_XY, Z)
+    \end{align*}
+
+    For (b), for \(h \in C^\infty(M)\),
+    \begin{align*}
+        g(D_X(hY), Z) &= \frac{1}{2}\big(X(hg(Y, Z)) + (hY)g(Z, X) - Z(hg(X, Y)) - hg(Y, [X, Z]) - g(Z, [hY, X]) + g(X, [Z, hY])\big) \\
+        &= \frac{1}{2}\big((Xh)g(Y, Z) + h(Xg(Y, Z) + Yg(X, X) - Zg(X, Y)) - (Zh)g(X, Y)\\
+        &\quad-h(g(Y, [X, Z]) + g(Z, [X, Y] - g(X, [Z, Y]))) + (Xh)g(Z, Y) + (Zh)h(X, Y)\big) \\
+        &= (Xh)g(Y, Z) + hg(D_XY, Z)
+    \end{align*}
+    Hence we have that
+    \[g(D_X(hY), Z) = g((Xh)Y + hD_XY, Z)\]
+    and so
+    \[D_X(hY) = (Xh)Y + hD_XY\]
+    Hence \(D\) is a well defined covariant derivative, and so the Levi-Civita connection exists.
+\end{proof}
+
+\subsection{Geodesics}
+
+Let \(\gamma = \gamma(t) : I \to M\) be a smooth curve, \(I \sse R\) an interval. Let \(E \to M\) be a vector bundle, with typical fibre \(V\) and connection \(A = (\Gamma^i_{jk})\).
+\begin{definition}
+    [lift] A curve \(\gamma_E : I \to E\) is a \emph{lift}\index{lift} of \(\gamma\) if \(\pi \circ \gamma_E = \gamma\).
+\end{definition}
+If \(\gamma(t) = (x^k(t))\) in local coordinates, then
+\[\gamma_E(t) = (x^k(t), a^i(t)) \in U \times V = \pi^{-1}(U)\]
+\begin{definition}
+    [horizontal lift] A lift \(\gamma_E\) is \emph{horizontal}\index{horizontal lift} if
+    \[\dot \gamma_E(t) \in S_{\gamma_E(t)}\]
+    for all \(t\). That is, it is in the horizontal subspace of \(\T_{\gamma_E(t)}E\) with respect to \(A\).
+\end{definition}
+Equivalently,
+\[\theta^i(\dot\gamma_E(t)) = 0 \text{ for }i = 1, \dots, m = \rank(E)\]
+Moreover,
+\[\theta^i = \dd a^i + \Gamma^i_{jk}a^j \dd x^k\]
+and so
+\[\left(\dd a^i + \Gamma^i_{jk}a^j\dd x^k\right)\left(\dot x^\ell \pdv{x^\ell} + \dot a^q\pdv{a^q}\right) = 0\]
+Equivalently,
+\[\dot a + \Gamma^i_{jk}a^j\dot x^k = 0\]
+This gives a system of linear ODEs for \(a_1, \dots, a_m\). From ODE theory, this exists a unique solution on any interval \(I \sse R\), given initial condition \(a^i(0)\). Hence horizontal lift always exists, and is unique, once we fix the initial condition \(\gamma_E(0) \in E_{\gamma(0)}\).
+
+
 \printindex
 \end{document}
