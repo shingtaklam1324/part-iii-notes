@@ -2582,7 +2582,7 @@ is a non-characteristic surface of the PDE. In principle, we can solve the PDE w
 \subsection{Hyperbolic initial boundary value problems}
 
 Suppose \(U \sse \R^n\) is open bounded with \(C^1\) boundary. Define
-\[U_T = (0, T) \times U \qquad \Sigma_t = \{t\} \times U \qquad \partial^*U_t = [0, T] \times \partial U\]
+\[U_T = (0, T) \times U \qquad \Sigma_t = \{t\} \times U \qquad \partial^*U_T = [0, T] \times \partial U\]
 
 Using this,
 \[\partial U_T = \Sigma_0 \cup \Sigma_1 \cup \partial^*U_T\]
@@ -2596,7 +2596,7 @@ Let \(u \in C^2(U_T)\), which satisfies the initial boundary value problem
 
 We will perform an energy estimate. Multiply the PDE by \(u_t\), integrating by parts over \(U_t = (0, t) \times U\) for \(t \in (0, T)\), we get
 \[0 = \int_{U_t}u_{tt}u_t - u_t \Delta u \dd x \dd t\]
-In what follows, \(D\) will denote the derivative with respect to the space variables only.Recall \(\grad \cdot (g \grad h) = \grad g \cdot \grad h + g \Delta h\), and so we get
+In what follows, \(D\) will denote the derivative with respect to the space variables only. Recall \(\grad \cdot (g \grad h) = \grad g \cdot \grad h + g \Delta h\), and so we get
 \begin{align*}
     &= \int_{U_t}\left(\frac{1}{2}\partial_t(u_t^2) - \div_x(u_tDu) + Du_t Du\right) \dd x \dd t \\
     &= \int_{U_t}\frac{1}{2}\partial_t\left((u_t)^2 + \abs{Du}^2\right) - \div_x(u_tDu) \dd x \dd t \\
@@ -2604,7 +2604,111 @@ In what follows, \(D\) will denote the derivative with respect to the space vari
 \end{align*}
 where we use the divergence theorem, and the fact that \(u\) vanishes on \(\partial^*U_t\). Hence we have that
 \[\int_{\Sigma_t}u_t^2 + \abs{Du}^2 \dd x = \int_{\Sigma_0} \psi_1^2 + \abs{D\psi_0}^2 \dd x\]
-WE call this an energy estimate as the energy is conserved, where \(u_t\) is kinetic energy and \(\abs{Du}^2\) is potential energy.
+Ww call this an energy estimate as the energy is conserved, where \(u_t\) is kinetic energy and \(\abs{Du}^2\) is potential energy.
+
+\lec
+
+We call ths estimate above an \emph{a priori estimate}. These are very useful.
+
+Let \(v, \overline v \in C^2(U_T)\) be two solutions with initial data \(\phi_i, \overline{\phi_i}\). Let \(u = v - \overline{v}\), \(\psi_0 = \phi_0 - \overline{\phi_0}\) and \(\psi_1 = \phi_1 - \overline{\phi_1}\). Then there exists \(C > 0\) such that
+\[\sup_{t \in [0, T]}\left(\norm{u(\cdot, t)}^2_{H^1(\Sigma_t)} + \norm{u_t(\cdot, t)}^2_{L^2(\Sigma_t)}\right) \le C\left(\norm{\psi_0}_{H^1(\Sigma_t)}^2 + \norm{\psi_1}_{L^2(\Sigma_0)}^2\right)\]
+Thus, in this case, we have uniqueness and continuous dependence on initial conditions.
+
+Define
+\[Lu = -\sum_{i, j=1}^n(a^{ij}(x, t)u_{x_i})x_j + \sum_{i=1}^n b^i(x, t) u_{x_i} + b(x, t)u_t + c(x, t)u\]
+with \(a^{ij} = a^{ji}, b^i, b, c \in C^1(\overline{U_T})\). Suppose there exists \(\theta > 0\) such that
+\[\sum_{i, j=1}^n a^{ij}(x, t)\xi_i\xi_j \ge \theta\abs{\xi}^2\]
+for all \((x, t) \in U_T\), \(\xi \in \R^n\).
+
+We will consider the initial boundary value problem
+\begin{equation}
+    \label{eq:hyperbolic-ibvp}
+    \begin{cases}
+        u_tt + Lu = f & \text{in }U_T \\
+        u = \psi_0, u_t = \psi_1 & \text{on }\Sigma_0 \\
+        u = 0 &\text{on }\partial^*U_T
+    \end{cases}
+\end{equation}
+We would like to find the weak formulation.
+
+Suppose \(u \in C^2(\overline{U_T})\) is a solution to \cref{eq:hyperbolic-ibvp}. Multiply by \(v \in C^2(\overline{U_T})\), such that \(v = 0\) on \(\partial^*U_T \cup \Sigma_T\).
+
+Integrating over \(U_T\),
+\begin{align*}
+    \int_{U_T}fv\dd x \dd t &= \int_{U_T} (u_{tt}v + Lu v) \dd x \dd t \\
+    &= \int_{U_T}(-u_tv_t + a^{ij}u_{x_i}v_{x_j} + b^iu_{x_i}v + bu_t v + cuv)\dd x \dd t
+    + \left[\int_{\Sigma_t}u_t v \dd x\right]_{t=0}^T - \int_{0}^T \int_{\partial\Sigma_t}a^{ij}u_{x_i}v \dd \textbf{S}\dd t \\
+    &= \int_{U_T}(-u_tv_t + a^{ij}u_{x_i}v_{x_j} + b^iu_{x_i}v + bu_t v + cuv)\dd x \dd t - \int_{\Sigma_0}\psi_1(x)v(x, 0)\dd x
+\end{align*}
+Thus, we have the equation
+\begin{equation}
+    \label{eq:hyperbolic-ibvp-weak}
+    \int_{U_T}fv\dd x \dd t = \int_{U_T}(-u_tv_t + a^{ij}u_{x_i}v_{x_j} + b^iu_{x_i}v + bu_t v + cuv)\dd x \dd t - \int_{\Sigma_0}\psi_1(x)v(x, 0)\dd x
+\end{equation}
+Now suppose \cref{eq:hyperbolic-ibvp-weak} holds for all \(v \in C^2(\overline{U_T})\) with \(v = 0\) on \(\partial^*U_T \cup \Sigma_T\). If \(v \in C_c^\infty(\overline{U_T})\), then we can undo the integration by parts, and we get that
+\[\int_{U_T}v(u_{tt} + Lu - f)\dd x \dd t = 0\]
+Since \(v\) is arbitrary, \(u_{tt} + Lu = f\) on \(U_T\).
+
+Now if \(v \in C^\infty(\overline{U_T})\), then we get that
+\[\int_{U_T}(u_{tt} + Lu - f)\dd x \dd t = \int_{\Sigma_0}(\psi_1 - u_t)v \dd x\]
+Hence
+\[\int_{\Sigma_0}(\psi_1 - u_t)v\dd x = 0\]
+for all \(v \in C^\infty(\overline{U_T})\) with \(v = 0\) on \(\partial^*U_T \cup \Sigma_T\). Now let \(v(x, t) = \chi(t)\varphi(x)\), with \(\chi \in C^\infty([0, T])\) and \(\varphi \in C_c^\infty(\Sigma_0)\). We require that \(\chi = 1\) near \(t = 0\) and \(\chi = 0\) near \(t = T\), hence
+\[v\vert_{\Sigma_0} = \varphi\]
+Hence
+\[\int_{\Sigma_0}(\psi_1(x) - u_t(x, 0))\varphi(x)\dd x = 0\]
+and so \(\psi_1 = u_t\) on \(\Sigma_0\).
+
+\begin{definition}
+    [weak solution]
+    Suppose \(f \in L^2(U_T)\), \(\psi_0 \in H_0^1(\Sigma_0)\), \(\psi_1 \in L^2(\Sigma_0)\), \(a^{ij}= a^{ji}, b^i, b, c \in C^1(\overline{U_T})\). We say that \(u \in H^1(U_T)\) is a \emph{weak solution to the hyperbolic initial boundary value problem \cref{eq:hyperbolic-ibvp}}\index{weak solution to hyperbolic initial boundary value problem} if \(u\vert_{\Sigma_0} = \psi_0\), \(u \vert_{\partial^*U_T} = 0\) in the trace sense, and \cref{eq:hyperbolic-ibvp-weak} for all \(v \in H^1(U_T)\), with \(v = 0\) on \(\partial^*U_T \cup \Sigma_T\) in the trace sense.
+\end{definition}
+
+\begin{theorem}
+    [uniqueness] A weak solution, if it exists, is unique.
+\end{theorem}
+
+\begin{proof}
+    If \(v, \overline v\) are two weak solutions with the same initial data, then we can use the linearity of the PDE problem, \(u = v - \overline v\) is a weak solution with \(f = 0\), \(\psi_0 = 0\) and \(\psi_1 = 0\).
+
+    The idea is to use an energy to show that \(\norm{u} = 0\) to show that \(u = 0\). We would like to pick \(v = u_t\), as we did for the wave equation, but
+    \begin{enumerate}
+        \item \(v\) may not be in \(H^1(U_T)\), since we only know that \(u \in H^1\).
+        \item \(v\) may not vanish on \(\Sigma_T\).
+    \end{enumerate}
+    We set
+    \[v(x, t) = \int_t^T e^{-\lambda s}u(x, s)\dd t\]
+    where we will choose \(\lambda\) later. We can see that \(v\) is in \(H^1(U_T)\), and \(v = 0\) on \(\partial^*U_T \cup \Sigma_T\). Moreover,
+    \[v_t = -e^{-\lambda t}u(x, t)\]
+    We will take this \(v\) as the test function. This gives us
+    \begin{align*}
+        \int_{U_T}u_t ue^{-\lambda t} - e^{\lambda t}a^{ij}v_{tx_i}v_{x_j} + b^iu_{x_i}v + bu_t v + (c - 1)uv - e^{\lambda t}v v_t\dd x \dd t = 0
+    \end{align*}
+    Integrating by parts,
+    \begin{align*}
+        \int_{U_T}u_tue^{-\lambda t} - e^{\lambda t}a^{ij}v_{tx_j}v_{x_i} + \underbrace{(b^iu v)_{x_i}}_a + \underbrace{(buv)_t}_b - (b^i_{x_i}uv + b^iuv_{x_i} + b_tuv + buv_t) + (c-1)uv - \frac{1}{2}\partial_t(v^2e^{\lambda t}) + \frac{1}{2}\lambda v^2e^{\lambda t}\dd x \dd t
+    \end{align*}
+    The terms \(a\) and \(b\) vanish by boundary conditions. Hence we have that
+    \begin{align*}
+        \int_{U_T}\frac{1}{2}\pdv{t}\left(u^2e^{-\lambda t} = a^{ij}v_{x_i}v_{x_j}e^{\lambda t} - v^2e^{\lambda t}\right)\dd x \dd t + \frac{\lambda}{2}\int_{U_T}(u^2 e^{-\lambda t} + a^{ij}e^{\lambda t}v_{x_i}v_{x_j} + v^2e^{\lambda t}) \dd x \dd t \\
+        = \int_{U_T}\frac{1}{2}a^{ij}_j v_{x_i}v_{x_j}e^{\lambda t} + (b^i_{x_i} + b_t + 1 - c)uv + b^iv_{x_i}u + buv_t \dd x \dd t 
+    \end{align*}
+    Call the first line \(A\) and the second \(B\). For \(A\),
+    \[A = e^{\lambda T}\int_{\Sigma_T}\frac{1}{2}u^2 \dd x + \frac{1}{2}\int_{\Sigma_0}a^{ij} v_{x_i}v_{x_j} + v^2 \dd x + \frac{\lambda}{2}\int_{U_T}u^2e^{-\lambda t} + e^{\lambda t}a^{ij}v_{x_i}v_{x_j} + v^2 e^{\lambda t}\dd x \dd t\]
+    Hence we have that
+    \[A \ge \frac{\lambda}{2}\int_{U_T}u^2e^{-\lambda t} + \theta \abs{Du}^2 e^{\lambda t} + v^2e^\lambda t \dd x \dd t\]
+    Also,
+    \begin{align*}
+        B &\le C(a^{ij}_t)\int_{U_T}e^{\lambda t}\abs{Dv}^2\dd x + C(b, b^i, c)\int_{U_T}\abs{u}\abs{v}\dd x + C(b^i)\int_{U_T}\abs{u}\abs{Dv}\dd x + C(b)\int_{U_T}u^2e^{-\lambda t} \dd x \\
+        &\le \frac{C}{\theta}\int_{U_T}e^{\lambda t}\theta\abs{Dv}^2 + C\int_{U_T}e^{-\lambda t}\abs{u^2} + e^{\lambda t}(\abs{v}^2 \abs{Dv}^2) \dd x \dd t \\
+        &\le C \int_{U_T}\theta \abs{Dv}^2 e^{\lambda t} + u^2 e^{-\lambda t} + v^2 e^{\lambda t} \dd x \dd t
+    \end{align*}
+    Now using that \(\abs{A} = \abs{B}\),
+    \[\left(\frac{\lambda}{2} - C\right)\int_{U_T}\underbrace{(u^2 e^{-\lambda t} + \theta\abs{Dv}^2 + v^2e^{-\lambda t})}_{\le 0}\dd x \dd t \le 0\]
+    Taking \(\lambda > 2C\), the integral must be zero, and so
+    \[\int_{U_T}u^2 e^{-\lambda t}\dd x\dd t = 0\]
+    Hence \(u = 0\) a.e.
+\end{proof}
 
 \printindex
 

@@ -2082,8 +2082,99 @@ Moreover,
 and so
 \[\left(\dd a^i + \Gamma^i_{jk}a^j\dd x^k\right)\left(\dot x^\ell \pdv{x^\ell} + \dot a^q\pdv{a^q}\right) = 0\]
 Equivalently,
-\[\dot a + \Gamma^i_{jk}a^j\dot x^k = 0\]
-This gives a system of linear ODEs for \(a_1, \dots, a_m\). From ODE theory, this exists a unique solution on any interval \(I \sse R\), given initial condition \(a^i(0)\). Hence horizontal lift always exists, and is unique, once we fix the initial condition \(\gamma_E(0) \in E_{\gamma(0)}\).
+\[\dot a^i + \Gamma^i_{jk}a^j\dot x^k = 0\]
+This gives a system of linear ODEs for \(a^1, \dots, a^m\). From ODE theory, this exists a unique solution on any interval \(I \sse R\), given initial condition \(a^i(0)\). Hence horizontal lift always exists, and is unique, once we fix the initial condition \(\gamma_E(0) \in E_{\gamma(0)}\).
+
+\lec
+
+If \(E = \T M\), then \(\gamma\) has a \emph{canonical lift} given by \(a^j(t) = \dot x^j(t)\).
+
+\begin{definition}
+    [geodesic] Let \((M, g)\) be a Riemannian manifold, a curve \(\gamma : I \to M\) is a \emph{geodesic}\index{geodesic} if the canonical lift of \(\gamma\) is horizontal with respect to the Levi-Civita connection.
+\end{definition}
+
+In a local coordinate trivialisation, we have that
+\[\ddot x^i + \Gamma^i_{jk}\dot x^j\dot x^k = 0\]
+This is a non-linear second order ODE for \(x(t) = (x^k(t))\), and so there exists \(\epsilon > 0\), such that there exists a unique solution for \(x(t)\) with \(\abs{t} < \epsilon\), given initial conditions \(x(0) = p \in M\), \(\dot x(0) = a \in \T_p M\). Denote this geodesic as
+\[\gamma_p(t, a)\]
+From standard ODE theory, the solutions are smooth with respect to the initial conditions, and so \(\gamma\) is a smooth function in \((p, q) \in \T M\).
+
+\begin{proposition}
+    \label{prop:extend-local-vf}
+    Given any smooth curve \(\gamma\) on \(M\), with \(\dot\gamma(0) \ne 0\). Then there exists an open neighbourhood \(U\) of \(\gamma(0)\), and a vector field \(X\) on \(U\), such that \(X\) extends \(\dot\gamma\). More precisely,
+    \[X(\gamma(t)) = \dot\gamma(t)\] 
+    Moreover, for any such extensions \(Y, Z\) of \(\dot \gamma\). For any connection \(\widehat D\) on \(M\), we have
+    \[\widehat D_YY\vert_{\gamma(t)} = \widehat D_YZ\vert_{\gamma(t)} \widehat D_ZZ\vert_{\gamma(t)}\]
+    Then the expression
+    \[\widehat{D}_{\dot\gamma}\dot\gamma\vert_{\gamma(t)} = \widehat D_Y Y\vert_{\gamma(t)}\]
+    is well defined.
+\end{proposition}
+
+Note that in local coordinates, if \(\gamma(t) = (x^k(t))\), then
+\[\widehat D_{\dot\gamma}\dot\gamma = \ddot x^i + \widehat\Gamma^i_{jk}\dot x^j\dot x^k\]
+
+\begin{corollary}
+    \(\gamma\) is a geodesic curve if and only if \(D_{\dot\gamma}\dot\gamma = 0\), where \(D\) is the Levi-Civita connection.
+\end{corollary}
+
+\begin{proof}
+    [Proof of \cref{prop:extend-local-vf}]
+    Since \(\dot\gamma(0) \ne 0\), without loss of generality \(\dot x^1(0) \ne 0\). So there exists a smooth local inverse \(t = t(x^1)\) for \(\abs{x^1} < \delta\) where \(\delta > 0\). With this, we get that
+    \[x^i = x^i(x^1) \text{ for }i = 2, \dots, m\]
+    Set \(X(x^1, x^2, \dots, x^n) = \dot\gamma(t(x^1))\). Recall that
+    \[\widehat D_ZY = \left(Z^\ell \partial_\ell Y^i + \widehat\Gamma^i_{jk}Y^jZ^k\right)\partial_i\]
+    Let \(p = \gamma(t_0) = (x^i(t_0))\), \(Y(p) = Z(p) = \gamma(t_0)\).  Clearly the second term only depends on the point \(p\). For the first term,
+    \[(Z^\ell\partial_\ell Y^i)\vert_p = (\dot x^\ell \partial_\ell Y^i)\vert_p = \dv{t}\bigg\vert_{t = t_0}Y^i(\gamma(t)) = \dv{t}\bigg\vert_{t = t_0}\dot x^i(t) = \ddot x^i(t_0)\]
+    With this,
+    \[(\widehat D_ZY)(p) = (\ddot x(t_0) + \widehat \Gamma^i_{jk}\dot x^j(t_0) \dot x^k(t_0))\partial_i = \widehat D_\gamma\gamma\vert_{\gamma(t_0)}\]
+\end{proof}
+
+\begin{proposition}
+    Suppose \(\gamma\) is a geodesic, then \(\abs{\dot\gamma(t)}_g = \const\) for all \(t\) (assuming the domain of \(\gamma\) is connected).
+\end{proposition}
+
+\begin{proof}
+    For any \(p = \gamma(t)\), there exists an extension \(X\) of \(\dot\gamma\) in a neighbourhood \(U\) of \(p\). We can write
+    \begin{align*}
+        \dot\gamma \cdot g(\dot\gamma, \dot \gamma) &= X \cdot g(\dot\gamma, \dot \gamma) \\
+        &= g(D_{\dot\gamma}\dot\gamma, \dot\gamma) + g(\dot\gamma, D_{\dot\gamma}\dot\gamma) \\
+        &= 0
+    \end{align*}
+    as \(\gamma\) is a geodesic. But the first term is
+    \[x^i\pdv{x^i}(g(\dot\gamma, \dot\gamma)) = \dv{t}\abs{\dot\gamma(t)}_g^2\]
+    by the chain rule. Hence \(\abs{\dot\gamma}_g\) is constant.
+\end{proof}
+
+\begin{example}
+    Consider \(\R^n\) with the standard Euclidean metric \(g_{ij} = \delta_{ij}\). This means that \(\Gamma^i_{jk} = 0\), and so the geodesic equation becomes
+    \[\ddot x^i \equiv 0\]
+    and so \(\dot x^i\) is constant. That is, \(\gamma_p(t, a) = p + at\) is a straight line.
+\end{example}
+
+\begin{example}
+    If we consider \(S^n\) with the round metric, given by the embedding \(S^n \inj \R^{n+1}\). For \(p \in S^n\) a unit vector in \(\R^{n+1}\), then we have a natural identification
+    \[\T_p S^n = \Span\{p\}^\perp\]
+    Choose \(a \in \T_pS^n\). Then consider the plane
+    \[\mcP = \Span\{p, a\}\]
+    Consider reflection \(T\) in the plane \(\mcP\). This induces a diffeomorphism on \(S^n\) and preserves the metric (i.e. it is an isometry). Then \(T\) preserves the \(\Gamma^i_{jk}\), and by construction it fixes \(p\) and \(a \in \T_p M\). Thus it preserves all of the data defining \(\gamma_p(t, a)\). By uniqueness, we must have that \(T(\gamma_p(t, a)) = \gamma_p(t, a)\). Hence \(\gamma_p(t, a)\) must lie in \(\mcP \cap S^n\). That is, it is a great circle on \(S^n\).
+\end{example}
+
+\begin{example}
+    Now consider geodesics on parametrised surfaces \(\Sigma \sse \R^3\). Suppose we have a regular parametrisation \(r(u, v)\). Then \(g\) is the first fundamental form, with coefficients \(E, F, G\). Then \(\Gamma^i_{jk}\) can be computed from the Gauss-Weingarten formulae. See examples sheet 3 question 10.
+\end{example}
+
+Let \((M, g)\) be a Riemannian manifold, and fix \(p \in M\). Consider \(\gamma(t, a) = \gamma_p(t, a)\). Let \(\lambda in \R\). Then
+\[\dv{t}\gamma(\lambda t, a) = \lambda \dot\gamma(\lambda t, a)\]
+and
+\[\dv[2]{t}\gamma(\lambda t, a) = \lambda^2 \ddot \gamma(\lambda t, a)\]
+From this, we see that \(\gamma(\lambda t, a)\) is also a solution to the geodesic equations. With this, we have that
+\[\gamma(\lambda t, a) = \gamma(t, \lambda a)\]
+
+\begin{remark}
+    For all \(a \in \T_pM\), we can find \(\epsilon = \epsilon_a > 0\) such that for any \(\abs{a} < \epsilon_a\),
+    \[\gamma(s, a) = \gamma(1, sa)\]
+    But the map \(a \mapsto \epsilon_a\) can be chosen to be continuous, and so by compactness of the unit sphere in \(\R^n\), there exists \(\epsilon > 0\) such that for all \(\abs{a}_g < \epsilon\), \(\gamma(1, a)\) is defined.
+\end{remark}
 
 
 \printindex
