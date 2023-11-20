@@ -2599,7 +2599,7 @@ If \(\Gamma \sse A\) is \emph{cofinal}\index{cofinal}, that is, for all \(a \in 
 
 \begin{example}
     \[\HH^*_\ct(\R^n) = \begin{cases}
-        \Z & * = 0 \\
+        \Z & * = n \\
         0 &\text{otherwise}
     \end{cases}\]
     By Heine-Borel, every compact \(K \sse \R^n\) lies in \(\overline{B}(0, N)\) for some \(N\), and so
@@ -2723,6 +2723,8 @@ The isomorphism \(D\) is obtained from the \emph{cap product}.
         which descends to coohomology.  
     \end{enumerate}
 \end{lemma}
+
+\lec
 
 \begin{proof}
     For (i),
@@ -2959,7 +2961,154 @@ An alternative proof is to use the existence of an oriented double cover.
 	\arrow[from=2-1, to=2-2]
 \end{tikzcd}\]
     it does not commute as is. Hpwever it does commute up to a sign, and we can use the five lemma in this case. We will omit the proof of this fact. See Hatcher/Spanier for details.
+
+\lec
+
+    Now suppose \(M = \bigcup_i U_i\), with \(U_1 \sse U_2 \sse \cdots\) are all good, then so is \(M\) since any compact subset is contained in some \(U_i\), and so
+    \[\dirlim \HH^*\ct(U_i) \to \HH^*_\ct(M)\]
+    is an isomorphism. On the other hand, any homology class is represented by a finite union of simplices, which has compact image, we have natural maps
+    \[\HH_*(U_i) \to \HH_*(M)\]
+    and taking the direct limit,
+    \[\dirlim \HH_*(U_i) \to \HH_*(M)\]
+    is also an isomorphism.
+
+    Using this, and that any open subset of \(\R^n\) is a counable union of open balls, we see that any open subset of \(\R^n\) is good. Thus, if the manifold \(M\) is \emph{second countable}, then it is covered by countably many discs, and we are done.
+
+    In general, use Zorn's lemma for the collection of all good open subsets of \(M\),
 \end{proof}
+
+\begin{proof}
+    [Proof of \cref{lem:pd-a}]
+
+    If \((X, Y) = (A \cup B, C \cup D)\) is a union of pairs, then we have a relative Mayer-Vietoris seqeuence
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhIXmkoWCwgWSkiXSxbMSwwLCJcXEhIXmkoQSwgQylcXG9wbHVzXFxISF5pKEIsIEQpIl0sWzIsMCwiXFxISF5pKEEgXFxjYXAgQiwgQyBcXGNhcCBEKSJdLFszLDAsIlxcSEhee2krMX0oWCwgWSkiXSxbMCwxXSxbMSwyXSxbMiwzXV0=
+\[\begin{tikzcd}
+	{\HH^i(X, Y)} & {\HH^i(A, C)\oplus\HH^i(B, D)} & {\HH^i(A \cap B, C \cap D)} & {\HH^{i+1}(X, Y)}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    using the small-simplices theorem (see Sheet 4). If \(X = U \cup V\), \(K \sse U, L \sse V\) compact, set \(A = B = X\), \(C = X \setminus K, D = X \setminus Y\), \(Y = X \setminus (K \cap L)\), \(C \cap D = X \setminus (K \cup L)\).
+    We then get an exact sequence
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhIXmkoWCwgWFxcc2V0bWludXMoSyBcXGNhcCBMKSkiXSxbMSwwLCJcXEhIXmkoWCwgWCBcXHNldG1pbnVzIEspXFxvcGx1c1xcSEheaShYLCBYIFxcc2V0bWludXMgTCkiXSxbMiwwLCJcXEhIXmkoWCwgWCBcXHNldG1pbnVzIChLIFxcY3VwIEwpKSJdLFszLDAsIlxcSEhee2krMX0oWCwgWCBcXHNldG1pbnVzIChLIFxcY2FwIEwgKSkiXSxbMCwxXSxbMSwyXSxbMiwzXV0=
+\[\begin{tikzcd}
+	{\HH^i(X, X\setminus(K \cap L))} & {\HH^i(X, X \setminus K)\oplus\HH^i(X, X \setminus L)} & {\HH^i(X, X \setminus (K \cup L))} & {\HH^{i+1}(X, X \setminus (K \cap L ))}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    Excise \(X \setminus U \cap V, X \setminus U, X \setminus V\) from the first three terms, we get
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhIXmkoVSBcXGNhcCBWLCAoVSBcXGNhcCBWKVxcc2V0bWludXMoSyBcXGNhcCBMKSkiXSxbMSwwLCJcXEhIXmkoVSwgVSBcXHNldG1pbnVzIEspXFxvcGx1c1xcSEheaShWLCBWXFxzZXRtaW51cyBMKSJdLFsyLDAsIlxcSEheaShYLCBYIFxcc2V0bWludXMgKEsgXFxjdXAgTCkpIl0sWzMsMCwiXFxISF57aSsxfShVIFxcY2FwIFYsIChVIFxcY2FwIFYpXFxzZXRtaW51cyhLIFxcY2FwIEwpKSJdLFswLDFdLFsxLDJdLFsyLDNdXQ==
+\[\begin{tikzcd}[column sep=tiny]
+	{\HH^i(U \cap V, (U \cap V)\setminus(K \cap L))} & {\HH^i(U, U \setminus K)\oplus\HH^i(V, V\setminus L)} & {\HH^i(X, X \setminus (K \cup L))} & {\HH^{i+1}(U \cap V, (U \cap V)\setminus(K \cap L))}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    But every compact subset \(Q \sse U \cap V\) is of the form \(K \cap L\), where \(K \sse U\) compact, \(L \sse V\) compact. For example, \(U = V = Q\).
+
+    Thus, if we range over all \(K, L\), in the first three terms we get all possible compact subsets. Since \(X\) is locally compact, any compact subset of \(X\) is contained in \(K \cup L\), for some compact \(K \sse U, L \sse V\). Thus, the compact subsets of the form \(K \cup L\) form a cofinal family. Taking the direct limit over \(K \sse U, L \sse V\) compact, and using that the direct limit of exact sequences is exact, we get the Mayer-Vietoris seqeunce for \(\HH^*_\ct\).
+\end{proof}
+
+\section{Vector bundles}
+
+\begin{definition}
+    [vector bundle] Let \(B\) be a topological space. A \emph{vector bundle of rank \(d\)}\index{vector bundle} \(E \to B\) is:
+    \begin{itemize}
+        \item A family of \(d\)-dimensional vector spaces \(\{E_b\}_{b \in B}\),
+        \item with a topology on \(E = \bigsqcup E_b\), such that
+        \begin{enumerate}[(i)]
+            \item the natural projection \(p : E \to B\) is continuous
+            \item and locally trivial. That is, for all \(b \in B\), there exists a neighbourhood \(U\) of \(b\), and a \emph{local trivialisation}\index{local trivialisation}, which is a homeomorphism \(\psi\) making the diagram
+            % https://q.uiver.app/#q=WzAsMyxbMCwwLCJwXnstMX0oVSkgPSBFXFx2ZXJ0X1UiXSxbMiwwLCJVIFxcdGltZXMgXFxSXmQiXSxbMSwyLCJVIl0sWzAsMiwicCIsMl0sWzAsMSwiXFxwc2kiXSxbMSwyLCJcXHByXzEiXV0=
+            \[\begin{tikzcd}[column sep=tiny]
+                {p^{-1}(U) = E\vert_U} && {U \times \R^d} \\
+                \\
+                & U
+                \arrow["p"', from=1-1, to=3-2]
+                \arrow["\psi", from=1-1, to=1-3]
+                \arrow["{\pr_1}", from=1-3, to=3-2]
+            \end{tikzcd}\]
+            commute, and such that the map
+            \[\psi : E_b \to \{b\} \times \R^d\]
+            is a linear isomorphism for all \(y \in U\).
+            \item The subspace topology on \(E_b\) from \(E\) is the same as the topology on \(E_b\) as a Euclidean space.
+        \end{enumerate}
+    \end{itemize}
+
+    We call \(E\) the total space, \(B\) the base space, \(E_b\) the fibres.
+\end{definition}
+
+\begin{definition}
+    [section] A map \(s : B \to E\) is called a \emph{section}\index{section} of \(E\) if \(p \circ s = \id_B\).
+\end{definition}
+
+The map
+\begin{align*}
+    B &\to E \\
+    b &\mapsto 0 \in E_b
+\end{align*}
+is called the \emph{zero section}.
+
+\begin{example}
+    The \emph{trivial vector bundle of rank \(d\)}\index{trivial vector bundle} is \(E = B \times \R^d\) with the product topology and the projection map.
+\end{example}
+
+\begin{definition}
+    [pullback] If \(p : E \to X\) is a vector bundle, \(f : Y \to X\) is any map, we define the \emph{pullback}\index{pullback} as \(f^*E \to Y\), with
+    \[f^*E = \left\{(e, y) \in E \times Y \mid p(e) = f(y)\right\}\]
+    This has a natural projection map to \(Y\). Then \(f^*E_y = E_{f(y)}\).
+\end{definition}
+
+\begin{definition}
+    [Whitney sum] Let \(p : E \to X, q : F \to X\) be vector bundles, then we define their \emph{Whitney sum}\index{Whitney sum} has
+    \[E \oplus F = \left\{(x, y) \in E \times F \mid p(e) = q(f)\right\}\]
+    This has a natural map to \(X \times X\), which lands in the diagonal, that we identify with \(X\).
+\end{definition}
+
+\begin{remark}
+    Both of these operations have
+    \begin{enumerate}
+        \item it takes trivial bundles to trivial bundles,
+        \item they commute with retriction to open subsets \(U \sse B\). In other words,
+        \[f^*(E\vert_U) = (f^*E)\vert_{f^{-1}U} \qqtext{ and }(E \oplus F)\vert_U = E\vert_U \oplus F \vert_U\]
+    \end{enumerate}
+    and so they are locally trivial.
+\end{remark}
+
+Other operations include tensor product, dual, exterior powers etc.
+
+If \(p : E \to X\) is a vector bundle, we say \(F \sse E\) is a \emph{subbundle}\index{subbundle} if for all \(x \in X\), \(F_x = p^{-1}(E_x)\) is a linear subspace, and we have an open neighbourhood of \(U\) with a trivalisation of \(F\) making
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJFXFx2ZXJ0X1UiXSxbMCwyLCJGXFx2ZXJ0X1UiXSxbMiwwLCJVIFxcdGltZXMgXFxSXmQiXSxbMiwyLCJVIFxcdGltZXMgXFxSXmsiXSxbMSwwLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFswLDIsIlxccHNpIl0sWzMsMiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMSwzLCJcXHdpZGV0aWxkZVxccHNpIiwyXV0=
+\[\begin{tikzcd}
+	{E\vert_U} && {U \times \R^d} \\
+	\\
+	{F\vert_U} && {U \times \R^k}
+	\arrow[hook, from=3-1, to=1-1]
+	\arrow["\psi", from=1-1, to=1-3]
+	\arrow[hook, from=3-3, to=1-3]
+	\arrow["\widetilde\psi"', from=3-1, to=3-3]
+\end{tikzcd}\]
+commute.
+
+If \(F \sse E\) is a subbundle, then we can define \(E/F \to X\), with fibre \(E_x/F_x\).
+
+\begin{definition}
+    [isomorphism] We say that vector bundles \(E \to X, F \to X\) are \emph{isomorphic}\index{isomorphism!of vector bundles} if there exists homeomorphisms \(\alpha : E \to F, g : X \to X\), making the diagram
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJFIl0sWzIsMCwiRiJdLFswLDIsIlgiXSxbMiwyLCJYIl0sWzIsMywiZyIsMl0sWzAsMl0sWzEsM10sWzAsMSwiXFxhbHBoYSJdXQ==
+\[\begin{tikzcd}
+	E && F \\
+	\\
+	X && X
+	\arrow["g"', from=3-1, to=3-3]
+	\arrow[from=1-1, to=3-1]
+	\arrow[from=1-3, to=3-3]
+	\arrow["\alpha", from=1-1, to=1-3]
+\end{tikzcd}\]
+    commute, such that \(\alpha : E_x \to F_{g(x)}\) is a linear isomorphism.
+\end{definition}
+
+The most important case is when \(g = \id\).
 
 \printindex
 

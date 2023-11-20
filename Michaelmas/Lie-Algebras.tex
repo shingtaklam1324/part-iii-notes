@@ -2668,6 +2668,149 @@ Some facts/exercises:
 In our case,
 \[\gr(\mcU(\mfg)) = U_0 \oplus\left(\bigoplus_{n \ge 1}U_n/U_{n-1}\right)\]
 
+\lec
+
+\subsection{PBW theorem}
+
+\begin{theorem}
+    [PBW] \index{PBW theorem} There exists an isomorphism of algebras
+    \[\mcS(\mfg) \cong \gr(\mcU(\mfg))\]
+    Equivalently, if \(\{x_1, \dots, x_n\}\) is a basis for \(\mfg\), then
+    \[x_1^{k_1}\cdot x_n^{k_n}\]
+    is a basis for \(\mcU(\mfg)\), and so \(\mfg\) embeds into \(\mcU(\mfg)\).
+\end{theorem}
+
+\begin{proof}
+    [Proof*] Omitted. For the first part, see Humphreys \S17.4. We have a map \(\mfg \to \mcU_n\) by inclusion, then consider the composition of this with the quotient map. Hence we get a map from the tensor algebra to the associated graded algebra, which by the exercise at the end of the last lecture, factors through the symmetric algebra, \(\mcS(\mfg)\).
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXG1jVChcXG1mZykiXSxbMiwwLCJcXGdyKFxcbWNVKFxcbWZnKSkiXSxbMiwyLCJcXG1jUyhcXG1mZykiXSxbMCwxXSxbMiwxXSxbMCwyXV0=
+\[\begin{tikzcd}
+	{\mcT(\mfg)} && {\gr(\mcU(\mfg))} \\
+	\\
+	&& {\mcS(\mfg)}
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=3-3, to=1-3]
+	\arrow[from=1-1, to=3-3]
+\end{tikzcd}\]
+    It's not too hard to show the map is surjective, but it is hard to show that it is injective.
+
+    For the basis, a basis for \(\mcS(\mfg)\) gives an associated basis of \(\gr(\mcU(\mfg))\), which in turn gives a basis for \(\mcU(\mfg)\). See Humphreys \S17.3 Corollary C.
+\end{proof}
+
+\begin{lemma}
+    Suppose \(V\) is a representation of \(\mfg\), and \(v \in V\). Then the minimal subrepresentation of \(V\) which contains \(v\) is
+    \[\mcU(\mfg)v = \left\{u v \mid u \in \mcU(\mfg)\right\}\]
+\end{lemma}
+
+\begin{proof}
+    It is clear that \(\mcU(\mfg)v\) contains everything we want, as it contains all elements of the form \(x_1\cdots x_nv\) for all \(x_i \in \mfg\). It also contains all scalar multiples, and all of the sums of the above.
+\end{proof}
+
+\begin{example}
+    \label{ex:hwv-sl2}
+    Let \(V\) be a \(\C\)-vector space, choose a basis \(v_0, \dots, v_n\). Define an \(\sl_2\)-action on \(V\) by
+    \begin{align*}
+        ev_0 &= 0 \\
+        hv_0 &= 0 \\
+        fv_i &= v_{i+1}
+    \end{align*}
+    We claim that \(v_0\) and \(v_1\) are highest weight vectors for the \(\sl_2\)-action. We need that \(ev_0 = ev_1 = 0\). For \(j = 1\),
+    \[ev_1 = efv_0 = ([e, f] + fe)v_0 = hv_0 = 0\]
+    We also require that \(\inner{v_0}\) and \(\inner{v_1}\) to contain their images under \(h\). \(hv_0 = 0\) so this is clear, and for \(v_1\),
+    \[hv_1 = hfv_0 = ([h, f]  + fh)v_0 = [h, f]v_0 = -2fv_0 = -2v_1\]
+    So \(v_1 \in V_{-2}\) is a highest weight vector.
+
+    Also note that
+    \[W = \Span\{v_1, \dots, v_n\}\]
+    is a subrepresentation of \(V\), and \(V/W\) is one dimensional, and so \(V/W \cong V(0)\).
+
+    More generally, if \(V^{(n)}\) is a \(\C\)-vector space, with basis \(v_0, \dots, v_m\), and with \(\sl_2\) action given by
+    \begin{align*}
+        ev_0 &= 0 \\
+        hv_0 &= nv_0 \\
+        fv_i &= v_{i+1}
+    \end{align*}
+    Then \(v_{n+1}\) is a highest weight vector. If we let
+    \[W^{(n)} = \Span\{v_{n+1}, \dots, v_m\}\]
+    and we have that
+    \[V^{(n)}/W^{(n)} \cong V(n)\]
+\end{example}
+
+\section{Highest weight modules and Verma modules}
+
+As usual, let \(\mfg\) be a semisimple Lie algebra, with a Cartan subalgebra \(\mft\) and roots \(\Phi\), and a base \(\Delta = \{\alpha_1, \dots, \alpha_\ell\}\) of simple roots. If \(V\) is a representation, then we have weight spaces
+\[V_\lambda = \left\{v \in V \mid tv = \lambda(t)v \text{ for all }t \in \mft\right\}\]
+
+\begin{remark}
+    \begin{itemize}
+        \item \(V_\lambda\) makes sense even if \(V\) is infinite dimensional.
+        \item the definition of a highest weight vector also makes sense if \(V\) is infinite dimensional.
+        \item if \(e_\alpha \in \mfg_\alpha\) is non-zero, then
+        \[e_\alpha V_\lambda \sse V_{\lambda + \alpha}\]
+        which still makes sense if \(V\) is infinite dimensional.
+    \end{itemize}
+\end{remark}
+
+\begin{definition}
+    [highest weight module]
+    A representation \(V\) of \(\mfg\) is a \emph{highest weight module}\index{highest weight module} if \(V\) contains a highest weight vector \(v\), such that
+    \[V = \mcU(\mfg)v\]
+\end{definition}
+
+\begin{example}
+    Any finite dimensional irreducible representation \(v\) of \(\mfg\) is a highest weight module. This follows as \(v\) has to contain a highest weight vector \(v\), and we saw that \(\mcU(\mfg)v\) is a subrepresentation of \(V\) containing \(v\). Thus equality holds as \(V\) is irreducible.
+\end{example}
+
+\begin{example}
+    In \cref{ex:hwv-sl2}, \(v_0\) is a highest weight vector, and \(v_i = f^iv_0\), and so
+    \[V = \mcU(\mfg)v_0\]
+    is a highest weight module.
+\end{example}
+
+\begin{remark}
+    \begin{itemize}
+        \item Not every highest weight module is irreducible,
+        \item If \(V\) is an infinite dimensional weight module, \(v \in V_\lambda\) a highest weight vector, then \(\lambda\) does not have to be dominant.
+    \end{itemize}
+\end{remark}
+
+\begin{notation}
+    Define
+    \begin{align*}
+        \eta^+ &= \bigoplus_{\alpha \in \Phi^+}\mfg_\alpha \\
+        \eta^- &= \bigoplus_{\alpha \in \Phi^-}\mfg_\alpha
+    \end{align*}
+\end{notation}
+
+With this, we have that
+\[\mfg = \eta^+ \oplus \mft \oplus \eta^-\]
+
+\begin{lemma}
+    Suppose \(V\) is a highest weight module, with a highest weight vector \(v\) such that \(V = \mcU(\mfg)v\). Then in fact
+    \[V = \mcU(\eta^-)v\]
+\end{lemma}
+
+\begin{proof}
+    Choose a basis \(x_1, \dots, x_n\) of \(\eta^-\), a basis \(t_1, \dots, t_\ell\) of \(\mft\), and a basis \(y_1, \dots, y_n\) of \(\eta^+\). Then
+    \[\mcU(\mfg) = \mcU(\eta^-) \otimes \mcU(\mft) \otimes \mcU(\eta^+)\]
+    and by PBW,
+    \[\mcU(\mfg)v = \Span\{x_1^{k_1}\cdots x_n^{k_n}t_1^{m_1}\cdots t_\ell^{m_\ell}y_1^{r_1}\cdots y_n^{r_n}v\}\]
+    But \(y_iv = 0\) for all \(i\), and \(t_iv \in \Span\{v\}\), and so
+    \[\mcU(\mfg)v = \mcU(\eta^-)v\] 
+\end{proof}
+
+\begin{proposition}
+    Let \(V\) be a highest weight module, with highest weight vector \(v_\lambda \in V_\lambda\), with \(V = \mcU(\mfg)v_\lambda\). Then
+    \begin{enumerate}[(i)]
+        \item \[V = \bigoplus_{\mu \in D(\lambda)} V_\mu\]where 
+        \[D(\lambda) = \{\lambda - \sum_{i=1}^\ell k_i\alpha_i \mid k_i \in \Z_{\ge 0}\}\]
+        is the \emph{descent set of \(\lambda\)}\index{descent set}.
+        \item Any submodule of \(V\) is a direct sum of weight spaces \(V_\mu\),
+        \item \(\dim(V_\lambda) = 1\) and any other \(V_\mu\) is finite dimensional,
+        \item \(V\) is irreducible if and only if every highest weight vector lies in \(V_\lambda\),
+        \item \(V\) contains a maximal (proper) subrepresentation.
+    \end{enumerate}
+\end{proposition}
+
 \printindex
 
 \end{document}

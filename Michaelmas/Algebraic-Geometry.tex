@@ -1892,6 +1892,7 @@ where the \(f^{-1}\mcO_Y\)-module structure on \(\mcO_X\) is defined via the adj
 \end{proposition}
 
 \begin{lemma}
+    \label{lem:restriction-of-global-section-if-mult}
     Let \(X = \Spec(A)\) be a scheme, \(f \in A\), \(\mcF\) a quasi-coherent \(\mcO_X\)-module. Let \(s \in \Gamma(X, \mcF)\). Then
     \begin{enumerate}[(i)]
         \item if \(s\) restricts to zero on \(U_f\), then \(f^ns = 0\) for some \(n\).
@@ -1984,7 +1985,108 @@ In particular, every \(\mcF\) as above is a quotient of a vector bundle.
     By formal properties, it is equivalent to show the statement for \(i_*\mcF\). That is, \(i_*\mcF(d)\) is globally generated on \(\P^n_R\).
 
     \textbf{Strategy:} First we will cover by affines \(U_i = \Spec(R[x_0/x_i, \dots, x_n/x_i])\). Then \(i_*\mcF\vert_{U_i}\) is a sheaf associated to a module \(M_i\). Choose generators \(\{s_{ij}\}\) for \(M_i\). Finally, we will clear denominators by multiplying by \(x_i^d\) for some large \(d\), and extend them to generators of global sections of \(\mcF(d)\).
+
+\lec
+
+    Write \(\P^n_R = \Proj(R[x_0, \dots, x_n])\), and cover \(\P^n_R\) by \(U_i\), where
+    \[U_i = \Spec\left(R\left[\frac{x_0}{x_i}, \dots, \frac{x_n}{x_i}\right]\right)\]
+    Now \(\mcF\vert_{U_i} = M_i^{\sh}\), where \(M_i\) is a finitely generated \(R_i\)-module.
+
+    Choose generators \(\{s_{ij}\}\) for \(M_i\).
+
+    \begin{claim}
+        The sections \(\{x_i^ds_{ij}\}_{j}\) of \(\mcF(d)(U_i) = (\mcF \otimes \mcO(d))(U_i)\) are restrictions of global sections \(t_{ij} \in \Gamma(\P^n, \mcF(d))\) for all sufficiently large \(d\).
+    \end{claim}
+
+    \begin{proof}
+        Left as an exercise. Say \(s_{ij} \in M_i = \mcF_i(U_i)\), and let \(x_i \in \mcO(1)\). We claim that \(x_i^ds_{ij} \in (\mcF\otimes \mcO(d))\vert_{U_i}\) is the restriction of a global section.
+
+        In the case when \(X = \P_1\), we can cover \(U_1 = \P^1\setminus \{0\}\) and \(U_2 = \P^2 \setminus \{\infty\}\). Restrict \(s_{1j}\) to \(U_1 \cap U_2\). By \cref{lem:restriction-of-global-section-if-mult}, this is a restriction after multiplying by a high power of \(x_i\).
+    \end{proof}
+
+    On \(U_i\), \(s_{ij}\) gobally generate \(M_i^{\sh}\), but we have a morphism of sheaves
+    \begin{align*}
+        \cdot x_i^d : \mcF &\to \mcF(d) \\
+        s &\mapsto s \otimes x_i^d = x_i^d s 
+    \end{align*}
+    On each \(U_i\), this restricts to an isomorphism for \(\mcF\vert_{U_i} \to \mcF(d)\vert_{U_i}\), since \(x_i\) is invertible on \(U_i\). Since the \(s_{ij}\) generate \(\mcF\vert_{U_i}\), the \(x_i^ds_{ij}\) generate \(\mcF(d)\vert_{U_i}\). With this, the \(t_{ij}\) globally generate.
 \end{proof}
+
+\begin{corollary}
+    With the notation as above, \(\mcF\) is a quotient of \(\mcO(-d)^{\oplus N}\) for some sufficiently large \(N\), \(d \in \Z\).
+\end{corollary}
+
+\begin{proof}
+    In the theorem, we have \(\mcO_X^{\oplus N} \to \mcF(d)\). Now tensor with \(\mcO(-d)\).
+\end{proof}
+
+\section{Divisors}
+
+In rings, we have two classes of special ideals. Principal (prime) ideals and height \(1\) prime ideals. Recall if \(\mfp \in \Spec(R)\), the height of \(\mfp\), \(\height(\mfp)\) is the largest \(n\) such that there exists a chain of inclusions
+\[\mfp_0 \subsetneq \mfp_1 \subsetneq \cdots \subsetneq \mfp_n = \mfp\]
+In particular, if \(R\) is an integral domain, \(\mfp \in \Spec(R)\) has height \(1\) if and only if there is no non-zero prime strictly contained in \(\mfp\).
+
+\begin{example}
+    In \(\C[x, y]\), then \(\inner{0}\) has height 0, \(\inner{x}\) has height \(1\), \(\inner{xy}\) has height \(2\).
+\end{example}
+
+\begin{remark}
+    In a UFD, height \(1\) prime and principal prime ideals are the same.
+\end{remark}
+
+We will now globalise both notions.
+\begin{itemize}
+    \item height \(1\) primes correspond to Weil divisors.
+    \item principal ideals correspond to Cartier divisors.
+\end{itemize}
+
+\begin{definition}
+    [generic point]
+    If \(X\) is an integral scheme, \(U = \Spec(A)\) is an open affine in \(X\), then the ideal \(0 \in \Spec(A)\) is called the \emph{generic point}\index{generic point} of \(X\). This is true for any \(U\) open affine. We denote this as \(\eta\) or \(\eta_X\).
+\end{definition}
+
+
+\subsection{Topological facts}
+
+\begin{definition}
+    [dimension, codimension] For a topological space \(X\), the \emph{dimension}\index{dimension} of \(X\) is the length of the longest chain of nonempty closed irreducible subsets
+    \[Z_0 \subsetneq Z_1 \subsetneq \cdots \subsetneq Z_n\]
+    in \(X\).
+
+    Let \(Z \sse X\) be closed and irreducible. The \emph{codimension}\index{codimension} of \(Z\) in \(X\) is the longest chain
+    \[Z = Z_0 \subsetneq Z_1 \subsetneq \cdots \subsetneq Z_n\]
+\end{definition}
+
+\begin{lemma}
+    If \(X\) is a Noetherian topological space, then every closed \(Z \sse X\) has a decomposition into finitely many irreducible closed subsets.
+\end{lemma}
+
+\begin{definition}
+    [regular in codimension \(1\)]
+    Let \(X\) be a Noetherian integral separated scheme, then \(X\) is \emph{regular in codimension \(1\)}\index{regular in codimension \(1\)} if for all \(Y \sse X\) closed irreducible codimension \(1\), let \(\eta_Y\) denote the generic point of \(Y\), then \(\mcO_{X, \eta_Y}\) is a discrete valuation ring (i.e. a local PID).
+\end{definition}
+
+\subsection{Weil divisors}
+
+Assume \(X\) is a (Noetherian) integral separated and regular in codimension \(1\) scheme.
+
+\begin{definition}
+    [prime divisor, Weil divisor]
+    A \emph{prime divisor}\index{prime divisor} on \(X\) is an integral closed subscheme of codimension \(1\). A \emph{Weil divisor}\index{Weil divisor} is an element of the free abelian group \(\Div(X)\) generated by the prime divisors.
+\end{definition}
+
+We will write \(D \in \Div(X)\) as
+\[D = \sum_i n_{Y_i}[Y_i]\]
+where \(Y_i\) are prime. A Weil divisor \(D\) is \emph{effective}\index{effective} if all \(n_{Y_i} \ge 0\).
+
+\begin{proposition}
+    Let \(f \in \mcO_{X, \eta_X} = k(X)\). For every \(Y \sse X\) a prime divisor, the ring \(\mcO_{X, \eta_Y}\) is a DVR, we can calculate the valuation \(\nu_Y(f)\) of \(f\) in the DVR. We define the \emph{divisor}\index{divisor!of a function}
+    \[\div(f) = \sum_{Y \sse X \text{ prime divisor}}\nu_Y(f)[Y]\]
+    
+    Then \(\div(f)\) is a Weil divisor.
+\end{proposition}
+
+First, if \(X\) is integral, choose \(U \sse X\), \(U = \Spec(A)\), then \(\mcO_{X,\eta} = \Frac(A)\). Since \(\eta\) is contained in every open affine, \(\mcO_{X, \eta}\) allows arbitraty denominators.
 
 \printindex
 
