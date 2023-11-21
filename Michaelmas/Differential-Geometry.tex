@@ -2176,6 +2176,153 @@ From this, we see that \(\gamma(\lambda t, a)\) is also a solution to the geodes
     But the map \(a \mapsto \epsilon_a\) can be chosen to be continuous, and so by compactness of the unit sphere in \(\R^n\), there exists \(\epsilon > 0\) such that for all \(\abs{a}_g < \epsilon\), \(\gamma(1, a)\) is defined.
 \end{remark}
 
+\lec
+
+\begin{definition}
+    [exponential map]
+    Let \((M, g)\) be a Riemannian manifold. The the \emph{exponential map}\index{exponential map} at \(p\) is the map
+    \begin{align*}
+        \exp_p : \T_p M &\to M \\
+        \exp_p(a) &= \gamma_p(1, a)
+    \end{align*}
+\end{definition}
+
+Note that \(\exp_p(a)\) is well defined for (and potentially \emph{only for}) \(a \in T_pM\) with \(\abs{a}_g < \epsilon\). In this case, \(\exp_p\) is smooth by standard ODE theory.
+
+\begin{proposition}
+    \[(\dd\exp_p)_0 = \id_{\T_p M}\]
+\end{proposition}
+Note here we identify \(\T_0\T_pM\) with \(\T_pM\). Intuitively, consider the Taylor expansion.
+\begin{proof}
+    Clearly \(\exp_p(0) = p\). When \(\abs{a}_g < \epsilon\), \(\exp(a)\) is well defined, and we have that
+    \[\gamma_p(t, a) = \gamma_p(1, ta)\]
+    for \(\abs{t} \le 1\). Then
+    \begin{align*}
+        (\dd \exp_p)_0(a) &= \dv{t}\bigg\vert_{t=0}\exp_p(ta) \\
+        &= \dv{t}\bigg\vert_{t=0}\gamma_p(1, ta) \\
+        &= \dv{t}\bigg\vert_{t=0}\gamma_p(t, a) \\
+        &=\dot\gamma_p(0, a) \\
+        &= a
+    \end{align*}
+\end{proof}
+
+\begin{corollary}
+    For some \(r_0 > 0\), the exponential map
+    \[\exp_p : B_g(0, r_0) \to U\]
+    is a diffeomorphism onto its image \(U\), a neighbourhood of \(p\). In this case, \(B_g(0, r_0)\) is the radius \(r_0\) open ball with respect to the Riemannian metric \(g\).
+\end{corollary}
+
+\begin{proof}
+    Inverse function theorem.
+\end{proof}
+
+Using this, \((\exp_p)^{-1}\) defines a chart around \(p\). The respeective local coordinates are called the \emph{geodesic (normal) coordinates}\index{geodesic (normal) coordinates}. In these local coordinates,
+\begin{equation}
+    \label{eq:exp-geodesic}
+    \exp_p^{-1}(\gamma_p(t, a)) = ta
+\end{equation}
+and so the geodesics through \(p\) are represented by straight lines through \(0\). We call these \emph{radial geodesics}\index{radial geodesic}.
+
+On \(B_g(0, \epsilon)\), we have polar coordinates, given by
+\begin{align*}
+    (0, \epsilon) \times S^{n-1} &\to B_g(0, \epsilon) \\
+    (r, x) &= rx
+\end{align*}
+Using this, we obtain a local parametrisation given by
+\[f(r, x) = \exp(rx)\]
+which is the \emph{geodesic polar coordinates}\index{geodesic polar coordinates}. For \(r\) fixed, define the \emph{geodesic sphere}\index{geodesic sphere}
+\[\Sigma_r = f(\{r\} \times S^{n-1}) \sse M\]
+
+\begin{lemma}
+    [Gauss] \(\gamma_p(t, a)\) meets \(\Sigma_r\) orthogonally for every \(r < \epsilon\), \(a \in \T_pM\). Thus, locally
+    \[g = \dd r^2 + h(r, v)\]
+    where \(h(r, v) = g\vert_{\Sigma_r}\).
+\end{lemma}
+
+\begin{proof}
+    Choose a vector field \(X \in V(S^{n-1})\), where \(S^[n-1]\) will be the unit sphere in \(\T_pM\) with respect the inner product induced by \(g\). Then extend \(X\) to a vector field \(X\) on \(B_g^*(0, 1)\)\footnote{Punctured unit ball}, by choosing \(X\) to be independent of the radius.
+    
+    Let \(\tilde X(r, v) = rX(v)\). This is still defined on \(B_g^*(0, 1)\). Let
+    \[Y(f(r, v)) = (\dd \exp_p)_{rv}\tilde X(r, v)\]
+    then \(Y\) is a vector field on a punctured neighourhood \(U\) of \(p\). 
+
+    First, consider the vector field \(\pdv{r}\). In this case,
+    \[\pdv{r} = \frac{1}{\abs{a}_g}\dot \gamma_p(t, a)\]
+    from \cref{eq:exp-geodesic}. Now consider \(\dot\gamma_p(t, a)\), for \(\abs{a}_g = 1\) varying over \(S^{n-1} \sse \T_pM\), with \(\abs{t} < \epsilon\). This defines a vector field on \(U\). Also,
+    \begin{align*}
+        \dv{t}g\left(\pdv{r}, \pdv{t}\right) &= \dv{t}g(\dot\gamma, \dot\gamma) = 0
+    \end{align*}
+    and so taking the limit \(t \to 0\) we see that
+    \[g\left(\pdv{r}, \pdv{r}\right) = 1\]
+    Thus, it remains to show that
+    \[g\left(Y, \pdv{r}\right) = 0\]
+    First, consider
+    \begin{align*}
+        D_{\dot\gamma}Y - D_Y\dot\gamma &= (\dd f)\left(D_{\pdv{r}}\tilde X - D_{\tilde X}\pdv{r}\right) \\
+        &= (\dd f)\pdv{r}\tilde X \\
+        &= (\dd f)\frac{\tilde X}{r} \\
+        &= (\dd f)\frac{Y}{r}
+    \end{align*}
+    With this,
+    \begin{align*}
+        \pdv{r}g\left(Y, \pdv{r}\right) &= g\left(D_{\dot\gamma}Y, \dot\gamma\right) + \underbrace{g(Y, D_{\dot\gamma}\dot\gamma)}_{=0 \text{ as }\gamma\text{ geodesic}} \\
+        &= g\left(D_{\dot\gamma}\dot\gamma + \frac{Y}{r}, \dot\gamma\right) \\
+        &= \frac{1}{r}g(Y, \dot\gamma)
+    \end{align*}
+    as
+    \[g(D_{\dot\gamma}\dot\gamma, \dot\gamma) = \frac{1}{2}Yg(\dot\gamma, \dot\gamma) = 0\]
+    If we set \(G = g(Y, \pdv{r})\), then
+    \[\dv{r}G = \frac{G}{r}\]
+    \(G\) is linear in \(r\), and taking the limit as \(r \to 0\), we get
+    \[\lim_{r \downarrow 0}\dv{r}G = \lim_{r \downarrow 0}g\left(X, \pdv{r}\right) = 0\]
+    since
+    \[\lim_{v \to 0} (\dd \exp_p)_v = \id\]
+    which is an isometry.
+\end{proof}
+
+\subsection{Curvature}
+
+\begin{definition}
+    [Riemann cuvrature]
+    The \emph{(full) Riemann curvature}\index{full Riemann curvature} of a metric \(g\) on a manifold \(M\) is \(R = R(g)\), which is the curvature of the Levi-Civita connection on \(M\).
+\end{definition}
+
+In particular,
+\[R \in \Omega^2_M(\End(\T M))\]
+we take the sign convention that
+\[R(g) = -D \circ D\]
+Then in local coordinates
+\[R = \frac{1}{2}R^i_{j,k\ell}\dd x^k \wedge \dd x^\ell\]
+We call \(R^i_{j,k\ell}\) the \emph{Riemann cuvrature tensor}\index{Riemann curvature tensor}.
+
+For example, if \(X, Y \in V(M)\), we obtain \(R(X, Y) \in \Gamma(\End(\T M))\). Locally, if \(X = X^k\partial_k\), \(Y = Y^\ell\partial_\ell\), then
+\begin{align*}
+    R(X, Y) = \left(R^i_{j,k\ell}X^kY^\ell\right)^i_j
+\end{align*}
+Set
+\[R_{k\ell} = R(\partial_k, \partial_\ell) \in \End(\T_p M)\]
+Then
+\[R(X, Y) = X^kY^\ell R_{k\ell}\]
+In a local coordinate and trivialising neighbourhood, \(D = \dd + A\), where \(A = A_k\dd x^k\). Write
+\[D_k = D_{\partial k} = \partial k + A_k\]
+Then for any vector field \(Z \in V(M)\),
+\[(-D \circ D)Z = RZ = (R_{k\ell} \dd x^k\wedge \dd x^\ell)Z\]
+But
+\[R_{k\ell}Z = D_\ell D_kZ - D_kD_\ell Z\]
+Thus,
+\[R_{k\ell} = -[D_k, D_\ell]\]
+With this,
+\[R^i_{j, k\ell} = \left((D_\ell D_k - D_kD_\ell)\partial_j\right)^i\]
+Write \(D_X = X^kD_k\), then
+\begin{align*}
+    -[D_X, D_Y] &= -[X^kD_k, Y^\ell D_\ell] \\
+    &= -X^k(\partial_kY^\ell)D_\ell - X^kY^\ell D_kD_\ell + Y^k(\partial_k X^\ell)D_\ell + Y^kX^\ell D_\ell D_k \\
+    &= X^kY^\ell R_{k\ell} - [X, Y]^\ell D_\ell 
+\end{align*}
+With this, we have shown
+\begin{lemma}
+    \[R(X, Y) = D_{[X, Y]} - [D_X, D_Y]\]
+\end{lemma}
 
 \printindex
 \end{document}

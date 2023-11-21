@@ -2710,6 +2710,103 @@ and so \(\psi_1 = u_t\) on \(\Sigma_0\).
     Hence \(u = 0\) a.e.
 \end{proof}
 
+\lec
+
+\begin{theorem}
+    [existence of solutions] 
+    \index{existence of solutions to hyperbolic initial boundary value problems}
+    Given \(\psi_0 \in H^1_0(U), \psi_1 \in L^2(U), f \in L^2(U_T)\), then there exists a unique weak solution of \cref{eq:hyperbolic-ibvp-weak} \(u \in H^1(U_T)\), with
+    \[\norm{u}_{H^1(U_T)} \le C\left(\norm{\psi_0}_{H^1(U)} + \norm{\psi_1}_{H^1(U)} + \norm{f}_{L^2(U_T)}\right)\]
+\end{theorem}
+
+\begin{proof}
+    [Proof (Galerkin's method)] We will project everything onto the finite dimensional subspace of \(L^2\), given by the first \(N\) eigenfunctions of the Dirichlet Laplacian. Taking \(N \to \infty\) gives the result.
+
+    \textbf{Step 1:} Recall the eigenfunctions \(\{\varphi_k\}_{k=1}^\infty\) of \(L = -\Delta\)  with Dirichlet boundary conditions form an orthonormal basis of \(L^2(U)\). We have that \(\varphi_k \in H^1_0(U)\), and by elliptic regularity \(\varphi_k \in C^\infty(U)\) privided \(\partial U\) is \(C^\infty\). With this,
+    \[\pinner{\varphi_k, \varphi_\ell}_{L^2(U)} = \delta_{k\ell}\]
+    and if \(u \in L^2(U)\) then
+    \[u = \sum_{k=1}^\infty(u, \varphi_k)_{L^2(U)}\varphi_k\]
+    with convergence in \(L^2(U)\).
+
+    \textbf{Step 2:} First consider \(\psi_0, \psi_1 \in C_c^\infty(U)\), \(f \in C_c^\infty(U_T)\). These spaces are dense in \(\HH^1_0(U), L^2(U)\) and \(L^2(U_T)\) respectively. Define
+    \[u^N(x, t) = \sum_{k=1}^N u_k(t)\varphi_k(x)\]
+    Assume \(u_k(t) \in C^2(\overline{(0, T)})\), and that \(u^N\) is a weak solution to \cref{eq:hyperbolic-ibvp-weak}. Take \(v(x, t) = \rho(t)\varphi_\ell(x)\) for the test function, with \(\rho \in C_c^\infty((0, T))\) arbitrary. Substituting into \cref{eq:hyperbolic-ibvp-weak}, we get
+    \begin{align*}
+        \int_{U_T}-(u^N_t \dot\rho \varphi_\ell + a^{ij}u^N_{x_j}(\varphi_\ell)_{x_i}\rho + b^i u^N_{x_i}\rho \varphi_\ell + b u^N_t \rho\varphi_\ell + cu\rho\varphi_\ell - f\rho\varphi_\ell)\dd x \dd t = 0
+    \end{align*}
+    Note
+    \[\int_{U_T} -u^N_t \dot\rho \varphi_\ell \dd x \dd t = \int_{U_T}u^N_{tt}\rho\varphi_\ell \dd x\dd t\]
+    and so our identity looks like
+    \[\int_0^t\int_{\Sigma_t}G(x, t)\rho(t)\dd x \dd t = 0\]
+    But \(\rho\) is arbitrary, and so
+    \[\int_{\Sigma_t}G(x, t) \dd x = 0\]
+    for all \(t\). With this,
+    \begin{equation}
+        \label{eq:hyper-exist-int-over-space}
+        \pinner{u^N_{tt}, \varphi_\ell}_{L^2(\Sigma_t)} + \int_{\Sigma_t}a^{ij}u^N_{x_j}(\varphi_\ell)_{x_i} + b^i(u^N)_{x_i} \varphi_\ell + bu^N_t \varphi_\ell + cu^N\varphi_\ell \dd x = \pinner{f, \varphi_\ell}_{L^2(\Sigma_t)}
+    \end{equation}
+    But \cref{eq:hyper-exist-int-over-space} holds for all \(t\), and \(\ell = 1, \dots, N\). By orthogonality,
+    \[\pinner{u^N_{tt}, \varphi_\ell}_{L^2(\Sigma_t)} = \sum_{k=1}^M\left(\ddot u_k(t)\varphi_k, \varphi_\ell\right)_{L^2(\Sigma_t)} = \ddot u_\ell(t)\]
+    With this, we get that for \(\ell = 1, \dots, N\), then
+    \[\ddot u_\ell(t) + \sum_{k=1}^N (\alpha_{\ell, k}(t)u_k(t) + \beta_{\ell, k}(t)\dot u_k(t)) = f_\ell(t)\]
+    where
+    \begin{align*}
+        \alpha_{\ell, k}(t) &= \int_{\Sigma_t}a^{ij}(\varphi_\ell)_{x_j}(\varphi_k)(x_i) + b^i(\varphi_\ell)_{x_i}\varphi_k + c\varphi_\ell\varphi_k \dd x \\
+        \beta_{\ell, k}(t) &= \int_{\Sigma_t}b(x, t)\varphi_k\varphi_\ell \dd x \\
+        f_\ell(t) &= \int_{\Sigma_t}f(x, t)\varphi_\ell(x) \dd x
+    \end{align*}
+    and
+    \begin{align*}
+        u_\ell(0) &= \pinner{\psi_0, \varphi_\ell}_{L^2(\Sigma_0)} \\
+        \dot u_\ell(0) &= \pinner{\psi_1, \varphi_\ell}_{L^2(\Sigma_0)} \\
+    \end{align*}
+    THis is a system of \(N\) second order ODEs, linear in \(u_k\), with coefficients which are bounded uniformly in \(C^1\) for \(t \in [0, T]\). By Picard-Lindel\"of, there exists a unique solution \(u_k \in C^2([0, T])\). Moreover,
+    \[u^N, u^N_t \in H^1(U_T)\]
+
+    \textbf{Step 3:} We would like a uniform estimates
+    \[\norm{u^N}_{\HH^1(U_T)} \le C\]
+    which are independent of \(N\). Multiply \cref{eq:hyper-exist-int-over-space} by \(e^{-\lambda t}\dot u_\ell(t)\), sum over \(1, \dots, n\), and integrate over \([0, \tau] \sse [0, T]\). 
+
+    For example,
+    \[\sum_{\ell = 1}^N\int_{-\lambda t}\dot u_\ell(t)\int_{\Sigma_t}u^N_{tt}\varphi_\ell \dd x \dd t = \int_{U_\tau}e^{-\lambda t}u^N_{tt}u^N_t \dd x\ dd t\]
+    We find that
+    \[\int_{U_\tau}\left(u^N_{tt}u^N_t + a^{ij}u^N_{x_i}u^N_{tx_j} + b^iu^N_{x_i}u^N_t + b(u^N_t)^2 + cu^Nu^N_t\right) e^{-\lambda t}\dd x \dd t =\int_{U_\tau}f u^N_t e^{-\lambda t}\dd x \dd t\]
+    Similar to the proof of uniqueness, we can rearrange this as
+    \begin{align*}
+        \tilde A &= \int_{U_\tau}\frac{1}{2}\dv{t}(Q_ae^{-\lambda t})\dd x \dd t + \frac{\lambda}{2}\int_{U_\tau}Q_ae^{-\lambda t}\dd x \dd t \\
+        \tilde B &= \int_{U_\tau}\left(\frac{1}{2}a^{ij}_t u^N_{x_i}u^N_{x_j} - b^iu^N_{x_i} u^N_t = b(u^N_t)^2 + (1-c)u^N u^N_t + fu^N_t\right)e^{-\lambda t} \dd x \dd t \\
+        \tilde A &= \tilde B
+    \end{align*}
+    where
+    \[Q_a = (u^N_t)^2 + a^{ij}u^N_{x_i}u^N_{x_j} + (u^N)^2\]
+    Let
+    \[Q_\theta = (u^N_t)^2 + \theta \abs{Du^N}^2 + (u^N)^2\]
+    Using uniform ellipticity, Young's inequality, \(e^{-\lambda t} \le 1\), and so on, we get that
+    \begin{align*}
+        \tilde B &\le \int_{U_\tau}Q_\theta e^{-\lambda t} \dd x \dd t + \norm{f}_{L^2(U_\tau)}^2 \\
+        \tilde A&\ge e^{_\lambda\tau}\int_{\Sigma_\tau}Q_\theta\dd x - \frac{1}{2}\int_{\Sigma_\tau}Q_\theta \dd x + \frac{\lambda}{2}\int_{U_\tau}Q_\theta e^{-\lambda t}\dd x \dd t
+    \end{align*}
+    Note \(\abs{\tilde A} = \abs{\tilde B}\), for \(\lambda/2 - C \ge 1/2\), we get
+    \begin{align*}
+        e^{-\lambda \tau}\int_{\Sigma_\tau}Q_\theta \dd x + \int_0^\tau \int_{\Sigma_t}Q_\theta e^{-\lambda t} \dd x \dd t &\le \int_{\Sigma_0}Q_a \dd x + C\norm{f}^2_{L^2(U_\tau)} \\
+        &\le C\left(\norm{u^N(\cdot, 0)}^2_{H^1(\Sigma_0)} + \norm{\dot u^N(\cdot, 0)}^2_{L^2(\Sigma_0)} + \norm{f}^2_{L^2(U_T)}\right)
+    \end{align*}
+    for all \(\tau \in [0, T]\). Taking \(\sup\),
+    \begin{align*}
+        \sup_\tau\left(\norm{u^N(\cdot, \tau)}^2_{H^1(\Sigma_t)} + \norm{\cdot u^N(\cdot, \tau)}^2_{L^2(\Sigma_\tau)}\right) + \int_{0}^T \left(\norm{u^N(\cdot, t)}^2_{H^1(\Sigma_t)} + \norm{\cdot u^N(\cdot, t)}^2-{L^2(\Sigma_t)}\right) \dd t \\
+        \le Ce^{\lambda T}\left(\norm{u^N(\cdot, 0)}^2_{H^1(\Sigma_0)} + \norm{\dot u^N(\cdot, 0)}^2_{L^2(\Sigma_0)} + \norm{f}^2_{L^2(U_T)}\right)
+    \end{align*}
+    Since
+    \[u^N(0) = \sum_{k=1}^n(\psi_0, \varphi_k)\varphi_k \to \psi_0\]
+    as \(N \to \infty\), if \(\psi_0 \ne 0\), then for large \(N\), then
+    \[\norm{u^N(0)}_{H^1(\Sigma_0)} \le 2\norm{\psi_0}\norm{\psi_0}_{H^1(\Sigma_0)}\]
+    Similarly,
+    \[\norm{\dot u^N}_{L^2(\Sigma_0)} \le 2\norm{\psi_1}_{L^2(\Sigma_0)}\]
+    The right hand sides are independent of \(N\), and so
+    \[\norm{u^N}_{H^1(U_T)} \le C\left(\norm{\psi_0}_{H^1(\Sigma_0)} + \norm{\psi_1}_{H^1(\Sigma_0)} + \norm{f}_{L^2(U_T)}\right)\]
+    The right hand side is the uniform estimate which we want.
+\end{proof}
+
 \printindex
 
 \end{document}
