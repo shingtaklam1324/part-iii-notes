@@ -2045,6 +2045,9 @@ We will now globalise both notions.
     If \(X\) is an integral scheme, \(U = \Spec(A)\) is an open affine in \(X\), then the ideal \(0 \in \Spec(A)\) is called the \emph{generic point}\index{generic point} of \(X\). This is true for any \(U\) open affine. We denote this as \(\eta\) or \(\eta_X\).
 \end{definition}
 
+This is well defined since any two affine opens intersect, by irreducibility (integral schemes are irreducible), and the generic point is unique as we can consider the gluing.
+
+In this case, \(\mcO_{X, \eta_X} = \Frac(A)\) is a field, and this is independent of the choice of \(A\). We denote this as \(k(X)\), the \emph{function field}\index{function field} of \(X\).
 
 \subsection{Topological facts}
 
@@ -2080,13 +2083,98 @@ We will write \(D \in \Div(X)\) as
 where \(Y_i\) are prime. A Weil divisor \(D\) is \emph{effective}\index{effective} if all \(n_{Y_i} \ge 0\).
 
 \begin{proposition}
-    Let \(f \in \mcO_{X, \eta_X} = k(X)\). For every \(Y \sse X\) a prime divisor, the ring \(\mcO_{X, \eta_Y}\) is a DVR, we can calculate the valuation \(\nu_Y(f)\) of \(f\) in the DVR. We define the \emph{divisor}\index{divisor!of a function}
-    \[\div(f) = \sum_{Y \sse X \text{ prime divisor}}\nu_Y(f)[Y]\]
+    Let \(f \in \mcO_{X, \eta_X} = k(X)\). For every \(Y \sse X\) a prime divisor, the ring \(\mcO_{X, \eta_Y}\) is a DVR\footnote{as \(X\) is regular in codimension \(1\)}, and we can calculate the valuation \(\nu_Y(f)\) of \(f\) in the DVR. We define the \emph{divisor}\index{divisor!of a function}
+    \[\div(f) = \sum_{Y \sse X \text{ prime Weil divisor}}\nu_Y(f)[Y]\]
     
     Then \(\div(f)\) is a Weil divisor.
 \end{proposition}
 
 First, if \(X\) is integral, choose \(U \sse X\), \(U = \Spec(A)\), then \(\mcO_{X,\eta} = \Frac(A)\). Since \(\eta\) is contained in every open affine, \(\mcO_{X, \eta}\) allows arbitraty denominators.
+
+\lec
+
+\begin{proof}
+    We just need to check that the sum is finite. Let \(f \in k(X)^\times\), and choose \(A\) such that \(U = \Spec(A)\) is an affine open (so \(k(X) = \Frac(A)\)), and \(f \in A\). We can assume this by localising at the denominators. Geometrically, \(f\) is regular on \(U\).
+
+    In this case, \(X \setminus U\) is closed of codimension at least \(1\), and so we have only finitely many prime divisors of \(X\), which are contained in \(X \setminus U\). On \(U\), \(f\) is regular, i.e. \(\nu_Y(f)\ge 0\). But \(\nu_Y(f) > 0\) if and only if \(Y \sse \van(f) \sse U\). By the same argument, only finitely many \(Y\) are contained in \(\van(f)\).
+\end{proof}
+
+\begin{definition}
+    [principal divisor]
+    A Weil divisor of the form \(\div(f)\) is called \emph{principal}\index{principal}. In \(\Div(X)\), the set of principal divisors form a subgroup \(\Prin(f)\).
+\end{definition}
+
+\begin{definition}
+    [(Weil divisor) class group]
+    The \emph{(Weil divisor) class group}\index{class group} of \(X\) is
+    \[\Cl(X) = \frac{\Div(X)}{\Prin(X)}\]
+\end{definition}
+
+\begin{proposition}
+    Some basic facts
+    \begin{enumerate}[(i)]
+        \item If \(A\) is a Noetherian domain, then \(A\) is a UFD if and only if \(A\) is integrally closed, and \(\Cl(\Spec(A)) = 0\). Moreover, there exists \(A\) such that \(\Spec(A)\) has non-trivial class group.
+        
+        In particular, \(\Cl(\aff k n) = 0\).
+        \item \(\Cl(\P^n_k) = \Z\),
+        \item if \(Z \sse X\) is closed, with \(U = X \setminus Z\), then there exists a surjective map
+        \begin{align*}
+            \Cl(X) &\to \Cl(U) \\
+            [Y] &\mapsto [Y \cap U]
+        \end{align*}
+        where on the right hand side, we set \([\emptyset] = 0\).
+        \item if \(Z\) has codimension at least two, then the map \(\Cl(X) \to \Cl(U)\) is an isomorphism.
+        \item if \(Z \sse X\) is integral, closed, codimension \(1\), then there exists an exact sequence 
+        % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFoiXSxbMSwwLCJcXENsKFgpIl0sWzIsMCwiXFxDbChVKSJdLFszLDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXV0=
+        \[\begin{tikzcd}
+            \Z & {\Cl(X)} & {\Cl(U)} & 0
+            \arrow[from=1-1, to=1-2]
+            \arrow[from=1-2, to=1-3]
+            \arrow[from=1-3, to=1-4]
+        \end{tikzcd}\]
+        where the map from \(\Z\) to \(\Cl(X)\) sends \(1\) to \([Z]\). 
+    \end{enumerate}
+    We call (iii), (iv), (v) \emph{excision}\index{excision}.
+\end{proposition}
+
+\begin{proof}
+    [Proof of (ii)] Let \(D \sse \P^n\) be integral closed codimension \(1\). Then \(D = \van(f)\) where \(f\) is homogeneous, of degree \(d\). Define \(\deg(D) = d\). 
+
+    Now extend linearly to get a homomorphism \(\deg : \Div(\P^n_k) \to \Z\). We claim that this is an isomorphism \(\Cl(D) \to \Z\). First, if \(f = g/h\) is a rational function on \(\P^n_k\), i.e. a ratio of homogeneous polynomials of the same degree, then
+    \[\deg(\div(f)) = 0\]
+
+    For surjectivity, take \(H = \van(X_0)\), where \(X_0\). For injectivity, say
+    \[D = \sum_i n_{Y_i}[Y_i]\]
+    If \(\sum n_{y_i}\deg(Y_i) = 0\), write \(Y_i = \van(g_i)\), where \(g_i\) is homoegrnous. Set
+    \[f = \prod_i g_i^{n_{Y_i}}\]
+    Then \(f\) is a homoegenous rational function of degree zero.
+\end{proof}
+
+\begin{proof}
+    [Proof of excision] For (iii), \(k(X)\) and \(k(U)\) are naturally isomorphic, and so principal divisors are sent to principal divisors, and the map is well defined. For surjectivity, for \(D \sse U\) a prime Weil divisor, its closure \(\overline D\) in \(X\) is a prime Weil divisor on \(X\), with \(\overline D \cap U = D\).
+
+    For (iv), \(Z\) does not even enter into the definitions. Equivalently, there isn't even a prime divisor contained in \(Z\).
+
+    For (v), the kernel of the restriction \(\Cl(X) \to \Cl(U)\), is just divisors in \(X\) contained in \(Z\).
+\end{proof}
+
+\subsection{Cartier divisors}
+
+We would like to study things locally looking like a principal ideals. Recall a highet \(1\)-prime in a UFD is principal.
+
+\begin{definition}
+    [Cartier divisor]
+    A \emph{Cartier divisor}\index{Cartier divisor} is a section of the sheaf \(\mcK_X^* / \mcO_X^*\).
+\end{definition}
+
+Let \(X\) be a scheme, take the presheaf 
+\[U = \Spec(A)\mapsto S^{-1}A\]
+where \(S\) is the set of all non-zero divisors\footnote{non-(zero divisors).}. Sheafify this, and call the result \(\mcK_X\). This is a sheaf of rings, and take \(\mcK_X^* \sse \mcK_X\) for the subsheaf of invertible elements. This is a sheaf of abelian groups. Similarly, \(\mcO_X^*\) is the subsheaf of \(\mcO_X\), consisting of invertible elements.
+
+Practically, every section of \(\mcK_X^*/\mcO_X^*\) can be described by data
+\[\{(U_i, f_i)\}\]
+where the \(U_i\) is a cover of \(X\), \(f_i\) is a section of \(\mcK_X^*(U_i)\), such that on \(U_i \cap U_j\), we have that
+\[\frac{f_i}{f_j} \in \mcO_X^*(U_i \cap U_j)\]
 
 \printindex
 
