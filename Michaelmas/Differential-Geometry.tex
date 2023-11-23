@@ -2324,5 +2324,106 @@ With this, we have shown
     \[R(X, Y) = D_{[X, Y]} - [D_X, D_Y]\]
 \end{lemma}
 
+\lec
+
+Sometimes it is convenient to consider
+\[R_{ij,k\ell} = g_{iq}R^i_{j,k\ell}\]
+In a coordinate free fashion,
+\[(X, Y, Z, T) \mapsto g(R(X, Y)Z, T)\]
+where \(X, Y, Z, T \in \T_pM\).
+Thus,
+\[R_{ij, k\ell} = g\left(R_{k\ell}\partial_j, \partial_i\right)\]
+
+\begin{proposition}
+    [symmetries of the curvature tensor] We have
+    \begin{enumerate}[(i)]
+        \item \(R_{ij, \ell k} = -R_{ij, k\ell} = R_{ji, k\ell}\),
+        \item (\emph{first Bianchi identity}) \(R^i_{j,k\ell} + R^i_{k, \ell j} + R^i_{\ell, jk} = 0\),
+        \item \(R_{ij, k\ell} = R_{k\ell, ij}\)
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    For (i), the first equality holds by properties of \(2\)-forms. For the second equality, consider
+    \begin{align*}
+        \pdv{g_{ij}}{x_k} &= g(D_k\partial_i, \partial_j) + g(\partial_i, D_k\partial_j) \\
+        \pdv[2]{g_{ij}}{x^\ell}{x^k} &= g(D_\ell D_k\partial_i, \partial_j) + g(D_k\partial_i, D_\ell\partial_j) + g(D_\ell\partial_i, D_k\partial_j) + g(\partial_i, D_\ell D_k\partial_j)
+    \end{align*}
+    But we know that \(g_{ij}\) is smooth, and so the partial derivatives commute. Hence
+    \begin{align*}
+        0 &= \pdv[2]{g_{ij}}{x^\ell}{x^k} - \pdv[2]{g_{ij}}{x^k}{x^\ell} \\
+        &= g([D_\ell, D_k]\partial_i, \partial_j) + g(\partial_i, [D_\ell, D_k]\partial_j) \\
+        &= g(R_{k\ell}\partial_i, \partial_j) + g(\partial_i, R_{jk}\partial_j) \\
+        &= R_{ji, k\ell} + R_{ij, k\ell}
+    \end{align*}
+    as required.
+
+    For (ii), consider
+    \begin{align*}
+        R^i_{j,k\ell} + R^i_{k, \ell j} + R^i_{\ell, jk} &= \left(D_\ell D_k\partial_j - D_kD_\ell \partial_j + D_jD_\ell \partial_k - D_\ell D_k\partial_k + D_kD_j\partial_\ell - D_jD_k\partial_\ell\right)^i
+    \end{align*}
+    We claim that
+    \[(D_\ell D_k\partial_j)^i = (D_\ell D_j\partial_k)^i\]
+    This follows by (i). A similar computation for the other terms shows that the sum is zero. Note we also use that
+    \[(D_k\partial_j)^q = \Gamma^q_{jk} = \Gamma^q_{kj} = (D_j\partial_k)^q\]
+
+    For (iii), first note that using the metric, we have that
+    \[R_{ij, k\ell} + R_{ik, \ell j} + R_{i\ell, jk} = 0\]
+
+    See online notes for octahedron trick.
+\end{proof}
+
+\begin{corollary}
+    \[R_{ij, k\ell} + R_{ik, \ell j} + R_{i\ell, jk} = 0\]
+\end{corollary}
+
+\begin{corollary}
+    At each \(p \in M\), \((R_{ij, k\ell})\) defines a symmetric bilinear form on \(\Lambda^2\T_p M\).
+\end{corollary}
+
+It is useful to extract from \((R^i_{j,k\ell})\) simpler objects, with less components.
+
+\begin{definition}
+    [Ricci curvature] The \emph{Ricci curvature}\index{Ricci curvature} of a metric \(g\) is
+    \begin{align*}
+        \Ric_p : \T_pM \times \T_pM &\to \R \\
+        \Ric_p(X, Y) &= \tr(v \mapsto R(X, v)Y)
+    \end{align*}
+    for \(X, Y, v \in \T_pM\).
+\end{definition}
+
+In local coordinates, \(\Ric = (\Ric_{ij})\), then
+\[\Ric(X, Y) = \Ric_{ij}X^iY^j\]
+In terms of the full Riemann curvature tensor,
+\[\Ric_{ij} = R^q_{i, jq} = g^{pq}R_{pi, jq}\]
+Using the last expression, we see that \(\Ric_p\) is a symmetric bilinear form on \(\T_pM\).
+
+\begin{definition}
+    [scalar curvature] The \emph{scalar curvature}\index{scalar curvature} of a metric \(g\) is \(s = \scal(g) \in C^\infty(M)\), it is the trace of \(\Ric\) with respect to the metric \(g\).
+\end{definition}
+
+Explicitly, if \(g_{ij} = \delta_{ij}\), then
+\[s = \sum_i\Ric_{ii}\]
+In general,
+\[s = g^{ij}\Ric_{ij} = g^{ij}g^{pq}R_{pi, jq} = g^{jk}R^\ell_{j, k\ell}\]
+
+\begin{lemma}
+    [from representation theory] Consider the ``space of curvature tensors'' \((R_{ij, k\ell})\), i.e. tensors satisfying the symmetries of the Riemann curvature tensor. This space decomposes when \(\dim(M) \ge 5\) into irreducible representations of \(\SO(n)\). Recall we have that at each \(p \in M\), \(R \in \Sym^2(\Lambda^2(T^*_pM))\). Apply trace as in the definition on scalar curvature, we get
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXFN5bV4yKFxcTGFtYmRhXjJcXFRfcF4qTSkiXSxbMSwwLCJcXFN5bV4yKFxcVF9wXipNKSJdLFsyLDAsIlxcUiJdLFswLDEsIlxcVHIiXSxbMSwyLCJcXHRyIl1d
+\[\begin{tikzcd}
+	{\Sym^2(\Lambda^2\T_p^*M)} & {\Sym^2(\T_p^*M)} & \R
+	\arrow["\Tr", from=1-1, to=1-2]
+	\arrow["\tr", from=1-2, to=1-3]
+\end{tikzcd}\]
+    where \(\Ric = \Tr(R), \scal = \tr(\Ric)\). Then
+    \[\Sym^2(\Lambda^2\T^*_pM) = \ker(\Tr) \oplus \ker(\tr) \oplus \R\]
+    as irreducible representations.
+\end{lemma}
+
+\begin{proof}
+    Omitted.
+\end{proof}
+
 \printindex
+
 \end{document}

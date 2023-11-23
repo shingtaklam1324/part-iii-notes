@@ -2760,7 +2760,7 @@ and so \(\psi_1 = u_t\) on \(\Sigma_0\).
         u_\ell(0) &= \pinner{\psi_0, \varphi_\ell}_{L^2(\Sigma_0)} \\
         \dot u_\ell(0) &= \pinner{\psi_1, \varphi_\ell}_{L^2(\Sigma_0)} \\
     \end{align*}
-    THis is a system of \(N\) second order ODEs, linear in \(u_k\), with coefficients which are bounded uniformly in \(C^1\) for \(t \in [0, T]\). By Picard-Lindel\"of, there exists a unique solution \(u_k \in C^2([0, T])\). Moreover,
+    This is a system of \(N\) second order ODEs, linear in \(u_k\), with coefficients which are bounded uniformly in \(C^1\) for \(t \in [0, T]\). By Picard-Lindel\"of, there exists a unique solution \(u_k \in C^2([0, T])\). Moreover,
     \[u^N, u^N_t \in H^1(U_T)\]
 
     \textbf{Step 3:} We would like a uniform estimates
@@ -2797,15 +2797,117 @@ and so \(\psi_1 = u_t\) on \(\Sigma_0\).
         \le Ce^{\lambda T}\left(\norm{u^N(\cdot, 0)}^2_{H^1(\Sigma_0)} + \norm{\dot u^N(\cdot, 0)}^2_{L^2(\Sigma_0)} + \norm{f}^2_{L^2(U_T)}\right)
     \end{align*}
     Since
-    \[u^N(0) = \sum_{k=1}^n(\psi_0, \varphi_k)\varphi_k \to \psi_0\]
+    \[u^N(0) = \sum_{k=1}^N(\psi_0, \varphi_k)\varphi_k \to \psi_0\]
     as \(N \to \infty\), if \(\psi_0 \ne 0\), then for large \(N\), then
     \[\norm{u^N(0)}_{H^1(\Sigma_0)} \le 2\norm{\psi_0}\norm{\psi_0}_{H^1(\Sigma_0)}\]
     Similarly,
     \[\norm{\dot u^N}_{L^2(\Sigma_0)} \le 2\norm{\psi_1}_{L^2(\Sigma_0)}\]
     The right hand sides are independent of \(N\), and so
-    \[\norm{u^N}_{H^1(U_T)} \le C\left(\norm{\psi_0}_{H^1(\Sigma_0)} + \norm{\psi_1}_{H^1(\Sigma_0)} + \norm{f}_{L^2(U_T)}\right)\]
+    \[\norm{u^N}_{H^1(U_T)} \le C_1 = C\left(\norm{\psi_0}_{H^1(\Sigma_0)} + \norm{\psi_1}_{H^1(\Sigma_0)} + \norm{f}_{L^2(U_T)}\right)\]
     The right hand side is the uniform estimate which we want.
+\lec
+    Now
+    \[u^N \in H^1_\partial(U_T) = \left\{\phi \in H^1(U_T) \mid \phi\vert_{\partial^*U_T} = 0\right\}\]
+    which is a closed subspace of \(H^1(U_T)\), and so it is weakly sequentially compact. Hence there exists a subsequence \((u^{N_i})\) such that
+    \[u^{N_i} \weak u \in H^1_\partial(U_T)\]
+    Moreover,
+    \[\norm{u}_{H^1(U_T)} = \liminf_{i \to \infty}\norm{u^{N_i}}_{H^1(U_T)} \le C_1\]
+
+    \textbf{Step 4:} We want to show that \(u\) is the desired weak solution. We can relabel the \(u^{N_i}\) as \(u^N\). Fix \(m \le N\), and consider
+    \[v = \sum_{k=1}^m v_k(t)\varphi_k(x)\]
+    where \(v_k \in H^1((0, T))\) with \(v_k(T) = 0\). Then \(v\) is a test function for the weak formulation. From \cref{eq:hyper-exist-int-over-space} (replace \(\ell\) with \(k\)), multiply the equation by \(v_k(t)\), and sum from \(k = 1, \dots, m\), we get that
+    \begin{align*}
+        \pinner{u^N_{tt}, v}_{L^2(\Sigma_t)} + \int_{\Sigma_t}a^{ij}u^N_{x_i}v_{x_j} + b^iu^M_{x_i}v + bu^N_tv+ cu^Nv \dd x &= \pinner{f, v}_{L^2(\Sigma_t)} 
+    \end{align*}
+    Now integrating over \([0, T]\), integrating by parts, and using the fact that \(v(T) = 0\), we get that
+    \[-\int_{\Sigma_0}u^N_t v \dd x + \int_{U_T}-u_N^tv_t + a^{ij}u^N_{x_i}v_{x_j} + b^iu^N_{x_i}v + bu_tv + cu^Nv\dd x \dd t = \int_{U_T}fv \dd x \dd t\]
+    But for the first term, since \(N > m\),
+    \[\int_{\Sigma_0}u^N_tv \dd x = \int_{\Sigma_0}\psi_1 v \dd x\]
+    Passing to the weak limit,
+    \begin{equation}
+        \label{eq:weak-limit-hyper}
+        -\int_{\Sigma_0}\psi_1v\dd x + \int_{U_T}(-u_tv_t + a^{ij}u_{x_i}v_{x_j} + b^iu_{x_i}v + bu_t v + cuv)\dd x \dd t = \int_{U_T}fv\dd x\dd t
+    \end{equation}
+    But this is precisely the weak formulation. We leave as an exercise that the space of such \(v\) is dense in \(H^1_\partial(U_T)\), and so \cref{eq:weak-limit-hyper} holds for all \(v \in H^1_\partial(U_T)\).
+
+    \textbf{Step 5:} It remains to show that \(u\vert_{\Sigma_0} = \psi_0\). For each fixed \(k\), define
+    \begin{align*}
+        \Phi_k : H^1(U_T) &\to \R \\
+        w &\mapsto \int_{\Sigma_0}w\varphi_k\dd x
+    \end{align*}
+    This is a bounded linear map. To see this,
+    \[\abs{\Phi_k(w)} \le \int_{\Sigma_0}\abs{w\varphi_k} \le \norm{w}_{L^2(\Sigma_0)}\norm{\varphi_k}_{L^2(\Sigma_0)} \le \norm{w}_{L^2(\partial U_T)} \le C\norm{w}_{H^1(U_T)}\]
+    where in the last step we use the trace theorem. By weak convergence,
+    \[\Phi_k(u^N) \to \Phi_k(u)\]
+    Thus,
+    \[\int_{\Sigma_0}\psi_0 \varphi_k\dd x = \int_{\Sigma_0}u^N(x, 0)\varphi_k(x)\dd x \to \int_{\Sigma_0}u(x, 0)\varphi_k(x)\dd x\]
+    Hence
+    \[\int_{\Sigma_0}\left(\psi_0 - u(x, 0)\right)\varphi_k \dd x = 0\]
+    for all \(k\). Hence \(u = \psi_0\) on \(\Sigma_0\).
 \end{proof}
+
+\begin{definition}
+    [Bochner space]
+    If \(X\) is a Banach space, the \emph{Bochner space}\index{Bochner space} \(L^p((0, T); X)\) is 
+    \begin{align*}
+        L^p((0, T); X) = \left\{u : (0, T) \to X \mid \norm{u}_{L^p((0, T); X)} < \infty\right\}
+    \end{align*}
+    where
+    \[\norm{u}_{L^p((0, T); X)} = \left(\int_0^T \norm{u}_X^p \dd t\right)^{1/p}\]
+    for \(1 \le p < \infty\), and
+    \[\norm{u}_{L^\infty((0, T); X)} = \esssup_{t \in (0, T)}\norm{u(t)}_X\]
+\end{definition}
+
+\begin{remark}
+    In step 3, we showed that
+    \[\norm{u}_{H^1(U_T)} \le C_1\]
+    In fact, the weak solution satisfies
+    \[\norm{u_t}_{L^\infty((0, T); L^2(U))} + \norm{u}_{L^\infty((0, T); H^1(U))} \le C_1\]
+    Thus, instead of \(H^1(U_T)\), we can consider
+    \[u \in L^\infty((0, T); H^1(U))\]
+\end{remark}
+
+\subsection{Finite speed of propagation}
+
+A crucial feature of hyperbolic equation is that there is a finite speed of propagation.
+
+\begin{definition}
+    [spacelike, timelike]
+    Let \(\Sigma \sse \R^{n+1}\) be a hypersurface, given by
+    \[\Sigma = \left\{(x, t) \in \R^{n+1} \mid F(x, t) = 0\right\}\]
+    Define
+    \[w(F_{x_i}, F_t) = (F_t)^2 - a^{ij}F_{x_i}F_{x_j}\]
+    We say that \(\Sigma\) \begin{itemize}
+        \item spacelike if \(w > 0\),
+        \item timelike if \(w < 0\),
+        \item characteristic (in PDE theory) or null (in GR) if \(w = 0\).
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    The plane \(t = 0\) is spacelike.
+\end{example}
+
+\begin{example}
+    The cylinder
+    \[F = \abs{x - x_0}^2 - R^2\]
+    is timelike
+\end{example}
+
+Let \(S_0 \sse U\) be an open set with smooth boundary. Let \(\tau : S_0 \to (0, T)\) be a smooth function such that \(\tau\vert_{\partial S_0} = 0\). Let 
+\[S' = \Graph(\tau) = \left\{(x, \tau(x)) \mid x \in S_0\right\}\]
+If \(F(x_1, \dots, x_n, t) = t = \tau(x)\), then we see that \(S'\) is spacelike if
+\[1 - a^{ij}\tau_{x_i}\tau_{x_j} > 0\]
+Equivalently,
+\[a^{ij}(x)\tau_{x_i}\tau_{x_j} < 1\]
+Let
+\[D = \left\{(x, t) \in U_T \mid x \in S_0, 0 \le t \le \tau(x)\right\}\]
+
+\underline{Exercise:} if \(a^{ij}\xi_i\xi_j \le \mu\abs{\xi}^2\), for some \(\mu > 0\), then we can show that such \(S_0, S'\) exists.
+
+\begin{theorem}
+    [domain of dependence] If \(S'\) is spacelike, \(u\) a weak solution to \cref{eq:hyperbolic-ibvp-weak}, then \(u\vert_D\) depends only on \(\psi_0\vert_{S_0}, \psi_1\vert_{S_0}, f\vert_D\).
+\end{theorem}
 
 \printindex
 

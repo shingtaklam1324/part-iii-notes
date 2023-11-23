@@ -2925,6 +2925,118 @@ Let \(\msC\) be a category.
     for all \(n \ge 0\).
 \end{definition}
 
+\lec
+
+\begin{lemma}
+    Let \(\mfa \idealof R\) be an ideal, \(M\) an \(R\)-module, \((M_n)\) is a stable \(\mfa\)-filtration on \(M\). Then \((M_n)\) is equivalent to \((\mfa^nM)\).
+\end{lemma}
+
+\begin{proof}
+    We have that
+    \[M_n \supseteq \mfa M_{n-1} \supseteq \cdots \supseteq \mfa^n M \supseteq \mfa^{n+n_0}M\]
+    for all \(n_0 \ge 0\). In the other direction, there exist \(n_0 \ge 0\) such that \(\mfa M_n = M_{n+1}\) for all \(n \ge n_0\). Hence
+    \[M_{n + n_0} = \mfa^nM_{n_0} \sse \mfa^n M\]
+\end{proof}
+
+Let \(\mfa \idealof R\) be an ideal, \(M\) an \(R\)-moddule, \((M_n)\) an \(\mfa\)-filtration of \(M\). Let
+\[R^* = \bigoplus_{n=0}^\infty \mfa^n\]
+and
+\[M^* = \bigoplus_{n=0}^\infty M_n\]
+Then \(R^*\) is a graded ring, and \(M^*\) is a graded \(R^*\)-module with the natural actions.
+
+If \(R\) is Noetherian, then \(\mfa = \inner{x_1, \dots, x_r}\), and \(R^*\) is generated as an \(R\)-algebra by
+\[x_1, \dots, x_n \in \mfa\]
+Hence by the Hilbert basis theorem, \(R^*\) is Noetherian.
+
+\begin{lemma}
+    Let \(R\) be a Noetherian ring, \(M\) a finitely generated \(R\)-module, \((M_n)\) an \(\mfa\)-filtration. Then \(M^*\) is a finitely generated \(R^*\)-module if and only if the \(\mfa\)-filtration \((M_n)\) is stable.
+\end{lemma}
+
+\begin{proof}
+    First of all, note that
+    \begin{enumerate}
+        \item Each \((M_n)\) is a finitely generated \(R\)-module. Since \(R\) is Noetherian, and \(M\) is finitely generated, \(M\) is Noetherian, and so every submodule is finitely generated.
+        \item Consider the submodule
+        \[M_n^* = M_0 \oplus \cdots \oplus M_n \oplus \mfa M_n \oplus \mfa^2 M_n \oplus \cdots\]
+        of \(M^*\), then the ascending chain \((M_n^*)\) stabilises, if and only if \((M_n)\) is a stable \(\mfa\)-filtration.
+    \end{enumerate}
+
+    Suppose \(M^*\) is finitely generated. We know that \(R\) is Noetherian, and so \(R^*\) is Noetherian, and therefore, \(M^*\) is Noetherian. But then the ascending chain \((M_n^*)\) stabilises, and so \((M_n)\) is a stable \(\mfa\)-filtration by 2.
+
+    Now suppose the filtration \((M_n)\) is stable. Then the sequence \((M_n^*)\) stabilises at some \(n_0\). Now note that
+    \[M^* = \bigcup_n M_n^*\]
+    Hence \(M^* = M_{n_0}^*\). But we know that
+    \[M_0 \oplus \cdots \oplus M_{n_0}\]
+    generates \(M_n^*\) as an \(R^*\)-module. But each \(M_n\) is a finitely generated \(R\)-module, and so \(M_0 \oplus \cdots \oplus M_{n_0}\) is a finitely generated \(R\)-module. Thus, \(M_n^*\) is a finitely generated \(R^*\)-module.
+\end{proof}
+
+\begin{proposition}
+    [Artin-Rees] \index{Artin-Rees} Let \(R\) be a Noetherian ring, \(\mfa \idealof R\) an ideal, \(M\) a finitely generated \(R\)-module, \((M_\ell)\) a stable \(\mfa\)-filtration of \(M\), and \(N \sse M\) a submodule.
+
+    Then \((N \cap M_\ell)\) is a stable \(\mfa\)-filtration of \(N\).
+\end{proposition}
+
+\begin{proof}
+    First of all,
+    \[\mfa(N \cap M_\ell) \sse N \cap \mfa M_\ell \sse N \cap M_{\ell + 1}\]
+    and so \((N \cap M_\ell)\) is an \(\mfa\)-filtration. Define
+    \[N^* = \bigoplus_{\ell=0}^\infty (N \cap M_\ell)\]
+    This is an \(R^*\)-submodule of \(M^*\). Recall \(R\) is Noetherian, and so \(R^*\) is Noetherian. Since \((M_\ell)\) is stable, \(M^*\) is finitely generated, and so \(M^*\) is a Noetherian \(R^*\)-module. Hence \(N^*\) is a finitely generated \(R^*\)-module, and so \((N \cap M_\ell)\) is stable.
+\end{proof}
+
+\section{Dimension theory}
+
+\begin{definition}
+    [height]
+    Let \(\mfp \in \Spec(R)\) be a prime. Then the \emph{height}\index{height} of \(\mfp\) is
+    \[\idealht(\mfp) = \sup \{d \mid \mfp_0 \subsetneq \cdots \subsetneq \mfp_d = \mfp\}\]
+\end{definition}
+
+\begin{definition}
+    [(Krull) dimension]
+
+    The \emph{(Krull) dimension of a ring}\index{dimension@(Krull) dimension} is
+    \[\dim(R) = \sup\{\idealht(\mfp) \mid \mfp \in \Spec(R)\} = \sup\{\idealht(\mfm) \mid \mfm \in \maxSpec(R)\}\]
+\end{definition}
+
+We can see that \(\dim(R_\mfp) = \idealht(\mfp)\), and so
+\[\dim(R) = \sup\{\dim(R_\mfm) \mid \mfm \in \maxSpec(R)\}\]
+
+\begin{definition}
+    For an ideal \(I\) of \(R\),
+    \[\idealht(I) = \inf\left\{\idealht(\mfp) \mid I \sse \mfp \in \Spec(R)\right\}\]
+\end{definition}
+
+\begin{proposition}
+    If \(A \sse B\) is an integral extension of rings, then
+    \begin{enumerate}[(i)]
+        \item \(\dim(A) = \dim(B)\),
+        \item if \(A, B\) are integral domains and \(k\)-algebras, where \(k\) is a field, then \(\trdeg_k(A) = \trdeg_k(B)\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    First, we show that \(\dim(A) \le \dim(B)\). Given a chain
+    \[\mfp_0 \subsetneq \mfp_1 \subsetneq \cdots \subsetneq \mfp_d\]
+    By lying over and going up, we have
+    \[\mfq_0 \subseteq \mfq_1 \subseteq \cdots \subseteq \mfq_d\]
+    with \(\mfq_i \cap A = \mfp_i\), and so \(\mfq_i \ne \mfq_{i+1}\). Thus, \(\dim(A) \le \dim(B)\).
+
+    Next, we show \(\dim(A) \ge \dim(B)\). Let
+    \[\mfq_0 \subsetneq \cdots \subsetneq \mfq_d\]
+    be a chain in \(\Spec(B)\), then
+    \[\mfq_0 \cap A \subsetneq \cdots \subsetneq \mfq_d \cap A\]
+    is a chain in \(\Spec(A)\). By incomparability, \(\mfq_i \cap A \ne \mfq_{i+1} \cap A\), and so \(\dim(A) \ge \dim(B)\).
+
+    (ii) is left as an exercise.
+\end{proof}
+
+Now if \(k\) is a field, \(A\) a finitely generated \(k\)-algebra, then by the Noether normalisation theorem, we had a \(k\)-algebra embedding
+\[k[T_!, \dots, T_d] \inj A\]
+which is an integral extension. Hence by the proposition,
+\[\dim(A) = \dim(k[T_1, \dots, T_d]) = d\]
+by examples sheet 3 question 10.
+
 \printindex
 
 \end{document}
