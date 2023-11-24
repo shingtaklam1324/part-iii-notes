@@ -2643,7 +2643,7 @@ Recall in this course, an \(n\)-manifold is a Hausdorff space locally homeomorph
 Recall by excision, \(\HH_n(M, M \setminus x; R) \cong \HH_n(U, U \setminus x)\), where \(U\) is an open ball.
 
 \begin{definition}
-    [oriented] A manifold \(M\) is \emph{\(R\)-oriented}\index{oriented} if we have chosen local orientations \(\epsilon_x\) for all \(x \in M\), such that if \(\varphi : U \to \R^n\) is a chart on \(M\) in a preferred atlas, such that for all \(p_i \in U \sse M\),
+    [oriented] A manifold \(M\) is \emph{\(R\)-oriented}\index{oriented!manifold} if we have chosen local orientations \(\epsilon_x\) for all \(x \in M\), such that if \(\varphi : U \to \R^n\) is a chart on \(M\) in a preferred atlas, such that for all \(p_i \in U \sse M\),
     \[\HH_n(M, M \setminus p_i) \cong \HH_n(\R^n, \R^n \setminus \varphi(p_i))\]
     by excision above, and we can define a map of pairs \((\R^n, \R^n \setminus \varphi(p_1)) \to (\R^n, \R^n \setminus \varphi(p_2))\) by translation, which induces an isomorphism on the right hand side. This induces an isomorphism
     \[\psi : \HH_n(M, M \setminus p_1) \to \HH_n(M, M \setminus p_2)\]
@@ -3109,6 +3109,151 @@ If \(F \sse E\) is a subbundle, then we can define \(E/F \to X\), with fibre \(E
 \end{definition}
 
 The most important case is when \(g = \id\).
+
+\lec
+
+Define
+\[\Gr(k, \R^n) = \left\{k\text{-dimensional linear subspaces in }\R^n\right\} = \frac{O(n)}{O(k) \times O(n - k)}\]
+for the \emph{Grassmannian}\index{Grassmannian}. The \emph{tautological bundle}\index{tautological bundle}
+\[E \to \Gr(k, \R^n)\]
+has fibre at \(x \in \Gr(k, \R^n)\) the linear subspace \(\inner{x}\) corresponding to \(x\). Concretely, we can define
+\[E = \{(x, e) \in \Gr(k, \R^n) \times \R^n \mid e \in \inner{x} \sse \R^n\}\]
+This is a vector bundle, with the natural projection map \(p : E \to \Gr(k, \R^n)\).
+
+\begin{proof}
+    Choose an inner product on \(\R^n\), given \(x \in \Gr(k, \R^n)\), let
+    \[U = \left\{y \in \Gr(k, \R^n) \mid \inner{y} \cap \inner{x}^\perp = 0\right\}\]
+    On this, we have a trivialisation
+    \begin{align*}
+        \Psi : E \vert_U &\to U \times \inner{x} \\
+        (y, \xi) &\mapsto (y, \pr_{\inner{x}}(\xi))
+    \end{align*}
+    where
+    \[\pr_{\inner{x}} : \R^n \to \inner{x}\]
+    is the orthogonal projection. The definition for \(\psi\) shows that we have a local trivialisation.
+\end{proof}
+
+\begin{remark}
+    There is an obvious notion of a \emph{complex vector bundle}\index{complex vector bundle}, with fibres being complex vector bundles, and we have an associated tautological bundle \(E \to \Gr(k, \C^n)\) as well.
+\end{remark}
+
+\begin{example}
+    \(\Gr(1, \R^n) = \R\P^{n-1}\), has a tautological (real) line bundle, whereas the \(\Gr(1, \C^n) = \C\P^{n-1}\), we have a tautological (complex) line bundle.
+
+    Note a complex line bundle as real dimension \(2\).
+\end{example}
+
+\begin{lemma}
+    [partition of unity]
+    Let \(X\) be (para)compact Hausdorff, if \(\{U_\alpha\}\) is an open cover of \(X\), then we have a subordinate partition of unity. That is, we have maps \(\{\lambda_\alpha : X \to [0, 1]\}\), such that
+    \begin{itemize}
+        \item \(\Supp(\lambda_\alpha) \sse U_\alpha\),
+        \item at each \(x \in X\), the number of non-zero \(\lambda_\alpha\) is finite,
+        \item \(\sum \lambda_\alpha(x) = 1\) for all \(x \in X\).
+    \end{itemize}
+\end{lemma}
+
+\begin{proof}
+    Omitted.
+\end{proof}
+
+\begin{definition}
+    [inner product]
+    An \emph{inner product}\index{inner product} on a vector bundle \(E\) is a continuous map \(\inner{\cdot, \cdot} : E \otimes E \to \R\), such that on each fibre the map is an inner product.
+\end{definition}
+
+\begin{lemma}
+    A vector bundle \(p : E \to X\) over a (para)compact Hausdorff space has an inner product. Moroever, \(E\) is \emph{globally generated}. For all \(x \in X\), \(\xi \in E_x\), there exists \(s \in \Gamma(E)\) such that \(s(x) = \xi\). 
+\end{lemma}
+
+\begin{proof}
+    Fix a trivialising open cover \(\{U_\alpha\}\) for \(E\), and an inner product on \(\R^d\), where \(d = \rank_\R(E)\). If \(\Psi_\alpha : E\vert_{U_\alpha} \to U_\alpha \times \R^d\) is a trivialisation, then we can use \(\Psi_\alpha\) to define an inner product \(\inner{\cdot, \cdot}_\alpha\) on \(E\vert_{U_\alpha}\).
+
+    Let \(\{\lambda_\alpha\}\) is a subordinate partition of unity, then for \(u \otimes v \in E \otimes E\), define
+    \[\inner{u, v} = \sum_\alpha\lambda_\alpha\inner{u, v}_\alpha\]
+    Note that \(\inner{u, v}_\alpha\) is only defined if \(p(u\otimes v) \in U_\alpha\), but if this wasn't true, then \(\lambda_\alpha(p(u\otimes v)) = 0\). By definition, this is a finite sum, and that this defines an inner product.
+
+    Now if \(x \in U_\alpha\), \(\xi \in E_x\), choose a section \(s_\alpha \in \Gamma(E\vert_{U_\alpha})\) with \(s_\alpha(x) = \xi\). We can do this as we can take something which is constant in a trivialisation. Let \(s = \sum_\alpha \lambda_\alpha s_\alpha\). Then \(s(x) = \xi\).
+\end{proof}
+
+\begin{corollary}
+    If \(X\) is compact Hausdorff, \(E \to X\) is a rank \(d\) vector bundle, then there exists \(N \in \N\) and \(f : \Gr(d, \R^N)\) such that \(E \cong f^*E_{\text{taut}}\).
+\end{corollary}
+
+\begin{proof}
+    Since \(X\) is compact, we have a finite set \(\{s_1, \dots, s_N\} \sse \Gamma(E)\), such that on each \(E_x\) the \(s_i(x)\) span. Fix an inner product \(\inner{\cdot, \cdot}\) on \(E\), and now consider the map
+    \begin{align*}
+        \alpha : E &\to X \times \R^N \\
+        (x, \xi)&\mapsto (x, \inner{s_1(x), \xi}, \dots, \inner{s_n(x), \xi})
+    \end{align*}
+    Since the sections \(s_i\) span, we see that \(\alpha\) embeds \(E_x\) into \(\R^N\) for all \(x\). That is, it embeds \(E\) as a sub-bundle of a trivial bundle. But then we can just define
+    \begin{align*}
+        f : X &\to \Gr(d, \R^N) \\
+        x &\mapsto \alpha(E_x) \sse \R^N
+    \end{align*}
+    By construction, the pullback of the tautological bundle is \(E\).
+\end{proof}
+
+\begin{remark}
+    Our proof actually shows that if \(E\) is a vector bundle over a compact Hausdorff space, then there exists another vector bundle \(F \to X\) such that \(E \oplus F\) is the trivial bundle, since we can just take \(F_x = \alpha(E_x)^\perp\).
+\end{remark}
+
+\begin{remark}
+    In fact, for this class of \(X\),
+    \[\frac{\{\text{vector bundles of rank }d\}}{\text{isomorphism}} \bij \text{homotopy classes of maps} X \to \Gr(k, \R^\infty) = [X, \Gr(k, \R^\infty)]\]
+    where
+    \[\Gr(k, \R^\infty) = \bigcup_{n \ge 0}\Gr(k, \R^n)\]
+    is the infinite Grassmannian.
+\end{remark}
+
+\subsection{Cohomology}
+
+First note that if \(E\) has rank \(d\), then \(\HH^d(E_x, E_x \setminus 0) = \Z\).
+
+\begin{definition}
+    [oriented]
+    We say that a rank \(d\) vector bundle \(E\) is \emph{oriented}\index{oriented!vector bundle} if for all \(x \in X\), we have a generator \(\epsilon_x\) of \(\HH^d(E_x, E_x \setminus 0)\), which vary locally trivially. That is, if \(x \in U\) and \(E\) is trivialised over \(U\), say
+    \[\Psi : E\vert_U \cong U \times \R^d\] 
+    is a trivialisation, then this induces an isomorphism \(E_y \to \{y\} \times \R^d\). Using this, we have an isomorphism \(E_y \to E_x\) should send \(\epsilon_y\) to \(\epsilon_x\).
+\end{definition}
+
+\begin{notation}
+    We will write \(E^\sharp\) for the complement of the zero section in \(E\).
+\end{notation}
+
+\begin{remark}
+    If we have a coefficient ring \(R\), then we have a natural definition of \(R\)-orientation. In particular, every vector bundle is \(\Z/2\)-orientable.
+\end{remark}
+
+\begin{theorem}
+    [Thom isomorphism]
+    Let \(\pi : E \to X\) be an oriented vector bundle of rank \(n\), then
+    \begin{enumerate}[(i)]
+        \item \(\HH^k(E, E^\sharp) = 0\) for \(k < n\),
+        \item there exists a unique element \(u_E \in \HH^n(E, E^\sharp)\) such that restricting, \(u_E\vert_x = \epsilon_x \in \HH^n(E_x, E_x\setminus 0)\).
+        \item The map
+        \begin{align*}
+            \HH^k(X) &\to \HH^{k+n}(E, E^\#) \\
+            \alpha &\mapsto \pi^*\alpha \smile u_E
+        \end{align*}
+        is an isomorphism.
+    \end{enumerate}
+    The class \(u_E\) is called the \emph{Thom class}\index{Thom class} of \(E\).
+\end{theorem}
+
+\begin{definition}
+    [Euler class]
+    Consider the long exact seqeunce of the pair \((E, E^\#)\).  Then we have a natural map \(\HH^n(E, E^\#) \to \HH^n(E)\). Now \(\HH^n(E)\) is homotopy equivalent to \(\HH^n(X)\). The image of the Thom class under this map is the \emph{Euler class}\index{Euler class}
+    \[e_E \in \HH^n(X)\]
+\end{definition}
+
+\begin{remark}
+    A \emph{characteristic class}\index{characteristic class} for vector bundles (perhaps satisfying some conditions, such as orientability) is an assignment
+    \[E \mapsto c(E) \in \HH^*(X)\]
+    such that for all \(f : Y \to X\),
+    \[c(f^*E) = f^*c(E)\]
+    The uniqueness in the Thom isomorphism implies that the Euler class \(e_E\) is a characteristic class.
+\end{remark}
 
 \printindex
 

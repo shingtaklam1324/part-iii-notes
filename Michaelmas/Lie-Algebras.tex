@@ -2799,6 +2799,7 @@ With this, we have that
 \end{proof}
 
 \begin{proposition}
+    \label{prop:highest-weight-module-properties}
     Let \(V\) be a highest weight module, with highest weight vector \(v_\lambda \in V_\lambda\), with \(V = \mcU(\mfg)v_\lambda\). Then
     \begin{enumerate}[(i)]
         \item \[V = \bigoplus_{\mu \in D(\lambda)} V_\mu\]where 
@@ -2899,6 +2900,107 @@ where \(u_\alpha, y_i \in \mcU(\mfg)\). \(J(\lambda)\) is a left module for \(\m
         \varphi : M(\lambda) &\to V \\
         e_{-\beta_1}\cdots e_{-\beta_r}m_\lambda &\mapsto e_{-\beta_1}\cdots e_{-\beta_r}v_\lambda
     \end{align*}
+\end{proof}
+
+\lec
+
+\begin{remark}
+    Humphreys calls \(M(\lambda)\) the \emph{standard cyclic modules}.
+\end{remark}
+
+\begin{lemma}
+    Given a weight \(\lambda \in \mft^*\), there is a unique irreducible highest weight module with highest weight \(\lambda\), called \(V(\lambda)\).
+\end{lemma}
+
+\begin{proof}
+    We know that \(M(\lambda)\) has a unique maximal (proper) submodule \(J\), by \cref{prop:highest-weight-module-properties}. Then \(M(\lambda)/J\) is irreducible. Uniqueness follows from the universal property of the Verma module.
+\end{proof}
+
+\begin{example}
+    In \cref{ex:hwv-sl2}, we had \(V = M(0)\), \(J = \inner{v_1, \dots}\), and \(M(0)/J \cong V(0)\), which is the trivial representation of \(\sl_2\).
+\end{example}
+
+\begin{example}
+    See Erdmann-Wildon Example 15.12, they give an example of an irreducible Verma module, for \(\mfg = \sl_2(\C)\). This shows that \(\sl_2(\C)\) has infinite dimensional irreducible representations.
+\end{example}
+
+\begin{remark}
+    Verma modules are building blocks for the `category \(\msO\)'. Although each \(M(\lambda)\) is infinite dimensional, when we viewed as a \(\mcU(\mfg)\)-modules, it has finite length. That is, there exists submodules
+    \[0 = M_0 \le M_1 \le \cdots \le M_r = M(\lambda)\]
+    such that \(M_{i+1}/M_i\) are simple for all \(i\).
+    
+    See Humphreys `category \(\mcO\)' book.
+\end{remark}
+
+\begin{remark}
+    In 1985, Drinfeld and Jimbo independently defined \emph{quantum groups}, by `deforming' the universal enveloping algebras of Lie algebras. These have numerous applications in theoretical physics, knot theory, and representation theory of algebraic groups.
+\end{remark}
+
+\begin{theorem}
+    \(V = V(\lambda)\) is a finite dimensional irreducible \(\mfg\)-module if and only if \(\lambda\) is dominant.
+\end{theorem}
+
+\begin{proof}
+    If \(V\) is finite dimensional, then for each simple root \(\alpha_i\), let \(\mfm_{\alpha_i}\) be the corresponding copy of \(\sl_2\). Then \(V\) is also a finite dimensional module for \(\mfm_i\), and a highest weight vector for \(\mfg\) is a highest weight vector for \(\mfm_i\). Since, there exists a highest weight vector of weight \(\lambda\), then the weight for the Cartan subalgebra \(\mft_i \sse \mfm_{\alpha_i}\) is determined by the \(\lambda(h_i)\), since \(h_i(v) = \lambda(h_i)v = \inner{\lambda, \alpha_i^\vee}v\). This forces \(\lambda(h_i) \in \Z_{\ge 0}\).
+
+    For the converse, \(V(\lambda)\) is a direct sum of finite dimensional weight spaces, as it is the quotient of the Verma module. The idea is to show that the set of weights
+    \[\Pi(\lambda) = \left\{\mu \mid V(\lambda)_\mu \ne 0\right\}\]
+    is finite. Let \(\Delta = \{\alpha_1, \dots, \alpha_\ell\}\) be a root base, and for each \(i\), let \(\{x_i, y_i, h_i\}\) be a \(\mfm_{\alpha_i}\)-triple.
+
+    We need that in \(\mcU(\mfg)\),
+    \begin{align*}
+        [x_j, y_i^{k+1}] &= 0  \text{ for }i \ne j\tag{i}\\
+        [x_i, y_i^{k+1}] &= -(k+1)y_i^k(k\cdot 1 - h_i) \tag{ii}
+    \end{align*}
+    for \(k \ge 0\). See Humphreys \S21.2.
+
+    \begin{claim}
+        \label{claim:v-lambda-contains-fd-module}
+        \(V(\lambda)\) contains a non-zero finite dimensional \(\mfm_{\alpha_i}\)-module, for each \(i\).
+    \end{claim}
+
+    \begin{proof}
+        Let \(v \in V(\lambda)\) be a highest weight vector. As \(\lambda\) is dominant, 
+        \[n_i = \inner{\lambda, \alpha_i^\vee} \in \Z_{\ge 0}\]
+        Let \(u = y_i^{n_i+1}v\). We will show that \(u = 0\). By (i), for \(i \ne j\),
+        \[x_ju = y_i^{n_i+1}(x_j v) + [x_j, y_i^{n_i+1}]v = 0\]
+        Next, for (ii),
+        \[x_iu = y_i^{n_i+1}(x_iv) + [x_i, y_i^{n_i + 1}]v = -(n_i+1)y_i^{n_i}(n_i - h_i)v = 0\]
+        Suppose if \(u \ne 0\), then from the above, \(u\) would be a highest weight vector of weight \(\lambda - (n_i + 1)\alpha_i < \lambda\). Contradiction, the highest weight is unique. So
+        \[W = \inner{v, y_iv, \dots, y_i^{n_i+1}v}\]
+        is a non-zero finite dimensional \(\mfm_{\alpha_i}\) subrepresentation of \(V(\lambda)\). To see that \(x_i W \sse W\), use (ii).
+    \end{proof}
+
+    \begin{claim}
+        For each \(i\), \(V(\lambda)\) is the sum of all finite dimensional \(\mfm_{\alpha_i}\) subrepresentations contained in it.
+    \end{claim}
+
+    \begin{proof}
+        Let \(W\) be the sum of all finite dimensional \(\mfm_{\alpha_i}\)-modules contained in \(V(\lambda)\). We will show that \(W\) is a \(\mfg\)-submodule of \(V(\lambda)\). But \(V(\lambda)\) is irreducible, and by \cref{claim:v-lambda-contains-fd-module}, \(W \ne 0\), and so \(W = V(\lambda)\).
+
+        For \(x \in \mfg, w \in W\), we need to show that \(xw \in W\). But then \(w \in W'\) for some finite dimensional \(\mfm_{\alpha_i}\)-module \(W'\). Let
+        \[x = \sum_{\beta \in \Phi \cup \{0\}} x_\beta\]
+        where \(x_\beta \in \mfg_\beta\). Then \(x_\beta w \in \mfg_\beta W' = W''\). Now consider
+        \[W'' = \Span_\beta\{\mfg_\beta W'\}\]
+        Then \(W''\) is finite dimensional, and it is clearly \(\mfm_{\alpha_i}\)-invariant, as
+        \[x_i W'' \sse \Span_{\beta}\{x_ix_\beta W'\}\]
+        But
+        \[x_ix_\beta W' = x_\beta(x_i W') + [x_i, x_\beta]W' \sse x_\beta W' + \mfg_{\alpha_i + \beta} W' \sse W''\]
+        Similarly, repeat for \(y_i, h_i\). Thus, \(xw \in W'' \sse W\).
+    \end{proof}
+
+    \begin{claim}
+        \label{claim:weyl-acts-by-perms}
+        The Weyl group acts on \(\Pi(\lambda)\) by permutations.
+    \end{claim}
+
+    Assuming the claim, \(\Pi(\lambda)\) decomposes as a disjoint union of orbits, this will mean that it is now enough to show there are only finitely many orbits, as \(W\) is finite.
+
+    \begin{claim}
+        If \(\mu \in \Pi(\lambda)\), then \(w_i(\mu) \in \Pi(\lambda)\), where \(w_i = w_{\alpha_i}\). Also,
+        \[\dim(V(\lambda)_\mu) = \dim(V(\lambda)_{w_i(\mu)})\]
+    \end{claim}
+
 \end{proof}
 
 \printindex
