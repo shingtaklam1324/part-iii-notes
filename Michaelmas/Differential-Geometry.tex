@@ -2424,6 +2424,108 @@ In general,
     Omitted.
 \end{proof}
 
+\lec
+
+Note that we have that \(g, \Ric(g) \in \Gamma(\Sym^2\T^* M)\), and so the equation
+\[\Ric(g) = \lambda g\]
+makes sense. If the equation holds, then
+\[\Ric_0 = \ker(\tr) = 0\]
+In this case, \((M, g)\) is called an \emph{Einstein manifold}\index{Einstein manifold}. If \(\lambda = 0\), then \(\Ric(g) = 0\) and we call \((M, g)\) \emph{Ricci-flat}\index{Ricci fla}.
+
+Next, we can consider the scalar curvature in low dimension.
+\begin{itemize}
+    \item In dimension \(2\), consider an embedded surface in \(\R^3\). The Riemannian metric corresponds to the first fundamental form. Recall
+    \[s = g^{ij}g^{pq}R_{pi, jq}\]
+    Then
+    \[\frac{1}{2}s = \frac{R_{12, 21}}{EG - F^2}\]
+    If we write the second fundamental form as
+    \[L\dd u^2 + M \dd u\dd v + N\dd v^2\]
+    where \(L = \inner{r_{uu}, n}\), \(n\) is the unit normal. Recall that the Gaussian curvature
+    \[K = \frac{LN - M^2}{EG - F^2}\]
+    only depends on \(E, F, G\) and their first derivatives, by the Theorema Egregium. In fact,
+    \[LN - M^2 = R_{12, 21}\]
+    and so
+    \[s = 2K\]
+    \item in dimension \(3\), \(R(g)\) is determined by \(\Ric(g)\). That is, the map \(\Tr\) is a linear isomorphism. See examples sheet 4 question 6.
+    \item in dimension \(4\), consider the \emph{Weyl curvature}\index{Weyl curvature}
+    \[W(g) = \ker(\Tr) = W_+ \oplus W_-\]
+    This can be related to examples sheet 4 question 8, for example by splitting into self-dual and anti-self-dual parts.
+\end{itemize}
+
+\subsection{The Laplace-Beltrami operator}
+
+Throughout, assume \((M, g)\) is an oriented Riemannian manifold, \(\dim(M) = n\), and suppose \(\epsilon \in \Omega^n(M)\) is an orientation form.
+
+For all \(x \in M\), apply Gram-Schmidt to the \(\{\pdv{x_i}\}\) to obtain on any open neighbourhood of \(x\), a local orthonormal frame field \(e_1, \dots, e_n\). We can assume this is positively oriented, that is,
+\[\epsilon(e_1, \dots, e_n) > 0\]
+Let \(\omega_1, \dots, \omega_n\) be the corresponding dual coframe field. That is, each \(\omega_i \in \Omega^1(U)\), and \(\omega_i(e_j) = \delta_{ij}\).
+In this case,
+\[\omega_1 \wedge \cdots \wedge \omega_n = a(x)\epsilon\]
+where \(a(x) > 0\). With respect to the inner product on the dual space, the \(\omega_i\) form an orthonormal basis as well. We can extend this to a unique inner product on \(\Lambda^pT^*_xM\), by setting
+\[\left\{\omega_{i_1}\wedge \cdots \omega_{i_p} \mid i_1 < \cdots < i_p\right\}\]
+to be an orthonormal basis. In this case,
+\[\inner{\alpha_1\wedge \cdots \wedge \alpha_p, \beta_1 \wedge \cdots \wedge \beta_p} = \det(\inner{\alpha_i, \beta_j})\]
+if \(\alpha_i, \beta_i\) are one-forms.
+
+Suppose \(\omega_i'\) is another positively oriented orthonormal coframe field. Then
+\[\omega_1' \wedge \cdots \wedge \omega_n' = \det (\Phi) \cdot \omega_1 \wedge \cdots \wedge \omega_n\]
+where \(\Phi\) is the change of basis matrix. Since \(\Phi\) is orthogonal, and has positive determinant, \(\det(\Phi) = 1\). In particular, the local \(n\)-forms
+\[\omega_1 \wedge \cdots \omega_n\]
+patch together over \((M, g)\) to a well defined non-vanishing \(n\)-form \(\omega_g\). We call this the \emph{volume form}\index{volume form} of \((M, g)\).
+
+\begin{definition}
+    [Hodge star] The \emph{Hodge star}\index{Hodge star} on \(M\) is the linear map
+    \[* : \Lambda^p\T^*_xM \to \Lambda^{n-p}\T^*_xM\]
+    such that
+    \[\alpha \wedge *\beta = \inner{\alpha, \beta} \omega_g\]
+\end{definition}
+
+For uniqueness, the Hodge star is defined by its action on a basis. For example
+\[*(\omega_1 \wedge \cdots \omega_p) = \omega_{p+1} \wedge \cdots \omega_n\]
+using orthogonality. For example, \(*1 = \omega_g\) and \(*\omega_g = 1\). A computation shows that
+\begin{lemma}
+    \[*^2 = (-1)^{p(n-p)}\id_{\Lambda^p\T^*_xM}\]
+\end{lemma}
+
+\begin{definition}
+    [codifferential] Define the \emph{codifferential}\index{codifferential}
+    \[\delta = (-1)^{n(p+1) + 1}* \dd * : \Omega^p(M) \to \Omega^{p-1}(M)\]
+    for \(p > 0\). We define \(\delta\) on \(0\)-forms to be zero.
+\end{definition}
+
+\begin{definition}
+    [Laplace-Beltrami] The \emph{Laplace-Beltrami operator}\index{Laplace-Beltrami operator} is
+    \[\Delta = \delta\dd + \dd\delta : \Omega^p(M) \to \Omega^p(M)\]
+\end{definition}
+
+\begin{proposition}
+    \[\int_M\inner{\dd\alpha, \beta}_g\omega_g = \int_M\inner{\alpha, \delta\beta}_g\omega_g\]
+    for all \(\alpha \in \Omega^{p-1}(M), \beta \in \Omega^p(M)\) compactly supported.
+\end{proposition}
+
+\begin{proof}
+    By Stokes,
+    \[\int_M \dd(\alpha \wedge *\beta) = 0\]
+    But
+    \[\dd(\alpha \wedge *\beta) = (\dd\alpha) \wedge *\beta + (-1)^{p-1}\alpha \wedge \dd (*\beta)\]
+    Now note that
+    \[-*\delta\beta = (-1)^{n(p+1)}**\dd(*\beta) = (-1)^{n(p-1) + (n-p+1)(p-1)} \dd(*\beta) = (-1)^{p-1}\dd(*\beta)\]
+    With this, we see that
+    \[\dd(\alpha \wedge *\beta) = \inner{\dd\alpha, \beta}\omega_g - \inner{\alpha, \delta\beta}\omega_g\]
+\end{proof}
+
+\begin{remark}
+    Define the \(L^2\) inner product of \(p\)-forms as
+    \[\iinner{\xi, \eta}_{M, g} = \int_M \inner{\xi, \eta}_g\omega_g\]
+    and so we have that
+    \[\iinner{\dd\alpha, \beta}_{M, g} = \inner{\alpha, \delta\beta}_{M, g}\]
+    So \(\delta\) is the formal \(L^2\)-adjoint of \(\dd\).
+\end{remark}
+
+\begin{corollary}
+    \(\Delta^* = \Delta\) is formally self-adjoint.
+\end{corollary}
+
 \printindex
 
 \end{document}

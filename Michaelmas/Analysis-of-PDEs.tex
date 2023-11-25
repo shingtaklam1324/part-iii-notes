@@ -2906,8 +2906,132 @@ Let
 \underline{Exercise:} if \(a^{ij}\xi_i\xi_j \le \mu\abs{\xi}^2\), for some \(\mu > 0\), then we can show that such \(S_0, S'\) exists.
 
 \begin{theorem}
-    [domain of dependence] If \(S'\) is spacelike, \(u\) a weak solution to \cref{eq:hyperbolic-ibvp-weak}, then \(u\vert_D\) depends only on \(\psi_0\vert_{S_0}, \psi_1\vert_{S_0}, f\vert_D\).
+    [domain of dependence] \index{domain of dependence} If \(S'\) is spacelike, \(u\) a weak solution to \cref{eq:hyperbolic-ibvp-weak}, then \(u\vert_D\) depends only on \(\psi_0\vert_{S_0}, \psi_1\vert_{S_0}, f\vert_D\).
 \end{theorem}
+
+\lec
+
+\begin{proof}
+    The proof is similar to the proof of uniquness. By linearity, it suffices to show that \(u\vert_D = 0\) if \(\psi_0\vert_{S_0} = 0, \psi_1\vert_{S_0} = 0\) and \(f\vert_D = 0\). Take a test function
+    \[v(x, t) = \begin{cases}
+        \int_t^\tau  e^{-\lambda s} u(x, s)\dd s & (x, t) \in D \\
+        0 & \text{otherwise}
+    \end{cases}\]
+    We leave the proof that \(v \in H^1(U_T)\), with \(v = 0\) on \(\partial^*U_T \cup \Sigma_T\), and
+    \begin{align*}
+        v_{x_i} &= \tau_{x_i}e^{-\lambda\tau(x)}u(x, \tau(x)) + \int_t^{\tau(x)}e^{-\lambda s}u_{x_i}(x, s)\dd s \\
+        v_t &= -e^{-\lambda t}u(x, t)
+    \end{align*} 
+    on \(D\). These vanish outside of \(D\). Inserting this into the definition of the weak solution, we find that
+    \begin{align*}
+        \overline{A} &= 
+        \int_D \frac{1}{2}\partial_t\left(u^2e^{-\lambda t} - a^{ij}v_{x_i}v_{x_j}e^{\lambda t} - v^2 e^{\lambda t}\right)\dd x \dd t \\
+        A &= \frac{\lambda}{2}\int_D(u^2e^{-\lambda t} + a^{ij}v_{x_i}v_{x_j}e^{\lambda t} + v^2e^{\lambda t})\dd x \dd t \\
+        B &= \int_D \frac12 a^{ij}v_{x_i}v_{x_j}e^{\lambda t} + (b^i_{x_i} + b_t + c)uv + b^iv_{x_i}u + buu_t \dd x \dd t \\
+        \overline{A} + A &= B
+    \end{align*}
+    By Fubini,
+    \[\int_D \dd x\dd t = \int_{S_0}\dd x\int_0^{\tau(x)}\dd t\]
+    Using \(v\vert_{S'} = 0\), and \(v_{x_i}\vert_{S'} = \tau_{x_i}u(x_i, \tau(x))e^{-\lambda\tau(x)}\), we get that
+    \[\overline{A} = \frac{1}{2}\int_{S_0}u^2(x, \tau(x)) e^{\lambda \tau(x)}(1 - a^{ij}\tau_{x_i}\tau_{x_j})\dd x + \frac{1}{2}\int_{S_0}(a^{ij}v_{x_i}v_{x_j} + v^2)\vert_{t=0}\dd x\]
+    Continuing as in the proof of uniqueness,
+    \[\left(\frac{\lambda}{2} - c\right)\int_D u^2e^{-\lambda t} + \theta\abs{Du}^2e^{\lambda t} + v^2e^{\lambda t}\dd x \dd t \le 0\]
+    If \(\lambda\) is large, this forces \(u\vert_D = 0\).
+\end{proof}
+
+\begin{remark}
+    No signal can travel faster than a fixed speed. Let \(x_0 \in U\) and \(S_0\) some ball about \(x_0\). If \((x_0, t) \in D\), then any data outside \(S_0\) does not influence \(u(x_0, t)\). Only after \(t > \tau(x_0)\) will the function be determined by data outside \(s_0\).
+
+    Therefore, everything is local in hyperbolic PDEs.
+\end{remark}
+
+\subsection{Hyperbolic regularity}
+
+So far, we have shown existence to and uniqueness of weak solutions to
+\[u_{tt} + Lu = f\]
+with given initial and boundary conditions. Given \(\psi_0 \in H^1_0(U), \psi_1 \in L^2(U), f \in L^2(U_T)\), we have shown
+\[\norm{u}_{L^\infty_tH^1_x} + \norm{u_t}_{L^\infty_tL^2_x} + \norm{u}_{H^1(U_T)} \le C\left(\norm{\psi_0}_{H^1(U)} + \norm{\psi_1}_{L^2(U)} + \norm{f}_{L^2(U)}\right)\]
+where \(L^\infty_tH^1_x = L^\infty((0, T), H^1(U))\). In this case, we did not manage to improve the regulaity when compared to the initial conditions.
+
+\begin{example}
+    Suppose \(u \in C^\infty(U_T)\) which solves
+    \[\begin{cases}
+        u_{tt} - \Delta u = 0 &\text{in }U_T \\
+        u = \psi_0, u_t = \psi_1 &\text{on }\Sigma_0 \\
+        u = 0&\text{on }\partial^* U_T
+    \end{cases}\]
+    Let \(w = u_t\). Then
+    \[\begin{cases}
+        w_{tt} - \Delta w = 0 &\text{in }U_T \\
+        w = \psi_1, w_t = \Delta\psi_0 &\text{on }\Sigma_0 \\
+        w = 0 &\text{on }\partial^*U_T
+    \end{cases}\]
+    Using the above estimate, we have that
+    \[\norm{w}_{L^\infty_t H^1_0} + \norm{w_t}_{L^\infty_tL^2_x} + \norm{w}_{H^1(U_T)} \le C\left(\norm{\psi_1}_{H^1(U)} + \norm{\Delta \psi_0}_{L^2(U)}\right)\]
+    Hence we have control over \(u_{tt}, u_{x_it}\) in \(L^2(U)\) in terms of initial data. To control \(u_{x_ix_j}\), we use elliptic regularity. In particular,
+    \[\norm{u}_{H^2(U)} \le C\norm{\Delta u}_{L^2(U)} = C\norm{u_{tt}}_{L^2(U)}\]
+    All together,
+    \[\norm{u}_{L^\infty_tH^2_x} + \norm{u_t}_{L^\infty_tH^1_x} + \norm{u_{tt}}_{L^\infty_tL^2_x} \le C\left(\norm{\psi_0}_{H^2} + \norm{\psi_1}_{H^1}\right)\]
+\end{example}
+
+\begin{theorem}
+    [hyperbolic regularity] \index{hyperbolic regularity} Suppose \(a^{ij}, b^i, b, c \in C^2(\overline{U_T})\), with \(\partial U\) being \(C^2\). Then for \(\psi_0 \in H^2(U) \cap H^1_0(U)\), \(\psi^1 \in H^1_0(U)\), \(f, f_t \in L^2(U_T)\), then the unique weak solution \(u \in H^1(U_T)\) satisfies
+    \begin{align*}
+        u &\in H^2(U_T) \cap L^\infty_tH^2_x \\
+        u_t &\in L^\infty_tH^1_0 \\
+        u_{tt} &\in L^\infty_tL^2_x
+    \end{align*}
+\end{theorem}
+
+\begin{proof}
+    By approximation, we can assume \(f, \psi_0, \psi_1\) are smooth. As in the Galerkin method, use
+    \[u^N(x, t) = \sum_{k=1}^N u_k(t)\varphi_k(x)\]
+    Consider the ODE for \(u_k(t)\). The coefficients are \(C^2\), and so \(u_k\) is \(C^3\).
+
+    Since \(u^N\) is \(C^3\), we can differentiate \cref{eq:hyper-exist-int-over-space} with respect to \(t\), to get
+    \begin{align*}
+        \pinner{u^N_{ttt}, \varphi_k}_{L^2(\Sigma_0)} + \int_{\Sigma_t}a^{ij}u^N_{tx_i}(\varphi_k)_{x_j} + b^iu^N_{tx_i}\varphi_k + bu^N_{tt}\varphi_k + cu^N_t\varphi_k \dd x \\
+        =\pinner{f_t, \varphi_u}_{L^2(\Sigma_t)} - \int_{\Sigma_t}a^{ij}_t u^N_{x_i}(\varphi^k)_{x_j} + b^i_t u^N_{x_i}\varphi_k + b_t u^N_t\varphi_k + c_tu^N\varphi_k \dd x
+    \end{align*}
+    Multiply the above by \(\ddot u_k e^{-\lambda t}\), sum from \(k = 1\) to \(N\), integrating \(\int_0^\tau \dd t\), we get that
+    \begin{align*}
+        \sup_{t \in [0, T]}\left(\norm{u^N_t}_{H^1(\Sigma_t)}^2 + \norm{u^N_{tt}}_{L^2(\Sigma_t)}^2\right) + \norm{u_t}^2_{H^1(U_t)} \\
+        \le e^{\lambda t}C\left(\norm{\psi_0}^2_{H^1(\Sigma_t)} + \norm{\psi_1}^2_{L^2(\Sigma_0)} + \norm{f}^2_{L^2(U_T)} + \norm{u^N_t}^2_{H^1(\Sigma_0)} + \norm{u^N_{tt}}^2_{L^2(\Sigma_0)} + \norm{f_t}^2_{L^2(U_T)}\right)
+    \end{align*}
+    First, note that
+    \[\norm{u^N_{tt}}_{H^1(\Sigma_0)} \le C\norm{\psi_1}_{H^1(\Sigma_0)}\]
+    and using \cref{eq:hyper-exist-int-over-space} again,
+    \begin{align*}
+        \norm{u^N_{tt}}^2_{L^2(\Sigma_0)} &= -\int_{\Sigma_0}a^{ij}u^N_{x_i}u^N_{ttx_j} + b^iu^N_{x_i}u^N_{tt} + bu^N_tu^N_{tt} + cu^Nu^N_{tt} \dd x + \pinner{f, u^N_{tt}}_{L^2(\Sigma_0)} \\
+        &= \int_{\Sigma_0}(a^{iju^N_{x_j}})_{x_i}u^N_{tt} + \text{stuff}
+    \end{align*}
+    By Cauchy-Schwarz,
+    \[\norm{u^N_{tt}}_{L^2(\Sigma_0)} \le C\left(\norm{u^N}_{H^2(\Sigma_0)} + \norm{u^N_t}_{L^2(\Sigma_0)} + \norm{f}_{L^2(\Sigma_0)}\right)\]
+    We would like to control \(\norm{u^N}_{H^2(\Sigma_0)}\) uniformly in \(N\).
+    \begin{align*}
+        \pinner{\Delta u^N, \Delta u^N}_{L^2(\Sigma_0)} = \pinner{u^N, \Delta^2u^N}_{L^2(\Sigma_0)} = \pinner{\psi_0, \Delta^2u^N}_{L^2(\Sigma_0)} = \pinner{\Delta\Psi_0, \Delta u^N}_{L^2(\Sigma_0)}
+    \end{align*}
+    In particular,
+    \[\norm{\Delta u^N}_{L^2(\Sigma_0)} \le \norm{\Delta \psi_0}_{L^2(\Sigma_0)} \le \norm{\psi_0}_{H^2(\Sigma_0)}\]
+    Using elliptic regularity,
+    \[\norm{u^N}_{H^2(\Sigma_0)} \le \norm{\psi_0}_{H^2(\Sigma_0)}\]
+
+    In summary, we have
+    \begin{align*}
+        \norm{u^N_t}_{L^\infty_tH^1_x} + \norm{u^N_{tt}}_{L^\infty_tL^2} + \norm{u^N_{tt}}_{H^1(U_T)} \le C_2
+    \end{align*}
+    where \(C_2\) is independent of \(n\). By Banach Alaoglu, we have that
+    \begin{align*}
+        u_t &\in H^1(U_T) \\
+        u_t &\in L^\infty_tH^1_0 \\
+        u_{tt} &\in L^\infty_tL^2_x
+    \end{align*}
+    For the spacial derivatives, use the fact that
+    \[Lu = f - u_{tt}\]
+    by elliptic regularity on \(\Sigma_t\), then
+    \[\norm{u}_{H^2_x} \le \norm{Lu}_{L^2_x} \le \norm{f}_{L^2_x} + \norm{u_{tt}}_{L^2_x} \le CC_2\]
+    and so \(u \in L^\infty_tH^2_x\) as required.
+\end{proof}
 
 \printindex
 

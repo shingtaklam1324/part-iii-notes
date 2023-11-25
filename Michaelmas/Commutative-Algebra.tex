@@ -3037,6 +3037,118 @@ which is an integral extension. Hence by the proposition,
 \[\dim(A) = \dim(k[T_1, \dots, T_d]) = d\]
 by examples sheet 3 question 10.
 
+\lec
+
+\subsection{Hilbert polynomials and functions}
+
+Let \(A\) be a Noetherian graded ring. That is, \(A_0\) is Noetherian and \(A\) is a finitely generated \(A_0\)-algebra. Let \(M\) be a finitely generated graded \(A\)-module. Then each \(M_n\) is an \(A_0\)-module.
+
+\begin{claim}
+    \(M_n\) is a finitely generated \(A_0\)-module.
+\end{claim}
+
+\begin{proof}
+    Say \(M = \Span_A\{m_1, \dots, m_t\}\), each \(m_i \in M_{r_i}\) homogeneous. Therefore,
+    \[M_n = \left\{a_1m_1 + \dots + a_tm_t \mid a_i \in A_{n-r_i}\right\}\]
+    We have that \(A = A_0[x_1, \dots, x_s]\), each \(x_i \in A_{k_i}\), \(k_i > 0\). Then
+    \[M_n = \Span_{A_0} \left\{x_1^{e_1}\cdots x_s^{e_s}m_i \ \bigg\vert\ e_i \ge 0, \sum k_ie_i = n - r_i\right\}\]
+\end{proof}
+
+Now we will assume in addition that \(A_0\) is also Artinian. Therefore, each \(M_n\) is an Artinian and Noetherian module. Hence \(\ell(M_n) < \infty\)\footnote{That is, it has finite length. Equivalently, it has a composition series of finite length.}.
+
+\begin{definition}
+    [Poincar\'e series]
+    Let \(A, M\) be as above. The \emph{Poincar\'e series}\index{Poincar\'e series} of \(M\) is
+    \[P(M, T) = \sum_{n=0}^\infty \ell(M_n)T^n \in \Z\powers T\]
+\end{definition}
+
+\begin{theorem}
+    [Hilbert-Serre]
+    \(P(M, T)\) is a rational function of the form
+    \[\frac{f(T)}{\prod_{i=1}^s(1 - T^{k_i})}\]
+    for \(f \in \Z[T]\), \(s, k_i\) as above.
+\end{theorem}
+
+\begin{proof}
+    For the base case, \(s = 0\), then \(A = A_0\), and so \(M = \Span_{A_0}S\), where \(S\) is a finite set. Hence it must belong to a finite direct sum, and so \(M_n = 0\) for \(n > n_0\). Thus, \(P(M, T)\) is a polynomial.
+
+    Now write
+    \[M = \bigoplus_{n \in \Z}M_n\]
+    where \(M_\ell = 0\) for \(\ell < 0\). We have an exact sequence of the form
+    % https://q.uiver.app/#q=WzAsNixbNCwwLCJNX24iXSxbNiwwLCJNX3tuK2tfc30iXSxbMiwwLCJLX24iXSxbMCwwLCIwIl0sWzgsMCwiTF97bitrX3N9Il0sWzEwLDAsIjAiXSxbMCwxLCJtXFxtYXBzdG8geF9zbSJdLFszLDJdLFsyLDBdLFsxLDRdLFs0LDVdXQ==
+\[\begin{tikzcd}
+	0 && {K_n} && {M_n} && {M_{n+k_s}} && {L_{n+k_s}} && 0
+	\arrow["{m\mapsto x_sm}", from=1-5, to=1-7]
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-3, to=1-5]
+	\arrow[from=1-7, to=1-9]
+	\arrow[from=1-9, to=1-11]
+\end{tikzcd}\]
+    where \(K_n, L_{n+k_s}\) are the kernel and cokernel respectively. Set
+    \begin{align*}
+        K &= \bigoplus_n K_n \\
+        L &= \bigoplus_n L_n
+    \end{align*}
+    These are graded \(A\)-modules\footnote{If we defined homomorphisms of graded modules, then \(K, L\) are the kernel and cokernel respectively.}. Now note that \(K, L\) are annihilated by \(x_s\),
+
+    Apply \(\ell\) to the exact sequence, we get
+    \[\ell(K_n) - \ell(M_n) + \ell(M_{n+k_s}) - \ell(L_{n+k_s}) = 0\]
+    since \(\ell\) is additive. Hence
+    \[\ell(K_n)T^{n+k_s} - \ell(M_n)T^{n+k_s} + \ell(M_{n+k_s})T^{n+k_s} - \ell(L_{n+k_s})^{n+k_s} = 0\]
+    Rearranging,
+    \[\ell(M_{n+k_s})T^{n+k_s} - T^{k_s}\ell(M_n)T^n = \ell(L_{n+k_s})T^{n+k_s} - T^{k_s}\ell(K_n)T^n\]
+    Summing this over the integers, we get
+    \[(1-T^{k_s})P(M, T) = P(M, T) - T^{k_s}P(M, T) = P(L, T) - T^{k_s}P(K, T)\]
+    But we can write the right hand side as
+    \[\frac{f_1}{\prod_{i=1}^{s-1}(1-T^{k_i})} - \frac{T^{k_s}f_2}{\prod_{i=1}^{s-1}(1-T^{k_i})}\]
+    by induction. Rearranging gives the result.
+\end{proof}
+
+Let \(d(M)\) be the order of the pole of \(P(M, T)\) at \(t = 1\). Then if \(M \ne 0\), \(d \ge 0\). See notes for details.
+
+\begin{example}
+    Let \(A = k[T_1, \dots, T_s]\), \(A_n\) the homogeneous parts. Then
+    \begin{enumerate}
+        \item \(A\) is generated as an \(A_0 = k\)-algebra by \(T_1, \dots, T_s\). In each case, \(k_i = 1\).
+        \item \(\ell(A_n) = \dim_k(A_n) = {n+s-1 \choose s}\), which is a polynomial of degree \(s-1\) in \(n\) over \(\Q\). In this case,
+        \item \[P(A, T) = \sum {n + s - 1 \choose n}T^n = \frac{1}{(1-T)^s}\] 
+    \end{enumerate}
+\end{example}
+
+\begin{proposition}
+    If \(k_1 = \dots = k_s = 1\), then there exists a polynomial \(\HP_M \in \Q[T]\), and \(n_0 \ge 1\), such that
+    \[\ell(M_n) = \HP_M(n)\]
+    for all \(n \ge N_0\). Moreover,
+    \[\deg(\HP_M) = d(M) - 1\]
+    This is called the \emph{Hilbert polynomial}\index{Hilbert polynomial}.
+\end{proposition}
+
+\begin{proof}
+    Let \(d = d(M) \ge 0\). Then we can write
+    \[\sum_{n\ge 0}\ell(M_n)T^n = \frac{f(T)}{(1-T)^d}\]
+    where \(f \in \Z[T]\), with \(f(1) \ne 0\). Write
+    \[f = \sum_{k=0}^{\deg(f)}a_kT^k\]
+    for \(a_k \in \Z\). Next,
+    \[\frac{1}{(1-T)^d} = \sum_{j=0}^\infty b_jT^j\]
+    where \(b_j = {j + d - 1 \choose j}\). Then
+    \[\ell(M_n) = \sum_{i=0}^{\deg(f)}a_{n-i}b_i\]
+    for \(n \ge \deg(f)\). Since \(a_i \in \Z\), \(b_j\) is a polynomial in \(j\) over \(\Q\) of degree \(d-1\). Moreover, the leading coefficient of \(b_i\) is
+    \[\frac{1}{(d-1)!}\]
+    Hence \(\ell(M_n) = p(n)\), where \(p \in \Q[T]\). All we need to show is that \(\deg(p) = d - 1\). The coefficient of \(T^{d-1}\) in \(p\) is
+    \[\sum_{i=0}^{\deg(f)}a_i \frac{1}{(d-1)!} = \frac{f(1)}{(d-1)!}\]
+    which is non-zero, as \(f(1) \ne 0\) by assumption.
+\end{proof}
+
+\subsection{Dimension of local Noetherian rings}
+
+\begin{lemma}
+    Let \((A, \mfm)\) be a Noetherian local ring, then 
+    \begin{enumerate}[(i)]
+        \item an ideal \(\mfq\) of \(A\) is \(\mfm\)-primary if and only if there exists \(t \ge 1\) such that \(\mfm^t \sse \mfq \sse \mfm\).
+        \item If \(\mfq\) is \(\mfm\)-primary, then \(A/\mfq\) is Artinian.
+    \end{enumerate}
+\end{lemma}
+
 \printindex
 
 \end{document}
