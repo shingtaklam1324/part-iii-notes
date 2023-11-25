@@ -2470,7 +2470,7 @@ if \(\alpha_i, \beta_i\) are one-forms.
 Suppose \(\omega_i'\) is another positively oriented orthonormal coframe field. Then
 \[\omega_1' \wedge \cdots \wedge \omega_n' = \det (\Phi) \cdot \omega_1 \wedge \cdots \wedge \omega_n\]
 where \(\Phi\) is the change of basis matrix. Since \(\Phi\) is orthogonal, and has positive determinant, \(\det(\Phi) = 1\). In particular, the local \(n\)-forms
-\[\omega_1 \wedge \cdots \omega_n\]
+\[\omega_1 \wedge \cdots \wedge \omega_n\]
 patch together over \((M, g)\) to a well defined non-vanishing \(n\)-form \(\omega_g\). We call this the \emph{volume form}\index{volume form} of \((M, g)\).
 
 \begin{definition}
@@ -2481,7 +2481,7 @@ patch together over \((M, g)\) to a well defined non-vanishing \(n\)-form \(\ome
 \end{definition}
 
 For uniqueness, the Hodge star is defined by its action on a basis. For example
-\[*(\omega_1 \wedge \cdots \omega_p) = \omega_{p+1} \wedge \cdots \omega_n\]
+\[*(\omega_1 \wedge \cdots \wedge \omega_p) = \omega_{p+1} \wedge \cdots \wedge \omega_n\]
 using orthogonality. For example, \(*1 = \omega_g\) and \(*\omega_g = 1\). A computation shows that
 \begin{lemma}
     \[*^2 = (-1)^{p(n-p)}\id_{\Lambda^p\T^*_xM}\]
@@ -2518,7 +2518,7 @@ using orthogonality. For example, \(*1 = \omega_g\) and \(*\omega_g = 1\). A com
     Define the \(L^2\) inner product of \(p\)-forms as
     \[\iinner{\xi, \eta}_{M, g} = \int_M \inner{\xi, \eta}_g\omega_g\]
     and so we have that
-    \[\iinner{\dd\alpha, \beta}_{M, g} = \inner{\alpha, \delta\beta}_{M, g}\]
+    \[\iinner{\dd\alpha, \beta}_{M, g} = \iinner{\alpha, \delta\beta}_{M, g}\]
     So \(\delta\) is the formal \(L^2\)-adjoint of \(\dd\).
 \end{remark}
 
