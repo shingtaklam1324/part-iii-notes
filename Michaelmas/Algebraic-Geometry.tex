@@ -2263,14 +2263,14 @@ Keep in mind if \(A\) is an integral domain, \(X = \Spec(A)\), \(\mcD = \{(X, f)
 
 \section{Sheaf cohomology - a survival guide}
 
-We say that if \(X = \aff k 2 \setminus \{(0, 0)\}\), then \(\mcO_X(X) \cong k[x, y]\), and so it cannot be affine.
+We have seen that if \(X = \aff k 2 \setminus \{(0, 0)\}\), then \(\mcO_X(X) \cong k[x, y]\), and so it cannot be affine.
 
 As an overview, given \(X\) a topological space, \(\mcF\) a sheaf of abelian groups on \(X\), we will build groups \(\HH^i(X, \mcF)\) for \(i \in \N\), known as the \emph{sheaf cohomology of \(\mcF\)}, such that
 \begin{enumerate}
     \item \(\HH^0(X, \mcF) = \Gamma(X, \mcF)\),
     \item (functoriality) if \(f : Y \to X\) is continuous, then we have an induced map
     \[f^* : \HH^i(X, \mcF) \to \HH^i(Y, f^{-1}\mcF)\] 
-    \item Given a short exact sequence of sheaves
+    \item Given a short exact sequence of sheaves on \(X\),
     % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxtY0YiXSxbMiwwLCJcXG1jRiciXSxbMywwLCJcXG1jRicnIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
 \[\begin{tikzcd}
 	0 & \mcF & {\mcF'} & {\mcF''} & 0
@@ -2290,6 +2290,84 @@ As an overview, given \(X\) a topological space, \(\mcF\) a sheaf of abelian gro
 	\arrow[from=1-5, to=1-6]
 \end{tikzcd}\]
 \end{enumerate}
+
+\lec
+
+We will omit the definition, see Hartshorne Chapter 3. For our purposes, two key aspects of the definition:
+\begin{enumerate}
+    \item if \(X\) is an affine scheme, \(\mcF\) is a quasi-coherent sheaf, then
+    \[\HH^i(X, \mcF) = 0 \text{ for }i > 0\]
+    \item if \(X\) is a Noetherian separated scheme, then \(\HH^i(X, \mcF)\) can be computed from the sections of \(\mcF\) on an open affine cover \(\{U_i\}\) and from the data of the restrictions to the intersections.
+\end{enumerate} 
+The second part is called \v Cech cohomology.
+
+See Dhruv's notes for \S7.1, 7.2.
+
+\setcounter{subsection}{2}
+
+\subsection{\v Cech cohomology}
+
+Let \(X\) be a topological space, \(\mcF\) a sheaf on \(X\). Fix an open cover \(\mcU = \{U_i\}_{i \in I}\), indexed by a well-ordered set \(I\). In this case, \v Cech cohomology is attached to the triple \((X, \mcF, \mcU)\).
+
+We will write \(U_{i_0\cdots i_p} = U_{i_0} \cap \cdots \cap U_{i_p}\). The group of \v Cech \(p\)-cochains is
+\[C^p(\mcU, \mcF) = \prod_{i_0 < \cdots < i_p}\mcF(U_{i_0\cdots i_p})\]
+We have the differential
+\begin{align*}
+    \dd : C^p(\mcU, \mcF) &\to C^{p+1}(\mcU, \mcF)
+\end{align*}
+where
+\[(\dd\alpha)_{i_0\cdots i_{p+1}} = \sum_{k=0}^{k+1}(-1)^k\alpha_{i_0\cdots \widehat{i_k}\cdots i_{p+1}}\vert_{U_{i_0\cdots i_{p+1}}}\]
+Easy exercise to see that \(\dd^2 = 0\). This makes \((C^p(\mcU, \mcF), \dd)\) into a cochain complex.
+
+\begin{definition}
+    [\v Cech cohomology]
+    The \emph{\v Cech cohomology}\index{\v Cech cohomology} of \((X, \mcF, \mcU)\) is the cohomology of the cochain complex \(C^p(\mcU, \mcF)\). We will write
+    \[\check\HH^*(\mcU, \mcF) = \HH^*(C^\bullet(\mcU, \mcF))\]
+\end{definition}
+
+\begin{example}
+    Let \(X = S^1\). Let \(\mcF\) be the constant sheaf \(\underline{\Z}\). Let \(\mcU = \{U, V\}\), where \(U, V\) are the intervals.
+    
+    \textbf{diagram}
+
+    In this case, the cochain groups are
+    \begin{align*}
+        C^0(\mcU, \Z) &= \underline{\Z}(U) \oplus \underline{\Z}(V) = \Z^2 \\
+        C^1(\mcU, \Z) &= \underline{\Z}(U \cap V) = \Z^2
+    \end{align*}
+    and the boundary map is
+    \[\dd(a, b) = (b - a, b - a)\]
+    Hence
+    \[\check \HH^*(\mcU, \underline{\Z}) = \begin{cases}
+        \Z & * = 0, 1 \\
+        0 & \text{otherwise}
+    \end{cases}\]
+\end{example}
+Observe that this is the same as the singular cohomology groups of \(S^1\). On the other hand, for a poorly chosen \(\mcU\), then \(\check \HH^*\) will not behave well. That is, 
+\(\check \HH^*\) depends on \(\mcU\) in a crucial way.
+
+\underline{Exercise:} Take \(X = \P_k^1\), \(U = \P^1 \setminus 0, V = \P^1 \setminus \infty\). Then \(U, V\) cover. Show that
+\[\check \HH^*(\mcU, \mcO_X) = \begin{cases}
+    \Z & * = 0 \\
+    0 &\text{otherwise}
+\end{cases}\]
+
+\begin{proposition}
+    Let \(X\) be a Noetherian separated scheme, \(\mcU = \{U_i\}\) be an affine cover, and so all \(U_{i_0\cdots i_p}\) are all affine. Let \(\mcF\) be a quasi-coherent sheaf of \(\mcF\), then
+    \[\check\HH^p(\mcU, \mcF) = \HH^p(X, \mcF)\]
+\end{proposition}
+
+\begin{proposition}
+    Let \(X = \P^n_k\), and
+    \[\mcF = \bigoplus_d \mcO_{\P^n}(d)\]
+    Then we have an isomorphism of graded \(k\)-vector spaces
+    \begin{itemize}
+        \item \(\HH^0(X, \mcF) \cong k[x_0, \dots, x_n]\)
+        \item \(\HH^n(X, \mcF) \cong \frac{1}{x_0\cdots x_n}k[x_0^{-1}, \dots, x_n^{-1}]\),
+        \item \(\HH^p(X, \mcF) = 0\) for all other \(p\).
+    \end{itemize}
+    In particular, \(\HH^0(\P^n, \mcO(d))\) has dimension \(n + d \choose d\), and \(\HH^n(\P^n, \mcO(d))\) has dimension \(-d-1 \choose n\) (when these things make sense, zero otherwise).
+\end{proposition}
 
 \printindex
 

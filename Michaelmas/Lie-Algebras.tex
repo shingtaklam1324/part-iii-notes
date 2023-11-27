@@ -2937,6 +2937,7 @@ where \(u_\alpha, y_i \in \mcU(\mfg)\). \(J(\lambda)\) is a left module for \(\m
 \end{remark}
 
 \begin{theorem}
+    \label{thm:fd-irred-iff-dominant}
     \(V = V(\lambda)\) is a finite dimensional irreducible \(\mfg\)-module if and only if \(\lambda\) is dominant.
 \end{theorem}
 
@@ -2994,14 +2995,107 @@ where \(u_\alpha, y_i \in \mcU(\mfg)\). \(J(\lambda)\) is a left module for \(\m
         The Weyl group acts on \(\Pi(\lambda)\) by permutations.
     \end{claim}
 
-    Assuming the claim, \(\Pi(\lambda)\) decomposes as a disjoint union of orbits, this will mean that it is now enough to show there are only finitely many orbits, as \(W\) is finite.
+    Assuming the claim, \(\Pi(\lambda)\) decomposes as a disjoint union of orbits, this will mean that it is now enough to show there are only finitely many orbits, as \(W\) is finite. First, we will show
+
+\lec
 
     \begin{claim}
         If \(\mu \in \Pi(\lambda)\), then \(w_i(\mu) \in \Pi(\lambda)\), where \(w_i = w_{\alpha_i}\). Also,
         \[\dim(V(\lambda)_\mu) = \dim(V(\lambda)_{w_i(\mu)})\]
     \end{claim}
 
+    \begin{proof}
+        Since \(V(\lambda)_\mu\) is finite dimensional, there exists a finite-dimensional \(\mfm_{\alpha_i}\)-module \(U\) containing \(V(\lambda)_\mu\). Pick an element \(0 \ne w \in V(\lambda)_\mu\). We have that
+        \begin{align*}
+            h_i w &= \mu(h_i)w
+        \end{align*}
+        Hence \(w \in U\) is a weight vector for \(h_i\). Thus by \(\sl_2\) theory, \(\mu(h_i) = \mu(\alpha_i^\vee) = m \in \Z\). Hence all weights are in \(\Z\), as this holds for all \(i\). Since \(m\) appears as a weight of \(U\), so does \(-m\). Moreover, we have that \(\dim(U_m) = \dim(U_{-m})\).
+        
+        If \(m \ge 0\), then \(y_i^m w\ne 0\), and \(y^im \in U_{-m}\). But
+        \[y_i^mw \in V(\lambda)_{\mu - \inner{\mu, \alpha_i^\vee}\alpha_i} = V(\lambda)_{w_i(\mu)}\]
+        as weights add. If \(m < 0\), the same argument with \(x_i^{-m}\) works.
+
+        To get the equality of dimensions, if \(w_1, \dots, w_r\) is a basis of \(V(\lambda)_\mu\), then \(w_1, \dots, w_r\) is linearly independent in \(U_m\). Applying \(y_i^m\) (or \(x_i^{-m}\)), the results are still linearly independent, which live in \(V(\lambda)_{w_i(\mu)}\). With this,
+        \[\dim(V(\lambda)_\mu) \le \dim(V(\lambda)_{w_i(\mu)})\]
+        But we can just swap \(\mu\) and \(w_i(\mu)\), as \(w_i^2 = \id\).
+    \end{proof}
+
+    \begin{claim}
+        \label{claim:weyl-orbit-contains-dominant}
+        For \(\mu \in \Pi(\lambda)\), its Weyl orbit \(W\mu\) contains a dominant weight.
+    \end{claim}
+
+    \begin{proof}
+        The orbit \(W\mu\) is finite, so there exists \(\eta \in W_\mu\) which is maximal with respect to \(\le\). Then we know that \(\eta\) is dominant, since if not, then
+        \[\inner{\eta, \alpha_i^\vee} < 0\]
+        for some \(i\), and so \(w_i(\eta) \in W\mu\), with \(w_i(\eta) = \eta - \inner{\eta, \alpha_i^\vee}\) with \(w_i(\eta) \ge \eta\). Contradiction.
+    \end{proof}
+
+    \begin{claim}
+        \[S = \left\{\eta \mid \eta \text{ dominant, }\eta \le \lambda\right\}\]
+        is finite.
+    \end{claim}
+
+    \begin{proof}
+        If \(\eta \in S\), then \(\lambda - \eta\) is a sum of positive roots, with nonnegative coefficients. hence \(\eta\) lies in a discrete set.
+
+        Moreover, \(\lambda + \eta\) is dominant, and so
+        \[\inner{\lambda + \eta, \alpha_i^\vee} \ge 0\]
+        for all \(i\). In particular,
+        \[\pinner{\lambda + \eta, \lambda - \eta} \ge 0 \implies \pinner{\lambda, \lambda} \ge \pinner{\eta, \eta}\]
+        and so \(S\) is a subset of a compact set. Thus \(S\) is compact and discrete, and so finite.
+    \end{proof}
+
+    From \cref{claim:weyl-orbit-contains-dominant}, any \(W\)-orbit of \(\Pi(\lambda)\) contains a dominant weight, i.e. an element of \(S\). But \(S\) is finite and so there are only finitely many orbits.
 \end{proof}
+
+We've just shown that there exists a bijection
+\[\{\text{dominant weights }\lambda\} \bij \{\text{finite dimensional irreducible representations }V(\lambda)\text{ of }\mfg\}\]
+
+\section{The Weyl character formula}
+
+Let \(\mfg\) be a semisimple Lie algebra, with Cartan subalgebra \(\mft\), root basis \(\Delta = \{\alpha_1, \dots, \alpha_\ell\}\), weight lattice \(X\), Weyl group \(W\).
+
+\begin{example}
+    Define
+    \[\rho = \frac{1}{2}\sum_{\alpha \in \Phi^+}\alpha\]
+    Let us compute \(\inner{\rho, \alpha_i^\vee}\) for \(A_1, A_2, B_2\).
+
+    For \(A_2, B_2\), \(\Delta = \{\alpha_1, \alpha_2\}\), we claim that
+    \[\rho = \omega_1 + \omega_2\]
+    In particular,
+    \[\inner{\rho, \alpha_i^\vee} = 1\]
+    For \(A_1\), \(\Delta = \{\alpha_1\}\), \(\rho = \alpha_1/2\), and
+    \[\inner{\rho, \alpha_1^\vee} = 1\]
+\end{example}
+We claim that
+\[\sum_{i=1}^\ell \omega_i\]
+where the \(\omega_i\) are the fundamental dominant weights. It suffices to show that \(\inner{\rho, \alpha_j^\vee} = 1\) for all \(\alpha_j \in \Delta\). In this case,
+\[w_{\alpha_j}(\rho) = \rho - \inner{\rho, \alpha_j^\vee}\alpha_j\]
+But we also have that
+\[w_{\alpha_j}(\rho) = w_{\alpha_j}\left(\frac{1}{2}\sum_{\alpha \in \Phi^+ \setminus \{\alpha_j\}}\alpha + \frac{1}{2}\alpha_j\right)\]
+We know that \(w_{\alpha_j}\) permutes \(\Phi^+ \setminus \{\alpha_j\}\), and so
+\[w_{\alpha_j}(\rho) = \frac{1}{2}\sum_{\alpha \in \Phi^+\setminus \{\alpha_j\}}\alpha - \frac{1}{2}\alpha_j = \rho - \alpha_j\]
+
+Recall from \cref{thm:fd-irred-iff-dominant} that
+\[\Pi(\lambda) = \left\{\mu \mid V(\lambda)_\mu \ne 0\right\}\]
+This leads to the questions:
+\begin{itemize}
+    \item what is \(\Pi(\lambda)\)?
+    \item what is \(\dim(V(\lambda)_\mu)\)?
+\end{itemize}
+
+\begin{definition}
+    We have a partial ordering \(\le\) on \(X\), defined by
+    \[\mu \le \lambda \text{ iff }\lambda - \mu = \sum_{i=1}^\ell k_i\alpha_i\]
+    where \(k_i \in \Z_{\ge 0}\) for all \(i\).
+\end{definition}
+Now note that
+\[\Pi(\lambda) = \left\{\mu \mid \mu \le \lambda\right\}\]
+and to determine \(\Pi(\lambda)\), we only need to find the dominant weights in it.
+\begin{proposition}
+    Suppose \(\lambda, \mu\) are dominant weights. Then \(\mu \in \Pi(\lambda)\) if and only if \(\mu \le \lambda\).
+\end{proposition}
 
 \printindex
 

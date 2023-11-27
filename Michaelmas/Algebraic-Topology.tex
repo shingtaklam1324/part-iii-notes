@@ -3243,7 +3243,7 @@ First note that if \(E\) has rank \(d\), then \(\HH^d(E_x, E_x \setminus 0) = \Z
 
 \begin{definition}
     [Euler class]
-    Consider the long exact seqeunce of the pair \((E, E^\#)\).  Then we have a natural map \(\HH^n(E, E^\#) \to \HH^n(E)\). Now \(\HH^n(E)\) is homotopy equivalent to \(\HH^n(X)\). The image of the Thom class under this map is the \emph{Euler class}\index{Euler class}
+    Consider the long exact seqeunce of the pair \((E, E^\sharp)\).  Then we have a natural map \(\HH^n(E, E^\#) \to \HH^n(E)\). Now \(\HH^n(E)\) is homotopy equivalent to \(\HH^n(X)\). The image of the Thom class under this map is the \emph{Euler class}\index{Euler class}
     \[e_E \in \HH^n(X)\]
 \end{definition}
 
@@ -3254,6 +3254,186 @@ First note that if \(E\) has rank \(d\), then \(\HH^d(E_x, E_x \setminus 0) = \Z
     \[c(f^*E) = f^*c(E)\]
     The uniqueness in the Thom isomorphism implies that the Euler class \(e_E\) is a characteristic class.
 \end{remark}
+
+\lec
+
+\begin{definition}
+    [sphere bundle]
+    Let \(E \to X\) be a vector bundle, with an inner product on \(E\). We define the \emph{sphere bundle}\index{sphere bundle}
+    \[\mathrm{S}(E) = \left\{e \in E \mid \inner{e, e} = 1\right\}\]
+\end{definition}
+
+Up to homotopy, this is independent of the choice of \(\inner{\cdot, \cdot}\), as the inclusion into \(E^\sharp\) is a homotopy equivalence. 
+
+Assume \(E\) is oriented and of rank \(d\), then we have the long exact sequence of the pair \((E, E^\sharp)\) and using the Thom isomorphism, we have
+% https://q.uiver.app/#q=WzAsMTIsWzEsMCwiXFxISF5pKEUsIEVeXFxzaGFycCkiXSxbMiwwLCJcXEhIXmkoRSkiXSxbMywwLCJcXEhIXmkoRV5cXHNoYXJwKSJdLFs0LDAsIlxcSEhee2krMX0oRSwgRV5cXHNoYXJwKSJdLFs1LDAsIlxcY2RvdHMiXSxbMCwwLCJcXGNkb3RzIl0sWzEsMSwiXFxISF57aS1kfShYKSJdLFsyLDEsIlxcSEheaShYKSJdLFszLDEsIlxcSEheaShcXG1hdGhybXtTfShFKSkiXSxbNCwxLCJcXEhIXntpLWQrMX0oWCkiXSxbNSwxLCJcXGNkb3RzIl0sWzAsMSwiXFxjZG90cyJdLFs1LDBdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdLFsxMSw2XSxbNiw3XSxbNyw4XSxbOCw5XSxbOSwxMF0sWzAsNiwiXFxzaW0iLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XSxbMSw3LCJcXHNpbSIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dLFsyLDgsIlxcc2ltIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzMsOSwiXFxzaW0iLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJhcnJvd2hlYWQifX19XV0=
+\[\begin{tikzcd}
+	\cdots & {\HH^i(E, E^\sharp)} & {\HH^i(E)} & {\HH^i(E^\sharp)} & {\HH^{i+1}(E, E^\sharp)} & \cdots \\
+	\cdots & {\HH^{i-d}(X)} & {\HH^i(X)} & {\HH^i(\mathrm{S}(E))} & {\HH^{i-d+1}(X)} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+	\arrow[from=2-5, to=2-6]
+	\arrow["\sim"{description}, tail reversed, from=1-2, to=2-2]
+	\arrow["\sim"{description}, tail reversed, from=1-3, to=2-3]
+	\arrow["\sim"{description}, tail reversed, from=1-4, to=2-4]
+	\arrow["\sim"{description}, tail reversed, from=1-5, to=2-5]
+\end{tikzcd}\]
+and so we obtain the \emph{Gysin sequence}\index{Gysin sequence}
+% https://q.uiver.app/#q=WzAsNixbMSwwLCJcXEhIXmkoWCkiXSxbMiwwLCJcXEhIXntpK2R9KFgpIl0sWzMsMCwiXFxISF57aStkfShcXG1hdGhybXtTfShFKSkiXSxbNCwwLCJcXEhIXntpKzF9KFgpIl0sWzAsMCwiXFxjZG90cyJdLFs1LDAsIlxcY2RvdHMiXSxbNCwwXSxbMCwxLCJcXHBoaSJdLFsxLDJdLFsyLDNdLFszLDVdXQ==
+\[\begin{tikzcd}
+	\cdots & {\HH^i(X)} & {\HH^{i+d}(X)} & {\HH^{i+d}(\mathrm{S}(E))} & {\HH^{i+1}(X)} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow["\phi", from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+\end{tikzcd}\]
+The map \(\phi\) is the cup product with the Euler class \(e_E\), basically by definition. In de Rhem theory, the map \(\HH^{i+d}(\mathrm{S}(E)) \to \HH^{i+1}(X)\) is given by integration over the \(S^{d-1}\)-fibre.
+
+\begin{example}
+    Let \(L \to \C\P^n\) be the tautological complex line bundle. Recall that a complex vector bundle is canonically oriented, since \(\GL(d, \C) \sse \GL_+(2d, \R)\).
+    Hence \(L\) has a Thom class and an Euler class. But
+    \[L = \left\{(x, v) \in \C\P^n \times \C^{n+1} \mid v \in \inner{x}\right\}\]
+    using the usual inner product on \(\C^{n+1}\), we see that
+    \[\mathrm{S}(L) = S^{2n+1} \sse \C^{n+1}\]
+    The Gysin sequence becomes
+    % https://q.uiver.app/#q=WzAsNixbMSwwLCJcXEhIXntpKzF9KFNeezJuKzF9KSJdLFsyLDAsIlxcSEheaShcXENcXFBebikiXSxbMywwLCJcXEhIXntpKzJ9KFxcQ1xcUF5uKSJdLFs0LDAsIlxcSEhee2krMX0oU157Mm4rMX0pIl0sWzUsMCwiXFxjZG90cyJdLFswLDAsIlxcY2RvdHMiXSxbNSwwXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+\[\begin{tikzcd}
+	\cdots & {\HH^{i+1}(S^{2n+1})} & {\HH^i(\C\P^n)} & {\HH^{i+2}(\C\P^n)} & {\HH^{i+1}(S^{2n+1})} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+\end{tikzcd}\]
+    If \(i \le 2n - 2\), then we have
+    % https://q.uiver.app/#q=WzAsNCxbMSwwLCJcXEhIXmkoXFxDXFxQXm4pIl0sWzIsMCwiXFxISF57aSsyfShcXENcXFBebikiXSxbMCwwLCIwIl0sWzMsMCwiMCJdLFswLDFdLFsyLDBdLFsxLDNdXQ==
+\[\begin{tikzcd}
+	0 & {\HH^i(\C\P^n)} & {\HH^{i+2}(\C\P^n)} & 0
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    and so setting \(x = e_L \in \HH^2(\C\P^n)\), we see that \(\HH^{2k}(\C\P^n)\) is generated by \(x^k\), and so we recover the result that
+    \[\HH^*(\C\P^n) = \frac{\Z[x]}{\inner{x^{n+1}}}\]
+\end{example}
+
+\begin{remark}
+    Clearly if \(E\) is trivial, then \(\mathrm{S}(E) = X \times S^{d-1}\), and so we can compute \(\HH^*(\mathrm{S}(E))\) using K\"unneth. So the fact that the Gysin sequence is interesting here is detecting the fact that \(L\) is non-trivial.   
+\end{remark}
+
+\begin{lemma}
+    If a(n oriented) vector bundle \(E \to X\) has a nowhere vanishing section, then \(e_E = 0\).
+\end{lemma}
+
+\begin{proof}
+    Suppose \(s \in \Gamma(E)\) is a section, which has image in \(E^\sharp\). Then
+    \[e_E \in \Im(\HH^k(E^\sharp) \to \HH^k(X))\]
+    where \(k = \rank(E)\). To see this,
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhIXmsoRSxFXlxcc2hhcnApIl0sWzIsMCwiXFxISF5rKEUpIl0sWzQsMCwiXFxISF5rKEVeXFxzaGFycCkiXSxbMiwyLCJcXEhIXmsoWCkiXSxbMSwzLCIoXFx0ZXh0e3plcm99KV4qPXNeKiIsMl0sWzEsMl0sWzAsMV0sWzIsMywic14qIl1d
+\[\begin{tikzcd}
+	{\HH^k(E,E^\sharp)} && {\HH^k(E)} && {\HH^k(E^\sharp)} \\
+	\\
+	&& {\HH^k(X)}
+	\arrow["{(\text{zero})^*=s^*}"', from=1-3, to=3-3]
+	\arrow[from=1-3, to=1-5]
+	\arrow[from=1-1, to=1-3]
+	\arrow["{s^*}", from=1-5, to=3-3]
+\end{tikzcd}\]
+    note that any two sections are homotopic, and so the Euler class must be zero, as mapping the Thom class to \(\HH^k(E^\sharp)\) gives zero by exactness.
+\end{proof}
+
+\begin{remark}
+    If \(E\) is an oriented vector bundle of odd rank, the necessarily 
+    \[2e_E = 0 \in \HH^{\rank(E)}(X)\]
+    and so if \(\HH^{\rank(E)}(X)\) has no \(2\)-torsion, \(e_E = 0\). To see this, consider the map
+    \begin{align*}
+        \alpha : E &\to E \\
+        v &\mapsto -v
+    \end{align*}
+    which reverses orientation, i.e. it acts by \(-1\) on \(\HH^{\rank(E)}(E_x, E_x\setminus 0)\). Hence \(\alpha^* u_E = -u_E\). But on the zero section, \(\alpha = \id\). Thus, pulling back to the zero section, \(e_E = -e_E\).
+\end{remark}
+
+\begin{proof}
+    [Proof of the Thom isomorphism]
+    We will prove the Thom isomorphism by inducting on the number of trivialising neighbourhoods for \(E\). That is, we will assume this number is finite, for example if \(X\) is compact. Zorn's lemma shows the general case.
+    
+    For the base case \(E = X \times \R^d\) is a trivial bundle.
+
+    \begin{lemma}
+        [Relative K\"unneth]
+        Suppose \(\HH^*(Y), \HH^*(B), \HH^*(Y, B)\) are all finitely generated and free for a good pair \((Y, B)\). Then for \(X\) which has the homotopy type of a cell complex, the map
+        \[\HH^*(X) \otimes \HH^*(Y, B) \to \HH^*(X \times Y, X \times B)\]
+        given by the cross product is an isomorphism.
+    \end{lemma}
+
+    \begin{proof}
+        We have the diagram
+        % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhIXiooWClcXG90aW1lc1xcSEheKihZLCBCKSJdLFsyLDAsIlxcSEheKihYIFxcdGltZXMgWSwgWCBcXHRpbWVzIEIpIl0sWzAsMiwiXFxISF4qKFgpXFxvdGltZXNcXEhIXiooWS9CLFxcdGV4dHtwdH0pIl0sWzIsMiwiXFxISF4qKFhcXHRpbWVzIFkvQiwgWCBcXHRpbWVzXFx0ZXh0e3B0fSkiXSxbMCwxLCJcXGNyb3NzIl0sWzIsM10sWzIsMCwiXFxpZFxcb3RpbWVzIHBeKiIsMV0sWzMsMSwicV4qIiwxXV0=
+        \[\begin{tikzcd}
+            {\HH^*(X)\otimes\HH^*(Y, B)} && {\HH^*(X \times Y, X \times B)} \\
+            \\
+            {\HH^*(X)\otimes\HH^*(Y/B,\text{pt})} && {\HH^*(X\times Y/B, X \times\text{pt})}
+            \arrow["\cross", from=1-1, to=1-3]
+            \arrow[from=3-1, to=3-3]
+            \arrow["{\id\otimes p^*}"{description}, from=3-1, to=1-1]
+            \arrow["{q^*}"{description}, from=3-3, to=1-3]
+        \end{tikzcd}\]
+        which commutes, it suffices to prove this for \(B = \text{pt}\). In the above, \(p, q\) are the quotient maps, and \(p^*, q^*\) are isomorphisms on homology. But
+        % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXEhIXiooWSwgXFx0ZXh0e3B0fSkiXSxbMiwwLCJcXEhIXiooWSkiXSxbNCwwLCJcXEhIXiooXFx0ZXh0e3B0fSkiXSxbMCwxXSxbMSwyXV0=
+\[\begin{tikzcd}
+	{\HH^*(Y, \text{pt})} && {\HH^*(Y)} && {\HH^*(\text{pt})}
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-3, to=1-5]
+\end{tikzcd}\]
+        splits if we choose a point in \(Y\). We know the result for \(Y\) and for the point by the K\"unneth theorem. Using the five lemma gives the result.
+    \end{proof}
+
+    Thus, we have that \(E = X \times \R^d, E^\sharp = X \times (\R^d \setminus 0)\), and so by the lemma,
+    \[\HH^*(E, E^\sharp) = \HH^*(X) \otimes \HH^*(\R^d, \R^d\setminus 0)\]
+    Fix a generator \(\epsilon_d\) for \(\HH^*(\R^d, \R^d\setminus 0)\), and so we can just define the Thom class to be \(1 \otimes \epsilon_d\). Everything else is clear.
+
+    For the inductive step, assume the result is known for all oriented vector bundles with trivialising open covers with at most \(N\) open sets. Assume \(E \to X\) has a cover by \(N+1\) open sets. In this case, we can write
+    \[X = A \cup B\]
+    such that the result holds for \(E \vert_A, E\vert_B, E\vert_{A \cap B}\). By Mayer-Vietoris, we have a sequence
+    % https://q.uiver.app/#q=WzAsNixbMSwwLCJcXEhIXntpLTF9KEVcXHZlcnRfe0FcXGNhcCBCfSwgRV5cXHNoYXJwXFx2ZXJ0X3tBIFxcY2FwIEJ9KSJdLFsyLDAsIlxcSEheaShFLCBFXlxcc2hhcnApIl0sWzMsMCwiXFxISF5pKEVcXHZlcnRfQSwgRV5cXHNoYXJwXFx2ZXJ0X0EpXFxvcGx1c1xcSEheaShFXFx2ZXJ0X0IsIEVeXFxzaGFycFxcdmVydF9CKSJdLFs0LDAsIlxcSEheaShFXFx2ZXJ0X3tBIFxcY2FwIEJ9LCBFXlxcc2hhcnBcXHZlcnRfe0EgXFxjYXAgQn0pIl0sWzUsMCwiXFxjZG90cyJdLFswLDAsIlxcY2RvdHMiXSxbMyw0XSxbMiwzXSxbMSwyXSxbMCwxXSxbNSwwXV0=
+\[\begin{tikzcd}[column sep=small]
+	\cdots & {\HH^{i-1}(E\vert_{A\cap B}, E^\sharp\vert_{A \cap B})} & {\HH^i(E, E^\sharp)} & {\HH^i(E\vert_A, E^\sharp\vert_A)\oplus\HH^i(E\vert_B, E^\sharp\vert_B)} & {\HH^i(E\vert_{A \cap B}, E^\sharp\vert_{A \cap B})} & \cdots
+	\arrow[from=1-5, to=1-6]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-1, to=1-2]
+\end{tikzcd}\]
+    By this, if \(i < d = \rank(E)\), then \(\HH^i(E, E^\sharp) = 0\). When \(i = d\), we get
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxISF5kKEUsIEVeXFxzaGFycCkiXSxbMiwwLCJcXEhIXmQoRVxcdmVydF9BLCBFXlxcc2hhcnBcXHZlcnRfQSlcXG9wbHVzXFxISF5kKEVcXHZlcnRfQiwgRV5cXHNoYXJwXFx2ZXJ0X0IpIl0sWzMsMCwiXFxISF5kKEVcXHZlcnRfe0FcXGNhcCBCfSwgRV5cXHNoYXJwXFx2ZXJ0X3tBIFxcY2FwIEJ9KSJdLFs0LDAsIlxcY2RvdHMiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & {\HH^d(E, E^\sharp)} & {\HH^d(E\vert_A, E^\sharp\vert_A)\oplus\HH^d(E\vert_B, E^\sharp\vert_B)} & {\HH^d(E\vert_{A\cap B}, E^\sharp\vert_{A \cap B})} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    In this case, we have Thom classes \(u_{E\vert_A}, u_{E\vert_B}, u_{E\vert_{A \cap B}}\). By uniqueness, \(u_{E\vert_A}\vert_{A \cap B} = u_{E\vert_{A \cap B}} = u_{E\vert_B}\vert_{A \cap B}\), hence \((u_{E\vert_A}, u_{E\vert_B}) \mapsto 0\). With this, we must have a (unique by injectivity) class \(u_E\) such that \(u_E\vert_A = u_{E\vert_A}\) and \(u_E\vert_B = u_{E \vert_B}\).
+
+    By construction, \(u_E\vert_{E_x} = \epsilon_x\) is the orientation generator. Thus, all we need to show is that the map
+    \begin{align*}
+        \HH^k(X) &\to \HH^{k+d}(E, E^\sharp) \\
+        \alpha &\mapsto \pi^*\alpha \smile u_E
+    \end{align*}
+    is an isomorphism. The Thom map
+    \[\alpha \mapsto \pi^*\alpha \smile \cdot\]
+    maps the Mayer-Vietoris sequence for \(X = A \cup B\) to a Mayer-Vietoris map for \(E = E\vert_A \cup E\vert_B\). The result follows by the five lemma, once we show that the squares commute.
+\end{proof}
+    
+
 
 \printindex
 
