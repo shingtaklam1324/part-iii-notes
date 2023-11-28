@@ -3149,6 +3149,133 @@ Let \(d(M)\) be the order of the pole of \(P(M, T)\) at \(t = 1\). Then if \(M \
     \end{enumerate}
 \end{lemma}
 
+\lec
+
+\begin{proof}
+    See notes.
+\end{proof}
+
+\begin{theorem}
+    [dimension] If \((A, \mfm)\) is a Noetherian local ring, then
+    \[\dim(A) = \delta(A) = d(\mathrm{G}_\mfm(A))\]
+    where
+    \begin{align*}
+        \delta(A) &= \min\{\delta(\mfq) \mid \mfq \sse A \text{ }\mfm\text{-primary}\} \\
+        \delta(\mfq) &= \text{minimal number of generators for }\mfq 
+    \end{align*}
+    and \(d(\mathrm{G}_\mfm(A))\) is the order of the pole at \(T = 1\) of the rational function associated to the Poincar\'e series of \(\mathrm{G}_\mfm(A)\). That is, the order of the pole at \(1\) of
+    \[\sum_{n \ge 0}\ell\left(\frac{\mfm^n}{\mfm^{n+1}}\right)T^n\]
+\end{theorem}
+
+\begin{corollary}
+    [Krull's height theorem] Let \(A\) be a Noetherian ring, \(\mfa = (x_1, \dots, x_r) \sse A\) an ideal. Let \(\mfa \le \mfp\) be a minimal prime of \(\mfa\). Then
+    \[\idealht(\mfp) \le r\]
+\end{corollary}
+
+\begin{proof}
+    First of all, we claim that
+    \[\sqrt{\mfa A_\mfp} = \mfp A_\mfp\]
+    To see this, let \(\mfn \in \Spec(A)\) be such that \(\mfa A_\mfp \sse \mfn\), then
+    \[\mfa \sse (\mfa A_\mfp)^c \sse \mfn^c \sse \mfp\]
+    Then by minimality, \(\mfn^c = \mfp\). Hence \(\mfn^{ce} = \mfp^e\), and the result follows. Thus, \(\mfa A_\mfp\) is \(\mfp A_\mfp\)-primary. On the other hand,
+    \[\mfa A_\mfp = \inner{\frac{x_1}{1}, \dots, \frac{x_r}{1}}\]
+    Then
+    \[\idealht(\mfp) = \dim(A_\mfp) = \delta(A_\mfp) \le \delta(\mfa A_\mfp) \le r\]
+\end{proof}
+
+Let \((A, \mfm)\) be a Noetherian local ring, \(\mfq \idealof A\) an \(\mfm\)-primary ideal. Say \(\delta(\mfq) = s\), and \(\mfq = \inner{x_1, \dots, x_s}\). Then
+\[\mathrm{G}_\mfq(A) = \frac{A}{\mfq} \oplus \frac{\mfq}{\mfq^2} \oplus \bigoplus_{n \ge 2}\frac{\mfq^n}{\mfq^{n+1}}\]
+In this case, \(A/\mfq\) is Artinian, and the images of \(x_1, \dots, x_s\) generate \(\mfq/\mfq^2\) as an \(A/\mfq\) algebra, the \(x_i\) are of degree \(1\). Here, we have that
+\[\ell\left(\frac{\mfq^n}{\mfq^{n+1}}\right) < \infty\]
+From the Hilbert polynomial, \(\ell\left(\frac{\mfq^n}{\mfq^{n+1}}\right)\) is eventually a polynomial, of degree \(\le s - 1 = \delta(\mfq) - 1\).
+
+Fix \(\mfq_0 \sse A\) \(\mfm\)-primary, with \(\delta(\mfq_0) = \delta(A)\). With this, we have two special cases. We will write \(\deg(\ell(\mfq^n/\mfq^{n+1}))\) for the degree of the corresponding Hilbert polynomial.
+
+First of all,
+\[\deg(\ell(\mfq_0^n/\mfq_0^{n+1})) \le \delta(A) - 1\]
+and
+\[\deg(\ell(A/\mfq_0^n)) = \sum_{i=0}^{n-1}\ell(\mfq_0^i/\mfq_0^{i+1}) \le \delta(A)\]
+Next,
+\[\deg(\ell(\mfm^n/\mfm^{n+1})) = d(\mathrm{G}_\mfm(A)) - 1\]
+and
+\[\deg(\ell(A/\mfm^n)) = d(\mathrm{G}_\mfm(A))\]
+Moreover, there exists \(t \ge 1\) such that
+\[\mfm^t \sse \mfq \sse \mfm\]
+and so
+\[\ell(A/\mfm^n) \le \ell(A/\mfq_0^n) \le \ell(A/\mfm^{tn})\]
+Thus, we must have that \(\deg(\ell(A/\mfm^n)) = \deg(\ell(A/\mfq_0^n))\).
+
+\begin{proposition}
+    \(\delta(A) \ge d(\mathrm{G}_\mfm(A))\)
+\end{proposition}
+
+\begin{proof}
+    \begin{align*}
+        \delta(A) &= \delta(\mfq_0) \\
+        &\ge \deg(\ell(A/\mfq_0^n)) \\
+        &= \deg(\ell(A/\mfm^n)) \\
+        &= d(\mathrm{G}_\mfm(A))
+    \end{align*}
+\end{proof}
+
+\begin{proposition}
+    If \(x \in \mfm\) is not a zero divisor, then
+    \[d\left(\mathrm{G}_{\mfm/xA}(A/xA)\right) \le d(\mathrm{G}_\mfm(A)) - 1\]
+\end{proposition}
+
+\begin{proof}
+    We know that \((A/xA, \mfm/xA)\) is still a local ring. In this case,
+    \[d(\mathrm{G}_\mfm(A)) = \deg(\ell(A/\mfm^n))\]
+    and
+    \[d(\mathrm{G}_{\mfm/xA}(A/xA)) = \deg(\ell((\mfm^n + xA)/xA))\]
+    We want to show that
+    \[\deg(\ell(A/(\mfm + xA))) \le \deg(\ell(A/\mfm^n)) - 1\]
+    We have a short exact sequence
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzIsMCwiXFxmcmFje1xcbWZtXm4gKyB4QX17XFxtZm1ebn0gPSBcXGZyYWN7eEF9e1xcbWZtXm4gXFxjYXAgeEF9Il0sWzQsMCwiXFxmcmFje0F9e1xcbWZtXm59Il0sWzYsMCwiXFxmcmFje0F9e1xcbWZtXm4gKyB4QX0iXSxbOCwwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+\[\begin{tikzcd}
+	0 && {\frac{\mfm^n + xA}{\mfm^n} = \frac{xA}{\mfm^n \cap xA}} && {\frac{A}{\mfm^n}} && {\frac{A}{\mfm^n + xA}} && 0
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-3, to=1-5]
+	\arrow[from=1-5, to=1-7]
+	\arrow[from=1-7, to=1-9]
+\end{tikzcd}\]
+    Hence by additivity,
+    \[\ell(A/(\mfm^n + xA)) = \ell(A/\mfm^m) - \ell(xA/(\mfm^n \cap xA))\]
+    We know the terms on the right hand side have the same degree, and so it suffices to show they have the same leading coefficient.
+
+    But \((\mfm^n)\) is a stable \(\mfm\)-filtration of \(A\), and so by Artin-Rees, \((\mfm^n \cap xA)\) is a stable \(\mfm\) filtration of \(xA\). Hence this is equivalent to \((\mfm^nxA)\). Hence we have that
+    \[\ell(xA/(\mfm^n \cap xA)) \le \ell(xA/\mfm^{n + n_0}xA)\]
+    and
+    \[\ell(xA/\mfm^nxA) \le \ell(xA/(\mfm^n \cap xA))\]
+    Thus, by elemenrary facts about polynomials, they ahev the same degree.
+\end{proof}
+
+\begin{proposition}
+    \[d(\mathrm{G}_\mfm(A)) \ge \dim(A)\]
+\end{proposition}
+
+\begin{proof}
+    See notes.
+\end{proof}
+
+\begin{proposition}
+    \(\dim(A) \ge \delta(A)\). That is, there exists \(\mfq \idealof A\) \(\mfm\)-primary, generated by \(\dim(A)\) elements.
+\end{proposition}
+
+\begin{proof}
+    The height of \(\mfm\) is exactly \(\dim(A)\). Thus, for any other prime \(\mfp \in \Spec(A)\), \(\idealht(\mfp) < \dim(A)\). So what we want is to form an ideal \(\mfq = \inner{x_1, \dots, x_d}\), with \(\idealht(\mfq) = \dim(A)\), since then for any minimal prime containing \(\mfq\), we must have that the height of the prime is \(\dim(A)\), and so \(\sqrt{\mfq} = \mfm\), and so \(\mfq\) is \(\mfm\)-primary.
+    
+    We construct \(\inner{x_1, \dots, x_d}\) inductively, such that if
+    \[\mfq_i = \inner{x_1, \dots, x_i}\]
+    then
+    \[\idealht(\mfq_i) \ge i\]
+    For the base case \(i = 0\), we can just use \(\mfq_0 = 0\). For the inductive step, assume \(\mfq_{i-1}\) has \(\idealht(\mfq_i) \ge i - 1\). We claim that there are only finitely many \(\mfp_1, \dots, \mfp_t\) prime ideals, such that \(\mfq_{i-1} \sse \mfp_j\), and \(\idealht(\mfp_j) = i - 1\). If not, since \(\idealht{\mfq_{i-1}} \ge i-1\), each \(\mfp_j\) is a minimal prime of \(\mfq_i\). But in a Noetherian ring, every ideal has finitely many minimal primes.
+
+    Now \(i - 1 < \dim(A) = \idealht(\mfm)\), and so \(\mfm\) is not contained in \(\mfp_j\) for all \(j\), and so \(\mfm\) is not contained in their union, by prime avoidance. So we can take \(x_i \in \mfm\), with \(x_i \notin \mfp_j\) for any \(j\). Define
+    \[\mfq_i = \inner{x_1, \dots, x_i}\]
+    Then if \(\mfp\) is prime, which contains \(\mfq_i\), then it contains \(\mfq_{i-1}\) and \(x_i\). Hence it cannot be any of the \(\mfp_j\) above. Thus, \(\height(\mfp) \ge i\) as required.
+\end{proof}
+
 \printindex
 
 \end{document}

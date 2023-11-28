@@ -2526,6 +2526,117 @@ using orthogonality. For example, \(*1 = \omega_g\) and \(*\omega_g = 1\). A com
     \(\Delta^* = \Delta\) is formally self-adjoint.
 \end{corollary}
 
+\lec
+
+\begin{definition}
+    [harmonic] Define
+    \[\mcH^p(M) = \ker(\Delta : \Omega^p(M) \to \Omega^p(M))\]
+    for the space of \emph{harmonic \(p\)-forms}\index{harmonic form}.
+\end{definition}
+
+\begin{remark}
+    \(*\Delta = \Delta*\), and so the Hodge star is a well defined map
+    \[* : \mcH^p(M) \to \mcH^{n-p}(M)\]
+\end{remark}
+
+\begin{proposition}
+    Suppose \(M\) is compact. Then for \(\alpha \in \Omega^p(M)\), \(\Delta\alpha = 0\) if and only if \(\dd\alpha = 0\) and \(\delta\alpha = 0\).
+\end{proposition}
+
+\begin{proof}
+    The `if' direction is obvious. Now suppose \(\Delta\alpha = 0\), then
+    \begin{align*}
+        0 = \iinner{\Delta\alpha, \alpha} = \iinner{\dd\delta\alpha + \delta \dd \alpha, \alpha} = \norm{\delta\alpha}^2 + \norm{\dd\alpha}^2
+    \end{align*}
+    and so \(\delta\alpha = 0\) and \(\dd\alpha = 0\).
+\end{proof}
+
+\begin{corollary}
+    Let \(f \in C^\infty(M)\), \(M\) compact and connected. If \(f\) is harmonic then \(f\) is constant. 
+\end{corollary}
+
+Note thet the result is false if \(M\) is not compact, for example \(e^x\cos(y)\) on \(\R^2\).
+
+\begin{theorem}
+    [Hodge decomposition]
+    \index{Hodge decomposition}
+    Let \(M\) be a compact, oriented, Riemannian manifold, \(0 \le p \le \dim(M)\), and we have that
+    \begin{enumerate}
+        \item \(\mcH^p\) is a finite dimensional vector space,
+        \item we have the \(L^2\)-orthogonal decompositions
+        \begin{align*}
+            \Omega^p(M) &= \mcH^p(M) \oplus \Delta \Omega^p(M) \\
+            &= \mcH^p(M) \oplus \dd\delta \Omega^p(M) \oplus \delta\dd \Omega^p(M) \\
+            &= \mcH^p(M) \oplus \dd\Omega^{p-1}(M) \oplus \delta\Omega^{p+1}(M)
+        \end{align*}
+    \end{enumerate}
+\end{theorem}
+
+\begin{corollary}
+    Let \(M\) be as in the Hodge decomposition. Then for all \(a \in \Hdr^p(M)\) there exists a unique \(\alpha \in \mcH^p(M)\) such that \([\alpha] = a\).
+\end{corollary}
+
+\begin{proof}
+    First we show uniqueness. If we have \(\alpha_1, \alpha_2 \in \mcH^p\), with \(\alpha_1 = \alpha_2 + \dd \beta\). With this,
+    \[\norm{\dd\beta}^2 = \iinner{\alpha_1 - \alpha_2, \dd\beta} = \iinner{\delta\alpha_1 - \delta\alpha_2, \beta} = 0\]
+    and so \(\beta = 0\).
+
+    For existence, given a class \(a\), it will be represented by a closed form \(\widetilde\alpha\). Now
+    \[\widetilde\alpha = \alpha + \dd\beta + \delta\gamma\]
+    by the Hodge decomposition, with \(\alpha\) harmonic. Thus, we must have that \(\dd\delta\gamma = 0\). Now
+    \[0 = \iinner{\dd\delta\gamma, \gamma} = \norm{\delta\gamma}\]
+    and so \([\widetilde \alpha] = [\alpha]\).
+\end{proof}
+
+\begin{corollary}
+    We have a linear isomorphism of vector spaces
+    \begin{align*}
+        \mcH^p(M) &\to \Hdr^p(M) \\
+        \alpha & \mapsto [\alpha]
+    \end{align*}
+\end{corollary}
+
+The proof of the Hodge decomposition is quite involved. We will however make some remarks about the proof.
+
+The main argument concerns \(\Omega^p(M) = \mcH^p(M) \oplus \Delta\Omega^p(M)\). We can think of this as the existence of a solution
+\begin{equation}
+    \label{eq:laplacian-eqn}
+    \Delta\omega = \alpha
+\end{equation}
+for some fixed \(\alpha \in \Omega^p\). If \(\omega\) is a solution, then
+\[\iinner{\Delta\omega, \varphi} = \iinner{\alpha, \varphi}\]
+for all \(\varphi \in \Omega^p\). Define
+\begin{align*}
+    \ell : \Omega^p(M) &\to \R \\
+    \ell_\omega(\beta) &= \iinner{\omega, \beta}
+\end{align*}
+\(\ell\) defines a bounded linear map, since by Cauchy-Schwarz
+\[\abs{\ell_\omega(\beta)} \le \norm{\omega}\norm{\beta}\]
+Moreover,
+\[\ell_\omega(\Delta\varphi) = \iinner{\omega, \Delta\varphi} = \iinner{\Delta\omega, \varphi} = \iinner{\alpha, \beta}\]
+Thus, we define a \emph{weak solution} of \cref{eq:laplacian-eqn} is a bounded linear map \(\ell : \Omega^p(M) \to \R\) with
+\[\ell(\Delta\varphi) = \iinner{\alpha, \varphi}\]
+for all \(\varphi \in \Omega^p\). For this, we will require
+\begin{theorem}
+    [elliptic regularity] Every weak solution of \cref{eq:laplacian-eqn} is of the form
+    \[\ell(\beta) = \iinner{\omega, \beta}\]
+    for some \(\omega \in \Omega^p\). That is, every weak solution comes from a weak solution.
+\end{theorem}
+
+\begin{theorem}
+    [compactness] If a sequence \(\alpha_n \in \Omega^p(M)\) is such that \(\norm{\alpha_n}, \norm{\Delta\alpha_n}\) are bounded, then \(\alpha_n\) contains a Cauchy subsequence.
+\end{theorem}
+
+The fact that the space of harmonic forms is finite dimensional follows. If not, then it would contradict compactness.
+
+We can write
+\[\Omega^p = \mcH^p \oplus (\mcH^p)^\perp\]
+where \((\mcH^p)^\perp\) is a closed subspace. By self-adjointness, \(\Delta\Omega^p \sse (\mcH^p)^\perp\). Thus, it suffices to show that \cref{eq:laplacian-eqn} has a weak solution when \(\alpha \perp \mcH^p\).
+
+For \(\eta \in \Omega\), put
+\[\ell(\Delta\eta) = \iinner{\alpha, \eta}\]
+We can show that \(\ell\) extends from \(\Delta\Omega^p\) to a bounded linear functional on \(p\)-forms, using Hahn-Banach.
+
 \printindex
 
 \end{document}

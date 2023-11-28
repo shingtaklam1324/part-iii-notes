@@ -2846,6 +2846,10 @@ and so \(\psi_1 = u_t\) on \(\Sigma_0\).
     for all \(k\). Hence \(u = \psi_0\) on \(\Sigma_0\).
 \end{proof}
 
+\begin{remark}
+    This proof fails when \(T = \infty\), or \(U\) is unbounded. See Hille-Yosida, in Brezis' book.
+\end{remark}
+
 \begin{definition}
     [Bochner space]
     If \(X\) is a Banach space, the \emph{Bochner space}\index{Bochner space} \(L^p((0, T); X)\) is 
@@ -2995,8 +2999,8 @@ where \(L^\infty_tH^1_x = L^\infty((0, T), H^1(U))\). In this case, we did not m
     \end{align*}
     Multiply the above by \(\ddot u_k e^{-\lambda t}\), sum from \(k = 1\) to \(N\), integrating \(\int_0^\tau \dd t\), we get that
     \begin{align*}
-        \sup_{t \in [0, T]}\left(\norm{u^N_t}_{H^1(\Sigma_t)}^2 + \norm{u^N_{tt}}_{L^2(\Sigma_t)}^2\right) + \norm{u_t}^2_{H^1(U_t)} \\
-        \le e^{\lambda t}C\left(\norm{\psi_0}^2_{H^1(\Sigma_t)} + \norm{\psi_1}^2_{L^2(\Sigma_0)} + \norm{f}^2_{L^2(U_T)} + \norm{u^N_t}^2_{H^1(\Sigma_0)} + \norm{u^N_{tt}}^2_{L^2(\Sigma_0)} + \norm{f_t}^2_{L^2(U_T)}\right)
+        \sup_{t \in [0, T]}&\left(\norm{u^N_t}_{H^1(\Sigma_t)}^2 + \norm{u^N_{tt}}_{L^2(\Sigma_t)}^2\right) + \norm{u_t}^2_{H^1(U_t)} \\
+        &\le e^{\lambda t}C\left(\norm{\psi_0}^2_{H^1(\Sigma_t)} + \norm{\psi_1}^2_{L^2(\Sigma_0)} + \norm{f}^2_{L^2(U_T)} + \norm{u^N_t}^2_{H^1(\Sigma_0)} + \norm{u^N_{tt}}^2_{L^2(\Sigma_0)} + \norm{f_t}^2_{L^2(U_T)}\right)
     \end{align*}
     First, note that
     \[\norm{u^N_{tt}}_{H^1(\Sigma_0)} \le C\norm{\psi_1}_{H^1(\Sigma_0)}\]
@@ -3032,6 +3036,61 @@ where \(L^\infty_tH^1_x = L^\infty((0, T), H^1(U))\). In this case, we did not m
     \[\norm{u}_{H^2_x} \le \norm{Lu}_{L^2_x} \le \norm{f}_{L^2_x} + \norm{u_{tt}}_{L^2_x} \le CC_2\]
     and so \(u \in L^\infty_tH^2_x\) as required.
 \end{proof}
+
+\lec
+
+\section{Heat equation}
+
+Consider \(u : \R \to \R\), \(h > 0\), and consider the average value \(\overline u\) of \(u\) on \((-h, h)\), i.e.
+\[\overline u = \frac{1}{2h}\int_{-h}^hu(x)\dd x\]
+Taylor expanding,
+\[u(x) = \sum_k \frac{\partial^ku(0)h^k}{k!}\]
+Substituting,
+\begin{align*}
+    \overline u &= \frac{1}{2h}\int u(0) + u'(0)h + \frac{u''(0)h^2}{2} + \order{h^3}\dd x \\
+    &= u(0) + \frac{u''(0)h^2}{12} + \order{h^4} \\
+    &= u(0) + \frac{\Delta u(0) h^2}{12} + \order{h^4}
+\end{align*}
+That is, the Laplacian measures how much the function varies from its average in a neighbourhood of \(0\). More generally, we have the mean value property for the Laplacian. That is,
+\[\Delta u(p) = \lim_{r \to 0}C(n, r)\int_{S_r(p)}u(x) - u(p)\dd x\]
+where \(S_r(p)\) is the sphere of radius \(r\) about \(p\).
+
+Consider the heat equation
+\[u_t = \Delta u\]
+If the average in a neighbourhood of \(p\) is hotter than at \(p\), then the temperature will increase at \(p\).
+
+Consider the initial boundary value parabolic equation
+\[\begin{cases}
+    u_t - \Delta u = f &\text{on }U_T \\
+    u = \psi & \text{on }\Sigma_0 \\
+    u = 0 &\text{on }\partial^* U_T
+\end{cases}\]
+Multiply the PDE by \(u\), we get
+\[\frac{1}{2}\partial_t(u^2) - \div_x(u Du) + \abs{Du}^2 = fu\]
+Integrating over \([0, t] \times U\), we get
+\[\frac{1}{2}\int_[\Sigma_t]u^2 \dd x + \int_{U_t}\abs{Du}^2 \dd x\dd t = \int_{U_t}uf \dd x \dd t + \frac{1}{2}\int_{\Sigma_0}\psi^2\]
+By Young's inequality,
+\[\int_{U_t}uf \le \epsilon\int_{U_t}U^2\dd x\dd t + \frac{4}{\epsilon}\int_{U_t}f^2\dd x \dd t\]
+All together,
+\[\int_{\Sigma_t}u^2\dd x + \int_{U_t}(u^2 + \abs{Du}^2)\dd x\dd t \le C\left(\int_{U_t}f^2\dd x \dd t + \int_{\Sigma_0}\psi^2\dd x\right)\]
+Here, we see that energy is not conserved, but it is decreasing in time. Taking the sup over \(t \in [0, T]\), we have that
+\[\norm{u}^2_{L^\infty_tL^2(U)} + \norm{u}^2_{L^2_tH^1(U)} \le C\left(\norm{f}_{L^2(U_T)} + \norm{\psi}_{L^2(\Sigma_0)}\right)\]
+
+For regularity, assume that we have a smooth solution to the heat equation. Multiply the equation by \(u_t\), to get
+\[u_t^2 + \div_x(u_tDu) + \frac12\partial_t\abs{Du}^2 = u_tf\]
+Apply Young's inequality to get
+\[\frac{1}{2}u_t^2 + \frac{1}{2}\partial_t \abs{Du}^2 \le \frac{1}{2}f^2 + \div_x(u_t Du)\]
+Again, integrate on \(U \times [0, t]\) to get
+\[\frac{1}{2}\int_{U_t}u_t^2\dd x\dd t + \frac{1}{2}\int_{\Sigma_t}\abs{Du}^2 \le \frac{1}{2}\int_{U_t}f^2\dd x \dd t + \frac{1}{2}\int_{\Sigma_0}\abs{Du}^2\dd x\]
+Taking sup over \(t \in [0, T]\), we find that
+\[\norm{u_t}_{L^2(U_T)} + \norm{Du}_{L^\infty_tL^2(U)} \le C\left(\norm{f}_{L^2(U_T)} + \norm{\psi}_{H^1(\Sigma_0)}\right)\]
+Using the PDE, at each time \(t\),
+\[-\Delta = f - u_t\]
+and \(u = 0\) on \(\partial U\). Hence by elliptic estimates,
+\[\norm{u}_{H^2(U)} \le \norm{\Delta u}_{L^2(U)} \le \norm{f}_{L^2(U)} + \norm{u_t}_{L^2(U)}\]
+Integrating over time,
+\[\norm{u}_{L^2_tH^2(U)} \le C\left(\norm{f}_{L^2(U_T)} + \norm{u_t}_{L^2(U_T)} \le C\left(\norm{f}_{L^2(U_T) + \norm{\psi}_{H^1(\Sigma_0)}}\right)\right)\]
+Again, we have a gain in regularity.
 
 \printindex
 
