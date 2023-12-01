@@ -3086,16 +3086,212 @@ This leads to the questions:
 \end{itemize}
 
 \begin{definition}
-    We have a partial ordering \(\le\) on \(X\), defined by
-    \[\mu \le \lambda \text{ iff }\lambda - \mu = \sum_{i=1}^\ell k_i\alpha_i\]
+    We have a partial ordering \(\preceq\) on \(X\), defined by
+    \[\mu \preceq \lambda \text{ iff }\lambda - \mu = \sum_{i=1}^\ell k_i\alpha_i\]
     where \(k_i \in \Z_{\ge 0}\) for all \(i\).
 \end{definition}
 Now note that
-\[\Pi(\lambda) = \left\{\mu \mid \mu \le \lambda\right\}\]
+\[\Pi(\lambda) = \left\{\mu \mid \mu \preceq \lambda\right\}\]
 and to determine \(\Pi(\lambda)\), we only need to find the dominant weights in it.
 \begin{proposition}
-    Suppose \(\lambda, \mu\) are dominant weights. Then \(\mu \in \Pi(\lambda)\) if and only if \(\mu \le \lambda\).
+    Suppose \(\lambda, \mu\) are dominant weights. Then \(\mu \in \Pi(\lambda)\) if and only if \(\mu \preceq \lambda\).
 \end{proposition}
+
+\lec
+
+\begin{proof}
+    Suppose \(\mu \preceq \lambda\). Then
+    \[\lambda - \mu = \sum_{\alpha \in \Phi^+}k_\alpha \alpha\]
+    where \(k_\alpha \in \Z_{\ge 0}\). We will induct on \(\sum k_\alpha\). We've already done the case where \(\sum k_\alpha = 0\). Now suppose
+    \[\mu = \lambda - \alpha\]
+    for some \(\alpha \in \Phi^+\). Then
+    \[\inner{\mu, \alpha^\vee} = \inner{\lambda, \alpha^\vee} - 2 \ge 0\]
+    by dominance, and so \(\inner{\alpha, \alpha^\vee} \ge 2\). Let \(v_\lambda \in V_\lambda\) be non-zero. Since
+    \[h_\alpha v_\lambda = nv_\lambda\]
+    fo some \(n \ge 2\), and then we know that
+    \[e_{-\alpha}v_\lambda \ne 0\]
+    By the usual \(\sl_2\) theory, \(e_{-\lambda}v_\lambda \in V(\lambda)_{\lambda - \alpha} = V(\lambda)_\mu\), and so \(\mu\) is a weight.
+
+    Now suppose we know the claim is true for \(\sum k_\alpha = n - 1\). We assume now that \(\sum k_\alpha = n\), so that 
+    \[\mu = \lambda - \beta_1 - \cdots - \beta_n\] 
+    We have two cases:
+
+    \textbf{Case 1: For some \(i, j\) distinct, \(\inner{\beta_i, \beta_j^\vee} < 0\)}. Without loss of generality, \(i < j\). In this case, \(\beta_i + \beta_j\) is a positive root. Thus, we have that
+    \[\sum_{i=1}^n\beta_i = \sum_{k=1}^{i-1}\beta_k + \sum_{k=i+1}^{j-i}\beta_k + \sum_{k=j+1}^n \beta_k + (\beta_i + \beta_j)\]
+    which is a sum of \(n-1\) positive roots, and so we are done by induction.
+
+    \textbf{Case 2: For all \(i, j\) distinct, \(\inner{\beta_i, \beta_j^\vee} \ge 0\)}. For this,
+    \begin{claim}
+        \[\lambda - \sum_{i=1}^r\beta_r \in \Pi(\lambda)\]
+        for all \(1 \le r \le n\).
+    \end{claim}
+    \begin{proof}
+        By induction on \(r\). See notes.
+    \end{proof}
+\end{proof}
+
+\begin{example}
+    For \(G_2\) we have the root basis \(\{\alpha_1, \alpha_2\}\), with \(\alpha_1\) short, and we would like to compute \(\Pi(2\omega_1)\).
+
+    \textbf{add diagram}
+
+    Now \(\omega_1\) is such that \(\inner{\omega_1, \alpha_1^\vee} = 1\), and \(\inner{\omega_1, \alpha_2^\vee} = 0\). The dominant weights of \(\Pi(2\omega_1)\) are the dominanet \(\mu\) with \(\mu \preceq 2\omega_1\) by the proposition.
+
+    First, \(2\omega_2 = 4\alpha_1 + 2\alpha_2\), and \(\omega_2 = 3\alpha_1 + 2\alpha_2\). Then \(\omega_2 \preceq 2\omega_2\). But \(\omega_1 + \omega_2 \not\preceq 2\omega_1\). Hence the dominant weights in \(\Pi(2\omega_1)\) are
+    \[\omega_1, 2\omega_1, \omega_2, 0\]
+    The Weyl conjugates of \(\omega_1\) are the short roots, and the Weyl conjugates of \(\omega_2\) are all the long roots. So
+    \begin{align*}
+        \Pi(2\omega_1) &= \{\text{short root}\} \cup \{2\text{(short root)}\} \cup \{\text{long root}\} \\
+        &= \Phi \cup \{\pm 2\omega_1, \pm 2\alpha_1, \pm 2(\alpha_1 + \alpha_2), 0\}
+    \end{align*}
+
+    See Humpreys page 58, 69, or Fulton-Harris pages 339-359. This is a very typical exam question.
+\end{example}
+
+\begin{definition}
+    [(formal) character]
+    Let \(\Z[X]\) be the free \(\Z\)-module with basis
+    \[\left\{e^\mu \mid \mu \in X\right\}\]
+    with multiplication
+    \[e^\mu e^\lambda = e^{\mu + \lambda}\]
+    This makes \(\Z[X]\) into a commutative ring, with \(1 = e^0\). 
+    
+    Let \(V\) be a finite dimensional representation of \(\mfg\), then the \emph{(formal) character} of \(V\) is
+    \[\ch(V) = \sum_{\mu \in X}\dim(V_\mu)e^\mu \in \Z[X]\]
+\end{definition}
+
+\begin{example}
+    For \(\mfg = \sl_2\), then
+    \[X = \Z\cdot \frac{\alpha}{2}\]
+    Let \(z = e^{\alpha/2}\), then
+    \[\ch(V(n)) = z^n + \cdots + z^{-n}\]
+\end{example}
+
+\underline{Exercise:} Find the character of the adjoint represenation of \(\sl_3\).
+
+Recall from examples sheet 3 that for \(w \in W\), \(\ell(w)\) is the minimal \(n\) such that
+\[w = w_{\alpha_1}\cdots w_{\alpha_n}\]
+where \(\alpha_i \in \Delta\). The \emph{sign} of \(w\) is
+\[\sign(w) = (-1)^{\ell(w)}\]
+
+\begin{example}
+    If \(\mfg = \sl_n\), then for \(w \in W\), the sign of \(w\) as above, is the same as the sign of \(w\) in \(S_n\).
+\end{example}
+
+\begin{theorem}
+    [Weyl character formula] Let \(\lambda\) be a dominant weight, and
+    \[\rho = \frac{1}{2}\sum_{\alpha \in \Phi^+}\alpha = \sum_j \omega_j\]
+    Then
+    \[\ch(V(\lambda)) = \frac{\sum_{w \in W} \sign(w)e^{w(\lambda + \rho)}}{e^\rho \prod_{\alpha \in \Phi^+}(1 - e^{-\alpha})}\]
+\end{theorem}
+
+\begin{proof}
+    Fulton-Harris Chapter 24, Grojnowski \S7, Humphreys 24.3.
+\end{proof}
+
+\begin{corollary}
+    [Weyl denominator formula]
+    \[e^\rho\prod_{\alpha \in \Phi^+}(1 - e^{-\alpha}) = \sum_{w \in W}\sign(w)e^{w(\rho)}\]
+\end{corollary}
+
+\begin{proof}
+    Plug \(\lambda = 0\) into the Weyl character formula. Note \(\ch(V(\lambda)) = 1\).
+\end{proof}
+
+\begin{corollary}
+    [Weyl dimension formula] If \(\lambda\) is dominant, then
+    \[\dim(V(\lambda)) = \frac{\prod_{\alpha \in \Phi^+} \inner{\lambda + \rho, \alpha^\vee}}{\prod_{\alpha \in \Phi^+}\inner{\rho, \alpha^\vee}} = \prod_{\alpha \in \Phi^+}\frac{\pinner{\lambda + \rho, \alpha}}{\pinner{\rho, \alpha}}\]
+\end{corollary}
+
+\lec
+
+\begin{proof}
+    [*Proof*]
+    By definition,
+    \[\ch(V(\lambda)) = \sum_{\mu \in X^+}\dim(V_\mu)e^\mu\]
+    We'd like to substitute \(e^\mu = 1\), for any \(\mu\), but we would get \(0/0\).
+
+    Indeed, for \(\mu \in X\), \(p \in \Z[X]\), define
+    \begin{align*}
+        F_\mu(p) : \R_{\ge 0} &\to \R\\
+        F_\mu(e^\lambda)(q) &= q^{-\pinner{\mu, \lambda}}
+    \end{align*}
+    and extend linearly. Note \(F_\mu\) is multiplicative and \(F_\mu(p)\) is \(C^1\) on \(\R_{> 0}\). Clearly \(F_0(e^\lambda) = 1\), and
+    \[F_0(\ch(V(\lambda))) = \dim(V(\lambda))\]
+    First apply \(F_\mu\) to the Weyl denominator formula, we get
+    \[q^{-\pinner{\rho, \mu}}\prod_{\alpha \in \Phi^+}(1 - q^{\pinner{\alpha, \mu}}) = \sum_{w \in W}\sign(w)q^{-\pinner{w\rho, \mu}} = \sum_{w \in W}\sign(w)q^{-\pinner{\rho, w\mu}} \tag{\(*\)}\]
+    Since \(\sign(w) = \sign(w^{-1})\) and \(\pinner{wx, y} = \pinner{x, w^{-1}y}\).
+
+    Now apply \(F_p\) to the Weyl character formula, we get
+    \[F_p(\ch(V(\lambda)))(q) = \frac{\sum_{w \in W}q^{-\pinner{p, w(\lambda + \rho)}}}{q^{-\pinner{p, \rho}}\prod_{\alpha \in \Phi^+}(1 - q^{-\pinner{p, \alpha}})}\]
+    Note we need \(\pinner{p, \alpha} \ne 0\) for all \(\alpha\). But recall that \(\pinner{\rho, \alpha_i} = 1 > 0\) for all \(i\), and so \(\pinner{\rho, \alpha} > 0\) for all \(\alpha \in \Phi^+\).
+
+    Using \((*)\) with \(\mu = \lambda + \rho\),
+    \[F_p(\ch(V(\lambda))) = \frac{q^{-\pinner{p, \lambda + \rho}}\prod_{\alpha \in \Phi^+}(1 - q^{\pinner{\alpha, \lambda + \mu}})}{q^{-\pinner{p, \rho}}\prod_{\alpha \in \Phi^+}(1 - q^{\pinner{\rho, \alpha}})}\]
+    where we applied \((*)\) to the numerator. Finally, note that
+    \[F_p(\ch(V(\lambda)))(q) = \sum\dim(V(\lambda)_\mu)q^{-\pinner{p, \mu}}\]
+    Taking the limit \(q \to 1\), and using L`H\^opital's rule,
+    \[\dim(V(\lambda)) = \frac{\prod_{\alpha \in \Phi^+}\pinner{\lambda + \rho, \alpha}}{\prod_{\alpha \in \Phi^+}\pinner{\rho, \alpha}}\]
+    as required.
+\end{proof}
+
+\begin{example}
+    For \(\mfg = \sl_2\), \(\omega_1 = \frac{1}{2}\alpha = \rho\), and \(X^+ = \{m\omega_1\}\), and so
+    \[\dim(V(\lambda)) = \frac{(m + 1)\pinner{\alpha, \alpha}}{\pinner{\alpha, \alpha}} = m + 1\]
+\end{example}
+
+\begin{example}
+    For \(\mfg = \sl_3\), \(\Phi^+ = \{\alpha, \beta, \alpha + \beta\}\). Let
+    \[\lambda = m_1 \omega_1 + m_2\omega_2\]
+    and
+    \[\rho = \alpha + \beta = \omega_1 + \omega_2\]
+    Computing:
+    \begin{align*}
+        \pinner{\lambda + \rho, \alpha} &= m_1 + 1 \\
+        \pinner{\lambda + \rho, \beta} &= m_2 + 1 \\
+        \pinner{\lambda + \rho, \alpha + \beta} &= m_1 + m_2 + 2 \\
+        \pinner{\rho, \alpha} &= 1 \\
+        \pinner{\rho, \beta} &= 1 \\
+        \pinner{\rho, \alpha + \beta} &= 2 
+    \end{align*}
+    and so
+    \[\dim(V(\lambda)) = \frac{(m_1 + 1)(m_2 + 1)(m_1 + m_2 + 2)}{2}\]
+\end{example}
+
+\underline{Exercise:} Compute the dimensions of the finite dimensional irreducible representations of \(B_2\) and \(G_2\). See Humphreys page 140.
+
+\begin{example}
+    [\textbf{A very common tripos question}] For \(\mfg = \sp_4(\C)\), which is of type \(B_2\). Let \(\alpha_1\) be a short root. Suppose \(\lambda = a\omega_1 + b\omega_2\) is a dominant weight. In this case,
+    \[\prod_{\alpha \in \Phi^+}\inner{\rho, \alpha^\vee} = 6\]
+    Next, \(\lambda + \rho = (a + 1)\omega_1 + (b + 1)\omega_2\). Hence
+    \[\prod_{\alpha \in \Phi^+}\inner{\lambda + \rho, \alpha^\vee} = (a + 1)(b + 1)(a + 2b + 3)(a + b + 2)\]
+
+    Let \(V\) be the defining representation. For its highest weight,
+    \[\dim(V(\omega_1)) = 4\]
+    and so if \(W\) is a non-trivial representation of \(\sp_4\), and not isomorphic to \(V(\omega_1)\), then by the dimension formula, we need \(\dim(W) > 4\). Hence \(V \cong V(\omega_1)\).
+
+    Finally, to decompose \(V \otimes V\) into irreducible subrepresentations, we need to find \(\lambda_1, \dots, \lambda_r\) such that
+    \[V \otimes V = V(\lambda_1) \oplus \cdots \oplus V(\lambda_r)\]
+    Let \(v \in V(\omega_1)\) be a highest weight vector. Then \(v \otimes v\) is a highest weight vector, with weight \(2\omega_1\). That is, \(V(2\omega_1)\) is a subrepresentation of \(V \otimes V\). But \(2\omega_1 = 2\alpha_1 + \alpha_2\), and so \(V(2\omega_1)\) is the adjoint representation.
+
+    In particular,
+    \[\dim(V(2\omega_1)_{\omega_1}) = 1\]
+    Finally, take a basis \(\{v_\gamma\}\) where \(\gamma \in \Pi(\omega_1)\) be a basis of weight vectors of \(V\). Then
+    \[\{v_{\gamma_1} \otimes v_{\gamma_2} \mid \gamma_1, \gamma_2 \in \Pi(\omega_1)\}\]
+    is a basis of weight vectors for \(V \otimes V\). Using this,
+    \begin{align*}
+        \dim((V\otimes V)_{\omega_1}) &= 1 \\
+        \dim((V\otimes V)_{\omega_2}) &= 2 \\
+        \dim((V\otimes V)_0) &= 4
+    \end{align*}
+    All other weight spaces correspond to non-dominant weights. Next,
+    \begin{align*}
+        \dim(V(2\omega_1)_{\omega_2}) &= 1 \\
+        \dim(V(\omega_2)) &= 5
+    \end{align*}
+    and \(V(\omega_2)\) has to be a subrepresentation of \(V \otimes V\). By counting dimensions, we get
+    \[V \otimes V = V(2\omega_1) \oplus V(\omega_2) \oplus V(0)\]
+\end{example}
 
 \printindex
 

@@ -3430,10 +3430,258 @@ The map \(\phi\) is the cup product with the Euler class \(e_E\), basically by d
     \end{align*}
     is an isomorphism. The Thom map
     \[\alpha \mapsto \pi^*\alpha \smile \cdot\]
-    maps the Mayer-Vietoris sequence for \(X = A \cup B\) to a Mayer-Vietoris map for \(E = E\vert_A \cup E\vert_B\). The result follows by the five lemma, once we show that the squares commute.
+    maps the Mayer-Vietoris sequence for \(X = A \cup B\) to a Mayer-Vietoris map for \(E = E\vert_A \cup E\vert_B\). The result follows by the five lemma, once we show that the squares commute. 
+    \lec
+    The non-obvious case involves the boundary map. That is,
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhIXmkoRVxcdmVydF97QSBcXGNhcCBCfSwgRV5cXHNoYXJwXFx2ZXJ0X3tBIFxcY2FwIEJ9KSJdLFsyLDAsIlxcSEhee2krMX0oRSwgRV5cXHNoYXJwKSJdLFswLDIsIlxcSEhee2ktZH0oQSBcXGNhcCBCKSJdLFsyLDIsIlxcSEhee2ktZCsxfShYKSJdLFswLDFdLFsyLDNdLFsyLDBdLFszLDFdXQ==
+\[\begin{tikzcd}
+	{\HH^i(E\vert_{A \cap B}, E^\sharp\vert_{A \cap B})} && {\HH^{i+1}(E, E^\sharp)} \\
+	\\
+	{\HH^{i-d}(A \cap B)} && {\HH^{i-d+1}(X)}
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=3-1, to=3-3]
+	\arrow[from=3-1, to=1-1]
+	\arrow[from=3-3, to=1-3]
+\end{tikzcd}\]
+    Let \(\varphi \in C^d(E, E^\sharp)\) be a cocycle representing the Thom class \(u_E\). Then \(\varphi\vert_{E\vert_A}\) represents \(u_{E\vert_A}\).
+
+    If \(\alpha \in \HH^{i-d}(A \cap B)\) is a class, then we can write \(\alpha = \psi_A - \psi_B\), where \(\psi_A \in C^{i-d}(A)\) and \(\psi_B \in C^{i-d}(B)\). Then
+    \[\partial^*[\alpha] = [\dd^*\psi_A]\]
+    Hence along the bottom right, we get
+    \[\alpha \mapsto \pi^*(\partial^*\psi_A)\cdot \varphi\]
+    For the top left, note
+    \[\pi^*\psi_A\cdot \varphi_{E\vert_A} - \pi^*\psi_B\cdot \varphi_{E\vert_B}\]
+    is a difference of chains in
+    \[C^i(E\vert_A, E^\sharp\vert_A) \qqtext{and} C^i(E\vert_B, E^\sharp\vert_B)\]
+    and so the top left sends
+    \[\alpha \mapsto \partial^*(\pi^*\psi_A \cdot \varphi_{E\vert_A}) = \partial^*(\pi^*\psi_A)\cdot \varphi\vert_{E\vert_A}\]
+    These the agree.
 \end{proof}
     
+\subsection{Cup products on smooth manifolds}
 
+Recall if \(M\) is a smooth manifold, it has a tangent bundle \(\T M \to M\) of rank \(\dim(M)\). If \(Y \sse M\) is a (smooth) submanifold, then \(\T Y \sse \T M\vert_Y\) is a subbundle. We define the \emph{normal bundle}
+\[\nu_{Y/M} = \frac{\T M\vert_Y}{\T Y}\]
+This is a vector bundle of rank \(\dim(M) - \dim(Y)\) on \(Y\). We'll write \(\nu_Y = \nu_{Y/M}\) when \(M\) is clear from context.
+
+\begin{notation}
+    We say that \(Y\) is \emph{co-oriented} in \(M\) if \(\nu_{Y/M}\) is an oriented vector bundle.
+\end{notation}
+
+\underline{Exercise:} If \(M\) is a smooth manifold, then an orientation on \(M\) as in this course, as
+\[\epsilon_x \in \HH_n(M, M \setminus x)\]
+is equivalent to an orientation of \(\T M\) as a vector bundle. One way of seeing this is using the exponential map of a Riemannian metric.
+
+\begin{definition}
+    [transverse]
+    Let \(M\) be a smooth manifold, \(Y, Z \sse M\) are smooth submanifolds, then we say that \(Y\) and \(Z\) \emph{intersect transversely} if for all \(p \in Y \cap Z\),
+    \[\T_pY + \T_pZ = \T_p M\]
+\end{definition}
+
+\begin{theorem}
+    [tubular neighbourhood]
+
+    Let \(M\) be a smooth manifold, 
+    \begin{enumerate}
+        \item if \(Y \sse M\) a compact smooth submanifold, Then there exists an open neighbourhood \(U_Y\) of \(Y \sse M\), and a diffeomorphism \(\alpha: U_Y \to \nu_{Y/M}\), taking \(Y\) to the zero section. Moreover, both \(U_Y\) and \(\alpha\) are unique up to isotopy.
+        \item if \(Y, Z \sse M\) are compact smooth manifolds which intersect transversally, then \(Y \cap Z\) is a smooth submanifold, with
+        \[\codim(Y \cap Z) = \codim(Y) + \codim(Z)\]
+        and we have an isomorphism of bundles
+        \[\nu_{Y\cap Z} \cong \nu_Y\vert_{Y \cap Z} \oplus \nu_Z\vert_{Y \cap Z}\]
+        and there are tubular neighbourhoods \(U_Y, U_Z\) of \(Y, Z\) respectively, with \(U_{Y \cap Z} = U_Y \cap U_Z\) compatible with the above isomorphism.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Omitted.
+\end{proof}
+
+Suppose \(M^d\) is a smooth oriented manifold, \(Y^k \sse M\) a smooth compact submanifold. Note that if \(V = V_1 \oplus V_2\) is a direct sum of vector spaces, oriented two of the three gives an orientation on the third. Thus, for \(Y\), orienting \(Y\) is the same as co-orienting \(Y\). Assume \(Y\) is oriented.
+
+\(Y\) is a compact topological manifold, and so it has a fundamental class \([Y] \HH_k(Y)\) under the inclusion map \(i : Y \inj M\), we have a class
+\[i_*[Y] = \HH_k(M) \cong \HH_\ct^{d-k}(M)\]
+by Poincar\'e duality.
+
+Alternatively, we can take the Thom class
+\[\nu_Y \in \HH^{d-k}(\nu, \nu^\sharp) \stackrel{\text{tubular neighbourhood}}{\cong} \HH^{d-k}(U_Y, U_Y \setminus Y) \cong \HH^{d-k}(M, M\setminus Y) \to \HH^{d-k}_\ct(M) \cong \HH_k(M)\]
+
+\begin{lemma}
+    \label{lem:classes-agree}
+    These two constructions agree.
+\end{lemma}
+
+\begin{notation}
+    We will write \(\epsilon_Y\) for the cohomology class dual to an oriented compact submanifold \(Y\).
+\end{notation}
+
+\begin{proposition}
+    \label{prop:class-intersection}
+    If \(Y, Z\) are oriented compact smooth submanifolds of \(M\), which meet transversely, then
+    \[\epsilon_{Y \cap Z} = \epsilon_Y \cdot \epsilon_Z\]
+\end{proposition}
+
+\begin{remark}
+    \(\epsilon_Y \cdot \epsilon_Z = (-1)^{\codim(Y)\codim(Z)}\epsilon_Z \cdot \epsilon_Y\). Recall
+    \[\nu_{Y \cap Z} = \nu_Y \oplus \nu_Z\]
+    and so co-orientations of \(Y, Z\) and the ordering of \(Y\) and \(Z\) induce an orientation on \(Y \cap Z\). This makes the above an oriented isomorphism of vector bundles. Thus the proposition fits with skew-commutativity.
+\end{remark}
+
+\begin{example}
+    If \(M\) is oriented, a point \(p \in M\) is co-oriented. Thus, it has a well defined class \(\epsilon_p \in \HH^d_\ct(M)\) which is the orientation generator.
+
+    Thus, if \(Y \cap Z\) is a transverse intersection, then \(\epsilon_{Y \cap Z}\) is non-zero. Hence \(\epsilon_Y, \epsilon_Z\) is non-zero. One example of this for \(\Sigma_2\),
+
+    \textbf{picture}
+
+    In particular, we can use the loops to compute the cohomology ring structure. 
+\end{example}
+
+\begin{proof}
+    [Proof of proposition \cref{prop:class-intersection}] If \(E \to X, F \to X\) are oriented vector bundles, then the relative cross product defines a map
+    \[\HH^i(E, E^\sharp) \otimes \HH^j(F, F^\sharp) \to \HH^{i + j}(E \oplus F, (E \oplus F)^\sharp)\]
+    Noting that \((E \times F)\vert_{\Delta_X} = E \oplus F\). Moreover, we have that
+    \[u_{E \oplus F} = u_E \cross u_F\]
+    uner this map, since we have an isomorphism
+    \[\HH^i(\R^i, \R^i \setminus 0) \otimes \HH^j(\R^j, \R^j \setminus 0) \cong \HH^{i + j}(\R^{i + j}, \R^{i + j}\setminus 0)\]
+    Now
+    \[\epsilon_{Y \cap Z} = u_{\nu_{Y \cap Z}} = u_{\nu_Y}\cdot u_{\nu_Z} = \epsilon_Y \cdot \epsilon_Z\]
+\end{proof}
+
+\lec
+
+\begin{proof}
+    [Proof of \cref{lem:classes-agree}] We have that the diagram
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCJcXEhIX3tuLWt9KFkpIl0sWzIsMCwiXFxISF97bi1rfShVX1kpIl0sWzQsMCwiXFxISF5rX1xcY3QoVV9ZKSJdLFs0LDIsIlxcSEhea19cXGN0KE0pIl0sWzIsMiwiXFxISF97bi1rfShNKSJdLFswLDIsIlxcSEhfe24ta30oWSkiXSxbMCw1LCI9IiwxLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFswLDEsIlxcdGV4dHtpbmNsdXNpb259IiwxXSxbNSw0LCJpIiwxXSxbMSw0XSxbMSwyLCJcXFBEIiwxXSxbNCwzLCJcXFBEIiwxXSxbMiwzLCJcXHRleHR7ZXh0ZW5zaW9uIGJ5IHplcm99IiwxXV0=
+\[\begin{tikzcd}
+	{\HH_{n-k}(Y)} && {\HH_{n-k}(U_Y)} && {\HH^k_\ct(U_Y)} \\
+	\\
+	{\HH_{n-k}(Y)} && {\HH_{n-k}(M)} && {\HH^k_\ct(M)}
+	\arrow["{=}"{description}, no head, from=1-1, to=3-1]
+	\arrow["{\text{inclusion}}"{description}, from=1-1, to=1-3]
+	\arrow["i"{description}, from=3-1, to=3-3]
+	\arrow[from=1-3, to=3-3]
+	\arrow["\PD"{description}, from=1-3, to=1-5]
+	\arrow["\PD"{description}, from=3-3, to=3-5]
+	\arrow["{\text{extension by zero}}"{description}, from=1-5, to=3-5]
+\end{tikzcd}\]
+commutes by out construction of \(D\). So \(i_*([Y])\) has the property that \(D(i_*[Y])\) is in the image of \(\HH^k(U_Y) \cong \HH^k(\nu_Y, \nu_Y^\sharp) \cong \Z\). Where for the last isomorphism we use the Thom isomorphism. Thus, \(i_*[Y]\) and \(D(\epsilon_Y)\) must agree up to a sign. In fact, using our conventions for orientations, they agree.
+\end{proof}
+
+\begin{corollary}
+    If \(i : Y^{n-k} \inj M^n\) are as above, given \(\alpha \in \HH^{n-k}(M)\), then we can compute
+    \[\inner{i^*\alpha, [Y]} = \inner{\epsilon_Y \cdot \alpha, [M]}\]
+    where \(\inner{\cdot, \cdot}\) denotes the natural pairing between homology and cohomology.
+
+    So \(\epsilon_Y\) behaves like a Dirac delta along \(Y\).
+\end{corollary}
+
+\begin{proof}
+    \[\inner{\epsilon_y \cdot \alpha, [M]} = \alpha([M] \cap \epsilon_Y) = \alpha = \alpha(D(\epsilon_Y)) = \alpha(i_*[Y]) = i^*\alpha([Y])\]
+\end{proof}
+
+Take coefficients in a field \(F\), which we will omit from the notation. Then Poincar\'e duality for a compact \(F\)-oriented manifold \(M\) says that we have a non-degenerate pairing
+\begin{align*}
+    \HH^k(M) \otimes \HH^{n-k}(M) &\to F \\
+    (\alpha, \beta) &\mapsto \alpha \cdot \beta = \inner{\alpha \cdot \beta, [M]}
+\end{align*}
+Let \(\{a_i\}\) be a basis of \(\HH^*(M)\), \(\{b_j\}\) the corresponding dual basis, so \(a_i \cdot b_j = \delta_{ij}\).
+Note by K\"unneth that
+\[\HH^*(M \times M) \cong \HH^*(M) \otimes_F \HH^*(M)\]
+Let \(\Delta \sse M \times M\) be the diagonal. Then we have
+\[\epsilon_\Delta  \in \HH^*(M) \otimes \HH^*(M)\]
+\begin{lemma}
+    \[\epsilon_\Delta = \sum_i (-1)^{\abs{b_i}}a_i \otimes b_i\]
+\end{lemma}
+
+\begin{proof}
+    Note that by non-degeneracy of the cup product, it suffices to show both sides evaluaed agains \(b_k \otimes a_\ell\) gives the same result. We can write
+    \[\epsilon_\Delta = \sum_{i, j}c_{ij}a_i \otimes b_j\]
+    for some coefficients \(c_{ij}\). So
+    \begin{align*}
+        \inner{\epsilon_\Delta \cdot (b_k \otimes a_\ell), [M \times M]} &= \sum c_{ij} \inner{(a_i \otimes b_j)\cdot (b_k \otimes a_\ell), [M \times M]} \\
+        &= \sum (-1)^{\abs{b_j}\abs{b_k}}c_{ij}\inner{a_ib_k \otimes b_ja_\ell, [M \times M]} \\
+        &= \sum c_{ik}(-1)^{\abs{b_j}\abs{b_\ell}}\delta_{ik}\delta_{j\ell}(-1)^{\abs{a_\ell}\abs{b_j}} \\
+        &= (-1)^{\abs{b_\ell}(\abs{b_k} + \abs{a_\ell})}c_{k\ell}
+    \end{align*}
+    On the other hand,
+    \begin{align*}
+        \inner{\epsilon_\Delta \cdot (b_k \otimes a_\ell), [M \times M]} &= \inner{b_k \otimes a_\ell,[\Delta]} \\
+        &= (-1)^{\abs{a_k}\abs{b_\ell}}\delta_{k\ell}
+    \end{align*}
+    Hence
+    \[c_{k\ell} = (-1)^{\abs{b_k}\abs{b_\ell}}\delta_{k\ell} = (-1)^{\abs{b_k}}\delta_{\ell k}\]
+    as required.
+\end{proof}
+
+\textbf{Warning:} Many books (e.g. Milnor Characteristic Classes) gives
+\[\epsilon_\Delta = \sum_i (-1)^{\abs{a_i}}a_i \otimes b_i\]
+which is \((-1)^{\dim(M)}\) times what we said. They define cap product so that
+\[\inner{a, \delta \frown b} = \inner{a\cdot b, \delta}\]
+That is, the define
+\[\sigma \frown \phi\]
+by feeding the \emph{back} face of \(\sigma\) into \(\phi\), whereas we fed the front face into the front face. This changes the isomorphism \(D\).
+
+\subsection{Fixed points}
+
+Let \(M\) be a closed smooth manifold, oriented over \(F\).
+
+\begin{definition}
+    [non-degenerate fixed points]
+    If \(f : M \to M\) is smooth, we say \emph{\(f\) has nondegenerate fixed points} if \(\Gamma_f\) and \(\Delta\) intersect transversely in \(M \times M\).
+\end{definition}
+
+In this case, \(\Gamma_f \cap \Delta\) is a finite set. The \emph{sign} of a non-degenerate fixed point is 
+\[\sign(\det(\id - \dd f_x))\]
+Then at \((x, x)\),
+\[\T_(x, x)\Gamma_f \oplus \T_{(x, x)}\Delta = \T_{(x, x)}(M \times M)\]
+The sum is direct by dimension counting. Now consider the map
+\begin{align*}
+    F + \Delta : \T M \oplus \T M \to \T M \oplus \T M
+\end{align*}
+where \(F(x, x) = (x, f(x))\). This has
+\[D(F + \Delta) = \begin{pmatrix}
+    I & \dd f \\
+    I & I
+\end{pmatrix}\]
+and so the sign of the fixed point says whether \(F + \Delta\) has orientation preserving determinant at \((x, x)\) or not.
+
+In this case, 
+\[\epsilon_{\Gamma \cap \Delta} = \sum_{x \in \Fix(f)}\pm \epsilon_x\]
+where the sign dependes on the sign of \(x\) as above.
+
+\begin{definition}
+    [Lefschetz number] The \emph{Lefschetz number} of \(f : M \to M\) is
+    \[\mathrm{STr}(f) = L(f) = \sum_{k \ge 0}(-1)^k\tr(f^* : \HH^k(M) \to \HH^k(M))\]
+\end{definition}
+
+\begin{theorem}
+    [Lefschetz fixed point] If \(f\) has non-degenerate fixed points, then
+    \[L(f) = \sum_{x \in \Fix(f)}\sign(x)\]
+\end{theorem}
+
+\begin{proof}
+    We've observed
+    \begin{align*}
+        \sum_{x \in \Fix(f)}\sign(x) &= \epsilon_{\Gamma(f) \cap \Delta} \\
+        &= \inner{\epsilon_{\Gamma_f}\cdot\epsilon_\delta, [M \times M]} \\
+        &= \inner{i_{\Gamma_f}^*\epsilon_\Delta, [\Gamma_f]} \\
+        &= \inner{(\id \times f)^*\epsilon_\Delta, M} \\
+        &= \sum_i(-1)^{\abs{b_i}}\inner{a_i \otimes f^*b_i, [M]}
+    \end{align*}
+    Write \(f^*b_i = \sum q_{ij} b_j\). Then \(\inner{a_i \cdot f^*b_i, [M]} = q_{ii}\) since the \(a_i, b_i\) are dual bases. So this \(q_{ii}\) is the \(ii\)-th entry of \(f\) in the \(b_j\) basis.
+\end{proof}
+
+\begin{example}
+    Any map \(f : \C\P^{2k} \to \C\P^{2k}\) has a fixed point. In particular, no finite group can act freely on \(\C\P^{2k}\).
+
+    Suppose \(f\) is is smooth with non-degenerate fixed points. Then 
+    \[\HH^*(\C\P^{2k}) = \frac{\Z[x]}{x^{2k+1}}\]
+    Suppose \(f^*(x) = \ell x\) for some \(\ell \in \Z\). But then \(f^*(x) = \ell^ix^i\) for all \(i\). These all live in even degree, and so the Lefschetz number is
+    \[L(f) = 1 + \ell + \ell^2 + \cdots + \ell^{2k}\]
+    which is non-zero for any \(\ell\). 
+    
+    Now suppose \(f : \C\P^{2k} \to \C\P^{2k}\) is continuous and has no fixed points. Then we have a nearby smooth \(\tilde f\) which still has no fixed points. Contradiction.
+\end{example}
 
 \printindex
 

@@ -2369,6 +2369,231 @@ Observe that this is the same as the singular cohomology groups of \(S^1\). On t
     In particular, \(\HH^0(\P^n, \mcO(d))\) has dimension \(n + d \choose d\), and \(\HH^n(\P^n, \mcO(d))\) has dimension \(-d-1 \choose n\) (when these things make sense, zero otherwise).
 \end{proposition}
 
+\lec
+
+\begin{proof}
+    The claim for \(\HH^0(X, \mcF)\) follows from prior description, as
+    \[\HH^0(X, \mcF) = \mcF = \bigoplus_d \Gamma(\P^n, \mcO(d))\]
+    For \(\HH^n\), choose the standard cover \(\mcU\) by affine opens \(U_i = \P^n \setminus \van(x_i)\). Observe 
+    \[\mcF(U_{i_0\cdots i_p}) = k[x_0, \dots, x_n]_{x_{i_0}\cdots x_{i_p}}\]
+    This \(k\)-module is spanned over \(k\) by monomials
+    \[x_0^{k_0}\cdots x_n^{k_n}\]
+    where \(k_{i_0}, \dots, k_{i_p} \in \Z\), the rest are in \(\Z_{\ge 0}\). The vector spaces in the associated \v Cech complex is:
+    \begin{align*}
+        \check C^{n-1} &= \bigoplus_{i=1}^n k[x_0, \dots, x_n]_{x_0\cdots \widehat{x_i}\cdots x_n} \\
+        \check C^n &= k[x_0, \cdots, x_n]_{x_0\cdots x_n}
+    \end{align*}
+    Since \(\mcU\) contains only \(n+1\) elements, \(\check C^{n+1}\) vanishes. So we can conclude that
+    \begin{align*}
+        \HH^n(\P^n, \mcF) &= \check \HH^n(\mcU, \mcF) \\
+        &= \frac{\check C^n}{\im(\check C^{n-1} \to \check C^n)} \\
+        &= \frac{\Span_k\left\{x_0^{k_0}\cdots x_n^{k_n} \mid k_i \in \Z\right\}}{\Span_k\left\{x_0^{k_0}\cdots x_n^{k_n} \mid k_i \ge 0 \text{ for some }i\right\}}
+    \end{align*}
+    Finally, for the intermediate cohomology groups, we will use the LES associated to a SES of sheaves. Moreover, we will induct on the dimension \(n \ge 2\).
+
+    First, we have that \(\P^{n-1}\) is isomorphic to the closed subscheme \(\van(x_0) \sse \P^n\). Say \(i : \P^{n-1} \to \P^n\) is the inclusion map. There is an associated ``ideal sheaf sequence''
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzIsMCwiXFxtY09fe1xcUF5ufSgtMSkiXSxbNCwwLCJcXG1jT197XFxQXm59Il0sWzYsMCwiaV8qXFxtY09fe1xcUF57bi0xfX0iXSxbOCwwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+    \[\begin{tikzcd}
+        0 && {\mcO_{\P^n}(-1)} && {\mcO_{\P^n}} && {i_*\mcO_{\P^{n-1}}} && 0
+        \arrow[from=1-1, to=1-3]
+        \arrow[from=1-3, to=1-5]
+        \arrow[from=1-5, to=1-7]
+        \arrow[from=1-7, to=1-9]
+    \end{tikzcd}\]
+    Recall we have the identification \(\mcO_{\P^n}(-1) = L(-H)\), where \(H = \van(x_0)\). See examples sheet 4 for more details. By formal properties of cohomology which we have asserted, we get an associated long exact sequence. Assume the result holds for \(n-1\). We get three associated exact sequences:
+    % https://q.uiver.app/#q=WzAsNyxbMCwwLCIwIl0sWzEsMCwiXFxISF4wKFxcUF5uLCBcXG1jRikiXSxbMiwwLCJcXEhIXjAoXFxQXm4sIFxcbWNGKSJdLFszLDAsIlxcSEheMChcXFBebiwgXFxtY0Zfe1xcUF57bi0xfX0pIl0sWzEsMiwiXFxISF4xKFxcUF5uLCBcXG1jRikiXSxbMiwyLCJcXEhIXjEoXFxQXm4sIFxcbWNGKSJdLFszLDIsIjAiXSxbNSw2XSxbMCwxXSxbMSwyLCJcXGNkb3QgeF8wIl0sWzIsM10sWzMsNF0sWzQsNSwiXFxjZG90IHhfMCIsMl1d
+    \[\begin{tikzcd}
+        0 & {\HH^0(\P^n, \mcF)} & {\HH^0(\P^n, \mcF)} & {\HH^0(\P^n, \mcF_{\P^{n-1}})} \\
+        \\
+        & {\HH^1(\P^n, \mcF)} & {\HH^1(\P^n, \mcF)} & 0
+        \arrow[from=3-3, to=3-4]
+        \arrow[from=1-1, to=1-2]
+        \arrow["{\cdot x_0}", from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=3-2]
+        \arrow["{\cdot x_0}"', from=3-2, to=3-3]
+    \end{tikzcd} \tag{a}\]
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiXFxISF5wKFxcUF5uLCBcXG1jRikiXSxbMiwwLCJcXEhIXnAoXFxQXm4sIFxcbWNGKSJdLFszLDAsIjAiXSxbMCwxXSxbMSwyLCJcXGNkb3QgeF8wIl0sWzIsM11d
+    \[\begin{tikzcd}
+        0 & {\HH^p(\P^n, \mcF)} & {\HH^p(\P^n, \mcF)} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow["{\cdot x_0}", from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+    \end{tikzcd} \tag{b}\]
+    and
+    % https://q.uiver.app/#q=WzAsNyxbMCwwLCIwIl0sWzEsMCwiXFxISF57bi0xfShcXFBebiwgXFxtY0YpIl0sWzIsMCwiXFxISF57bi0xfShcXFBebiwgXFxtY0YpIl0sWzMsMCwiXFxISF57bi0xfShcXFBebiwgXFxtY0Zfe1xcUF57bi0xfX0pIl0sWzEsMiwiXFxISF5uKFxcUF5uLCBcXG1jRikiXSxbMiwyLCJcXEhIXm4oXFxQXm4sIFxcbWNGKSJdLFszLDIsIjAiXSxbMCwxXSxbMSwyLCJcXGNkb3QgeF8wIl0sWzIsM10sWzMsNF0sWzQsNSwiXFxjZG90IHhfMCIsMl0sWzUsNl1d
+    \[\begin{tikzcd}
+        0 & {\HH^{n-1}(\P^n, \mcF)} & {\HH^{n-1}(\P^n, \mcF)} & {\HH^{n-1}(\P^n, \mcF_{\P^{n-1}})} \\
+        \\
+        & {\HH^n(\P^n, \mcF)} & {\HH^n(\P^n, \mcF)} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow["{\cdot x_0}", from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=3-2]
+        \arrow["{\cdot x_0}"', from=3-2, to=3-3]
+        \arrow[from=3-3, to=3-4]
+    \end{tikzcd}\]
+    Using (a) and (c), we can observe that the sequence (b) is also exact for \(p = 1\) and \(p = n-1\), by writing out the \v Cech cohomology. Multiplication by \(x_0\) makes \(\HH^p(\P^n, \mcF)\) into a \(k[x_0]\)-module. Next, we calculate the localisation of this module at \(x_0\). That is, we would like to find
+    \[\HH^p(\P^n, \mcF)_{x_0}\]
+    Since localisation ie exact,
+    \[\HH^p(\P^n, \mcF)_{x_0} = \HH^p(U_0, \mcF\vert_{U_0}) = 0\]
+    since \(U_0\) is affine. Thus, for any \(\alpha \in \HH^p(\P^n, \mcF)\), \(x_0^k\alpha = 0\) for some \(k > 0\). But multiplication by \(x_0\) is an isomorphism on cohomology. So in fact \(\alpha = 0\), and so \(\HH^p(\P^n, \mcF) = 0\).
+\end{proof}
+
+Given the exact sequence
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxtY09fe1xcUF5ufSgtMSkiXSxbMiwwLCJcXG1jT197XFxQXm59Il0sWzMsMCwiaV8qXFxtY09fe1xcUF57bi0xfX0iXSxbNCwwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+\[\begin{tikzcd}
+	0 & {\mcO_{\P^n}(-1)} & {\mcO_{\P^n}} & {i_*\mcO_{\P^{n-1}}} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+we can tensor with \(\mcO_{\P^n}(d)\), and we get an exact sequence
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxtY09fe1xcUF5ufShkLTEpIl0sWzIsMCwiXFxtY09fe1xcUF5ufShkKSJdLFszLDAsImlfKlxcbWNPX3tcXFBee24tMX19KGQpIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & {\mcO_{\P^n}(d-1)} & {\mcO_{\P^n}(d)} & {i_*\mcO_{\P^{n-1}}(d)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+Since \(\mcO_{\P^n}(d)\) is locally free, we can just check the above of stalks, there is no need to check that it is flat.
+
+On Sheet 4, there are two more computations of sheaf cohomology. The first is that if
+\[X = \aff k 2 \setminus 0\]
+then
+\[\dim_k(\HH^1(X, \mcO_X)) = \infty\]
+and so \(X\) is not affine.
+
+Next, let \(f_d\) be a degree \(d\) homogeneous polynomial in \(k[x, y, z]\). Let \(X_d = \van(f_d) \sse \P^2\). The \v Cech complex gives that
+\begin{align*}
+    \dim_k\left(\HH^0(X_d, \mcO_{X_d})\right) &= 1 \\
+    \dim_k\left(\HH^1(X_d, \mcO_{X_d})\right) &= {d-1 \choose 2}
+\end{align*}
+The second is just the degree-genus formula if \(X_d\) is a smooth curve, but the above computation works in general. We call this the \emph{arithmetic genus}.
+
+Let \(X\) be proper over \(\Spec(k)\), and \(\mcF\) a coherent sheaf on \(X\). We've seen that \(\HH^0(X, \mcF)\) is a finite dimensional \(k\)-vector space. In fact, the same is true for all \(\HH^p(X, \mcF)\).
+
+Under the same hypotheses, if \(X\) has dimension \(n\), then \(\HH^p(X, \mcF) = 0\) for \(p > n\). Thus, in this setup, given \((X, \mcF)\) there are finitely many numbers
+\[h^p(X, \mcF) = \dim_k\left(\HH^p(X, \mcF)\right)\]
+\begin{definition}
+    [Euler characteristic]
+    The \emph{Euler characteristic} of \(\mcF\) is
+    \[\chi(\mcF) = \chi(X, \mcF) = \sum_{p=0}^d (-1)^ph^i(X, \mcF)\]
+\end{definition}
+Now suppose
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxtY0YiXSxbMiwwLCJcXG1jRiciXSxbMywwLCJcXG1jRicnIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & \mcF & {\mcF'} & {\mcF''} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+is an exact sequence of coherent sheaves on \(X\), then the associated long exact sequence gives
+\[\chi(\mcF') = \chi(\mcF) + \chi(\mcF'')\]
+
+\lec
+
+\subsection{Choice of cover}
+
+So far, given a Noetherian separated scheme \(X\), a quasi-coherent sheaf \(\mcF\) on \(X\), and \(\mcU = \{U_i\}\) a finite open affine cover, we've been using \(\check \HH^i(\mcU, \mcF)\) to be equal to the sheaf cohomology groups \(\HH^i(X, \mcF)\). We will prove that \(\check \HH^i(\mcU, \mcF)\) is independent of the choice of cover \(\mcU\).
+
+\begin{theorem}
+    \label{thm:sheaf-cohomology-trivial}
+    Let \(X\) be affine and \(\mcF\) quasi-coherent. Then for any cover \(\mcU = \{U_i\}\) by affine opens, the groups \(\HH^i(\mcU, \mcF)\) are zero for \(i > 0\).
+\end{theorem}
+
+\begin{proof}
+    Define the \emph{sheafified \v Cech complex} as follows:
+    \[\mcC^p(\mcF) = \prod_{i_0 < \cdots < i_p}i_*\mcF\vert_{i_0\cdots i_p}\]
+    where \(i : U_{i_0\cdots i_p} \inj X\) is the inclusion. By what we have done previously, the \(\mcC^p(\mcF)\) are quasi-coherent sheaves. BY taking global sections,
+    \[\Gamma(X, \mcC^p(\mcF)) = \check C^p(\mcF)\]
+    The same formula used to build the \v Cech complex gives differentials
+    \[\dd : \mcC^p(\mcF) \to \mcC^{p+1}(\mcF)\]
+    which is a morphism of sheaves. Our goal is to show that the usual \v Cech complex
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGNoZWNrIENeMChcXG1jRikiXSxbMSwwLCJcXGNoZWNrIENeMShcXG1jRikiXSxbMiwwLCJcXGNkb3RzIl0sWzAsMV0sWzEsMl1d
+    \[\begin{tikzcd}
+        {\check C^0(\mcF)} & {\check C^1(\mcF)} & \cdots
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+    \end{tikzcd}\]
+    is exact. From examples sheet 4 question 10, on affines, taking global sections preserves exactness. Thus, it suffices to prove instead exactness of
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXG1jQ14wKFxcbWNGKSJdLFsxLDAsIlxcbWNDXjEoXFxtY0YpIl0sWzIsMCwiXFxjZG90cyJdLFswLDFdLFsxLDJdXQ==
+    \[\begin{tikzcd}
+        {\mcC^0(\mcF)} & {\mcC^1(\mcF)} & \cdots
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+    \end{tikzcd}\]
+    But the exactness of this can be check at the level of stalks. Let \(q \in X\), and suppose \(q \in U_j\). We now define
+    \begin{align*}
+        \kappa : \mcC^p_q(\mcF) &\to \mcC^{p-1}_q(\mcF)
+    \end{align*}
+    where \(\mcC^p_q(\mcF)\) is the stalk of \(\mcC^p(\mcF)\) at \(q\). This is defined by
+    \[\kappa(\alpha)_{i_0\cdots i_p} = \alpha_{ji_0\cdots i_{p-1}}\]
+    where by convention if \(ji_0\cdots i_{p-1}\) is not in increasing order, but \(\sigma \in S_{p+1}\) makes it into increasing order, then
+    \[\alpha_{ji_0\cdots i_p} = \sign(\sigma)\alpha_{\sigma(j)\sigma(i_0)\cdots \sigma(i_p)}\]
+    By direct calculation, 
+    \[\dd \kappa + \kappa \dd = \id\]
+    on \(\mcC^p\) for all \(p\). This is a chain homotopy between \(\id\) and \(0\). Hence the cochain complex \(\mcC^p(\mcF)\) is contractible. More concretely, for \(\alpha \in \ker(\mcC^p \to \mcC^{p+1})\), then
+    \[\alpha = \dd\kappa(\alpha) \in \im(\mcC^{p-1} \to \mcC^p)\]
+\end{proof}
+
+\begin{lemma}
+    Let \(X\) be a scheme and \(\mcF\) a quasi-coherent sheaf on \(X\), Fix \(\mcU = \{U_1, \cdots, U_k\}\), and \(\widetilde \mcU = \{U_0, \cdots, U_k\}\). Then \(\check \HH^i(\mcU, \mcF)\) and \(\check \HH^i(\widetilde{\mcU}, \mcF)\) are naturally isomorphic.
+\end{lemma}
+
+\begin{proof}
+    [Sketch proof] Let \(C^p(\mcF)\) and \(\widetilde C^p(\mcF)\) be the respective cochain groups. There are maps
+    \[\widetilde C^p(\mcF) \to C^p(\mcF)\]
+    given by dropping the terms with \(U_0\). To make this precise, observe that \(\widetilde \alpha \in \widetilde C^p(\mcF)\) can be considered as a pair \((\alpha, \alpha_0)\) where \(\alpha \in C^p(\mcF)\) and \(\alpha_0 \in C^{p-1}(\{U_1 \cap U_0, \cdots U_k\cap U_0\}, \mcF\vert_{U_0})\). The map is given by projection.
+    This defines a chain map, and so we get an induced map on cohomology
+    \[\check \HH^i(\widetilde U, \mcF) \to \check \HH^i(\mcU, \mcF)\]
+    We leave as an exercise: By reducing to a calculation on \(U_0\) which is affine, deduce from \cref{thm:sheaf-cohomology-trivial} that these are isomorphism.
+\end{proof}
+
+\begin{corollary}
+    \(\check \HH^i(\mcU, \mcF)\) is independent of the choice of \(\mcU\).
+\end{corollary}
+
+\begin{proof}
+    If \(\mcU\) and \(\widetilde \mcU\) are two covers, then so is \(\mcU \cup \widetilde \mcU\). Use the above lemma.
+\end{proof}
+
+\subsection{*Further topics in cohomology*}
+
+Concrete consequences of sheaf cohomology: Let \(X_d \sse \P^3_k\) be the vanishing locus of \(f_d\), where \(f_d\) is a degree \(d\) homogeneous polynomial, with \(d \ne 2\). Then \(X_d\) is not isomorphic to a product (over \(\Spec(k)\)) of schemes of dimension \(1\).
+
+Note we can have \(X_2 \cong \P^1\otimes_{\Spec(k)}\P^1\) by the Segre embedding. This is a consequence of the sheaf K\"unneth formula. In particular,
+\[h^1(X_d, \mcO_{X_d}) = 0\]
+
+Moreover, the different \(X_d\) for distinct \(d\) are non-isomorphic as schemes. This follows from calculating the Euler characteristic of \(X_d\).
+
+Finally, the next topic in sheaf cohomology would be duality theory. Given \(Zi :  \inj X\) a closed immersion, we have the ideal sheaf \(\mcI_Z = \ker(i^\sharp : \mcO_X \to i_*\mcO_Z)\), which is a coherent sheaf on \(X\).
+
+\begin{definition}
+    [conormal sheaf]
+    The \emph{conormal sheaf} to the closed immersion \(i : Z \inj X\) is given by
+    \[i_*\left(\frac{\mcI_Z}{\mcI_Z^2}\right)\]
+    where \(\mcI_Z^2\) is the sheaf given by the sheafification of the presheaf \(U \mapsto \mcI_Z(U)^2\). We denote this as \(\mcN^\vee_{\Z/X}\). 
+\end{definition}
+
+\begin{definition}
+    [cotangent sheaf]
+    If \(X \to S\) is separated, then define the \emph{cotangent sheaf}
+    \[\Omega_{X/S} = \mcN^\vee_{\Delta_{X/S}}\]
+\end{definition}
+
+For \(X \to \Spec(k)\), we say that \(X\) is \emph{nonsingular} if \(\Omega_X\) is locally free. The \emph{dualising sheaf}, denoted \(\omega_X\), is the sheafification of
+\[U \mapsto \Lambda^{\dim(X)}\Omega_X(U)\]
+
+\begin{theorem}
+    [Serre duality] If \(X\) is nonsingular of dimension \(n\), and if \(\mcF\) is a locally free \(\mcO_X\)-module, then there exists an isomorphism
+    \[\HH^i(X, \mcF) \cong \HH^{n-1}(X, (\mcF^\vee \otimes \omega_X)^\vee)\]
+    where \(\mcF^\vee = \Hom_{\mcO_X}(\mcF, \mcO_X)\).
+\end{theorem}
+
 \printindex
 
 \end{document}
