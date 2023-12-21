@@ -2,6 +2,8 @@
 
 Here are the notes which I am taking from Part III lectures. They should usually be transcriptions of the lectures, although sometimes things will be omitted (diagrams, long computations). Any mistakes are probably mine.
 
+Note: These notes have been edited after the lectures, text in green is added after the lectures. Everything else should be as in lectures, except typos might be corrected.
+
 ## Michaelmas
 
 Note: Numbering has been redone on Oct 21, from `section.number` to `section.subsection.number`.

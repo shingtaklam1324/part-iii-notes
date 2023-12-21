@@ -177,6 +177,10 @@ Or more generally, \(\Z, \Z[x]\) and so on.
     If we set \(D_\delta = \van(y - \delta)\), then \(C \cap D_\delta\) is two points, for all \(\delta \ne 0\).
 \end{example}
 
+\begin{addendum}
+    In this case, what happens is that \(C \cap D_0\) is one point, but it has multiplicity \(2\). Variety theory cannot tell the two apart, which is why we need scheme theory.
+\end{addendum}
+
 \lec
 
 \subsection{Spectrum of a ring}
@@ -195,6 +199,9 @@ Given a ring homomorphism \(\varphi : A \to B\), we have a induced map (of sets)
 \end{align*}
 
 \underline{Warning:} This would fail if we considered maximal ideals instead. That is, the preimage of a maximal ideal need not be maximal.
+\begin{addendum}
+    For example, consider the inclusion map \(\Z \inj \Q\). The maximal ideal \(\inner{0}\) in \(\Q\) has preimage \(\inner{0}\) in \(\Z\), which is not maximal.
+\end{addendum}
 
 Given \(f \in A\) and \(\mfp \in \Spec A\), we have an induced
 \begin{align*}
@@ -257,12 +264,18 @@ or equivalently, \(f + \mfp = 0 \in A/\mfp\), or \(f \in \mfp\). Similarly, for 
         \item \(0 \in \Spec\C[x, y]\) is dense in the Zariski topology. That is,
         \[\overline{\{\inner{0}\}} = \Spec\C[x, y]\]
         since every prime ideal contains \(0\).
+        \begin{addendum}
+            This is true in \(\Spec(A)\) for any integral domain \(A\).
+        \end{addendum}
         \item Consider the prime ideal \(\inner{y^2 - x^3}\). Consider a maximal ideal
         \[\mfm_{a, b} = \inner{x-a, y-b}\]
         When is \(\mfm_{a, b} \in \overline{\{\inner{y^2 - x^3}\}}\)? This holds if and only if \(b^2 = a^3\). See examples sheet 1.
     \end{itemize}
     \begin{remark}
-        Points are not closed.
+        Points are not closed in general.
+        \begin{addendum}
+            In fact, we have that the closure of the point \(\mfp\) is \(\van(\mfp)\), which is \(\{\mfp\}\) if and only if \(\mfp\) is maximal. That is, closed points correspond to maximal ideals.
+        \end{addendum}
     \end{remark}
 \end{example}
 
@@ -270,11 +283,16 @@ or equivalently, \(f + \mfp = 0 \in A/\mfp\), or \(f \in \mfp\). Similarly, for 
 
 Let \(f \in A\). Define the \emph{distinguished open corresponding to \(f\)}\index{distinguished open, \(U_f\)} to be
 \[U_f = \Spec(A) \setminus \van(f)\]
+\begin{addendum}
+    Hartshorne uses the notation \(D(f)\), which seems to be a bit more common?
+\end{addendum}
 
 \begin{example}
-    If \(A = \C[x]\), then
+    If \(A = \C[x]\), then \begin{addendum}
+        by the fundamental theorem of algebra
+    \end{addendum},
     \[\Spec A = \C \cup \{\inner{0}\}\]
-    Take \(f = x\). Recall that we have a bijection
+    Take \(f = x\). We have a bijection
     \begin{align*}
         \Spec(A) &\bij \C \cup \{\inner{0}\} \\
         (x-a) &\mapsfrom a \in \C \\
@@ -296,7 +314,10 @@ Let \(f \in A\). Define the \emph{distinguished open corresponding to \(f\)}\ind
 \end{lemma}
 
 \begin{proof}
-    Examples sheet 1.
+    Examples sheet 1. \begin{addendum}
+        Given any open set \(U \sse \Spec(A)\), write \(Z = \Spec(A) \setminus U\). Since \(Z\) is closed, we must have that \(Z = \van(J)\) for some ideal \(J\). But then we have that
+        \[U = \bigcup_{f \in J}U_f\]
+    \end{addendum}
 \end{proof}
 
 A bit of commutative algebra: Given \(f \in A\), the \emph{localisation of \(A\) at \(f\)}\index{localisation!at \(f \in A\)} is
@@ -334,16 +355,26 @@ A bit of commutative algebra: Given \(f \in A\), the \emph{localisation of \(A\)
     Finally, we can check that this defines a bijection, but this is just basic properties of ideals.
 \end{proof}
 
+\begin{addendum}
+    This is also done in Commutative Algebra, although some work is needed to specialise to this case.
+\end{addendum}
+
 \subsubsection*{Facts about distinguised opens}
 
 \begin{itemize}
-    \item \(U_f \cap U_g = U_{fg}\).
-    \item \(U_{f^n} = U_f\) for all \(n \ge 1\).
+    \item \(U_f \cap U_g = U_{fg}\). \begin{addendum}
+        To see this, note that for any prime \(\mfp\), \(fg \in \mfp\) if and only if \(f \in \mfp\) or \(g \in \mfp\).
+    \end{addendum}
+    \item \(U_{f^n} = U_f\) for all \(n \ge 1\). \begin{addendum}
+        This follows by repeated application of the above.
+    \end{addendum}
     \item The rings \(A_f\) and \(A_{f^n}\) (for \(n \ge 1\)) are isomorphic. To see this,
     \[A_f = \frac{A[x]}{\inner{xf - 1}} \qqtext{and} A_{f^n} = \frac{A[y]}{\inner{yf^n - 1}}\]
     The isomorphism is given by
     \[y \mapsto x^n \qqtext{and} x \mapsto f^{n-1}y\]
-    which define inverse maps.
+    which define inverse maps. \begin{addendum}
+        Informally, inverting \(f\) and inverting \(f^n\) are the same, since we can write \(f^{-n} = (f^{-1})^n\), and \(f^{-1} = f^{n-1}(f^n)^{-1}\).
+    \end{addendum}
     \item \underline{Containment:} \(U_f \sse U_g\) if and only if \(f^n\) is a multiple of \(g\) for some \(n \ge 1\). (Recall if \(f = gf'\), then certainly \(U_f \sse U_g\))
     \begin{proof}
         The ``if'' direction is clear. Conversely, if \(U_f \sse U_g\). That is,
@@ -378,7 +409,7 @@ Can we extend this association to all open sets? See notes.
 Let \(X\) be a topological space.
 
 \begin{definition}
-    [presheaf] A \emph{presheaf!of abelian groups}\index{presheaf of abelian groups} is an association
+    [presheaf] A \index{presheaf!of abelian groups}\emph{presheaf of abelian groups} is an association
     \begin{align*}
         \left\{\text{Open set in }X\right\} &\bij \text{Abelian Groups} \\
         U \mapsto \mcF(U)
@@ -398,7 +429,7 @@ Let \(X\) be a topological space.
     with \(\res^V_U(f) = f\vert_U\).
 \end{example}
 
-We can make an analogous definition for sheaves of rings, sets, \(R\)-modules, and so on.
+We can make an analogous definition for presheaves of rings, sets, \(R\)-modules, and so on.
 
 \begin{definition}
     [morphism of presheaves] A \emph{morphism \(\varphi : \mcF \to \mcG\) of presheaves}\index{morphism!of presheaves} on \(X\) is, for each \(U \sse X\) open, a homomorphism
@@ -419,7 +450,7 @@ commutes, for all \(U \sse V\).
 
 In terms of category theory, the opens in \(X\) form a category, with morphisms given by inclusions. In this case, a presheaf is a contravariant functor \(\text{Opens}(X) \to \text{Ab}\), and a morphism is a natural transformation.
 
-A morphism \(\varphi : \mcF \to \mcG\) is \emph{injective}\index{injective!morphism of presheaves} (resp. \emph{surjective}\index{surjective!morphism of presheaves}) if \(\varphi(U) : \mcF(U) \to \mcG(U)\) is injective (resp. surjective) for all \(U \sse X\).
+A morphism of presheaves \(\varphi : \mcF \to \mcG\) is \emph{injective}\index{injective!morphism of presheaves} (resp. \emph{surjective}\index{surjective!morphism of presheaves}) if \(\varphi(U) : \mcF(U) \to \mcG(U)\) is injective (resp. surjective) for all \(U \sse X\)\footnote{Note that the definition of injectivity is the same for sheaves and presheaves, but the definition of surjectivity will be different. Once we mention the definition of injectivity/surjectivity of morphisms between sheaves, we will forget this definition.}.
 
 \lec
 
@@ -431,10 +462,14 @@ A morphism \(\varphi : \mcF \to \mcG\) is \emph{injective}\index{injective!morph
     \begin{enumerate}[label=S\arabic*.]
         \item Supppose \(U \sse X\) open, \(\{U_i\}\) an open cover of \(U\), then for \(s \in \mcF(U)\), with
         \[s \vert_{U_i} = \res^U_{U_i}s = 0\]
-        for all \(i\), then \(s = 0\).
+        for all \(i\), then \(s = 0\). \begin{addendum}
+            Intuitively, we can tell whether two sections are the same by looking locally.
+        \end{addendum}
         \item Suppose \(U \sse X\) is open, \(\{U_i\}\) an open cover of \(U\), given \(s_i \in \mcF(U_i)\), with
         \[s_i\vert_{U_i \cap U_j} = s_j\vert_{U_i \cap U_j}\]
-        then there exists \(s \in \mcF(U)\) with \(s\vert_{U_i} = s_i\).
+        then there exists \(s \in \mcF(U)\) with \(s\vert_{U_i} = s_i\). \begin{addendum}
+            That is, we can glue ``coherent'' sections together.
+        \end{addendum}
     \end{enumerate}
 \end{definition}
 
@@ -450,7 +485,9 @@ A morphism \(\varphi : \mcF \to \mcG\) is \emph{injective}\index{injective!morph
 \begin{example}
     If \(X\) is a topological space, and
     \[\mcF(U) = \left\{f : U \to \R \text{ continuous}\right\}\]
-    Then \(\mcF\) is a sheaf.
+    Then \(\mcF\) is a sheaf. \begin{addendum}
+        This is also true for smooth functions on a manifold, and in fact if \(M\) is a manifold, the sheaf \(C^\infty(M)\) determines the smooth structure on \(M\).
+    \end{addendum}
 \end{example}
 
 \begin{example}
@@ -488,7 +525,7 @@ A morphism \(\varphi : \mcF \to \mcG\) is \emph{injective}\index{injective!morph
 \end{definition}
 
 \begin{definition}
-    [Stalks] Fix \(p \in X\), and \(\mcF\) a presheaf on \(X\). The \emph{stalk of \(\mcF\) at \(p\)}\index{stalk} is
+    [stalks] Fix \(p \in X\), and \(\mcF\) a presheaf on \(X\). The \emph{stalk of \(\mcF\) at \(p\)}\index{stalk} is
     \[\mcF_p = \frac{\left\{(U, s) \mid U \text{ open neighbourhood of }p, s \in \mcF(U)\right\}}{\sim}\]
     where \((U, s) \sim (V, t)\) if there exists \(W \sse U \cap V\) an open neighbourhood of \(p\), such that
     \[s \vert_W = t\vert_W\]
@@ -509,19 +546,20 @@ A morphism \(\varphi : \mcF \to \mcG\) is \emph{injective}\index{injective!morph
 
 Note that
 \[f_p((U, s)) = (U, f_U(s))\]
-which is well defined by definition of a morphism of sheaves.
+which is well defined by definition of a morphism of sheaves. \begin{addendum}
+    That is, if we have that \((U, s) \sim (V, t)\), then there exists \(W \sse U \cap V\) an open neighbourhood of \(p\), such that \(s\vert_W = t\vert_W\). But then \(f_W(s\vert_W) = f_U(s)\vert_W\), and so \(f_U(s)\vert_W = f_V(t)\vert_W\), and \((U, f_U(s)) \sim (V, f_V(t))\).
+\end{addendum}
 
 \begin{proof}
     We will show that
     \[f_U : \mcF(U) \to \mcG(U)\]
     is an isomorphism for all \(U\). Once we know this, we will define \(f^{-1}\) by
     \[(f^{-1})_U = f_U^{-1}\]
+    \textbf{\(f_U\) is injective.} Suppose \(s \in \mcF(U)\) is such that \(f_U(s) = 0\). By injectivity of \(f_p\), \((U, s) = 0\) in \(\mcF_p\) for all \(p \in U\). This means that for all \(p \in U\), there exists an open neighbourhood \(U_p\) of \(p\) such that \(s\vert_{U_p} = 0\). This defines a cover of \(U\) on which \(s\) vanishes. Hence by S1, \(s = 0\). 
 
-    \textbf{\(f_U\) is injective.} Suppose \(s \in \mcF(U)\) has \(f_U(s) = 0\). By injectivity of \(f_p\), \((U, s) = 0\) in \(\mcF_p\) for all \(p \in U\). This means that for all \(p \in U\), there exists an open neighbourhood \(U_p\) of \(p\) such that \(s\vert_{U_p} = 0\). This defines a cover of \(U\). Hence by S1, \(s = 0\). 
-
-    \textbf{\(f_U\) is surjective.} Given \(t \in \mcG(U)\), for each \(p \in U\), we have \((U_p, s_p) \in \mcF_p\), with \(f_p(U_p, s_p) = (U, t) \in \mcG_p\). By shrinking \(U_p\) if necessary, we can assume \(f_{U_p}(s_p) = t\vert_{U_p}\). For points \(p, q \in U\),
+    \textbf{\(f_U\) is surjective.} Given \(t \in \mcG(U)\), for each \(p \in U\), we have \((U_p, s_p) \in \mcF_p\), with \(f_p(U_p, s_p) = (U, t) \in \mcG_p\)\footnote{There is a slight abuse of notation here. Strictly speaking this should be \(\sim\), but we don't distinguish between a germ and a representative.}. By shrinking \(U_p\) if necessary, we can assume \(f_{U_p}(s_p) = t\vert_{U_p}\). For points \(p, q \in U\),
     \[f_{U_p \cap U_q}(s_p\vert_{U_p \cap U_q} - s_q\vert_{U_p \cap U_q}) = t\vert_{U_p \cap U_q} - t\vert_{U_p \cap U_q} = 0\]
-    Thus bu injectivity of \(f_{U_p \cap U_q}\),
+    Thus by injectivity of \(f_{U_p \cap U_q}\),
     \[s_p\vert_{U_p \cap U_q} = s_q\vert_{U_p \cap U_q}\]
     Thus by S2, there exists \(s \in \mcF(U)\), with \(s\vert_{U_p} = s_p\). Now
     \[f_U(s) \vert_{U_p} = f_U(s\vert_{U_p}) = f\vert_{U_p}(s_p) = t\vert_{U_p}\]
@@ -529,19 +567,27 @@ which is well defined by definition of a morphism of sheaves.
 \end{proof}
 
 \begin{remark}
-    There is an asymmetry in the proof here, we need to show injectivity before surjectivity.
+    There is an asymmetry in the proof here, we need to show injectivity before surjectivity. \begin{addendum}
+        That is, we needed to show uniqueness before existence. Looking at the proof, we used gluing to construct the section, and so we needed to check compatibility, which is the uniqueness condition.
+    \end{addendum}
 \end{remark}
 
 \lec
 
 \underline{Exercises:}
 \begin{enumerate}
-    \item There is a map
+    \item There is an injective map
     \begin{align*}
         \mcF(U) &\to \prod_{p \in U}\mcF_p \\
         s &\mapsto ((U, s))_{p \in U}
     \end{align*}
+    \begin{addendum}
+        This is essentially the proof of injectivity above, where we can check that the section is zero at stalk level.
+    \end{addendum}
     \item Given morphisms \(\varphi, \psi : \mcF \to \mcG\), with \(\varphi_p = \psi_p\) for all \(p \in X\), we have that \(\varphi = \psi\).
+    \begin{addendum}
+        Let \(U \sse X\) be open, \(s \in \mcF(U)\) a section. Then for all \(p \in U\), there exists a neighbourhood \(U_p\) of \(p\), on which \(\varphi_{U_p}(s \vert_{U_p}) = \psi_{U_p}(s\vert_{U_p})\). Then by S1 we are done.
+    \end{addendum}
 \end{enumerate}
 
 \begin{definition}
@@ -560,8 +606,37 @@ which is well defined by definition of a morphism of sheaves.
 
 \begin{remark}
     \begin{enumerate}[(i)]
-        \item We have defined sheafification by a universal property, and so as usual, it is unique up to unique isomorphism.
-        \item A morphism on presheaves \(\mcF \to \mcG\) induces a morphism of sheaves \(\mcF^{\sh} \to \mcG^{\sh}\).
+        \item We have defined sheafification by a universal property, and so as usual, it is unique up to unique isomorphism. \begin{addendum}
+            Suppose \((i, \mcG), (i', \mcG')\) are sheafifications of \(\mcF\). Consider the diagram
+            % https://q.uiver.app/#q=WzAsNCxbMCwyLCJcXG1jRiJdLFsyLDAsIlxcbWNGIl0sWzIsMiwiXFxtY0YnIl0sWzIsNCwiXFxtY0YiXSxbMCwxLCJpIl0sWzAsMiwiaSciLDJdLFswLDMsImkiLDJdLFsxLDIsImYiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwzLCJnIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzEsMywiXFxpZCIsMSx7ImN1cnZlIjotNX1dXQ==
+            \[\begin{tikzcd}
+                && \mcF \\
+                \\
+                \mcF && {\mcF'} \\
+                \\
+                && \mcF
+                \arrow["i", from=3-1, to=1-3]
+                \arrow["{i'}"', from=3-1, to=3-3]
+                \arrow["i"', from=3-1, to=5-3]
+                \arrow["f", dashed, from=1-3, to=3-3]
+                \arrow["g", dashed, from=3-3, to=5-3]
+                \arrow["\id"{description}, curve={height=-30pt}, from=1-3, to=5-3]
+            \end{tikzcd}\]
+            By uniqueness, the vertical composition has to be \(\id\), and so \(g \circ f = \id\). Similarly, we must have that \(f \circ g = \id\), and so \(f\) is an isomorphism.    
+        \end{addendum}
+        \item A morphism on presheaves \(\mcF \to \mcG\) induces a morphism of sheaves \(\mcF^{\sh} \to \mcG^{\sh}\). \begin{addendum}
+            Basically, apply the universal property to \(\sh \circ \varphi : \mcF \to \mcG^{\sh}\), to get
+            % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1jRiJdLFsyLDAsIlxcbWNGXntcXHNofSJdLFswLDIsIlxcbWNHIl0sWzIsMiwiXFxtY0dee1xcc2h9Il0sWzAsMSwiXFxzaCJdLFsyLDMsIlxcc2giLDJdLFswLDIsIlxcdmFycGhpIiwyXSxbMSwzLCIiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+            \[\begin{tikzcd}
+                \mcF && {\mcF^{\sh}} \\
+                \\
+                \mcG && {\mcG^{\sh}}
+                \arrow["\sh", from=1-1, to=1-3]
+                \arrow["\sh"', from=3-1, to=3-3]
+                \arrow["\varphi"', from=1-1, to=3-1]
+                \arrow[dashed, from=1-3, to=3-3]
+            \end{tikzcd}\]
+        \end{addendum}
     \end{enumerate}
 \end{remark}
 
@@ -576,6 +651,24 @@ which is well defined by definition of a morphism of sheaves.
     \(f(p) \in \mcF_p\) and for every \(p \in U\) there exists an open neighbourhood \(V_p \sse U\) of \(p\), and \(s \in \mcF(V_p)\) such that \((V_p, s) = f(q) \in \mcF_q\) for all \(q \in V_p\).
 
     It is clear that this is a sheaf, and we leave as an exercise to check that this satisfies the universal property.
+
+    \begin{addendum}
+        Perhaps a better way to think about this is to consider \(f \in \prod_{p \in U}\mcF_p\), and write \(f_p\) for the \(p\)-th coordinate. The condition becomes for every \(p \in U\), there exists an open neighbourhood \(V_p \sse U\) of \(p\), and \(s \in \mcF(V_p)\) such that \((V_p, s) = f_q \in \mcF_q\) for all \(q \in V_p\).
+
+        We will check that \(\mcF^{\sh}\) is a sheaf. First, we check that it is a presheaf. For \(U \sse V\), the projection map
+        \[\prod_{p \in V}\mcF_p \to \prod_{p \in U}\mcF_p\]
+        defines the restriction map \(\mcF^{\sh}(V) \to \mcF^{\sh}(U)\). The only non-trivial part follows by taking \(\widetilde{V_p} = V_p \cap U\). 
+        
+        Next, we need to check the sheaf axioms. If we have an open cover of \(U\) by \(U_i\), and \(s \in \mcF^{\sh}(U)\) such that \(s \vert_{U_i} = 0\) for all \(i\). But the restriction map is the projection, and so the result is clear. Similarly, gluing is clear.
+
+        Finally, we check the universal property. Let \(\mcG\) be a sheaf, \(\varphi : \mcF \to \mcG\) a morphism. Let \(U \sse X\) be open, \(s \in \mcF^{\sh}(U)\) a section. For \(p \in U\), define
+        \[t_p = \varphi_p(s_p) \in \mcG_p\]
+        We need to show that the \(t_p\) glue together to a section \(t \in \mcG(U)\). For each \(p \in U\), we have an open set \(V_p\), and a section \(s'_p \in \mcF(V_p)\), such that \((V_p, s'_p) = s_q\) for all \(q \in V_p\). We need to show that
+        \[s'_p\vert_{V_p \cap V_q} = s'_q \vert_{V_p \cap V_q}\]
+        This will show the result as \(t_p = \varphi_{V_p}(s'_p)_p\). But we can check this statement locally.
+
+        The fact that \(\varphi\) factors is clear, and so all that remains is uniqueness. But working at stalk level, the above is the only way to define \(t_p\).
+    \end{addendum}
 \end{proof}
 
 \begin{corollary}
@@ -583,10 +676,25 @@ which is well defined by definition of a morphism of sheaves.
 \end{corollary}
 
 \begin{proof}
-    From the definition of sheafification.
+    From the definition of sheafification. \begin{addendum}
+        More formally, we have
+        % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1jRiJdLFsyLDAsIlxcbWNGXntcXHNofSJdLFsyLDIsIlxcbGVmdChcXG1jRl57XFxzaH1cXHJpZ2h0KV9wIl0sWzAsMiwiXFxtY0ZfcCJdLFsxLDIsIlxccHIiXSxbMCwzXSxbMCwxLCJcXHNoIiwxXSxbMywyLCJcXHNpbSIsMSx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+        \[\begin{tikzcd}
+            \mcF && {\mcF^{\sh}} \\
+            \\
+            {\mcF_p} && {\left(\mcF^{\sh}\right)_p}
+            \arrow["\pr", from=1-3, to=3-3]
+            \arrow[from=1-1, to=3-1]
+            \arrow["\sh"{description}, from=1-1, to=1-3]
+            \arrow["\sim"{description}, no head, from=3-1, to=3-3]
+        \end{tikzcd}\]
+        where \(\pr\) denotes the projection map to the \(p\)-th coordinate, and the bottom map is an isomorphism.
+    \end{addendum}
 \end{proof}
 
-\underline{Exercise:} Find a non-zero presheaf \(\mcF\) with \(\mcF^{\sh} = 0\).
+\underline{Exercise:} Find a non-zero presheaf \(\mcF\) with \(\mcF^{\sh} = 0\). \begin{addendum}
+    One rather trivial example is to let \(X = \emptyset\), with \(\mcF(\emptyset) = G\) for some non-zero abelian group \(G\). Any sheaf on \(X\) must have \(G = 0\).
+\end{addendum}
 
 \subsection{Kernels, Cokernels, etc.}
 
@@ -598,7 +706,11 @@ Let \(\varphi : \mcF \to \mcG\) be a morphism of presheaves. Then we can define 
 \end{align*}
 These are all presheaves.
 
-\underline{Exercise:} The presheaf kernel for a morphism \(\varphi : \mcF \to \mcG\) between sheaves is a sheaf\index{kernel!as a sheaf}.
+\underline{Exercise:} The presheaf kernel for a morphism \(\varphi : \mcF \to \mcG\) between sheaves is a sheaf\index{kernel!as a sheaf}. \begin{addendum}
+    We will verify the sheaf axioms. Using the fact that \(\mcF\) is a sheaf, S1 is clear. Now suppose \(U \sse X\) open, \(U_i\) an open cover, with \(s_i \in \ker(\varphi)(U_i)\), such that
+    \[s_i \vert_{U_i \cap U_j} = s_j\vert_{U_i \cap U_j}\]
+    for all \(i, j\). Using S2 for \(\mcF\), we obtain \(s \in \mcF(U)\) such that \(s \vert_{U_i} = s_i\). It suffices to show that \(s \in \ker(\varphi_U)\). Let \(t = \varphi_U(s)\). Then \(t \vert_{U_i} = \varphi_{U_i}(s_i) = 0\), and so \(t = 0\) by S1 for \(\mcG\).
+\end{addendum}
 
 However, in general, \(\coker(\varphi)\) is not a sheaf.
 
@@ -659,7 +771,14 @@ We say that a morphism \(f : \mcF \to \mcG\) is \emph{injective}\index{injective
 
 \begin{remark}
     \begin{enumerate}
-        \item We can also define subsheafs, \(\mcF \sse \mcG\) if there exists inclusions \(\mcF(U) \sse \mcG(U)\) compatible with restrictions. For example, \(\ker(\varphi : \mcF \to \mcG)\) is a subsheaf of \(\mcF\).
+        \item We can also define subsheaves, \(\mcF \sse \mcG\) if there exists inclusions \(\mcF(U) \sse \mcG(U)\) compatible with restrictions. For example, \(\ker(\varphi : \mcF \to \mcG)\) is a subsheaf of \(\mcF\).
+        \item \begin{addendum}
+            If \(\mcF \sse \mcG\) is a sub-presheaf, then we can define the quotient presheaf \(\mcG/\mcF\) by
+            \[(\mcG/\mcF)(U) = \mcG(U)/\mcF(U)\]
+            We need to verify that this is a presheaf. If \(U \sse V\) open, define
+            \[\res^V_U(s + \mcF(V)) = s\vert_U + \mcF(U)\]
+            This is well defined, since any element of \(\mcF(V)\), restricted to \(U\), will be in \(\mcF(U)\). The quotient sheaf is the sheafification of this.
+        \end{addendum}
     \end{enumerate}
 \end{remark}
 
@@ -680,7 +799,9 @@ Given \(f : X \to Y\) continuous, with sheaves \(\mcF\) on \(X\) and \(\mcG\) on
 \end{proposition}
 
 \begin{proof}
-    Trivial.
+    Trivial. \begin{addendum}
+        The fact that it is a presheaf is clear by definition. The sheaf axioms follow from the fact that if \(U_i\) is an open cover of \(U\), then \(f^{-1}(U_i)\) is an open cover of \(f^{-1}(U)\).
+    \end{addendum}
 \end{proof}
 
 \begin{definition}
@@ -776,9 +897,11 @@ Fix a topological space \(X\), and \(\mcB\) a basis for the topology.
 
     We can then use the trick from sheafification, that is,
     \[\mcF(U) = \left\{(f_p \in \mcF_p)_{p \in U} \mid (*)\right\}\]
-    where the condition \((*)\) is such that: for every \(p \in U\), there exists a basic open \(B\) containing \(p\), and \(s \in F(B)\), with \(s_q = f_q\) for all \(q \in B\). This is clearly a sheaf.
+    where the condition \((*)\) is such that: for every \(p \in U\), there exists a basic open \(B\) containing \(p\), and \(s \in F(B)\), with \(s_q = f_q\) for all \(q \in B\). This is clearly a sheaf. \begin{addendum}
+        As before, the projection maps define the restriction maps, making it into a presheaf. Checking the sheaf axioms is the same as sheafification.
+    \end{addendum}
 
-    By the sheaf axioms, the natural maps \(F(B) \to \mcF(B)\) is an isomorphism by the sheaf axioms.
+    By the sheaf axioms, the natural maps \(F(B) \to \mcF(B)\) are isomorphisms.
 \end{proof}
 
 \lec
@@ -843,6 +966,23 @@ An immediate consequence is that \(\Spec(A)\) inherits a sheaf of rings, denoted
     \[\mcO_{\Spec(A), \mfp} = A_\mfp\]
 \end{remark}
 
+\begin{addendum}
+    \begin{proof}
+        To see this, we wll define an isomorphism \(\varphi : \mcO_{\Spec(A), \mfp} \to A_\mfp\). A general element of the stalk is of the form \((U_f, s)\), where \(f \in A\), with \(\mfp \in U_f\), and \(s \in A_f\). Note that \(\mfp \in U_f\) is equivalent to \(f \notin \mfp\). In this case, we have a natural map \(A_f \to A_\mfp\), which we will write as \(s \mapsto s_\mfp\).
+
+        Define
+        \begin{align*}
+            \varphi_\mfp : \mcO_{\Spec(A), \mfp} &\to A_\mfp \\
+            (U_f, s) &\mapsto s_\mfp
+        \end{align*}
+        The fact that this is independent of the choice of representative follows from properties of localisation. For an element \(x = s/f\), where \(f \in A \setminus \mfp\), we have that \(x = \varphi_\mfp(U_f, s)\), essentially by definition. Thus it remains to check injectivity.
+
+        Say \(\varphi_\mfp(U_f, s) = 0\), with \(s = a/f^n\). Then \(s_\mfp\) is given by \(a/f^n \in A_\mfp\). If this is zero, then there exists \(t \in A \setminus \mfp\) such that \(ta = 0\). Now \(tf \in A \setminus \mfp\), and so
+        \[(U_f, s) = \left(U_{tf}, \frac{t^na}{(tf)^n}\right) = (U_{tf}, 0)\]
+        as required.
+    \end{proof}
+\end{addendum}
+
 \begin{definition}
     [ringed space] A \emph{ringed space}\index{ringed space} \((X, \mcO_X)\) is a topological space \(X\), with a sheaf of rings \(\mcO_X\) on \(X\).
 \end{definition}
@@ -870,10 +1010,12 @@ for all \(V \sse U \sse X\) open.
 \end{definition}
 
 \begin{definition}
-    [scheme] A \emph{scheme}\index{scheme} is a ringed space \((X, \mcO_X)\), that is locally isomorphic to an affine scheme.
-
-    In other words, for every \(x \in X\), there exists \(x \in U \sse X\) open, with \((U, \mcO_U)\) being an affine scheme.
+    [scheme] A \emph{scheme}\index{scheme} is a ringed space \((X, \mcO_X)\), that is locally isomorphic to an affine scheme. That is, for every \(x \in X\), there exists \(x \in U \sse X\) open, with \((U, \mcO_U)\) being an affine scheme.
 \end{definition}
+
+\begin{addendum}
+    Another way to say this is that we have an open cover of \(X\) by affine schemes, and this is the way which we will often think about it.
+\end{addendum}
 
 \subsection{Examples of schemes}
 
@@ -927,9 +1069,17 @@ We define \emph{affine space}\index{affine space, \(\aff k n\)}
         \[\mcO_U(U) = k[x, x^{-1}, y] \cap k[x, y, y^{-1}]\]
         where we compute the intersection in \(k[x, x^{-1}, y, y^{-1}]\). This means that
         \[\mcO_U(U) = k[x, y]\]
-        Contradiction. One way to see this is that in \(U\), there exists a maximal ideal in the global section ring with empty vanishing locuz, namely the maximal ideal \(\inner{x, y}\).
+        Contradiction. One way to see this is that in \(U\), there exists a maximal ideal in the global section ring with empty vanishing locus, namely the maximal ideal \(\inner{x, y}\).
     \end{proof}
 \end{example}
+
+\begin{addendum}
+    We will show the ``by sheaf axioms'' part of the above. There is a natural map from \(\mcO_U(U)\) to the intersection, given by restriction. Thus, all we need to show is that this is an isomorphism.
+    
+    First of all, note that the restriction maps \(\mcO_U(U_x) \to \mcO_Y(U_{xy})\) and \(\mcO_U(U_y) \to \mcO_U(U_{xy})\) are injective. hence if \(s\) vanishes when restricted to \(U_{xy}\), then it vanishes on \(U_x\) and \(U_y\). Thus, the map \(\mcO_U(U) \to \mcO_U(U_{xy})\) is injective by S1. Surjectivity follows essentially immediately from S2, as compatibility is true by definition.
+
+    For general topological spaces and sheaves, the surjectivity part is always true, but injectivity does not have to be true. One example would be the sheaf of continuous functions on \(\R\).
+\end{addendum}
 
 \begin{example}
     More generally, let \(X\) be a scheme, \(f \in \Gamma(X, \mcO_X) = \mcO_X(X)\). Fix \(p \in X\), then we can consider the stalk \(\mcO_{X,p}\). This is of the form \(A_\mfp\), where \(A\) is a ring and \(\mfp\idealof A\) is a prime ideal. In particular, \(A_\mfp\) has a unique maximal ideal, namely \(\mfp A_\mfp\). We say that \(f\) \emph{vanishes at \(p\)} if its image in \(A_\mfp/\mfp A_\mfp\) is zero. Equivalently, if \(f\) is in \(\mfp A_\mfp\).
@@ -955,7 +1105,9 @@ Such that \(\varphi_{\alpha\alpha} = \id\), \(\varphi_{\alpha\beta} = \varphi_{\
     \[(s_\alpha)\vert_W = \left(\res^{V \cap U_\alpha}_{W \cap U_\alpha}(s_\alpha)\right)_\alpha\]
     We need to check that this lies in \(\mcF(W)\). But this follows from the sheaf axioms.
 
-    \emph{\(\mcF\) is a sheaf.} The sheaf axioms are clear.
+    \emph{\(\mcF\) is a sheaf.} The sheaf axioms are clear. \begin{addendum}
+        This is basically just using the sheaf axioms on the \(s_\alpha\).
+    \end{addendum}
 
     \emph{Restriction.} We need to build an isomorphism \(\mcF\vert_{U_{\gamma}} \cong \mcF_\gamma\). Define a morphism \(\mcF_\gamma \to \mcF\vert_{U_\gamma}\), where for \(V \sse U_\gamma\), \(s \in \mcF_\gamma(V)\), define the image to be
     \[\left(\phi_{\gamma\alpha}(s\vert_{V \cap U_\alpha})\right)_{\alpha}\]
@@ -969,6 +1121,7 @@ Such that \(\varphi_{\alpha\alpha} = \id\), \(\varphi_{\alpha\beta} = \varphi_{\
 Let \((X, \mcO_X), (Y, \mcO_Y)\) be schemes, with opens \(U \sse X, V \sse Y\) and an isomorphism \((U, \mcO_X\vert_U) \cong (V, \mcO_Y\vert_V)\) as ringed spaces. We can glue both topological spaces and schemes, that is,
 \[S = \frac{X \sqcup Y}{U \sim V}\]
 \lec
+
 By definition of the quotient topology, the images of \(X\) and \(Y\) in \(S\) form an open cover, with intersection being the image of \(U\) (or \(V\)). We can then glue the structure sheafs of these open sets as before.
 
 Note that in this case, there is no cocycle condition to check.
@@ -1009,7 +1162,9 @@ Note that in this case, there is no cocycle condition to check.
 \end{proposition}
 
 \begin{proof}
-    The only elements of \(k[t, t^{-1}]\) which are polynomials in \(t\) and \(t^{-1}\) are the constants.
+    The only elements of \(k[t, t^{-1}]\) which are polynomials in \(t\) and \(t^{-1}\) are the constants. \begin{addendum}
+        Note here we used the same trick as before, which is that the global sections can be computed as the intersection in nice cases.
+    \end{addendum}
 \end{proof}
 
 In particular, \(\P^1\) is not affine.
@@ -1029,6 +1184,10 @@ In particular, \(\P^1\) is not affine.
     Then there exists a unique scheme \(X\), with an open cover by \(X\), glued along \(X_{ij} \sim X_{ji}\). 
 \end{proposition}
 
+\begin{addendum}
+    This is on examples sheet 1. On the other hand, it's basically one big tautology, where everything is true by definitions.
+\end{addendum}
+
 \begin{example}
     [projective space] Let \(A\) be any ring, 
     \[X_i = \Spec\left(A\left[\frac{x_0}{x_i}, \dots, \frac{x_n}{x_i}\right]\right)\]
@@ -1042,7 +1201,11 @@ In particular, \(\P^1\) is not affine.
     The resulting scheme is called projective \(n\)-space \(\P^n_A\)\index{projective space, \(\P^n_A\)!via gluing}.
 \end{example}
 
-\underline{Exercise:} \(\Gamma(\P^n_A, \mcO_{\P^n_A}) = A\).
+\underline{Exercise:} \(\Gamma(\P^n_A, \mcO_{\P^n_A}) = A\). \begin{addendum}
+    This is essentially the same idea as for \(\P^1\). That is, we can compute it as an intersection
+    \[\bigcap_{i=0}^n A\left[\frac{x_0}{x_i}, \dots, \frac{x_n}{x_i}\right]\]
+    in \(A[x_0^{\pm 1}, \dots, x_n^{\pm 1}]\). But by considering say the degree in \(x_i\), we can see that this is just \(A\).
+\end{addendum}
 
 \subsection{The \(\Proj\) construction}
 
@@ -1068,10 +1231,12 @@ as \(A_0\) algebras.
 
 Moreover, we will assume \(A_i = 0\) for \(i < 0\). Define
 \[A_+ = \bigcup_{i > 0}A_i \sse A\]
-for the \emph{irrelevant ideal}\index{irrelevant ideal}.
+for the \emph{irrelevant ideal}\index{irrelevant ideal}. \begin{addendum}
+    Strictly speaking we want the ideal generated by the positive degree elements, since in the case when \(A = A_0\), we would want this to be the zero ideal, and not the empty set.
+\end{addendum}
 
 \begin{definition}
-    [homogeneous element, homogeneous ideal] A \emph{homogeneous element}\index{homogeneous!element} is \(f \in A_d\) for some \(d\). An ideal \(I \sse A\) is calle \emph{homogeneous}\index{homogeneous!ideal} if it is generated by homogeneous elements.
+    [homogeneous element, homogeneous ideal] A \emph{homogeneous element}\index{homogeneous!element} is \(f \in A_d\) for some \(d\). An ideal \(I \sse A\) is called \emph{homogeneous}\index{homogeneous!ideal} if it is generated by homogeneous elements.
 \end{definition}
 
 \begin{definition}
@@ -1102,7 +1267,7 @@ The ring \(A[1/f] = A_f\) is naturally \(\Z\)-graded, by saying \(\deg(f^{-1}) =
 \begin{proof}
     [Proof/Construction]
     
-    First, observe that homogeneous primes in \(A\) missing \(f\) are naturally in bijection with homogeneous primes in \(A_f\). Suppose \(\mfq \sse (A_f)_{\deg = 0}\) is a prime. Then let \(\Psi(\mfq)\) be the ideal generated by
+    First, observe that homogeneous primes in \(A\) missing \(f\) are naturally in bijection with homogeneous primes in \(A_f\), \begin{addendum}where we use the fact that \(f\) is homogeneous\end{addendum}. Suppose \(\mfq \sse (A_f)_{\deg = 0}\) is a prime. Then let \(\Psi(\mfq)\) be the ideal generated by
     \[\bigcup_{d \ge 0}\left\{a \in A_d \ \bigg\vert\ \frac{a}{f^d} \in \mfq\right\} \sse A\]
     \(\Psi(\mfq)\) is a prime. Conversely, let \(\mfp \sse A\) be a homogeneous prime missing \(f\), take
     \[\varphi(\mfp) = \mfp \cdot A[1/f] \cap (A[1/f])_{\deg = 0}\]
@@ -1155,6 +1320,10 @@ Given a scheme \((X, \mcO_X)\), the stalks \(\mcO_{X, p}\) are local rings, that
     \end{enumerate}
 \end{definition}
 
+\begin{addendum}
+    Intuitively, if \(s \in \mcO_Y(U)\) is a function on \(U \sse Y\), then \(f^\sharp(s) \in f_*\mcO_X\) is the function \(s \circ f\).
+\end{addendum}
+
 \lec
 
 \underline{Warning:} It is possible to find \((f, f^\sharp)\) a morphism between schemes \((X, \mcO_X), (Y, \mcO_Y)\), with \(U \sse Y\) open, \(q \in U\), \(h \in \mcO_Y(U)\), such that \(h\) vanishes at \(q\), and
@@ -1163,9 +1332,7 @@ which does not vanish at \(p \in X\) with \(f(p) = q\).
 
 Observe that: given a morphism \(f : X \to Y\) of ringed spaces, for \(p \in X\), we have an induced map
 \[f^\sharp : \mcO_{Y, f(p)} \to \mcO_{X, p}\]
-That is, given \(s \in \mcO_{Y, f(p)}\), we can represent it as \((s_U, U)\) where \(U \sse U\) open, \(f(p) \in U\) and \(s_U \in \mcO_Y(U)\).
-
-With this, \(f^\sharp(s_U) \in \mcO_X(f^{-1}(U))\), and so the pair \((f^\sharp(s_U), f^{-1}(U))\) defines an element of \(\mcO_{X, p}\).
+That is, given \(s \in \mcO_{Y, f(p)}\), we can represent it as \((U, s)\) where \(U \sse Y\) open, \(f(p) \in U\) and \(s \in \mcO_Y(U)\). With this, \(f^\sharp(s) \in \mcO_X(f^{-1}(U))\), and so the pair \((f^{-1}(U), f^\sharp(s))\) defines an element of \(\mcO_{X, p}\).
 
 \begin{definition}
     [locally ringed space]
@@ -1174,6 +1341,10 @@ With this, \(f^\sharp(s_U) \in \mcO_X(f^{-1}(U))\), and so the pair \((f^\sharp(
     is a morphism of ringed spaces, such that if \(\mfm_p\) denotes the maximal ideal in \(\mcO_{X,p}\) and \(\mfm_{f(p)}\) is the maximal ideal of \(\mcO_{Y, f(p)}\), then
     \[f^\sharp(\mfm_{f(p)}) \sse \mfm_p\]
 \end{definition}
+
+\begin{addendum}
+    This is true for functions, since if \(s\) vanishes at \(q\), then for any \(p\) with \(f(p) = q\), we would like \(s \circ f\) to vanish at \(p\). That is, \(f^\sharp(s)\) vanishing.
+\end{addendum}
 
 \begin{definition}
     [morphism of schemes] A \emph{morphism of schemes}\index{morphism!of schemes} \(X \to Y\) is a morphism between the locally ringed spaces  \((X, \mcO_X) \to (Y, \mcO_Y)\). 
@@ -1244,6 +1415,10 @@ Recall that a section \(s \in \mcF(U)\) is a coherent collection of elements \(s
     A morphism \(g : X \to Y\) is a \emph{closed immersion}\index{closed immersion} if the map on topological space is a homeomorphism onto a closed subset of \(Y\), and \(\mfg^\sharp : \mcO_Y \to g_*\mcO_X\) is surjective.
 \end{definition}
 
+\begin{addendum}
+    Intuitively, if we think about \(X \sse Y\) as a closed subset, then the surjectivity condition says that every function on \(X\) is given by the restriction of a function on \(Y\). Equivalently, every function on \(X\) extends to a function on a neighbourhood of \(X\).
+\end{addendum}
+
 \begin{example}
     Consider the ring homomorphism
     \[k[x] \mapsto \frac{k[t]}{t^2}\]
@@ -1272,6 +1447,16 @@ Recall that a section \(s \in \mcF(U)\) is a coherent collection of elements \(s
     \[\Spec(A/I) \to \Spec(A)\]
     is a closed immersion.
 \end{example}
+
+\begin{addendum}
+    To see this, note that the image of the natural map is \(\van(I) \sse \Spec(A)\), which is a closed subset, and by the correspondence theorem, it is a homeomorphism onto its image.
+
+    For surjectivity, we note that it suffices to check at stalk level, since a sequence of sheaves is exact if and only if it is exact at stalk level. Let \(f : \Spec(A) \to \Spec(A/I)\) be the map, \(\mfp \in \Spec(A)\). Let \((U, s) \in (f_*\mcO_{\Spec(A/I)})_\mfp\). That is, \(\mfp \in U \sse \Spec(A), s \in f_*\mcO_{\Spec(A/I)}(U) = \mcO_{\Spec(A/I)}(f^{-1}(U))\). By shrinking \(U\), we may assume \(U = U_a\), for some \(a \in A\), is a distinguished open.
+
+    In this case, \(f^{-1}(U_a) = U_{a + I}\) essentially by definition, and so \(s \in (A/I)_{a + I}\). Thus, this reduces to the fact that the natural map
+    \[A_a \to (A/I)_{a + I}\]
+    is surjective, which is a fact in commutative algebra.
+\end{addendum}
 
 \subsection{Fibre products}
 
@@ -1379,7 +1564,9 @@ For full details, see Hartshorne Chapter 2 Theorem 3.3.
 \end{tikzcd}\]
     there exists a unique morphism \(Z \to \Spec(A \otimes_R B)\). If \(Z\) is affine, then it is clear, using the corresponding morphisms of rings, and the universal property of tensor products.
 
-    \underline{Fact (Examples sheet 2):} A scheme theoretic map \(Z \to \Spec(A \otimes_R B)\) is the same data as \(A \otimes_R B \to \Gamma(Z, \mcO_Z)\).
+    \underline{Fact (Examples sheet 2):} A scheme theoretic map \(Z \to \Spec(A \otimes_R B)\) is the same data as \(A \otimes_R B \to \Gamma(Z, \mcO_Z)\). \begin{addendum}
+        In fact, if \(X\) is a scheme, then a morphism \(X \to \Spec(A)\) is the same as a ring homomorphism \(A \to B = \mcO_X(X)\). To see this, one direction is clear by taking global sections. Now given a ring homomorphism \(f : A \to B\), for each open affine \(U = \Spec(C) \sse X\), we get a ring homomorphism \(A \to C\), which is the same as a morphism \(U \to \Spec(A)\). It suffices to show that these glue together to give a morphism \(X \to \Spec(A)\). But this is clear, since \(U \cap V\) is covered by distinguised opens in both \(U\) and \(V\), and then it follows by properties of localisation.
+    \end{addendum}
 
     \textbf{Step 2: Now let \(X, Y, S\) be any schemes.} If \(X \times_S Y\) exists, \(U \sse X\) is an open subscheme, then \(U \times_S Y\) also exists. To see this, take the inverse image of \(U\) under the projection \(X \times_Y S \to X\), with the open subscheme structure.
 
@@ -1393,9 +1580,9 @@ For full details, see Hartshorne Chapter 2 Theorem 3.3.
 \end{proof}
 
 \begin{example}
-    \(\P^n_\C = \P^n_\Z \times_{\Spec(\Z)} \Spec(\C)\), where \(\Spec(C) \to \Spec(\Z)\) is induced by \(\Z \inj \C\), and \(\P^n_\Z \to \Spec(\Z)\) is induced locally by the inclusion \(\Z \to \Z[x_1/x_0, \dots, x_n/x_0]\).
+    \(\P^n_\C = \P^n_\Z \times_{\Spec(\Z)} \Spec(\C)\), where \(\Spec(\C) \to \Spec(\Z)\) is induced by \(\Z \inj \C\), and \(\P^n_\Z \to \Spec(\Z)\) is induced locally by the inclusion \(\Z \to \Z[x_1/x_0, \dots, x_n/x_0]\).
     
-    Recall from commutative algebra that
+    For this, recall from commutative algebra that
     \[\Z[x] \otimes_\Z \C = \C[x]\]
 \end{example}
 
@@ -1407,7 +1594,7 @@ For full details, see Hartshorne Chapter 2 Theorem 3.3.
 
 \lec
 
-For the definitions which are omitted from letcures, see Examples Sheet 2 or Hartshorne.
+For the definitions which are omitted from lectures, see Examples Sheet 2 or Hartshorne.
 
 \begin{definition}
     [base scheme, scheme over]
@@ -1426,7 +1613,7 @@ A typical example would be \(S = \Spec(k)\), or \(S = \Spec(\Z)\). The product o
 
 \subsection{Separated morphisms}
 
-For motivation, recall that a topological space \(X\) is Hausdorff if the diagonal \(\Delta_X \sse X \times X\) is closed.
+For motivation, recall that a topological space \(X\) is Hausdorff if and only if the diagonal \(\Delta_X \sse X \times X\) is closed.
 
 \begin{definition}
     [diagonal]
@@ -1481,13 +1668,13 @@ That is, the algebraic geometer's version of Hausdorff.
 \begin{example}
     \label{ex:diag-poly-closed}
     Say \(X = \Spec(\C[t])\) and \(S = \Spec(\C)\), \(X \to S\) induced by \(\C \to \C[t]\), then
-    \[X \times_S X = \Spec(\C[t]\otimes_\C \C[t]) = \Spec(\C[t, u])\]
+    \[X \times_S X = \Spec(\C[t]\otimes_\C \C[u]) = \Spec(\C[t, u])\]
     The diagonal map \(\Delta\) is induced by taking \(\Spec\) of
     \begin{align*}
         \C[t] \otimes_\C \C[t] &\to \C[t] \\
         f \otimes g &\mapsto fg
     \end{align*}
-    To see that \(\Delta\) is closed, the map above is clearly surjective. More generally,
+    To see that \(\Delta\) is closed, the map above is clearly surjective\footnote{and a surjective ring homomorphism is ``the same'' as a quotient.}. More generally,
     \[\aff k n \to \Spec(k)\]
     is separated.
 \end{example}
@@ -1694,9 +1881,9 @@ Observe that a morphism \(X \to S\) being universally closed is stable under bas
 
     Let \(K(\mfp) = \Frac(R/\mfp)\), and then we have a morphism \(\Spec(K(\mfp)) \to \Spec(R)\). We would like to know for which \(\mfp\) is \(Z_\mfp = Z \times_{\Spec(R)} \Spec(K(\mfp))\) non-empty.
 
-    What is \(Z_\mfp\)? We take the equations \(g_1, g_2, \dots\), which are homogeneous polynomials with coefficients in \(R\). Reducing \(\mod \mfp\), we get \(\overline{\mfg_1}, \overline{\mfg_2}, \dots\), which has coefficients in \(K(\mfp)\).
+    What is \(Z_\mfp\)? We take the equations \(g_1, g_2, \dots\), which are homogeneous polynomials with coefficients in \(R\). Reducing \(\mod \mfp\), we get \(\overline{g_1}, \overline{g_2}, \dots\), which has coefficients in \(K(\mfp)\).
 
-    So \(Z_\mfp\) is non-empty if and only if \(\overline{\mfg_1}, \overline{\mfg_2}, \dots\) cut out more than origin in \(\aff{K(\mfp)}{n+1}\). Thus,
+    So \(Z_\mfp\) is non-empty if and only if \(\overline{g_1}, \overline{g_2}, \dots\) cut out more than origin in \(\aff{K(\mfp)}{n+1}\). Thus,
     \[Z_\mfp \text{ is non-empty } \iff \sqrt{\inner{\overline{g_1}, \overline{g_2}, \dots}}\not\supseteq \inner{x_0, \dots, x_n}\]
     where \(\P^n_R = \Spec(R[x_0, \dots, x_n])\).
 
@@ -1832,7 +2019,7 @@ Another way to think about this as the Algebraic Geometry analogue of vector bun
 Fix a ringed space \((X, \mcO_X)\).
 
 \begin{definition}
-    [sheaf of \(\mcO_X\)-modules] A \emph{sheaf of \(\mcO_X\)-modules}\index{sheaf!of \(\mcO_X\)-modules} is a sheaf \(\mcF\) of groups, along with a map \(\mcO_X(U) \to \mcF(U) \to \mcF(U)\) making \(\mcF(U)\) into an \(\mcO_X(U)\)-module. Moreover, we require this to be compatible with restrictions, i.e.
+    [sheaf of \(\mcO_X\)-modules] A \emph{sheaf of \(\mcO_X\)-modules}\index{sheaf!of \(\mcO_X\)-modules} is a sheaf \(\mcF\) of groups, along with a map \(\mcO_X(U) \to \mcF(U)\) making \(\mcF(U)\) into an \(\mcO_X(U)\)-module. Moreover, we require this to be compatible with restrictions, i.e.
     \[(r \cdot m)\vert_V = r\vert_V \cdot m\vert_V\]
 \end{definition}
 
@@ -1848,12 +2035,16 @@ Similarly, we can define a sheaf of \(\mcO_X\)-algebras. A \emph{morphism betwee
     and we extend it to all opens.
 \end{example}
 
+\begin{addendum}
+    This is essentially the same as the construction of the structure sheaf from a sheaf on a base. Also note Hartshorne uses \(\widetilde{M}\) for this sheaf.
+\end{addendum}
+
 We have basic operations:
 \begin{itemize}
     \item give a morphism \(f : \mcF \to \mcG\) of (sheaves of) \(\mcO_X\)-modules, we have \(\ker(f)\), \(\coker(f)\), \(\im(f)\),
     \item we can take direct sums, direct products, tensor product, \(\Hom\)s,
 \end{itemize}
-which extend in the ``natural way''. Note \(\coker, \im\) and tensor product requires sheafification.
+which extend in the ``natural way''. Note \(\coker, \im\) and tensor product and \(\Hom\)s requires sheafification.
 
 The sheaf tensor product \(\mcF \otimes_{\mcO_X}\mcG\) has
 \[(\mcF \otimes_{\mcO_X} \mcG)(U) = \mcF(U) \otimes_{\mcO_X(U)} \mcG(U)\]
@@ -1865,13 +2056,17 @@ Given \(U \sse Y\) open, \(a \in \mcO_Y(U)\), \(m \in f_*\mcF(U) = \mcF(f^{-1}(U
 \[am := f^\sharp(a)m\]
 where we note that \(f^\sharp(a) \in \mcO_X(f^{-1}(U))\). Conversely, if \(\mcG\) is a sheaf of \(\mcO_Y\)-modules, then we define the \emph{pullback}\index{pullback!of a sheaf of \(\mcO_X\)-modules} sheaf
 \[f^*\mcG = f^{-1}\mcG \otimes_{f^{-1}\mcO_y}\mcO_X\]
-where the \(f^{-1}\mcO_Y\)-module structure on \(\mcO_X\) is defined via the adjoint to \(f^\#\). See examples sheet 1 Q14.
+where the \(f^{-1}\mcO_Y\)-module structure on \(\mcO_X\) is defined via the adjoint to \(f^\#\). See examples sheet 1 Q14. \begin{addendum}
+    That is, if \(X, Y\) are spaces, \(f : X \to Y\) a continuous map, \(\mcF\) a sheaf on \(X\), \(\mcG\) a sheaf on \(Y\), then we have a natural bijection
+    \[\Hom_X(f^{-1}\mcG, \mcF) \bij \Hom_Y(\mcG, f_*\mcF)\]
+    Using this, a homomorphism \(f^{-1}\mcO_Y \to f^*\mcG\) is the same as a homomorphism \(\mcO_Y \to f_*f^*\mcG\), which we defined above.
+\end{addendum}
 
 \subsection{\(\mcO_X\)-modules on schemes and quasi-coherence}
 
 \begin{definition}
     [(quasi-)coherent sheaf]
-    A \emph{quasi-coherent sheaf \(\mcF\) (on a scheme of \(X\))}\index{quasi-coherent sheaf} of \(\mcO_X\)-modules is a sheaf of \(\mcO_X\)-modules \(\mcF\), such that there exists a cover of \(X\) by affines \(U_i\), such that \(\mcF\vert_{U_i}\) is the sheaf associated to a module over the ring \(\mcO_X(U_i)\).
+    A \emph{quasi-coherent sheaf \(\mcF\) (on a scheme \(X\))}\index{quasi-coherent sheaf} of \(\mcO_X\)-modules is a sheaf of \(\mcO_X\)-modules \(\mcF\), such that there exists a cover of \(X\) by affines \(U_i\), such that \(\mcF\vert_{U_i}\) is the sheaf associated to a module over the ring \(\mcO_X(U_i)\).
 
     If the module over the \(\mcO_X(U_i)\) can be taken to be finitely generated, we say that \(\mcF\) is \emph{coherent}\index{coherent sheaf}\footnote{Recall we assumed our schemes are Noetherian.}.
 \end{definition}
@@ -1958,7 +2153,15 @@ where the \(f^{-1}\mcO_Y\)-module structure on \(\mcO_X\) is defined via the adj
 \end{definition}
 
 \begin{remark}
-    \(\mcO_X(d) = \mcO_X(1)^{\otimes d}\). This follows from the fact that tensor product on graded modules acts additively on the grading.
+    \(\mcO_X(d) = \mcO_X(1)^{\otimes d}\). This follows from the fact that tensor product on graded modules acts additively on the grading. \begin{addendum}
+        In particular, if \(A\) is a graded ring, \(M, N\) graded \(A\)-modules, then \(M \otimes N\) is a graded module, with
+        \[(M \otimes N)_k = \bigoplus_{i + j = k}M_i \otimes N_j\]
+        Moreover, by definition,
+        \[M^{\sh} \otimes N^{\sh} = (M \otimes N)^{\sh}\]
+        and so it suffices to show that \(A(d) = A(1)^{\otimes d}\). We show this by induction on \(d\). The case \(d = 1\) is clear. Now
+        \[(A(1) \otimes A(d))_k = \bigoplus_{i + j = k}A(1)_i \otimes A(d)_j = \bigoplus_{i + j = k}A_{i+1}\otimes A_{j + d}\]
+        But the right hand side is precisely \(A_{d + k + 1}\).
+    \end{addendum}
 \end{remark}
 
 Let \(X = \Proj(k[x_1, \dots, x_n]) = \P^n_k\). Then global sections of \(\mcO_{\P^n}(d)\) are naturally identified with homogeneous degree \(d\) polynomials in the \(x_i\). In particular, if \(d < 0\), then there are no non-zero global sections of \(\mcO_{\P^n}(d)\).
@@ -1982,7 +2185,9 @@ Let \(i : X \to \P^n_R\) be a closed immersion. \(\mcO_X(1)\) be the restriction
 In particular, every \(\mcF\) as above is a quotient of a vector bundle.
 
 \begin{proof}
-    By formal properties, it is equivalent to show the statement for \(i_*\mcF\). That is, \(i_*\mcF(d)\) is globally generated on \(\P^n_R\).
+    By formal properties, it is equivalent to show the statement for \(i_*\mcF\). That is, \(i_*\mcF(d)\) is globally generated on \(\P^n_R\). \begin{addendum}
+        More precisely, \(i_*\mcF\) is a coherent sheaf on \(\P^n_k\), and \(i_*\mcF(d) = i_*(\mcF(d))\). Moreover, the global sections of both are the same.
+    \end{addendum}
 
     \textbf{Strategy:} First we will cover by affines \(U_i = \Spec(R[x_0/x_i, \dots, x_n/x_i])\). Then \(i_*\mcF\vert_{U_i}\) is a sheaf associated to a module \(M_i\). Choose generators \(\{s_{ij}\}\) for \(M_i\). Finally, we will clear denominators by multiplying by \(x_i^d\) for some large \(d\), and extend them to generators of global sections of \(\mcF(d)\).
 
@@ -2045,7 +2250,7 @@ We will now globalise both notions.
     If \(X\) is an integral scheme, \(U = \Spec(A)\) is an open affine in \(X\), then the ideal \(0 \in \Spec(A)\) is called the \emph{generic point}\index{generic point} of \(X\). This is true for any \(U\) open affine. We denote this as \(\eta\) or \(\eta_X\).
 \end{definition}
 
-This is well defined since any two affine opens intersect, by irreducibility (integral schemes are irreducible), and the generic point is unique as we can consider the gluing.
+This is well defined since any two affine opens intersect, by irreducibility (integral schemes are irreducible).
 
 In this case, \(\mcO_{X, \eta_X} = \Frac(A)\) is a field, and this is independent of the choice of \(A\). We denote this as \(k(X)\), the \emph{function field}\index{function field} of \(X\).
 
@@ -2063,6 +2268,12 @@ In this case, \(\mcO_{X, \eta_X} = \Frac(A)\) is a field, and this is independen
 \begin{lemma}
     If \(X\) is a Noetherian topological space, then every closed \(Z \sse X\) has a decomposition into finitely many irreducible closed subsets.
 \end{lemma}
+
+\begin{addendum}
+    \begin{proof}
+        Essentially the same as the proof in Part II AG which says that a variety is a union of finitely many irreducible components. Moreover, the decomposition is unique.
+    \end{proof}
+\end{addendum}
 
 \begin{definition}
     [regular in codimension \(1\)]
@@ -2083,7 +2294,7 @@ We will write \(D \in \Div(X)\) as
 where \(Y_i\) are prime. A Weil divisor \(D\) is \emph{effective}\index{effective} if all \(n_{Y_i} \ge 0\).
 
 \begin{proposition}
-    Let \(f \in \mcO_{X, \eta_X} = k(X)\). For every \(Y \sse X\) a prime divisor, the ring \(\mcO_{X, \eta_Y}\) is a DVR\footnote{as \(X\) is regular in codimension \(1\)}, and we can calculate the valuation \(\nu_Y(f)\) of \(f\) in the DVR. We define the \emph{divisor}\index{divisor!of a function}
+    Let \(f \in \mcO_{X, \eta_X}^\times = k(X)^\times\). For every \(Y \sse X\) a prime divisor, the ring \(\mcO_{X, \eta_Y}\) is a DVR\footnote{as \(X\) is regular in codimension \(1\)}, and we can calculate the valuation \(\nu_Y(f)\) of \(f\) in the DVR. We define the \emph{divisor}\index{divisor!of a function}
     \[\div(f) = \sum_{Y \sse X \text{ prime Weil divisor}}\nu_Y(f)[Y]\]
     
     Then \(\div(f)\) is a Weil divisor.
@@ -2094,7 +2305,9 @@ First, if \(X\) is integral, choose \(U \sse X\), \(U = \Spec(A)\), then \(\mcO_
 \lec
 
 \begin{proof}
-    We just need to check that the sum is finite. Let \(f \in k(X)^\times\), and choose \(A\) such that \(U = \Spec(A)\) is an affine open (so \(k(X) = \Frac(A)\)), and \(f \in A\). We can assume this by localising at the denominators. Geometrically, \(f\) is regular on \(U\).
+    We just need to check that the sum is finite. Let \(f \in k(X)^\times\), and choose \(A\) such that \(U = \Spec(A)\) is an affine open (so \(k(X) = \Frac(A)\)), and \(f \in A\). We can assume this by localising at the denominators. Geometrically, \(f\) is regular on \(U\). \begin{addendum}
+        For this, note that the poles of \(f\) are the zeroes of \(1/f\), which is a closed subset.
+    \end{addendum}
 
     In this case, \(X \setminus U\) is closed of codimension at least \(1\), and so we have only finitely many prime divisors of \(X\), which are contained in \(X \setminus U\). On \(U\), \(f\) is regular, i.e. \(\nu_Y(f)\ge 0\). But \(\nu_Y(f) > 0\) if and only if \(Y \sse \van(f) \sse U\). By the same argument, only finitely many \(Y\) are contained in \(\van(f)\).
 \end{proof}
@@ -2164,7 +2377,7 @@ We would like to study things locally looking like a principal ideals. Recall a 
 
 \begin{definition}
     [Cartier divisor]
-    A \emph{Cartier divisor}\index{Cartier divisor} is a section of the sheaf \(\mcK_X^* / \mcO_X^*\).
+    A \emph{Cartier divisor}\index{Cartier divisor} is a global section of the sheaf \(\mcK_X^* / \mcO_X^*\).
 \end{definition}
 
 Let \(X\) be a scheme, take the presheaf 
@@ -2175,6 +2388,10 @@ Practically, every section of \(\mcK_X^*/\mcO_X^*\) can be described by data
 \[\{(U_i, f_i)\}\]
 where the \(U_i\) is a cover of \(X\), \(f_i\) is a section of \(\mcK_X^*(U_i)\), such that on \(U_i \cap U_j\), we have that
 \[\frac{f_i}{f_j} \in \mcO_X^*(U_i \cap U_j)\]
+
+\begin{addendum}
+    This is how we should think about Cartier divisors, which is something which locally looks like the divisor of a rational function. With this in mind, the condition above becomes that on overlaps, the choice does not matter as their ratio is a unit, which has divisor zero.
+\end{addendum}
 
 \lec
 
@@ -2188,11 +2405,6 @@ We have a surjective sheaf homomorphism \(\mcK^* \surj \mcK^*/\mcO^*\), but a gl
     \[\frac{\Gamma(X, \mcK^*/\mcO^*)}{\im(\Gamma(X, K^*) \to \Gamma(X, \mcK^*/\mcO^*))}\]
     is called the \emph{Cartier class group of \(X\)}\index{Cartier class group}.
 \end{definition}
-
-\begin{remark}
-    Practically, a section \(\mcD \in \Gamma(X, \mcK^*/\mcK^*)\) can be specified by \(\{(U_i, f_i)\}\), where \(\{U_i\}\) forms an open cover, \(f_i \in \mcK^*_X(U_i)\) is a section, such that on \(U_i \cap U_j\),
-    \[\frac{f_i}{f_j} \in \mcO_X^*(U_i \cap U_j)\]
-\end{remark}
 
 \begin{proposition}
     Let \(X\) be an integral, Noetherian, separated, regular in codimension \(1\) scheme. Given a Cartier divisor \(\mcD \in \Gamma(X, \mcK^*/\mcO^*)\), we get a Weil divisor by the rule: If \(Y \sse X\) is prime Weil, it has a generic point \(\eta_Y\). Now represent \(\mcD\) by \(\{U_i, f_i\}\), set
@@ -2216,9 +2428,13 @@ We have a surjective sheaf homomorphism \(\mcK^* \surj \mcK^*/\mcO^*\), but a gl
 \end{proof}
 
 \begin{definition}
-    GIven a Cartier divisor \(\mcD\) on \(X\), with representatives \(\{U_i, f_i\}\), let
+    Given a Cartier divisor \(\mcD\) on \(X\), with representatives \(\{U_i, f_i\}\), let
     \(L(\mcD) \sse \mcK_X\) be the sub \(\mcO_X\)-module generated on \(U_i\) by \(f_i^{-1}\),
 \end{definition}
+
+\begin{addendum}
+    Note that this is well defined, as on overlaps \(f_i/f_j\) is a unit.
+\end{addendum}
 
 Keep in mind if \(A\) is an integral domain, \(X = \Spec(A)\), \(\mcD = \{(X, f)\}\) where \(f \in A\), then \(A_f \sse \Frac(A)\) is an \(A\)-module, generated by \(1/f\).
 
@@ -2237,11 +2453,38 @@ Keep in mind if \(A\) is an integral domain, \(X = \Spec(A)\), \(\mcD = \{(X, f)
 \underline{Important exercise:} If \(X = \P^n_k\), \(D\) to be the Weil divisor given by \(\van(x_0)\). Say \(\mcD\) is the correspoding Cartier divisor. Now show that
 \[\mcO_{\P^n}(1) \cong L(\mcD)\]
 
+\begin{addendum}
+    \begin{proof}
+        We have an open cover of \(\P^n_k\) by \(U_0, \dots, U_n\) the standard opens. We claim that the representatives for \(\mcD\) are \((U_i, f_i = x_0/x_i)\). On overlaps,
+        \[\frac{f_i}{f_j} = \frac{x_j}{x_i} \in \mcO^*_{\P^n}(U_i \cap U_j)\]
+        and so this is a well defined Cartier divisor. Hence it suffices to show that it corresponds to the hyperplane \(H = \van(x_0)\).
+
+        Now on
+        \[U_i = \Spec(A^i) \qqtext{where}A^i = k\left[\frac{x_0}{x_i}, \dots, \frac{x_n}{x_i}\right]\]
+        we can compute the stalks, which are just given by localisation. In particular, if \(\eta\) is the generic point of some \(Y \sse \P^n_k\) prime Weil divisor, then
+        \[\nu_Y(f_i) = \begin{cases}
+            0 & x_0/x_i \text{ is a unit in }\mcO_{X, \eta} = A^i_\eta \\
+            1 & x_0/x_i \text{ is not a unit in }\mcO_{X, \eta} = A^i_\eta
+        \end{cases}\]
+        In particular, this is zero if \(\eta \notin H\), since \(x_0/x_i\) is non-vanishing. Now \(\nu_Y(f_i) = 1\) only if \(Y\) is contained in \(H\), and so by irreducibility, \(Y = H\). 
+        
+        With this in mind, the sheaf \(L(\mcD)\) is then generated on \(U_i\) by \(1/f_i = x_i/x_0\), i.e. \(f_iA^i\). On the other hand, \(\mcO_{\P^n}(1)\) is generated on \(U_i\) by \(x_i\), i.e. we get \(x_iA^i\). The isomorphism is then given by multiplication by \(x_0\).
+    \end{proof}
+\end{addendum}
+
 \begin{remark}
     A line bundle \(L\) on \(X\) has a inverse under tensor product, namely
     \[L^{-1} = \Hom_{\mcO_X}(L, \mcO_X)\]
     Moreover, tensor product of line bundles are line bundles. If all Weil divisors are Cartier, then \(L(D + E) = L(D) \otimes L(E)\).
 \end{remark}
+
+\begin{addendum}
+    \begin{proof}
+        For the inverse part, it suffices to note that
+        \[L^{-1}\otimes L = \Hom(L, \mcO_X) \otimes L = \Hom(L, L) = \mcO\]
+        For the last equality, it suffices to note that \(L\) is a locally free rank \(1\) \(\mcO_X\)-module.
+    \end{proof}
+\end{addendum}
 
 \begin{definition}
     [Picard group] The \emph{Picard group}\index{Picard group} on \(X\), denoted by \(\Pic(X)\), is the group of line bundles on \(X\) up to isomorphism, with group operation being tensor product. 
@@ -2326,14 +2569,12 @@ Easy exercise to see that \(\dd^2 = 0\). This makes \((C^p(\mcU, \mcF), \dd)\) i
 \end{definition}
 
 \begin{example}
-    Let \(X = S^1\). Let \(\mcF\) be the constant sheaf \(\underline{\Z}\). Let \(\mcU = \{U, V\}\), where \(U, V\) are the intervals.
-    
-    \textbf{diagram}
+    Let \(X = S^1\). Let \(\mcF\) be the constant sheaf \(\underline{\Z}\). Let \(\mcU = \{U, V\}\), where \(U, V\) are the upper and lower halves of \(S^1\).
 
     In this case, the cochain groups are
     \begin{align*}
-        C^0(\mcU, \Z) &= \underline{\Z}(U) \oplus \underline{\Z}(V) = \Z^2 \\
-        C^1(\mcU, \Z) &= \underline{\Z}(U \cap V) = \Z^2
+        C^0(\mcU, \underline\Z) &= \underline{\Z}(U) \oplus \underline{\Z}(V) = \Z^2 \\
+        C^1(\mcU, \underline\Z) &= \underline{\Z}(U \cap V) = \Z^2
     \end{align*}
     and the boundary map is
     \[\dd(a, b) = (b - a, b - a)\]
@@ -2432,7 +2673,7 @@ Observe that this is the same as the singular cohomology groups of \(S^1\). On t
         \arrow[from=1-4, to=3-2]
         \arrow["{\cdot x_0}"', from=3-2, to=3-3]
         \arrow[from=3-3, to=3-4]
-    \end{tikzcd}\]
+    \end{tikzcd} \tag{c}\]
     Using (a) and (c), we can observe that the sequence (b) is also exact for \(p = 1\) and \(p = n-1\), by writing out the \v Cech cohomology. Multiplication by \(x_0\) makes \(\HH^p(\P^n, \mcF)\) into a \(k[x_0]\)-module. Next, we calculate the localisation of this module at \(x_0\). That is, we would like to find
     \[\HH^p(\P^n, \mcF)_{x_0}\]
     Since localisation ie exact,
@@ -2570,7 +2811,7 @@ Note we can have \(X_2 \cong \P^1\otimes_{\Spec(k)}\P^1\) by the Segre embedding
 
 Moreover, the different \(X_d\) for distinct \(d\) are non-isomorphic as schemes. This follows from calculating the Euler characteristic of \(X_d\).
 
-Finally, the next topic in sheaf cohomology would be duality theory. Given \(Zi :  \inj X\) a closed immersion, we have the ideal sheaf \(\mcI_Z = \ker(i^\sharp : \mcO_X \to i_*\mcO_Z)\), which is a coherent sheaf on \(X\).
+Finally, the next topic in sheaf cohomology would be duality theory. Given \(i : Z \inj X\) a closed immersion, we have the ideal sheaf \(\mcI_Z = \ker(i^\sharp : \mcO_X \to i_*\mcO_Z)\), which is a coherent sheaf on \(X\).
 
 \begin{definition}
     [conormal sheaf]
