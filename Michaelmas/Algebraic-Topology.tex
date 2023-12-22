@@ -73,8 +73,12 @@ We will define invariants of topological spaces in two steps:
 The topology enters in step (a), whereas (b) is just homological algebra.
 \begin{definition}
     [chain complex]
-    A \emph{chain complex}@\index{chain complex} \((C_*, \partial)\) consists of a sequence \(\{C_i\}_{i \in \Z}\) of abelian groups, along with \emph{boundary homomorphisms}\index{boundary homomorphism} \(\partial_n : C_n \to C_{n-1}\) for all \(n\), satisfying \(\partial_n \circ \partial_{n+1} = 0\). We also write this conditions as \(\partial^2 = 0\).
+    A \emph{chain complex}\index{chain complex} \((C_*, \partial)\) consists of a sequence \(\{C_i\}_{i \in \Z}\) of abelian groups, along with \emph{boundary homomorphisms}\index{boundary homomorphism} \(\partial_n : C_n \to C_{n-1}\) for all \(n\), satisfying \(\partial_n \circ \partial_{n+1} = 0\). We also write this conditions as \(\partial^2 = 0\).
 \end{definition}
+
+\begin{addendum}
+    Often we will be lazy and just write \(\partial\). Also, if we have several chain complexes, we might use subscripts or superscripts to distinguish the boundary homomorphisms.
+\end{addendum}
 
 \begin{definition}
     [homology group]
@@ -146,7 +150,9 @@ Correspondingly, we can define \emph{cochain maps}\index{cochain maps} \(C^* \to
 \end{tikzcd}\]
 commutes.
 
-\underline{Exercise:} This construction is functorial. That is, \((\id_{C_*})_* = \id_{\HH_*}\), and if we have \(f : C_* \to D_*, g : D_* \to E_*\), then \((g \circ f)_* = g_* \circ f_*\).
+\underline{Exercise:} This construction is functorial. That is, \((\id_{C_*})_* = \id_{\HH_*}\), and if we have \(f : C_* \to D_*, g : D_* \to E_*\), then \((g \circ f)_* = g_* \circ f_*\). \begin{addendum}
+    This is obvious.
+\end{addendum}
 
 \underline{Goal:} To associate to a topological space \(X\) (co)chain complex \(C_*(X)\) and \(C^*(X)\). The definition works for any \(X\), but the theories are better behaved for ``nicer'' \(X\).
 
@@ -181,7 +187,7 @@ We will develop singular (co)homology.
 
 Note if \(\{v_i\}_{i=0}^n\) are \(n+1\) ordered points in \(\R^{n+1}\), and if \(\{v_i - v_0\}_{i=1}^n\) are linearly independent, then the convex hull of \(v_0, \dots, v_n\) is an \(n\)-simplex, which we will call
 \[[v_0, \dots, v_n]\]
-which is given by the map
+is given by the map
 \begin{align*}
     \Delta^n &\to \R^{n+1} \\
     t &\mapsto \sum_i t_iv_i
@@ -198,7 +204,7 @@ More concretely, for \(n = 2\), we have the oriented edges \(v_0 \to v_1, v_0 \t
     If \(\sigma\) is an \(n\)-simplex, defined on \([v_0, \dots, v_n]\), then
     \[\partial\sigma = \sum_j(-1)^j\sigma\vert_{[v_0, \dots, \widehat{v_j}, \dots, v_n]}\]
     and so
-    \[\partial(\partial\sigma) = \sum_{i < j}(-1)^i(-1)^j\sigma\vert_{[v_0, \dots, \widehat{v_i}, \dots, \widehat{v_j}, \dots, v_n]} + \sum_{i > j}(-1)^{i+1}{-1}^j\sigma\vert_{[v_0, \dots, \widehat{v_j}, \dots, \widehat{v_i}, \dots, v_n]} = 0\]
+    \[\partial(\partial\sigma) = \sum_{i < j}(-1)^i(-1)^j\sigma\vert_{[v_0, \dots, \widehat{v_i}, \dots, \widehat{v_j}, \dots, v_n]} + \sum_{i > j}(-1)^{i+1}(-1)^j\sigma\vert_{[v_0, \dots, \widehat{v_j}, \dots, \widehat{v_i}, \dots, v_n]} = 0\]
     since the signs cancel.
 \end{proof}
 
@@ -240,6 +246,12 @@ So \(f^*\) is a cochain map, i.e. \(\partial^*f^* = f^*\partial^*\). Therefore, 
 \[C^i(X) = \Hom_\Z(C_i(X), \Z)\]
 but it is not true (in general) that
 \[\HH^i(X) = \Hom_\Z(\HH_i(X), \Z)\]
+
+\begin{addendum}
+    It's easy to show that we always have a surjection
+    \[\HH^i(X) = \Hom(\HH_i(X), \Z)\]
+    But in general, this is not an isomorphism if \(\HH_i(X)\) has torsion.
+\end{addendum}
 
 \subsubsection{Basic computations}
 
@@ -352,7 +364,7 @@ From this intuition, \([\sigma_2] \ne 0\). But to show even this, we need some s
 \end{theorem}
 
 \begin{corollary}
-    If \(X \simeq Y\), then \(H_*(X) \simeq Y\), and if \(f\) is a homotopy equivalence, then \(f_*\) induces the isomorphism. For cohomology we have the similar statement, but with \(f^*\).
+    If \(X \simeq Y\), then \(\HH_*(X) \cong \HH_*(Y)\), and if \(f\) is a homotopy equivalence, then \(f_*\) induces the isomorphism. For cohomology we have the similar statement, but with \(f^*\).
 \end{corollary}
 
 \begin{proof}
@@ -642,7 +654,7 @@ and so \(\HH^1(S^n) = 0\).
 \begin{proof}
     Suppose \(f : \R^n \to \R^m\) is a homeomorphism. This gives us a homeomorphism
     \[f : \R^n \setminus 0 \to \R^m \setminus \{f(0)\}\]
-    But \(\R^n\setminus \{*\}\) is homotopy equivalent to \(\S^{n-1}\). Thus \(f\) induces an isomorphism in homology
+    But \(\R^n\setminus \{*\}\) is homotopy equivalent to \(S^{n-1}\). Thus \(f\) induces an isomorphism in homology
     \[\HH_i(S^{n-1}) = \HH_i(S^{m-1})\]
     But by our homology computations, this implies that \(n = m\).
 \end{proof}
@@ -734,10 +746,14 @@ Note that
 Using this, the degree of any map without fixed points is \((-1)^{n+1}\). Another corollary is that if \(f(x) \ne -x\) for all \(x \in S^n\), then \(f \simeq a \circ a = \id\).
 
 \begin{definition}
-    [vector field on \(\S^n\)]
+    [vector field on \(S^n\)]
     A \emph{vector field on \(S^n\)}\index{vector field on \(S^n\)} is a map \(v : S^n \to \R^{n+1}\), such that for all \(x \in S^n\),
     \[\inner{x, v(x)} = 0\]
 \end{definition}
+
+\begin{addendum}
+    That is, \(v(x)\) is a tangent vector to \(S^n\) at \(x\).
+\end{addendum}
 
 \begin{proposition}
     [Hairy ball theorem] \(S^n\) has a nowhere vanishing vector field if and only if \(n\) is odd.
@@ -1078,10 +1094,14 @@ Recall if \(f, g : X \to Y\) are homotopic, we would like to show that the induc
 
 \begin{theorem}
     [Excision] \index{excision}\label{thm:excision} Let \(X\) be a topological space, \(A \sse X\) a subspace, \(Z \sse X\) a subspace with \(\Cl(Z) \sse \Int(A)\). Then the inclusion
-    \[i : (X\setminus \Z, A \setminus Z) \to (X, A)\]
+    \[i : (X\setminus Z, A \setminus Z) \to (X, A)\]
     induces an isomorphism on relative homology
     \[i_* : \HH_n(X \setminus Z, A \setminus Z) \to \HH_n(X, A)\]
 \end{theorem}
+
+\begin{addendum}
+    Intuitively, relative homology measures the homology of \(X\) where we ignore what happens within \(A\). Therefore, excision means that when computing relative homology, we can ignore what happens within \(Z\).
+\end{addendum}
 
 \begin{lemma}
     [five lemma] \index{five lemma} Suppose we have a diagram
@@ -1107,7 +1127,7 @@ Recall if \(f, g : X \to Y\) are homotopic, we would like to show that the induc
 \end{lemma}
 
 \begin{corollary}
-    If \(f : (X, A) \to (Y, B)\) is a map of pairs, and the maps \(f_* : \HH_*(X) \to |HH_*(Y)\) and \(f_* : \HH_*(A) \to \HH_*(B)\) are isomorphisms, then so are the induced maps on relative homology
+    If \(f : (X, A) \to (Y, B)\) is a map of pairs, and the maps \(f_* : \HH_*(X) \to \HH_*(Y)\) and \(f_* : \HH_*(A) \to \HH_*(B)\) are isomorphisms, then so are the induced maps on relative homology
     \[f_* : \HH_*(X, A) \to \HH_*(Y, B)\]
 \end{corollary}
 
@@ -1156,6 +1176,10 @@ Recall if \(f, g : X \to Y\) are homotopic, we would like to show that the induc
     \[\HH_n(X, A) \to \HH_n(X/A, A/A) = \tilde \HH_*(X/A)\]
 \end{proposition}
 
+\begin{addendum}
+    In this case, the intuition is that we can in fact collapse \(A\) down to a point.
+\end{addendum}
+
 \begin{proof}
     Let \(A \sse U \sse X\) be as in the definition of a good pair, and note that \(\HH_*(A) = \HH_*(U)\), and as such, we have an isomorphism on relative homology
     \[\HH_*(X, A) \cong \HH_*(X, U)\]
@@ -1189,7 +1213,7 @@ Recall if \(f, g : X \to Y\) are homotopic, we would like to show that the induc
         \end{cases}\)
         Since we can think of \(S^2/S^1\) as \(S^2 \vee S^2\) via
         \begin{center}
-            \includegraphics[scale=0.1]{diagrams/2023_10_23 (4).jpg}
+            \includegraphics[scale=0.1]{diagrams/2023_10_23 (3).jpg}
         \end{center}
         \item A \emph{manifold} of dimension \(n\) is a Hausdorff topological space which is locally homeomorphic to \(\R^n\). If \(M^n\) is a manifold, \(x \in M\), then
         \[\HH_j(M, M \setminus x) \underbrace{=}_{\text{by excision}} \HH_j(\R^n, \R^n \setminus 0) \underbrace{=}_{\text{by homotopy invariance}} \HH_j(D^n, \partial D^n) = \Z \text{ when j = n}\]
@@ -1222,6 +1246,10 @@ Both the Mayer-Vietoris property and excision will follow from the \emph{small s
     \[f_* : C_j^\mcU(X) \to C_*^\mcV(Y)\] 
     But \((X, \mcU) \mapsto C_*^\mcU(X)\) is \emph{not} functorial for arbitrary maps.
 \end{remark}
+
+\begin{addendum}
+    Intuitively, what we want to do here is to split up the chains, so that it is a sum of chains in the open cover.
+\end{addendum}
 
 We will use small simplices to prove Mayer-Vietoris and excision.
 
@@ -1301,7 +1329,11 @@ We will use small simplices to prove Mayer-Vietoris and excision.
     \[\HH_i(X, A) = \HH_i(C_*(X)/C_*(A)) = \HH_i(C_*(B)/C_*(A \cap B)) = \HH_i(B, A \cap B) = \HH_*(X \setminus Z, A \setminus Z)\]
 \end{proof}
 
-Small simplices uses \emph{barycentric subdivision}\index{barycentric subdivision}.
+Small simplices uses \emph{barycentric subdivision}\index{barycentric subdivision}. \begin{addendum}
+    It's important to get intuition for this, which is that we can repeatedly subdivide a simplex into smaller simplices, and using the Lebesgue covering lemma, if we subdivide enough, we can ensure that each simplex is contained in an open set in the cover.
+
+    However, the technical details are not very interesting...
+\end{addendum}
 
 \lec
 
@@ -1434,6 +1466,10 @@ Singular homology is most effective on `nice' spaces. One example would be \emph
     \begin{center}
         \includegraphics[scale=0.1]{diagrams/2023_10_25 13_29 (5).jpg}
     \end{center}
+
+    \begin{addendum}
+        The gluing pattern is \(a_1b_1a_1^{-1}b_1^{-1}\cdots a_gb_ga_g^{-1}b_g^{-1}\).
+    \end{addendum}
 \end{example}
 
 \begin{example}
@@ -1454,6 +1490,10 @@ Singular homology is most effective on `nice' spaces. One example would be \emph
 \begin{remark}
     A finite cell complex is compact.
 \end{remark}
+
+\begin{addendum}
+    In fact, the converse is also true. If \(X\) is an infinite cell complex, we have an infinite, closed, discrete subset of \(X\) by choosing a point in each cell which is not in the boundary, and so \(X\) cannot be compact.
+\end{addendum}
 
 \lec
 
@@ -1684,9 +1724,7 @@ of \(k-1\)-cells. We would like to find the \(d_{\alpha\beta} \in \Z\).
     The result then follows.
 \end{proof}
 
-This is useful if we can compute the degree of maps between spheres.
-
-Suppose \(f : S^n \to S^n\) and \(y \in S^n\) has finitely many preimages
+This is useful if we can compute the degree of maps between spheres. Suppose \(f : S^n \to S^n\) and \(y \in S^n\) has finitely many preimages
 \[f^{-1}(y) = \{x_1, \dots, x_m\}\]
 In this case, we can choose pairwise disjoint discs \(U_i\) containing \(x_i\), and a disc \(V\) containing \(y\) such that \(f(U_i) \sse V\). Then \(f\) defines a map
 \[(U_i, x_i) \to (V, y)\]
@@ -1694,7 +1732,9 @@ This then defines a map
 \[\Z \cong \HH_n(U_i, U_i \setminus x) \to \HH_n(V, V \setminus y) = \Z\]
 Moreover, recall that the isomorphisms above are from excision, and so the maps above are between the \emph{same} copy of \(\Z\). With this, we have a \emph{local degree of \(f\) at \(x\)}\index{local degree}. We will write
 \[\deg_{x_i}(f) \text{ or }\deg_f(x_i) \in \Z\]
-for this.
+for this. \begin{addendum}
+    Another way (once we have a bit more machinery) is that \(S^n\) is orientable, and so \(U_i, V\) inherit an orientation. Once we fix this orientation, the local degree is well defined.
+\end{addendum}
 
 \begin{lemma}
     Under the assumption that such a \(y\) exists,
@@ -1779,7 +1819,9 @@ for this.
 \begin{example}
     [Exercise] If \(p(z)\) is a complex polynomial, then \(p\) extends to a continuous map \(\hat p : \C_\infty \to \C_\infty\) of degree \(\deg(p)\), and if \(x \in \C\) is a root of \(p\), the local degree \(\deg_x(\hat p)\) is the multiplicity of the root.
 
-    c.f. the fundamental theorem of algebra.
+    c.f. the fundamental theorem of algebra. \begin{addendum}
+        This is essentially local degree in complex analysis or Riemann surfaces.
+    \end{addendum}
 \end{example}
 
 \begin{remark}
@@ -1888,6 +1930,10 @@ and the boundary operators will have given the same cochain complex. Note howeve
 \end{tikzcd}\]
     For these two very simple complexes, the claim in the proposition is clear.
 \end{proof}
+
+\begin{addendum}
+    With this, we can see that the natural map \(\HH^*(X) \to \HH_*(X)\) is an isomorphism provided \(X\) is a finite cell complex, with \(\HH_i(X)\) free abelian for all \(i\).
+\end{addendum}
 
 \begin{remark}
     For abelian groups \(H, G\), let \index{Ext@\(\Ext^1\)}
@@ -2114,6 +2160,10 @@ The same computation shows that \(\chi(X; F) = \sum(-1)^k N_k\), and so the Eule
     We will write \(\phi \cdot \psi = \phi \smile \psi\).
 \end{notation}
 
+\begin{addendum}
+    For the cup product, it's useful to have the de Rham theory in mind. In this case, \(\alpha \in \Omega^k(M), \beta \in \Omega^\ell(M)\), and the cup product is the wedge  product \(\alpha \wedge \beta \in \Omega^{k+\ell}(M)\). The lemma below is then the same formula as the exterior derivative of a wedge product.
+\end{addendum}
+
 \begin{lemma}
     If \(\partial^* : C^*(X) \to C^{*+!}(X)\) is the boundary operator, then
     \[\partial^*(\phi \cdot \psi) = (\partial^*\phi)\cdot \psi + (-1)^k\phi \cdot \partial^*\psi\] 
@@ -2214,7 +2264,7 @@ The same computation shows that \(\chi(X; F) = \sum(-1)^k N_k\), and so the Eule
 \end{tikzcd}\]
     where \(p_X\) is given by collapsing \(Y\) and \(i_X\) is the inclusion map. This gives us ring homomorphisms
     \[p_X^* : \HH^*(X) \to \HH^*(X \vee Y)\]
-    Since \(x_0, y_0\) are neighbourhood deformation retracts, we have an open vover of \(X \vee Y\) and using Mayer-Vietoris, we have that
+    Since \(x_0, y_0\) are neighbourhood deformation retracts, we have an open cover of \(X \vee Y\) and using Mayer-Vietoris, we have that
     \[\widetilde \HH^*(X) \oplus \widetilde \HH^*(Y) \to \widetilde \HH^*(X \vee Y)\]
     is an isomorphism of abelian groups. Hence we know \(\HH^*(X \vee Y)\) in terms of \(\HH^*(X)\) and \(\HH^*(Y)\). With this, if \(\alpha \in \HH^i(X), \beta \in \HH^j(Y)\), with \(i, j > 0\), then \(\alpha \cdot \beta = 0\).
 
@@ -2283,7 +2333,7 @@ The same computation shows that \(\chi(X; F) = \sum(-1)^k N_k\), and so the Eule
     \end{align*}
     if \(x_i \in \HH^1(S^1)\) is a generator for the \(i\)-th factor, then the map \(\HH^1(T^2) \times \HH^1(T^2) \to \HH^2(T^2)\) will be
     \[(1 \otimes x_2)(x_1 \otimes 1) = -x_2x_1\]
-    This is isomorphic to the exterior algebra \(\Lambda(x_1, x_2)\). Iteratotively,
+    This is isomorphic to the exterior algebra \(\Lambda(x_1, x_2)\). Iteratively,
     \[\HH^*(T^n) = \Lambda(x_1, \dots, x_n)\]
     where \(\HH^1(\T^n) \cong \Z^n\) has generators \(x_1, \dots, x_n\).
 \end{example}
@@ -2508,6 +2558,10 @@ In this case, \(\pi^*(x^n) = \deg(\pi)u_1\cdots u_n\). But then the right hand s
 \[\HH^{i}(\C\P^{n-1}) \cong \HH^i(\C\P^n)\]
 for \(0 \le i \le 2n-2\), and so if we show that \(x^n\) generates \(\HH^{2n}(\C\P^n)\), then under the above isomorphism, \(x^n\) also generates \(\HH^{2n}(\C\P^{n+k})\) for any \(k \ge 0\). The result then follows by induction.}.
 
+\begin{addendum}
+    We can think about this in terms of algebraic geometry (assuming some more machinery). The generator in \(\HH^2(\C\P^n)\) is the Poincar\'e dual to the fundamental class of a hyperplane \([H] \in \HH^{2n-2}(\C\P^n)\). That is, it is the class of a linear form. What the homeomorphism \(\pi\) represents is that a point in \(\C\P^n\) can be represented by the intersection of \(n\) (generic) hyperplanes, and cup product is Poincar\'e dual to intersection.
+\end{addendum}
+
 \begin{corollary}
     A map \(f : \C\P^2 \to \C\P^2\) cannot have degree \(-1\).
 \end{corollary}
@@ -2627,6 +2681,10 @@ Note that
 \end{cases}\]
 and so it is \emph{not} homotopy invariant. Moreover, it is \emph{not} functorial either. On the other hand, if \(f : X \to Y\) is continuous, closed and proper, then it induces a map
 \[\HH^*_\ct(Y) \to \HH^*_\ct(X)\]
+
+\begin{addendum}
+    Again in this case it is helpful to keep in mind the case of de Rham theory. The corresponding idea is to consider the space of compactly supported differential forms, i.e. \(\alpha \in \Omega^k(M)\) which is zero outside of a compact set \(K \sse M\).
+\end{addendum}
 
 On the other hand, if \(i : U \to X\) is the inclusion of an open set in a Hausdorff space \(X\), then we have an \emph{extension by zero}\index{extension by zero} map \(i_* : \HH^*_\ct(U) \to \HH^*_\ct(X)\), using the fact that if \(K \sse U\) is compact, then \(K \sse X\) is compact. This gives a map from compact sets on \(U\) to compact sets on \(X\), which gives an induced map on cohomology. In particular, we are interested in the case when \(X\) is a manifold and \(U \sse X\) is a disc.
 
@@ -2849,8 +2907,16 @@ and Poincar\'e dueality says that this pairing is non-degenerate. In particular,
     (\phi, \psi) &\mapsto \inner{\phi \cdot \psi, [M]}
 \end{align*}
 
+\begin{addendum}
+    In the de Rham theory, the pairing is given by
+    \begin{align*}
+        \HH^k_\ct(M) \otimes \HH^{n-k}(M) &\to \R \\
+        (\alpha, \beta) &\mapsto \int_M \alpha \wedge \beta
+    \end{align*}
+\end{addendum}
+
 \begin{corollary}
-    Let \(M, N\) be oriented connected compact \(n\)-manifolds, and so \(\HH^n(M) \cong \HH_0(M) \cong \Z\), and the orientation gives us a preferred orientation. Thus, a map \(f : M \to N\) has a degree \(\deg(f) \in \Z\). If this degree is non-zero, then over a field, the pullback map
+    Let \(M, N\) be oriented connected compact \(n\)-manifolds, and so \(\HH^n(M) \cong \HH_0(M) \cong \Z\), and the orientation gives us a preferred generator. Thus, a map \(f : M \to N\) has a degree \(\deg(f) \in \Z\). If this degree is non-zero, then over a field, the pullback map
     \[f^* : \HH^*(N; F) \to \HH^*(M; F)\]
     is injective in each degree.
 \end{corollary}
@@ -2867,13 +2933,15 @@ and Poincar\'e dueality says that this pairing is non-degenerate. In particular,
     First of all, note that in this case, \(\HH^i(M; \Z)\) is finitely generated for all \(i\), and non-zero only if \(i \le n\). Hence the alternating sum
     \[\chi(M) = \sum_i(-1)^i\rank(\HH^i(M; \Z))\]
     is well defined. Moreover, we saw that we could compute \(\chi(M)\) by working over a field \(F\). Suppose \(M\) is oriented. Then
-    \[\chi(M) = \sum_{i=0}^{2k+1}(-1)^i\rank(\HH^i(M; F))\]
-    Let \(b^i = \rank(\HH^i(M; F))\) be the Betti numbers. Then
+    \[\chi(M) = \sum_{i=0}^{2k+1}(-1)^i\dim_F(\HH^i(M; F))\]
+    Let \(b^i = \dim_F(\HH^i(M; F))\) be the Betti numbers. Then
     \[\chi(M) = b_0 - b_1 + \cdots + b_{2k} - b_{2k+1}\]
     But the non-degenerate pairing implies that \(b_i = b_{n - 1}\), and so \(b_0 = b_{2k+1}\) and so on. Hence \(\chi(M) = 0\). Now if we take \(F = \Z/2\), then \(M\) is \(F\)-oriented.
 \end{proof}
 
-An alternative proof is to use the existence of an oriented double cover.
+An alternative proof is to use the existence of an oriented double cover. \begin{addendum}
+    For this, we first note that the universal coefficient theorem and Poincar\'e duality proves the result for any compact orientable manifold (here we can use \(\Z\)-coefficients). Now if \(\widetilde M \to M\) is a double cover, then \(\chi(\widetilde M) = 2\chi(M)\), which gives the result.
+\end{addendum}
 
 \begin{definition}
     [manifold with boundary] A \emph{manifold with boundary}\index{manifold with boundary} is a Hausdorff space \(M\), locally homeomorphic to
@@ -3163,7 +3231,7 @@ This is a vector bundle, with the natural projection map \(p : E \to \Gr(k, \R^n
 \end{definition}
 
 \begin{lemma}
-    A vector bundle \(p : E \to X\) over a (para)compact Hausdorff space has an inner product. Moroever, \(E\) is \emph{globally generated}. For all \(x \in X\), \(\xi \in E_x\), there exists \(s \in \Gamma(E)\) such that \(s(x) = \xi\). 
+    A vector bundle \(p : E \to X\) over a (para)compact Hausdorff space has an inner product. Moreover, \(E\) is \emph{globally generated}. For all \(x \in X\), \(\xi \in E_x\), there exists \(s \in \Gamma(E)\) such that \(s(x) = \xi\). 
 \end{lemma}
 
 \begin{proof}
@@ -3177,14 +3245,14 @@ This is a vector bundle, with the natural projection map \(p : E \to \Gr(k, \R^n
 \end{proof}
 
 \begin{corollary}
-    If \(X\) is compact Hausdorff, \(E \to X\) is a rank \(d\) vector bundle, then there exists \(N \in \N\) and \(f : \Gr(d, \R^N)\) such that \(E \cong f^*E_{\text{taut}}\).
+    If \(X\) is compact Hausdorff, \(E \to X\) is a rank \(d\) vector bundle, then there exists \(N \in \N\) and \(f : X \to \Gr(d, \R^N)\) such that \(E \cong f^*E_{\text{taut}}\).
 \end{corollary}
 
 \begin{proof}
     Since \(X\) is compact, we have a finite set \(\{s_1, \dots, s_N\} \sse \Gamma(E)\), such that on each \(E_x\) the \(s_i(x)\) span. Fix an inner product \(\inner{\cdot, \cdot}\) on \(E\), and now consider the map
     \begin{align*}
         \alpha : E &\to X \times \R^N \\
-        (x, \xi)&\mapsto (x, \inner{s_1(x), \xi}, \dots, \inner{s_n(x), \xi})
+        (x, \xi)&\mapsto (x, \inner{s_1(x), \xi}, \dots, \inner{s_N(x), \xi})
     \end{align*}
     Since the sections \(s_i\) span, we see that \(\alpha\) embeds \(E_x\) into \(\R^N\) for all \(x\). That is, it embeds \(E\) as a sub-bundle of a trivial bundle. But then we can just define
     \begin{align*}
@@ -3214,7 +3282,7 @@ First note that if \(E\) has rank \(d\), then \(\HH^d(E_x, E_x \setminus 0) = \Z
     [oriented]
     We say that a rank \(d\) vector bundle \(E\) is \emph{oriented}\index{oriented!vector bundle} if for all \(x \in X\), we have a generator \(\epsilon_x\) of \(\HH^d(E_x, E_x \setminus 0)\), which vary locally trivially. That is, if \(x \in U\) and \(E\) is trivialised over \(U\), say
     \[\Psi : E\vert_U \cong U \times \R^d\] 
-    is a trivialisation, then this induces an isomorphism \(E_y \to \{y\} \times \R^d\). Using this, we have an isomorphism \(E_y \to E_x\) should send \(\epsilon_y\) to \(\epsilon_x\).
+    is a trivialisation, then this induces an isomorphism \(E_y \to \{y\} \times \R^d\). Using this, we have an isomorphism \(E_y \to E_x\), which should send \(\epsilon_y\) to \(\epsilon_x\).
 \end{definition}
 
 \begin{notation}
@@ -3240,6 +3308,12 @@ First note that if \(E\) has rank \(d\), then \(\HH^d(E_x, E_x \setminus 0) = \Z
     \end{enumerate}
     The class \(u_E\) is called the \emph{Thom class}\index{Thom class} of \(E\).
 \end{theorem}
+
+\begin{addendum}
+    In the case of a smooth oriented manifold \(M^n\), \(\T M \to M\) is a vector bundle of rank \(n\), and so what this is saying is that the cohomology of \(\T M\) relative to the zero section is just the cohomology of \(M\), shifted by \(n\). Moreover, the isomorphism is given by wedge product with a fixed \(n\)-form.
+
+    Moreover, the zero section is a smooth manifold, of dimension \(n\), and so it has a canonical class \([E^0]\). We claim that the Poincar\'e dual of this class is the Thom class (Bott-Tu 6.24 (b)).
+\end{addendum}
 
 \begin{definition}
     [Euler class]
@@ -3295,7 +3369,7 @@ and so we obtain the \emph{Gysin sequence}\index{Gysin sequence}
 	\arrow[from=1-4, to=1-5]
 	\arrow[from=1-5, to=1-6]
 \end{tikzcd}\]
-The map \(\phi\) is the cup product with the Euler class \(e_E\), basically by definition. In de Rhem theory, the map \(\HH^{i+d}(\mathrm{S}(E)) \to \HH^{i+1}(X)\) is given by integration over the \(S^{d-1}\)-fibre.
+The map \(\phi\) is the cup product with the Euler class \(e_E\), basically by definition. In de Rham theory, the map \(\HH^{i+d}(\mathrm{S}(E)) \to \HH^{i+1}(X)\) is given by integration over the \(S^{d-1}\)-fibre.
 
 \begin{example}
     Let \(L \to \C\P^n\) be the tautological complex line bundle. Recall that a complex vector bundle is canonically oriented, since \(\GL(d, \C) \sse \GL_+(2d, \R)\).
@@ -3303,6 +3377,9 @@ The map \(\phi\) is the cup product with the Euler class \(e_E\), basically by d
     \[L = \left\{(x, v) \in \C\P^n \times \C^{n+1} \mid v \in \inner{x}\right\}\]
     using the usual inner product on \(\C^{n+1}\), we see that
     \[\mathrm{S}(L) = S^{2n+1} \sse \C^{n+1}\]
+    \begin{addendum}
+        since any \(v \in \C^{n+1}\) with \(\norm{v} = 1\) is in a unique line through the origin, and the intersection of a line with \(S^{2n+1}\) is an \(S^1\).
+    \end{addendum}
     The Gysin sequence becomes
     % https://q.uiver.app/#q=WzAsNixbMSwwLCJcXEhIXntpKzF9KFNeezJuKzF9KSJdLFsyLDAsIlxcSEheaShcXENcXFBebikiXSxbMywwLCJcXEhIXntpKzJ9KFxcQ1xcUF5uKSJdLFs0LDAsIlxcSEhee2krMX0oU157Mm4rMX0pIl0sWzUsMCwiXFxjZG90cyJdLFswLDAsIlxcY2RvdHMiXSxbNSwwXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
 \[\begin{tikzcd}
@@ -3498,7 +3575,7 @@ is equivalent to an orientation of \(\T M\) as a vector bundle. One way of seein
 
 Suppose \(M^d\) is a smooth oriented manifold, \(Y^k \sse M\) a smooth compact submanifold. Note that if \(V = V_1 \oplus V_2\) is a direct sum of vector spaces, oriented two of the three gives an orientation on the third. Thus, for \(Y\), orienting \(Y\) is the same as co-orienting \(Y\). Assume \(Y\) is oriented.
 
-\(Y\) is a compact topological manifold, and so it has a fundamental class \([Y] \HH_k(Y)\) under the inclusion map \(i : Y \inj M\), we have a class
+\(Y\) is a compact topological manifold, and so it has a fundamental class \([Y] \in \HH_k(Y)\) under the inclusion map \(i : Y \inj M\), we have a class
 \[i_*[Y] = \HH_k(M) \cong \HH_\ct^{d-k}(M)\]
 by Poincar\'e duality.
 
@@ -3537,7 +3614,7 @@ Alternatively, we can take the Thom class
 \end{example}
 
 \begin{proof}
-    [Proof of proposition \cref{prop:class-intersection}] If \(E \to X, F \to X\) are oriented vector bundles, then the relative cross product defines a map
+    [Proof of \cref{prop:class-intersection}] If \(E \to X, F \to X\) are oriented vector bundles, then the relative cross product defines a map
     \[\HH^i(E, E^\sharp) \otimes \HH^j(F, F^\sharp) \to \HH^{i + j}(E \oplus F, (E \oplus F)^\sharp)\]
     Noting that \((E \times F)\vert_{\Delta_X} = E \oplus F\). Moreover, we have that
     \[u_{E \oplus F} = u_E \cross u_F\]
@@ -3619,7 +3696,7 @@ which is \((-1)^{\dim(M)}\) times what we said. They define cap product so that
 \[\inner{a, \delta \frown b} = \inner{a\cdot b, \delta}\]
 That is, the define
 \[\sigma \frown \phi\]
-by feeding the \emph{back} face of \(\sigma\) into \(\phi\), whereas we fed the front face into the front face. This changes the isomorphism \(D\).
+by feeding the \emph{back} face of \(\sigma\) into \(\phi\), whereas we fed the front face. This changes the isomorphism \(D\).
 
 \subsection{Fixed points}
 
@@ -3631,9 +3708,9 @@ Let \(M\) be a closed smooth manifold, oriented over \(F\).
 \end{definition}
 
 In this case, \(\Gamma_f \cap \Delta\) is a finite set. The \emph{sign} of a non-degenerate fixed point is 
-\[\sign(\det(\id - \dd f_x))\]
+\[\sign(x) = \sign(\det(\id - \dd f_x))\]
 Then at \((x, x)\),
-\[\T_(x, x)\Gamma_f \oplus \T_{(x, x)}\Delta = \T_{(x, x)}(M \times M)\]
+\[\T_{(x, x)}\Gamma_f \oplus \T_{(x, x)}\Delta = \T_{(x, x)}(M \times M)\]
 The sum is direct by dimension counting. Now consider the map
 \begin{align*}
     F + \Delta : \T M \oplus \T M \to \T M \oplus \T M
@@ -3644,10 +3721,12 @@ where \(F(x, x) = (x, f(x))\). This has
     I & I
 \end{pmatrix}\]
 and so the sign of the fixed point says whether \(F + \Delta\) has orientation preserving determinant at \((x, x)\) or not.
+\begin{addendum}
+    I'm not sure what the above is even supposed to mean. In any case, the sign represents whether \(\dd f_x - \id : \T_x M \to \T_x M\) is orientation preserving or not. Intuitively what we are interested in is the intersection number (of submanifolds) of \(\Gamma_f\) and \(\Delta\), and so the sign tells us the orientation of the intersection.
+\end{addendum}
 
 In this case, 
-\[\epsilon_{\Gamma \cap \Delta} = \sum_{x \in \Fix(f)}\pm \epsilon_x\]
-where the sign dependes on the sign of \(x\) as above.
+\[\epsilon_{\Gamma \cap \Delta} = \sum_{x \in \Fix(f)}\sign(x)\epsilon_x\]
 
 \begin{definition}
     [Lefschetz number] The \emph{Lefschetz number} of \(f : M \to M\) is
@@ -3672,7 +3751,7 @@ where the sign dependes on the sign of \(x\) as above.
 \end{proof}
 
 \begin{example}
-    Any map \(f : \C\P^{2k} \to \C\P^{2k}\) has a fixed point. In particular, no finite group can act freely on \(\C\P^{2k}\).
+    Any map \(f : \C\P^{2k} \to \C\P^{2k}\) has a fixed point. In particular, no non-trivial group can act freely on \(\C\P^{2k}\).
 
     Suppose \(f\) is is smooth with non-degenerate fixed points. Then 
     \[\HH^*(\C\P^{2k}) = \frac{\Z[x]}{x^{2k+1}}\]
