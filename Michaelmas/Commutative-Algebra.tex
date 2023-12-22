@@ -37,6 +37,10 @@ In this course, a ring is a commutative unital ring \(R\). One non-commutative e
     \end{itemize}
 \end{example}
 
+\begin{addendum}
+    Another useful example to keep in mind is that if \(I\) is an ideal in \(R\), then \(R/I\) is an \(R\)-module.
+\end{addendum}
+
 \section{Chain conditions}
 
 \begin{definition}
@@ -138,7 +142,9 @@ is the same as a collection of module homomorphism \(\varphi_i : M_i \to L\). Th
 \end{proposition}
 
 \begin{proof}
-    \(M\) is finitely generated if and only if there exists a surjection \(R^n \surj M\) for some \(n \in \N\). The fact that \(R^n\) is Noetherian (resp. Artinian) implies that \(M\) is Noetherian (resp. Artinian), as quotients of Noetherian (resp. Artinian) modules are Noetherian (resp. Artinian).
+    \(M\) is finitely generated if and only if there exists a surjection \(R^n \surj M\) for some \(n \in \N\). The fact that \(R^n\) is Noetherian (resp. Artinian) implies that \(M\) is Noetherian (resp. Artinian), as quotients of Noetherian (resp. Artinian) modules are Noetherian (resp. Artinian). \begin{addendum}
+        This follows by the correspondence theorem.
+    \end{addendum}
 \end{proof}
 
 \begin{definition}
@@ -147,7 +153,7 @@ is the same as a collection of module homomorphism \(\varphi_i : M_i \to L\). Th
 \end{definition}
 
 \begin{definition}
-    [noetherian algebra] An \(R\)-algebra is \emph{Noetherian}\index{Noetherian!algebra} if it is Noetherian as a ring.
+    [noetherian algebra] An \(R\)-algebra \(A\) is \emph{Noetherian}\index{Noetherian!algebra} if it is Noetherian as a ring.
 \end{definition}
 
 \begin{remark}
@@ -161,6 +167,10 @@ is the same as a collection of module homomorphism \(\varphi_i : M_i \to L\). Th
 \begin{definition}
     [algebra homomorphism] \(\varphi : A \to B\) is an \emph{\(R\)-algebra homomorphism}\index{algebra!homomorphism} if \(\varphi\) is a ring homomorphism and \(\varphi(r \cdot 1_A) = r \cdot 1_B\).
 \end{definition}
+
+\begin{addendum}
+    Equivalently, it is a ring homomorphisms which is also an \(R\)-linear map.
+\end{addendum}
 
 \begin{definition}
     [finitely generated algebra]
@@ -372,7 +382,7 @@ commutes.
 Intuitively, a proof that the sum is zero is finite, and so it can only involve finitely many expressions. We can take them to be the generators.
 
 \begin{proof}
-    \[\sum m_i \otimes n_i 0 = \in M \otimes N = \frac{R^{\oplus(M \times N)}}{\mcK}\]
+    \[\sum m_i \otimes n_i = 0 \in M \otimes N = \frac{R^{\oplus(M \times N)}}{\mcK}\]
     then
     \[\sum_i e_{(m_i, n_i)} = 0 \in \mcK\]
     This means that we can write the left hand side as a finite sum of the generators of \(\mcK\). Taking all the elements of \(M\) and \(N\) which appear, gives the result. 
@@ -394,7 +404,7 @@ Intuitively, a proof that the sum is zero is finite, and so it can only involve 
 
 \begin{example}
     \[\C^2 \otimes_\C \C^3 \cong \C^6\] 
-    as \(\C\)-vector spaces, and we also have that \(\C^6 \cong \R^12\) as \(\R\)-vector spaces. On the other hand,
+    as \(\C\)-vector spaces, and we also have that \(\C^6 \cong \R^{12}\) as \(\R\)-vector spaces. On the other hand,
     \[\C^2 \otimes_\R \C^3 \cong \R^4 \otimes_\R \R^6 \cong \R^{24}\]
 \end{example}
 
@@ -441,7 +451,9 @@ Intuitively, a proof that the sum is zero is finite, and so it can only involve 
 
 \lec
 
-\underline{Exercise:} \((f \otimes g) \circ (h \otimes i) = (f \circ h) \otimes (h \circ i)\).
+\underline{Exercise:} \((f \otimes g) \circ (h \otimes i) = (f \circ h) \otimes (h \circ i)\). \begin{addendum}
+    We can check this in pure tensors, since they generate. But the statement is clear in that case.
+\end{addendum}
 
 \begin{example}
     Let \(T : k^a \to k^c\) and \(S : k^b \to k^d\) be linear. Then
@@ -677,6 +689,10 @@ Which is a ring homomorphism, and so, we have an \(S\)-module structure on \(M \
         (sm) \otimes n &\mapsfrom m \otimes (s\otimes n)
     \end{align*}
 \end{proposition}
+
+\begin{addendum}
+    Intuitively, what this is saying is that we only need to consider the special case of extension by scalars, which is \(N \otimes_R S\).
+\end{addendum}
 
 \begin{proposition}
     \label{prop:tensor-ext-scalar-properties}
@@ -952,7 +968,7 @@ sending \(\varphi\) to \(n \mapsto (m \mapsto \varphi(m \otimes n))\)
     commutes, we have an exact sequence
     % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhvbV9SKE0gXFxvdGltZXMgQywgUCkiXSxbMSwwLCJcXEhvbShNIFxcb3RpbWVzIEIsIFApIl0sWzIsMCwiXFxIb20oTSBcXG90aW1lcyBBLCBQKSJdLFszLDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXV0=
 \[\begin{tikzcd}
-	{\Hom_R(M \otimes C, P)} & {\Hom(M \otimes B, P)} & {\Hom(M \otimes A, P)} & 0
+	0 & {\Hom_R(M \otimes C, P)} & {\Hom(M \otimes B, P)} & {\Hom(M \otimes A, P)}
 	\arrow[from=1-1, to=1-2]
 	\arrow[from=1-2, to=1-3]
 	\arrow[from=1-3, to=1-4]
@@ -1369,7 +1385,7 @@ given by sending \(f\) to \(r \mapsto f\left(\frac{r}{1}\right)\).
 \begin{proposition}
     If \(M\) is an \(R\)-module, \(S \sse R\) a multiplicative subset, then we have an isomorphism:
     \begin{align*}
-        \frac{S^{-1}R} \otimes_R M &\to S^{-1}M \\
+        S^{-1}R \otimes_R M &\to S^{-1}M \\
         \frac{r}{s} \otimes m &\mapsto \frac{rm}{s}
     \end{align*}
 \end{proposition}
@@ -1433,10 +1449,10 @@ With this, the functors \(S^{-1}R \otimes (\cdot)\) and \(S^{-1}(\cdot)\) are na
 
 \begin{proof}
     We can see that the map
-    \begin{align}
+    \begin{align*}
         M &\to S^{-1}M \\
         m &\mapsto \frac{m}{1}
-    \end{align}
+    \end{align*}
     is \(S^{-1}R\)-linear. Surjectivity and injectivity are clear.
 \end{proof}
 
@@ -1583,7 +1599,7 @@ and for an ideal \(\mfb\) of \(S^{-1}R\), we have the contraction \(\mfb^c \idea
 \end{proof}
 
 Now suppose \(\mfb\) is an ideal of \(S^{-1}R\). Then
-\[\mfb^c = \left\{r \in \R \ \bigg\vert\ \frac{r}{1} \in \mfb\right\}\]
+\[\mfb^c = \left\{r \in R \ \bigg\vert\ \frac{r}{1} \in \mfb\right\}\]
 
 \begin{proposition}
     \label{prop:contract-extend}
@@ -1595,7 +1611,7 @@ Now suppose \(\mfb\) is an ideal of \(S^{-1}R\). Then
 \end{proof}
 
 \begin{proposition}
-    Consider the loclisation map \(R \to S^{-1}R\), then
+    Consider the localisation map \(R \to S^{-1}R\), then
     \begin{enumerate}[(i)]
         \item Every ideal of \(S^{-1}R\) is extended.
         \item An ideal \(\mfa\) of \(R\) is contracted if and only if the image of \(S\) in \(R/\mfa\) contains no zero divisors of \(R/\mfa\).
@@ -1657,6 +1673,10 @@ Now suppose \(\mfb\) is an ideal of \(S^{-1}R\). Then
     \[\varphi(x) = \frac{p + \mfp}{s + \mfp} = 0\]
     and so \(x \in \ker(\varphi)\).
 \end{proof}
+
+\begin{addendum}
+    In the special case where \(S = \{1, f, \cdots\}\), we can view this in terms of algebraic geometry. There, we have a natural identification of \(\Spec(R_f)\) with \(D(f)\), which is the complement of the zero set of \(f\). The left hand side is precisely \(D(f)\), essentially by definition.
+\end{addendum}
 
 \subsubsection*{An application}
 
@@ -1835,6 +1855,10 @@ Denote the ideal \(I_U = \inner{uT_u \mid u \in U}\). Let \(\overline u, \overli
     \[R_x \cong \frac{R[t]}{\inner{tx - 1}}\]
 \end{example}
 
+\begin{addendum}
+    The intuition here is that \(T_u = 1/u\).
+\end{addendum}
+
 \lec
 
 \section{Nakayama's lemma}
@@ -1843,7 +1867,7 @@ Denote the ideal \(I_U = \inner{uT_u \mid u \in U}\). Let \(\overline u, \overli
     [Cayley-Hamilton]
     \label{prop:Cayley-Hamilton}
     \index{Cayley-Hamilton}
-    Let \(M\) be a finitely generated \(R\)-module, \(f : M \to M\) an \(R\)-linear map, \(mfa \idealof R\) an ideal, with \(f(M) \sse \mfa M\). Then
+    Let \(M\) be a finitely generated \(R\)-module, \(f : M \to M\) an \(R\)-linear map, \(\mfa \idealof R\) an ideal, with \(f(M) \sse \mfa M\). Then
     \[f^n + a_1f^{n-1} + a_n \id = 0\]
     where \(a_i \in \mfa\).
 \end{proposition}
@@ -2444,12 +2468,12 @@ Finally, note that every prime ideal is radical.
 Let \(\iota : A \inj B\) be the inclusion map. Then we have a pullback
 \begin{align*}
     i^* : \Spec(B) &\to \Spec(A) \\
-    \mfq *\mapsto \mfq \cap A
+    \mfq \mapsto \mfq \cap A
 \end{align*}
 We are interested in studying \(i^*\), in particular its fibres.
 
 \begin{proposition}
-    [incomparability] If \(A \sse B\) is an integral extension, \(\mfq, \mfq' \in \Spec(B)\), \(\mfq \sse \mfa'\), and \(\mfq \cap A = \mfq' \cap A\). Then \(\mfq = \mfq'\).
+    [incomparability] If \(A \sse B\) is an integral extension, \(\mfq, \mfq' \in \Spec(B)\), \(\mfq \sse \mfq'\), and \(\mfq \cap A = \mfq' \cap A\). Then \(\mfq = \mfq'\).
 \end{proposition}
 
 That is, the elements of the fibres are pairwise incomparable.
@@ -2473,6 +2497,10 @@ That is, the elements of the fibres are pairwise incomparable.
 
     Equivalently, the natural map \(\Spec(B) \to \Spec(A)\) is surjective.
 \end{proposition}
+
+\begin{addendum}
+    We can think about this geometrically, if \(p : \Spec(B) \to \Spec(A)\) denotes the natural map, then we can think of \(\Spec(B)\) as a ``bundle'' over \(\Spec(A)\). Surjectivity means that each fibre is non-empty.
+\end{addendum}
 
 \begin{proof}
     Let \(S = A \setminus \mfp\), then we have the commutative diagram
@@ -2569,6 +2597,12 @@ That is, the elements of the fibres are pairwise incomparable.
     \[s^r \in \mfp_2B \sse \mfp_1B = (\mfq_1 \cap A)B \sse \mfq_1\]
     Hence \(s \in \mfq_1\). Contradiction.
 \end{proof}
+
+\begin{addendum}
+    With the geometric picture as above, going up and going down allows us to move between the fibres in a ``nice'' way. One way to think about this would be constructing a section of a bundle.
+
+    In terms of algebraic geometry, going up says that the natural map \(\Spec(B) \to \Spec(A)\) is a closed map. Similarly, going down says that the map \(\Spec(B) \to \Spec(A)\) is open. Some assumptions might be needed to make this analogy rigorous.
+\end{addendum}
 
 \section{Primary decomposition}
 
@@ -2740,7 +2774,7 @@ Let \(\msC\) be a category.
 \begin{example}
     We claim that \(\bb F_p^{\text{alg}} = \dirlim \bb F_{p^{i!}}\) is an algebraic closure of \(\bb F_p\). 
     
-    First we check that \(\bb F_p^{\text{alg}}\) is algebraic over \(\bb F_p\). Choose \([x] \in \bb F_p^{\text{alg}}\), say \(x \in \bb F_p^{i!}\), then \(x^{p^{i!}} - x = 0\), and so \([x]^{p^{i!}} - [x] = 0\).
+    First we check that \(\bb F_p^{\text{alg}}\) is algebraic over \(\bb F_p\). Choose \([x] \in \bb F_p^{\text{alg}}\), say \(x \in \bb F_{p^{i!}}\), then \(x^{p^{i!}} - x = 0\), and so \([x]^{p^{i!}} - [x] = 0\).
 
     Next we check that it is algebraically closed. Let \([h] \in \bb F_p^{\text{alg}}[t]\). Since \([h]\) has finitely many coefficients, we have that \(h \in \bb F_{p^{i!}}[t]\). Considering a splitting field for \(h\), which is \(\bb F_{p^\ell}\), which in turn embeds into \(\bb F_{p^{\ell !}}\). Hence \(h\) splits over \(\bb F_{p^{\ell!}}\), and so \(h\) splits under the embdedding \(f_{i\ell} : \bb F_{p^{i!}} \to \bb F_{p^{\ell!}}\). This means that \([h]\) splits over the direct limit.
 \end{example}
@@ -2938,7 +2972,7 @@ Let \(\msC\) be a category.
     \[M_{n + n_0} = \mfa^nM_{n_0} \sse \mfa^n M\]
 \end{proof}
 
-Let \(\mfa \idealof R\) be an ideal, \(M\) an \(R\)-moddule, \((M_n)\) an \(\mfa\)-filtration of \(M\). Let
+Let \(\mfa \idealof R\) be an ideal, \(M\) an \(R\)-module, \((M_n)\) an \(\mfa\)-filtration of \(M\). Let
 \[R^* = \bigoplus_{n=0}^\infty \mfa^n\]
 and
 \[M^* = \bigoplus_{n=0}^\infty M_n\]
@@ -2992,12 +3026,22 @@ Hence by the Hilbert basis theorem, \(R^*\) is Noetherian.
     \[\idealht(\mfp) = \sup \{d \mid \mfp_0 \subsetneq \cdots \subsetneq \mfp_d = \mfp\}\]
 \end{definition}
 
+\begin{addendum}
+    Geometrically, irreducible closed subsets of \(\Spec(R)\) are precisely \(\van(\mfp)\) for a prime ideal \(\mfp\)> Thus, if we take \(\van\) in the definition of height, we instead obtain
+    \[Z_0 \supsetneq \cdots \supseteq Z_d = \van(\mfp)\]
+    which matches the definition of dimension.
+\end{addendum}
+
 \begin{definition}
     [(Krull) dimension]
 
     The \emph{(Krull) dimension of a ring}\index{dimension@(Krull) dimension} is
     \[\dim(R) = \sup\{\idealht(\mfp) \mid \mfp \in \Spec(R)\} = \sup\{\idealht(\mfm) \mid \mfm \in \maxSpec(R)\}\]
 \end{definition}
+
+\begin{addendum}
+    Using the above, we can see that the dimension of \(R\) makes sense geometrically.
+\end{addendum}
 
 We can see that \(\dim(R_\mfp) = \idealht(\mfp)\), and so
 \[\dim(R) = \sup\{\dim(R_\mfm) \mid \mfm \in \maxSpec(R)\}\]
@@ -3182,6 +3226,10 @@ Let \(d(M)\) be the order of the pole of \(P(M, T)\) at \(t = 1\). Then if \(M \
     Then
     \[\idealht(\mfp) = \dim(A_\mfp) = \delta(A_\mfp) \le \delta(\mfa A_\mfp) \le r\]
 \end{proof}
+
+\begin{addendum}
+    Geometrically, the height of \(\mfp\) should be interpreted as the \emph{co}domension of \(\van(\mfp)\) in \(\Spec(A)\). Therefore, if \(\mfa\) is generated by \(r\) elements, we are imposing \(r\)-equations, and so the codimension should be at most \(r\).
+\end{addendum}
 
 Let \((A, \mfm)\) be a Noetherian local ring, \(\mfq \idealof A\) an \(\mfm\)-primary ideal. Say \(\delta(\mfq) = s\), and \(\mfq = \inner{x_1, \dots, x_s}\). Then
 \[\mathrm{G}_\mfq(A) = \frac{A}{\mfq} \oplus \frac{\mfq}{\mfq^2} \oplus \bigoplus_{n \ge 2}\frac{\mfq^n}{\mfq^{n+1}}\]
