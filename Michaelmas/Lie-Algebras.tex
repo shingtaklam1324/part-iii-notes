@@ -134,7 +134,7 @@ Let \(k\) be a field. Most of the time, \(k = \C\), but not always. We will some
     [continued]
     \begin{enumerate}
         \setcounter{enumi}{2}
-        \item Suppose \(\Char(k) \ne 2\), and suppose \(V\) is endowed with a symmetric (non-degenerate?) bilinear form
+        \item Suppose \(\Char(k) \ne 2\), and suppose \(V\) is endowed with a symmetric non-degenerate bilinear form
         \[\inner{\cdot, \cdot} : V \times V \to k\]
         Then define
         \[\so(V) = \left\{x \in \gl(V) \mid \inner{xv, w} + \inner{v, xw} = 0 \text{ for all }v, w \in V\right\}\]
@@ -183,7 +183,15 @@ Let \(k\) be a field. Most of the time, \(k = \C\), but not always. We will some
     \end{enumerate}
 \end{example}
 
-\underline{Exercise:} Check that \(\so_n\) and \(\sp_n\) are Lie subalgebras of \(\gl_n\).
+\begin{addendum}
+    If we consider the Lie groups in the above as being defined by the equation
+    \[X^\T M X = M\]
+    For appropriate choices of \(M\), we get the Lie groups \(\SO_n, \Sp_n\). Differentiating this equation gives us the Lie algebras \(\so_n, \sp_n\).
+\end{addendum}
+
+\underline{Exercise:} Check that \(\so_n\) and \(\sp_n\) are Lie subalgebras of \(\gl_n\). \begin{addendum}
+    It's not very hard to check this directly. On the other hand, we can also see that \(\SO_n\) and \(\Sp_n\) are subgroups, and so their tangent spaces are subspaces of \(\gl_n\), and hence their Lie algebras are subalgebras of \(\gl_n\).
+\end{addendum}
 
 \begin{example}
     [continued]
@@ -301,6 +309,10 @@ Let \(k\) be a field. Most of the time, \(k = \C\), but not always. We will some
 \end{remark}
 
 \section{Representation theory of \(\sl_2(\C)\)}
+
+\begin{addendum}
+    We'll see later on that the representation theory of general semisimple Lie algebras is ``built up'' from the representation theory of \(\sl_2(\C)\). Moreover, it serves as a useful example to motivate various definitions.
+\end{addendum}
 
 Recall
 \[\sl_2(\C) = \left\{\begin{pmatrix}
@@ -490,7 +502,7 @@ is a basis, as the \(f^iv\) are linearly independent, and we know from \cref{lem
 
 \begin{definition}
     [weights]
-    Given a representation \(V\) for \(\sl_2\),
+    Given a representation \(V\) for \(\sl_2\), the set
     \[\{\lambda \in \C \mid V_\lambda \ne 0\}\]
     are the \emph{weights}\index{weights} of \(V\).
 \end{definition}
@@ -510,12 +522,14 @@ This result, along with \cref{cor:sl2-irrep-actions}, implies that the action of
     \[V \cong V(3) \oplus V(0)\]
 \end{example}
 
-We will need a few facts. Let \(\mfg\) be a Lie algebra, \(\varphi : \mfg \to \gl(V)\) be a representation of \(\mfg\), and suppose there exists \(\sigma\) commuting with \(\varphi(x)\) for all \(x \in \mfg\). Then:
+We will need a few facts. Let \(\mfg\) be a Lie algebra, \(\varphi : \mfg \to \gl(V)\) be a representation of \(\mfg\), and suppose there exists \(\sigma \in \gl(V)\) commuting with \(\varphi(x)\) for all \(x \in \mfg\). Then:
 
 \underline{Fact 1:}
 \[\ker(\sigma - \lambda \id_V)\]
-is a subrepresentation of \(V\), for all \(\lambda \in \C\).
-
+is a subrepresentation of \(V\), for all \(\lambda \in \C\). \begin{addendum}
+    To see this, if \(v \in V\) is such that \(\sigma(v) = \lambda v\), then
+    \[\sigma(\varphi(x)v) = \varphi(x)\sigma(v) = \lambda\varphi(x)\]
+\end{addendum}
 \underline{Fact 2:}
 If \(V\) is irreducible, then \(\sigma\) is a scalar multiple of \(\id_V\). That is, Schur's Lemma.
 
@@ -572,13 +586,16 @@ In fact, \(\Omega\) is \emph{central}.
     \[\varphi(e) = \frac{1}{2}[\varphi(h), \varphi(e)] = 0\]
     and \(\varphi(f) = 0\) similarly. Thus, the action of \(\sl_2\) is trivial.
 
-    \textbf{Subcase (ii): \(W = V(n)\) is irreducible, \(n > 0\).} Now we have \(\Omega \in \gl(V)\), and we will show
+    \textbf{Subcase (ii): \(W = V(n)\) is irreducible, \(n > 0\).} We have the Casimir element \(\Omega \in \gl(V)\), and we will show
     \[V = V(n) \oplus \ker(\Omega)\]
     By Schur's lemma, and the fact that \(W\) is irreducible, and that \(\Omega\) acts on \(V/W\) trivially, there is a basis for \(V\), such that
     \[\Omega = \begin{pmatrix}
         \lambda I & * \\
         0 & 0 
     \end{pmatrix}\]
+    \begin{addendum}
+        Note here, since \(W\) is a subrepresentation, \(\Omega\) restricts to an element of \(\gl(W)\), which is how we get the top left entry.
+    \end{addendum}
     \(W\) is non-trivial by assumption, and so \(\ker(\Omega) \ne 0\), and \(W \cap \ker(\Omega) = 0\). Hence
     \[V = W \oplus \Omega\]
 
@@ -587,7 +604,7 @@ In fact, \(\Omega\) is \emph{central}.
         \label{eq:weyl-decomp-1}
         \frac{V}{W'} = \frac{W}{W'} \oplus \frac{W''}{W'}
     \end{equation}
-    for some subspace \(W'' \le V\), with \(W' \sse W''\), and \(W''/W'\) is a subrepresentation of \(V/W'\). Moreover, \(W''/W'\) is codimension \(1\), and \(\dim(W') \le \dim(V)\). \(W''\) being a subrepresentation of \(V\) follows from the fact that \(W''/W'\) is a subrepresentation. By induction again, there exists a subrepresentation \(U \le W''\) such that
+    for some subspace \(W'' \le V\), with \(W' \sse W''\), and \(W''/W'\) is a subrepresentation of \(V/W'\). Moreover, \(W''/W'\) has dimension \(1\), and \(\dim(W') < \dim(V)\). \(W''\) being a subrepresentation of \(V\) follows from the fact that \(W''/W'\) is a subrepresentation. By induction again, there exists a subrepresentation \(U \le W''\) such that
     \[W'' = W' \oplus U\]
     We know that
     \[V = W \oplus U\]
@@ -599,7 +616,7 @@ In fact, \(\Omega\) is \emph{central}.
     \[\van = \left\{\psi \in \Hom(V, W) \mid \psi\vert_W = \lambda\id_W \text{ for some }\lambda\right\}\]
     and we have a subspace
     \[\bb W = \left\{\psi \in \van \mid \psi\vert_W = 0\right\} \le \van\]
-    Since we lose one degree of freedom going from \(\bb V\) to \(\bb W\), and so \(\codim_{\bb V}(\bb W) = 1\). Suppose \(\psi\vert_W = \lambda \id_W\), \(x \in \sl_2, w\in W\), then
+    We lose one degree of freedom going from \(\bb V\) to \(\bb W\), and so \(\codim_{\bb V}(\bb W) = 1\). Suppose \(\psi\vert_W = \lambda \id_W\), \(x \in \sl_2, w\in W\), then
     \[(x\psi)(w) = x\psi(w) - \psi(xw) = x(\lambda w) - \lambda(xw) = 0\]
     So \(\bb V\) is a subrepresentation of \(\Hom(V, W)\), and so \(\bb W\) is a subrepresentation as well. By case 1, there exists a one-dimensional subrepresentation \(\bb U \le \bb V\), such that
     \[\bb V = \bb U \oplus \bb W\]
@@ -793,7 +810,7 @@ Recall \(\sl_n\) is a subalgebra of \(\gl_n\). In fact,
 \end{remark}
 
 \begin{definition}
-    [semisimple] A Lie algebra \(\mfg\) is \emph{semisimple!Lie algebra} if it is the direct sum of simple ideals. That is, ideals which are simple as Lie algebras.
+    [semisimple] A Lie algebra \(\mfg\) is \index{semisimple!Lie algebra}\emph{semisimple} if it is the direct sum of simple ideals. That is, ideals which are simple as Lie algebras.
 \end{definition}
 
 \begin{example}
@@ -871,18 +888,32 @@ The next result allows the theory of complex semisimple Lie algebras to go `far'
     Omitted. See Humphreys Theorem 4.1.
 \end{proof}
 
+\begin{addendum}
+    In particular, \(\Span\{v\}\) defines a one-dimensional subrepresentation of \(V\).
+\end{addendum}
+
 \begin{corollary}
     There exists a basis for \(V\) such that every element is upper triangular. 
 \end{corollary}
 In fact,  using \cref{thm:lie} and induction on \(\dim(V)\), we can show that there exists a chain of subspsaces
 \[0 = V_0 \le V_1 \le \cdots \le V_n = V\]
-with \(\dim(V_i) = i\), and \(\mfg(V_i) \sse V_i\). By considering a basis for \(V_i\), we get the corollary.
-
-Using this result, we can consider \(\mfg \sse \mfb_n\). 
+with \(\dim(V_i) = i\), and \(\mfg\cdot V_i \sse V_i\). By considering a basis for \(V_i\), we get the corollary. Therefore, we can consider \(\mfg \sse \mfb_n\) as a subalgebra of the upper triangular matrices. \begin{addendum}
+    To fill in the details here, the base case \(\dim(V) = 1\) is trivial. Now suppose the result holds for all representations \(W\) with \(\dim(W) = n\). Let \(\dim(V) = n + 1\). By Lie's theorem, we have a one-dimensional subrepresentation \(U\). Now consider \(V/U\), which has dimension \(n\). Hence by induction, there exists a chain of subspaces
+    \[0 = W_0 \le W_1 \le \cdots \le W_n = W = V/U\]
+    with \(\dim(W_i) = i\) and \(\mfg \cdot W_i \sse W_i\). By the correspondence theorem, say \(W_i = V_1/U\). Then we obtain a chain
+    \[0 = V_0 \le V_1 \le \cdots \le V_n = V\]
+    with the desired properties.
+\end{addendum}
 
 \underline{Aside:} We call the sequence
 \[0 = V_0 \le V_1 \le \cdots \le V_n\]
 a \emph{maximal flag}\index{maximal flag}, and there is interesting geometry related to this.
+
+\begin{addendum}
+    One application of Lie's theorem is when we have the adjoint representation \(\mfg \to \gl(\mfg)\), since subrepresentations correspond to ideals. Thus, we have a sequence
+    \[0 = \mfg_0 \le \cdots \le \mfg_n = \mfg\]
+    of ideals of \(\mfg\), with \(\dim(\mfg_i) = i\).
+\end{addendum}
 
 \begin{proposition}
     Suppose \(I, J\) are ideals of \(\mfg\). Then
@@ -894,7 +925,7 @@ a \emph{maximal flag}\index{maximal flag}, and there is interesting geometry rel
 \end{proposition}
 
 \begin{proof}
-    (i) is clear from definitions. For (ii), choose \(n\) such that \((g/I)^{(n)} = 0\). Then this forces \(\mfg^{(n)} \sse I\). But then we have \(\mfg^{(n+m)} \sse I^{(m)}\) for each \(m \ge 0\). Since we know that \(I\) is solvable, we are done.
+    (i) is clear from definitions. For (ii), choose \(n\) such that \((\mfg/I)^{(n)} = 0\). Then this forces \(\mfg^{(n)} \sse I\). But then we have \(\mfg^{(n+m)} \sse I^{(m)}\) for each \(m \ge 0\). Since we know that \(I\) is solvable, we are done.
 
     For (iii), note that 
     \begin{align*}
@@ -916,7 +947,9 @@ a \emph{maximal flag}\index{maximal flag}, and there is interesting geometry rel
     \end{align*}
 \end{definition}
 
-\underline{Exercise:} We have the invariance relation \(([x, y], z) = (x, [y, z])\)
+\underline{Exercise:} We have the invariance relation \(([x, y], z) = (x, [y, z])\). \begin{addendum}
+    This is essentially just the cyclic property of trace.
+\end{addendum}
 
 \begin{definition}
     [Killing form] The \emph{Killing form}\index{Killing form} \(K(\cdot, \cdot)\) is the trace form of \(\ad\). That is,
@@ -1007,6 +1040,19 @@ a \emph{maximal flag}\index{maximal flag}, and there is interesting geometry rel
     \end{pmatrix}\]
     where \(A = (\ad(x))\vert_I\), and similarly for \(\ad(y)\). Set \(B = (\ad(y))\vert_I\). Then
     \[K_I(x, y) = \tr(AB) = \tr(\ad(x)\ad(y)) = K(x, y)\]
+    \begin{addendum}
+        Note here that
+        \[\begin{pmatrix}
+            A & * \\
+            0 & 0
+        \end{pmatrix}\begin{pmatrix}
+            B & * \\
+            0 & 0
+        \end{pmatrix} = \begin{pmatrix}
+            AB & * \\
+            0 & 0
+        \end{pmatrix}\]
+    \end{addendum}
 \end{proof}
 
 \begin{theorem}
@@ -1031,7 +1077,7 @@ a \emph{maximal flag}\index{maximal flag}, and there is interesting geometry rel
 \end{corollary}
 
 \begin{proof}
-    (i) Consider the adjoint \(\ad : \mfg \to \gl(V)\). The image \(\ad(\mfg) = \mfg/\ker(\mfg) = \mfg/Z(\mfg)\). \(Z(\mfg)\) is solvable, since it is abelian, and by assumption \(\mfg = \mfg^\perp\). By \cref{thm:cartan-criterion}, \(\ad(\mfg)\) is solvable, and so \(\mfg\) is solvable.
+    (i) Consider the adjoint \(\ad : \mfg \to \gl(\mfg)\). The image is \(\ad(\mfg) = \mfg/\ker(\mfg) = \mfg/Z(\mfg)\). \(Z(\mfg)\) is solvable, since it is abelian, and by assumption \(\mfg = \mfg^\perp\). By \cref{thm:cartan-criterion}, \(\ad(\mfg)\) is solvable, and so \(\mfg\) is solvable.
 
     (ii) Since \(\mfg^\perp\) is an ideal, and \(\mfg\) is simple, \(\mfg^\perp = 0\) or \(\mfg^\perp = \mfg\). In the second case, by (i) \(\mfg\) is solvable, contradicting the fact that \(\mfg\) is simple, as \([\mfg, \mfg] = \mfg\).
 
@@ -1078,17 +1124,25 @@ With this, we can now prove the Cartan-Killing criterion.
         The kernel of this map is \(\mfg_I\). Thus, \(\mfg/\mfg_I \cong I^* \cong I\) as vector spaces.
     \end{proof}
 
-    Repeat this argument, with \(\mfg_I\) (choosing some minimal ideal of \(\mfg_I\)). We can do this as any ideal of \(\mfg_I\) is an ideal of \(\mfg\), and so \(\Rad(\mfg_I) = 0\).
+    Repeat this argument with \(\mfg_I\). That is, choosing some minimal ideal of \(\mfg_I\). We can do this as any ideal of \(\mfg_I\) is an ideal of \(\mfg\), and so \(\Rad(\mfg_I) = 0\).
 
     \begin{claim}
         \((\mfg_I)^\perp = 0\)
     \end{claim}
 
     \begin{proof}
-        Since if \(x \in (\mfg_I)^\perp\), then \(x \in \mfg^\perp\).
+        Since if \(x \in (\mfg_I)^\perp\), then \(x \in \mfg^\perp\). \begin{addendum}
+            More precisely, let \(x \in (\mfg_I)^\perp\), \(y \in \mfg\). We can write \(y = y_1 + y_2\), where \(y_1 \in \mfg_I, y_2 \in I\). Then
+            \[K(x, y) = K(x, y_1) + K(x, y_2)\]
+            The first term vanishes as \(x \in (\mfg_I)^\perp\), and the second term vanishes as \(x \in \mfg_I\).
+        \end{addendum}
     \end{proof}
 
-    This proves (i).
+    This proves (i). \begin{addendum}
+        To see this, we note that \((\mfg_I)^\perp = 0\) implies that the Killing form of \(\mfg_I\) is non-degenerate. Thus (by induction on the dimension), \(\mfg_I\) is semisimple. It remains to show that any ideal of \(\mfg_I\) is an ideal of \(\mfg\). Let \(J \sse \mfg_I\) be an ideal, \(x \in J, y \in \mfg\). As above, write \(y = y_1 + y_2\), with \(y_1 \in \mfg_I, y_2 \in I\). Then
+        \[[x, y] = [x, y_1] + [x, y_2]\]
+        But \([x, y_1] \in J\) as \(J\) is an ideal, and \([x, y_2] \in \mfg_I \cap I = 0\).
+    \end{addendum}
 
     Finally, to show (i) \(\implies\) (ii), write
     \[\mfg = \bigoplus_j I_j\]
@@ -1111,7 +1165,13 @@ With this, we can now prove the Cartan-Killing criterion.
     Almost the same as for \(\sl_2(\C)\), as in \cref{thm:weyl}. The main ingredient follows from a Casimir element.
 \end{proof}
 
-\underline{Exercise:} Any ideal or quotient of a semisimple Lie algebra is semisimple.
+\underline{Exercise:} Any ideal or quotient of a semisimple Lie algebra is semisimple. \begin{addendum}
+    For this, note that the decomposition
+    \[\mfg = I \oplus \mfg_I\]
+    holds for any ideal. In particular, the Killing form of \(I\) is non-degenerate. Moreover, \(\mfg/I \cong \mfg_I\) is isomorphic to an ideal of \(\mfg\), which is semisimple.
+
+    In fact, \(I\) is a sum of the \(I_j\).
+\end{addendum}
 
 For the Casimir element, let \(\varphi : \mfg \to \gl(V)\) be an irreducible representation of a semisimple Lie algebra \(\mfg\). Without loss of generality, assume \(\varphi\) is faithful (if not, we can consider \(\mfg/\ker(\varphi)\)). We know by \cref{thm:cartan-killing} that the trace form \((\cdot, \cdot)_V\) is non-degenerate. Choose a basis \(x_1, \dots, x_n\) for \(\mfg\). With respect to the trace form, we have a dual basis \(y_1, \dots, y_n\) for \(\mfg\). That is,
 \[(x_i,y_j)_V = \delta_{ij}\]
@@ -1317,6 +1377,10 @@ In this section, \(\mfg\) is a finite dimensional semisimple Lie algebra over \(
     A maximal toral subalgebra is called a \emph{maximal torus}\index{maximal torus}, or a \emph{Cartan subalgebra}\index{Cartan subalgebra} (CSA).
 \end{definition}
 
+\begin{addendum}
+    To justify the terminology, note that a connected abelian Lie group is isomorphic to \(\R^k \times T^\ell\), and so a connected \emph{compact} abelian Lie group is a torus.
+\end{addendum}
+
 \begin{remark}
     Many authors, including Humphreys define Cartan subalgebras as a nilpotent subalgebra which equals its normaliser in \(\mfg\). That is,
     \[\mft = \left\{x \in \mfg \mid [x, \mft] \sse \mft\right\}\]
@@ -1329,7 +1393,7 @@ In this section, \(\mfg\) is a finite dimensional semisimple Lie algebra over \(
 
 \begin{lemma}
     \label{lem:simultaneuous-eigenspace}
-    Let \(t_1, \dots, t_n \in \End(V)\) which pairwise commute, and are all semisimple. Suppose \(\lambda = (\lambda_1, \dots, \lambda_n) \in \C^n\), and define
+    Let \(t_1, \dots, t_n \in \End(V)\) which pairwise commute, and are all semisimple. For \(\lambda = (\lambda_1, \dots, \lambda_n) \in \C^n\), define
     \[V_\lambda = \left\{v \in V \mid t_iv = \lambda_i v \text{ for all }i\right\}\]
     That is, the simultaneuous eigenspaces for the \(t_i\). Then
     \[V = \bigoplus_{\lambda \in \C^n}V_\lambda\]
@@ -1538,7 +1602,7 @@ Since a toral subalgebra is by definition abelian, this holds for all of \(\mfg\
 \[\mfg = \mft \oplus \bigoplus_\alpha \mfg_\alpha\]
 and \(V, W\) representations of \(\mfg\), with weight spaces \(V_\alpha, W_\alpha\). Then
 \begin{enumerate}
-    \item \(\mfg_\alpha \circ V_\beta \sse V_{\alpha + \beta}\)
+    \item \(\mfg_\alpha \cdot V_\beta \sse V_{\alpha + \beta}\)
     \item \(V_\alpha \otimes W_\beta \sse (V \otimes W)_{\alpha + \beta}\).
 \end{enumerate}
 
@@ -1697,6 +1761,9 @@ and we define
     w_\alpha : E &\to E \\
     w_\alpha(\lambda) &= \lambda - \alpha^\vee(\lambda)
 \end{align*}
+\begin{addendum}
+    Geometrically, this is reflection in the hyperplane with normal \(\alpha\).
+\end{addendum}
 
 \begin{definition}
     [root system] A finite subset \(\Phi \sse E\) is a \emph{root system}\index{root system} if
@@ -1718,6 +1785,10 @@ and we define
     \[\inner{\mu, \lambda} = \lambda(\mu)\]
     and so \(\inner{\beta, \alpha^\vee} = \alpha^\vee(\beta)\).
 \end{notation}
+
+\begin{addendum}
+    This may seem opposite to the usual convention, but using the canonical isomorphism \(E \to E^*\) given by the Riesz representation theorem, the ordering ``doesn't matter''.
+\end{addendum}
 
 \begin{example}
     If \(\mfg\) is a semisimple Lie algebra, \(\mft \le \mft\) a Cartan subalgebra, \(\Phi\) is the set of roots associated to \(\Phi\), then \(\Phi\) is a root system in \(\Span_\R(\Phi)\). 
@@ -1820,8 +1891,12 @@ Note that \(W\) is finite. To see this, by definition each \(w_\alpha\) acts as 
 \begin{definition}
     If \((\Phi_1, E_1), (\Phi_2, E_2)\) are root systems, then \((\Phi_1 \times \{0\} \cup \{0\} \times \Phi_2, E_1 \oplus E_2)\) is also a root system.
 
-    Any root system which can be written in this form, with \(\Phi_1, \Phi_2\) non-empty, is called \emph{reducible!root system}. Otherwise, it is \emph{irreducible!root system}.
+    Any root system which can be written in this form, with \(\Phi_1, \Phi_2\) non-empty, is called \index{reducible!root system}\emph{reducible}. Otherwise, it is \index{irreducible!root system}\emph{irreducible}.
 \end{definition}
+
+\begin{remark}
+    By abuse of notation, sometimes we will write it as \((\Phi_1 \sqcup \Phi_2, E_1 \oplus E_2)\).
+\end{remark}
 
 \begin{example}
     \(A_1 \times A_1\) is reducible, \(A_1, A_2, B_2, G_2\) are irreducible.
@@ -1844,12 +1919,24 @@ Note that \(W\) is finite. To see this, by definition each \(w_\alpha\) acts as 
     Now \(\cos^2(\theta) \in [0, 1]\), and so \(\cos^2(\theta) \in \{0, 1/4, 1/2, 3/4, 1\}\). But they are not parallel, and so \(\cos^2(\theta) \ne 1\).
 \end{proof}
 
+\begin{addendum}
+    In particular, this puts constraints on the angles, and the ratios of lengths.
+    \begin{itemize}
+        \item \(0\) corresponds to \(\theta = \pi/2\), and so there is no constraint on the lengths,
+        \item \(1\) corresponds to \(\theta = \pi/3\), and the ratio of lengths is \(1\) (i.e. they have the same length),
+        \item \(2\) corresponds to \(\theta = \pi/4\), and the ratio of lengths is \(\sqrt{2}\),
+        \item \(3\) corresponds to \(\theta = \pi/6\), and the ratio of lengths is \(\sqrt{3}\).
+    \end{itemize}
+\end{addendum}
+
 \begin{corollary}
     If \(\Phi\) is a root system, and \(\alpha, \beta\) are roots, then
     \[\inner{\alpha, \beta^\vee} \in \{0, \pm 1, \pm 2, \pm 3\}\] 
 \end{corollary}
 
-\underline{Exercise:} The only rank 2 systems are, up to isomorphism, \(A_1 \times A_1, A_2, B_2, G_2\).
+\underline{Exercise:} The only rank 2 systems are, up to isomorphism, \(A_1 \times A_1, A_2, B_2, G_2\). \begin{addendum}
+    Use the angles and length ratios from finiteness.
+\end{addendum}
 
 \begin{corollary}
     If \(\Phi\) is an irreducible root system, then \(\norm{\alpha}^2\) can take at most two values as \(\alpha \in \Phi\) varies.
@@ -1867,7 +1954,9 @@ Note that \(W\) is finite. To see this, by definition each \(w_\alpha\) acts as 
     \(A_1, A_2\) are simply laced, \(B_2, G_2\) are not.
 \end{example}
 
-\underline{Exercise:} If \(\Phi\) is simply laced, then \((\Phi, E)\) is isomorphic to a root system \((\Phi', E')\), where \(\inner{\alpha, \beta^\vee} \in \{0, \pm 1\}\) for all \(\alpha, \beta \in \Phi', \alpha \ne \pm \beta\).
+\underline{Exercise:} If \(\Phi\) is simply laced, then \((\Phi, E)\) is isomorphic to a root system \((\Phi', E')\), where \(\inner{\alpha, \beta^\vee} \in \{0, \pm 1\}\) for all \(\alpha, \beta \in \Phi', \alpha \ne \pm \beta\). \begin{addendum}
+    This follows from the length ratio constraints above.
+\end{addendum}
 
 \section{Weyl chambers and root bases}
 
@@ -1883,7 +1972,9 @@ A subset \(\Delta = \{\alpha_1, \dots, \alpha_\ell\} \sse \Phi\) is called a \em
 \begin{enumerate}
     \item \(\Delta\) is a basis for \(E\),
     \item if \(\alpha \in \Phi\), with \[\alpha = \sum_{i=1}^\ell c_i \alpha_i\]
-    then all of the \(c_i\) have the same sign (or are zero).
+    then all of the \(c_i\) have the same sign (or are zero). \begin{addendum}
+        i.e. \(c_ic_j \ge 0\).
+    \end{addendum}
 \end{enumerate}
 
 \begin{definition}
@@ -1894,6 +1985,12 @@ A subset \(\Delta = \{\alpha_1, \dots, \alpha_\ell\} \sse \Phi\) is called a \em
 
     The set of all positive roots is denoted \(\Phi^+\), and \(\Phi^- = -\Phi^+\) the set of negative roots.
 \end{definition}
+
+\begin{addendum}
+    Note that \(H_\alpha = H_{-\alpha}\). In particular, the Weyl chambers are all of the form
+    \[C_\epsilon = \left\{\lambda \in E \mid \epsilon_\alpha \inner{\lambda, \alpha^\vee} > 0\right\}\]
+    where \(\epsilon_\alpha \in \{\pm 1\}\). Note on the other hand not all choices of \((\epsilon_\alpha)\) give a Weyl chamber.
+\end{addendum}
 
 \begin{remark}
     \(\Delta\) defines a partial order on \(E\), by saying
@@ -2018,6 +2115,10 @@ That is, the Weyl group acts on the set of root bases. It remains to show how to
     \[\sum_{i=1}^\ell c_i\]
 \end{definition}
 
+\begin{addendum}
+    Often it is useful when proving statements to induct on the height of a root.
+\end{addendum}
+
 \begin{lemma}
     If \(\Delta = \{\alpha_1, \dots, \alpha_\ell\}\) is a root basis, \(\beta \in \Phi^+\setminus \Delta\), then there exists \(i\) such that \(\beta - \alpha_i \in \Phi\).
 \end{lemma}
@@ -2096,7 +2197,9 @@ Throughout, let \((\Phi, E)\) be a root system, and a root basis \(\Delta = \{\a
     This is independent of the choice of root basis (up to permutation), since given \(\Delta'\) another root basis, there exists \(w \in W\) with \(w(\Delta) = \Delta'\), and the action of \(W\) preserves \(\inner{\cdot, \cdot}\).
 \end{definition}
 
-Note \(\det(C) \ne 0\).
+Note \(\det(C) \ne 0\). \begin{addendum}
+    This follows from the fact that \(\Delta\) is a basis of \(E\).
+\end{addendum}
 
 \begin{example}
     Recall the root system \(G_2\), given by
@@ -2334,10 +2437,11 @@ is an automorphism of \(g\).
 
 Let \(V\) be a finite dimensional, choose \(x \in \mfg\) such that \(\ad(x)\) is nilpotent, say \((\ad(x))^m = 0\). Then
 \[\exp(\ad(x)) = 1 + \ad(x) + \frac{(\ad(x))^2}{2} + \cdots + \frac{(\ad(x))^{m-1}}{(m-1)!}\]
-It is easy to see that \(\exp(\ad(x)) \in \Aut(\mfg)\), and an automorphism of this form is called \emph{inner}\index{inner automorphism}. The subgroup of \(\Aut(\mfg)\) generated by these is called \(\Inn(\mfg)\), and this is a normal subgroup of \(\Aut(\mfg)\). This is because if \(\phi \in \Aut(\mfg)\), \(x \in \mfg\), then \(\phi \ad(x)\phi^{-1} = \ad(\phi(x))\), and so
+It is easy to see that \(\exp(\ad(x)) \in \Aut(\mfg) = \GL(\mfg)\), and an automorphism of this form is called \emph{inner}\index{inner automorphism}. The subgroup of \(\Aut(\mfg)\) generated by these is called \(\Inn(\mfg)\), and this is a normal subgroup of \(\Aut(\mfg)\). This is because if \(\phi \in \Aut(\mfg)\), \(x \in \mfg\), then \(\phi \ad(x)\phi^{-1} = \ad(\phi(x))\), and so
 \[\phi \exp(\ad(x))\phi^{-1} = \exp(\ad(\phi(x)))\]
 
 \begin{lemma}
+    \label{lem:exp-conj}
     Let \(\mfg \le \gl(V)\) be a complex Lie algebra, and \(x \in \mfg\) nilpotent. Then \(\ad(x)\) is nilpotent, and
     \[\exp(x)y\exp(x)^{-1} = \exp(\ad(x))y\]
     for all \(y \in \mfg\).    
@@ -2354,6 +2458,36 @@ It is easy to see that \(\exp(\ad(x)) \in \Aut(\mfg)\), and an automorphism of t
         \item \(\Inn(\sp_n(\C)) = \Sp_n(\C)/Z\),
     \end{enumerate}
 \end{example}
+
+\begin{addendum}
+
+    Let \(G\) be a matrix Lie group, and \(\mfg = \T_e G\) its Lie algebra. We have the \emph{exponential map} \(\exp : \mfg \to G\). For \(g \in G\), define
+    \begin{align*}
+        C_g : G &\to G \\
+        x &\mapsto gxg^{-1}
+    \end{align*}
+    for the conjugation map. Differentiating this, at \(e \in G\), we get
+    \begin{align*}
+        \Ad_g : \mfg &\to \mfg \\
+        x &\mapsto gxg^{-1}
+    \end{align*}
+    In particular, \(\Ad_g \in \GL(\mfg)\), and so \(\Ad : G \to \GL(\mfg)\) defines a representation. This map also happens to be smooth, and so we can differentiate it again, to get
+    \[\ad : \mfg \to \gl(\mfg)\]
+    which is the matrix commutator. What \cref{lem:exp-conj} says is then
+    \[\Ad_{\exp(x)} = \exp(\ad(x))\]
+    In fact, this is true for general Lie groups, we have that if \(\varphi : G \to H\) is a homomorphism, then
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJHIl0sWzIsMCwiSCJdLFswLDIsIlxcbWZnIl0sWzIsMiwiXFxtZmgiXSxbMCwxLCJcXHZhcnBoaSJdLFsyLDMsIlxcZGRcXHZhcnBoaSJdLFsyLDAsIlxcZXhwIiwxXSxbMywxLCJcXGV4cCIsMV1d
+    \[\begin{tikzcd}
+        G && H \\
+        \\
+        \mfg && \mfh
+        \arrow["\varphi", from=1-1, to=1-3]
+        \arrow["\dd\varphi", from=3-1, to=3-3]
+        \arrow["\exp"{description}, from=3-1, to=1-1]
+        \arrow["\exp"{description}, from=3-3, to=1-3]
+    \end{tikzcd}\]
+    commutes. When \(\varphi = \Ad\), \(\dd\varphi = \ad\), we get that \(\exp(\ad(x)) = \Ad_{\exp(x)}\).
+\end{addendum}
 
 \setcounter{section}{14}
 
@@ -2373,7 +2507,7 @@ and \(\Delta \sse \Phi\) a root basis.
 \end{proof}
 
 \begin{definition}
-    [rank] The \emph{rank}\index{rank} of \(\mfg\) is the dimension of a Cartan subalgebra, which is independent of the choice of Cartan subalgebra. If \(\mfg\) is semisimple, then
+    [rank] The \emph{rank}\index{rank} of a Lie algebra \(\mfg\) is the dimension of a Cartan subalgebra, which is independent of the choice of Cartan subalgebra. If \(\mfg\) is semisimple, then
     \[\rank(\mfg) = \rank(\Phi)\]
     where \(\Phi\) is the root system of \(\mfg\) corresponding to a Cartan subalgebra \(\mft\).
 \end{definition}
@@ -2430,7 +2564,7 @@ Let \((\Phi, E)\) be a root system, and fix a base \(\Delta = \{\alpha_1, \dots,
     \[\Z\Phi = \left\{\sum_{\alpha \in \Phi}c_\alpha \alpha \mid c_\alpha \in \Z\right\} \sse E\]
     and the \emph{weight lattice}\index{weight lattice} is
     \[X = \left\{\lambda \in E \mid \inner{\lambda, \alpha^\vee} \in \Z \text{ for all }\alpha \in \Phi\right\}\]
-    That is,
+    In the case of a semisimple Lie algebra \(\mfg\), with Cartan subalgebra \(\mft\), we have
     \[\{\mft \in \mft^* \mid \beta(h_\alpha) \in \Z \text{ for all }\alpha \in \Phi\}\]
     The elements of \(X\) are called \emph{weights}\index{weights!elements of weight lattice}.
 \end{definition}
@@ -2473,7 +2607,7 @@ where \(C\) is the Cartan matrix of \(\mfg\). The number \(\abs{X/\Z\Phi}\) is s
 
 \begin{definition}
     [dominant]
-    \(\lambda \in X\) is called \emph{dominant}\index{dominant} if \(\inner{\lambda, \alpha^\vee} \ge 0\) for all \(\alpha \in \Phi^+\). If the inequality is strict, it is called \emph{strongly dominant}\index{strongly dominant}. The set of dominant weights is denoted \(X^+\).
+    \(\lambda \in X\) is called \emph{dominant}\index{dominant} if \(\inner{\lambda, \alpha^\vee} \ge 0\) for all \(\alpha \in \Phi^+\). If the inequality is strict for all \(\alpha\), it is called \emph{strongly dominant}\index{strongly dominant}. The set of dominant weights is denoted \(X^+\).
 \end{definition}
 
 This is equivalent to:
@@ -2493,7 +2627,7 @@ and \(\varphi : \mfg \to \gl(V)\) a finite dimensional representation over \(\C\
 \end{lemma}
 
 \begin{proof}
-    Clear from \cref{lem:simultaneuous-eigenspace}, where the commuting semsimple elements are the basis elements of \(\mft\).
+    Clear from \cref{lem:simultaneuous-eigenspace}, where the commuting semisimple elements are the basis elements of \(\mft\).
 \end{proof}
 
 Recall for \(\lambda, \mu \in \mft^*\), we write
@@ -2501,7 +2635,7 @@ Recall for \(\lambda, \mu \in \mft^*\), we write
 where each \(k_i \ge 0\). If \(V\) is a representation of \(\mfg\), we say
 \begin{itemize}
     \item The \emph{weight} of a non-zero \(v \in V\) is \(\lambda\) if \(v \in V_\lambda\),
-    \item \(\lambda \in \mft^*\) is a \emph{highest weight} if \(V_\lambda \ne 0\) and \(V_\mu\) is non-zero for all \(\mu \le \lambda\).
+    \item \(\lambda \in \mft^*\) is a \emph{highest weight} if \(V_\lambda \ne 0\) and if \(V_\mu \ne 0\), then \(\mu \le \lambda\).
 \end{itemize}
 
 \begin{proposition}
@@ -2658,6 +2792,26 @@ Some facts/exercises:
     \underline{Exercise (utterly horendous):} If \(x \in U_n, y \in U_m\), then \(xy - yx \in U_{m + n - 1}\).
 \end{itemize}
 
+\begin{addendum}
+    The universal property of the universal enveloping algebra is: If \(A\) is an (associative unital, not necessarily commutative) algebra over \(k\), \(\pi : \mfg \to A\) a \(k\)-linear map, such that
+    \[\pi([x, y]) = \pi(x)\pi(y) - \pi(y)\pi(x)\]
+    Then there exists a unique \(k\)-algebra homomorphism \(\psi\), making
+    % https://q.uiver.app/#q=WzAsMyxbMCwyLCJcXG1mZyJdLFsyLDIsIkEiXSxbMSwwLCJcXG1jVShcXG1mZykiXSxbMCwyLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsyLDEsIlxccHNpIl0sWzAsMSwiXFxwaSIsMl1d
+    \[\begin{tikzcd}
+        & {\mcU(\mfg)} \\
+        \\
+        \mfg && A
+        \arrow[hook, from=3-1, to=1-2]
+        \arrow["\psi", from=1-2, to=3-3]
+        \arrow["\pi"', from=3-1, to=3-3]
+    \end{tikzcd}\]
+    commute.
+
+    Another motivation for the universal enveloping algebra: If \(G\) is a simple compact Lie group, with Lie algebra \(\mfg\), then \(\mcU(\mfg)\) is the algebra of left invariant differential operators on \(G\). We can also use this to motivate the Casimir element. \(G\) has a natural bi-invariant metric. Then we can consider the Laplace-Beltrami operator
+    \[\Delta = \dd \delta + \delta \dd\]
+    This is central in \(\mcU(\mfg)\), and the corresponding element in \(\mfg\) is the Casimir element.
+\end{addendum}
+
 \begin{definition}
     [associated graded algebra]
     Given any filtration \(F_0 \sse F_1 \sse F_2\), we call
@@ -2668,12 +2822,20 @@ Some facts/exercises:
 In our case,
 \[\gr(\mcU(\mfg)) = U_0 \oplus\left(\bigoplus_{n \ge 1}U_n/U_{n-1}\right)\]
 
+\begin{addendum}
+    See also the Commutative Algebra course.
+\end{addendum}
+
 \lec
 
 \subsection{PBW theorem}
 
+\begin{addendum}
+    Since \(\gl(V)\) is an associative unital algebra, a representation \(\mfg \to \gl(V)\) is equivalent to a \(k\)-algebra homomorphism \(\mcU(\mfg) \to \gl(V)\). Therefore, it would be useful to understand the structure of \(\mcU(\mfg)\), and the PBW theorem is one part of this.
+\end{addendum}
+
 \begin{theorem}
-    [PBW] \index{PBW theorem} There exists an isomorphism of algebras
+    [Poincar\'e-Birkhoff-Witt] \index{PBW theorem} There exists an isomorphism of algebras
     \[\mcS(\mfg) \cong \gr(\mcU(\mfg))\]
     Equivalently, if \(\{x_1, \dots, x_n\}\) is a basis for \(\mfg\), then
     \[x_1^{k_1}\cdot x_n^{k_n}\]
@@ -2707,7 +2869,7 @@ In our case,
 
 \begin{example}
     \label{ex:hwv-sl2}
-    Let \(V\) be a \(\C\)-vector space, choose a basis \(v_0, \dots, v_n\). Define an \(\sl_2\)-action on \(V\) by
+    Let \(V\) be a infinite dimensional \(\C\)-vector space, with basis \(v_0, v_1, \dots\). Define an \(\sl_2\)-action on \(V\) by
     \begin{align*}
         ev_0 &= 0 \\
         hv_0 &= 0 \\
@@ -2756,6 +2918,10 @@ As usual, let \(\mfg\) be a semisimple Lie algebra, with a Cartan subalgebra \(\
     \[V = \mcU(\mfg)v\]
 \end{definition}
 
+\begin{addendum}
+    Note that Humphreys calls this a \emph{standard cyclic module}, but the modern terminology is highest weight module.
+\end{addendum}
+
 \begin{example}
     Any finite dimensional irreducible representation \(v\) of \(\mfg\) is a highest weight module. This follows as \(v\) has to contain a highest weight vector \(v\), and we saw that \(\mcU(\mfg)v\) is a subrepresentation of \(V\) containing \(v\). Thus equality holds as \(V\) is irreducible.
 \end{example}
@@ -2797,6 +2963,10 @@ With this, we have that
     But \(y_iv = 0\) for all \(i\), and \(t_iv \in \Span\{v\}\), and so
     \[\mcU(\mfg)v = \mcU(\eta^-)v\] 
 \end{proof}
+
+\begin{addendum}
+    Intuitively, since \(v\) is a highest weight vector, it is in the kernel of all of the \(y_i \in \eta^+\). So the weight can only decrease.
+\end{addendum}
 
 \begin{proposition}
     \label{prop:highest-weight-module-properties}
@@ -2841,7 +3011,11 @@ With this, we have that
     \[e_\alpha v_\mu \in V_{\mu + \alpha} \cap U = 0\]
     Hence \(v_\mu\) is a highest weight vector.
 
-    (v) has been left as an exercise.
+    (v) has been left as an exercise. \begin{addendum}
+        Let \(W_1, W_2\) be submodules of \(V\). If \(v_\lambda \in W_i\), then \(W_i = V\). So we may assume that \(v_\lambda \notin W_i\). We claim that \(W_1 + W_2\) is a proper subrepresentation. But this follows from the fact shown in (ii) that \(W_1 + W_2\) decomposes into weight spaces, and by (iii), the \(\lambda\) weight space is one dimensional.
+
+        Therefore, the sum of all proper subrepresentations must also be a subrepresentation, since if it contains \(v_\lambda\), a finite sum of proper subrepresentations must contain \(v_\lambda\). With this, maximality is clear.
+    \end{addendum}
 \end{proof}
 
 Other easy exercises (Humphreys):
@@ -2852,11 +3026,11 @@ Other easy exercises (Humphreys):
 
 \subsection{Verma modules}
 
-Let \(\Phi\) be a root system, \(\alpha \in \Delta\), \(\lambda\) dominant. Then \(\lambda - \alpha\) is also dominant. To see this,
-\begin{align*}
-    \pinner{\lambda - \alpha, \lambda - \alpha} &\le \pinner{\lambda, \lambda} - (\alpha, \lambda) - (\lambda - \alpha, \alpha) \\
-    &\le \pinner{\lambda, \lambda}
-\end{align*}
+% Let \(\Phi\) be a root system, \(\alpha \in \Delta\), \(\lambda\) dominant. Then \(\lambda - \alpha\) is also dominant. To see this,
+% \begin{align*}
+%     \pinner{\lambda - \alpha, \lambda - \alpha} &\le \pinner{\lambda, \lambda} - (\alpha, \lambda) - (\lambda - \alpha, \alpha) \\
+%     &\le \pinner{\lambda, \lambda}
+% \end{align*}
 
 \begin{definition}
     [highest weight]
@@ -2865,11 +3039,11 @@ Let \(\Phi\) be a root system, \(\alpha \in \Delta\), \(\lambda\) dominant. Then
 
 Let \(\mft\) be a Cartan subalgebra of \(\mfg\), with corresponding root system \(\Phi\) and a root basis \(\Delta = \{\alpha_1, \dots, \alpha_\ell\}\). Choose a basis \(h_1, \dots, h_\ell\) of \(\mft\), with \(h_i = h_{\alpha_i}\).  For \(\lambda \in \mft^*\), let \(J(\lambda)\) be the (left) ideal of \(\mcU(\mfg)\) generated by
 \begin{itemize}
-    \item \(e_\alpha\) for \(\alpha \in \Phi\),
+    \item \(e_\alpha\) for \(\alpha \in \Phi^+\),
     \item \(h_i - \lambda(h_i)1\) for each \(i\)
 \end{itemize}
 That is, \(J(\lambda)\) comprises elements 
-\[\sum_\alpha u_\alpha e_\alpha + \sum y_i \left(h_i - \lambda(h_i)1\right)\]
+\[\sum_{\alpha \in \Phi^+} u_\alpha e_\alpha + \sum y_i \left(h_i - \lambda(h_i)1\right)\]
 where \(u_\alpha, y_i \in \mcU(\mfg)\). \(J(\lambda)\) is a left module for \(\mcU(\mfg)\).
 
 \begin{definition}
@@ -2905,7 +3079,7 @@ where \(u_\alpha, y_i \in \mcU(\mfg)\). \(J(\lambda)\) is a left module for \(\m
 \lec
 
 \begin{remark}
-    Humphreys calls \(M(\lambda)\) the \emph{standard cyclic modules}.
+    Humphreys calls \(M(\lambda)\) the universal \emph{standard cyclic modules}.
 \end{remark}
 
 \begin{lemma}
@@ -2925,7 +3099,7 @@ where \(u_\alpha, y_i \in \mcU(\mfg)\). \(J(\lambda)\) is a left module for \(\m
 \end{example}
 
 \begin{remark}
-    Verma modules are building blocks for the `category \(\msO\)'. Although each \(M(\lambda)\) is infinite dimensional, when we viewed as a \(\mcU(\mfg)\)-modules, it has finite length. That is, there exists submodules
+    Verma modules are building blocks for the `category \(\mcO\)'. Although each \(M(\lambda)\) is infinite dimensional, when we viewed as a \(\mcU(\mfg)\)-modules, it has finite length. That is, there exists submodules
     \[0 = M_0 \le M_1 \le \cdots \le M_r = M(\lambda)\]
     such that \(M_{i+1}/M_i\) are simple for all \(i\).
     
@@ -3070,7 +3244,7 @@ Let \(\mfg\) be a semisimple Lie algebra, with Cartan subalgebra \(\mft\), root 
 \end{example}
 We claim that
 \[\rho = \sum_{i=1}^\ell \omega_i\]
-where the \(\omega_i\) are the fundamental dominant weights. It suffices to show that \(\inner{\rho, \alpha_j^\vee} = 1\) for all \(\alpha_j \in \Delta\). In this case,
+where the \(\omega_i\) are the fundamental dominant weights\footnote{Recall that this means \(\inner{\omega_i, \alpha_j^\vee} = \delta_{ij}\). By construction they are dominant.}. It suffices to show that \(\inner{\rho, \alpha_j^\vee} = 1\) for all \(\alpha_j \in \Delta\). In this case,
 \[w_{\alpha_j}(\rho) = \rho - \inner{\rho, \alpha_j^\vee}\alpha_j\]
 But we also have that
 \[w_{\alpha_j}(\rho) = w_{\alpha_j}\left(\frac{1}{2}\sum_{\alpha \in \Phi^+ \setminus \{\alpha_j\}}\alpha + \frac{1}{2}\alpha_j\right)\]
@@ -3092,7 +3266,9 @@ This leads to the questions:
 \end{definition}
 Now note that
 \[\Pi(\lambda) = \left\{\mu \mid \mu \preceq \lambda\right\}\]
-and to determine \(\Pi(\lambda)\), we only need to find the dominant weights in it.
+and to determine \(\Pi(\lambda)\), we only need to find the dominant weights in it. \begin{addendum}
+    This is because (Humphreys Lemma 13.2A) each weight is conjugate under the Weyl group to a unique dominant weight. See \cref{claim:weyl-orbit-contains-dominant} for existence. For our purposes, we won't need uniqueness.
+\end{addendum}
 \begin{proposition}
     Suppose \(\lambda, \mu\) are dominant weights. Then \(\mu \in \Pi(\lambda)\) if and only if \(\mu \preceq \lambda\).
 \end{proposition}
@@ -3135,7 +3311,7 @@ and to determine \(\Pi(\lambda)\), we only need to find the dominant weights in 
 
     \textbf{add diagram}
 
-    Now \(\omega_1\) is such that \(\inner{\omega_1, \alpha_1^\vee} = 1\), and \(\inner{\omega_1, \alpha_2^\vee} = 0\). The dominant weights of \(\Pi(2\omega_1)\) are the dominanet \(\mu\) with \(\mu \preceq 2\omega_1\) by the proposition.
+    Now \(\omega_1\) is such that \(\inner{\omega_1, \alpha_1^\vee} = 1\), and \(\inner{\omega_1, \alpha_2^\vee} = 0\). The dominant weights of \(\Pi(2\omega_1)\) are the dominant \(\mu\) with \(\mu \preceq 2\omega_1\) by the proposition.
 
     First, \(2\omega_2 = 4\alpha_1 + 2\alpha_2\), and \(\omega_2 = 3\alpha_1 + 2\alpha_2\). Then \(\omega_2 \preceq 2\omega_2\). But \(\omega_1 + \omega_2 \not\preceq 2\omega_1\). Hence the dominant weights in \(\Pi(2\omega_1)\) are
     \[\omega_1, 2\omega_1, \omega_2, 0\]
@@ -3145,7 +3321,7 @@ and to determine \(\Pi(\lambda)\), we only need to find the dominant weights in 
         &= \Phi \cup \{\pm 2\omega_1, \pm 2\alpha_1, \pm 2(\alpha_1 + \alpha_2), 0\}
     \end{align*}
 
-    See Humpreys page 58, 69, or Fulton-Harris pages 339-359. This is a very typical exam question.
+    See Humpreys page 68, 69, or Fulton-Harris pages 339-359. This is a very typical exam question.
 \end{example}
 
 \begin{definition}
@@ -3159,6 +3335,10 @@ and to determine \(\Pi(\lambda)\), we only need to find the dominant weights in 
     Let \(V\) be a finite dimensional representation of \(\mfg\), then the \emph{(formal) character} of \(V\) is
     \[\ch(V) = \sum_{\mu \in X}\dim(V_\mu)e^\mu \in \Z[X]\]
 \end{definition}
+
+\begin{addendum}
+    \(\Z[X]\) is the group ring generated by the lattice \(X\).
+\end{addendum}
 
 \begin{example}
     For \(\mfg = \sl_2\), then
@@ -3216,15 +3396,15 @@ where \(\alpha_i \in \Delta\). The \emph{sign} of \(w\) is
         F_\mu(p) : \R_{\ge 0} &\to \R\\
         F_\mu(e^\lambda)(q) &= q^{-\pinner{\mu, \lambda}}
     \end{align*}
-    and extend linearly. Note \(F_\mu\) is multiplicative and \(F_\mu(p)\) is \(C^1\) on \(\R_{> 0}\). Clearly \(F_0(e^\lambda) = 1\), and
+    and extend linearly over \(p\). Note \(F_\mu\) is multiplicative and \(F_\mu(p)\) is \(C^1\) on \(\R_{> 0}\). Clearly \(F_0(e^\lambda) = 1\), and
     \[F_0(\ch(V(\lambda))) = \dim(V(\lambda))\]
     First apply \(F_\mu\) to the Weyl denominator formula, we get
     \[q^{-\pinner{\rho, \mu}}\prod_{\alpha \in \Phi^+}(1 - q^{\pinner{\alpha, \mu}}) = \sum_{w \in W}\sign(w)q^{-\pinner{w\rho, \mu}} = \sum_{w \in W}\sign(w)q^{-\pinner{\rho, w\mu}} \tag{\(*\)}\]
     Since \(\sign(w) = \sign(w^{-1})\) and \(\pinner{wx, y} = \pinner{x, w^{-1}y}\).
 
-    Now apply \(F_p\) to the Weyl character formula, we get
-    \[F_p(\ch(V(\lambda)))(q) = \frac{\sum_{w \in W}q^{-\pinner{p, w(\lambda + \rho)}}}{q^{-\pinner{p, \rho}}\prod_{\alpha \in \Phi^+}(1 - q^{-\pinner{p, \alpha}})}\]
-    Note we need \(\pinner{p, \alpha} \ne 0\) for all \(\alpha\). But recall that \(\pinner{\rho, \alpha_i} = 1 > 0\) for all \(i\), and so \(\pinner{\rho, \alpha} > 0\) for all \(\alpha \in \Phi^+\).
+    Now apply \(F_\rho\) to the Weyl character formula, we get
+    \[F_\rho(\ch(V(\lambda)))(q) = \frac{\sum_{w \in W}q^{-\pinner{\rho, w(\lambda + \rho)}}}{q^{-\pinner{\rho, \rho}}\prod_{\alpha \in \Phi^+}(1 - q^{-\pinner{\rho, \alpha}})}\]
+    Note we need \(\pinner{\rho, \alpha} \ne 0\) for all \(\alpha\). But recall that \(\pinner{\rho, \alpha_i} = 1 > 0\) for all \(i\), and so \(\pinner{\rho, \alpha} > 0\) for all \(\alpha \in \Phi^+\).
 
     Using \((*)\) with \(\mu = \lambda + \rho\),
     \[F_p(\ch(V(\lambda))) = \frac{q^{-\pinner{p, \lambda + \rho}}\prod_{\alpha \in \Phi^+}(1 - q^{\pinner{\alpha, \lambda + \mu}})}{q^{-\pinner{p, \rho}}\prod_{\alpha \in \Phi^+}(1 - q^{\pinner{\rho, \alpha}})}\]
