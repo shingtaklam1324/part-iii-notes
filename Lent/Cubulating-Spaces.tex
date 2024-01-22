@@ -1,0 +1,90 @@
+\documentclass{article}
+
+\usepackage{../../Style}
+
+\title{Cubulating spaces and groups}
+\author{Shing Tak Lam}
+\date{Lent 2023\footnote{Based on lectures by Macarena Arenas. Last updated \today.}}
+
+\makeindex
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\lec
+
+\section{Basic notions}
+
+An \emph{\(n\)-cube} is \(c = [0, 1]^n\). A \emph{face} of \(c\) is the restriction of some cooridnates to \(\{0, 1\}\).
+
+A \emph{cube complex} is a cell complex, built out of cuves. Let
+\begin{itemize}
+    \item \(\mcC\) be a disjoint union of cubes,
+    \item \(\mcI\) be a collection of isometries between faces of the same dimension.
+\end{itemize}
+Then the cell complex is \(X = \mcC/\mcI\). The \emph{dimension} of \(X\) is
+\[\dim(X) = \sup\{\dim(c) \mid c \text{ is a cube in }X\}\]
+We say that \(X\) is \emph{finite} if it has finitely many cubes, and \(X\) is \emph{locally finite} if each \(p \in X\) lies in finitely many cubes.
+
+We will make the assumption in this course that unless stated otherwise, cube complexes are locally finite.
+
+The \emph{link of a vertex in \(X\)} is, intuitively, the \(\epsilon\)-sphere around \(v \in X^{(0)}\). To make this formal, for an \(n\)-cube \(c\), we define
+\[\link_c(v) = S^{n-1}(v, \epsilon) \sse c\]
+where \(\epsilon = 1/4\). Using this,
+\[\link(v) = \frac{\bigsqcup \link_c(v)}{\mcI'}\]
+where \(\mcI'\) is the restriction of \(\mcI\) to the faces.
+
+A \emph{simplex complex} is \emph{flat} if
+\begin{enumerate}
+    \item it is a simplicial complex, That is, we want the \(1\)-skeleton to not have loops or bigons.
+    \item \(n + 1\) vertices span a simplex if and only if they are pairwise adjacent.
+\end{enumerate}
+
+A cube complex \(X\) is \emph{non-positively curved (npc)} if \(\link(v)\) is flat for each \(v \in X^{(0)}\). As a counterexample, we can see that loops and bigons can appear as links.
+
+On the other hand, if we have
+
+then this is npc if the \(3\)-cube is in the complex. Finally, the cube complex
+
+is npc. A \emph{CAT(0)} cube complex is a npc cube complex which is simply connected. In particular, being a CAT(0) cube complex is the same as being universal covers of npc cube complexes.
+
+We will use the notation \(\widetilde X\) for CAT(0) cube complexes.
+
+\begin{example}
+    An \(n\)-cube is npc. Similarly, any graph is npc. 
+    
+    Euclidean space \(\mathbb E^n\), tesselated by unit cubes, is a CAT(0) cube complex. The link of each vertex corresponds to \(2^n\) simplices, which give us an \(S^{n-1}\).
+\end{example}
+
+\begin{example}
+    The \(n\)-torus \(\T^n\) is a npc cube complex. For example, \(\T^3\) can be given by gluing opposite faces of a cube.
+\end{example}
+
+\begin{remark}
+    If \(X\) is \(2\)-dimensional, we call it a square complex. A square complex \(X\) is nonpositively curved if and only if the girth of each \(\link(v)\) is at least 4. Recall that the \emph{girth} of a graph \(\Gamma\) is the length of the shortest cycle.
+
+    To see this, when \(\dim(X) = 2\) we can't have a triangle as a link, since it would require a \(3\)-cell.
+\end{remark}
+
+\begin{theorem}
+    Every surface \(S\) not homeomorphic to \(S^2\) or \(\R\P^2\) is homeomorphic to a npc cell complex.
+\end{theorem}
+
+\begin{proof}
+    We will prove it for \(S\) closed orientable. The general case is left as an exercise. For this, recall that if \(S\) has genus \(g\), then it is given by gluing edges of a \(4g\)-gon. Subdivide the \(4g\)-gon as follows:
+
+    It remains to show that the cube complex we get is npc. The central vertex has link being a \(4n\)-cycle. The original vertex has link a \(4n\)-cycle, and the subdivided vertices have link being \(4\)-cycles.
+\end{proof}
+
+Some topological constructions:
+\begin{enumerate}[(a)]
+    \item Being npc is preserved under cubical subdivision, i.e. subdividing an \(n\)-cube into \(2^n\) \(n\)-cubes.
+    \item If \(X_1, \dots, X_n\) are npc, then so is \(X_1 \times \cdots \times X_n\). We leave this as an exercise.
+    \item If \(X\) is npc, then every covering space of \(X\) is npc.
+    \item In general, subcomplexes of a npc cube complex \(X\) is not npc. However, if \(\dim(X) \le 2\) then any subcomplex is npc.
+\end{enumerate}
+
+\end{document}

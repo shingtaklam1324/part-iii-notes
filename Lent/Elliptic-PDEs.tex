@@ -1,0 +1,255 @@
+\documentclass{article}
+
+\usepackage{../../Style}
+
+\title{Elliptic PDEs}
+\author{Shing Tak Lam}
+\date{Lent 2023\footnote{Based on lectures by Greg Taujunskas (lectures 1 - 12) and Neshan Wickramasekera (lectures 13 - 24). Last updated \today.}}
+
+\makeindex
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\lec
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+
+We will study second order elliptic PDEs on (a domain in) \(\R^n\). For example, arising from variational problems. Ultimately, we are interested in non-linear PDEs. To do this, we will first understand the linear theory.
+
+\textbf{Setup:} Consider a domain \(\Omega \sse \R^n\), i.e. open, bounded and connected, and a function
+\begin{align*}
+    F : \Omega \times \R \times \R^n &\to \R \\
+    (x, z, p) &\mapsto F(x, z, p)
+\end{align*}
+and consider the functional
+\[\mcF[u] = \int_\Omega F(x, u(x), \partial u(x))\dd x\]
+Note we will use \(\partial, D, \grad\) essentially interchangably. Assume \(F\) is sufficiently regular. Let \(u \in \mcS\), a suitable vector space of functions \(u : \Omega \to \R\). Frequently, \(\mcS = \HH^1(\Omega)\), or \(\mcS = C^{1, \alpha}(\Omega)\).
+
+Suppose \(u\) minimises \(\mcF\), subject to \(u \vert_{\partial\Omega} = g\), for some given \(g : \partial\Omega \to \R\)\footnote{Boundary conditions are needed for well-posedness}. So for all \(\varphi \in \mcS\),
+\[\mcF[u + t\varphi] \ge \mcF[u]\]
+In particular, this means that
+\[\dv{t}\bigg\vert_{t=0}\mcF[u + t\varphi] = 0\]
+Or another words,
+\[\dv{t}\bigg\vert_{t=0}\int_\Omega F(x, u + t \varphi, \partial u + t\partial\varphi) \dd x = 0\]
+Assume enough regularity so that we can exchange the derivative and integral, we get that
+\begin{equation}
+    \label{eq:sec-0-calc-of-var}
+    \int_\Omega(\partial_zF)(x, u, \partial u) \varphi + \partial_i\varphi(\partial p_iF)(x, u, \partial u)\dd x = 0
+\end{equation}
+As usual, we will use the summation convention. To ensure that \(u + t\varphi\) satisfies the correct boundary conditions, \(\varphi\vert_{\partial\Omega} = 0\). Integrate \cref{eq:sec-0-calc-of-var} by parts, we get
+\[\int_{\Omega}\varphi(x)\left(\partial_z F - \partial_i\partial p_i \mcF\right)(x, u, \partial u)\dd x = 0\]
+This is true for all \(\varphi \in \mcS\), and so by the fundamental lemma of calculus of variations,
+\[\pdv{F}{z} - \pdv{x_i}\left(\pdv{F}{p_i}\right) = 0\]
+which is the Euler-Lagrange equation for \(F\). We can rewrite this as
+\begin{equation}
+    \label{eq:sec-0-el-quasilinear}
+    \pdv{F}{z} - \partial_i\partial_j u \pdv[2]{F}{p_i}{p_j} = 0
+\end{equation}
+This is now a second order quasilinear PDE in \(u\). More generally, consider
+\begin{equation}
+    \label{eq:sec-0-quasilinear-pde}
+    a^{ij}(x, u, \partial u)\partial^2_{ij}u - b(x, u, \partial u) = 0
+\end{equation}
+
+\begin{definition}
+    We say that \cref{eq:sec-0-quasilinear-pde} is \emph{elliptic} in \(\Omega\) if \(a^{ij}(x, u, \partial u)\) is a positive definite matrix in \(\Omega\).
+\end{definition}
+
+In the case of \cref{eq:sec-0-el-quasilinear}, this is equivalent to \(F\) being convex in the variable \(p\).
+
+\begin{example}
+    [Dirichlet energy] When
+    \[F(x, z, p) = \abs{p}^2\]
+    One gets
+    \[\Delta u = 0\]
+    Extremisers of this are called \emph{harmonic functions}.
+\end{example}
+
+\begin{example}
+    [Minimal surfaces] When
+    \[F(x, z, p) = \sqrt{1 + \abs{p}^2}\]
+    We leave as an exercise to interpret \(\mcF[u]\). In this case, we get the \emph{minimal surface equation}, which is
+    \begin{equation}
+        \label{eq:sec-0-minimal-surface}
+        \grad\vdot\left(\frac{\grad u}{\sqrt{1 + \abs{\grad u}^2}}\right) = 0
+    \end{equation}
+    Locally, \(\grad u\) is a constant, and so \cref{eq:sec-0-minimal-surface} looks like \(\Delta u = 0\), and so solutions have similar local properties. But the existence theory for Laplace's equation is `trivial', whereas the existence theory for \cref{eq:sec-0-minimal-surface} may fail. That is, global properties are important.
+
+    For entire solutions (i.e. solutions defined all of \(\R^n\)), global behaviour is very different.
+\end{example}
+
+\begin{theorem}
+    [Liouville] If \(u : \R^n \to \R\) is \(C^2\), \(\Delta u = 0\) and \(u\) is bounded, then \(u\) is a constant.
+\end{theorem}
+
+\begin{theorem}
+    [Bernstein] (The only entire solutions to \cref{eq:sec-0-minimal-surface} in \(\R^n\) are planar (i.e. \(u\) is linear)) if and only if \(n \le 7\).
+\end{theorem}
+
+\section{Harmonic functions}
+
+\subsection{Basic properties}
+
+Let \(\Omega \sse \R^n\) be a domain, i.e. open and connected.
+
+\begin{definition}
+    [hamonic, subharmonic, superharmonic]
+    A function \(u \in C^2(\Omega)\) is \emph{harmonic} if \(\Delta u = 0\). It is \emph{subharmonic} if \(\Delta u \ge 0\) and \emph{superharmonic} if \(\Delta u \le 0\).
+\end{definition}
+
+Let \(B_\rho(y)\) denote the open ball with centre \(y\) and radius \(\rho\). Then
+\begin{theorem}
+    [mean value property] If \(u \in C^2(\Omega)\) is subharmonic, and \(B_r(y) \sse \Omega\), then
+    \begin{equation}
+        \label{eq:mean-value-ball}
+        u(y) \le \frac{1}{\omega_n r^n}\int_{B_r(y)}u(x) \dd x
+    \end{equation}
+    where \(\omega_n = \abs{B_1(0)}\). Moreover,
+    \begin{equation}
+        \label{eq:mean-value-sphere}
+        u(y) \le \frac{1}{n\omega_n r^{n-1}}\int_{\partial B_r(y)}u(x)\dd x
+    \end{equation}
+    If \(u\) is superharmonic, then the inequalities are reversed. If \(u\) is harmonic, then equality holds.
+\end{theorem}
+
+\begin{proof}
+    We have that
+    \begin{align*}
+        0 &\le \int_{B_\rho(y)}\Delta u \dd x \\
+        \text{integrating by parts } &= \int_{\partial B_\rho(y)}\grad u \vdot w \dd x \text{ where }w\text{ is the outwards normal} \\
+        &= \rho^{n-1}\int_{S^{n-1}}w\vdot \grad u(y + \rho w)\dd w \\
+        &= \rho^{n-1}\int_{S^{n-1}}\pdv{\rho}u(y + \rho w)\dd w \\
+    \end{align*}
+    where we use the fact that \(\rho w = x - y\). Exchanging integrals and derivatives,
+    \[0 \le \pdv{\rho}\int_{S^{n-1}}u(y + \rho w)\dd w\]
+    Thus, the map
+    \[\rho \mapsto \int_{S^{n-1}}u(y + \rho w)\dd w\]
+    is increasing. Thus,
+    \[\int_{S^{n-1}}u(y + \rho w)\dd w \le \int_{S^{n-1}}y(y + r w)\dd w\]
+    for \(0 \le \rho \le r\). Taking the limit as \(\rho \to 0\), we get \cref{eq:mean-value-sphere}. Integrating in \(r\) to get \cref{eq:mean-value-ball}. The superharmonic case is similar. The harmonic case follows from the subharmonic and superharmonic cases.
+\end{proof}
+
+\begin{remark}
+    The mean value property characterises harmonic functions. See examples sheet 1.
+\end{remark}
+
+\lec
+
+\begin{theorem}
+    [strong maximum principle] Suppose \(u \in C^2(\Omega)\) is subharmonic on \(\Omega\). Suppose there exists \(y_0 \in \Omega\) such that
+    \[u(y_0) = \sup_\Omega u\]
+    Then \(u\) is constant.
+\end{theorem}
+
+\begin{remark}
+    If \(u\) is superharmonic, then we have a corresponding statement for when \(u(y_0) = \inf_\Omega u\). If \(u\) is harmonic, then either \(\sup\) or \(\inf\) work.
+\end{remark}
+
+\begin{proof}
+    Let \(M = \sup_\Omega u < \infty\), and
+    \[\Sigma = \{y \in \Omega \mid u(y) = M\}\]
+    By assumption, \(\Sigma\) is non-empty, as \(y_0 \in \Sigma\). Since \(u\) is continuous, \(\Sigma\) is closed. Since \(\Omega\) is connected, it suffices to show that \(\Sigma\) is open, since this implies \(\Sigma = \Omega\).
+
+    Pick \(y \in \Sigma\). By the mean value property, for \(\rho > 0\) such that \(\overline{B_\rho(y)} \sse \Omega\), we have that
+    \[M = u(y) \le \frac{1}{\omega_n\rho^n}\int_{B_\rho(y)}u(x)\dd x\]
+    So
+    \[\int_{B_\rho(y)}(M - u(x))\dd x \le 0\]
+    But \(M - u(x) \ge 0\), and so it must be identically zero, i.e. \(u \equiv M\) on \(B_\rho(y)\). Hence \(B_\rho(y) \sse \Sigma\), and \(\Sigma\) is open.
+\end{proof}
+
+Here, the strong maximum principle is easy as we have the mean value property. For more general elliptic PDEs, this is not the case. We will prove a weaker statement which does generalise.
+
+\begin{theorem}
+    [weak maximum principle] Suppose \(\Omega \sse \R^n\) is a bounded domain, and \(u \in C^2(\Omega) \cap C^0(\overline{\Omega})\). If \(u\) is subharmonic on \(\Omega\), then
+    \[\sup_\Omega u = \sup_{\partial\Omega} u\]
+\end{theorem}
+
+\begin{proof}
+    This follows from the strong maximum principle. Since \(\Omega\) is bounded, \(\sup_\Omega u\) is attained in \(\overline\Omega\). So by the maximum principle, these cannot be attained in \(\Omega\) unless \(u\) is constant.
+\end{proof}
+
+\begin{remark}
+    If \(u\) is superharmonic, we replace \(\sup\) with \(\inf\), and if \(u\) is harmonic then both hold.
+\end{remark}
+
+The mean value property states that \(u\) always an average of itself. In particular, this suggest that \(u\) cannot vary too much. Can we use this to relate \(\sup u\) and \(\inf u\)?
+
+\begin{theorem}
+    [Harnack's inequality] Suppose \(u \in C^2(\Omega)\), \(u \ge 0\) and \(\Delta u = 0\) in \(\Omega\). Then if \(\Omega' \Subset \Omega\) is any bounded subdomain, we have
+    \[\sup_{\Omega'}u \le C \inf_{\Omega'}u\]
+    where \(C = C(n, \Omega, \Omega')\) does not depend on \(u\).
+\end{theorem}
+
+\begin{proof}
+    First, choose \(y \in \Omega\) and \(\rho > 0\), such that \(\overline{B_{4\rho}(y)} \sse \Omega\). Choose \(x_1, x_2 \in B_\rho(y)\). By the mean value property,
+    \[u(x_1) = \frac{1}{\omega_n\rho^n}\int_{B_\rho(x_1)}u \le \frac{1}{\omega_n\rho^n}\int_{B_{2\rho}(y)}u\]
+    On the other hand,
+    \[u(x_2) = \frac{1}{\omega_n(3\rho)^n}\int_{B_{3\rho}(y)}u \ge \frac{1}{\omega_n(3\rho)^n}\int_{B_{2\rho(y)}}u\]
+    Combining these, we see that
+    \[u(x_1) \le 3^n u(x_2)\]
+    for all \(x_1, x_2 \in B_\rho(y)\). So Harnack holds locally in balls, with constant independent of \(u\). It is also independent of \(\rho, y\) as long as \(\rho\) is sufficiently small. Now choose \(x_1, x_2\) in \(\overline{\Omega'} \sse \Omega\), such that
+    \[\sup_{\Omega'}u = u(x_1) \qqtext{and} \inf_{\Omega'}u = u(x_2)\]
+    By path connectedness of \(\Omega\), there exists a continuous map \(\gamma : [0, 1] \sse \overline{\Omega'}\), with \(\gamma(0) = x_1\) and \(\gamma(1) = x_2\). Choose \(\rho\) such that \(4\rho < d(\gamma, \partial\Omega)\), and \(N = N(\Omega', \Omega)\) such that we can cover \(\gamma\) by \(N\)-balls of radius \(\rho\)\footnote{This follows from the fact that \(\Omega'\) is relatively compact}.
+
+    Apply the local result to each ball, and we get
+    \[u(x_1) \le (3^n)^N u(x_2) = 3^{nN}u(x_2)\]
+\end{proof}
+
+\begin{theorem}
+    [derivative estimates] Suppose \(u \in C^3(\Omega)\) is harmonic on \(\Omega\). Then if \(\overline{B_\rho(y)} \sse \Omega\), we have that
+    \[\abs{\DD u(y)} \le \frac{C}{\rho}\sup_{\partial B_\rho(y)}\abs{u}\]
+    where \(C = C(n)\).
+\end{theorem}
+
+\begin{proof}
+    Since \(\Delta u = 0\),
+    \[0 = \DD_i(\Delta u) = \Delta(\DD_i u)\]
+    So \(\DD_i u\) is harmonic. By the mean value property,
+    \begin{align*}
+        \DD_i u(y) &= \frac{1}{\omega_n\rho^n}\int_{B_\rho(y)}u \\
+        &= \frac{1}{\omega_n\rho^n}\int_{B_\rho(y)}\grad\vdot(0, \dots, u, \dots, 0) \dd x\\
+        &= \frac{1}{\omega_n\rho^n}\int_{\partial B_\rho(y)}u(x)\vdot \nu_i(x)\dd x
+    \end{align*}
+    where \(\nu(x)\) is the unit normal at \(x\). But \(\abs{\nu_i(x)} \le 1\), and so
+    \begin{align*}
+        \abs{\DD_i u(y)} \le \frac{1}{\omega_n \rho^n}\sup_{\partial B_\rho(y)}\abs{u}\int_{\partial B_\rho(y)}\dd x = \frac{n}{\rho}\sup_{\partial B_\rho(y)}\abs{u}
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    We can apply this result repeatedly, to get that for \(\Omega' \sse \Omega'' \sse \Omega\), and any multi-index \(\alpha\), if \(u \in C^{\abs{\alpha} + 2}(\Omega)\), with \(\Delta u = 0\) in \(\Omega\), then
+    \[\sup_{\Omega''}\abs{\DD^\alpha u} \le C \sup_{\Omega''}\abs{u}\]
+    for some \(C = C(n, \alpha, \Omega, \Omega')\).
+
+    That is,
+    \[\norm{\DD^\alpha u}_{L^\infty(\Omega')} \le C\norm{u}_{L^\infty(\Omega')}\]
+    By the mean value property, for some \(y \in \overline{\Omega''} \sse \Omega\),
+    \[\sup_{\Omega''}u = \abs{u(y)} = \abs{c\int_{B_\rho(y)}u(x)\dd x} \le C\int_\Omega \abs{u}\]
+    So
+    \[\norm{D^\alpha(u)}_{L^\infty(\Omega')} \le C\norm{u}_{L^1(\Omega)}\]
+\end{remark}
+
+\begin{theorem}
+    [uniqueness of solutions for the Dirichlet problem] Suppose \(\Omega\) is bounded, and \(u_1, u_2 \in C^2(\Omega) \cap C^0(\overline{\Omega})\) with
+    \[\begin{cases}
+        \Delta u_1 = \Delta u_2 & \text{in }\Omega \\
+        u_1 = u_2 &\text{on }\partial\Omega
+    \end{cases}\] 
+    Then \(u_1 = u_2\) in \(\overline\Omega\).
+\end{theorem}
+
+\begin{proof}
+    Set \(w = u_2 - u_2\). Then \(w\) is harmonic function in \(\Omega\), and \(w = 0\) on \(\partial\Omega\). By the weak maximum principle, we get that \(w = 0\) in \(\Omega\).
+\end{proof}
+
+\begin{remark}
+    Of course, we can integrate by parts to get the same result, but the weak maximum principle will apply for non divergence form equations.
+\end{remark}
+
+\end{document}

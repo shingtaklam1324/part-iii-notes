@@ -1,0 +1,77 @@
+\documentclass{article}
+
+\usepackage{../../Style}
+
+\title{Symplectic topology}
+\author{Shing Tak Lam}
+\date{Lent 2023\footnote{Based on lectures by Abigail Ward. Last updated \today.}}
+
+\makeindex
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\lec
+
+\section{Motivation}
+
+Symplectic topology is the study of global phenomenon of \emph{symplectic manifolds}, which are a pair \((M, \omega)\), where \(M\) is a smooth manifold, and \(\omega\) is a non-degenerate closed \(2\)-form on \(M\). In particular, non-generacy implies the map
+\begin{align*}
+    \T M &\to \T^* M \\
+    v &\mapsto \omega(v, \cdot)
+\end{align*}
+is an isomorphism.
+
+\begin{example}
+    \(\R^{2n}\) with coordinates \(x_1, y_1, \dots, x_n, y_n\) is a symplectic manifold, with
+    \[\omega_{std} = \omega_0 = \sum \dd x_i \wedge \dd y_i\]
+\end{example}
+
+\begin{example}
+    Let \(\Sigma\) be a surface of genus \(g\). Then any volume form makes \(\Sigma_g\) into a symplectic manifold.
+\end{example}
+
+Why study such manifolds? Some motivation from classical mechanics: Say we have a phase space \(X\) encoding position and momentum of some particles in a physical system. For example, we have a pendulum with angular coordinate \(\theta\), and angular momentum \(p = m\dot\theta\). The phase space is then \(S^1 \times \R\).
+
+Given \(H : X \to \R\), encoding the total energy of a configuration, we want a vector field \(\mcX_H\) such that the trajectory \(x(t)\) satisfies
+\[\dot x(t) = \mcX_H(x(t))\]
+It's not enough to know that \(H\) is constant on trajectories, i.e. \(\dd H(\mcX_H) = 0\), since this is a co-dimension 1 condition. Recall if \(X\) has symplectic form \(\omega\), then we can take \(\mcX_H\) such that
+\begin{equation}
+    \label{eq:ham-vf}
+    \omega(\mcX_H, \cdot) = \dd H
+\end{equation}
+Indeed, every phase space has such a symplectic form. Note that \(\omega\) is non-degenerate if and only if \cref{eq:ham-vf} has a solution for all \(H\), and \(\omega\) being closed is that \(\omega\) is preserved under the flow of \(\mcX_H\).
+
+\begin{example}
+    [harmonic oscillator] In this case, \(X = \R^2\), with coordinates \(p\) for momentum, \(q\) for position. The symplectic form is
+    \[\dd p \wedge \dd q = r \dd r \wedge \dd\theta\]
+    where \((r, \theta)\) is polar coordinates on \(X\).
+    This has Hamiltonian
+    \[H = \frac{1}{2}(p^2 + q^2) = \frac{1}{2}r^2\]
+    Hence
+    \[\dd H = r \dd r\]
+    Thus, \(\mcX_H = \pdv{\theta}\).
+\end{example}
+
+\subsection{Mathematical perspective}
+
+A question to keep in mind is: How does symplectic geometry compare to e.g. Riemannian geometry, complex geometry etc.
+
+In this context, \(\dd\omega = 0\) is a form of ``flatness''. Suppose \((Y, g)\) is a Riemannian manifold, i.e. we have \(g \in \Sym^2\T^* Y\) non-degenerate. It is a fact that \((Y, g)\) is locally isometric to \(\R^n\) with the Euclidean metric if and only if the curvature \(F\) of \(g\) vanishes. That is, \(g\) is flat. 
+
+On the other hand, suppose \((Z, J)\) is an almost complex manifold. That is, \(J \in \End(\T Z)\), with \(J^2 = - \id_{\T Z}\). One example would be \(\C^n\), with \(J(z) = iz\). One question is, when is \((Z, J)\) locally isomorphic to \(\C^n\)? That is, when is \((Z, J)\) a complex manifold. A difficult result in analysis, called the Newlander-Nirenberg theorem, shows that this occurs if and only if the Nijenhuis tensor,
+\[\mcN_J(v, w) = [Jv, Jw] - J([v, Jw] + [Jv, w]) - [v, w]\]
+vanishes
+
+\begin{theorem}
+    [Darboux] A manifold \((X, \omega)\) with non-degenerate \(2\)-form \(\omega\), is locally modeled on \((\R^{2n}, \omega_{std})\) if and only if \(\dd\omega = 0\).
+\end{theorem}
+
+Finally, symplectic topology is ubiquitous in research in geometry and topology, e.g. global topology, algebraic geometry and so on.
+
+\printindex
+
+\end{document}

@@ -1,0 +1,177 @@
+\documentclass{article}
+
+\usepackage{../../Style}
+
+\title{Geometric Group Theory}
+\author{Shing Tak Lam}
+\date{Lent 2023\footnote{Based on lectures by Henry Wilton. Last updated \today.}}
+
+\makeindex
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\lec
+
+\section{Combinatorial group theory}
+
+Combinatorial group theory is a sibling field to Geometric group theory. Both study infinite discrete groups.
+
+\subsection{Free groups and presentations}
+
+Let \(A = \{a_1, a_2, \dots\}\) be an \emph{alphabet}. A group \(F\) is \emph{free on \(A\)} if
+\begin{enumerate}
+    \item There is a map of sets \(A \to F\),
+    \item for any group \(G\), and a map of sets \(A \to G\), there exists a unique group homomorphism \(F \to G\) such that
+    % https://q.uiver.app/#q=WzAsMyxbMCwxLCJBIl0sWzEsMCwiRiJdLFsxLDEsIkciXSxbMCwxXSxbMSwyXSxbMCwyXV0=
+    \[\begin{tikzcd}
+        & F \\
+        A & G
+        \arrow[from=2-1, to=1-2]
+        \arrow[from=1-2, to=2-2]
+        \arrow[from=2-1, to=2-2]
+    \end{tikzcd}\]
+    commutes.
+\end{enumerate}
+This is a \emph{universal property}. As usual, this means that \(F\) is unique up to unique isomorphism. This shows that \(F\) is determined by \(A\), so we may write \(F = F(A)\).
+
+However (as usual with definitions by universal property), we don't know if \(F(A)\) exists. We'll show this two different ways.
+
+\textbf{1. Topologically:} Let
+\[X = \bigvee_{a \in A}S^1\]
+By the Seifert-van Kempen theorem,
+\[\pi_1(X) \cong F(A)\]
+
+\textbf{2. Combinatorially:} Let
+\[A^* = \{\text{words in }A \sqcup A^{-1}\}\]
+where \(A^{-1} = \{a_1^{-1}, \dots, a_n^{-1}\}\). For example,
+\[1 = \emptyset, aa, aa^{-1}, aba^{-1}b^{-1}, a^{100}ba^{-100}b, \dots\]
+A word is \emph{reducible} if it contains \(aa^{-1}\) or \(a^{-1}a\) as a subword for any \(a \in A\). Otherwise, it is \emph{reduced}. We can now define
+\[F(A) = \left\{w \in A^* \text{ reduced}\right\}\]
+The group operation is concatenation, followed by reduction. For example,
+\[(abab^{-1})(b^2a) = abab^{-1}b^2a = ababa\]
+Note that reduction terminates as each reduction step reduces the length. We won't check that this is well defined or associative. The identity element is \(1\), inverses is clear.
+
+A \emph{presentation} consists of an alphabet \(A\), which we will call \emph{generators}, and a set \(R \sse F(A)\), which we will call \emph{relations}, and we write
+\[\inner{A \mid R} = \inner{a_1, a_2, \dots \mid r_1, r_2, \dots}\]
+This \emph{presents}  a group
+\[G = \frac{F(A)}{\iinner{R}}\]
+where \(\iinner{R}\) is the \emph{normal closure} of \(R\), i.e. the smallest normal subrgoup of \(F(A)\) containing \(R\).
+
+\begin{example}
+    Some examples of presentations which we have seen:
+    \begin{align*}
+        \inner{a \mid a^n} &\cong \Z/n\Z \\
+        \inner{r, s \mid r^n, s^2, srsr} &\cong D_{2n} \\
+        \inner{A\mid} &\cong F(A) \\
+        \inner{a, b \mid aba^{-1}b^{-1}} &\cong \Z^2 \\
+        \inner{a_1, \dots, a_g, b_1, \dots, b_g \mid a_1b_1a_1^{-1}b_1^{-1}\cdots a_gb_ga_g^{-1}b_g^{-1}} &\cong \pi_1(\Sigma_g)
+    \end{align*}
+    where \(\Sigma_g\) is the compact orientable surface of genus \(g\).
+\end{example}
+As we see, presentations arise when we write down fundamental groups of spaces. In fact, all groups arise this way.
+\begin{corollary}
+    [of Seifert-van Kampen]
+    For
+    \[G = \inner{a_1, a_2, \dots \mid r_1, r_2, \dots}\]
+    there exists a space \(X\) with \(\pi_1(X) = G\).
+\end{corollary}
+
+\begin{proof}
+    First, start of with a wedge of circles, one for each \(a_i\). Also consider a disjoint union of discs, one for each \(r_i\). Attach the \(i\)-cell along its boundary, which is a loop in the wedge of circles.
+\end{proof}
+
+This is called the \emph{presentation complex} of \(G\). For example, if we have \(\Z^2 = \inner{a, b \mid aba^{-1}b^{-1}}\), then \(X = \T^2\) is the \(2\)-torus.
+
+In 1911, Max Dehn posed the following problems.
+\begin{enumerate}
+    \item (Word problem) Given \(w \in A^*\), determine whether or not \(w = 1\) in \(G = \inner{A \mid R}\). That is, whether or not \(w \in \iinner{R} \sse F(A)\).
+    \item (Conjugacy problem) Given \(G = \inner{A \mid R}\), \(u, v \in A^*\), determine whether or not \(u\) is conjugate to \(v\) in \(G\).
+    \item (Isomorphism problem) Given \(G = \inner{A \mid R}, H = \inner{B \mid S}\), determine whether or not \(G\) is isomorphic to \(H\).
+\end{enumerate}
+
+\lec
+
+\begin{remark}
+    The conjugacy problem is stronger than the word problem, since \(w = 1\) if and only if \(w\) is conjugate to \(1\).
+
+    Dehn was motivated by topology, but the problems asks for algorithms. We will often solve them using geometry.
+
+    All three were \emph{un}solved in the 1950s, as all three problems are algorithmically undecidable. Nevertheless, positive solutions are known for many reasonable classes of groups.
+\end{remark}
+
+Let \(A = \{a_1, \dots, a_n\}\) be a finite alphabet.
+
+\begin{example}
+    [word problem in free groups]
+
+    Let \(w \in A^*\). If \(w\) is reduced, then \(w = 1\) if and only if \(w = \emptyset\). Otherwise, \(w\) contains a subword \(aa^{-1}\) for some \(a \in A \cup A^{-1}\). Cancelling \(aa^{-1}\) produces a word \(w' \in A^*\), such that \(w = w'\) in \(F(A)\), and \(\ell(w') = \ell(w) - 2 < \ell(w)\). This terminates after finitely many steps. 
+\end{example}
+
+We can also solve the conjugacy problem for free groups.
+
+\begin{definition}
+    There is a natural action of \(\Z\) on \(A^*\) permuting words. That is,
+    \[1\cdot a_1\cdots a_k = a_2a_3\cdots a_ka_1\]
+\end{definition}
+
+The elements of \(\Z \cdot w\) are called the \emph{cyclic conjugates} of \(w\). Note that all \(u \in \Z w\) are conjugate to \(w\). The orbits \(\Z \backslash A^*\) are called \emph{cyclic words}. A word is \emph{cyclically reduced} if every cyclic conjugate is reduced.
+
+\begin{example}
+    \(aba^{-1}\) is reduced, but not cyclically reduced as \(ba^{-1}a\) is not reduced.
+\end{example}
+
+Note that if \(w\) is reduced, but not cyclically reduced, then
+\[w = aw'a^{-1}\]
+for some \(a \in A \cup A^{-1}\). Note that \(w'\) is both conjugate to \(w\) and shorter than \(w\). Hence after finitely many iterations, we can assume that \(w\) is cyclically reduced.
+
+\begin{lemma}
+    [conjugacy problem in free groups] If \(u, v \in F(A)\) are cyclically reduced, then \(u\) is conjugate to \(v\) if and only if the corresponding cyclic words are the same.
+\end{lemma}
+
+\begin{proof}
+    If \(u, v\) have the same cyclic words, then \(v\) is a cyclic conjugate of \(u\), which we have seen is a conjugate of \(u\).
+
+    Conversely, suppose \(u = gvg^{-1}\). By induction on \(\ell(g)\), we can assume \(g = a \in A \cup A^{-1}\). From this it follows that either \(v = a^{-1}v'\), or \(v = v'a\), as \(v\) is cyclically reduced. That is, \(u = v'a^{-1}\) or \(u = av'\). In both cases, they are cyclic conjugates.
+\end{proof}
+
+\subsection{Historical case study}
+
+Let's briefly think about the state of topology in the early 20th century. Poincar\'e knew that homology classifies the compact two-dimensional surfaces. This motivated the
+
+\begin{conjecture}
+    [Poincar\'e conjecture, version 1] Let \(M\) be a compact connected 3-manifold, with
+    \[\HH_*(M) = \begin{cases}
+        \Z & * = 0, 3 \\
+        0 & \text{otherwise}
+    \end{cases}\]
+    Then \(M\) is homeomorphic to \(S^3\).
+\end{conjecture}
+
+Such a 3-manifold \(M\) is called a \emph{homology sphere}.
+
+\begin{theorem}
+    [Poincar\'e, 1904] There exists a three dimensional homology sphere \(P\), with
+    \[\pi_1(P) \surj A_5\]
+\end{theorem}
+
+The moral is that: homology is not enough, we need use \(\pi_1\) as well.
+
+\begin{conjecture}
+    [Poincar\'e conjecture, version 2] Let \(M\) be a compact connected \(3\)-manifold, with \(\pi_1(M) = 1\). Then \(M\) is homeomorphic to \(S^3\).
+\end{conjecture}
+
+This was proven by Perelman in 2003. Returning to the original conjecture, in 1910 Dehn wanted to construct more homology spheres.
+
+\begin{theorem}
+    [Dehn, 1910] There are infinitely many non-homeomorphic 3-dimensional homology spheres.
+\end{theorem}
+
+\begin{remark}
+    The isomorphism problem is exactly what is needed to distinguish these manifolds.
+\end{remark}
+
+\end{document}

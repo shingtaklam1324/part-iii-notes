@@ -1,0 +1,205 @@
+\documentclass{article}
+
+\usepackage{../../Style}
+
+\title{Group Cohomology}
+\author{Shing Tak Lam}
+\date{Lent 2023\footnote{Based on lectures by Chris Brookes. Last updated \today.}}
+
+\makeindex
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\lec
+
+\section{Definitions and resolutions}
+
+Let \(G\) be a group.
+
+\begin{definition}
+    [integral group ring]
+    The \emph{integral group ring}\index{integral group ring} \(\ZG\) has elements being formal sums
+    \[\sum n_g g\]
+    for \(n_g \in \Z, g \in G\), and only finitely many \(n_g\) are non-zero. This is a free abelian group under addition, i.e.
+    \[\left(\sum m_g g\right) + \left(\sum n_g g\right) = \sum (m_g + n_g) g\]
+    and we have multiplication
+    \[\left(\sum m_h h\right)\left(\sum n_k k\right) = \sum_g \left(\sum_{hk = g}m_hn_k\right) g\]
+\end{definition}
+
+This is the associative ring underlying the integral representation theory of \(G\). We will write \(1 = 1e\) for the multiplicative identity in \(G\).
+
+\begin{definition}
+    [module]
+    A \emph{(left) \(\ZG\)-module}\index{ZG module@\(\ZG\) module} \(M\) is an abelian group under addition, and a map
+    \begin{align*}
+        \ZG \times M &\to M \\
+        (r, m) &\mapsto rm
+    \end{align*}
+    such that
+    \begin{enumerate}
+        \item \(r(m + n) = rm + rn\),
+        \item \((r_1 + r_2)m = r_1m + r_2 m\),
+        \item \((r_1r_2)m = r_1(r_2m)\),
+        \item \(1m = m\)
+    \end{enumerate}
+\end{definition}
+
+A module is \emph{trivial} if \(gm = m\) for all \(g \in G\), \(m \in M\). We say \emph{the trivial module}\index{trivial \(\ZG\) module} is \(\Z\) with trivial action \(gm = m\). A \emph{free \(\ZG\)-module}\index{free \(\ZG\) module} on \(X\) is formal sums
+\[\sum r_x x\]
+for \(r_x \in \ZG, x \in X\), and finitely many \(r_x\) non-zero. We will write \(\ZG\{X\}\) for this.
+
+\emph{Submodules} and \emph{quotient modules} are defined as we would expect.
+
+\begin{definition}
+    [\(\ZG\)-map]
+    An \emph{\(\ZG\)-map (or morphism)}\index{\(\ZG\)-map} \(\alpha : M_1 \to M_2\) is a map of abelian groups, with
+    \[\alpha(rm_1) = r\alpha(m_1)\]
+    for \(r \in \ZG, m_1 \in M_1\).
+\end{definition}
+
+\begin{example}
+    The \emph{augmentation map}\index{augmentation map} is
+    \begin{align*}
+        \epsilon : \ZG &\to \Z \\
+        \sum n_g g &\mapsto \sum n_g
+    \end{align*}
+    where we treat \(\ZG\) as a left \(\ZG\)-module, and \(\Z\) as the trivial module. This is a \(\ZG\) map, and it is also a ring homomorphism.
+\end{example}
+
+\begin{notation}
+    Write \(\Hom_G(M, N)\)\index{HomGMN@\(\Hom_G(M, N)\)} for the set of \(\ZG\)-maps from \(M \to N\), with pointwise addition.
+\end{notation}
+
+\begin{example}
+    If we regard \(\ZG\) as a left \(\ZG\)-module, then
+    \[\Hom_G(\ZG, M) \cong M\]
+    for any left \(\ZG\)-module \(M\), by sending \(\varphi\) to \(\varphi(1)\). This is an isomorphism since
+    \[\varphi(r) = \varphi(r1) = r\varphi(1)\]
+    Note that \(\Hom_G(\ZG, M)\) is a left \(\ZG\)-module, with
+    \[(s\phi)(r) = \phi(rs)\]
+    In particular,
+    \[\Hom_G(\ZG, \ZG) \cong \ZG\]
+    With this, \(\varphi \mapsto \varphi(1)\) corresponds to multiplication on the \emph{right} by \(\varphi(1)\).
+\end{example}
+
+Note that \(G\) may not be abelian, so the distinction between left and right modules matters.
+
+\begin{definition}
+    If \(f : M_1 \to M_2\) is a \(\ZG\)-map, then the dual map is
+    \[f^* : \Hom_G(M_2, N) \to \Hom_G(M_1, N)\]
+    for any \(\ZG\)-module \(N\). This is given by
+    \[f^*(\varphi) = \varphi \circ f\]
+
+    Similarly, if \(f : N_1 \to N_2\), then we have
+    \[f_* : \Hom_G(M, N_1) \to \Hom(M, N_2)\]
+    with \(f_*(\varphi) = f \circ \varphi\).
+\end{definition}
+
+These are maps of abelian groups, since in general \(\Hom_G(M, N)\) doesn't have to be a \(\ZG\)-module, as we don't have a right action.
+
+\begin{example}
+    [Prototypical example] Let \(G = \inner{t}\) be an infinite cyclic group, and consider the graph \(\Gamma\) with vertices \(\{v_i\}_{i \in \Z}\), edges \(v_i \bij v_{i+1}\). Then \(G\) acts on the set \(V\) of vertices, by \(t v_i = v_{i+1}\), and also on the set \(E\) of edges. The action is transitive in both cases. The formal integral sums \(\Z V\) and \(\Z E\) are \(\ZG\)-modules, and are free. Fix the edge \(e : v_0 \bij v_1\). Then we have \(\ZG\)-maps
+    \begin{align*}
+        \dd : \Z E &\to \Z V \\
+        e &\mapsto v_1 - v_0
+    \end{align*}
+    and also
+    \begin{align*}
+        \Z V &\to \Z \\
+        v_0 &\mapsto 1
+    \end{align*}
+    This correspond to the augmentation map.
+\end{example}
+
+\begin{definition}
+    [chain complex, exact, homology]
+    A \emph{chain complex}\index{chain complex} of \(\ZG\)-modules is a sequence
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJNX3MiXSxbMSwwLCJNX3tzLTF9Il0sWzIsMCwiXFxjZG90cyJdLFszLDAsIk1fdCJdLFswLDEsImRfcyJdLFsxLDIsImRfe3MtMX0iXSxbMiwzLCJkX3t0KzF9Il1d
+    \[\begin{tikzcd}
+        {M_s} & {M_{s-1}} & \cdots & {M_t}
+        \arrow["{\dd_s}", from=1-1, to=1-2]
+        \arrow["{\dd_{s-1}}", from=1-2, to=1-3]
+        \arrow["{\dd_{t+1}}", from=1-3, to=1-4]
+    \end{tikzcd}\]
+    of \(\ZG\)-modules and maps, such that for \(t < n < s\), \(\dd_n \circ \dd_{n+1} = 0\). We will write
+    \[M_\bullet = (M_n, \dd_n)_{t \le n \le s}\]
+\end{definition}
+We say that \(M_\bullet\) is \emph{exact}\index{exact} at \(M_n\) if \(\im(\dd_{n+1}) = \ker(\dd n)\). The sequence is exact if if it exact at all \(M_n\) with \(t < n < s\).
+
+The \emph{homology}\index{homology} of \(M_\bullet\) is given by
+\begin{align*}
+    \HH_s(M_\bullet) &= \ker(\dd s) \\
+    \HH_n(M_\bullet) &= \frac{\ker(\dd_n)}{\im(\dd_{n+1})} \text{ for }t < n < s \\
+    \HH_t(M_\bullet) &= \coker(\dd_{t+1})
+\end{align*}
+
+A \emph{short exact sequence}\index{short exact sequence} is a chain complex of the form
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTV8xIl0sWzIsMCwiTV8yIl0sWzMsMCwiTV8zIl0sWzQsMCwiMCJdLFswLDFdLFsxLDIsIlxcYWxwaGEiXSxbMiwzLCJcXGJldGEiXSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & {M_1} & {M_2} & {M_3} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["\alpha", from=1-2, to=1-3]
+	\arrow["\beta", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+In our prototypical example, we have a short exact sequence
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxaIEUiXSxbMiwwLCJcXFogViJdLFszLDAsIlxcWiAiXSxbNCwwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+\[\begin{tikzcd}
+	0 & {\Z E} & {\Z V} & {\Z } & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+which corresponds to
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzMsMCwiXFxaICJdLFs0LDAsIjAiXSxbMSwwLCJcXFogRyJdLFsyLDAsIlxcWiBHIl0sWzEsMl0sWzAsM10sWzMsNF0sWzQsMV1d
+\[\begin{tikzcd}
+	0 & {\ZG} & {\ZG} & {\Z } & 0
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+where the map \(\ZG \to \ZG\) is multiplication on the right by \(t - 1\).
+
+\begin{definition}
+    [projective]
+    A \(\ZG\)-module \(P\) is \emph{projective}\index{projective} if for every surjective \(\ZG\)-map \(\alpha : M_1 \to M_2\), and every \(\ZG\)-map \(\beta : P \to M_2\), there exists \(\overline\beta\) such that
+    % https://q.uiver.app/#q=WzAsNCxbMCwxLCJNXzEiXSxbMSwxLCJNXzIiXSxbMiwxLCIwIl0sWzEsMCwiUCJdLFswLDEsIlxcYWxwaGEiLDJdLFsxLDJdLFszLDEsIlxcYmV0YSJdLFswLDMsIlxcb3ZlcmxpbmVcXGJldGEiXV0=
+    \[\begin{tikzcd}
+        & P \\
+        {M_1} & {M_2} & 0
+        \arrow["\alpha"', from=2-1, to=2-2]
+        \arrow[from=2-2, to=2-3]
+        \arrow["\beta", from=1-2, to=2-2]
+        \arrow["\overline\beta", from=2-1, to=1-2]
+    \end{tikzcd}\]
+    commutes.
+\end{definition}
+If we have any short exact sequence
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTiJdLFsyLDAsIk1fMSJdLFszLDAsIk1fMiJdLFs0LDAsIjAiXSxbMCwxXSxbMSwyLCJmIl0sWzIsMywiXFxhbHBoYSJdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & N & {M_1} & {M_2} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["f", from=1-2, to=1-3]
+	\arrow["\alpha", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+Consider
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxIb21fRyhQLCBOKSJdLFsyLDAsIlxcSG9tX0coUCwgTV8xKSJdLFszLDAsIlxcSG9tX0coUCwgTV8yKSJdLFs0LDAsIjAiXSxbMCwxXSxbMSwyLCJmXyoiXSxbMiwzLCJcXGFscGhhXyoiXSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & {\Hom_G(P, N)} & {\Hom_G(P, M_1)} & {\Hom_G(P, M_2)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["{f_*}", from=1-2, to=1-3]
+	\arrow["{\alpha_*}", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd} \tag{\(*\)}\]
+Then \(P\) is projective if and only if \((*)\) is exact. Note that in \((*)\), we always have exactness except at \(\Hom_G(P, M_2)\).
+
+\printindex
+
+\end{document}
