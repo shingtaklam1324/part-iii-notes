@@ -27,7 +27,7 @@ is an isomorphism.
 
 \begin{example}
     \(\R^{2n}\) with coordinates \(x_1, y_1, \dots, x_n, y_n\) is a symplectic manifold, with
-    \[\omega_{std} = \omega_0 = \sum \dd x_i \wedge \dd y_i\]
+    \[\omega_{\text{std}} = \omega_0 = \sum \dd x_i \wedge \dd y_i\]
 \end{example}
 
 \begin{example}
@@ -71,6 +71,169 @@ vanishes
 \end{theorem}
 
 Finally, symplectic topology is ubiquitous in research in geometry and topology, e.g. global topology, algebraic geometry and so on.
+
+\lec
+
+\section{(Symplectic) linear algebra}
+
+Let \(V\) be a vector space, over a field \(\mathbb F\) of charactistic 0, with \(\dim(V) = n\). \(V^* = \Hom(V, \mathbb F)\) will denote the dual.
+
+Define \(\mathbb F\)-algebras
+\begin{align*}
+    \T(V) &= \bigoplus_{i=0}^\infty V^{\otimes i} \\
+    \Lambda^*(V) &= \frac{\T(V)}{\inner{v \otimes v}}
+\end{align*}
+If \(\{e_1, \dots, e_n\}\) is a basis for \(V\), then
+\[\{e_{i_1} \wedge \cdots \wedge e_{i_k} \mid i_1 < \cdots < i_k\}\]
+is a basis for \(\Lambda^kV\). Using this,
+\[\dim(\Lambda^kV) = {n \choose k}\]
+
+\begin{proposition}
+    \(\Lambda^k(V^*)\) is isomorphic to the space of alternating multilinear maps
+    \[V^{\otimes k} \to \bb F\]
+\end{proposition}
+
+\begin{proof}
+    The map is given by
+    \[e_{i_1}^\vee\wedge \cdots \wedge e_{i_k}^\vee \mapsto \sum_{\sigma \in S_k}\sign(\sigma)e_{i_{\sigma(1)}}^\vee\otimes \cdots \otimes e_{i_{\sigma(k)}}^\vee\]
+    The rest is left as an exercise.
+\end{proof}
+
+In particular, \(\Lambda^n(V^*) = \Lambda^{\text{top}}(V^*)\) is (non-canonically) isomorphic to \(\Span\{\det\}\), or volume forms.
+
+\begin{definition}
+    A \emph{symplectic form} on \(V\) is \(\omega \in \Lambda^2(V^*)\), such that \(\omega : V \times V \to \bb F\) is a perfect pairing\footnote{That is, \(\omega(v, \cdot)\) induces an isomorphism \(V \cong V^*\).}.
+\end{definition}
+
+\begin{example}
+    Let \(M^{4m+2}\) be an oriented manifold, and \(V = \HH^{2m+1}(M; \Q)\). The pairing
+    \[\inner{\alpha, \beta} = \int_M\alpha\cup\beta\]
+    is a symplectic form.
+\end{example}
+
+\begin{example}
+    Let \(V = \R^{2n}\), with basis \(\{x_i, y_i\}\), with dual basis \(\{e_i, f_i\}\). We can define
+    \[\omega = \sum_{i=1}^n e_i \wedge f_i\]
+    More generally, if \((V, \omega_V), (W, \omega_W)\) are symplectic, then so is
+    \[(V \oplus W, \omega_V \oplus \omega_W)\]
+\end{example}
+
+We can write
+\[\omega(v, w) = v \vdot J_0 w\]
+where
+\[J_0e_j = f_j \qqtext{and} J_0f_j = -e_j\]
+If we use complex coordinates \(z_j = x_j + iy_j\), then \(J_0\) is just multiplication bu \(i\).
+
+Let \((V, \omega)\) be a symplectic vector space. Let \(W \sse V\) be a subspace. Define
+\[W^\omega = \{v \in V \mid \omega(w, v) = 0 \text{ for all }w \in W\}\]
+
+\begin{definition}
+    \(W\) is
+    \begin{enumerate}
+        \item \emph{isotropic} if \(W \sse W^\omega\),
+        \item \emph{coisotropic} if \(W^\omega \sse W\),
+        \item \emph{symplectic} if \(W \cap W^\omega = 0\),
+        \item \emph{Lagrangian} if \(W = W^\omega\). That is, it is isotropic and coisotropic.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    Take \(\R^{2n}\) with the standard symplectic form
+    \[\omega = \sum_i \dd x_i \wedge \dd y_i\]
+    Then \(\Span\{x_1, x_2\}\) is isotropic. In fact, \(\Span\{x_1, \dots, x_n\}\) is a Lagrangian subspace. On the other hand, \(\Span\{x_1, y_1\}\) is a symplectic subspace.
+\end{example}
+
+\begin{remark}
+    For \emph{any} subspace \(W \sse V\),
+    \[\dim(W) + \dim(W^\omega) = \dim(V)\]
+    and we have that \((W^\omega)^\omega = W\).
+\end{remark}
+
+\begin{theorem}
+    Given any symplectic vector space \((V, \omega)\) over \(\R\), there exists a linear isomorphism \(\Phi : V \to \R^{2n}\), such that \(\Phi^*\omega_0 = \omega\).
+\end{theorem}
+
+\begin{proof}
+    We induct on \(\dim(V)\). Choose any \(v_1 \in V\) non-zero. By non-degeneracy, there exists \(w_1 \in V\) such that \(\omega(v_1, w_1) = 1\). Let \(V_1 = \Span\{v_1, w_1\}\). Define \(\Phi_1 : V_1 \to \R^2\), by \(\Phi_1(v_1) = x_1\) and \(\Phi_1(w_1) = y_1\). This satisfies that \(\Phi_1^*\omega_0 = \omega\vert_{V_1}\).
+
+    Define \(V_2 = V_1^\omega\). Then \(V_1\) and \(V_2\) are symplectic, and \(\dim(V_2) = \dim(V) - 2\). By induction hypothesis, there exists \(\Phi_2 : V_2 \to \R^{2n-2}\), with \(\Phi_2^*\omega_0 = \omega\vert_{V_2}\). We can then define
+    \[\Phi = \Phi_1 \oplus \Phi_2 : (V_1, \omega\vert_{V_1}) \oplus (V_2, \omega\vert_{V_2}) \to (\R^{2n-2}, \omega_0) \oplus (\R^2, \omega_0) = (\R^{2n}, \omega_0)\]
+\end{proof}
+
+\lec
+
+In particular, symplectic vector spaces are always even dimensional.
+
+\begin{corollary}
+    \(\alpha \in \Lambda^2 V^*\) is symplectic if and only if \(\alpha \wedge \cdots \wedge \alpha \in \Lambda^{\text{top}} V^* = \R\) is non-zero.
+\end{corollary}
+
+\begin{proof}
+    Note that
+    \[\omega_{\text{std}}^n = x_1^\vee \wedge y_1^\vee \cdots \wedge x_n^\vee \wedge y_n^\vee\]
+    is the usual volume form.
+\end{proof}
+
+Returning to linear algebra, we have
+\[\Hom(V, V) \to \Hom(\Lambda^\text{top}V, \Lambda^\text{top}V) \cong \R\]
+The composition is the \emph{determinant} \(\det : \Hom_*(V, V) \to \R\).
+
+\subsection{Orientations}
+
+Define
+\[\ori_V = \frac{\{\text{ordered bases for }V\}}{\GL_+(V)} = \frac{\Fr(V)}{\GL_+(V)}\]
+where we consider the \(\GL_+(V)\)-orbits, i.e. two frames are equivalent if they are related by a transformation with positive determinant.
+
+In this case, \(\ori_V\) has two elements. Given any volume form \(\alpha\) on \(V\), there exists an induced orientation on \(V\), given by the sign of \(\alpha\) on a basis. In particular, any symplectic vector space has such a canonical orientation, induced by \(\omega^n\).
+
+\subsection{Symplectomorphism}
+
+\begin{definition}
+    Define
+    \[\Sp(2n) = \{\Phi \in \GL(\R^{2n}) \mid \Phi^*\omega_{\std} = \omega_{\std}\}\]
+    if \(J_0\) is the matrix so that \(\omega(u, v) = u \vdot J_0 v\), then we have that
+    \[\Sp(2n) = \{\Phi \in \GL(\R^{2n}) \mid \Phi^\T J_0\Phi = J_0\}\]
+\end{definition}
+
+\begin{example}
+    For \(\R^2\), \(\omega\) is the standard volume form \(\dd x \wedge \dd y\). So preserving \(\omega\) is the same as preserving the volume form. Hence
+    \[\Sp(2) = \SL(2, \R)\]
+    In general, we have an embedding
+    \[\Sp(2n) \sse \SL(2n, \R)\]
+    since \(\omega^n\) is the standard volume form\footnote{maybe up to a factor of \(n!\)} on \(\R^{2n}\).
+\end{example}
+
+Note if \(\Phi\) commutes with \(J_0\), and \(\Phi\) preserves the inner product, then \(\Phi \in \Sp(2n)\). So
+\[\GL(n, \C) \cap \mathrm O(2n) \sse \Sp(2n)\]
+In fact, we have
+\[\GL(n, \C) \cap \mathrm O(2n) = \GL(n, \C) \cap \Sp(2n) = \Sp(2n) \cap \mathrm O(2n) = \mathrm U(n)\]
+
+\begin{proposition}
+    The set \(S\) of symplectic forms on \(\R^{2n}\), as a subset of \(\Lambda^2(V^*)\) is \(\GL(2n, \R)/\Sp(2n)\), a homoegenous space.
+\end{proposition}
+
+\begin{proof}
+    \(\GL(2n, \R)\) acts transitively on \(S\), with stabiliser \(\Sp(2n)\) for any point.
+\end{proof}
+
+Let \(\Lag(V)\) be the space of Lagrangian subspaces \(L\) of \(V\).
+
+\begin{example}
+    \(\Lag(\R^2)\) is just the one-dimensional subspaces of \(\R^2\), i.e. \(\R\P^1 = S^1\). More generally,
+    \[\Lag(\R^{2n}) = \frac{\mathrm U(n)}{\mathrm O(n)}\]
+\end{example}
+
+\begin{example}
+    Let \(V = C^\infty(S^1, \R)\), with
+    \[\omega(f, g) = \int_{S^1}f\dd g\]
+    Using integration by parts, this is alternating.
+\end{example}
+
+\subsection{Vector bundles}
+
+If \(\pi : \mcE \to X\) is a vector bundle, we can define \(\Lambda^*\mcE \to X\), \(\Lambda^*(\mcE^*) \to X\), \(\ori_\mcE \to X\), and so on. We have a vector space \(\Gamma(\mcE)\) of global sections of \(\mcE\). In particular,
+\[\Omega^(X) = \Gamma(\Lambda^k(\T^* X))\]
+is the space of \(k\)-forms.
 
 \printindex
 

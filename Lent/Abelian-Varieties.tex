@@ -222,6 +222,7 @@ is exact.
 Proof of both have been left as exercises.
 
 \begin{corollary}
+    \label{cor:differential-poly-quot}
     If \(B = A[\{x_i\}]\), and \(C = B/\inner{\{f_j\}}\), then
     \[\Omega_{C/A} = \frac{\bigoplus_i C \dd x_i}{\sum C \dd f_j}\]
     In this case,
@@ -260,4 +261,115 @@ For the second construction, consider the diagonal map \(\Delta : X \to X \times
 Let \(i : X \inj U\) be the closed immersion. Define
 \[\Omega_{X/Y} = i^*\left(\mcI_{X/U}/\mcI_{X/U}^2\right)\]
 where \(\mcI_{X/U}\) is the ideal sheaf. When \(X = \Spec(B)\) and \(Y = \Spec(A)\), this is just \(\widetilde{\Omega_{B/A}}\).
+
+\lec
+
+Note that we also have that \(\Omega_{X/Y} = i^*\mcI_{X/U}\), since
+\[i^*\mcI_{X/U} = \mcO_X\otimes i^{-1}\mcI_{X/U} = i^{-1}(\mcO_U/\mcI_{X/U}) \otimes i^{-1}\mcI_{X/U}\]
+If \(X \to Y\) is separated, then we can take \(U = X \times_YX\).
+
+We will define \(\dd : \mcO_X \to \Omega_{X/Y}\) by: if we have open affines \(V = \Spec(B) \sse X\), \(U = \Spec(A) \sse Y\), with \(f(V) \sse U\), then
+\[\dd : \mcO_X(V) = B \to \Omega_{B/A} = \Omega_{X/Y}(V)\]
+is defined. Moreover, this is compatible with restriction to smaller open affines. The set of open affines \(\Spec(B) \sse X\) such that the image is contained in an open affine in \(Y\), forms a basis for the topology on \(X\). Thus, this extends to a map of sheaves.
+
+\underline{Amusing fact:} There exists an immersion \(X \inj Z\) (i.e. a closed immersion then an open immersion), which cannot be factored as an open immersion, then a closed immersion.
+
+We can rewrite the exact sequences, in the setting of sheaves.
+\begin{itemize}
+    \item if we have morphisms of schemes \(f : X \to Y, g : Y \to S\), then we have
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJmXipcXE9tZWdhX3tZL1N9Il0sWzEsMCwiXFxPbWVnYV97WC9TfSJdLFsyLDAsIlxcT21lZ2Ffe1gvWX0iXSxbMywwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM11d
+\[\begin{tikzcd}
+	{f^*\Omega_{Y/S}} & {\Omega_{X/S}} & {\Omega_{X/Y}} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    \item If \(Z \inj X\) is a closed immersion, with ideal sheaf \(\mcI\), and \(f : X \to Y\) a morphism of sheaves, then we have the exact sequence
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1jSS9cXG1jSV4yIl0sWzEsMCwiaV4qXFxPbWVnYV97WC9ZfSJdLFsyLDAsIlxcT21lZ2Ffe1ovWX0iXSxbMywwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM11d
+\[\begin{tikzcd}
+	{\mcI/\mcI^2} & {i^*\Omega_{X/Y}} & {\Omega_{Z/Y}} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+\end{itemize}
+
+By construction, \(\Omega_{X/Y}\) is quasicoherent.
+
+\begin{proposition}
+    If \(f : X \to Y\) is of finite type, and \(X\) and \(Y\) are Noetherian, then \(\Omega_{X/Y}\) is coherent\footnote{i.e. affine locally it is the sheaf associated to a finite module.}.
+\end{proposition}
+
+\begin{proof}
+    Locally, we can cover \(X\) with \(\Spec(B)\), such that \(f(\Spec(B)) \sse \Spec(A)\), and this makes \(B\) a finite type \(A\)-algebra. That is,
+    \[B = \frac{A[t_1, \dots, t_m]}{I}\]
+    where \(I = \inner{f_1, \dots, f_n}\). The second exact sequence is
+    % https://q.uiver.app/#q=WzAsNCxbMywwLCIwIl0sWzIsMCwiXFxPbWVnYV97Qi9BfSJdLFsxLDAsIlxcT21lZ2Ffe0FbXFxtYXRoYmYgdF0vQX1cXG90aW1lc197QVtcXG1hdGhiZiB0XX1CIl0sWzAsMCwiSS9JXjIiXSxbMywyXSxbMiwxXSxbMSwwXV0=
+    \[\begin{tikzcd}
+        {I/I^2} & {\Omega_{A[\mathbf t]/A}\otimes_{A[\mathbf t]}B} & {\Omega_{B/A}} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+    \end{tikzcd}\]
+    But note that
+    \[\Omega_{A[\mathbf t]/A}\otimes_{A[\mathbf t]}B = \bigoplus_i B \dd t_i\]
+    and so \(\Omega_{B/A}\) is a finite \(B\)-module, and so \(\Omega_{X/Y}\) is coherent.
+\end{proof}
+
+For field extensions, \(\Omega\) tells us whether the extension is separable.
+
+\begin{example}
+    Let \(L/K\) be a finite field extension. Then \(L/K\) is separable if and only if \(\Omega_{L/K} = 0\). To see this, factor the extension as \(K \sse K_1 \sse L\), with \(K_1/K\) separable, and \(L/K_1\) purely inseparable. That is, \(K_1\) is the set of all elements of \(L\) which is separable over \(K\).
+
+    By the primitive element theorem, \(K_1 = K(\alpha) = K[t]/\inner{g}\), where \(g \in K[t]\) is irreducible, \(g(\alpha) = 0\) and \(g'(\alpha) \ne 0\). So
+    \[\Omega_{K_1/K} = \frac{K_1\dd\alpha}{K_1g'(\alpha)\dd\alpha}\]
+    by \cref{cor:differential-poly-quot}. But this is zero as \(g'(\alpha) \ne 0\). In this case, transitivity gives us \(\Omega_{L/K} = \Omega_{L/K_1}\). If \(L = K_1\), i.e. \(L/K\) is separable, then \(\Omega_{L/K_1} = 0\).
+
+    Conversely, if \(L/K\) is inseparable, then there exists \(K_2\) with \(K_1 \sse K_2 \sse L\), such that \(L = K_2(\beta) = K_2[t]/\inner{t^p - b}\), with \(p = \Char(K) > 0\), \(b \in K_2\) is not a \(p\)-th power. In this case.
+    \[\Omega_{L/K_2} = L\dd\beta\]
+    since in this case, \(\dv{t}(t^p - b) = 0\). Thus, by transitivity again, \(\Omega_{L/K}\ne 0\).
+\end{example}
+
+\subsection{Tangent and cotangent spaces}
+
+Let \(X\) be a \(k\)-scheme, locally of finite type. That is, \(X\) has an open cover by affines \(\Spec(A)\), where \(A\) is a finite type \(k\)-algebra. Let \(\abs{X}\) denote the set of closed points of \(X\). If \(x \in \abs{X}\), then the residue field at \(k\),
+\[\kappa(x) = \mcO_{X, x}/\mfm_x\]
+is a finite extension of \(k\). Define
+\[\Omega_{X/k}(x) = \Omega_{X/k, x} \otimes_{\mcO_{X, x}} \kappa(x)\]
+This is a finite dimensional \(\kappa(x)\) vector space. This follows from the fact that \(\Omega_{X/k}\) is coherent. We call this the \emph{cotangent space of \(X\) at \(x\)}.
+
+The corresponding \emph{tangent space} is
+\[\T_{X, x} = \Hom_{\kappa(x)}(\Omega_{X/k}(x), \kappa(x))\]
+
+\begin{proposition}
+    If \(\kappa(x) = k\), then there exists a canonical isomorphism
+    \[\Omega_{X/k}(x) \cong \mfm_x/\mfm_x^2\]
+    of \(k\)-vector spaces.
+\end{proposition}
+
+\begin{proof}
+    In this case,
+    \[\Omega_{X/k}(x) = \Omega_{\mcO_{X, x}/k}\otimes_{\mcO_{X, x}} k\]
+    The second exact sequence gives us that
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1mbV94L1xcbWZtX3heMiJdLFsxLDAsIlxcT21lZ2Ffe1xcbWNPX3tYLCB4fS9rfVxcb3RpbWVzIGsiXSxbMiwwLCJcXE9tZWdhX3trL2t9ID0wIl0sWzMsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdXQ==
+\[\begin{tikzcd}
+	{\mfm_x/\mfm_x^2} & {\Omega_{\mcO_{X, x}/k}\otimes k} & {\Omega_{k/k} =0} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    It suffices to show that the first map is injective, which in turn, means that it suffices to show that the dual
+    \[\Hom_{\mcO_{X, x}/k}(\Omega_{\mcO_{X, x}/k}, k) \to \Hom_k(\mfm_x/\mfm_x^2, k)\]
+    is surjective. The left hand side can be identified with
+    \[\Der_k(\Omega_{X, x}, k)\]
+    and so the map is given by
+    \[\DD \mapsto \left(f + \mfm_x^2 \mapsto \DD(f) \mod \mfm\right)\]
+    Since \(\DD(\mfm_x^2) = 0\) by Leibniz. As \(\mcO_{X, x}/\mfm_x = k \inj \mcO_{X, x}\), we must have that
+    \[\mcO_{X, x}/\mfm^2 = k \oplus \mfm_x/\mfm_x^2\]
+    as \(k\)-vector spaces. Let \(\pi : \mcO_{X, x}/\mfm_x^2 \to \mfm_x/\mfm_x^2\) be the projection. For \(\varphi : \mfm_x/\mfm_x^2 \to k\), the map \(\DD = \varphi \circ \pi\) is a derivation which maps to \(\varphi\).
+
+    To show that it is a derivation, recall the ring structure on \(k \oplus \mfm_x/\mfm_x^2\) from before. In particular,
+    \[(a, b)(a', b') = (aa', ab' + a'b)\]
+\end{proof}
+
 \end{document}

@@ -200,6 +200,333 @@ Consider
 \end{tikzcd} \tag{\(*\)}\]
 Then \(P\) is projective if and only if \((*)\) is exact. Note that in \((*)\), we always have exactness except at \(\Hom_G(P, M_2)\).
 
+\lec
+
+\begin{lemma}
+    Free modules are projective.
+\end{lemma}
+
+\begin{proof}
+    Let \(\alpha : M_1 \to M_2\) be a surjective \(\ZG\)-map, \(\beta : \ZG\{X\} \to M_2\). For each \(x \in X\), since \(\alpha\) is surjective, there exists \(m_x \in M_1\) such that \(\alpha(m_x) = \beta(x)\). We can then define \(\overline\beta : \ZG\{X\} \to M_1\), by
+    \[\sum r_x \cdot x \mapsto \sum r_x \cdot m_x\]
+\end{proof}
+
+\begin{definition}
+    A \emph{projective (resp. free) resolution of the trivial module \(\Z\)} is an exact sequence
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCJcXGNkb3RzIl0sWzEsMCwiUF8xIl0sWzIsMCwiUF8wIl0sWzMsMCwiXFxaIl0sWzQsMCwiMCJdLFswLDEsIlxcZGRfMiJdLFsxLDIsIlxcZGRfISJdLFsyLDMsIlxcZGRfMCJdLFszLDRdXQ==
+    \[\begin{tikzcd}
+        \cdots & {P_1} & {P_0} & \Z & 0
+        \arrow["{\dd_2}", from=1-1, to=1-2]
+        \arrow["{\dd_!}", from=1-2, to=1-3]
+        \arrow["{\dd_0}", from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    with all the \(P_i\) projective (resp. free).
+\end{definition}
+
+\begin{example}
+    When \(G = \inner{t}\) is infinite cyclic, we have the free resolution
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxaRyJdLFsyLDAsIlxcWkciXSxbNCwwLCIwIl0sWzMsMCwiXFxaIl0sWzAsMV0sWzEsMiwiXFxjZG90KHQtMSkiXSxbMiw0LCJcXGVwc2lsb24iXSxbNCwzXV0=
+\[\begin{tikzcd}
+	0 & \ZG & \ZG & \Z & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["{\cdot(t-1)}", from=1-2, to=1-3]
+	\arrow["\epsilon", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+\end{example}
+
+\begin{example}
+    If \(G = \inner{t}\) cyclic of order \(n\). Then
+    % https://q.uiver.app/#q=WzAsNyxbNiwwLCIwIl0sWzUsMCwiXFxaIl0sWzQsMCwiXFxaRyJdLFszLDAsIlxcWkciXSxbMiwwLCJcXFpHIl0sWzEsMCwiXFxaRyJdLFswLDAsIlxcY2RvdHMiXSxbMiwxLCJcXGVwc2lsb24iXSxbMSwwXSxbMywyLCJcXGFscGhhIl0sWzQsMywiXFxiZXRhIl0sWzUsNCwiXFxhbHBoYSJdLFs2LDVdXQ==
+\[\begin{tikzcd}
+	\cdots & \ZG & \ZG & \ZG & \ZG & \Z & 0
+	\arrow["\epsilon", from=1-5, to=1-6]
+	\arrow[from=1-6, to=1-7]
+	\arrow["\alpha", from=1-4, to=1-5]
+	\arrow["\beta", from=1-3, to=1-4]
+	\arrow["\alpha", from=1-2, to=1-3]
+	\arrow[from=1-1, to=1-2]
+\end{tikzcd}\]
+    is a free resolution, where \(\alpha(x) = x(t-1)\) and \(\beta(x) = x(1 + t + \dots + t^{n-1})\).
+\end{example}
+
+From algebraic topology, if we have a connected simplicial complex \(X\), with \(\pi_1(X) = G\), and the universal cover \(\widetilde X\) is contractible, then we have a free resolution of \(\Z\). The point is that the simplicial complex \(X\) contains a lot of information about \(G\). We are trying to replicate this algebraically.
+
+For calculation purposes, we're interested in \emph{small resolutions}. For example, where the free modules have small rank. But for theory development purposes, we're wanting general constructions, and such resolutions tend to be large.
+
+\begin{definition}
+    \(G\) is of type \(\FP_n\) if \(\Z\) has a projective resolution
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCJcXGNkb3RzIl0sWzIsMCwiUF8xIl0sWzEsMCwiUF8yIl0sWzMsMCwiUF8wIl0sWzQsMCwiXFxaIl0sWzUsMCwiMCJdLFswLDJdLFsyLDEsIlxcZGRfMiJdLFsxLDMsIlxcZGRfMSJdLFszLDQsIlxcZGRfMCJdLFs0LDVdXQ==
+    \[\begin{tikzcd}
+        \cdots & {P_2} & {P_1} & {P_0} & \Z & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow["{\dd_2}", from=1-2, to=1-3]
+        \arrow["{\dd_1}", from=1-3, to=1-4]
+        \arrow["{\dd_0}", from=1-4, to=1-5]
+        \arrow[from=1-5, to=1-6]
+    \end{tikzcd}\]
+    so that \(P_n, \dots, P_0\) are finitely generated. 
+    
+    \(G\) is of type \(\FP_n\) is \(\Z\) has a projective resolution with all \(P_n\) finitely generated. 
+    
+    \(G\) is of type \(\FP\) if there exists a projective resolution of \(\Z\) with finite length and all \(P_n\) are finitely generated. That is, \(P_s = 0\) for \(s\) sufficiently large.
+\end{definition}
+
+\begin{example}
+    \(G = \inner{t}\) infinite cyclic is of type \(\FP\), \(G = C_n = \inner{t}\) finite cyclic is of type \(\FP_\infty\).
+\end{example}
+
+These are to be regarded as finiteness conditions on the group. The topological version of \(\FP_n\) (which is called \(\mathrm{F}_n\)) would be asking for \(X\) with \(\pi_1(X) = G\), having a finite \(n\)-skeleton. Note that these two conditions are not equivalent.
+
+Now lets meet some general constructions. If we have a partial projective resolution
+% https://q.uiver.app/#q=WzAsNyxbMCwwLCJQX3MiXSxbMSwwLCJQX3tzLTF9Il0sWzIsMCwiXFxjZG90cyJdLFszLDAsIlBfMSJdLFs0LDAsIlBfMCJdLFs1LDAsIlxcWiJdLFs2LDAsIjAiXSxbMCwxLCJcXGRkX3MiXSxbMiwzXSxbMSwyXSxbMyw0LCJcXGRkXzEiXSxbNCw1LCJcXGRkXzAiXSxbNSw2XV0=
+\[\begin{tikzcd}
+	{P_s} & {P_{s-1}} & \cdots & {P_1} & {P_0} & \Z & 0
+	\arrow["{\dd_s}", from=1-1, to=1-2]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-2, to=1-3]
+	\arrow["{\dd_1}", from=1-4, to=1-5]
+	\arrow["{\dd_0}", from=1-5, to=1-6]
+	\arrow[from=1-6, to=1-7]
+\end{tikzcd}\]
+Then we can make it longer by setting
+\[P_{s+1} = \ZG\{X_{s+1}\}\]
+with \(X_{s+1} = \ker(\dd_s)\), and set
+\[\dd_{s+1} : \sum r_x x \mapsto \sum r_x x\]
+Then
+% https://q.uiver.app/#q=WzAsOCxbMSwwLCJQX3MiXSxbMiwwLCJQX3tzLTF9Il0sWzMsMCwiXFxjZG90cyJdLFs0LDAsIlBfMSJdLFs1LDAsIlBfMCJdLFs2LDAsIlxcWiJdLFs3LDAsIjAiXSxbMCwwLCJQX3tzKzF9Il0sWzAsMSwiXFxkZF9zIl0sWzIsM10sWzEsMl0sWzMsNCwiXFxkZF8xIl0sWzQsNSwiXFxkZF8wIl0sWzUsNl0sWzcsMCwiXFxkZF97cysxfSJdXQ==
+\[\begin{tikzcd}
+	{P_{s+1}} & {P_s} & {P_{s-1}} & \cdots & {P_1} & {P_0} & \Z & 0
+	\arrow["{\dd_s}", from=1-2, to=1-3]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-3, to=1-4]
+	\arrow["{\dd_1}", from=1-5, to=1-6]
+	\arrow["{\dd_0}", from=1-6, to=1-7]
+	\arrow[from=1-7, to=1-8]
+	\arrow["{\dd_{s+1}}", from=1-1, to=1-2]
+\end{tikzcd}\]
+is a longer partial projective resolution. To make \(P_{s+1}\) smaller, we could take \(X_{s+1}\) to be a \(\ZG\)-generating set for \(\ker(\dd_s)\). This is particularly useful if \(\ker(\dd_s)\) is finitely generated.
+
+Continuing this, we can get a (full) projective resolution.
+
+\begin{definition}
+    The \emph{standard (or bar) resolution of \(\Z\)}, for any group \(G\), is: Let
+    \[G^{(n)} = \{[g_1\vert\dots\vert g_n] \mid g_i \in G\}\]
+    be the set of symbols. In particular, \(G^{(0)} = \{[]\}\) Let
+    \[F_n = \ZG\{G^{(n)}\}\]
+    be the free module on \(G^{(n)}\). The differential is given by
+    \begin{align*}
+        \dd_n[g_1\vert\dots\vert g_n] &= g_1[g_2\vert\dots\vert g_n] \\
+        &- [g_1g_2\vert g_3\vert\dots\vert g_n] \\
+        &+ [g_1\vert g_2g_3\vert\dots\vert g_n] + \dots \\
+        &+ (-1)^{n-1}[g_1\vert\dots\vert g_{n-1}g_n] \\
+        &+ [g_1\vert\dots\vert g_{n-1}]
+    \end{align*}
+    With this, \(\dd_{n-1} \dd_n = 0\), and we have a chain complex
+    % https://q.uiver.app/#q=WzAsNyxbMCwwLCJcXGNkb3RzIl0sWzEsMCwiRl9uIl0sWzIsMCwiRl97bi0xfSJdLFszLDAsIlxcY2RvdHMiXSxbNCwwLCJGXzAiXSxbNSwwLCJcXFoiXSxbNiwwLCIwIl0sWzQsNSwiW11cXG1hcHN0byAxIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF0sWzUsNl1d
+    \[\begin{tikzcd}
+        \cdots & {F_n} & {F_{n-1}} & \cdots & {F_0} & \Z & 0
+        \arrow["{[]\mapsto 1}", from=1-5, to=1-6]
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+        \arrow[from=1-6, to=1-7]
+    \end{tikzcd}\]
+\end{definition}
+
+\begin{remark}
+    The bar resolution corresponds to the standard resolution in algebraic topology. Consider \(n+1\) tuples \(G^{n+1}\), and form the free abelian group \(\Z G^{n+1}\) under addition. \(G\) acts on \(G^{n+1}\) diagonally, so
+    \[g\vdot (h_0, \dots, h_n) = (gh_0, \dots, gh_n)\]
+    So \(\Z G^{n+1}\) is a free \(\ZG\)-module, on the basis of \(n+1\) tuples with \(g_0 = 1\). Then we have a correspondence
+    \[[g_1\vert\dots\vert g_n] \mapsto (1, g_1, g_1g_2, \dots, g_1\cdots g_n)\]
+    Note that removing the first entry gives \(g_1(1, g_2, g_2g_3, \dots, g_2\cdots g_n)\), and removing the seconc entry in the tuple gives \((1, g_1g_2, g_1g_2g_3, \dots, g_1\cdots g_n)\).
+\end{remark}
+
+\begin{lemma}
+    The bar resolution is exact.
+\end{lemma}
+
+\begin{proof}
+    We'll just consider the \(\dd_n\) as maps of abelian groups. \(F_n\) has basis \(G \times G^{(n)}\) as a free abelian group, and \(G \times G^{(n)}\) is the set
+    \[\{g_0[g_1\vert\dots\vert g_n] \mid g_i \in G\}\]
+    Define \(\Z\)-linear maps \(s_n : F_n \to F_{n+1}\), such that
+    \[\id_{F_n} = \dd_{n+1}s_n + s_{n-1}\dd_n \tag{\(*\)}\]
+    given by
+    \[s_n(g_0[g_1\vert\dots\vert g_n]) = [g_0\vert\dots\vert g_n]\]
+    We can verify that \((*)\) holds on the basis, and so if \(x \in \ker(\dd_{n+1})\), then
+    \[x = \id(x) = \dd_{n+1}s_n(x) + s_{n-1}\dd_n(x) = \dd_{n+1}s_n(x) \in \im(\dd_{n+1})\]
+    That is, \(s_n\) is a chain homotopy from the identity to zero.
+\end{proof}
+
+\begin{corollary}
+    A finite group is of type \(\FP_\infty\).
+\end{corollary}
+
+\begin{proof}
+    The bar resolution gives such a resolution.
+\end{proof}
+
+\lec
+
+\begin{definition}
+    Consider a projective resolution
+    % https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXGNkb3RzIl0sWzEsMCwiUF97bisxfSJdLFsyLDAsIlBfbiJdLFszLDAsIlxcY2RvdHMiXSxbNCwwLCJQXzEiXSxbNSwwLCJQXzAiXSxbNiwwLCJcXFoiXSxbNywwLCIwIl0sWzAsMV0sWzEsMl0sWzIsMywiZF9uIl0sWzMsNF0sWzQsNV0sWzUsNl0sWzYsN11d
+\[\begin{tikzcd}
+	\cdots & {P_{n+1}} & {P_n} & \cdots & {P_1} & {P_0} & \Z & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow["{d_n}", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+	\arrow[from=1-6, to=1-7]
+	\arrow[from=1-7, to=1-8]
+\end{tikzcd}\]
+    of \(\Z\) by \(\ZG\)-modules. Let \(M\) be a (left) \(\ZG\)-module. Apply the functor \(\Hom_G(\cdot, M)\), we get the \emph{dual sequence}
+    % https://q.uiver.app/#q=WzAsNSxbNCwwLCJcXEhvbShQXzAsIE0pIl0sWzMsMCwiXFxjZG90cyJdLFsyLDAsIlxcSG9tKFBfbiwgTSkiXSxbMSwwLCJcXEhvbShQX3tuKzF9LCBNKSJdLFswLDAsIlxcY2RvdHMiXSxbMyw0XSxbMiwzLCJkXntuKzF9IiwyXSxbMSwyXSxbMCwxXV0=
+\[\begin{tikzcd}
+	\cdots & {\Hom(P_{n+1}, M)} & {\Hom(P_n, M)} & \cdots & {\Hom(P_0, M)}
+	\arrow[from=1-2, to=1-1]
+	\arrow["{\dd^{n+1}}"', from=1-3, to=1-2]
+	\arrow[from=1-4, to=1-3]
+	\arrow[from=1-5, to=1-4]
+\end{tikzcd} \tag{\(\dagger\)}\]
+    where \(\dd^n = \dd_n^*\). Then the \emph{\(n\)-th cohomology group \(\HH^n(G, M)\) with coefficients in \(M\) is:}
+    \begin{align*}
+        \HH^n(G, M) &= \frac{\ker(\dd^{n+1})}{\im(\dd^n)} \text{ for }n \ge 1 \\
+        \HH^0(G, M) &= \ker(\dd^1)
+    \end{align*}
+\end{definition}
+
+\begin{remark}
+    We have dropped the \(\Z\)-term in \((\dagger)\).
+
+    Also, these cohomology groups are the homology groups of the chain complex
+    \[C_n = \Hom_G(P_{-n}, M)\]
+    with \(-\infty < n \le 0\).
+\end{remark}
+
+Later, we will see that these cohomology groups are independent of the choice of resolution. 
+
+\begin{example}
+    In our prototypical example, \(G = \inner{t}\) infinite cyclic, we have a projective resolution
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxaRyJdLFsyLDAsIlxcWkciXSxbMywwLCJcXFoiXSxbNCwwLCIwIl0sWzAsMV0sWzEsMiwiXFxkZCJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & \ZG & \ZG & \Z & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["\dd", from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    where \(\dd(x) = x(t-1)\). For \(\phi \in \Hom_G(\ZG, M)\), \(x \in \ZG\),
+    \[\dd^1(\phi)(x) = \phi(\dd_1(x)) = \phi(x(t-1))\]
+    Moreover, recall \(\Hom_G(\ZG, M) \cong M\), where \(i(\phi) = \phi(1)\). In particular,
+    \[\dd^1(\phi) \mapsto \dd^1\phi(1) = \phi(t - 1) = (t - 1)\phi(1) = (t - 1)i(\phi)\]
+    In this case, we have
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCIwIl0sWzEsMCwiTSJdLFsyLDAsIk0iXSxbMiwxLCIodC0xKVxcY2RvdCJdLFsxLDBdXQ==
+\[\begin{tikzcd}
+	0 & M & M
+	\arrow["{(t-1)\cdot}", from=1-3, to=1-2]
+	\arrow[from=1-2, to=1-1]
+\end{tikzcd}\]
+    and so
+    \begin{align*}
+        \HH^0(G, M) &= \{m \in M \mid tm = m\} = M^G \\
+        \HH^1(G, M) &= \frac{M}{(t-1)M} = M_G
+    \end{align*}
+    and \(\HH^n(G, M) = 0\) otherwise. Here, \(M^G\) is the group of \emph{invariants}, the largest submodule with trivial \(G\)-action. Conversely, \(M_G\) is the \emph{coinvariants}, the largest quotient module with trivial \(G\)-action.
+\end{example}
+
+\begin{remark}
+    \(\HH^0(M, G) = M^G\) is generally true. But \(\HH^1(M, G) = M_G\) is special behaviour of \(G = \inner{t}\).
+
+    For any group of type \(\FP\), we have that \(\HH^n(G, M) = 0\) for large enough \(n\).
+\end{remark}
+
+\begin{definition}
+    \(G\) is of \emph{cohomological dimension \(m\) over \(\Z\)} if there exists an \(\ZG\)-module \(M\), with 
+    \[\HH^m(G, M) \ne 0\]
+    and \(\HH^n(G, M') = 0\) for any \(\ZG\)-module \(M'\), and \(n > m\). 
+\end{definition}
+
+Note that for all \(G\), \(\HH^0(G, \Z) = \Z \ne 0\).
+
+\begin{example}
+    \(G = \inner{t}\) infinite cyclic is of cohomological dimension \(1\) (over \(\Z\)).
+
+    An exercise is to show that if \(G\) is a free group of finite rank, then it is also of cohomological dimension \(1\). To see this, the Cayley graph is a tree and we can construct a resultion using this.
+\end{example}
+
+\begin{remark}
+    The converse is true. A finitely generated group of cohomological dimension \(1\) is free. In fact, this is true in general. See [Stallings, 1968], {Swan, 1969}.
+\end{remark}
+
+Now consider the bar resolution in our definition of cohomology. Note that
+\[\Hom_G(\ZG\{G^{(n)}\}, M) \cong C^n(G, M) = \left\{\text{functions }G^{(n)} \to M\right\}\]
+This is the same as function \(G^n \to M\). We also have that
+\[C^0(G, M) = \{\text{functions }[] \to M\} = M\]
+
+\begin{definition}
+    The group of \emph{\(n\)-cochains} of \(G\) with coefficients in \(M\) is \(C^n(G, M)\). The \emph{\(n\)-coboundary map}
+    \begin{align*}
+        \dd^n : C^{n-1}(G, M) &\to C^n(G, M)
+    \end{align*}
+    is dual to \(\dd_n\) in the bar resolution. For \(\phi \in C^{n-1}(G, M)\),
+    \begin{align*}
+        (\dd^n\phi)(g_1, \dots, g_n) &= g_1\phi(g_2, \dots, g_n) \\
+        &- \phi(g_1g_2, \dots, g_n) \\
+        &+\phi(g_1, g_2g_3, \dots, g_n) \\
+        &+ \dots \\
+        &+(-1)^{n-1}\phi(g_1, g_2, \dots, g_{n-1}g_n) \\
+        &+(-1)^n\phi(g_1, g_2, \dots, g_{n-1})
+    \end{align*}
+    The group of \emph{\(n\)-cocycles} is \(Z^n(G, M) = \ker(\dd^{n+1}) \sse C^n(G, M)\), and the \emph{\(n\)-coboundaries} is \(B^n(G, M) = \im(\dd^n) \sse C^n(G, M)\).
+\end{definition}
+Thus,
+\[\HH^n(G, M) = \frac{Z^n(G, M)}{B^n(G, M)}\]
+
+\begin{corollary}
+    For any group \(G\), \(\HH^0(G, M) = M^G\) is the invariants.
+\end{corollary}
+
+\begin{definition}
+    A \emph{derivation of \(G\) with coefficients in \(M\)}  is a function \(\phi : G \to M\), such that
+    \[\phi(gh) = g\phi(h) + \phi(g)\]
+\end{definition}
+Note that \(Z^1(G, M)\) is the set of derivations. Also note that these are also called `crossed homomorphisms'.
+
+An \emph{inner derivation} is \(\phi\) of the form
+\[\phi(g) = gm - m\]
+for a fixed \(m \in M\).
+
+\begin{corollary}
+    \[\HH^1(G, M) = \frac{\{\text{derivations }G \to M\}}{\{\text{inner derivations} G \to M\}}\]
+    In particular, if \(M\) is a trivial \(\ZG\)-module, then
+    \[\HH^1(G, M) = \Hom_\Group(G, M)\]
+\end{corollary}
+
+We will return to considering homology arising from different resolutions.
+
+\begin{definition}
+    Let \((A_n, \alpha_n), (B_n, \beta_n)\) be chain complexes of \(\ZG\)-modules, a \emph{chain map} \(f = (f_n)\) are \(\ZG\)-maps \(f_n : A_n \to B_n\), such that
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJBX24iXSxbMSwwLCJBX3tuLTF9Il0sWzAsMSwiQl9uIl0sWzEsMSwiQl97bi0xfSJdLFswLDEsIlxcYWxwaGFfbiJdLFsyLDMsIlxcYmV0YV9uIiwyXSxbMCwyLCJmX24iLDJdLFsxLDMsImZfe24tMX0iXV0=
+\[\begin{tikzcd}
+	{A_n} & {A_{n-1}} \\
+	{B_n} & {B_{n-1}}
+	\arrow["{\alpha_n}", from=1-1, to=1-2]
+	\arrow["{\beta_n}"', from=2-1, to=2-2]
+	\arrow["{f_n}"', from=1-1, to=2-1]
+	\arrow["{f_{n-1}}", from=1-2, to=2-2]
+\end{tikzcd}\]
+    commutes.
+\end{definition}
+
+\begin{lemma}
+    Given a chain map \((f_n)\), it induces a map on homology groups
+    \[f_* : \HH_n(A_\bullet) \to \HH_n(B_\bullet)\]
+\end{lemma}
+
 \printindex
 
 \end{document}

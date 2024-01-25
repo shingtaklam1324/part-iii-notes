@@ -232,7 +232,7 @@ The mean value property states that \(u\) always an average of itself. In partic
     By the mean value property, for some \(y \in \overline{\Omega''} \sse \Omega\),
     \[\sup_{\Omega''}u = \abs{u(y)} = \abs{c\int_{B_\rho(y)}u(x)\dd x} \le C\int_\Omega \abs{u}\]
     So
-    \[\norm{D^\alpha(u)}_{L^\infty(\Omega')} \le C\norm{u}_{L^1(\Omega)}\]
+    \[\norm{\DD^\alpha(u)}_{L^\infty(\Omega')} \le C\norm{u}_{L^1(\Omega)}\]
 \end{remark}
 
 \begin{theorem}
@@ -251,5 +251,122 @@ The mean value property states that \(u\) always an average of itself. In partic
 \begin{remark}
     Of course, we can integrate by parts to get the same result, but the weak maximum principle will apply for non divergence form equations.
 \end{remark}
+
+\lec
+
+\begin{theorem}
+    [Liouville] If \(u \in C^\infty(\R^n)\) is harmonic, and grows sublinearly at infinity. Then \(u\) is constant.
+\end{theorem}
+
+\begin{remark}
+    ``growing sublinearly'' means that
+    \[\abs{u(x)} \le C\left(1 + \abs{x}^\alpha\right)\]
+    where \(0 < \alpha < 1\).
+\end{remark}
+
+\begin{proof}
+    From derivative estimates, we know that for all \(x \in \R^n\), we have that
+    \[\abs{\DD u(y)} \le \frac{C}{\rho}\sup_{B_\rho(y)}\abs{u}\]
+    Plugging in the growth assumption, we get that
+    \[\abs{\DD u(y)} \le \frac{C}{\rho}(1 + (\rho + \abs{y})^\alpha)\]
+    Taking \(\rho \to \infty\), we get that \(\DD u(y) = 0\). But \(y\) was arbitrary, and so we are done.
+\end{proof}
+
+\subsection{Existence theory for harmonic functions}
+
+We will consider the classical problem of solving the Dirichlet problem for the Laplacian on bounded domains \(\Omega \sse \R^n\), and \(\varphi : \overline\Omega \to \R\) continuous. We wish to find \(u \in C^\infty(\Omega) \cap C^0(\overline\Omega)\) such that
+\[\begin{cases}
+    \Delta u = 0 & \text{in }\Omega \\
+    u = \varphi & \text{on }\partial\Omega
+\end{cases}\]
+We will assume for simplicity that \(\partial\Omega\) is smooth, and \(\varphi \in C^\infty(\Omega)\).
+
+We have (at least) three methods to solve this problem.
+\begin{enumerate}
+    \item Hilbert space methods (c.f. Analysis of PDEs). Use the Riesz representation theorem to obtain a solution \(u \in \HH^1(\Omega)\), and deal with regularity afterwards. This relies on the equation being linear.
+    \item Direct method of calculus of variations. We can rephrase \(\Delta u = 0\) as a variational problem. That is, the Euler-Lagrange equation of
+    \[\int\abs{\DD u}^2\]
+    and prove existence using the functional.
+    \item Perron's method. Use the fact that solvability in balls impies solvability in more general domains. This method is based on maximum principles.
+\end{enumerate}
+
+\begin{remark}
+    In all cases, we obtain a rougher solution first, and improve regulaity later.
+\end{remark}
+
+We will focus on the second method. Define
+\[\msS = \left\{w \in \HH^1(\Omega) \mid w - \varphi \in \HH_0^1(\Omega)\right\}\]
+That is, \(\HH^1\) functions which agree with \(\varphi\) on the boundary. Clearly \(\varphi \in \msS\), and so \(\msS\) is non-empty. Set
+\[\mcE[w] = \int_\Omega \abs{\DD w}^2\]
+and define
+\[\beta = \inf_{w \in \msS} \mcE[w]\]
+By the definition of the infimum, there exists a seqeunce \((w_j) \sse \msS\), such that
+\[\mcE[w_j] \to \beta\]
+We want to extract a convergent subsequence and show that its limit is a solution. Clearly for \(j\) large, we have that
+\[\int_\Omega \abs{\DD w_j}^2 \le \beta + 1\]
+Since \(w_j - \varphi \in \HH^1_0(\Omega)\), by the Poincar\'e inequality,
+\[\int_\Omega\abs{w_j - \varphi}^2 \le C\int_\Omega \abs{\DD(w_j - \varphi)}^2\]
+In particular, this implies that
+\[\norm{w_j}_{L^2(\Omega)}^2 \le C(\Omega, \varphi, \beta) < \infty\]
+Indeed,
+\[\norm{w_j}_{L^2(\Omega)}^2 \le C\norm{\DD w_j - \DD \varphi}_{L^2(\Omega)}^2 \le C(\Omega, \varphi, \beta)\]
+Expanding the left hand side, we get
+\[\norm{w_j}_{L^2(\Omega)}^2 - 2 \inner{w_j, \varphi}_{L^2(\Omega)} \le C(\Omega, \varphi, \beta)\]
+In particular, by Young's inequality,
+\[\norm{w_j}_{L^2(\Omega)}^2 \le C(\varphi, \Omega, \beta) + \epsilon\norm{w_j}_{L^2(\Omega)}^2 + \frac{1}{\epsilon}\norm{\varphi}^2_{L^2(\Omega)}\]
+Take \(0 < \epsilon < 1\), and rearrange.
+
+So we have that \(\norm{w_j}_{\HH^1(\Omega)}^2 \le C\), so by Banach-Alaoglu,
+\[w_{j_k} \weak w \text{ in }\HH^1(\Omega)\]
+By Rellich-Kondrachov\footnote{Recall \begin{theorem}
+    [Rellich-Kondrachov] Let \(\Omega\) be bounded, \(1 \le p < n\), then
+    \[W^{1, p}(\Omega) \inj L^{p^*}(\Omega)\]
+    and
+    \[W^{1, p}(\Omega) \Subset L^q(\Omega)\]
+    for \(1 \le q < p^*\). Here, \(p^*\) is the conjugate
+    \[p^* = \frac{np}{n - p}\]
+\end{theorem}
+In particular, when \(p = 2\), \(p^* > 2\) if \(n > 2\).},
+\[w_{j_k} \to w \text{ in }L^2(\Omega)\]
+for some \(w \in \HH^1(\Omega)\). Hence for all \(v \in \HH^1(\Omega)\), we have that
+\[\int_{\Omega}\DD w_j \vdot \DD v \to \int_\Omega \DD w \vdot \DD v\]
+Also, clearly we have that \(w_{j_k} - \varphi \weak w - \varphi\) in \(\HH^1(\Omega)\), as \(\varphi\) is smooth. But \(w_{j_k} - \varphi \in \HH^1_0(\Omega)\), but \(\HH^1_0(\Omega)\sse \HH^1(\Omega)\) is norm closed, so it is weakly closed\footnote{This follows from Hahn-Banach. In fact, it follows for any convex subset of a Banach space.
+
+\begin{lemma}
+    Let \(X\) be a Banach space, for \(C \sse X\) convex, \(C\) is norm-closed if and only if \(C\) is weakly closed.
+\end{lemma}
+\begin{proof}
+    Weak closed implies norm closed is clear. For the converse, we can show that \(X \setminus C\) is weakly open. Let \(x_0 \in X\setminus C\), by the Hahn-Banach separation, there exists \(\phi \in X'\) such that
+    \[\varphi\vert_{C} = 0 \qqtext{and}\phi(x_0) \ne 0\]
+    Then
+    \[\left\{x \in X \ \bigg\vert\ \abs{\phi(x)} > \frac{1}{2}\abs{\phi(x_0)}\right\} \sse X \setminus C\]
+    is a weakly open neighbourhood of \(x_0\).
+\end{proof}}.
+Hence \(w - \varphi \in \HH^1_0(\Omega)\), so \(w \in \msS\). Finally, since \(\mcE[\cdot]\) is \emph{sequentially weakly lower semicontinuous}\footnote{
+    That is, if \(u_j \weak u\) in \(\HH^1(\Omega)\), then
+    \[\mcE[u] \le \liminf \mcE[u_j]\]
+    To see this, note that
+    \[\int_\Omega\DD u_j \vdot \DD v \to \int_\Omega \DD u \vdot \DD v\]
+    Setting \(u = v\), we see that
+    \[\int_\Omega\DD u_j \vdot \DD u \to \int_\Omega \abs{\DD u}^2\]
+    Thus,
+    \begin{align*}
+        \mcE[u] &= \lim\int_\Omega \DD u_j \vdot \DD u \\
+        &= \liminf \int_\Omega \DD u_j \vdot \DD u \\
+        &\le \liminf \mcE[u_j]^{1/2}\mcE[u]^{1/2}
+    \end{align*}
+} in \(\HH^1(\Omega)\), we have that
+\[\mcE[w] \le \liminf \mcE[w_{j_k}] = \beta\]
+Hence \(\mcE[w] = \beta\). We have found a global minimum \(w\). That is, for all \(v \in \HH^1_0(\Omega)\), \(w + tv \in \msS\),
+\[f(t) = \mcE[w + tv] \ge \mcE[w]\]
+Thus, \(f'(0) = 0\). But
+\begin{align*}
+    f'(0) &= \DD \mcE[w](v) \\
+    &=\lim_{t \to 0}\frac{\mcE[w + t v] - \mcE[w]}{t} \\
+    &= 2\int_\Omega \DD w \vdot \DD v
+\end{align*}
+In particular,
+\[\int_\Omega \DD w \vdot \DD v = 0\]
+is the weak formulation of \(\Delta w = 0\). We will next upgrade the regularity, and show that weak solutions are in fact smooth.
 
 \end{document}

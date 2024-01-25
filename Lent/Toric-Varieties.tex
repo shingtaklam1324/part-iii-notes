@@ -99,7 +99,7 @@ Cohomology
     Projective space
     \[\P^n = \Proj(\C[z_0, \dots, z_n]) = \{(z_0 : \dots : z_n) \mid (z_0, \dots, z_n) \ne (0, \dots, 0)\}\]
     is also a toric variety, with torus
-    \[\T^n = \{(z_0 : \dots : z_n) \mid z_0\cdots z_n = 1\}\]
+    \[\T^n = \{(z_0 : \dots : z_n) \mid z_0\cdots z_n \ne 0\}\]
     with action given coordinate-wise again, i.e.
     \[a((t_0: \dots: t_n), (z_0:\dots:z_n)) = (t_0z_0:\dots:t_nz_n)\]
     in non-homogeneous coordinates (i.e. in the affine \(z_0 \ne 0\)) of the torus, we can define the action by
@@ -120,6 +120,259 @@ The \(V_i\) intersect pairwise, but not all three at the same time. Each \(V_i\)
 \end{center}
 In particular, this gives us a stratification of \(\P^2\), with strata \(\T^2\), \(\C^* = T^1\) corresponding to \(V_i\) with the vertices removed, and the three vertices.
 
+\lec
+
+\section{Characters, cocharacters and lattices}
+
+Recall from the last lecture that \(\T^n = (\C^*)^n\) is an algebraic group.
+
+\begin{definition}
+    [character]
+    A \emph{character} \(\chi\) of \(\T^n\) is a morphism \(\chi : \T^n \to \C^*\) of algebraic groups. That is, \(\chi : \T^n \to \C^*\) is a morphisms of schemes, such that
+    \[\chi(e) = 1 \qqtext{and}(\chi^\sharp \otimes \chi^\sharp) \circ m^\sharp = m^\sharp \circ \chi^\sharp\]
+\end{definition}
+
+We will write \(\Hom_{\algp}(\cdot, \cdot)\) for the set of morphisms of algebraic groups.
+
+\begin{theorem}
+    The characters of \(\T^n\) are
+    \[M = \Hom_\algp(\T^n, \C^*) = \Z^n\]
+\end{theorem}
+
+\begin{proof}
+    First of all, note that
+    \[\Hom_\algp(\T^n, \C^*) = \left(\Hom(\C^*, \C^*)\right)^n\]
+    Thus, without loss of generality \(n = 1\). Now we need a \(\C\)-algebra map
+    \[\chi^\sharp : \C[x^{\pm 1}] \to \C[y^{\pm 1}]\]
+    This is determined by \(\chi^\sharp(x) = p(y, y^{-1})\). Note that \(x\) is a unit in \(\C[x^{\pm 1}]\), and so \(\chi^\sharp(x)\) is a unit. Thus, \(p(y, y^{-1}) = ay^k\), for some \(a \in \C, k \in \Z\).
+
+    Next, we need that \(e^\sharp \circ \chi^\sharp = \chi^\sharp \circ e^\sharp\). That is,
+    \[a = e^\sharp(\chi^\sharp(x)) = \chi^\sharp(e^\sharp(x)) = \chi^\sharp(1) = 1\]
+    Hence \(\chi^\sharp(x) = x^k\), for some \(k \in \Z\). Note that \(\chi^\sharp(x \otimes x) = \chi^\sharp(x) \otimes \chi^\sharp(x)\) automatically, so we are done.
+\end{proof}
+
+The characters of \(\T^n\) are of the form
+\[\chi(t_1, \dots, t_n) = t_1^{a_1}\cdots t_n^{a_n}\]
+for some \((a_1, \dots, a_n) \in \Z^n\). Expressions of the form
+\[t_1^{a_1}\cdots t_n^{a_n}\]
+are called \emph{Laurent monomials}. We will write
+\[\chi^{\mathbf a}(\mathbf t) = \mathbf t^{\mathbf a} = t_1^{a_1}\cdots t_n^{a_n}\]
+for this character. The correspondence is then
+\begin{align*}
+    \Hom_\algp(\T^n, \C^*) &\to \Z^n \\
+    \chi^{\mathbf a} \mapsto \mathbf a
+\end{align*}
+
+The characters form a group. Given characters \(\chi, \chi' : \T^n \to \C^*\), 
+\[\chi\cdot\chi'(\mathbf t) = \chi(\bf t)\cdot \chi'(\bf t)\]
+Thus, we have taht
+\[\chi^{\mathbf a}\cdot \chi^{\mathbf a'} = \chi^{\mathbf a + \mathbf a'}\]
+Hence the identification \(\Hom_\algp(\T^n, \C^*) \cong \Z^n\) is also a group isomorphism.
+
+\begin{definition}
+    [cochacter]
+    A \emph{cocharacter} of \(\T^n\) is
+    \[\lambda \in \Hom_\algp(\C^*, \T^n)\]
+    We also call them \emph{one-parameter subgroup}.
+\end{definition}
+
+We can check that
+\[N = \Hom_\algp(\C^*, \T^n) \cong \Z^n\]
+by showing that any \(\lambda \in N\) is of the form
+\[\lambda(t) = (t^{u_1}, \dots, t^{u_n})\]
+for \(\mathbf u = (u_1, \dots, u_n) \in \Z\). So we can write the above cocharacter as \(\lambda_{\mathbf u}\) as before.  \(N\) is a group, and the identification is a group isomorphism. That is,
+\[\lambda_{\mathbf u} \cdot \lambda_{\mathbf u'} = \lambda_{\mathbf u + \mathbf u'}\]
+
+\begin{example}
+    For \(n = 2\), we can identify
+    \[\T^2 = \left\{\begin{pmatrix}
+        t_1 & 0 \\ 0 & t_2
+    \end{pmatrix}\ \bigg\vert\ t_1t_2 \ne 0\right\}\]
+    Under the identification \(M \cong N \cong \Z^2\),
+    \[\chi^{(a, b)}\begin{pmatrix}
+        t_1 & 0 \\
+        0 & t_2
+    \end{pmatrix} = t_1^a\cdot t_2^b\]
+    and
+    \[\lambda_{(u, v)}(t) = \begin{pmatrix}
+        t^u & 0 \\
+        0 & t^v
+    \end{pmatrix}\]
+\end{example}
+
+\begin{definition}
+    [lattice]
+    A \emph{lattice} is a free abelian group of finite rank.
+\end{definition}
+
+Note that with this definition, any lattice is isomorphic to \(\Z^n\) when we choose a basis.
+
+\begin{example}
+    \(\Z, 2\Z, \Z \oplus \Z, \Z \oplus 3\Z, \dots\) are all lattices.
+\end{example}
+
+There is a \emph{perfect pairing}\footnote{That is, it induces isomorphism \(\Hom_\Z(M, \Z) = M^\vee \cong N\) and vice versa.}, given by
+\begin{align*}
+    \inner{\cdot, \cdot} : M \times N &\to \Z \\
+    \inner{\mathbf a, \mathbf u} &= \mathbf a \vdot \mathbf u = a_1 u_1 + \cdots + a_nu_n
+\end{align*}
+In a coordinate-free manner,
+\begin{align*}
+    M \times N = \Hom(\C^*, \T^n) \times \Hom(\T^n, \C^*) &\to \Hom(\C^*, \C^*) \\
+    (\lambda, \chi) &\mapsto \chi \circ \lambda
+\end{align*}
+Using the identification \(\Hom(\C^*, \C^*) \cong \Z\) as before gives the pairing.
+
+We can describe a torus \(\T_N\) starting from a lattice \(N\), through
+\[\T_N = N \otimes_\Z \C^*\]
+with this,
+\[\Hom(\C^*, \T_N) = N\]
+Formally,
+\[\T_N = \Spec(\Z[N] \otimes_\Z \C[x, x^{-1}])\]
+
+With this, give a torus \(\T\), we get two dual lattices \(N, M\). Conversely, given a lattice \(N\), we get a torus \(\T_N\) and a dual lattice \(M\). Choosing a basis on one gives a basis on the other two.
+
+\section{Cocharacters and limit points - Part I}
+
+Back to toric varieties. Let \(X\) be a toric variety, with torus \(\T\). We can think of \(X\) as a ``partial compactification'' of \(T\). That is, we can construct \(X\) by adding limit points\footnote{In the Euclidean topology.} to \(\T\).
+
+Given a one-parameter subgroup \(\mathbf u \in N\), we have
+\[\lambda_{\mathbf u} : \C^* \to \T \sse X\]
+We can ask when does
+\[\lim_{t \to 0}\lambda_{\mathbf u}(t)\]
+exist in \(X\). The idea will be that we can determine \(X\) by saying which \(\lambda_{\mathbf u}\) have a limit. See later.
+
+\begin{example}
+    Consider \(\T^2 \sse \P^2_{z_0:z_1:z_2}\). The embedding is given by \((t_1, t_2) \mapsto (1 : t_1 : t_2)\). Choose \(\mathbf u \in \Z^2\), so \(\mathbf u = (u_1, u_2)\).
+    \[\lim_{t \to 0}\lambda_{\mathbf u}(t) = \lim_{t \to 0}(1 : t^{u_1} : t^{u_2})\]
+
+    All these limit points exist, since \(\P^2\) is complete\footnote{Or in algebraic geometry, it satisfies the valuative criterion for properness for some choice of DVR.}. In particular, if \(u_1, u_2 > 0\), the limit is \((1 : 0 : 0)\). If \(u_1 < 0, u_2 > u_1\), the limit is \((0 : 1: 0)\). Similarly if \(u_2 < 0, u_1 > u_2\) then the limit is \((0 : 0 : 1)\).
+
+    The upshot is that we have partitioned \(N_\R = N \otimes \R = \R^2\) into cones, so that if \(\mathbf u_1, \mathbf u_2\) are in the same cone if and only if they have the same limit. In fact, we can construct \(\P^2\) from this.
+\end{example}
+
+\lec
+
+\section{Affine toric varieties and cones}
+
+\begin{definition}
+    [cone]
+    A \emph{(rational polyhedral) cone} is
+    \[\sigma \sse N_\R = N \otimes_\Z \R = \R^n\]
+    where
+    \[\sigma = \sum_{i \in I}\lambda_i u_i \mid \lambda_i \ge 0, u_1, \dots, u_n \in \N\]
+\end{definition}
+We will also write
+\[\sigma = \Cone(u_1, \dots, u_r)\]
+and the set \(\{u_i\}_{i=1}^r\) is the set of generators of the cone.
+
+\begin{example}
+    If \(N_\R \cong \R e\), then we have the cone \(\sigma_1 = \Cone(e)\),
+
+
+    Next, \(\sigma_2 = \Cone((1, 0))\) is
+
+    and \(\sigma_3 = \Cone((1, 0), (0, 1))\) is
+
+    and \(\sigma_4 = \Cone((1, 0), (1, 2))\) is
+\end{example}
+
+\begin{definition}
+    [dimension]
+    The \emph{dimension} of a cone \(\sigma\) is \(\dim(\sigma) = \dim(V)\), where \(V = \Span\{\sigma\} \sse N_\R\). A cone is \emph{top-dimensional} if \(V = N_\R\).
+\end{definition}
+
+\begin{definition}
+    [strongly convex] \(\sigma\) is \emph{strongly convex} if it does not contain any lines through the origin. Equivalently, \(\sigma \cap -\sigma = \{0\}\).
+\end{definition}
+
+We would like to associate a to a cone \(\sigma\), an affine toric variety \(U_\sigma = \Spec(R_\sigma)\). That is, we would like to define
+\[R_d \sse \C[x_1^{\pm 1}, \dots, x_n^{\pm 1}]\]
+a sub-\(\C\)-algebra.
+
+We will do this as follows:
+\begin{enumerate}
+    \item We will associate a \emph{dual cone} \(\sigma^\vee \sse M_\R\),
+    \item Then we will generate a commutative semigroup \(S_\sigma\),
+    \item from this, we will define \(R_\sigma\).
+\end{enumerate}
+
+\subsection{Dual cone}
+
+\begin{definition}
+    [dual cone] The \emph{dual cone} \(\sigma^\vee\) of \(\sigma\) is
+    \[\check\sigma = \{m \in M_\R \mid \inner{u, m} \ge 0 \text{ for all }u \in \sigma\} \sse M_\R\]
+\end{definition}
+where we extend the pairing to \(N_\R \otimes M_\R \to \R\).
+
+\begin{example}
+    Using the same examples as before, we have the dual cones \(\check{\sigma_1}\)
+
+    and \(\check{\sigma_2}\),
+
+    Note here we see that the dual cone depends on the embedding (or lattice). Moroever, the dual of a strongly convex cone does not have to be strongly convex.
+\end{example}
+
+\underline{Fact:} \(\check{\check{\sigma}} = \sigma\).
+
+\begin{lemma}
+    The dual \(\check\sigma\) of a cone \(\sigma\) is a cone.
+\end{lemma}
+
+\begin{proof}
+    We'll define an algorithm to find \(m_1, \dots, m_s \in M\), such that
+    \[\check\sigma = \Cone(m_1, \dots, m_s)\]
+    From linear algebra, for \(m \in M = N^\vee\), we have a hypersurface
+    \[m^\perp = H_m = \{u \in N_\R \mid \inner{u, m} = 0\}\]
+    We also have half spaces
+    \[H_m^+ = \{u \in N_\R \mid \inner{m, u} \ge 0\}\]
+
+    \begin{definition}
+        [supporting hyperplane] A \emph{supporting hyperplane} of \(\sigma\) is \(H_m\), such that \(\sigma \sse H^+_m\). Equivalently, \(m \in \check\sigma\).
+    \end{definition}
+
+    Now note that
+    \[\check\sigma = \Cone(m_1, \dots, m_s) \iff \sigma = \bigcap_{i=1}^s H_{m_i}^+\]
+    So to construct \(\check\sigma\), we need to express \(\sigma\) as an intersection of half spaces.
+
+    For example, \(\check\sigma_3 = \Cone((1, 0), (0, 1))\)
+    
+    and similarly, \(\check\sigma_4 = \Cone((2, -1), (0, 1))\).
+
+    In general, we can do this by identifying the \emph{facets} \(\tau \faceof \sigma\), and taking the corresponding dual element \(m_\tau \in M\), and
+    \[\check\sigma = \Cone(m_\tau \mid \tau \faceof \sigma)\]
+    when \(\sigma\) is top dimensional.
+
+    \begin{definition}
+        A \emph{face} \(\tau \faceof \sigma\) is the intersection \(\sigma \cap H_m\), for a supporting hyperplane \(H_m\). Note that the faces are all cones, and we call \(\tau\) a \emph{facet} if \(\dim(\tau) = \dim(\sigma) - 1\), and \(\tau\) an \emph{edge} if \(\dim(\tau) = 1\).
+    \end{definition}
+
+    Note by taking \(m = 0\), \(\sigma \faceof \sigma\).
+
+    When \(\sigma\) is not top dimensional, then \(\Span_\R(\sigma) = W \ne N_\R\). Write \(\overline{\sigma}\) for \(\sigma\) considered as a subspace of \(W\). Now \(\overline\sigma\) is top-dimensional, and so we can the dual
+    \[\check{\overline{\sigma}} \sse \frac{M_\R}{W^\perp}\]
+    Say
+    \[\check{\overline{\sigma}} = \Cone(\overline{m_1}, \dots, \overline{m_s})\]
+    where
+    \[\overline{m_i} \in \frac{M_\R}{W^\perp}\]
+    Choose representatives \(m_i \in M_\R\), and choose a basis \(m_{s+1}, \dots, m_k\) of \(W^\perp\) in \(M_\R\). With this,
+    \[\check\sigma = \Cone(m_1, \dots, m_s, \pm m_{s+1}, \dots, \pm m_k)\]
+\end{proof}
+
+\subsection{Commutative semigroup}
+
+\begin{definition}
+    [commutative semigroup]
+    A \emph{commutative semigroup} is \((S, +)\), such that \(+\) is an associative commutative binary operation on \(S\).
+\end{definition}
+
+In particular, a semigroup with identity is called a \emph{monoid}. \(S\) is \emph{finitely generated} if there exists \(A \sse S\) finite, such that
+\[S = \left\{\sum_n \lambda_n a_n \ \bigg\vert\ \lambda_n \in \Z_{> 0}, a_n \in A\right\}\]
+\(S\) is \emph{affine} if it is finitely generated, and \((S, +)\) is a subsemigroup of a lattice \((\Z^n, +)\).
+
+\begin{example}
+    Any group is a semigroup. Given a (not necessarily unital) ring \(R\), \(R\) under multiplication is a semigroup. For example, \(\Z_{> 0}\) is a semigroup under multiplication, but this is not finitely generated.
+\end{example}
 \printindex
 
 \end{document}
