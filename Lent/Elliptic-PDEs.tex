@@ -369,4 +369,268 @@ In particular,
 \[\int_\Omega \DD w \vdot \DD v = 0\]
 is the weak formulation of \(\Delta w = 0\). We will next upgrade the regularity, and show that weak solutions are in fact smooth.
 
+\subsection{Interior regularity}
+
+We wish to improve the regularity of the weak solution. What we have shown is that there exists a weak solution \(u \in L^1(\Omega)\), such that
+\[\int_\Omega u \Delta v = 0\]
+for all \(v \in C_c^\infty(\Omega)\).
+
+\begin{theorem}
+    [Weyl's lemma] Weakly harmonic functions are smooth. That is, for \(\Omega \sse \R^n\) a domain, \(u \in L^1_\loc(\Omega)\), if we have \(u\) is a weak solution to Laplace's equation, then \(u\) is \(C^\infty\) and \(\Delta u = 0\) in \(\Omega\).
+\end{theorem}
+
+\begin{proof}
+    Mollify \(u\). Take \(\varphi \in C^\infty(\R^n)\), such that
+    \begin{itemize}
+        \item \(0 \le \varphi\),
+        \item \(\varphi(x) = 0\) for \(\abs{x} \ge 1\),
+        \item \(\int_{\R^n}\varphi = 1\),
+        \item \(\varphi\) is radially symmetric\footnote{This is not a standard assumption for mollifiers, but we can assume this.}.
+    \end{itemize}
+    For \(\sigma > 0\), set
+    \[\varphi_\sigma(x) = \frac{1}{\sigma^n}\varphi\left(\frac{x}{\sigma}\right)\]
+    Then \(\varphi_\sigma \in C_c^\infty(B_\sigma(0))\) is nonnegative and has integral \(1\).
+
+    Define
+    \[u_\sigma(x) = (\varphi_\sigma * u)(x)\]
+    This is well defined for
+    \[x \in \Omega_\sigma = \{x \in \Omega \mid d(x, \partial\Omega) \ge \sigma\}\]
+    Then \(u_\sigma\) is smooth, \(u_\sigma \to u\) in \(L^1_\loc(\Omega)\). Moreover, \(\Delta u_\sigma = 0\). To see this,
+    \[\pdv{x^i}u_\sigma = \int_\Omega u(y)\pdv{x^i}\varphi_\sigma(x - y)\dd y = -\int_\Omega u(y)\pdv{y^i}\varphi_\sigma(x - y)\dd y\]
+    and so
+    \[\Delta_x u_\sigma(x) = \int_\Omega u(y)\Delta_y \varphi_\sigma(x - y)\dd y = 0\]
+    as \(u\) is weakly harmonic.
+
+    By the a priori derivative estimates for harmonic functions, for \(\Omega' \Subset \Omega\),
+    \[\sup_{\Omega'}\abs{\DD^\alpha u_\sigma} \le C \int_{\Omega'_{\sigma_1}}\abs{u_\sigma}\]
+    for some \(\sigma_1(\Omega')\) small, where
+    \[\Omega'_\sigma = \Omega' \cup \{x \in \Omega \mid d(x, \partial\Omega') < \sigma\}\]
+    Since \(u_\sigma \to u\) in \(L^1_\loc(\Omega)\), for \(\sigma\) small enough,
+    \[C \int_{\Omega'_{\sigma_1}}\abs{u_\sigma} \le C\int_{\Omega'_{\sigma'}}(\abs{u} + 1)\]
+    Hence
+    \[\sup_{\Omega'}\abs{\DD^\alpha u_\sigma} \le C\int_{\Omega'_{\sigma_1}}(\abs{u} + 1)\]
+    So \(\DD^\alpha u_\sigma\) is uniformly bounded in \(L^\infty(\Omega')\). Hence (as bounded derivatives imply equicontinuity) by Arzela-Ascoli, there exists a subsequence \((\sigma_j)\) such that \(\sigma_j \to 0\), and there exists \(\widetilde u \in C^\infty(\Omega)\) such that \(u_{\sigma_j} \to \widetilde u\) in \(C^k(\Omega')\) for all \(k\). Hence
+    \[\Delta \widetilde u = \lim_{j \to \infty} \Delta u_{\sigma_j} = 0\]
+    in \(\Omega\), as \(\Omega'\) was arbitrary. By properties of mollifiers, \(u_\sigma \to u\) a.e. in \(\Omega\), and so \(\widetilde u = u\) a.e.
+\end{proof}
+
+\begin{remark}
+    We do not say anything about boundary regularity. It is possible to get (at least) \(u \in C^0(\overline\Omega)\).
+\end{remark}
+
+Let's now improve our \(C^\infty\) existence result to \(C^0\).
+
+\begin{theorem}
+    [existence and uniqueness for the Dirichlet problem with \(C^0\) data] Suppose \(\Omega\) is bounded with \(\partial\Omega\) sufficiently regular, then for any \(\varphi \in C^0(\partial\Omega)\), there exists a unique \(u \in C^\infty(\Omega) \cap C^0(\overline\Omega)\) solving
+    \[\begin{cases}
+        \Delta u = 0 &\text{in }\Omega \\
+        u = \varphi&\text{on }\partial\Omega
+    \end{cases}\]
+\end{theorem}
+
+\begin{remark}
+    We might have 
+    \[\int_\Omega\abs{\DD u}^2 = \infty\]
+    for this solution.
+\end{remark}
+
+\begin{proof}
+    Choose a sequence \((\varphi_n) \sse C^\infty(\R^n)\), such that \(\varphi_n \to \varphi\) on \(\partial \Omega\), in \(L^\infty\). Then we know that there exists \(u_n \in C^\infty(\Omega) \cap C^0(\overline\Omega)\), such that
+    \[\begin{cases}
+        \Delta u_n = 0 &\text{in }\Omega \\
+        u_n = \varphi_n &\text{on }\partial \Omega
+    \end{cases}\]
+    Then for all \(n, m \in \N\), \(\Delta(u_n - u_m) = 0\) in \(\Omega\), and \(u_n - u_m = \varphi_n - \varphi_m\) on \(\partial\Omega\). By the weak maximum principle,
+    \[\sup_{\overline\Omega}\abs{u_n - u_m} \le \sup_{\partial\Omega}\abs{u_n - u_m} = \norm{\varphi_n - \varphi_m}_{L^\infty} \to 0\]
+    as \(n, m \to \infty\). So \((u_n)\) is Cauchy in \(C^0(\overline\Omega)\), which is a Banach space, so by completeness, there exists \(u \in C^0(\overline\Omega)\) such that \(u_n \to u\) uniformly on \(\overline\Omega\). In particular, \(u = \varphi\) on \(\partial\Omega\).
+
+    By the derivative estimates, \((u_n)\) converges in \(C^k(\Omega')\), for any \(\Omega' \Subset \Omega\), and so \(u\) is smooth in the interior. Thus, \(\Delta u = 0\) in the interior.
+\end{proof}
+
+\begin{remark}
+    A sufficient condition for regularity is that \(\partial\Omega\) is \(C^2\). More generally, it is enough to have the \emph{exterior sphere condition}, which says that for all \(z \in \partial\Omega\), there exists \(B_\rho(y)\), such that \(\overline{B_\rho(y)} \cap \partial\Omega = \{z\}\). There exists bounded domains in which this fails, and the conclusion of the theorem fails in that case as well. For example, when the boundary has a cusp.
+\end{remark}
+
+\section{General second order elliptic operators}
+
+From now on, write
+\[Lu = a^{ij}\partial_i\partial_j u + b^i\partial_i u + cu\]
+We will work on \(\Omega \sse \R^n\) open, \(u \in C^2(\Omega)\), \(a^{ij}, b^i, c : \Omega \to \R\) and consider the Dirichlet problem
+\[\begin{cases}
+    Lu = f &\text{in }\Omega \\
+    u = \varphi&\text{on }\partial\Omega
+\end{cases}\]
+for given \(f\) and \(\varphi\). If we can write \(L\) in divergence form
+\[Lu = \partial_i(a^{ij}\partial_ju) + \widehat{b}^i \partial_i u + cu\]
+then we can use Hilbert space methods, as in Analysis of PDEs. But if \(a^{ij}\) is only \(C^0\) say, we will need Schauder theory.
+
+The idea is to deform \(L\) into \(\Delta\) using a series of rescalings. In particular, this does not involve Sobolev spaces. Since \(u \in C^2(\Omega)\), we can assume \(a^{ij}\) is symmetric.
+
+\begin{definition}
+    We say that \(L\) is \emph{elliptic} in \(\Omega\) if the matrix \((a^{ij})\) is positive definite in \(\Omega\). So that
+    \[0 \le \lambda(x)\abs{\xi}^2 \le a^{ij}(x)\xi^i\xi^j \le \Lambda(x)\abs{\xi^2}\]
+    for all \(\xi \in \R^n\) non-zero. In particular, \(\lambda\) is the minimum eigenvalue, and \(\Lambda\) is the maximum.
+
+    \(L\) is \emph{strictly elliptic} if there exists \(\lambda_0\) such that \(0 < \lambda_0 \le \lambda(x)\) for all \(x\). \(L\) is \emph{uniformly elliptic} if it is elliptic, and \(\Lambda(x)/\lambda(x)\) is uniformly bounded.
+\end{definition}
+
+\begin{remark}
+    In general, uniformly elliptic does not imply strictly elliptic.
+\end{remark}
+
+\begin{example}
+    The minimal surface equation
+    \[\grad\vdot\left(\frac{\DD u}{\sqrt{1 + \abs{\DD u}^2}}\right) = 0\]
+    has
+    \[a^{ij} = \left(\delta_{ij} - \frac{\DD_i u \DD_j u}{1+ \abs{\DD u}^2}\right)\frac{1}{\sqrt{1 + \abs{\DD u}^2}}\]
+    This is elliptic but not uniformly elliptic.
+\end{example}
+
+\lec
+
+We are interested in general second order elliptic operators, with \(a^{ij}, b^i, c \in C^{0, \alpha}(\Omega)\). In particular, we cannot write them in divergence form, as \(a^{ij}\) are not \(C^1\).
+
+\subsection{Basic properties}
+
+\begin{theorem}
+    [weak maximum principle] Suppose that \(L\) is elliptic and that
+    \[\sup_\Omega \abs{\frac{b^i}{\lambda}} < \infty \tag{\((*)\)}\]
+    for some \(i\). Moreover, suppose \(\Omega\) is bounded, open, \(u \in C^2(\Omega) \cap C^0(\overline\Omega)\), such that \(Lu \ge 0\)\footnote{We say that \(u\) is a \emph{subsolution}.}.
+
+    Then
+    \begin{itemize}
+        \item if \(c = 0\), then
+        \[\sup_\Omega u = \sup_{\partial\Omega} u\]
+        \item if \(c \le 0\), then
+        \[\sup_\Omega u \le \sup_{\partial\Omega}u^+\]
+        where \(u^+ = \max(u, 0)\).
+    \end{itemize}
+\end{theorem}
+
+\begin{remark}
+    The assumption that \(c \le 0\) is crucial. For example, when \(n = 1\), let \(\Omega = (0, \pi)\), and \(u'' + u = 0\). Then \(u(x) = \sin(x)\) is a solution. But then \(\sup_\Omega u = 1\), and \(\sup_{\partial\Omega}u^+ = 0\).
+
+    For \(n = 2\), \(\Omega = (0, \pi)^2\), and \(\Delta u + 2u = 0\). Then
+    \[u(x, y) = \sin(x)\sin(y)\]
+    has the same properties as the above.
+\end{remark}
+
+\begin{proof}
+    First suppose \(c = 0\). If \(Lu > 0\) in \(\Omega\), then in fact the strong maximum principle holds. Indeed, if \(x_0 \in \Omega\) is a local maximum, then
+    \[\partial_i u(x_0) = 0 \qqtext{and} \partial_i\partial_j u(x_0) \preccurlyeq 0\]
+    Since \(a^{ij}(x_0) \succcurlyeq 0\), we have that 
+    \[a^{ij}\partial_i\partial_ju(x_0) = \tr(A \grad^2u(x_0)) \le 0\]
+    Hence \(0 < Lu(x_0) = a^{ij}\partial_i\partial_j u(x_0) + b^i\partial_iu(x_0) \le 0\). Contradiction. More generally, if \(Lu \ge 0\) in \(\Omega\), consider
+    \[v(x) = e^{\gamma x_1}\]
+    for some \(\gamma > 0\) to be chosen. Here, we assume without loss of generality that \((*)\) holds for \(i = 1\). Then
+    \[\partial_1 v = \gamma e^{\gamma x_1} \qqtext{and}\partial_i v = 0 \text{ for }i \ne 1\]
+    and
+    \[\partial_1\partial_1 v \gamma^2 e^{\gamma x_1}\]
+    and all other second derivatives are zero. So
+    \begin{align*}
+        Lv &= e^{\gamma x_1}(a^{11}\gamma^2 + b^1\gamma) \\
+        &\ge e^{\gamma x_1}(\lambda \gamma^2 + b^1\gamma) \\
+        &= \gamma e^{\gamma x_1}\left(\gamma^2 + \frac{b^1}{\lambda}\gamma\right)
+    \end{align*}
+    This is positive for \(\gamma\) large enough. Hence
+    \[L(u + \epsilon v) > 0\]
+    for all \(\epsilon > 0\). By the above,
+    \begin{align*}
+        u(x) &\le \sup_{\Omega}(u + \epsilon v) \quad\text{ as }v \ge 0\\
+        &\le \sup_{\partial\Omega}(u + \epsilon v) \\
+        &\le \sup_{\partial\Omega} u + \epsilon\sup_{\partial\Omega}v
+    \end{align*}
+    Taking \(\epsilon \to 0\), we get that\(u(x) \le \sup_{\partial\Omega} u\). Since this is true for all \(x \in \Omega\), then
+    \[\sup_\Omega u \le \sup_{\partial \Omega} u\]
+    The reverse inequality is trivial.
+
+    Now suppose \(c \le 0\). Define
+    \[L_0u = a^{ij}\partial_i\partial_j u + b^i\partial_i u\]
+    and consider
+    \[\Omega^+ = \{x \in \Omega \mid u(x) > 0\}\]
+    Since \(cu \le 0\) on \(\Omega^+\),
+    \[L_0u = Lu - cu \ge 0\]
+    on \(\Omega^+\). Note if \(\Omega^+ = \emptyset\), then \(\sup_\Omega u \le 0\), and \(u^+ = 0\), and the conclusion is trivial. Thus, without loss of generality assume \(\Omega^+ \ne \emptyset\). Then there exists \(x_0\in \partial\Omega \cap \partial\Omega^+\), with \(u(x_0) \ge 0\). If not, then
+    \[\partial\Omega^+  \cap \partial\Omega = \emptyset\]
+    and so \(\partial\Omega^+ \sse \Omega\), and so it \(\partial\Omega^+ \sse \Omega \setminus \Omega^+\).  So \(u\vert_{\partial\Omega^+} \le 0\). But this contradicts the first part for \(L_0\) on \(\Omega^+\).
+
+    Hence
+    \begin{align*}
+        \sup_\Omega u &= \sup_{\Omega^+} u \\
+        &= \sup_{\partial\Omega^+} u \\
+        &\le \sup_{\partial\Omega} u \\
+        &\le \sup_{\partial\Omega} u^+
+    \end{align*}
+\end{proof}
+
+\begin{corollary}
+    Let \(\Omega\) be bounded open, \(u \in C^2(\Omega) \cap C^0(\overline\Omega)\), \(L\) is elliptic, with the same bound on \(\Omega\), and \(c \le 0\) in \(\Omega\). Then
+    \begin{enumerate}
+        \item if \(Lu \le 0\) in \(\Omega\), then
+        \[\inf_{\Omega} u \ge \inf_{\partial\Omega} u^-\]
+        where \(u^- = \min(u, 0)\).
+        \item if \(Lu = 0\), then
+        \[\sup_{\partial\Omega}\abs{u} = \sup_\Omega \abs{u}\]
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    Exercise.
+\end{proof}
+
+\begin{corollary}
+    Let \(L\) as above, and suppose we have \(u, v, w \in C^2(\Omega) \cap C^0(\overline\Omega)\), such that
+    \[Lu\ge 0 \quad Lv = 0 \qqtext{and} Lw \le 0\]
+    Then
+    \begin{enumerate}
+        \item if \(u \le v\) on \(\partial\Omega\), then \(u \le v\) in \(\overline{\Omega}\).
+        \item if \(v \le w\) on \(\partial\Omega\), then \(v \le w\) in \(\overline{\Omega}\).
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    Exercise.
+\end{proof}
+
+We want to build towards a strong maximum principle. For this, we need
+
+\begin{theorem}
+    [Hopf boundary point lemma] Let \(\Omega \sse \R^n\) be open, and take \(y \in \partial\Omega\). Suppose \(\partial\Omega\) satisfies the \emph{interior sphere condition}\footnote{That is, there exists \(R > 0\), \(z \in \Omega\), such that \(B_R(z) \sse \Omega\), \(y \in \partial B_R(z)\).} at \(y\). Let \(L\) be uniformly elliptic in \(\Omega\), with
+    \[\sup_{\Omega}\frac{\abs{b}}{\lambda} + \sup_\Omega \abs{c}{\lambda} < \infty\]
+    Suppose \(u \in C^2(\Omega) \cap C^0(\{y\} \cup \Omega)\), such that \(u(y) \ge u(x)\) for all \(x \in \Omega\), and \(Lu \ge 0\) in \(\Omega\). Finally, assume one of the following holds:
+    \begin{enumerate}[(i)]
+        \item \(c = 0\) in \(\Omega\),
+        \item \(c \le 0\) in \(\Omega\) and \(u(y) \ge 0\),
+        \item \(u(y) = 0\)
+    \end{enumerate}
+    Then
+    \[\pdv{u}{\nu}(y) > 0\]
+    if it exists, where \(\nu\) is the outwards pointing normal at \(y\) to \(\partial B_R(z)\), coming from the interior sphere condition.
+\end{theorem}
+
+\begin{remark}
+    The weak maximum principle implies that
+    \[\pdv{u}{\nu} \ge 0\]
+    and so the content of the theorem is the strict inequality.
+\end{remark}
+
+\begin{proof}
+    Let
+    \[A = B_R(z) \setminus B_r(z)\]
+    for some \(0 < r < R\). We will first solve cases (i) and (ii). On \(A\), consider
+    \[v(x) = e^{-\alpha\abs{x - z}^2} - e^{-\alpha R^2}\]
+    First note that on \(A\), \(v > 0\).
+    \[\partial_i v(x) = -2\alpha(x_i - z_i)e^{-\alpha\abs{x - z}^2}\]
+    and
+    \[\partial_i\partial_jv(x) = -2\alpha\delta_{ij}e^{-\alpha\abs{x - z}^2} + 4\alpha^2(x_i - z_i)(x_j - z_j)e^{-\alpha\abs{x - z}^2s}\]
+    So on \(A\),
+    \[Lv = e^{-\alpha \abs{x - z}^2}(a^{ij}4\alpha^2(x_i - z_i)(x_j - z_j) - 2\alpha a^{ii} - 2\alpha b^i(x_i - z_i) + c) - ce^{-\alpha R^2}\]
+    By ellipticity and the sign of \(c\),
+    \begin{align*}
+        Lv &\ge 2^{-\alpha\abs{x - z}^2}(4\alpha^2 \lambda(x)\abs{x - z}^2 - 2\alpha n \Lambda(x) - 2\alpha \abs{b}\abs{x - z} - \abs{c}) \\
+        &\ge e^{-\alpha\abs{x - z}^2}\lambda(x)\left(\alpha^2 R^2 - 2\alpha n \sup_\Omega\frac{\Lambda}{\lambda} - \alpha R \sup_\Omega \frac{\abs{b}}{\lambda} - \sup_\Omega \frac{\abs{c}}{\lambda}\right)
+    \end{align*}
+    where \(r\) is chosen such that \(\abs{x - z}^2 \ge (R/2)^2\). In particular, this is positive for \(\alpha\) large enough. Fix such an \(\alpha\).
+\end{proof}
+
 \end{document}

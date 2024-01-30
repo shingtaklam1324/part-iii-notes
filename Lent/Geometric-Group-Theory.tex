@@ -230,8 +230,150 @@ Recall that \(X\) is given by a wedge of circles, with discs glued on for each r
 \end{itemize}
 Associated to each disc diagram \(D\), we have a \emph{boundary cycle}, which reads a (cyclic\footnote{or a word once we choose a base point.}) word \(w \in A^*\), which reduces to an element \(w' \in \iinner{r_j} \le F(A)\). To see this, \(D\) is contractible.
 
-\(D\) is a van Kampen diagram for \(w\).
+\(D\) is a \emph{van Kampen diagram for \(w\)}.
 
+\lec
 
+\begin{lemma}
+    [van Kampen] If \(w \in \iinner{R}\), then there exists a van Kampen diagram for \(w\).
+\end{lemma}
+
+\begin{proof}
+    Suppose \(w \in \iinner{R}\). Then \(w\) can be written as
+    \[w = \prod_{i=1}^k h_ir_i^{\pm 1}h_i\]
+    in \(F(A)\), where \(h_i \in F(A)\), and \(r_i \in R\). Now build a \emph{lollipop diagram} \(D_0\), which has boundary word \(w_0\), which is equal to \(w\) in \(F(A)\), but may not be reduced.
+
+    If \(w_0\) is reduced, \(w = w_0\), and so we are done. Otherwise, \(w_0\) contains a cancelling pair, so
+    \[w_0 = \cdots a a^{-1}\cdots\]
+    for some \(a \in A \cup A^{-1}\). In \(w_0\), this looks like:
+
+    We can see that \(e_1, e_2\) share a vertex. There are two cases to consider:
+    \begin{enumerate}
+        \item if the \emph{origin} of \(e_1\) is the \emph{terminus} of \(e_2\), then the diagram \(D_0\) is a wedge \(D_1 \vee D'\). Then \(D_1\) is a van Kampen diagram for \(w_1\), which is the result of cancelling \(a\) and \(a^{-1}\).
+        \item if the origin of \(e_1\) is distinct from the terminus of \(e_2\), then we can fold the edges to get \(D_1\), which has boundary word \(w_1\) as above.
+    \end{enumerate}
+
+    In either case, \(w_1 = \partial D_1\) is obtained from \(w_0\) by cancelling a pair. Therefore, we may proceeed by induction, and after finitely many repetitions, we construct a van Kampen diagram \(D_n\) such that \(w_n = \partial D_n\) is reduced, and \(w_n = w\) in \(F(A)\). Thus, \(w_n = w\) as words, and so \(D_n\) is a van Kampen diagram for \(w\).
+\end{proof}
+
+\begin{remark}
+    The minimal number of \(2\)-cells in a van Kampen diagram of \(w\) is the minimal number of \(k\), such that \(w\) can be written as
+    \[w = \prod_{i=1}^k h_ir_i^{\pm 1}h_i^{-1}\]
+    This is called the \emph{area} of \(w\).
+\end{remark}
+
+\begin{example}
+    Let \(G = \Z^2 = \inner{a, b \mid [a,b]}\). Consider \(w = a^n b^n a^{-n}b^{-n}\). This has van Kampen diagram
+
+    In this case, \(\Area(D) = n^2\). We will show \(D\) is minimal, and so \(\Area(w) = n^2\).
+\end{example}
+
+\begin{definition}
+    Let \(\mcP = \inner{A \mid R}\) be a finite presentation of a group \(G\). Define
+    \begin{align*}
+        \delta_\mcP : \N &\to \N \\
+        \ell &\mapsto \max_{w \in \iinner{R}, \ell(w) = d}\Area(w)
+    \end{align*}
+    This is called the \emph{Dehn function.}
+\end{definition}
+
+\begin{remark}
+    The word problem in \(\mcP\) if and only if \(\delta_\mcP\) is computable.
+\end{remark}
+
+\section{Basics of geometric group theory}
+
+\subsection{Cayley graphs}
+
+A \emph{graph} is a \(1\)-dimensional cell complex. Throughout, let \(G\) be a group, with finite generating set \(S \sse G\).
+
+\begin{definition}
+    The \emph{Cayley graph} \(\Cay_S(G)\) is defined as follows:
+    \begin{itemize}
+        \item vertices \(V(\Cay_S(G)) = G\),
+        \item edges \(E(\Cay_S(G))\) correspond bijectively with \(G \times S\). That is, we have an edge \(g \to gs\).
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    The trivial group given by \(1 = \inner{a, b \mid a, b}\) has Cayley graph
+\end{example}
+
+\begin{example}
+    \(S_3 = \inner{r, s \mid srsr, r^3, s^2}\) has Cayley graph
+\end{example}
+
+\begin{example}
+    \(\Z = \inner{1}\) as Cayley graph
+
+    On the other hand, \(\Z = \inner{2, 3}\) has Cayley graph
+\end{example}
+
+Note that the action of \(G\) on itself on the \emph{left} extends to an action of \(G\) on \(\Cay_S(G)\), sending an edge \(h \to hs\) to \(gh \to ghs\). Note the right action does not work, because of our definition of the Cayley graph.
+
+\begin{remark}
+    The action of \(G\) on \(\Cay_S(G)\) is free. That is, for all \(x \in \Cay_S(G)\), \(\Stab_G(x) = 1\).
+\end{remark}
+
+\begin{proposition}
+    Let \(G = \inner{S \mid R}\), and let \(X\) be the corresponding presentation complex. Then there exists a \(G\)-equivariant isomorphism of graphs
+    \[\Cay_S(G) \cong \widetilde{X}_{(1)}\]
+    with the \(1\)-skeleton of the universal cover \(\widetilde X\) of \(X\)\footnote{and not the other way around.}.
+\end{proposition}
+
+\lec
+
+\begin{proof}
+    Consider the natural free action of \(G = \pi_1(X)\) on \(\widetilde X\), by deck transformations. The action is by combinatorial endomorphisms. In particular, it preserves the \(1\)-skeleton. So we have a free action of \(G\) on \(\widetilde{X}_{(1)}\), which sends vertices to vertices and edges to edges.
+
+    The action of \(G\) on \(\widetilde X_{(0)}\) is free, and as \(X\) has only one vertex, transitive. Therefore, choosing a base vertex \(\widetilde v_0\), the orbit-stabiliser theorem provides a \(G\)-equivariant bijection
+    \[G \to \Orb(\widetilde v_0) = \widetilde{X}_{(0)}\]
+    sending \(g\) to \(g\vdot \widetilde v_0\). So this matches up the vertices as required.
+
+    Next, let us match up the edges. For each \(s \in S\), let \(e_s\) be the corresponding edge of \(X\). Let \(\widetilde e_s\) be the unique lift of \(e_s\) to \(\widetilde{X}\), beginning at \(\widetilde v_0\). By the definition of the action of \(G\) on \(\widetilde{X}\), \(e_s\) ends at \(s \vdot \widetilde v_0\). Now an arbitrary edge \(\widetilde e\) of \(\widetilde X\) maps to some \(e_s\), under the covering map. Since egdes of \(X\) correspond to \(G\)-orbits of edges in \(\widetilde X\), it folloes that \(\widetilde e = g \vdot \widetilde e_s\) for some \(s \in S\). That is, \(\widetilde e\) is the edge from \(g\vdot \widetilde v_0\) to \(gs \vdot \widetilde v_0\). So it corresponds to an edge from \(g\) to \(gs\).
+
+    This shows that the \(G\)-equivariant map \(G \to \widetilde{X}_{(0)}\) extends to a \(G\)-equivariant isomorphism of graphs as claimed.
+\end{proof}
+
+The next proposition deepens the relationship between generating sets and path connectedness.
+
+\begin{proposition}
+    Let \(\widetilde X\) be a path connected topological space, and suppose that \(G\) acts on \(\widetilde X\) by homeomorphisms. If \(U \sse \widetilde X\) is an open subset, such that \(G \vdot U = \widetilde X\), then the set
+    \[S = \{g \in G \mid g\vdot U \cap U \ne \emptyset\}\]
+    generates \(G\).
+\end{proposition}
+
+\begin{proof}
+    Fix a base point \(\widetilde x_0 \in U\). Now for \(g \in G\), let \(\gamma : [0, 1] \to \widetilde X\) be a path from \(\widetilde x_0\) to \(g \vdot \widetilde x_0\). The set \(\{\gamma^{-1}(h \vdot U) \mid h \in G\}\) is an open cover of \([0, 1]\). So it has a finite subcover, \(\{\gamma^{-1}(U_1), \dots, \gamma^{-1}(U_n)\}\), where \(U_i = g_i\vdot U\). We may choose the indices so that
+    \begin{itemize}
+        \item \(\widetilde x_0 \in U_1\),
+        \item \(\gamma^{-1}(U_i) \cap \gamma^{-1}(U_{i+1}) \ne \emptyset\) for all \(i\),
+        \item \(g\vdot \widetilde x_0 \in U_n\).
+    \end{itemize}
+    Note that the \(g_i\) need not be unique. By definition, \(x_0 \in U \cap g_1 \vdot U\), and so \(g_1 \in S\). Similarly, if \(t_i \in \gamma^{-1}(U_i) \cap \gamma^{-1}(U_{i+1})\), then \(x_i = \gamma(t_i) \in g_i \vdot U \cap g_{i+1} \vdot U\). Thus,
+    \[g_i^{-1}\vdot x_i \in U \cap g_i^{-1}g_{i+1}\vdot U\]
+    and so \(s_i = g_i^{-1}g_{i+1} \in S\). Thus, \(g_n = s_{n-1}\cdots s_2s_1g_1\), is a finite product of elements of \(S\). Finally, \(g^{-1}g_n \in S\) similarly to the above, so \(g \in \inner{S}\) as required.
+\end{proof}
+
+\begin{example}
+    Let \(\Gamma \sse \Isom(\R^2)\) be the symmetry group of the standard tiling of the plane by equilateral triangles. Let \(U\) be a thickened triangle. Using the proposition, we obtain a finite generating set of \(\Gamma\). In particular, \(\Gamma\) is generated by the reflections in the sides of a single triangle.
+
+    In particular, this is not a covering space action, as it is not free.
+\end{example}
+
+\begin{definition}
+    An action of \(G\) on \(\widetilde X\) by homeomorphisms is \emph{properly discontinuous} if for every compact \(K \sse \widetilde X\), the set
+    \[\{g \vdot K \cap K\}\]
+    is finite.
+
+    The action is \emph{cocompact} if there exists \(K \sse \widetilde X\) compact, such that
+    \[G \vdot K = \widetilde X\]
+    
+    \(\widetilde X\) is \emph{locally compact} if for every neighbourhood \(U\) of \(x\), there exists an open neighbourhood \(V \sse U\) of \(x\), such that \(\widetilde V \sse U\) is compact.
+\end{definition}
+
+\begin{corollary}
+    If \(G\) acts on \(\widetilde X\) properly discontinuously and cocompactly, and \(\widetilde X\) is path connected and locally compact, then \(G\) is finitely generated.
+\end{corollary}
 
 \end{document}

@@ -171,7 +171,7 @@ In particular, symplectic vector spaces are always even dimensional.
 \begin{proof}
     Note that
     \[\omega_{\text{std}}^n = x_1^\vee \wedge y_1^\vee \cdots \wedge x_n^\vee \wedge y_n^\vee\]
-    is the usual volume form.
+    is the usual volume form.\footnote{or maybe with a coefficient of \(n!\) in front of it...}
 \end{proof}
 
 Returning to linear algebra, we have
@@ -232,8 +232,44 @@ Let \(\Lag(V)\) be the space of Lagrangian subspaces \(L\) of \(V\).
 \subsection{Vector bundles}
 
 If \(\pi : \mcE \to X\) is a vector bundle, we can define \(\Lambda^*\mcE \to X\), \(\Lambda^*(\mcE^*) \to X\), \(\ori_\mcE \to X\), and so on. We have a vector space \(\Gamma(\mcE)\) of global sections of \(\mcE\). In particular,
-\[\Omega^(X) = \Gamma(\Lambda^k(\T^* X))\]
+\[\Omega^k(X) = \Gamma(\Lambda^k(\T^* X))\]
 is the space of \(k\)-forms.
+
+\lec
+
+\begin{definition}
+    \(\mcE\) is \emph{orientable} if there exists a global section of \(\ori_\mcE\).
+\end{definition}
+
+\begin{example}
+    [non-example] The M\"obius bundle over \(S^1\) is not orientable. More generally, for any vector bundle, \(\mcE \to S^1\), \(\mcE\) is trivial if and only if it is orientable.
+\end{example}
+
+Let \(M\) be a (connected smooth) manifold, and consider the tangent bundle \(\T M \to M\).
+
+\begin{definition}
+    \(M\) is \emph{orientable} if \(\T M\) is. If so, a choice of orientation for \(M\) is a choice of orientation for \(\T M\).
+\end{definition}
+
+Note that if \(M\) is orientable, then there exists two choices of orientation. If \(M\) represents one orientation, we will write \(\overline{M}\) for the other. Moreover, if \(M\) has a boundary, then \(\partial M\) has a canonical orientation, by saying \((e_1, \dots, e_{n-1})\) is positively oriented if \((\nu, e_1, \dots, e_{n-1})\) is positively oriented, where \(\nu\) is the outward pointing normal.
+
+For compact \(M\), \(M\) is orientable if and only if \(\HH^n(M; \Z) \cong \Z\). A choice of orientation corresponds to a choice of generator in \(\{\pm 1\}\). Note that elements of \(\Diff(M)\) must either preserve or reverse orientation, which we can read off from \(\varphi_* : \HH^n(M; \Z) \to \HH^n(M; \Z)\).
+
+\subsection{Cohomology and integration}
+
+\begin{theorem}
+    [de Rham] We have an isomorphism between de Rham cohomology and singular homology. Moreover, this is an isomorphism of rings, between the wedge product and the cup product.
+\end{theorem}
+
+Intuitively, the isomorphism is given by integrating a form over a chain.
+
+\begin{theorem}
+    [Stokes]
+    Let \(M\) be a smooth \(n\)-manifold with boundary, and \(\alpha\) a compactly supported \((n-1)\)-form on \(M\). Then
+    \[\int_M \dd\alpha = \int_{\partial M}\alpha\]
+\end{theorem}
+
+Recall that if \((M^{2n}, \omega)\) is symplectic, then \(\HH^{2k}(M; \R) \ne 0\) for all \(0 \le k \le n\).
 
 \printindex
 

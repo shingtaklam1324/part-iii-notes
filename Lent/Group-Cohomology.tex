@@ -527,6 +527,128 @@ We will return to considering homology arising from different resolutions.
     \[f_* : \HH_n(A_\bullet) \to \HH_n(B_\bullet)\]
 \end{lemma}
 
+\lec
+
+\begin{proof}
+    Let \(x \in \ker(\alpha_n)\). Define \(f_*([x]) = [f_n(x)]\), where \([\cdot]\) denotes a homology class. Observe that
+    \[f_n(x) \in \ker(\beta_n)\]
+    since \(\beta_n(f_n(x)) = f_{n-1}(\alpha_n(x)) = 0\). Moreover, if \(x' = x + \alpha_{n-1}(y)\), then
+    \[f_n(x') = f_n(x) + f_n(\alpha_{n-1}(y)) = f_n(x) + \beta_n(f_n(y))\]
+    and so \([f_n(x')] = [f_n(x)]\). Moreover, this gives a map of abelian groups. 
+\end{proof}
+
+\begin{theorem}
+    The definition of \(\HH^n(G, M)\) is independent of the choice of projective resolution.
+\end{theorem}
+
+\begin{proof}
+    Take projective resolutions \((P_n, \dd_n)\) and \((P_n', \dd_n')\) of \(\Z\) by \(\ZG\)-modules. We will produce 
+    \begin{itemize}
+        \item chain maps \(f_n : P_n \to P_n'\), \(g_n : P_n' \to P_n\),
+        \item chain homotopies \(s_n : P_n \to P_{n+1}\), \(s_n' : P_n' \to P_{n+1}'\),
+    \end{itemize}
+    That is,
+    \[\dd s + s \dd = gf - \id \qqtext{and}\dd s' + s'\dd = fg - \id\]
+    Using this data, the \(f_n\) define chain maps
+    \[f^* : \Hom_G(P_n', M) \to \Hom_G(P_n, M) \qqtext{and} g^* : \Hom_G(P_n', M) \to \Hom_G(P_n, M)\]
+    which induce maps between the respective homology groups. Now observe if \(\phi \in \ker(\dd^{n+1}) \in \Hom(P_n, M)\), then
+    \begin{align*}
+        f^*g^*(\phi)(x) &= \phi(g(f(x))) \\
+        &= \phi(x) + \phi(\dd s(x)) + \phi(s \dd (x)) \\
+        &= \phi(x) + s^*\dd\phi(x) + \dd s^*\phi(x) \\
+        &= \phi(x) + \dd s^*\phi(x)
+    \end{align*}
+    and so \(f^*g^*(\phi) = \phi + \dd(s^*\phi)\). Hence \(f^*g^*\) induces the identity map on homology. Similarly, \(g^*f^*\) also induce the identity map. This, \(f^*, g^*\) yield isomorphisms on homology. It remains to construct the maps as above.
+
+    Consider the end of the resolutions, so we have
+    \(f_{-1} : \Z \to \Z\)
+    which is the identity map, and \(f_{-2} : 0 \to 0\) is the zero map. Suppose we have already defined \(f_{n-1}, f_n\). We would like to construct \(f_{n+1}\). Thus, \(f_n \dd : P_{n+1} \to P_n'\), and \(\dd'(f\dd) = f \dd \dd = 0\). Thus, the map \(f\dd\) has image contained in \(\ker(\dd')\). So we can define \(f_{n+1}\) as follows:
+    % https://q.uiver.app/#q=WzAsNyxbMSwwLCJQX3tuKzF9Il0sWzIsMCwiUF9uIl0sWzMsMCwiUF97bi0xfSJdLFsyLDEsIlBfbiciXSxbMywxLCJQX3tuLTF9Il0sWzEsMSwiXFxrZXIoXFxkZCcpIl0sWzAsMSwiUF97bisxfSciXSxbMCwxLCJcXGRkIl0sWzEsMiwiXFxkZCJdLFsxLDMsImZfbiJdLFsyLDQsImZfe24tMX0iXSxbMyw0LCJcXGRkJyIsMl0sWzUsMywiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbNiw1LCIiLDIseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMCw1LCJmX25cXGRkIl0sWzAsNiwiZl97bisxfSIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+    \[\begin{tikzcd}
+        & {P_{n+1}} & {P_n} & {P_{n-1}} \\
+        {P_{n+1}'} & {\ker(\dd')} & {P_n'} & {P_{n-1}}
+        \arrow["\dd", from=1-2, to=1-3]
+        \arrow["\dd", from=1-3, to=1-4]
+        \arrow["{f_n}", from=1-3, to=2-3]
+        \arrow["{f_{n-1}}", from=1-4, to=2-4]
+        \arrow["{\dd'}"', from=2-3, to=2-4]
+        \arrow[hook, from=2-2, to=2-3]
+        \arrow[two heads, from=2-1, to=2-2]
+        \arrow["{f_n\dd}", from=1-2, to=2-2]
+        \arrow["{f_{n+1}}"', dashed, from=1-2, to=2-1]
+    \end{tikzcd}\]
+    Here, by exactness the map \(P_{n+1}' \to \ker(\dd')\) is surjective, and so as \(P_{n+1}'\) is projective, such a map exists. We can define \(g_n\) similarly.
+
+    To define \(s_n\), set \(h_n = g_n f_n - \id\). This is a map from \(P_n\) to itself. In particular, \(h_n\) is a chain map, with \(h_{-1} = 0\). Set \(s_{-1} : \Z \to P_0\) to be the zero map, and note \(\dd_0 h_0 = h_{-1}\dd_0 =0\), and so \(\im(h_0) \sse \ker(d_0)\). As before, \(\dd_1 : P_1 \to \ker(\dd_0)\) is surjective, and so we have
+    % https://q.uiver.app/#q=WzAsNixbMiwwLCJQXzAiXSxbMiwyLCJQXzAiXSxbMywwLCJcXFoiXSxbMywyLCJcXFoiXSxbMSwyLCJcXGtlcihcXGRkKSJdLFswLDIsIlBfMSJdLFswLDEsImhfMCJdLFsyLDMsIjAiXSxbMCwyXSxbMSwzXSxbNCwxXSxbMCw0LCJoXzAiLDFdLFs1LDQsIiIsMSx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFswLDUsInNfMCIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+\[\begin{tikzcd}
+	&& {P_0} & \Z \\
+	\\
+	{P_1} & {\ker(\dd)} & {P_0} & \Z
+	\arrow["{h_0}", from=1-3, to=3-3]
+	\arrow["0", from=1-4, to=3-4]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=3-3, to=3-4]
+	\arrow[from=3-2, to=3-3]
+	\arrow["{h_0}"{description}, from=1-3, to=3-2]
+	\arrow[two heads, from=3-1, to=3-2]
+	\arrow["{s_0}"{description}, dashed, from=1-3, to=3-1]
+\end{tikzcd}\]
+    Inductively, suppose \(s_{n-1}, s_{n-2}\) are already defined, set \(t_n = h_n - s_{n-1}\dd_n : P_n \to P_n\). We have that 
+    \begin{align*}
+        \dd_n t_n &= \dd_n h_n - \dd_n s_{n-1}\dd_n \\
+        &= h_{n-1}\dd_n - (h_{n-1} - s_{n-2}\dd_{n-1})\dd_n \\
+        &= s_{n-2}\dd_{n-1}\dd_n\\
+        &= 0
+    \end{align*}
+    So \(\im(t_n) \sse \ker(\dd_n)\). So we have\footnote{THIS DIAGRAM DOES NOT COMMUTE!}
+    % https://q.uiver.app/#q=WzAsNixbMSwwLCJQX24iXSxbMywwLCJQX3tuLTF9Il0sWzIsMiwiUF9uIl0sWzQsMiwiUF97bi0xfSJdLFsxLDIsIlxca2VyKFxcZGRfbikiXSxbMCwyLCJQX3tuKzF9Il0sWzAsMSwiXFxkZF9uIl0sWzIsMywiXFxkZF9uIl0sWzUsNCwiIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzQsMiwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMCwyLCJoX24iXSxbMSwzLCJoX3tuLTF9IiwxXSxbMSwyLCJzX3tuLTF9IiwxXSxbMCw0LCJ0X24iLDFdLFswLDUsInNfbiIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+\[\begin{tikzcd}
+	& {P_n} && {P_{n-1}} \\
+	\\
+	{P_{n+1}} & {\ker(\dd_n)} & {P_n} && {P_{n-1}}
+	\arrow["{\dd_n}", from=1-2, to=1-4]
+	\arrow["{\dd_n}", from=3-3, to=3-5]
+	\arrow[two heads, from=3-1, to=3-2]
+	\arrow[hook, from=3-2, to=3-3]
+	\arrow["{h_n}", from=1-2, to=3-3]
+	\arrow["{h_{n-1}}"{description}, from=1-4, to=3-5]
+	\arrow["{s_{n-1}}"{description}, from=1-4, to=3-3]
+	\arrow["{t_n}"{description}, from=1-2, to=3-2]
+	\arrow["{s_n}"{description}, dashed, from=1-2, to=3-1]
+\end{tikzcd}\]
+    Define \(s_n'\) similarly and we are done.
+\end{proof}
+
+\begin{remark}
+    For any (left) \(\ZG\)-module \(N\), we can take a projective (resp. free) resolution of \(N\) by \(\ZG\)-modules. Repeating everything we have done, and applying \(\Hom_G(\cdot, M)\) gives homology groups, which are called
+    \[\Ext^n_{\ZG}(N, M)\]
+    and so
+    \[\HH^n(G, M) = \Ext^n_\ZG(\Z, M)\]
+    As above, the \(\Ext\)-groups are independent of resolution.
+\end{remark}
+
+\section{Low degree cohomology, group extensions}
+
+Recall that \(\HH^0(G, M) = M^G\) is the group of invariants under \(G\), and that a derivation (or a \(1\)-cocycle) is a map \(\phi : G \to M\), such that
+\[\phi(g_1g_2) = g_1\phi(g_2) + \phi(g_1)\]
+We will see two\footnote{The second is on the examples sheet.} interpretations of (inner) derivations. Recall that an inner derivation is one of the form \(\phi(g) = gm - m\), for some fixed \(m \in M\).
+
+Let \(M\) be a \(\ZG\)-module, and consider possible \(\ZG\)-actions on the abelian group \(M \oplus \Z\) of the form
+\[g(m, n) = (gm + n\phi(g), n)\]
+In this case,
+\begin{align*}
+    g_1g_2(m, n) = g_1(g_2m + n\phi(g_2), n) = (g_1g_2m + ng_1\phi(g_2) + n\phi(g_1), n)
+\end{align*}
+On the other hand,
+\[(g_1g_2)(m, n) = (g_1g_2 m + n\phi(g_1g_2), n)\]
+These are the same exactly when \(\phi\) is a derivation. In particular, if \(M\) is a free \(\Z\)-module of finite rank, then we get a map \(G \to \GL(M)\), by can write this as
+\[g \mapsto \begin{pmatrix}
+    \theta_1(g) & \dd g \\
+    0 & 1
+\end{pmatrix}\]
+where \(\theta_1(g)\) is the action of \(g\) on \(M\). In particular, this is a homomorphism of groups if and only if \(\phi\) is a derivation. Moreover, \(\phi\) is an inner derivation if and only if \((-m, 1)\) generates a \(\ZG\)-submodule which is a trivial module inside \(M \oplus \Z\).
+
 \printindex
 
 \end{document}
