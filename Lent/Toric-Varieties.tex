@@ -468,10 +468,101 @@ Define \(R_\sigma = \C[S_\sigma]\). From this, we know that \(U_\sigma = \Spec(R
 \end{remark}
 
 \begin{remark}
-    \(\T^n\) may map to some smaller torus \(\T^{n'} \sse U_\sigma\), with \(n' \le n\). We claim that if \(\sigma\) is strongly convex, then \(\T^n \sse U_\sigma\) as a dense open subset. See examples sheet 1, questions 1, 3. For this, note that \(\sigma\) is strongly convex if and only if \(\check\sigma\) is top dimensional.
+    \(\T^n\) may map to some smaller torus \(\T^{n'} \sse U_\sigma\), with \(n' \le n\). We claim that if \(\sigma\) is strongly convex, then \(\T^n \sse U_\sigma\) as a dense open subset. See examples sheet 1, questions 1 and 3. For this, note that \(\sigma\) is strongly convex if and only if \(\check\sigma\) is top dimensional.
 \end{remark}
 
 From now on, restrict to strongly convex \(\sigma\). 
+
+\lec
+
+What remains is to construct the torus action. Recall \(T_N = \Spec(\C[M])\). We will define this by
+\begin{align*}
+    a^\sharp : \C[S_\sigma] &\to \C[S_\sigma] \otimes \C[M] \\
+    \chi^{\mathbf m} &\mapsto \chi^{\mathbf m} \otimes \chi^{\mathbf m}
+\end{align*}
+This extends
+\begin{align*}
+    m^\sharp : \C[M] &\to \C[M] \otimes \C[M] \\
+    \chi^{\mathbf m} &\mapsto \chi^{\mathbf m} \otimes \chi^{\mathbf m}
+\end{align*}
+
+\begin{remark}
+    The reason this works is the fact that \(S_\sigma \sse M\) tells us which functions on \(U_\sigma\) are monomials.
+\end{remark}
+
+With this all in mind, given a strongly convex cone \(\sigma\), we have an affine toric variety \(U_\sigma\), with torus \(T_N\). We will see that
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHtcXHRleHR7YWZmaW5lIHRvcmljIHZhcmlldGllc31cXH0iXSxbMiwwLCJcXHtcXHRleHR7YWZmaW5lIHNlbWlncm91cHN9XFx9Il0sWzAsMiwiXFx7XFx0ZXh0e2FmZmluZSBcXGVtcGh7bm9ybWFsfSB0b3JpYyB2YXJpZXRpZXN9XFx9Il0sWzIsMiwiXFx7XFx0ZXh0e3N0cm9uZ2x5IGNvbnZleCBjb25lc31cXH0iXSxbMCwxLCIiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzIsMywiIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFszLDEsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzIsMCwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XV0=
+\[\begin{tikzcd}
+	{\{\text{affine toric varieties}\}} && {\{\text{affine semigroups}\}} \\
+	\\
+	{\{\text{affine \emph{normal} toric varieties}\}} && {\{\text{strongly convex cones}\}}
+	\arrow[no head, from=1-1, to=1-3]
+	\arrow[no head, from=3-1, to=3-3]
+	\arrow[hook, from=3-3, to=1-3]
+	\arrow[hook, from=3-1, to=1-1]
+\end{tikzcd}\]
+
+\section{Opens in \(U_\sigma\)}
+
+We will see that \(\tau \faceof \sigma\), correspond to principal opens \(U_\tau \sse U_\sigma\). Recall that a face is \(\tau = \sigma \cap H_m\) for some \(m \in \check\sigma \cap M = S_\sigma\).
+
+\begin{theorem}
+    If \(\tau = \sigma \cap H_m\), then
+    \[\C[S_\tau] = \C[S_\sigma]_{\chi^{\mathbf m}} = \C[S_\sigma][\chi^{\pm \mathbf m}]\]
+\end{theorem}
+
+\begin{proof}
+    First, since \(\tau \in H_m\), \(\inner{u, m} = 0\) for all \(u \in \tau\). So \(m\) and \(-m\) are in \(\check\tau \cap M = S_\tau\). Also, if \(m' \in S_\sigma\), then \(\inner{m', u} \ge 0\) for all \(u \in \tau\). Putting these together,
+    \[\C[S_\sigma]_{\chi^{\mathbf m}} \sse \C[S_\tau]\]
+    For the reverse inclusion, take \(m' \in S_\tau \setminus S_\sigma\). We want to show \(m' + km \in S_\sigma\) for some \(k \in \Z\). For \(u \in \sigma\setminus \tau\), \(\inner{m', u} < 0\). But we also have that \(\inner{m, u} > 0\), so we can pick \(k\) large enough such that \(\inner{m' + km, u} > 0\). This tells us that \(m' + km \in S_\sigma\)\footnote{Since we only need to show positivity on the finitely many generators of the cone.}.
+\end{proof}
+
+\begin{example}
+    Let \(\sigma = \Cone(e_1, e_2)\). Let \(\star = (0, 0)\). This is a face, and \(S_\star = \C[x^{\pm 1}, y^{\pm 1}]\). Hence \(U_\star = \T \sse \A^2\).
+
+    Now if \(\tau_1\) is the face \(y = 0\), then we get
+    \[\C[S_{\tau_1}] = \C[x, y]_{\chi^{e_2} = y} = \C[x, y^{\pm 1}]\]
+    So
+    \[U_{\tau_1} = \A^1 \times \C^*\]
+\end{example}
+
+\section{Fans and toric varieties}
+
+\begin{definition}
+    [fan] A \emph{fan} \(\Sigma\) is a finite collection of strongly convex cones \(\sigma \sse N_\R\), such that
+    \begin{enumerate}
+        \item for all \(\sigma \in \Sigma\), \(\tau \faceof \sigma\), then \(\tau \in \Sigma\).
+        \item for any \(\sigma_1, \sigma_2 \in \Sigma\), \(\tau = \sigma_1 \cap \sigma_2\) is a face of both.
+    \end{enumerate}
+\end{definition}
+
+\begin{notation}
+    The \emph{support} of \(\Sigma\) is
+    \[\abs{\Sigma} = \bigcup_{\sigma \in \Sigma}\sigma \sse N_\R\]
+    and we will write
+    \[\Sigma(r) \sse \Sigma\]
+    for the subset of \(r\)-dimensional cones.
+\end{notation}
+
+\begin{example}
+    First, let \(\sigma = \Cone(e) \sse \R\), then \(\Sigma_1 = \{\sigma, -\sigma, \star\}\) is a fan.
+
+    Next, we have seen the fan \(\Sigma\) for \(\P^2\). Here, \(\Sigma(0) = \{\star\}\), \(\Sigma_1 = \{\Cone(e_1), \Cone(e_2), \Cone(-e_1 - e_2)\}\) and so on.
+
+    Next, consider the cone given by \(\sigma_0 = \Cone(e_1, e_1 + e_2), \sigma_1 = \Cone(e_1 + e_2, e_2)\) and their faces.
+
+    Finally, consider the rays passing through \((0, 1), (1, 0), (0, -1), (-1, a)\), for soem \(a \in \Z_{> 0}\).
+\end{example}
+
+By the above construction, we can associate to each \(\sigma \in \Sigma\) an affine toric variety, and if \(\tau \faceof \sigma\) is a face, then \(U_\tau \sse U_\sigma\) is an open. Thus, we can glue the \(U_\sigma\)s together, using the explicit open embeddings. This gives an (abstract) variety.
+
+\begin{remark}
+    The second condition will imply separatedness.
+\end{remark}
+
+\begin{example}
+    For the first example, \(U_\sigma = \Spec(\C[x])\), and \(U_{-\sigma} = \Spec(\C[x^{-1}])\). Finally, the origin corresponds to \(\Spec(\C[x, x^{-1}])\). So we get \(A^1\) and \(A^1\) glued along \(\C^*\), which is \(\P^1\). 
+\end{example}
 
 \printindex
 

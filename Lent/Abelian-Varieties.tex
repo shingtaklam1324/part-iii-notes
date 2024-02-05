@@ -448,7 +448,11 @@ We say that \(X\) is \emph{smooth} over \(k\) if \(\Omega_{X/k}\) is locally fre
     \[\Omega_{K/k} = \Omega_{X/k, \eta}\]
     
     \begin{lemma}
-        Let \(X\) be as above, \(\mcF\) a coherent sheaf \(\mcO_X\)-module, such that for all closed points \(x \in \abs{X}\), \(\dim_k(\mcF_x \otimes_{\mcO_{X, x}} k)\) is the same as \(\dim(\mcF_\eta) = n\), then \(\mcF\) is locally free.
+        Let \(X\) be as above.
+        \begin{enumerate}[(i)]
+            \item \(\mcF\) a coherent sheaf \(\mcO_X\)-module, such that for all closed points \(x \in \abs{X}\), \(\dim_k(\mcF_x \otimes_{\mcO_{X, x}} k)\) is the same as \(\dim_k(\mcF_\eta) = n\), then \(\mcF\) is locally free.
+            \item In general, there exists a non-empty open subscheme \(U \sse X\), such that for all \(x \in \abs{X}\), \(\mcF_x\) is free if and only if \(x \in U\).
+        \end{enumerate}
     \end{lemma}
 
     \begin{remark}
@@ -460,6 +464,336 @@ We say that \(X\) is \emph{smooth} over \(k\) if \(\Omega_{X/k}\) is locally fre
 
         In the course, we will always use the second one. If \(A\) is Noetherian, and \(M\) is finite, then the two are equivalent.
     \end{remark}
+    \lec
+
+    \begin{proof}
+        [Proof of lemma]
+        For both of these statements, we can assume that \(X = \Spec(A)\) is affine, and \(\mcF = \widetilde M\), for a finite \(A\)-module \(M\). \(K = \Frac(A)\), so \(n = \dim_K(M \otimes_A K)\).
+
+        Let \(\mfm \in \maxSpec(A)\) be a maximal ideal. By assumption,
+        \[n = \dim_K(M \otimes (A /\mfm))\]
+        Choose \(t_1, \dots, t_n \in M\), whose images in \(M/\mfm M\) form a basis. Now consider the natural map\footnote{i.e. \((a_1, \dots, a_n) \mapsto a_1t_1 + \cdots + a_nt_n\).} \(A^n \to M\) from this basis. By Nakayama, the localisation
+        \[A^n_\mfm \to M_\mfm\]
+        is surjective. So the map \(K^n \to M \otimes_A K\) is surjective, so it is an isomorphism. Hence the above map is an isomorphism.
+
+        We need to show that there exists a nonempty open \(U \sse \Spec(A)\), such that the map
+        \[\mcO_U^n \to \widetilde M\vert_U\]
+        is an isomorphism. We know that the map \(A^n \to M\) is injective, and has finite torsion cokernel \(N\) say, since it is an isomorphism after tensoring with \(K\). Then the map
+        \[\mcO_U^n \to \widetilde M\vert_U\]
+        is an isomorphism for \(U = X \setminus \van(\Ann(N))\). Now note that \(\Ann(N)\) is non-zero, so \(U\) is non-empty. Moreover, \(\Ann(M) \not\subseteq \mfm\), so \(\mfm \in U\).
+
+        For (ii), choose \(t_i \in M\) such that the map \(K^n \to M\otimes_A K\) is an isomorphism. The corresponding map \(A^n \to M\) has finite torsion cokernel as above, and so at a maximal ideal \(\mfm\), we have an isomorphism \(A_\mfm^n \to M_\mfm\) if and only if \(\mfm \notin \van(\Ann(\coker(\cdot)))\).
+    \end{proof}
 \end{proof}
+
+\begin{remark}
+    The theorem holds more generally, for \(k\) perfect. But it fails for general \(k\). Let \(X = \Spec(K)\), where \(K = k(t^{1/p})\), \(k = \bb F_p(t)\). Here,
+    \[\Omega_{K/k} = K(t)\dd(t^{1/p})\]
+    is non-zero, but \(K\) is clearly regular (of dimension \(0\)).
+
+    Thus, over non-perfect fields, regular and smoothness are not equivalent.
+\end{remark}
+
+\begin{theorem}
+    Let \(k\) be algebraically closed, \(X/k\) an integral scheme of finite type over \(k\), then there exists a maximal non-empty open \(U \sse X\) which is smooth over \(k\).    
+\end{theorem}
+
+\begin{proof}
+    As in the proof of (ii) implies (i) in the previous theorem, we know that
+    \[\Omega_{X/k, \eta} \cong \kappa(X)^d\]
+    The second part of the lemma says that there exists a non-empty open \(U\), such that for all \(x \in \abs{X}\), \(x \in U\) if and only if \(\Omega_{X/k, x}\) is free of rank \(d\). But by the theorem, this is the same as
+    \[\dim_k(T_{X, x}) = d\]
+\end{proof}
+
+\subsection{Digression - some general (nice) properties of schemes}
+
+Let \(X\) be a scheme. Recall:
+\begin{itemize}
+    \item \(X\) is \emph{quasicompact} if \(X\) is a finite union of open affines.
+    \begin{example}
+        [non-example]
+        Let \(X = \A^\infty_k = \Spec(k[x_1, x_2, \dots])\), and \(U = X \setminus \{0\}\). This is not quasicompact.
+    \end{example}
+    \item \(X\) is \emph{separated} if the diagonal map is closed. In this case, the intersection of open affines is an open affine.
+    \begin{example}
+        [non-example] The bug-eyed plane is not separated.
+    \end{example}
+    \item (for completeness) \(X\) is \emph{quasi-separated} if the intersection of any two open affines is quasicompact.
+    \begin{example}
+        [non-example] Let \(X\) be the union of two copies of \(\A^\infty_k\), glued on the complement of the origin.
+    \end{example}
+\end{itemize}
+
+Sometimes, people will say ``\(X\) is \emph{qcqs}'', to say \(X\) is quasicoherent and quasiseparated.
+
+If \(f : X \to Y\) is a morphism,
+\begin{itemize}
+    \item it is \emph{quasicompact}, if for all open affines \(V \sse Y\), \(f^{-1}(V)\) is quasicompact,
+    \item it is \emph{locally of finite type}, if for all \(x \in X\), there exists an open affine neighbourhoods \(x \in U = \Spec(B)\), and \(f(U) \sse V = \Spec(A)\), where \(B\) is a finite type \(A\)-algebra.
+    \item it is of \emph{finite type} if it is quasicompact and locally of finite type.
+    \item (for completeness) it is \emph{locally of finite presentation} if locally it is \(\Spec(B) \to \Spec(A)\), where \(B\) is a finitely presented \(A\)-algebra. So
+    \[B = \frac{A[x_1, \dots, x_n]}{\inner{f_1, \dots, f_m}}\]
+    When \(A\) is Noetherian, this is the same as locally of finite type. That is, when \(Y\) is locally Noetherian. In this case, \(f\) is \emph{of finite presentation} if moreover it is quasicompact and quasiseparated.
+\end{itemize}
+
+\section{Flatness and related notions}
+
+Let \(A\) be a ring. An \(A\)-module \(M\) is \emph{flat over \(A\)} if for every injection \(N \to N'\) of \(A\)-modules, the corresponding map \(M \otimes_A N \to M\otimes_A N'\) is injective.
+
+We say that an \(A\)-algebra \(B\) is \emph{flat} if it is flat as an \(A\)-module.
+
+\begin{proposition}
+    Some facts:
+    \begin{enumerate}[(i)]
+        \item \(A\) is flat over itself,
+        \item any free module is flat, so vector spaces over a field are flat,
+        \item \(M\) is flat if and only if for all ideals \(I \idealof A\), the map \(M \otimes_A I \to M\) is injective,
+        \item \(M\) is flat if and only if for every short exact sequence
+        % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTl8xIl0sWzIsMCwiTl8yIl0sWzMsMCwiTl8zIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+        \[\begin{tikzcd}
+            0 & {N_1} & {N_2} & {N_3} & 0
+            \arrow[from=1-1, to=1-2]
+            \arrow[from=1-2, to=1-3]
+            \arrow[from=1-3, to=1-4]
+            \arrow[from=1-4, to=1-5]
+        \end{tikzcd}\]
+        The corresponding sequence
+        % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTVxcb3RpbWVzX0FOXzEiXSxbMiwwLCJNXFxvdGltZXNfQU5fMiJdLFszLDAsIk1cXG90aW1lc19BTl8zIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & {M\otimes_AN_1} & {M\otimes_AN_2} & {M\otimes_AN_3} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+        is still exact. That is, \(M \otimes_A \vdot\) is an \emph{exact functor}. Note that it is always exact except at \(M \otimes_A N_1\). So tensoring is a \emph{right exact functor}.
+        \item if \(M\) is \(A\)-flat, \(A \to B\) is a ring homomorphism, then \(M \otimes_A B\) is \(B\)-flat. This follow from the fact that
+        \[(M \otimes_A B) \otimes_B N = M \otimes_A N\]
+        \item \(M\) is \(A\)-flat if and only if \(M_\mfp\) is \(A_\mfp\)-flat for all \(\mfp \in \Spec(A)\). This follows from the fact that \(A\)-modules are the same as quasicoherent sheaves on \(\Spec(A)\), and exactness of sheaves is equivalent to exactness on stalks.
+        \item if \(A\) is a PID (or more generally, a Dedekind domain), then \(M\) is flat if and only if it is torsion-free. By the above, we can reduce to the case of \(M_\mfp\) being \(A_\mfp\)-flat. But \(A_\mfp\) is (a field or) a discrete valuation ring. The result then follows from (iii), since in a DVR, \(I = \inner{\pi^n}\) for some \(n\).
+        \item Let \(A\) be Noetherian, \(M\) a finite \(A\)-module. Then the following are equivalent.
+        \begin{itemize}
+            \item \(M\) is flat,
+            \item \(M\) is projective,
+            \item \(M_\mfp\) is free over \(A_\mfp\) for all \(\mfp \in \Spec(A)\),
+            \item \(\widetilde M\) is locally free. That is, there exists \(f_1, \dots, f_n \in A\), such that \(\inner{f_1, \dots, f_n} = A\), and \(M_{f_i}\) is free over \(A_{f_i}\) for all \(i\).
+        \end{itemize} 
+        So over a Noetherian ring, finite flat is the same as being finite and locally free.
+        \item Since localisation is exact, it preserves flatness.
+    \end{enumerate}
+\end{proposition}
+
+\lec
+
+\begin{proposition}
+    Let 
+    % https://q.uiver.app/#q=WzAsNSxbMSwwLCJLXntuLTF9Il0sWzIsMCwiS15uIl0sWzAsMCwiXFxjZG90cyJdLFszLDAsIktee24rMX0iXSxbNCwwLCJcXGNkb3RzIl0sWzIsMF0sWzAsMSwiXFxkZF57bi0xfSJdLFsxLDMsIlxcZGRebiJdLFszLDRdXQ==
+\[\begin{tikzcd}
+	\cdots & {K^{n-1}} & {K^n} & {K^{n+1}} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow["{\dd^{n-1}}", from=1-2, to=1-3]
+	\arrow["{\dd^n}", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    be a complex of \(A\)-modules. Now suppose we have an \(A\)-module \(M\), then we have a natural map
+    \[\HH^n(K^\bullet, d^\bullet) \otimes_A M \to \HH^n(K^\bullet \otimes_A M, \dd^\bullet \otimes\id)\]
+    which is an isomorphism if \(M\) is flat.
+\end{proposition}
+
+\begin{proof}
+    The sequence
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiXFxrZXIoXFxkZF5uKSJdLFsyLDAsIktebiJdLFszLDAsIktee24rMX0iXSxbMSwyLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsyLDNdLFswLDFdXQ==
+\[\begin{tikzcd}
+	0 & {\ker(\dd^n)} & {K^n} & {K^{n+1}}
+	\arrow[hook, from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-1, to=1-2]
+\end{tikzcd}\]
+    is exact, so we get
+    \[\ker(\dd^n) \otimes_A M \to \ker(\dd^n \otimes \id_M) \sse K^n \otimes_A M \tag{\(*\)}\]
+    and we have
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJLXntuLTF9Il0sWzEsMCwiXFxrZXIoXFxkZF5uKSJdLFsyLDAsIlxcSEhebihLXlxcYnVsbGV0LCBkXlxcYnVsbGV0KSJdLFszLDAsIjAiXSxbMCwxLCJcXGRkXntuLTF9Il0sWzEsMl0sWzIsM11d
+\[\begin{tikzcd}
+	{K^{n-1}} & {\ker(\dd^n)} & {\HH^n(K^\bullet, d^\bullet)} & 0
+	\arrow["{\dd^{n-1}}", from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    which is also exact. So the rows of
+    % https://q.uiver.app/#q=WzAsOCxbMCwwLCJLXntuLTF9XFxvdGltZXNfQU0iXSxbMSwwLCJcXGtlcihcXGRkX24pXFxvdGltZXNfQU0iXSxbMiwwLCJcXEhIXm4oSykgXFxvdGltZXNfQU0iXSxbMywwLCIwIl0sWzAsMSwiS157bi0xfVxcb3RpbWVzX0FNIl0sWzEsMSwiXFxrZXIoXFxkZF9uXFxvdGltZXNfQVxcaWRfTSkiXSxbMiwxLCJcXEhIXm4oSyBcXG90aW1lc19BIE0pIl0sWzMsMSwiMCJdLFswLDRdLFswLDFdLFs0LDVdLFsxLDVdLFsxLDJdLFsyLDNdLFsyLDZdLFs1LDZdLFs2LDddXQ==
+\[\begin{tikzcd}
+	{K^{n-1}\otimes_AM} & {\ker(\dd^n)\otimes_AM} & {\HH^n(K) \otimes_AM} & 0 \\
+	{K^{n-1}\otimes_AM} & {\ker(\dd^n\otimes_A\id_M)} & {\HH^n(K \otimes_A M)} & 0
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=1-2, to=2-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-3, to=2-3]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+\end{tikzcd} \tag{\(**\)}\]
+    are exact. Hence we have an induced map \(\HH^n(K) \otimes M \to \HH^n(K \otimes M)\). If \(M\) is flat, then the map \(\ker(\dd_n) \otimes_A M \to \ker(\dd^n \otimes_A \id_M)\) is an isomorphism. Hence by the five lemma, the map \(\HH^n(K) \otimes_A M \to \HH^n(K \otimes_A M)\) is an isomorphism.
+\end{proof}
+
+Returning to (algebraic) geometry: Let \(f : X \to Y\) be a morphism of schemes. We say that \(f\) is \emph{flat} if one of the following (equivalent) conditions are satisfied:
+\begin{itemize}
+    \item locally, \(f\) is of the form \(\Spec(B) \to \Spec(A)\), where \(B\) is a flat \(A\)-algebra,
+    \item for all \(x \in X\), \(\mcO_{X, x}\) is flat over \(\mcO_{Y, f(x)}\).
+\end{itemize}
+More generally, a queasicoherent \(\mcO_X\)-module \(\mcF\) is \emph{flat over \(Y\)} if for all \(x \in X\), \(\mcF_x\) is a flat \(\mcO_{Y, f(x)}\)-module.
+
+\begin{example}
+    Open immersions are flat, since locally, they are isomorphisms. Closed immersions are in general, not flat.
+\end{example}
+
+Let \(X, Y\) be \(k\)-schemes. Then
+\[X \times_{\Spec(k)} Y \to Y\]
+is flat. Morally, flatness is  saying that ``the fibres vary continuously''.
+
+See more in section in Hartshorne on flat morphisms, especially Example III.9.8.4, of a particular flat family of curves.
+
+\underline{Fact:} Let \(f : X \to Y\) be a flat morphism of integral \(k\)-schemes of finite type. Then for all \(y \in Y\), and every irreducible component \(Z \sse f^{-1}(y)\), \(\dim(Z)\) is independent of choice of \(y, Z\), and is equal to \(\dim(X) - \dim(Y)\).
+
+\begin{example}
+    Let \(Y = \P^2_k\), and let \(X\) be the blowup of \(Y\) at a point \(y \in Y(k)\)\footnote{\(Y(k) = \Hom_{\Spec(k)}(\Spec(k), Y)\) is the set of \(k\)-points of \(Y\).}. Then for all \(y' \ne y\), \(f^{-1}(y')\) is a point, as we have an isomorphism \(X \setminus f^{-1}(y) \cong Y \setminus \{y\}\). But \(f^{-1}(y) = \P^1_k\). So \(f\) is not flat.
+\end{example}
+
+As an example of blowup for \(\A^2\), consider
+\[\{(x_0, x_1), (y_0:y_1) \mid x_0y_1 = x_1y_0\} \sse \A^2 \times \P^1\]
+and the projection onto the \(\A^2\)-factor. Away from the origin, the fibre is a line. At the origin, the fibre is a \(\P^1\).
+
+\lec
+
+One way to think about this is that fibre dimension is constant across a flat family.
+
+\begin{example}
+    Let \(Y = \Spec(k[t])\), and take \(X = \Spec(k[x,y,t]/\inner{xy-t})\). We have a ring map \(k[t] \to k[x,y,t]/\inner{xy-t}\), so we have a scheme map \(X \to Y\).
+
+    When \(a\) is non-zero, the fibre is the (smooth irreducible) conic \(xy = a\). When \(a = 0\), then we have the singular curve \(xy = 0\), and the fibre is reducible.
+
+    If instead we considered \(X = \Spec(k[x,y,t]/\inner{x^2 - ty})\). When \(t = 0\), we have \(x^2 = 0\), which is a non-reduced scheme.
+\end{example}
+
+We have the very useful result:
+
+\begin{theorem}
+    [(a special case of) miracle flatness] Let \(X, Y\) be integral \(k\)-schemes of finite type and smooth over \(k\). Let \(f : X \to Y\) be a morphism. Suppose that for all \(y \in Y\), and for all irreducible components \(Z \sse f^{-1}(y)\), \(\dim(Z) = \dim(X) - \dim(Y)\). Then \(f\) is flat.
+\end{theorem}
+
+This is actually true under much weaker hypotheses on \(X\). See Eisenbud Commutative Algebra for a proof.
+
+\underline{Fact:} Let \(f : X \to Y\) be flat, and locally of finite presentation (for example, if \(X, Y\) are Noetherian, then \(f\) just has to be flat of finite type). Then \(f\) is an open map.
+
+Note that a finiteness condition is necessary, for example, if \(X = \Spec(\Q) \inj \Spec(Z) = Y\), then this is flat but not open.
+
+\section{Sheaf cohomology}
+
+In this section, we will assume (unless stated otherwise), all schemes are Noetherian and separated. In particular, they are quasicompact.
+
+\subsection{Homological algebra}
+
+Recall a \emph{(cochain) complex of abelian groups (or \(R\)-modules, or sheaves)} is a sequence of maps \((A^\bullet, \dd)\)
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJBXjAiXSxbMSwwLCJBXjEiXSxbMiwwLCJcXGNkb3RzIl0sWzAsMSwiXFxkZCJdLFsxLDIsIlxcZGQiXV0=
+\[\begin{tikzcd}
+    {A^0} & {A^1} & \cdots
+    \arrow["\dd", from=1-1, to=1-2]
+    \arrow["\dd", from=1-2, to=1-3]
+\end{tikzcd}\]
+which may or may not be infinite, such that \(\dd^2 = 0\). Associated to a (cochain) complex is the \emph{cohomology}, which is
+\[\HH^p(A^\bullet) = \frac{\ker(\dd : A^p \to A^{p+1})}{\im(\dd : A^{p-1} \to A^p)}\]
+We write
+\[\HH^*(A^\bullet) = \bigoplus_p \HH^p(A^\bullet)\]
+for the graded \(R\)-module. A \emph{morphism of complexes} \(f : (A, \dd) \to (B, \dd)\) is a family of maps \(f^p : A^p \to B^p\), such that
+\[\dd f = f \dd\]
+This induces homomorphisms
+\[\HH^p(f) : \HH^p(A^\bullet) \to \HH^p(B^\bullet)\]
+
+Suppose
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiQV5cXGJ1bGxldCJdLFsyLDAsIkJeXFxidWxsZXQiXSxbMywwLCJDXlxcYnVsbGV0Il0sWzQsMCwiMCJdLFswLDFdLFsxLDIsImYiXSxbMiwzLCJnIl0sWzMsNF1d
+\[\begin{tikzcd}
+	0 & {A^\bullet} & {B^\bullet} & {C^\bullet} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["f", from=1-2, to=1-3]
+	\arrow["g", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+is an exact sequence of complexes, then we have homomorphisms \(\partial : \HH^p(C^\bullet) \to \HH^{p+1}(A^\bullet)\), such thats
+% https://q.uiver.app/#q=WzAsNyxbMCwwLCIwIl0sWzEsMCwiXFxISF4wKEEpIl0sWzIsMCwiXFxISF4wKEIpIl0sWzMsMCwiXFxISF4wKEMpIl0sWzQsMCwiXFxISF4xKEEpIl0sWzUsMCwiXFxISF4xKEIpIl0sWzYsMCwiXFxjZG90cyJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdLFs0LDVdLFs1LDZdXQ==
+\[\begin{tikzcd}
+	0 & {\HH^0(A)} & {\HH^0(B)} & {\HH^0(C)} & {\HH^1(A)} & {\HH^1(B)} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+	\arrow[from=1-6, to=1-7]
+\end{tikzcd}\]
+is exact.
+
+Suppose \(f, g : A \to B\) are morphisms of chain complexes. They are \emph{homotopic} if there exists maps \(h^p : A^p \to B^{p-1}\), such that
+\[\dd h + h \dd = f - g\]
+If \(f\) and \(g\) are homotopic, then they induce the same map on cohomology. In particular, if \(A = B\), and \(h^p : A^p \to A^{p-1}\) are such that
+\[\dd h + h \dd  = \id\]
+Then the identity and zero maps on cohomology are equal, so the cohomology is zero. If such an \(h\) exists, we say that \(A\) is null-homotopic.
+
+\begin{example}
+    Let \(A\) be a cochain complex of abelian groups, \(n \ge 0\). Let \(\Z[-n]\) be the complex which is \(\Z\) in degree \(n\), and zero otherwise. Then the set of morphisms \(\Z[-n] \to A\) is the same as the set of maps \(f : \Z \to A^n\), with \(\dd f = 0\). But any such map is of the form \(f(k) = kx\) for some \(x \in \ker(\dd : A^p \to A^{p+1})\). Moreover, the homotopy classes of such maps is the above quotiented by \(\im(\dd : A^{p-1} \to A^p)\), i.e. \(\HH^n(A)\). So we obtain the identification
+    \[\HH^n(A) = \{\text{homotopy classes of morphisms }\Z[-n]  \to A\}\]
+\end{example}
+In general, we can have that \(\HH^*(A) = 0\), with \(A\) not null-homotopic. For example, consider
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFovMiJdLFsxLDAsIlxcWi80Il0sWzIsMCwiXFxaLzIiXSxbMywwLCIwIl0sWzAsMSwiXFxjZG90MiJdLFsxLDJdLFsyLDNdXQ==
+\[\begin{tikzcd}
+	{\Z/2} & {\Z/4} & {\Z/2} & 0
+	\arrow["\cdot2", from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+This is exact, but not null-homotopic.
+
+If \(A\) is a complex of vector spaces over a field \(k\), then we can always ``split off'' the cohomology as a direct summand of \(A^n\). In particular, if \(\HH^n(A) = 0\) for all \(n\), then we can write \(A\) as
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJCXjAiXSxbMSwwLCJCXjBcXG9wbHVzIEJeMSJdLFsyLDAsIkJeMSBcXG9wbHVzIEJeMiJdLFszLDAsIlxcY2RvdHMiXSxbMCwxXSxbMSwyXSxbMiwzXV0=
+\[\begin{tikzcd}
+	{B^0} & {B^0\oplus B^1} & {B^1 \oplus B^2} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+The obvious map \(h^p : B^{p-1} \oplus B^p \to B^{p-2} \oplus B^{p-1}\) satisfies
+\[\dd h + h \dd = \id\]
+and so for complexes of \(k\)-vector spaces, \(\HH^* = 0\) is equivalent to being null-homotopic.
+
+As a special case of the long exact sequence, if we have long exact sequences of length \(2\), so \(A \to A'\) and so on.
+% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMCJdLFsxLDAsIkEiXSxbMiwwLCJCIl0sWzMsMCwiQyJdLFs0LDAsIjAiXSxbMCwxLCIwIl0sWzEsMSwiQSciXSxbMiwxLCJCJyJdLFszLDEsIkMnIl0sWzQsMSwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdLFs1LDZdLFs2LDddLFs3LDhdLFs4LDldLFsxLDYsIlxcYWxwaGEiLDFdLFsyLDcsIlxcYmV0YSIsMV0sWzMsOCwiXFxnYW1tYSIsMV1d
+\[\begin{tikzcd}
+	0 & A & B & C & 0 \\
+	0 & {A'} & {B'} & {C'} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+	\arrow["\alpha"{description}, from=1-2, to=2-2]
+	\arrow["\beta"{description}, from=1-3, to=2-3]
+	\arrow["\gamma"{description}, from=1-4, to=2-4]
+\end{tikzcd}\]
+Then the long exact sequence is
+% https://q.uiver.app/#q=WzAsOCxbMSwwLCJcXGtlcihcXGFscGhhKSJdLFsyLDAsIlxca2VyKFxcYmV0YSkiXSxbMywwLCJcXGtlcihcXGdhbW1hKSJdLFsxLDEsIlxcY29rZXIoXFxhbHBoYSkiXSxbMiwxLCJcXGNva2VyKFxcYmV0YSkiXSxbMywxLCJcXGNva2VyKFxcZ2FtbWEpIl0sWzAsMCwiMCJdLFs0LDEsIjAiXSxbNiwwXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XSxbNCw1XSxbNSw3XV0=
+\[\begin{tikzcd}
+	0 & {\ker(\alpha)} & {\ker(\beta)} & {\ker(\gamma)} \\
+	& {\coker(\alpha)} & {\coker(\beta)} & {\coker(\gamma)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+It is very easy to see that this holds with some of the zeroes removed. This is the \emph{Snake lemma}.
 
 \end{document}

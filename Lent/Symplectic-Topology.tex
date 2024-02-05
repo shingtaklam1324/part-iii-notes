@@ -229,7 +229,7 @@ Let \(\Lag(V)\) be the space of Lagrangian subspaces \(L\) of \(V\).
     Using integration by parts, this is alternating.
 \end{example}
 
-\subsection{Vector bundles}
+\section{Vector bundles}
 
 If \(\pi : \mcE \to X\) is a vector bundle, we can define \(\Lambda^*\mcE \to X\), \(\Lambda^*(\mcE^*) \to X\), \(\ori_\mcE \to X\), and so on. We have a vector space \(\Gamma(\mcE)\) of global sections of \(\mcE\). In particular,
 \[\Omega^k(X) = \Gamma(\Lambda^k(\T^* X))\]
@@ -269,7 +269,73 @@ Intuitively, the isomorphism is given by integrating a form over a chain.
     \[\int_M \dd\alpha = \int_{\partial M}\alpha\]
 \end{theorem}
 
-Recall that if \((M^{2n}, \omega)\) is symplectic, then \(\HH^{2k}(M; \R) \ne 0\) for all \(0 \le k \le n\).
+\lec
+
+One corollary of Stokes is that we have a (perfect) pairing
+\[\HH_k(M; \R) \otimes \HH^k(M; \R) \to \R\]
+given by integration.
+
+\begin{corollary}
+    Let \((M^{2n}, \omega)\) be a closed symplectic manifold. Then \(\HH^{2k}(M; \R) \ne 0\) for all \(0 \le k \le n\).
+\end{corollary}
+
+\begin{proof}
+    We know that \(\int_M\omega^n > 0\), since \(\omega^n\) is a volume form on \(M\). This shows that \([\omega^n] \ne 0\) in \(\HH^{2n}(M)\). Now noting that \([\omega]^n = [\omega^n]\) gives the result.
+\end{proof}
+
+For example, in \((\C\P^n, \omega_\text{FS})\), \(\omega = \PD[\text{hyperplane}]\). The class of \(\omega\) generates \(\HH^*(\C\P^n)\). Note on the other hand the result is false when \(M\) is open. For example, consider \(\R^{2n}\) with the usual symplectic form.
+
+Suppose \(\varphi : M \to M\) is a diffeomorphism. Then \(\varphi^*\omega\) is another symplectic form. To see this,
+\[\dd\varphi^*\omega = \varphi^*\dd\omega = 0\]
+The fact that \(\varphi^*\omega\) is non-degenerate is clear, as \(\dd\varphi\) is an isomorphism on tangent spaces.
+
+We'll say that \(\omega, \varphi^*\omega\) are \emph{diffeomorphic}. One question is: are all symplectic forms on \(M\) diffeomorphic? The answer is no for some \(M\), but we only know the result for very few \(M\).
+
+\begin{definition}
+    Define
+    \[\Symp(M, \omega) = \{\varphi \in \Diff(M) \mid \varphi^*\omega = \omega\}\]
+    This is the \emph{symplectomorphism group} of \((M, \omega)\).
+\end{definition}
+
+Clearly, we must have that \(\Symp(M, \omega) \sse \Diff_+(M, \omega)\), as symplectomorphisms preserve orientation.
+
+\section{Vector fields and isotopies}
+
+Let \(M^n\) be any manifold.
+
+\begin{definition}
+    An \emph{isotopy} of \(M\) is a smooth map \(\varphi : M \times \R \to M\), such that
+    \begin{enumerate}
+        \item for all \(t \in \R\), \(\varphi_t = \varphi(\cdot, t) : M \to M\) is a diffeomorphism,
+        \item \(\varphi_0 = \id_M\).
+    \end{enumerate}
+\end{definition}
+
+Equivalently, we can replace \(\R\) in the above with \((-\epsilon, \epsilon)\).
+
+\begin{example}
+    Define \(\varphi_t\) to be the rotation through angle \(t\) through a fixed axis on \(S^2\).
+\end{example}
+
+Any isotopy defines a time-dependent vector field \(X_t\), via
+\[X_{t}(m) = \dv{s}\bigg\vert_{s = t}\varphi_s(m)\]
+For compact \(M\), we have a correspondence
+\[\{\text{time dependent vector fields } X_t\} \bij \{\text{isotopies }\varphi_t\}\]
+For \(M\) non-compact, a flow might blow up in finite time. We are interested in how isotopies will act on tensors.
+
+Let \(X \in V(M)\) be a vector field, with associated flow \(\varphi_t\) defined for all \(t \in \R\). Then for \(\alpha, \beta\) are covariant and contravariant tensors respectively. Define the \emph{Lie derivative}
+\[\mcL_X\alpha = \dv{t}\bigg\vert_{t=0}(\varphi_t)_*\alpha\]
+and
+\[\mcL_X\beta = \dv{t}\bigg\vert_{t=0}(\varphi_t)^*\beta\]
+
+We have the following properties:
+\begin{proposition}
+    \begin{enumerate}
+        \item if \(Y\) is a vector field, then \(\mcL_XY = [X, Y]\),
+        \item if \(\alpha\) is a \(k\)-form, then we have \emph{Cartan's (magic) formula}
+        \[\mcL_X\alpha = \dd(\iota_X\alpha) + \iota_X(\dd\alpha)\]
+    \end{enumerate}
+\end{proposition}
 
 \printindex
 

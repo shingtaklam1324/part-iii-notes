@@ -540,7 +540,7 @@ We are interested in general second order elliptic operators, with \(a^{ij}, b^i
         &\le \sup_{\partial\Omega}(u + \epsilon v) \\
         &\le \sup_{\partial\Omega} u + \epsilon\sup_{\partial\Omega}v
     \end{align*}
-    Taking \(\epsilon \to 0\), we get that\(u(x) \le \sup_{\partial\Omega} u\). Since this is true for all \(x \in \Omega\), then
+    Taking \(\epsilon \to 0\), we get that \(u(x) \le \sup_{\partial\Omega} u\). Since this is true for all \(x \in \Omega\), then
     \[\sup_\Omega u \le \sup_{\partial \Omega} u\]
     The reverse inequality is trivial.
 
@@ -631,6 +631,245 @@ We want to build towards a strong maximum principle. For this, we need
         &\ge e^{-\alpha\abs{x - z}^2}\lambda(x)\left(\alpha^2 R^2 - 2\alpha n \sup_\Omega\frac{\Lambda}{\lambda} - \alpha R \sup_\Omega \frac{\abs{b}}{\lambda} - \sup_\Omega \frac{\abs{c}}{\lambda}\right)
     \end{align*}
     where \(r\) is chosen such that \(\abs{x - z}^2 \ge (R/2)^2\). In particular, this is positive for \(\alpha\) large enough. Fix such an \(\alpha\).
+\lec
+
+    Set \(w(x) = u(x) - u(y) + \epsilon v(x)\), for some small \(\epsilon\) to be determined. Now
+    \[Lw = Lu + \epsilon Lv - cu(y) \ge 0\]
+    in \(A\), by above (and the assumptions). Also, 
+    \[v\vert_{\partial B_R(x)} = 0\]
+    and because \(u(x) \le u(y)\) on \(\overline\Omega\), so
+    \[w\vert_{\partial B_R(z)} \le 0\]
+    Also, \(u(x) < u(y)\) on \(\partial_{B_r(z)}\), so we can choose \(\epsilon\) small enough such that
+    \[w\vert_{\partial B_r(z)} < 0\]
+    So \(w \vert_{\partial A} \le 0\). Apply the weak maximum principle to \(w\) in \(A\), we get \(w \le 0\), and so
+    \[u(x) - u(y) + \epsilon v(x) \le 0\]
+    in \(A\). Choose \(t < 0\), and we have that
+    \[\frac{u(y + t\nu) - u(y)}{t} \ge -\epsilon \frac{v(y + t\nu) - v(y)}{t}\]
+    Note \(v(y) = 0\). Sending \(t \to 0\),
+    \begin{align*}
+        {\pdv{u}{\nu}}(y) &\ge -\epsilon{\pdv{v}{\nu}}(y) \\
+        &= -\epsilon\partial_i v(y)\left(\frac{y_i - z_i}{R}\right) \\
+        &= 2\alpha\epsilon R e^{-\alpha R^2} \\
+        & > 0
+    \end{align*}
+
+    For case (iii), consider
+    \[\widetilde L = L - c^+\]
+    So \(\widetilde L u = Lu - c^+ u \ge 0\), and we can apply the above to \(\widetilde L\).
 \end{proof}
+
+\begin{theorem}
+    [strong maximum principle] Suppose \(\Omega \sse \R^n\) is a domain, with non-empty boundary \(\partial \Omega\) satisfying the interior sphere condition for all \(y \in \partial\Omega\). Let \(L\) be uniformly elliptic, with
+    \[\sup_\Omega \left(\frac{\abs{b} + \abs{c}}{\lambda}\right) < \infty\]
+    Suppose \(u \in C^2(\Omega)\), with \(M = \sup_\Omega u < \infty\), and \(Lu \ge 0\) on \(\Omega\). Suppose (at least) one of the following holds
+    \begin{enumerate}[(i)]
+        \item if \(c = 0\), and \(u(y) = M\) for some \(y \in \Omega\).
+        \item if \(c \le 0, M \ge 0\) and \(u(y) = M\) for some \(y \in \Omega\),
+        \item if \(M = 0\) and \(u(y) = M = 0\) for some \(y \in \Omega\).
+    \end{enumerate}
+    Then \(u\) is constant.
+\end{theorem}
+
+\begin{proof}
+    Let
+    \[\Sigma = \{x \in \Omega \mid u(x) = M\}\]
+    By continuity, \(\Sigma\) is closed in \(\Omega\). Suppose \(\Omega \setminus \Sigma \ne \emptyset\). Choose \(z \in \Omega \setminus \Sigma\), such that
+    \[d(z, \partial\Omega) > d(z, \partial\Sigma)\]
+    To see this, first choose \(z_1 \in \partial\Sigma \cap \Omega\). Then choose \(\rho_1 > 0\) such that \(B_{\rho_1}(z_1) \sse \Omega\). Then choose any
+    \[z \in B_{\rho_1/2}(z_1) \setminus \Sigma\]
+    Let
+    \[R = \sup\{\rho \mid B_\rho(z) \sse \Omega \setminus \Sigma\}\]
+    By construction, there exists \(y \in \partial B_R(z) \cap \Sigma\). Since \(\DD u(y) = 0\), this contradicts the Hopf boundary point lemma. So \(\Omega \setminus \Sigma = \emptyset\), i.e. \(\Omega = \Sigma\), so \(u\) is constant.
+
+    The assumption (i), (ii) and (iii) are so we can apply the Hopf boundary point lemma.
+\end{proof}
+
+Some corollaries of this:
+
+\begin{corollary}
+    [comparison principle]
+    Let
+    \[L = a^{ij}\partial_i\partial_j + b^i\partial_i + c\]
+    be uniformly elliptic in \(\Omega \sse \R^n\), with
+    \[\sup_{\Omega}\left(\frac{\abs{b} + \abs{c}}{\lambda}\right) < \infty\]
+    Suppose \(u, v \in C^2(\Omega)\), such that \(Lu \ge Lv\) and \(u \le v\) in \(\Omega\). Then
+    \begin{itemize}
+        \item either \(u  =v\) on \(\Omega\),
+        \item or \(u < v\) on \(\Omega\),
+    \end{itemize}
+\end{corollary}
+
+\begin{proof}
+    \(L(u - v) \ge 0\) in \(\Omega\), and \(u - v \le 0\). So if there exists \(x_0 \in \Omega\), with \(u(x_0) = v(x_0)\), then the strong maximum principle implies \(u = v\). If not, then \(u < v\) in \(\Omega\).
+\end{proof}
+
+\begin{corollary}
+    [uniqueness for the Neumann problem] Suppose \(\Omega \sse \R^n\) is a bounded domain, and \(\partial\Omega\) satisfies the interior sphere condition at each point. Suppose \(L\) is uniformly elliptic, with
+    \[\sup_{\Omega}\left(\frac{\abs{b} + \abs{c}}{\lambda}\right) < \infty\]
+    and \(c \le 0\). Then if \(u_1, u_2 \in C^2(\Omega) \cap C^0(\overline\Omega)\) is such that
+    \begin{align*}
+        Lu_i = f &\text{ in }\Omega \\
+        \pdv{u_i}{\nu} = g &\text{ on }\partial\Omega
+    \end{align*}
+    for some \(f : \Omega \to \R, g : \partial\Omega \to \R\). Then \(u_1 - u_2\) is constant.
+\end{corollary}
+
+\begin{proof}
+    Let \(u = u_1 - u_2\). This satisfies the Neumann problem
+    \begin{align*}
+        Lu = 0 &\text{ in }\Omega \\
+        \pdv{u}{\nu} = 0 &\text{ on }\partial\Omega
+    \end{align*}
+    Let \(M = \sup_{\overline\Omega} u \ge 0\). We can assume this since we can just take \(-u\) instead. By the strong maximum principle, if \(u \ne M\) on \(\Omega\), then there exists \(y \in \partial\Omega\), such that \(u(y) = M\), and \(u(x) < u(y)\) for all \(x \in \Omega\). But by Hopf,
+    \[{\pdv{u}{\nu}}(y) = 0\]
+    Contradiction.
+\end{proof}
+
+\begin{remark}
+    This says that the trivial Neumann problem (i.e. with zero data) has solutions which are constants. Now
+    \[LM = 0\]
+    but if \(LM = M c(x)\) for all \(x\), and so if \(c\) is not identically zero, then \(M = 0\). This constant is only non-zero when \(c = 0\)\footnote{But this is obvious, since \(Lu\) in this case only involves derivatives of \(u\).}.
+\end{remark}
+
+What happens when for non-zero right hand side? The following will be critical for Schauder theory.
+
+\begin{theorem}
+    [maximum principle a priori estimate] Suppose \(\Omega \sse \R^n\) is a bounded domain, \(L\) elliptic, \(c \le 0\), and \(\beta = \abs{b}/\lambda\) is \(L^\infty\). Let \(u \in C^2(\Omega) \cap C^0(\overline\Omega)\) and \(f : \Omega \to \R\), then
+    \begin{enumerate}[(i)]
+        \item if \(Lu \ge f\), then
+        \[\sup_\Omega u \le \sup_{\partial\Omega} u^+ + C\sup_\Omega\left(\abs{f}{\lambda}\right)\]
+        \item if \(Lu = f\), then
+        \[\sup_\Omega \abs{u} \le \sup_{\partial\Omega}\abs{u} + C\sup_\Omega\left(\abs{f}{\lambda}\right)\]
+    \end{enumerate}
+    where \(C\) is a constant which only depends on \(\beta\) and \(\diam(\Omega)\).
+\end{theorem}
+
+\begin{proof}
+    Set \(d = \diam(\Omega) = \sup_{x, y \in \Omega}\abs{x - y}\). As \(\Omega\) is bounded, we can contain
+    \[\Omega \sse \left\{x \mid a \le x_1 \le a + d\right\}\]
+    for some \(a \in \R\). Without loss of generality, \(a = 0\). As before, we will construct subsolutions, and use the weak maximum principle. Let
+    \[v(x) = \sup_{\partial\Omega}u^+ + (e^{\alpha d} - e^{\alpha x_1})\sup_{\Omega}\frac{\abs{f}}{\lambda}\]
+    where \(\alpha\) is to be determined.
+
+    We can compute \(Lv\):
+    \[(a^{ij}\partial_i\partial_j + b^i\partial_i)e^{\alpha x_1} = e^{\alpha x_1}(a^{11}\alpha^2 + b^1\alpha) \ge e^{\alpha x_1}\lambda(\alpha^2 + \beta \alpha) \ge \lambda\]if we take \(\alpha = \beta + 1\). Hence
+    \[Lv \le cv - \lambda \sup\frac{\abs{f}}{\lambda} \le -\lambda \sup_\Omega\frac{\abs{f}}{\lambda}\]
+    as \(c \le 0, v \ge 0\). Then:
+    \begin{enumerate}[(i)]
+        \item if \(Lu \ge f\), then
+        \[L(u - v)\ge f + \lambda \sup\frac{\abs{f}}{\lambda} \ge 0\]
+    \end{enumerate}
+\end{proof}
+
+\lec
+
+\textbf{TODO: Catchup with lecture Feb 02}
+
+\lec
+
+\begin{proof}
+    [Proof of Simon's absorbing lemma]
+
+    Let
+    \[Q = \sup_{B_\rho(y) \sse B_R(x)}\rho^\lambda S(B_{\theta\rho}(y))\]
+    Recall we have that
+    \[\rho^\lambda S(B_{\theta\rho}(y)) \le \delta\rho^\lambda S(B_\rho(y)) + \gamma\]
+    By subadditivity of \(S\), we have that
+    \[Q \le R^\lambda S(B_R(x)) < \infty\]
+
+    Fix any \(B_\rho(y) \sse B_R(x)\). Cover \(B_{\theta\rho}(y)\) by a collection of balls
+    \[\{B_{(1-\theta)\theta^2\rho}(z_j)\}_{j=1}^N\]
+    with \(N \le C(\theta, n)\), which is independent of \(\rho\) and \(y\). Moreover, \(z_j \in B_{\theta\rho}(y)\). To do this: Choose a maximal pairwise disjoint collection of balls
+    \[\{B_{(1-\theta)\theta^2\rho/2}(z_j)\}_{j=1}^N\]
+    where \(z_j \in B_{\theta\rho(y)}\). We claim that these \(z_j\)'s work. If not, then there exists
+    \[z \in B_{\theta\rho}(y) \setminus \bigcup_{i=1}^N B_{(1 - \theta)\theta^2\rho}(z_j)\]
+    and so \(d(z, z_j) \ge (1 - \theta)\theta^2\rho\) for all \(j\). In particular,
+    \[B_{(1-\theta)\theta^2\rho/2}(z) \cap B_{(1-\theta)\theta^2\rho/2}(z_j) = \emptyset\]
+    This contradicts maximality.
+
+    For the bound on \(N\), note that from considering radii,
+    \[\bigcup_{j=1}^N B_{(1-\theta)\theta^2\rho/2}(z_j) \sse B_{(1-\theta)\theta^2\rho/2 + \theta\rho}(y) \sse B_\rho(y)\]
+    Since the balls on the left hand side are disjoint, there exists a volume bound
+    \[N \omega_n\left(\frac{(1 - \theta)\theta^2\rho}{2}\right)^n \le \omega_n\left(\frac{(1 - \theta)\theta^2\rho}{2} + \theta\rho\right)\]
+    Which is independent of \(\rho\) and \(y\).
+
+    To conclude, by subadditivity,
+    \begin{align*}
+        \rho^\lambda S(B_{\theta\rho}(y)) &\le \rho^\lambda \sum_{j=1}^N S(B_{(1 - \theta)\theta^2\rho}(z_j)) \\
+        &\le \left((1 - \theta)\theta\right)^{-\lambda}\sum_{j=1}^N\left(\delta\left((1 - \theta)\theta\rho\right)^\lambda S(B_{(1 - \theta)\theta \rho}(z_j)) + \gamma\right) \\
+        &\le \delta((1 - \theta)\theta)^{-\lambda}NQ + N_\gamma((1 - \theta)\theta)^{-\lambda}
+    \end{align*}
+    Now taking the supremum over all \(B_{\rho(y)} \sse B_R(x)\),
+    \[Q \le \delta C_1 Q + C_2 \gamma\]
+    where \(C_1, C_2\) depends on \(n, \theta, \lambda\). Choose \(\delta\) sufficiently small such that \(\delta C_1 < 1\). Taking \(\delta = 1/(2C_1)\),
+    \[Q \le 2C_2\gamma\]
+\end{proof}
+
+\section{Schauder theory}
+
+\subsection{Interior Schauder estimates}
+
+We will first prove interior estimates in the unit ball, and then extend them to more general domains. The main point is: if the coefficients of \(L\) are \(\alpha\)-H\"older continuous, then any \(C^{2, \alpha}\)-solution of \(Lu = f\) can be bounded in \(C^{2, \alpha}\) on a smaller ball by \(\abs{u}_0\) and \(f\).
+
+\begin{theorem}
+    [unit scale interior Schauder estimates]
+
+    Let \(\alpha \in (0, 1), \beta > 0\), and suppose \(a^{ij}, b^i, c \in C^{0, \alpha}(B_1(0))\), with 
+    \[\abs{a^{ij}}_{0, \alpha; B_1(0)} + \abs{b^i}_{0, \alpha; B_1(0)} + \abs{c}_{0, \alpha; B_1(0)} \le \beta\]
+    Suppose \(L\) is strictly elliptic, so there exists \(\lambda > 0\) such that
+    \[a^{ij}(x)\xi_i\xi_j \ge \lambda \abs{\xi}^2\]
+    for all \(x \in B_1(0), \xi \in \R^n\). Then if \(u \in C^{2, \alpha}(B_1(0)) \cap C^0(\overline{B_1(0)})\), and \(f \in C^{0, \alpha}(B_1(0))\) satisfies \(Lu = f\) in \(B_1(0)\), then
+    \[\abs{u}_{2, \alpha; B_{1/2}(0)} \le C\left(\abs{u}_{0; B_1(0)} + \abs{f}_{0, \alpha; B_1(0)}\right)\]
+    for some constant \(C = C(n, \lambda, \alpha, \beta)\).
+\end{theorem}
+
+\begin{remark}
+    \begin{itemize}
+        \item We can never take \(\alpha = 0\) or \(\alpha = 1\). The theorem is false in these cases.
+        \item Strict ellipticity gives a lower bound for \(\lambda\), and upper bound on \(\abs{a^{ij}}_{0, \alpha}\) gives an upper bound on \(\Lambda\). So \(\Lambda/\lambda\) is bounded, and so we have uniform ellipticity.
+        \item Note that we can control two derivatives of \(u\) using no derivatives on \(u\) or \(f\).
+        \item 
+        We will in fact strengthen this to
+        \[\abs{u}_{2, \alpha; B_\theta(0)} \le C\left(\abs{u}_{0; B_1(0)} + \abs{f}_{0, \alpha; B_1(0)}\right)\]
+        for all \(\theta \in (0, 1)\), \(C = C(n, \lambda, \alpha, \beta, \theta)\). 
+        \item We may no assumptions, and state no conclusions, about the regularity on the boundary.
+        \item The Schauder estimate gives a compactness property for the space of solutions to \(Lu = f\).
+        If \((u_k) \sse C^{2, \alpha}(B_1(0)) \cap C^0(\overline{B_1(0)})\) solves \(Lu_k = f\) in \(B_1(0)\), and
+        \[\gamma = \sup_k \sup_{B_1(0)}\abs{u_k} < \infty\]
+        Then 
+        \[\abs{u_k}_{2, \alpha; B_\theta(0)} \le C(\gamma, n, \theta, \beta, \lambda, f)\]
+        and so by Arzela-Ascoli, there exists a subsequence \((u_{k'})\), with \(u \in C^{2, \alpha}(B_1(0))\), such that \(u_{k'} \to U_k\) in \(C^2(B_{\theta}(0))\) for all \(\theta \in (0, 1)\). Passing to the limit, \(Lu = f\).
+    \end{itemize}
+\end{remark}
+
+\begin{proof}
+    We will write \(B_r = B_r(0)\). Working in a slightly smaller ball, we can assume without loss of generality that \(\abs{u}_{2; B_1} < \infty\). The proof will consist of three steps:
+    \begin{enumerate}
+        \item reduction,
+        \item contradiction step,
+        \item simplified PDE step
+    \end{enumerate}
+
+    \textbf{Step 1:}
+
+    \begin{claim}
+        It suffices to prove: For any given \(\delta \in (0, 1)\), there exists \(C > 0\) such that
+        \begin{equation}
+            \label{eq:unit-scale-int-schauder-claim}
+            [D^2u]_{\alpha; B_{1/2}} \le \delta[D^2u]_{\alpha; B_1} + C\left(\abs{u}_{2; B_1} + \abs{f}_{0, \alpha; B_1}\right)
+        \end{equation}
+    \end{claim}
+
+    \begin{proof}
+        Suppose the above holds. Then by the interpolation inequality, we obtain
+        \begin{equation}
+            \label{eq:unit-scale-int-schauder-claim-2}
+            [D^2u]_{\alpha; B_{1/2}} \le 2\delta[D^2u]_{\alpha; B_1} + C\left(\abs{u}_{0; B_1} + \abs{f}_{0, \alpha; B_1}\right) 
+        \end{equation}
+        The strategy for this is to take a sub-ball \(B_\rho(y) \sse B_1(x)\), and shift and scale. Define \(\widetilde u(x) = u(y + \rho x)\). Then \(\widetilde u\) will satisfy a new PDE and a new inequality,
+    \end{proof}
+\end{proof}
+
+
 
 \end{document}

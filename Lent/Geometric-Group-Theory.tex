@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage{../../Style}
+\usepackage[subsec]{../../Style}
 
 \title{Geometric Group Theory}
 \author{Shing Tak Lam}
@@ -375,5 +375,158 @@ The next proposition deepens the relationship between generating sets and path c
 \begin{corollary}
     If \(G\) acts on \(\widetilde X\) properly discontinuously and cocompactly, and \(\widetilde X\) is path connected and locally compact, then \(G\) is finitely generated.
 \end{corollary}
+
+\lec
+
+\begin{proof}
+    Let \(K \sse \widetilde X\) be compact, such that \(G \vdot K = \widetilde X\). By local compactness, we may find an open \(U\) such that \(K \sse U\), and \(\overline U\) is compact. In particular, \(G \vdot U = \widetilde X\), and the set
+    \[S = \{g \in G \mid g\vdot U \cap U \ne \emptyset\} \sse \{g \mid g \vdot  \overline U \cap \overline U \ne \emptyset\}\]
+    But the right hand side is finite, so \(S\) is finite. By the proposition, \(S\) generates \(G\).
+\end{proof}
+
+\begin{corollary}
+    If \(X\) is compact, locally compact and has a universal cover \(\widetilde X\), then \(\pi_1(X)\) is finitely generated.
+\end{corollary}
+
+\begin{proof}
+    Exercise. Sheet 1 question 10.
+\end{proof}
+
+\subsection{The Schwarz-Milnor lemma}
+
+Cayley graphs are not just combinatorial. They admit a natural metric, called the \emph{word metric}.
+
+\begin{definition}
+    [word metric] Let \(S\) generate \(G\). Define
+    \[\ell_S(G) = \min\{n \mid g = \prod_{i=1}^n s_i^{\pm 1}, s_i \in S\}\]
+    This defines a metric
+    \[d_S(g, h) = \ell_S(g^{-1}h)\]
+    called the \emph{word metric} associated to \(S\).
+\end{definition}
+
+The word metric is invariant under the \emph{left} \(G\) action on itself. That is,
+\[d_S(\gamma g, \gamma h) = d_S(g, h)\]
+However, it is, in general, not right invariant.
+
+\begin{example}
+    \(G = \Z^2 = \inner{a} \oplus \inner{b}\). Then the word metric is just the \(\ell_1\)-metric.
+\end{example}
+
+\begin{remark}
+    The word metric extends naturally to a left invariant metric on \(\Cay_S(G)\), in which the interior of each edge is locally isometric to \((0, 1)\). That is, the path metric.
+\end{remark}
+
+\begin{lemma}
+    Suppose \(S, T\) are finite  generating sets for \(G\). Then there exists constants \(C, C" \ge 1\) such that
+    \[\frac{1}{C}d_T \le d_S \le C' d_T\]
+\end{lemma}
+
+\begin{proof}
+    Let \(C = \max_{s \in S}\ell_T(s)\). Then for any \(g\in G\),
+    \[\ell_T(g) \le C\ell_S(g)\]
+    by induction.
+\end{proof}
+
+That is, for finitely generated groups, the word metric is well defined, up to bi-Lipschitz equivalence.
+
+\begin{definition}
+    [quasi-isometry] A function\footnote{It does not have to continuous.} \(f : X \to Y\) between metric spaces is a \emph{quasi-isometric embedding} if there are constants \(C \le 1\), \(D \ge 0\), such that
+    \[\frac{1}{C}d(x, x') - D \le d(f(x), f(x')) \le Cd(x, x') + D\]
+    for all \(x, x' \in X\).
+
+    If in addition, there exists a constant \(K\) such that for every \(y \in Y\), there exists \(x \in X\) such that \(\dd(f(x), y) \le K\), then \(f\) is called a quasi-isometry, and we write \(X \qi Y\).
+\end{definition}
+
+\begin{remark}
+    On examples sheet 1, we have that \(\qi\) is an equivalence relation.
+\end{remark}
+
+\begin{example}
+    Every bounded metric space is quasi-isometric to a point.
+\end{example}
+
+\begin{definition}
+    [proper]
+    A metric space \(X\) is \emph{proper} if closed balls in \(X\) are compact.
+\end{definition}
+
+\begin{definition}
+    [geodesic]
+    A \emph{geodesic} in \(X\) is an isometric embedding \(\gamma : [a, b] \to X\). The metric space \(X\) is \emph{geodesic} if every pair of points is joined by a geodesic.
+\end{definition}
+
+\begin{theorem}
+    [Schwarz-Milnor]
+
+    Suppose \(X\) is a proper geodesic metric space. Let \(G\) acts on \(X\) properly discontinuously and cocompactly by isometries. Then \(G\) is finitely generated, and
+    \[X \qi (G, d_S)\]
+    for any finite generating set \(S\) of \(G\).
+\end{theorem}
+
+\begin{proof}
+    Fix a base point \(x_0 \in X\). Let \(B = \overline{B}(x_0, K) \sse X\) be a closed ball, such that \(G \vdot B = X\). By properness and proper discontinuity, the set
+    \[\{g \in G \mid d(x_0, g(x_0)) \le 3K\}\]
+    is finite. Therefore, there exists \(\epsilon > 0\), such that 
+    \[d(x_0, g(x_0)) < 2K + \epsilon \iff d(x_0, g(x_0)) \le 2K\]
+    Moreover, in this case, \(g B \cap B \ne \emptyset\).
+
+    \lec
+
+    If \(U = B(x_0, K + \epsilon/2)\), then
+    \[S  = \{g \vdot U \cap U \ne \emptyset\} = \{g \vdot B \cap B \ne \emptyset\}\]
+    Since \(B\) is compact, \(S\) is finite, since the action is properly discontinuous. But \(S\) is a generating set for \(G\).
+
+    Since the word metric for any two finite generating sets are bi-Lipschitz, we may prove the result for the \(S\) above. Consider the map \(f : G \to X\), \(f(g) = g \vdot x_0\). We claim that this is a quasi-isometry. \(f\) is quasi-surjective, since \(G\vdot B = X\). It remains to prove that \(f\) is a quasi-isometric embedding. That is, we want upper and lower bounds on \(d(x_0, g\vdot x_0)\) in terms of \(\ell_S(g)\).
+
+    For the upper bound, take \(C = \max_{s \in S}d(x_0, s\vdot x_0)\). Then
+    \[d(x_0, g\vdot x_0) \le C\ell_S(g)\]
+    for any \(g \in G\), using the triangle inequality.
+
+    For the lower bound, consider a geodesic \(\gamma : [0, d(x_0, g\vdot x_0)] \to X\) from \(x_0\) to \(g\vdot x_0\). Choose a dissection of \([0, d(x_0, g\vdot x_0)]\)
+    \[0 = t_0 < t_1 < \cdots < t_n < t_{n+1} = d(x_0, g\vdot x_0)\]
+    with
+    \[\frac{\epsilon}{2} \le \abs{t_i - t_{i+1}} < \epsilon\]
+    for \(0 \le i \le n-1\). Note we can make it so that \(\abs{t_n - t_{n+1}} < \epsilon\), but we may not have the lower bound.
+
+    Since \(G \vdot B\) covers \(X\), for \(1 \le i \le n\), there exists \(g_i \in G\) such that \(\gamma(t_i) \in g_i \vdot B\). Set \(g_0 = 1\) and \(g_{n+1} = g\). Then \(\gamma(t_i) \in g_i\vdot B\) for all \(i\). For each \(i\),
+    \[d(g_i(x_0), g_{i+1}(x_0)) < 2K + \epsilon\]
+    by the triangle inequality. Therefore, \(g_i^{-1}g_{i+1} \in \{h \vdot U \cap U \ne \emptyset\} = S\). Hence \(\ell_S(g) \le n+1\). Furthermore,
+    \[\abs{t_i - t_{i-1}} \ge \epsilon/2\]
+    for all \(1 \le i \le n\), so \(d(x_0, g \vdot x_0) \ge n\epsilon/2\). Combining these,
+    \[\ell_S(g) \le n + 1 \le \frac{2}{\epsilon}d(x_0, g\vdot x_0) + 1\]
+    We can rearrange this to get the lower bound.
+\end{proof}
+
+\begin{example}
+    Recall the two Cayley graphs of \(\Z\), with generating sets \(\{1\}\), and \(\{2, 3\}\) respectively.
+
+    \textbf{diagram}
+
+    The Schwartz-Milnor says that these are both quasi-isometric to \(\Z\) with an appropriate word metric. So they are quasi-isometric. More generally, for any finitely generated group \(G\), the Cayley graphs of any two finite generating sets are quasi-isometric.
+\end{example}
+
+\begin{corollary}
+    If \(G\) is finitely generated, \(H\) is a subgroup with finite index in \(G\). Then \(H\) is finitely generated, and \(H\) is quasi-isometric to \(G\).
+\end{corollary}
+
+\begin{proof}
+    \(H\) acts on \(\Cay_S(G)\). The action is cocompact as \(H\) has finite index. So it satisfies the Schwartz-Milnor lemma.
+\end{proof}
+
+\begin{example}
+    Let \(\Sigma_2\) be the closed orientable surface of genus \(2\), and \(G = \pi_1(\Sigma_2)\). Choose a Riemannian metric \(g\) on \(\Sigma_2\) of constant curvature \(-1\).
+
+    This pulls back to a Riemannian metric on its universal cover \(\widetilde \Sigma_2\). By a classical theorem of differential geometry, \(\widetilde \Sigma_2\) is isometric to the hyperbolic plane \(\bb H^2\). Moreover, the action of \(G\) on the \(\bb H^2\) by isometries, and properly discontinuously. The action is cocompact as the quotient is \(\Sigma_2\), which is compact. So by the Schwartz-Milnor lemma, \(\pi_1(\Sigma_2)\) is quasi-isometric to \(\bb H^2\).
+\end{example}
+
+\section{Case study - Free groups}
+
+Let \(A = \{a_1, \dots, a_n\}\). We will write \(F_n = F(A_n)\). The \emph{Cayley tree}  is the infinite \(2n\)-valent tree \(T_n = \Cay_A(F_n)\).
+
+\textbf{diagram for \(n=2\)}
+
+\lec
+
+
 
 \end{document}
