@@ -527,6 +527,66 @@ Let \(A = \{a_1, \dots, a_n\}\). We will write \(F_n = F(A_n)\). The \emph{Cayle
 
 \lec
 
+In particular, every vertex looks the same. \(F_n\) acts freely on \(T_n\). The quotient \(X_n\) is the wedge of \(n\) circles. So we recover \(F_n = \pi_1(X_n)\), and \(T_n\) is the universal cover of \(X_n\).
+
+We can translate our \emph{combinatorial} arguments about \(F_n\), about geometric properties of \(T_n\).
+
+\subsection*{Words}
+
+A word \(w \in A^*\) is equivalent to an \emph{edge path}, which is a map \(w : I \to X_n\), where \(I\) is an interval.
+
+For example, consider the word \(w = a^2bb^{-1}a^{-1}\). The edge path is:
+\textbf{diagram}
+
+An edge path in \(X_n\) lifts to a unique edge path in \(T_n\), based at \(1\). Conversely, each such path in \(T_n\) projects to a path in \(X_n\).
+
+\textbf{diagram}
+
+\subsection*{Reduced words}
+
+A word \(w \in A^*\) is reduced if and only if the corresponding edge path \(w : I \to X_n\) is locally injective. In turn, this holds if and only if the corresponding edge path \(w : I \to T_n\) is locally injective. This is because an edge path can only fail to be locally injective at a vertex.
+
+Clearly, the shortest path in \(T_n\) from \(1\) to \(g \in F_n\) is injective. In particular, locally injective. So every element of \(F_n\) is represented by a reduced word.
+
+The fact that this representative is unique follows from the next lemma.
+
+\begin{lemma}
+    If \(T\) is a tree, and \(\gamma: I \to T\) is a locally injective (edge) path, then \(\gamma\) is injective.
+\end{lemma}
+
+\begin{proof}
+    Suppose not. Let \(\gamma : [a, b] \to T\) be the shortest counterexample. In particular, \(\gamma(a) = \gamma(b)\), and \(\gamma\) is injective on \((a, b)\). So \(\gamma\) descends to an injective map \(S^1 \to T\). But \(T\) is a tree. Contradiction.
+\end{proof}
+
+Similarly, if \(g \in F_n\) is shortest such that \(g\) is represented by distinct reduced words \(w_1, w_2\), then we get an embedding \(S^1 \inj T\). Hence the reduced word is unique.
+
+For \(g \in F_n\), write \([1, g]\) for the unique injective edge path from \(1\) to \(g\).
+
+\subsection*{Cyclically reduced words}
+
+So far, implicitly we have chosen base points. Each (nontrivial) word \(w \in A^*\) also defines a (based) edge loop, by gluing together the end points of the interval. So we have a map \(S^1 \to X_n\). If we forget the base point of \(S^1\), then two elements \(u, v \in A^*\) determine the same cyclic word if and only if they represent the same edge loop \(S^1 \to X_n\).
+
+Now a word \(w \in A^*\) is cyclically reduced if and only if the corresponding map \(S^1 \to X_n\) is locally injective. From lifting theory, we have a lift \(\widetilde w : \R \to T_n\) as below
+% https://q.uiver.app/#q=WzAsNCxbMCwzLCJTXjEiXSxbMCwyLCJcXFIiXSxbMiwyLCJYX24iXSxbMiwwLCJUX24iXSxbMSwwLCJwIiwyXSxbMCwyLCJ3IiwyXSxbMSwyLCJ3XFxjaXJjIHAiXSxbMSwzLCJcXHdpZGV0aWxkZSB3Il0sWzMsMl1d
+\[\begin{tikzcd}
+	&& {T_n} \\
+	\\
+	\R && {X_n} \\
+	{S^1}
+	\arrow["p"', from=3-1, to=4-1]
+	\arrow["w"', from=4-1, to=3-3]
+	\arrow["{w\circ p}", from=3-1, to=3-3]
+	\arrow["{\widetilde w}", from=3-1, to=1-3]
+	\arrow[from=1-3, to=3-3]
+\end{tikzcd}\]
+
+For example, if \(w = ab^2\). the lift is
+
+\textbf{diagram}
+
+In particular, since \(w\) is locally injective, \(\widetilde w\) is as well, and so it is injective, by the lemma. The image of \(\widetilde w\) is called the \emph{axis} of \(w\).
+
+By the definition of the action of \(F_n\) on \(T_n\), \(w\) when thought of as a deck tranformation of \(T_n\), preserves its axis. Note that \(w\) translates \(\Axis(w)\) by \(\ell(w)\). This is called the \emph{translation length of \(w\)}, denoted as \(\tau(w)\).
 
 
 \end{document}

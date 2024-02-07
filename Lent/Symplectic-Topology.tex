@@ -275,6 +275,10 @@ One corollary of Stokes is that we have a (perfect) pairing
 \[\HH_k(M; \R) \otimes \HH^k(M; \R) \to \R\]
 given by integration.
 
+More generally, if \(N^k\) is an oriented submanifold of \(M\), \(\alpha \in \Omega^k(M)\) has \(\dd \alpha = 0\), then
+\[\int_N \alpha = \inner{[N], \alpha}\]
+where we take the pairing using real (co)homology of \(M\). The proof of this is beyond the scope of the course.
+
 \begin{corollary}
     Let \((M^{2n}, \omega)\) be a closed symplectic manifold. Then \(\HH^{2k}(M; \R) \ne 0\) for all \(0 \le k \le n\).
 \end{corollary}
@@ -324,7 +328,7 @@ For compact \(M\), we have a correspondence
 For \(M\) non-compact, a flow might blow up in finite time. We are interested in how isotopies will act on tensors.
 
 Let \(X \in V(M)\) be a vector field, with associated flow \(\varphi_t\) defined for all \(t \in \R\). Then for \(\alpha, \beta\) are covariant and contravariant tensors respectively. Define the \emph{Lie derivative}
-\[\mcL_X\alpha = \dv{t}\bigg\vert_{t=0}(\varphi_t)_*\alpha\]
+\[\mcL_X\alpha = \dv{t}\bigg\vert_{t=0}(\varphi_{-t})_*\alpha\]
 and
 \[\mcL_X\beta = \dv{t}\bigg\vert_{t=0}(\varphi_t)^*\beta\]
 
@@ -334,8 +338,50 @@ We have the following properties:
         \item if \(Y\) is a vector field, then \(\mcL_XY = [X, Y]\),
         \item if \(\alpha\) is a \(k\)-form, then we have \emph{Cartan's (magic) formula}
         \[\mcL_X\alpha = \dd(\iota_X\alpha) + \iota_X(\dd\alpha)\]
+        \item if \(f \in C^\infty(M)\), then \(\mcL_X f = X \vdot f = \dd f(X)\). This gives a map \(V(M) \to \Der_\R(\C^\infty(M))\), which is a homomorphism of Lie algebras.
+        \item From Cartan, \(\mcL_X(\dd \alpha) = \dd\mcL_X\alpha\),
+        \item \(\dd\alpha(X, Y) = X\alpha(y) - Y\alpha(X) - \alpha([X, Y])\) when \(\alpha\) is a \(1\)-form,
+        \item if \(X_t\) is a time dependent vector field, with flow \(\varphi_t\), then
+        \[\dv{t}\varphi^*_t\alpha = \varphi_t^*\left(\mcL_X\alpha\right)\]
     \end{enumerate}
 \end{proposition}
+
+\lec
+
+\section{Interlude - Examples of symplectic manifolds}
+
+\begin{example}
+    Any oriented surface with dimension 2, with a volume form is a symplectic manifold.
+
+    On \(S^2\), we have a standard volume form given by the embedding \(S^2 \inj \R^3\). In particular,
+    \[\omega_u(v, w) = u \vdot (v \cross w)\]
+
+    On \(\T^2\),  we can take \(\dd \theta_1 \wedge \dd\theta_2\), where \(\theta_1, \theta_2\) are the coordinates from \(S^1\).
+\end{example}
+
+\begin{example}
+    Products of symplectic manifolds is a symplectic manifold.
+\end{example}
+
+\begin{example}
+    Let \(Q\) be a smooth manifold, then \(\T^*Q\) is a symplectic manifold, with the canonical symplectic form
+    \[\omega = \dd\lambda\]
+    On \(\T^*Q\), we have local coordinates \((q_1, \dots, q_k, p_1, \dots, p_k)\),
+    \[\lambda = \sum_i p_i\dd q_i\]
+\end{example}
+
+\section{Lie derivatives continued}
+
+Let \((M, \omega)\) be a symplectic form. When does an isotopy \(\varphi_t : M \to M\) preserve \(\omega\)? Let \(X_t\) be the associated time-dependent vector field, then \(\varphi_t\) preserves \(\omega\) if and only if \(\mcL_{X_t}\omega = 0\). In turn, by Cartan's formula, this is true if and only if \(\dd(\iota_{X_t}\omega) = 0\), i.e. \(\iota_{X_t}\omega\) is closed.
+
+When if \(\iota_{X_t}\omega = \dd H_t\), for some \(H_t : M \to \R\)? We recover Hamiltonian dynamics. In this case, we call \(\varphi_t\) an \emph{Hamiltonian isotopy}.
+
+Note that if \(M\) is compact, for any Hamiltonian function, we have an associated Hamiltonian isotopy associated to the vector field \(X_{H_t}\) given by
+\[\iota_{X_{H_t}}\omega = \dd H_t\]
+
+Note that if \(\HH^1(M; \R) = 0\), then all symplectic isotopy is a Hamiltonian isotopy, as every closed one-form is exact. In particular, we have a map
+\[\frac{C^\infty(M)}{\text{constant functions}} \to \Symp(M)\]
+which is injective.
 
 \printindex
 
