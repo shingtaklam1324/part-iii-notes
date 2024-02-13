@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage{../../Style}
+\usepackage{../../quiver}
 
 \title{Group Cohomology}
 \author{Shing Tak Lam}
@@ -624,7 +625,7 @@ We will return to considering homology arising from different resolutions.
     For any (left) \(\ZG\)-module \(N\), we can take a projective (resp. free) resolution of \(N\) by \(\ZG\)-modules. Repeating everything we have done, and applying \(\Hom_G(\cdot, M)\) gives homology groups, which are called
     \[\Ext^n_{\ZG}(N, M)\]
     and so
-    \[\HH^n(G, M) = \Ext^n_\ZG(\Z, M)\]
+    \[\HH^n(G, M) = \Ext^n_{\ZG}(\Z, M)\]
     As above, the \(\Ext\)-groups are independent of resolution.
 \end{remark}
 
@@ -921,6 +922,160 @@ This gives us an equivalence of extensions.
     as required. So we can define
     \[f_1[a^rb^s] = (S(a, r)b^s, S(b, s))\]
 \end{example}
+
+\lec
+
+\begin{example}
+    [continued]
+
+    We need to define \(f_2\). For each \([a^rb^s \mid a^tb^u]\), we find
+    \[z_{rstu} \in \Z T\]
+    such that
+    \[f_1\dd_2[a^rb^s\mid a^tb^u] = \beta(z_{rstu})\]
+    Note that
+    \begin{align*}
+        f_1\dd_2[a^rb^s\mid a^tb^u] &= f_1(a^rb^s[a^tb^u] - [a^{r+t}b^{s+u}] + [a^rb^s]) \\
+        &= a^rb^sS(a, t)b^u - S(a, r + t)b^{s + u} + S(a, r)b^s - a^rb^s S(b, u) -  S(b, s + u) + S(b, s)
+    \end{align*}
+    Note that
+    \[z_{rstu} = S(a, r)b^sS(b, u)\]
+    works. So we define
+    \[f_2[a^rb^s \mid a^tb^u] = S(a, r)b^sS(b, u)\]
+    Now we find a cochain \(\phi : T^2 \to \Z\) representing the cohomology class \(p \in \Z = \Hom_T(\Z T, \Z) = \HH^2(T, \Z)\). Such a cochain is given by the composition
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJUXjIiXSxbMSwwLCJcXFogVCJdLFsyLDAsIlxcWiJdLFsxLDIsInBcXGVwc2lsb24iXSxbMCwxLCJmXzIiXSxbMCwyLCJcXHBoaSIsMix7ImN1cnZlIjoyfV1d
+    \[\begin{tikzcd}
+        {T^2} & {\Z T} & \Z
+        \arrow["p\epsilon", from=1-2, to=1-3]
+        \arrow["{f_2}", from=1-1, to=1-2]
+        \arrow["\phi"', curve={height=12pt}, from=1-1, to=1-3]
+    \end{tikzcd}\]
+    Since \(\epsilon(S(a, r)) = r\), we find that
+    \[\phi(a^rb^s, a^tb^u) = p\epsilon(z_{rstu}) = pru\]
+    The group structure on \(\Z \times T\) correspnding to \(\phi\) is
+    \[(m, a^rb^s)(n, a^tb^u) = (m + n + pru, a^{r+t}b^{s+u})\]
+    This corresponds to the group of matrices
+    \[\left\{\begin{pmatrix}
+        1 & pr & m \\
+        0 & 1 & s \\
+        0 & 0 & 1
+    \end{pmatrix}\ \bigg\vert\ r,s,m \in \Z\right\}\]
+\end{example}
+
+\subsection{Group extensions by presentations}
+
+Another approach to consider (central) extensions is to use a partial resolution arising from generators and relations.
+
+Let \(G\) be a group, and let \(X\) be a generating set. Then we have a canonical map \(F = F(X) \surj G\). Let \(R\) be the kernel. Then we have a short exact sequence
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIxIl0sWzEsMCwiUiJdLFsyLDAsIkYiXSxbMywwLCJHIl0sWzQsMCwiMSJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	1 & R & F & G & 1
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+which is the presentation of \(G\). The subgroup \(R\) can be thought of as the set of relations. Now \(R \idealof F\), and so \(F\) acts on \(R\) by conjugation. Often we take a set of generators of \(R\) as a normal subgroup for \(F\).
+
+Let \(R_\ab = R/[R, R]\) be the abelianisation of \(R\). It inherits an action of \(F\), but \(R\) acts trivially on \(R_\ab\), and so we ahve an induced action by \(G = F/R\). Thus, \(R_\ab\) is a \(\ZG\)-module, called the \emph{relation module}.
+
+Associated to this is an extension
+% https://q.uiver.app/#q=WzAsNSxbMiwwLCJGL1tSLCBSXSJdLFszLDAsIkciXSxbNCwwLCIxIl0sWzEsMCwiUl9cXGFiIl0sWzAsMCwiMSJdLFswLDFdLFsxLDJdLFs0LDNdLFszLDBdXQ==
+\[\begin{tikzcd}
+	1 & {R_\ab} & {F/[R, R]} & G & 1
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+\end{tikzcd}\]
+
+For a central extension, we need
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIxIl0sWzEsMCwiUi9bUiwgRl0iXSxbMiwwLCJGL1tSLCBGXSJdLFszLDAsIkciXSxbNCwwLCIxIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+\[\begin{tikzcd}
+	1 & {R/[R, F]} & {F/[R, F]} & G & 1
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+
+Unfortunately, there isn't a largest (or univeral) central extension, since we can always form direct products with an abelian group. The central extension above does have good properties.
+
+\begin{theorem}
+    [MacLane]
+    Given a presentation of \(G\), let \(M\) be a left \(\ZG\)-module. Then there is an exact sequence
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhIXjEoRiwgTSkiXSxbMSwwLCJcXEhvbV9HKFJfXFxhYiwgTSkiXSxbMiwwLCJcXEhIXjIoRywgTSkiXSxbMywwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM11d
+    \[\begin{tikzcd}
+        {\HH^1(F, M)} & {\Hom_G(R_\ab, M)} & {\HH^2(G, M)} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+    \end{tikzcd}\]
+    Thus, any equivalence class of extensions of \(G\) by \(M\) corresponding to a cohomology class, arises from a \(\ZG\)-map \(R_\ab \to M\).
+\end{theorem}
+
+Note that \(M\) is a \(\Z F\)-module, via the map \(F \to G\).
+
+\begin{corollary}
+    In the above, if \(M\) is a trivial module, then we have
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhvbShGLCBNKSJdLFsxLDAsIlxcSG9tX0coUi9bUiwgRl0sIE0pIl0sWzIsMCwiXFxISF4yKEcsIE0pIl0sWzMsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdXQ==
+\[\begin{tikzcd}
+	{\Hom(F, M)} & {\Hom_G(R/[R, F], M)} & {\HH^2(G, M)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+\end{corollary}
+
+\begin{proof}
+    \(M\) is a trivial \(\Z F\)-module, and so \(\HH^1(F, M) = \Hom(F, M)\) which are the group homomorphisms to an abelian group, which factors through the abelianisation. So \(\HH^1(F, M) = \Hom(F_\ab, M)\).
+
+    Similarly, \(\Hom_G(R_\ab, M) = \Hom_G(R/[R, F], M)\).
+\end{proof}
+
+There is also a connection with homology groups. Given a projective resolution of the trivial \(\ZG\)-module \(\Z\), instead of applying \(\Hom(\cdot, M)\), we can apply the functor \(\Z \otimes_{\ZG} \cdot\). We get a chain complex, and we can define the associated homology groups.
+
+The homology groups don't depend on the choice of resolution. We will write the homology groups as \(\HH_n(G; \Z)\).
+
+\begin{definition}
+    [Schur multiplier] The \emph{Schur multiplier (or multiplicator)} is \(\mathrm{M}(G) = \HH_2(G; \Z)\).
+\end{definition}
+
+This is important for studying central extensions.
+
+\begin{theorem}
+    [universal coefficient]
+    Let \(G\) be a group, and \(M\) be a trivial \(\ZG\)-module. Then there is a short exact sequence
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxFeHReMShHX1xcYWIsIE0pIl0sWzIsMCwiXFxISF4yKEcsIE0pIl0sWzMsMCwiXFxIb20oXFxtYXRocm17TX0oRyksIE0pIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & {\Ext^1(G_\ab, M)} & {\HH^2(G, M)} & {\Hom(\mathrm{M}(G), M)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    where \(\Ext^1(G_\ab, M)\) arises by applying \(\Hom_\Z(\cdot, M)\) to a projective resolution of an abelian group \(G_\ab\).
+\end{theorem}
+
+\begin{corollary}
+    Suppose \(G = [G, G]\). Then \(G_\ab = 1\), and we get that
+    \[\HH^2(G, M) \cong \Hom(\mathrm{M}(G), M)\]
+\end{corollary}
+
+\begin{remark}
+    Sometimes people define the Schur multiplier to be \(\HH^2(G, \C^*)\) instead of \(\HH_2(G; \Z)\). Schur was considering projective representations, \(G \to \mathrm{PGL}(\C)\). Such a map lifts to a linear representation of a central extension of \(G\).
+\end{remark}
+
+There is a formula:
+
+\begin{theorem}
+    [Hopf] Given a presentation \(G = F/R\),
+    \[\mathrm{M}(G) = \frac{[F, F] \cap R}{[R, F]}\]
+    Note that this is not necessarily all of \(F/[R, F]\).
+\end{theorem}
+
+\begin{remark}
+    This shows that \(([F, F] \cap R)/[R, F]\) is independent of the choice of presentation. 
+\end{remark}
 
 \printindex
 

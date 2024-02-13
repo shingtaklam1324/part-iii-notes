@@ -16,3 +16,12 @@ Note: Numbering has been redone on Oct 21, from `section.number` to `section.sub
 * [Lie Algebras](Michaelmas/Lie-Algebras.pdf)
 * [Local Fields (Lecture 1)](Michaelmas/Local-Fields.pdf)
 * [Modular Forms (Lectures 1-4)](Michaelmas/Modular-Forms.pdf)
+
+## Lent
+
+* [Abelian Varieties](Lent/Abelian-Varieties.pdf)
+* [Elliptic PDEs](Lent/Elliptic-PDEs.pdf)
+* [Geometric Group Theory](Lent/Geometric-Group-Theory.pdf)
+* [Group Cohomology](Lent/Group-Cohomology.pdf)
+* [Symplectic Topology](Lent/Symplectic-Topology.pdf)
+* [Toric Varieties](Lent/Toric-Varieties.pdf)

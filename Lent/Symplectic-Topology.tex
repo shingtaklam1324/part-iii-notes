@@ -428,6 +428,87 @@ That is, there is no local symplectic geometry.
     Now \(h \circ \varphi : U'' \to M\) satisfies the requirements.
 \end{proof}
 
+\lec
+
+\section{Almost complex manifolds}
+
+\begin{definition}
+    [almost complex structure]
+    Let \(X\) be a smooth manifold. Then \(J \in \End(\T X)\) is an \emph{almost complex structure} if \(J^2 = -\id\).
+\end{definition}
+
+\begin{example}
+    When \(X = \C^n\), we have a canonical identification \(\T_zX \cong \C^n\). On this, \(J\) is multiplication by \(i\). We'll denote this by \(J_{\text{std}} \in \End(\T\C^n)\).
+\end{example}
+
+\begin{definition}
+    [integrable] An almost complex structure \(J\) is \emph{integrable} if it is the pullback of \(J_{\text{std}}\) from an atlas of charts with holomorphic transition functions. That is, if \(X\) is a complex manifold, and \(J\) is multiplication by \(i\).
+\end{definition}
+
+\begin{definition}
+    [compatible]
+    Let \((M, \omega)\) be a symplectic manifold. We say that an almost complex structure \(J\) is \emph{compatible} with \(\omega\) if
+    \begin{itemize}
+        \item \(\omega(v, w) = \omega(Jv, Jw)\) for all \(v, w\),
+        \item \(\omega(v, Jv) > 0\) for all \(v\) non-zero.
+    \end{itemize}
+    Equivalently, \(\omega(\cdot, J\cdot)\) is a Riemannian metric.
+\end{definition}
+
+Note that in this convention, we have
+\[\omega_{\text{std}} = g(J\cdot, \cdot)\]
+In this case, \((g, J, \omega)\) is a compatible triple.
+
+\begin{proposition}
+    Any symplectic manifold \((M, \omega)\) admits a compatible almost complex structure \(J\). Moreover, the set \(\mcJ(M, \omega)\) of all such \(J\) is contractible. So \(J\) is unique up to contractible choice.
+\end{proposition}
+
+\begin{proof}
+    Pick any Riemannian metric \(g\) on \(M\). Then we have two isomorphisms
+    \[\widetilde g, \widetilde \omega : \T M \to \T^* M\]
+    Let
+    \[A = \widetilde g^{-1}\widetilde \omega : \T M \to \T M\]
+    If we have a compatible, triple, then \(A\) is an almost complex structure. Now
+    \[\omega(u, v) = -\omega(v, u) = -g(Av, u) = -g(u, Av)\]
+    and so we obtain that \(A^* = -A\). Here, \(^*\) denote the transpose. Hence \(AA^* = -A^2\). Now
+    \[g(AA^*v, v) = g(A^*v, A^*v) > 0\]
+    So \(AA^*\) is symmetric and positive definite. In particular, it is diagonalisable, with positive eigenvalues.
+
+    Let \(J = \left(\sqrt{AA^*}\right)^{-1}A\). Then
+    \[J^2 = -A^{-2}A^2 = -\id\]
+    where we use the fact that everything commutes. Moreover,
+    \[\omega(Ju, Jv) = g(AJu, Jv) = g(JAu, Jv) = g(Au, v) = \omega(u, v)\]
+    and
+    \[\omega(u, Ju) = g(-JAu, v) = g(AA^*u, u) = g(A^*u, A^*u) > 0\]
+    So \(\mcJ(M, \omega)\) is non-empty. Choose \(J_0 \in \mcJ(M, \omega)\). Define
+    \begin{align*}
+        F : \mcJ(M, \omega) \times [0, 1] &\to \mcJ(M, \omega) \\
+        F(J, t) &= J_t
+    \end{align*}
+    where \(J_t\) is the almost complex structure associated to the Riemannian metric
+    \[g_t = tg_{J_0} + (1 - t)g_J\]
+    Here, we are using the convexity of the space of Riemannian metrics. Then \(F\) defines a retraction of \(\mcJ(M, \omega)\) onto \(J_0\).
+\end{proof}
+
+\begin{definition}
+    [Lagrangian submanifold]
+    A submanifold \(L^n \sse (M^{2n}, \omega)\) is a \emph{Lagrangian submanifold} if \(\omega\vert_L = 0\).
+\end{definition}
+
+For example, \(\R^n \sse \C^n\).
+
+\begin{example}
+    If \(\phi : M \to M\) is a diffeomorphism, then it is a symplectomorphism if and only if the graph
+    \[\Gamma_\phi \sse (M \times M, \omega \oplus -\omega)\]
+    is Lagrangian.
+\end{example}
+
+\begin{theorem}
+    [Weinstein neighbourhood]
+
+    If \(L \sse (M^{2n}, \omega)\) is a compact Lagrangian, then there exists a neighbourhood \(U(L)\) of the zero section in \(\T^*L\), and a symplectic embedding \(U(L) \inj M\), sending the zero section to \(L\).
+\end{theorem}
+
 \printindex
 
 \end{document}
