@@ -379,9 +379,54 @@ When if \(\iota_{X_t}\omega = \dd H_t\), for some \(H_t : M \to \R\)? We recover
 Note that if \(M\) is compact, for any Hamiltonian function, we have an associated Hamiltonian isotopy associated to the vector field \(X_{H_t}\) given by
 \[\iota_{X_{H_t}}\omega = \dd H_t\]
 
-Note that if \(\HH^1(M; \R) = 0\), then all symplectic isotopy is a Hamiltonian isotopy, as every closed one-form is exact. In particular, we have a map
-\[\frac{C^\infty(M)}{\text{constant functions}} \to \Symp(M)\]
-which is injective.
+Note that if \(\HH^1(M; \R) = 0\), then all symplectic isotopy is a Hamiltonian isotopy, as every closed one-form is exact. In particular, we have a map given by the time \(1\) flow
+\[C^\infty(M)\to \Ham(M) \sse \Symp_0(M)\]
+Locally, the kernel of this map is the space of constant functions. Equivalently, if we quotient out the constant functions, then the map is locally injective.
+
+\lec
+
+\begin{theorem}
+    [Moser] Let \((\omega_t)_{t \in [0, 1]}\) be a smooth family of symplectic forms on \(M\), \(M\) compact, satisfying \([\omega_t] = [\omega_0] \in \HH^2(M; \R)\) for all \(t\). Then there exists \(\psi \in \Diff(M)\) such that \(\varphi^*\omega_1 = \omega_0\).
+\end{theorem}
+
+Note that it is not true if \([\omega_t]\) is allowed to vary.
+
+\begin{proof}
+    [Proof (Moser's trick)] We seek an isotopy \(\varphi_t\) such that \(\varphi_t^*\omega_t = \omega_0\). Now since \([\omega_t]\) is constant,
+    \[\left[\dv{\omega_t}{t}\right] = \dv{t}[\omega_t] = 0\]
+    and so
+    \[\dv{\omega_t}{t} = \dd\sigma_t\]
+    for some \(\sigma_t \in \Omega^1(M)\). Now if \(\varphi_t\) is an isotopy, with associated vector field \(X_t\), then
+    \begin{align*}
+        \dv{t}(\varphi_t^*\omega_t) &= \varphi_t^*\left(\dv{\omega_t}{t} + \mcL_{X_t}\omega_t\right) \\
+        &= \varphi_t^*\left(\dd\sigma_t + \dd \iota_{X_t}\omega_t\right)
+    \end{align*}
+    We would like this to be zero, since this would imply that \(\varphi_t^*\omega_t = \omega_0\). We can find \(X_t\) such that
+    \[\sigma_t + \iota_{X_t}\omega_t = 0\]
+    since \(\omega_t\) is non-degenerate. Since \(M\) is compact, letting \(\varphi_t\) be the flow of \(X_t\) gives the result.
+\end{proof}
+
+\begin{theorem}
+    [Darboux's theorem] For any \(p \in (M, \omega)\), there exists a chart \(f : U \inj M\), sending \(0\) to \(p\), such that \(f^*\omega = \omega_{\text{std}}\vert_U\).
+\end{theorem}
+
+That is, there is no local symplectic geometry.
+
+\begin{proof}
+    Fix any chart \(h : U \inj M\), with \(h(0) = p\). Moreover, we can require that \(h^*\omega \in \Omega^2(U)\) is equal to \(\omega_{\text{std}}\) at \(p\), since this is just a linear algebra condition.
+
+    Let \(U' \sse U\) be a neighbourhood of \(0\), such that \(\omega_t = \omega_{\mathrm{std}} + t(h^*\omega - \omega_{\mathrm{std}})\) is symplectic for \(t \in [0, 1]\). This exists since being non-degenerate is an open condition.
+
+    By Moser's trick,
+    \[\dv{\omega_t}{t} = h^*\omega - \omega_{\mathrm{std}} = \dd \sigma_t\]
+    This exists since we can choose \(U'\) to be a disc, and so \(\HH^1(U') = 0\). Let \(X_t\) be such that
+    \[\iota_{X_t}\omega_t = \dd \sigma_t\]
+    Let \(\varphi_t\) be the flow of \(X_t\). In particular there exists \(U'' \sse U'\) open, such that for all \(t \in [0, 1]\),
+    \[\varphi(U'') \sse U'\]
+    In particular,
+    \[\varphi_t^*\omega_t = \omega_{\text{std}}\]
+    Now \(h \circ \varphi : U'' \to M\) satisfies the requirements.
+\end{proof}
 
 \printindex
 

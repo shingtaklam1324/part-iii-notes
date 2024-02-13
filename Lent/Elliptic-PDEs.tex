@@ -737,9 +737,9 @@ What happens when for non-zero right hand side? The following will be critical f
     [maximum principle a priori estimate] Suppose \(\Omega \sse \R^n\) is a bounded domain, \(L\) elliptic, \(c \le 0\), and \(\beta = \abs{b}/\lambda\) is \(L^\infty\). Let \(u \in C^2(\Omega) \cap C^0(\overline\Omega)\) and \(f : \Omega \to \R\), then
     \begin{enumerate}[(i)]
         \item if \(Lu \ge f\), then
-        \[\sup_\Omega u \le \sup_{\partial\Omega} u^+ + C\sup_\Omega\left(\abs{f}{\lambda}\right)\]
+        \[\sup_\Omega u \le \sup_{\partial\Omega} u^+ + C\sup_\Omega\left(\frac{\abs{f}}{\lambda}\right)\]
         \item if \(Lu = f\), then
-        \[\sup_\Omega \abs{u} \le \sup_{\partial\Omega}\abs{u} + C\sup_\Omega\left(\abs{f}{\lambda}\right)\]
+        \[\sup_\Omega \abs{u} \le \sup_{\partial\Omega}\abs{u} + C\sup_\Omega\left(\frac{\abs{f}}{\lambda}\right)\]
     \end{enumerate}
     where \(C\) is a constant which only depends on \(\beta\) and \(\diam(\Omega)\).
 \end{theorem}
@@ -759,11 +759,119 @@ What happens when for non-zero right hand side? The following will be critical f
         \item if \(Lu \ge f\), then
         \[L(u - v)\ge f + \lambda \sup\frac{\abs{f}}{\lambda} \ge 0\]
     \end{enumerate}
+    
+    \lec
+
+    Note that \(u \le u^+\), and \(u \vert_{\partial\Omega} \le v\vert_{\partial\Omega}\) from the definition of \(v\). So by the weak maximum principle, we have \(u \le v\) in \(\Omega\), and
+    \[\sup_\Omega \le u \le \sup_\Omega v \le \sup_{\partial\Omega} u^+ + C\sup_\Omega \frac{\abs{f}}{\lambda}\]
+    where
+    \[C = \sup_\Omega\left(e^{(\beta + 1)d} - e^{(\beta + 1)x_1}\right)\]
+    For (ii), if \(Lu = f\), apply (i) to \(-u\).
 \end{proof}
 
-\lec
+\subsection{H\"older spaces}
 
-\textbf{TODO: Catchup with lecture Feb 02}
+Fix \(\Omega \sse \R^n\) open, and let \(\alpha \in \Ioc{0, 1}\).
+
+\begin{definition}
+    we say \(u : \Omega \to \R\) is \emph{uniformly H\"older continuous with exponent \(\alpha\)}, or \emph{uniformly \(\alpha\)-H\"older continuous}, if
+    \[[u]_{\alpha, \Omega} = \sup_{x, y \in \Omega}\frac{\abs{u(x) - u(y)}}{\abs{x - y}^\alpha} < \infty\]
+    This is the \emph{H\"older seminorm}.
+\end{definition}
+
+If \(\alpha = 1\), this says that \(u\) is uniformly Lipschitz. If \(\alpha > 1\), then \(u\) is constant, by the mean value theorem.
+
+\begin{definition}
+    We say that \(u\) is \emph{locally \(\alpha\)-H\"older continuous} if for all \(K \Subset \Omega\), \(u\vert_K : K \to \R\) is uniformly \(\alpha\)-H\"older continuous.
+\end{definition}
+
+Let \(k \in \N \cup \{\infty\}\). Recall for a multi-index \(\beta \in \N^n\), we have
+\[\abs{\beta} = \sum_i \beta_i\]
+and
+\[C^k(\Omega) = \{u : \Omega \to \R \mid \DD^\beta u\text{ exists and is continuous for all }\abs{\beta} \le k\}\]
+
+\begin{definition}
+    The \emph{H\"older space} \(C^{k, \alpha}(\Omega)\) is the space
+    \[C^{k, \alpha}(\Omega) = \{u \in C^k(\Omega) \mid \DD^\beta u \text{ is locally \(\alpha\)-H\"older continuous for all }\abs{\beta} \le k\}\]
+    and
+    \[C^{k, \alpha}(\overline\Omega) = \{u \in C^k(\Omega) \mid \DD^\beta u \text{ is uniformly \(\alpha\)-H\"older continuous for all }\abs{\beta} \le k\}\] 
+\end{definition}
+
+For \(\alpha \in (0, 1)\), we will write
+\[C^\alpha(\Omega) = C^{0, \alpha}(\Omega)\]
+and
+\[C^\alpha(\overline\Omega) = C^{0, \alpha}(\overline\Omega)\]
+
+Moreover, we have
+\[C^{k, 0}(\Omega) = C^k(\Omega) \qqtext{and} C^{k, 0}(\overline\Omega) = C^k(\overline\Omega)\]
+
+\begin{remark}
+    On the other hand, note that \(C^{k+1}(\Omega) \ne C^{k, 1}(\Omega)\), since Lipschitz continuity does not imply \(C^1\). On the other hand, Lipschitz functions are differentiable almost everywhere.
+\end{remark}
+
+Finally, define
+\[C^{k, \alpha}_0(\Omega)=  C^{k, \alpha}_c(\Omega) = \{u \in C^{k, \alpha}(\Omega) \mid \Supp(u) \text{ compact}\}\]
+
+To define norms on these spaces: for \(k \in \N, u \in C^k(\overline\Omega)\), define
+\[[u]_{k, \Omega} = [\DD^k u]_{0, \Omega} = \sup_{\abs{\beta} = k}[\DD^\beta u]_{0, \Omega} = \sup_{\abs{\beta} = k}\sup_{x \in \Omega}\abs{\DD^\beta u(x)}\]
+
+For \(u \in C^{k, \alpha}(\overline \Omega)\), define
+\[[u]_{k, \alpha; \Omega} = [\DD^ku]_{\alpha, \Omega} = \sup_{\abs{\beta} = k}[\DD^ku]_{\alpha, \Omega}\]
+
+Note that these are seminorms. To get norms, set
+\[\norm{u}_{C^k(\Omega)} = \abs{u}_{k, \Omega} = \abs{u}_{k, 0, \Omega} = \sum_{j=0}^k\abs{D^j u}_{0, \Omega}\]
+and
+\[\norm{u}_{C^{k, \alpha}(\overline\Omega)} = \abs{u}_{k, \alpha, \Omega} = \abs{u}_{k, \Omega} + [\DD^k u]_{\alpha, \Omega}\]
+
+With these norms, \(C^k\) and \(C^{k, \alpha}\) become Banach spaces. Since we will be using sequences, it is important to understand the compactness properties.
+
+\begin{theorem}
+    [Arzel\`a-Ascoli for H\"older spaces] Let \(\Omega \sse \R^n\) be a domain, \(k \in \N\), and \(\alpha \in \Ioc{0, 1}\). If \((u_j)_j\) is a sequence in \(C^{k, \alpha}(\Omega)\) such that
+    \[\sup_j \abs{u_j}_{k, \alpha, \Omega'} < \infty\]
+    for all \(\Omega' \Subset \Omega\), then there exists \(u \in C^{k, \alpha}(\Omega)\), and a subsequence \((u_{j'})_{j'}\) such that \(u_{j'} \to u\) in \(C^k(\overline{\Omega'})\).
+\end{theorem}
+
+\begin{remark}
+    Nothing is said about convergence in \(C^{k, \alpha}\).
+\end{remark}
+
+\begin{proof}
+    Examples sheet 2.
+\end{proof}
+
+We have two more ingredients before starting Schauder theory. The first is interpolation.
+
+If we have Banach spaces \(X \Subset Y \sse Z\), then we can bound the norm in \(Y\) by \(X\) and \(Z\) norms. Interpolation is the exchange of sizes of the \(X\) and \(Z\) norms. Here, we have
+\[C^{k, \alpha}(\overline\Omega) \Subset C^k(\overline\Omega) \sse C^k(\overline\Omega)\]
+
+\begin{theorem}
+    [interpolation inequality for H\"older spaces] Let \(\epsilon > 0\), \(\ell \in \N\), \(\alpha \in \Ioc{0, 1}\). Then there exists \(C =  C(n, \ell, \alpha, \epsilon)\), such that if \(u \in C^{\ell, \alpha}(\overline{B_R(x_0)})\), then
+    \[R^k\abs{D^k u}_{0, B_R(x_0)} \le \epsilon R^{\ell + \alpha}[D^\ell u]_{\alpha, B_R(x_0)} + C\abs{u}_{0, B_R(x_0)}\]
+    for all \(0 \le k \le \ell\).
+\end{theorem}
+
+\begin{proof}
+    [Sketch proof] For details, see examples sheet 2. By rescaling and shifting, it suffices to consider the case \(R = 1\). Then argue by contradiction using Arzel\`a-Ascoli.
+\end{proof}
+
+The second ingredient is the following lemma.
+
+\begin{theorem}
+    [Simon's absorbing lemma] Let \(B_R(x) \sse \R^n\) be fixed, and let \(S\) be a nonnegative, subadditive function on the collection of sub-balls of \(B_R(x)\). That is, if
+    \[B_\rho(y) \sse \bigcup_{j=1}^N B_{\rho_j}(y_j) \sse B_R(x)\]
+    then
+    \[S(B_\rho(y)) \le \sum_{j=1}^N S(B_{\rho_j}(y_j))\]
+
+    Let \(\lambda \ge 0, \theta \in (0, 1)\), then there exists \(\delta = \delta(n, \lambda, \theta) \in (0, 1)\) such that: Suppose that for \emph{all} balls \(B_\rho(y) \sse B_R(x)\), we have
+    \[\rho^\lambda S(B_{\theta\rho}(y)) \le \delta\rho^\lambda S(B_\rho(y)) + \gamma\]
+    for some fixed \(\gamma\). Then
+    \[R^\lambda S(B_{\theta R}(x)) \le C\gamma\]
+    for some \(C = C(n, \theta, \lambda)\).
+\end{theorem}
+
+\begin{remark}
+    This says that if there exists a local bound on \(S\), then we can ``absorb'' the \(S\)-term on the right hand side to get a global bound.
+\end{remark}
 
 \lec
 
@@ -842,34 +950,62 @@ We will first prove interior estimates in the unit ball, and then extend them to
     \end{itemize}
 \end{remark}
 
+\lec
+
 \begin{proof}
-    We will write \(B_r = B_r(0)\). Working in a slightly smaller ball, we can assume without loss of generality that \(\abs{u}_{2; B_1} < \infty\). The proof will consist of three steps:
-    \begin{enumerate}
-        \item reduction,
-        \item contradiction step,
-        \item simplified PDE step
-    \end{enumerate}
+    Omitted.
+    % We will write \(B_r = B_r(0)\). Working in a slightly smaller ball, we can assume without loss of generality that \(\abs{u}_{2; B_1} < \infty\). The proof will consist of three steps:
+    % \begin{enumerate}
+    %     \item reduction,
+    %     \item contradiction step,
+    %     \item simplified PDE step
+    % \end{enumerate}
 
-    \textbf{Step 1:}
+    % \textbf{Step 1:}
 
-    \begin{claim}
-        It suffices to prove: For any given \(\delta \in (0, 1)\), there exists \(C > 0\) such that
-        \begin{equation}
-            \label{eq:unit-scale-int-schauder-claim}
-            [D^2u]_{\alpha; B_{1/2}} \le \delta[D^2u]_{\alpha; B_1} + C\left(\abs{u}_{2; B_1} + \abs{f}_{0, \alpha; B_1}\right)
-        \end{equation}
-    \end{claim}
+    % \begin{claim}
+    %     It suffices to prove: For any given \(\delta \in (0, 1)\), there exists \(C > 0\) such that
+    %     \begin{equation}
+    %         \label{eq:unit-scale-int-schauder-claim}
+    %         [D^2u]_{\alpha; B_{1/2}} \le \delta[D^2u]_{\alpha; B_1} + C\left(\abs{u}_{2; B_1} + \abs{f}_{0, \alpha; B_1}\right)
+    %     \end{equation}
+    % \end{claim}
 
-    \begin{proof}
-        Suppose the above holds. Then by the interpolation inequality, we obtain
-        \begin{equation}
-            \label{eq:unit-scale-int-schauder-claim-2}
-            [D^2u]_{\alpha; B_{1/2}} \le 2\delta[D^2u]_{\alpha; B_1} + C\left(\abs{u}_{0; B_1} + \abs{f}_{0, \alpha; B_1}\right) 
-        \end{equation}
-        The strategy for this is to take a sub-ball \(B_\rho(y) \sse B_1(x)\), and shift and scale. Define \(\widetilde u(x) = u(y + \rho x)\). Then \(\widetilde u\) will satisfy a new PDE and a new inequality,
-    \end{proof}
+    % \begin{proof}
+    %     Suppose the above holds. Then by the interpolation inequality, we obtain
+    %     \begin{equation}
+    %         \label{eq:unit-scale-int-schauder-claim-2}
+    %         [D^2u]_{\alpha; B_{1/2}} \le 2\delta[D^2u]_{\alpha; B_1} + C\left(\abs{u}_{0; B_1} + \abs{f}_{0, \alpha; B_1}\right) 
+    %     \end{equation}
+    %     The strategy for this is to take a sub-ball \(B_\rho(y) \sse B_1\), and shift and scale. Define \(\widetilde u(x) = u(y + \rho x)\). Then \(\widetilde u\) will satisfy a new PDE and a new inequality.
+        
+    %     \lec
+
+    %     In particular, in \(B_1\),
+    %     \[\widetilde a^{ij}\partial^2_{ij}\widetilde u + \widetilde b^i \partial_i \widetilde u + \widetilde c\widetilde u = \widetilde f\]
+    %     where
+    %     \begin{align*}
+    %         \widetilde a^{ij}(x) &= a^{ij}(y + \rho x) \\
+    %         \widetilde b^i(x) &= \rho b^i(y + \rho x) \\
+    %         \widetilde c(x) &= \rho^2c(y + \rho x) \\
+    %         \widetilde f(x) &= \rho^2 f(y + \rho x)
+    %     \end{align*}
+
+    %     Moreover,
+    %     \[\abs{\widetilde a^{ij}}_{0, \alpha; B_1} + \abs{\widetilde b^i}_{0, \alpha; B_1} + \abs{\widetilde c}_{0, \alpha; B_1} \le \abs{a^{ij}}_{0, B_\rho(y)} + \rho^\alpha[a^{ij}]_{}\]
+    % \end{proof}
 \end{proof}
 
+\lec
 
+We now give some corollaries.
+
+\begin{corollary}
+    [scale invariant Schauder estimate] Suppose \(B_R(x_0) \sse \R^n\), and \(a^{ij}, b^i, c \in C^{0, \alpha}(B_R(x_0))\), with
+    \[a^{ij}\xi_i\xi_j \ge \lambda\abs{\xi}^2\]
+    for some \(\lambda > 0\). Suppose also that
+    \[\abs{a^{ij}}_{0, B_R(x_0)} + R^\alpha[a^{ij}]_{\alpha, B_R(x_0)} + R\left(\abs{b^i}_{0, B_R(x_0)} + R^\alpha[b^i]_{\alpha, B_R(x_0)}\right) + R^2\left(\abs{c}_{0, B_R(x_0)} + R^\alpha[c]_{\alpha, B_R(x_0)}\right) \le \beta\]
+     
+\end{corollary}
 
 \end{document}

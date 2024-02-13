@@ -796,4 +796,450 @@ Then the long exact sequence is
 \end{tikzcd}\]
 It is very easy to see that this holds with some of the zeroes removed. This is the \emph{Snake lemma}.
 
+\lec
+
+Suppose \((A^\bullet, \dd_A), (B^\bullet, \dd_B)\) are complexes of \(R\)-modules. We define the \emph{tensor product} \(A \otimes_R B\) as follows: In degree \(n\), we have
+\[(A \oplus_R B)^n = \bigoplus_{p + q = n} A^p \otimes_R B^q\]
+For \(x \in A^p, y \in B^q\), the differential is
+\[\dd(x \otimes y) = \dd_A x \otimes y + (-1)^px \otimes \dd_B y\]
+Note that the sign is required for \(\dd^2 = 0\).
+
+\begin{theorem}
+    [na\"ive K\"unneth] Suppose \(R = k\) is a field, then for all \(n \ge 0\),
+    \[\HH^n(A \otimes_k B) = \bigoplus_{p + q = n}\HH^p(A) \otimes_k \HH^q(B)\]
+\end{theorem}
+
+\begin{proof}
+    Consider \(\HH^\bullet(A)\) to be a complex, with differential being zero. The cohomology groups are \(\HH^\bullet(A)\). Now as the \(A^p\) are \(k\)-vector spaces, we can write
+    \[A^\bullet \cong \HH^\bullet(A) \oplus C^\bullet\]
+    where \(\HH^*(C) = 0\). Thus, \(C\) is null-homotopic, via a chain homotopy \(h^\bullet\). Then 
+    \[A \otimes_k B = H^\bullet(A) \otimes_k B \oplus C^\bullet \otimes_k B^\bullet\]
+    It's easy to see that \(h \otimes \id_B\) shows \(C^\bullet \otimes_k B^\bullet\) is null-homotopic. Do the same with \(B\), and we see that
+    \[\HH^n(A \otimes_k B) = \HH^n(\HH^\bullet(A) \otimes_k \HH^\bullet(B)) = \bigoplus_{p + q = n}\HH^p(A) \otimes_k \HH^q(B)\]
+\end{proof}
+
+\subsection{Sheaf cohomology}
+
+Let \(X\) be a topological space. An exact sequence of sheaves (of abelian groups)
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxtY0ZfMSJdLFsyLDAsIlxcbWNGXzIiXSxbMywwLCJcXG1jRl8zIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & {\mcF_1} & {\mcF_2} & {\mcF_3} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+of abelian groups, then we have an exact sequence
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiXFxtY0ZfMShYKSJdLFsyLDAsIlxcbWNGXzIoWCkiXSxbMywwLCJcXG1jRl8zKFgpIl0sWzAsMV0sWzEsMl0sWzIsM11d
+\[\begin{tikzcd}
+	0 & {\mcF_1(X)} & {\mcF_2(X)} & {\mcF_3(X)}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+But the last map is not usually surjective.
+
+There exists families of groups \(\HH^i(X, \mcF)\) of abelian groups, such that
+\begin{itemize}
+    \item \(\HH^0(X, \mcF) = \mcF(X)\),
+    \item there exists a long exact sequence (associated to a short exact sequence of sheaves)
+    % https://q.uiver.app/#q=WzAsOCxbMCwwLCIwIl0sWzEsMCwiXFxISF4wKFgsIFxcbWNGXzEpIl0sWzIsMCwiXFxISF4wKFgsIFxcbWNGXzIpIl0sWzMsMCwiXFxISF4wKFgsIFxcbWNGXzMpIl0sWzEsMSwiXFxISF4xKFgsIFxcbWNGXzEpIl0sWzIsMSwiXFxISF4xKFgsIFxcbWNGXzIpIl0sWzMsMSwiXFxISF4xKFgsIFxcbWNGXzMpIl0sWzQsMSwiXFxjZG90cyJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdLFs0LDVdLFs1LDZdLFs2LDddXQ==
+\[\begin{tikzcd}
+	0 & {\HH^0(X, \mcF_1)} & {\HH^0(X, \mcF_2)} & {\HH^0(X, \mcF_3)} \\
+	& {\HH^1(X, \mcF_1)} & {\HH^1(X, \mcF_2)} & {\HH^1(X, \mcF_3)} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+    \item If \(f : X \to Y\) is a continuous map, \(\mcF\) a sheaf on \(X\) and \(\mcG\) a sheaf on \(Y\), and a map of sheaves \(f^*\mcG \to \mcF\) (or \(G \to f_*\mcF\)), then there are maps
+    \[f^* : \HH^*(Y, \mcG) \to \HH^*(X, \mcF)\]
+    compatible with the long exact sequence.
+\end{itemize}
+
+Now suppose \(X\) is a scheme (which is Noetherian and separated). 
+
+\begin{itemize}
+    \item If \(\mcF\) is a quasi-coherent \(\mcO_X\)-module, then
+    for any open affine cover \(U_i\) of \(X\). 
+    \[\HH^i(X, \mcF) = \check{\HH}^i(U_i, \mcF)\]
+    \item for general \(\mcF\),
+    \[\HH^0(X, \mcF) = \check\HH^0(U_i, \mcF)\]
+    and,
+    \[\HH^1(X, \mcF) = \dirlim_{\text{open covers}}\check \HH^1(U_i, \mcF)\]
+    \item if \(i \ge \dim(X)\), then \(\HH^i(X, \mcF) = 0\) for all sheaves \(\mcF\) on \(X\).
+    \item if \(X\) is affine and \(\mcF\) is quasicoherent, then \(\HH^i(X, \mcF) = 0\) for all \(i \ge 1\).
+\end{itemize}
+
+\begin{theorem}
+    [finiteness] Suppose \(X \to \Spec(A)\) is proper, with \(A\) Noetherian. Suppose \(\mcF\) is a coherent \(\mcO_X\)-module. Then for all \(i\), \(\HH^i(X, \mcF)\) is a finite \(A\)-module.
+\end{theorem}
+
+There is a proof in Hartshorne for \(X\) projective, For a full proof, see Itaka's book on Birational Geometry, or Stacks project.
+
+A particular case is that if \(A = k\) is a field, \(X \to \Spec(k)\) is proper, and \(\mcF\) is coherent, then \(\HH^i(X, \mcF)\) are finite dimensional.
+
+Finally, if \(X \to \Spec(k)\) is a scheme, \(\mcF\) is a coherent \(\mcO_X\)-module, and \(K/k\) is a field extension, then
+\[\HH^i(X \times_{\Spec(k)}\Spec(K), \mcF_K) = \HH^i(X, \mcF) \otimes_k K\]
+where \(\mcF_K\) is the pullback. We will prove a more general result later.
+
+\subsection{\v Cech cohomology}
+
+Now suppose we have a finite open cover \(\mcU = (U_1, \dots, U_m)\), \(\mcF\) is a sheaf on \(X\), then we define the \v Cech cohomology for the cohomology of the complex
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXHByb2RfaVxcbWNGKFVfaSkiXSxbMSwwLCJcXHByb2Rfe2k8an1cXG1jRihVX2lcXGNhcCBVX2opIl0sWzIsMCwiXFxwcm9kX3tpPGo8a31cXG1jRihVX2lcXGNhcCBVX2ogXFxjYXAgVV9rKSJdLFswLDFdLFsxLDJdXQ==
+\[\begin{tikzcd}
+	{\prod\limits_i\mcF(U_i)} & {\prod\limits_{i<j}\mcF(U_i\cap U_j)} & {\prod\limits_{i<j<k}\mcF(U_i\cap U_j \cap U_k)}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+\end{tikzcd}\]
+where
+\begin{align*}
+    \dd : \prod_{i_0<\cdots < i_{p-1}}\mcF(U_{i_0} \cap \cdots \cap U_{i_{p-1}}) &\to \prod_{i_0 < \cdots < i_p} \mcF(U_{i_0} \cap \cdots \cap U_{i_p}) \\
+    (f_{i_0\cdots i_{p-1}}) \mapsto (g_{i_0\cdots i_p})
+\end{align*}
+where
+\[g_{i_0\cdots i_p} = \sum_{q=0}^p(-1)^q f_{i_0\cdots \widehat{i_q}\cdots i_p}\vert_{U_{i_0} \cap \cdots \cap U_{i_p}}\]
+
+If \(I = \{i_0, \dots, i_p\}\), with \(i_0<\cdots<i_p\), we will write \(U_I = U_{i_0} \cap \cdots \cap U_{i_p}\). So
+\[\check C^p(\mcU, \mcF) = \prod_{\# I = p + 1}\mcF(U_I)\]
+We can also sheafify the \v Cech complex. For \(V \sse X\) open, define
+\[\check \mcC(\mcU, X)(V) = \check C((V \cap U_i), \mcF)\]
+So
+\[\check \mcC(\mcU, X) = \prod_{\# I = p + 1} (j_I)_*\mcF\vert_{U_I}\]
+where \(j_I : U_I \to X\) is the inclusion. So \(\check \mcC(\mcU, X)\) is a sheaf, and the differential gives a complex of sheaves
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxtY0YiXSxbMiwwLCJcXGNoZWNrXFxtY0NeMChVX2ksIFxcbWNGKSJdLFszLDAsIlxcY2hlY2tcXG1jQ14xKFVfaSwgXFxtY0YpIl0sWzQsMCwiXFxjZG90cyJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & \mcF & {\check\mcC^0(\mcU, \mcF)} & {\check\mcC^1(\mcU, \mcF)} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+If \(\mcF\) is quasicoherent and \(\mcU\) is an affine cover, then the above is exact, and \(\check\mcC\) has no higher cohomology.
+
+\lec
+
+\begin{proposition}
+    \label{prop:cech-sheaf-prop}
+    Let \(X\) be a (Noetherian, separated) scheme, and \(\mcU\) an open affine cover. Let \(\mcF\) be a quasicoherent \(\mcO_X\)-module. Then
+    \begin{enumerate}[(i)]
+        \item we have an exact sequence of quasicoherent sheaves
+        % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxtY0YiXSxbMiwwLCJcXGNoZWNrXFxtY0NeMChcXG1jVSwgXFxtY0YpIl0sWzMsMCwiXFxjaGVja1xcbWNDXjEoXFxtY1UsIFxcbWNGKSJdLFs0LDAsIlxcY2RvdHMiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+        \[\begin{tikzcd}
+            0 & \mcF & {\check\mcC^0(\mcU, \mcF)} & {\check\mcC^1(\mcU, \mcF)} & \cdots
+            \arrow[from=1-1, to=1-2]
+            \arrow[from=1-2, to=1-3]
+            \arrow[from=1-3, to=1-4]
+            \arrow[from=1-4, to=1-5]
+        \end{tikzcd}\]
+        \item for all \(p \ge 0\),
+        \[\HH^i\left(X, \check\mcC^p(\mcU, \mcF)\right) = \begin{cases}
+            \check C^p(\mcU, \mcF) & i = 0 \\
+            0 & i > 0
+        \end{cases}\]
+    \end{enumerate}
+\end{proposition}
+
+\begin{lemma}
+    Let \(X\) be a Noetherian separated scheme. Let \(j : V \inj X\) be an open affine, \(\mcG\) be a quasicoherent \(\mcO_V\)-module, then \(j_*\mcG\) is quasicoherent, and for all \(i > 0\), \(\HH^i(X, j_*\mcG) = 0\).
+\end{lemma}
+
+\begin{proof}
+    Since \(X\) is separated, \(j\) is an affine map. That is, the preimage of any affine is an affine. Therefore, \(j_*\mcG\) is quasicoherent:  If we have \(f : \Spec(B) \to \Spec(A)\), and \(\mcG = \widetilde M\) for an \(B\)-module \(M\). Then \(f_*\mcG = \widetilde N\), where \(N\) is \(M\) viewed as an \(A\)-module.
+
+    To compute its cohomology, we will compute its \v Cech cohomology for an open affine cover \(\mcU = (U_i)\) of \(X\). Now
+    \[\check C^p(\mcU, j_*\mcG) = \prod_{\# I = p + 1}\mcG(U_I \cap V) = \check C^p((U_i \cap V), \mcG)\]
+    So \(\HH^i(X, j_*\mcG) = \HH^i(V, \mcG)\) as \((U_i \cap V)\) is an open affine cover of \(V\), and this is zero if \(i > 0\).
+\end{proof}
+
+\begin{proof}
+    [Proof of \cref{prop:cech-sheaf-prop}]
+
+    By the lemma, \((j_I)_*\mcF\vert_{U_I}\) is quasicoherent, so the \v Cech complex sheaves are quasicoherent. Moreover,
+    \[\HH^i(X, (j_I)_*\mcF\vert_{U_I}) = 0\]
+    for all \(I = \{i_0 < \cdots < i_p\}\), with \(p \ge 0\). This proves (ii) for \(i > 0\). For \(i = 0\) it is true by definition.
+
+    Thus it remains to show exactness in (i). It suffices to check on an open affine \(V \sse X\). Then we have
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiXFxtY0YoVikiXSxbMiwwLCJcXGNoZWNrXFxtY0NeMChcXG1jVSwgXFxtY0YpIl0sWzMsMCwiXFxjZG90cyJdLFswLDFdLFsxLDJdLFsyLDNdXQ==
+    \[\begin{tikzcd}
+        0 & {\mcF(V)} & {\check\mcC^0(\mcU, \mcF)(V)} & \cdots
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+    \end{tikzcd}\]
+    But
+    \[\check\mcC^i(\mcU, \mcF)(V) = \check \mcC^i((U_i \cap V), \mcF\vert_V)\]
+    But we know that
+    \[\mcC^i((U_i \cap V), \mcF\vert_V) = \begin{cases}
+        \mcF(V) & i = 0 \\
+        0 & i > 0
+    \end{cases}\]
+    and so the result follows.
+\end{proof}
+
+\begin{definition}
+    [resolution]
+    Suppose
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxtY0YiXSxbMiwwLCJcXG1jR14wIl0sWzMsMCwiXFxtY0deMSJdLFs0LDAsIlxcY2RvdHMiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & \mcF & {\mcG^0} & {\mcG^1} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    is an exact sequence, we say that the complex \((\mcG^\bullet)\) is a \emph{resolution} of \(\mcF\).
+\end{definition}
+
+In particular, (i) in the proposition is called the \emph{\v Cech resolution} of \(\mcF\).
+
+\begin{definition}
+    [acyclic]
+    Let \(X\) be a topological space. A sheaf \(\mcG\) on \(X\) is \emph{acyclic} if for all \(i > 0\), \(\HH^i(X, \mcG) = 0\).
+\end{definition}
+
+\begin{theorem}
+    [resolution principle]
+
+    Let \(X\) be a topological space, \(\mcF\) be an abelian sheaf on \(X\), and \(\mcF \to \mcG^\bullet\) a resolution of \(\mcF\) by acyclic sheaves \(\mcG^p\). Then
+    \[\HH^n(X, \mcF) = \HH^n(\Gamma(X, \mcG^\bullet))\]
+\end{theorem}
+
+\begin{example}
+    Let \(\mcF\) be a quasicoherent \(\mcO_X\)-module, on a scheme \(X\), and \(\mcU\) is an open affine cover of \(X\). By the proposition,
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxtY0YiXSxbMiwwLCJcXGNoZWNrXFxtY0NeMChcXG1jVSwgXFxtY0YpIl0sWzMsMCwiXFxjaGVja1xcbWNDXjEoXFxtY1UsIFxcbWNGKSJdLFs0LDAsIlxcY2RvdHMiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & \mcF & {\check\mcC^0(\mcU, \mcF)} & {\check\mcC^1(\mcU, \mcF)} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    is an acyclic resolution of \(\mcF\). Thus, the resolution principle gives us that
+    \[\HH^i(X, \mcF) = \HH^n(\Gamma(X, \check\mcC^\bullet(\mcU, \mcF))) = \check\HH^i(\mcU, \mcF)\]
+    So sheaf cohomology agrees with \v Cech cohomology.
+\end{example}
+
+\begin{proof}
+    Split up the resolution into short exact sequences
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxtY0YiXSxbMiwwLCJcXG1jR14wIl0sWzMsMCwiXFxpbShcXGRkXjApIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & \mcF & {\mcG^0} & {\im(\dd^0)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    where \(\dd^i\) is the map \(\mcG^i \to \mcG^{i+1}\), and
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxpbShcXGRkXntpLTF9KSJdLFsyLDAsIlxcbWNHXmkiXSxbMywwLCJcXGltKFxcZGReaSkiXSxbNCwwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+    \[\begin{tikzcd}
+        0 & {\im(\dd^{i-1})} & {\mcG^i} & {\im(\dd^i)} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    Since the \(\mcG^i\) are all acyclic, the long exact sequence of cohomology gives
+    % https://q.uiver.app/#q=WzAsNixbMSwwLCJcXEhIXjAoWCwgXFxtY0YpIl0sWzIsMCwiXFxISF4wKFgsIFxcbWNHXjApIl0sWzMsMCwiXFxISF4wKFgsIFxcaW0oXFxkZF4wKSkiXSxbMSwxLCJcXEhIXjEoWCwgXFxtY0YpIl0sWzIsMSwiMCJdLFswLDAsIjAiXSxbNSwwXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+    \[\begin{tikzcd}
+        0 & {\HH^0(X, \mcF)} & {\HH^0(X, \mcG^0)} & {\HH^0(X, \im(\dd^0))} \\
+        & {\HH^1(X, \mcF)} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=2-2]
+        \arrow[from=2-2, to=2-3]
+    \end{tikzcd} \tag{i}\]
+    and for all \(p > 1\), we have
+    % https://q.uiver.app/#q=WzAsNCxbMSwwLCJcXEhIXntwLTF9KFgsIFxcaW0oXFxkZF4wKSkiXSxbMCwwLCIwIl0sWzIsMCwiXFxISF5wKFgsIFxcbWNGKSJdLFszLDAsIjAiXSxbMSwwXSxbMCwyXSxbMiwzXV0=
+    \[\begin{tikzcd}
+        0 & {\HH^{p-1}(X, \im(\dd^0))} & {\HH^p(X, \mcF)} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+    \end{tikzcd} \tag{ii}\]
+    so \(\HH^p(X, \mcF) \cong \HH^{p-1}(X, \im(\dd^0))\). For the second short exact sequence, we get 
+    \[\HH^{p-1}(X, \im(\dd^i)) \cong \HH^p(X, \im(\dd^{i-1})) \tag{iii}\] 
+    for \(i \ge 1, p > 1\).
+
+    As \(\HH^0(X, \im(\dd^0)) = \HH^0(X, \ker(\dd^1)) = \ker(\HH^0(X, \mcG^1) \to \HH^0(X, \mcG^2)) \sse \HH^0(X, \mcG^1)\). So (i) gives the result for \(\HH^0\) and \(\HH^1\). So we just need to do \(n \ge 2\).
+
+    Let \(n \ge 2\), and consider the resolution
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxpbShcXGRkXntuLTJ9KSJdLFsyLDAsIlxcbWNHXntuLTF9Il0sWzMsMCwiXFxtY0debiJdLFs0LDAsIlxcY2RvdHMiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+    \[\begin{tikzcd}
+        0 & {\im(\dd^{n-2})} & {\mcG^{n-1}} & {\mcG^n} & \cdots
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    We can apply the result which we have just shown, to get
+    \[\HH^1(X, \im(\dd^{n-2})) = \HH^n(\Gamma(X, \mcG^\bullet))\]
+    But we can use (ii) and (iii) to get
+    \[\HH^n(X, \Gamma(X, \mcG^\bullet)) = \HH^2(X, \im(\dd^{n-3})) = \cdots = \HH^{n-1}(X, \im(\dd^0)) = \HH^n(X, \mcF)\]
+    as required.
+\end{proof}
+
+We can also use other acyclic resolution.
+
+\begin{definition}
+    [flasque]
+    Let \(X\) be a topological space. A sheaf \(\mcF\) on \(X\) is \emph{flasque}\footnote{in French} (or \emph{flabby}\footnote{when translated}, or \emph{flask}\footnote{when translated in America}) if for all opens \(V \sse U\), the restriction map \(\mcF(U) \to \mcF(V)\) is surjective.
+\end{definition}
+
+\underline{Fact:} Flasque sheaves are acyclic.
+
+For any sheaf \(\mcF\), there exists an injection
+\[\mcF \to \mathrm G\mcF = \prod_{x \in X}(i_x)_*\mcF_x\]
+where \(i_x : \{x\} \inj X\) is the inclusion map. Then \(\mathrm G\mcF\) is flasque, and we have a resolution
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxtY0YiXSxbMiwwLCJcXG1hdGhybSBHXFxtY0YiXSxbMywwLCJcXG1hdGhybSBHKFxcbWF0aHJtIEcgXFxtY0YpIl0sWzQsMCwiXFxjZG90cyJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & \mcF & {\mathrm G\mcF} & {\mathrm G(\mathrm G \mcF)} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+of \(\mcF\) by flasque sheaves. So every sheaf have a (canonical) flasque sheaves, where G refers to Goderment.
+
+\lec
+
+\begin{theorem}
+    Let \(\iota : Y \inj X\) be the inclusion of a closed subspace of a topological space \(X\). Let \(\mcF\) be a sheaf on \(Y\). Then
+    \[\HH^*(Y, \mcF) = \HH^*(X, \iota_*\mcF)\]
+    By abuse of notation, often we will write \(\HH^*(X, \mcF)\).
+\end{theorem}
+
+\begin{proof}
+    Choose a flasque resolution \(\mcF \to \mcG^\bullet\) on \(Y\). By the resolution principle,
+    \[\HH^*(Y, \mcF) = \HH^*(\Gamma(Y, G^\bullet))\]
+    By the detinition, since \(\mcG^p\) is flasque, so is \(\iota_*\mcG^p\), and \(\iota_*\mcF \to \iota_*\mcG^\bullet\) is also a resolution. For this, note that we can check exactness on stalks, to see that \(\iota_*\) is exact.
+
+    So
+    \[\HH^*(X, \iota_*\mcF) =  \HH^*(\Gamma(X, \iota_*G^\bullet)) = \HH^*(\Gamma(Y, G^\bullet))\]
+\end{proof}
+
+\begin{theorem}
+    [Mayer-Vietoris] Suppose \(X = U \cup V\), and \(\mcF\) is an abelian sheaf on \(X\). There is a long exact sequence
+    % https://q.uiver.app/#q=WzAsOCxbMCwwLCIwIl0sWzEsMCwiXFxISF4wKFgsIFxcbWNGKSJdLFsyLDAsIlxcSEheMChVLCBcXG1jRikgXFxvcGx1cyBcXEhIXjAoViwgXFxtY0YpIl0sWzMsMCwiXFxISF4wKFUgXFxjYXAgViwgXFxtY0YpIl0sWzEsMSwiXFxISF4xKFgsIFxcbWNGKSJdLFsyLDEsIlxcSEheMShVLCBcXG1jRikgXFxvcGx1cyBcXEhIXjEoViwgXFxtY0YpIl0sWzMsMSwiXFxISF4xKFVcXGNhcCBWLCBcXG1jRikiXSxbNCwxLCJcXGNkb3RzIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF0sWzQsNV0sWzUsNl0sWzYsN11d
+\[\begin{tikzcd}
+	0 & {\HH^0(X, \mcF)} & {\HH^0(U, \mcF) \oplus \HH^0(V, \mcF)} & {\HH^0(U \cap V, \mcF)} \\
+	& {\HH^1(X, \mcF)} & {\HH^1(U, \mcF) \oplus \HH^1(V, \mcF)} & {\HH^1(U\cap V, \mcF)} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+\end{theorem}
+
+\begin{proof}
+    Choose a flasque resolution \(\mcF \to \mcG^\bullet\). Then we have an exact sequence of complexes
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxHYW1tYShYLCBcXG1jR15cXGJ1bGxldCkiXSxbMiwwLCJcXEdhbW1hKFUsIFxcbWNHXlxcYnVsbGV0KVxcb3BsdXNcXEdhbW1hKFYsIFxcbWNHXlxcYnVsbGV0KSJdLFszLDAsIlxcR2FtbWEoVSBcXGNhcCBWLCBcXG1jR15cXGJ1bGxldCkiXSxbNCwwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+\[\begin{tikzcd}
+	0 & {\Gamma(X, \mcG^\bullet)} & {\Gamma(U, \mcG^\bullet)\oplus\Gamma(V, \mcG^\bullet)} & {\Gamma(U \cap V, \mcG^\bullet)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    This is exact on the right as the \(\mcG^p\) are flat. Taking the long exact sequence on cohomology gives the result, since \(\HH^*(\cdot, \mcF) = \HH^*(\Gamma(\cdot, \mcG^\bullet))\).
+\end{proof}
+
+Another application:
+
+\begin{theorem}
+    [K\"unneth] 
+    \label{thm:kunneth}
+    Let \(X, Y\) be Noetherian separated schemes over a field \(k\), \(\mcF, \mcG\) quasicoherent sheaves on \(X\) and \(Y\) respectively. Then
+    \[\HH^n(X \times_k Y, \pr_1^*\mcF \underset{\mcO_{X \times_k Y}}{\otimes} \pr_2^*\mcG) = \bigoplus_{p + q = n}\HH^p(X, \mcF) \otimes_k \HH^q(Y, \mcG)\]
+    In particular,
+    \[\HH^n(X \times_k Y, \mcO_{X \times_k Y}) = \bigoplus_{p + q = n}\HH^p(X, \mcO_X)\otimes_k \HH^q(Y, \mcO_Y)\]
+\end{theorem}
+
+\begin{notation}
+    We will denote
+    \[\mcF\boxtimes \mcG = \mcF \underset{X, Y}{\boxtimes} \mcG = \pr_1^*\mcF \underset{\mcO_{X \times_k Y}}\otimes \pr_2^*\mcG\]
+\end{notation}
+
+\begin{lemma}
+    \begin{enumerate}[(i)]
+        \item Let \(A, B\) be \(k\)-algebras, \(M\) an \(A\)-module, \(N\) a \(B\)-module, then on \(\Spec(A) \times_k \Spec(B) = \Spec(A \otimes_k B)\),
+        \[\widetilde M \boxtimes \widetilde N = \widetilde{M \otimes_k N}\]
+        \item if \(\mcF \to \mcK^\bullet\), \(\mcG \to \mcL^\bullet\) are resolutions of quasicoherent sheaves on \(k\)-schemes \(X, Y\), then
+        \[\mcF \boxtimes \mcG \to \mcK^\bullet \boxtimes \mcL^\bullet\]
+        is a resolution of quasicoherent sheaves on \(X \times Y\), where
+        \[(\mcK^\bullet \boxtimes \mcL^\bullet)^n = \bigoplus_{p + q = n}\mcK^p \boxtimes \mcL^q\]
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    For (i), note
+    \[\pr_1^*(\widetilde M) = \widetilde{M \otimes_A (A \otimes_k B)}\]
+    and so
+    \begin{align*}
+        \widetilde M \boxtimes \widetilde N &= \widetilde{\left(M \otimes_A (A \otimes_k B)\right)} \otimes \widetilde{\left(N \otimes_B (A \otimes_K B)\right)} \\
+        &= \widetilde{M \otimes_k N}
+    \end{align*}
+
+    For (ii), we can check exactness on an affine cover, so we reduce to the case where \(X, Y\) are affine. So \(\mcF = \widetilde M, \mcG = \widetilde N, \mcK^\bullet = \widetilde{K^\bullet}, \mcL^\bullet = \widetilde{L^\bullet}\). By (i), we reduce to a statement about modules, showing that if \(M \to K^\bullet, N \to L^\bullet\) are resolutions, then
+    \[M \otimes_k N \to K^\bullet \otimes_k L^\bullet\]
+    is a resolution. That is,
+    \[\HH^n(K^\bullet \otimes_k L^\bullet) = \begin{cases}
+        M \otimes_k N & \text{if }n = 0 \\
+        0 &\text{otherwise}
+    \end{cases}\]
+
+    Since 
+    \[\HH^n(K^\bullet) = \begin{cases}
+        M &\text{if }n = 0 \\
+        0 &\text{otherwise}
+    \end{cases}\]
+    This follows from the na\"ive K\"unneth formula.
+\end{proof}
+
+\begin{proof}
+    [Proof of \cref{thm:kunneth}] Take open affine covers \(\mcU, \mcV\) of \(X\) and \(Y\) respectively. So we have \v Cech resolutions,
+    \[\mcF \to \check \mcC^\bullet(\mcU, \mcF) \qqtext{and}\mcG \to \check\mcC^\bullet(\mcV, \mcG)\]
+    By the lemma, we get a resolution
+    \[\mcF \boxtimes \mcG \to \mcK^\bullet\]
+    where
+    \[\mcK^\bullet = \check\mcC^\bullet(\mcU, \mcF) \boxtimes \check\mcC^\bullet(\mcV, \mcG)\]
+    Now note
+    \[\mcK^n = \bigoplus_{p + q = n}\left(\prod_{\# I = p + 1, \# J = q + 1}\mcK_{I, J}\right)\]
+    where
+    \[\mcK_{I, J} = (\iota_I \times \iota_J)_*(\mcF \boxtimes \mcG)\]
+    where \(\iota_I : U_I \to X, \iota_J : V_J \to Y\) are the inclusion maps. This is acyclic, as for the usual \v Cech complex. Thus,
+    \[\HH^*(X \times Y, \mcF \boxtimes \mcG) = \HH^*(\Gamma(X \times Y, \mcK^\bullet))\]
+    Now
+    \[\Gamma(X \times Y, \mcK_{I, J}) = \Gamma\left(U_I \times U_J, (\mcF \boxtimes \mcG)\vert_{U_I \times U_J}\right) = \mcF(U_I) \otimes \mcG(U_I)\]
+    by the lemma. Thus,
+    \[\Gamma(X \times Y, \mcK^\bullet) = \check \mcC(\mcU, \mcF) \otimes \check \mcC(\mcV, \mcG)\]
+    So by na\"ive K\"unneth, the cohomology of this in degree \(n\) is
+    \[\bigoplus_{p + q = n}\HH^p(X, \mcF) \otimes_k \HH^q(Y, \mcG)\] 
+\end{proof}
+
+Suppose \(Y = X\). Then for \(p, q \ge 0\), \(\mcF, \mcG\) quasicoherent \(\mcO_X\)-modules, \(\Delta : X \inj X \times_k X\) is the diagonal map. Then \(\Delta^*(\mcF \boxtimes \mcG) = \mcF \otimes \mcG\), and so we get 
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXEhIXnAoWCwgXFxtY0YpXFxvdGltZXNfa1xcSEhecShYLCBcXG1jRykiXSxbMSwwLCJcXEhIXntwK3F9KFhcXHRpbWVzIFgsIFxcbWNGIFxcb3RpbWVzIFxcbWNHKSJdLFsyLDAsIlxcSEhee3ArcX0oWCwgXFxtY0ZcXG90aW1lc1xcbWNHKSJdLFswLDEsIksiXSxbMSwyLCJcXERlbHRhXioiXV0=
+\[\begin{tikzcd}
+	{\HH^p(X, \mcF)\otimes_k\HH^q(X, \mcG)} & {\HH^{p+q}(X\times X, \mcF \otimes \mcG)} & {\HH^{p+q}(X, \mcF\otimes\mcG)}
+	\arrow["K", from=1-1, to=1-2]
+	\arrow["{\Delta^*}", from=1-2, to=1-3]
+\end{tikzcd}\]
+The map \(K\) is from the K\"unneth formula.
+
+\begin{definition}
+    The composition \(\Delta^* \circ K\) is called the \emph{cup product}.
+\end{definition}
+
+When \(\mcF = \mcG = \mcO_X\), the cup product makes \(\HH^*(X, \mcO_X)\) into a graded \(k\)-algebra.
+
+\underline{Fact:} The multiplication in \(\HH^*(X, \mcO_X)\) is graded-commutative. That is,
+\[x \smile y = (-1)^{\deg(x)\deg(y)}y \smile x\]
+
 \end{document}
