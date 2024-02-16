@@ -813,4 +813,90 @@ Call the resulting space \(X\). By construction (and the Seifert-van Kampen theo
     What happens if we cut along a non-separating curve?
 \end{example}
 
+\lec
+
+\subsection{Higman-Neumann-Neumann extensions}
+
+\begin{definition}
+    [HNN pushout]
+
+    Suppose \(i, j : H \to G\) are group homomorphisms. The \emph{HNN pushout} is the quotient
+    \[G \underset H \amalg = \frac{G * \inner{t}}{\iinner{ti(h)t^{-1}j(h) \mid h \in H}}\]
+    The \(t\) is called the \emph{stable letter}.
+\end{definition}
+That is, we force \(i(h)\) and \(j(h)\) to be conjugate for all \(h \in H\).
+\begin{theorem}
+    [Seifert-van Kampen for non-separating decompositions]
+    Suppose \(Y\) is a connected cell complex, and \(i, j : Z \inj Y\) are two inclusion maps, with disjoint image. Define
+    \[X = Y \underset Z \cup = \frac{Y}{i(z) \sim j(z)}\]
+    for the result of gluing \(Y\) to itself by identifying \(i(Z)\) with \(j(Z)\). Then
+    \[\pi_1(X) \cong \pi_1(Y) \underset{\pi_1(Z)}{\amalg}\]
+\end{theorem}
+
+\begin{proof}
+    Deferred.
+\end{proof}
+
+\begin{remark}
+    Suppose \(G\) has presentation \(\inner{a_1, \dots, a_m, t \mid r_1, \dots, r_n, p_1tq_1t^{-1}, \dots, p_\ell tq_\ell t^{-1}}\), where the \(r_i\) do not involve \(t\). Define \(A = \inner{a_1, \dots, a_m \mid r_1, \dots, r_n}\), and define maps \(i, j : F_\ell \to A\) by \(i(x_k) = p_k\) and \(j(x_k) = q_k\), then
+    \[G = A \underset{F_\ell}\amalg\]
+\end{remark}
+
+\begin{definition}
+    [HNN extension] If \(G = A \underset B \amalg\), and the maps \(B \to A\) are injective, then \(G\) is called an \emph{HNN extension}, and we write \(G = A \underset{B}{*}\).
+\end{definition}
+
+\begin{example}
+    Consider \(\pi_1(\T^2) = \Z^2 = \inner{a, b \mid aba^{-1}b^{-1}}\).
+
+    \textbf{diagram}
+
+    Cut along the non-separating curve \(a\), we get a cylinder.
+
+    \textbf{diagram}
+
+    The \(\pi_1\) of the cylinder is \(\Z = \inner{a, c = ba'b^{-1} \mid ac^{-1}}\). Consider the maps \(i, j : \Z = \inner{z} \to \Z\), given by \(i(z) = a\) and \(j(z) = c\). The resulting HNN extension has presentation
+    \[\inner{a, c, t \mid ac^{-1}, tat^{-1}c^{-1}} \cong \inner{a, t \mid tat^{-1}a^{-1}} \cong \Z^2\]
+\end{example}
+
+\begin{example}
+    Now consider \(\Sigma_2\), surface of genus \(2\). Here
+    \[\pi_1(\Sigma_2) = \inner{a_1, b_1, a_2, b_2 \mid a_1b_1a_1^{-1}b_1^{-1}a_2b_2a_2^{-1}b_2^{-1}}\]
+    We can cut along the non-separating curve \(a_1\), and the stable letter is \(b_1\). So we have an HNN extension.
+\end{example}
+
+\begin{example}
+    [Baumslag-Solitar groups] Define
+    \[\BS(m, n) = \inner{a, b \mid ba^mb^{-1}a^n}\]
+    where \(m, n \in \Z\) are not zero. Notice these are HNN extensions of \(\Z\) over \(\Z\), where we conjugate \(m\Z\) with \(n\Z\).
+\end{example}
+
+\begin{theorem}
+    [Britton's lemma for HNN extensions] The vertex group \(A\) embeds into \(A \underset C *\).
+\end{theorem}
+
+\begin{proof}
+    The same proof as for \(A \underset C * B\) works. Build a graph of spaces, and apply the method of \(t\)-corridors.
+\end{proof}
+
+\subsubsection{Sample applications of HNN extensions}
+
+\begin{itemize}
+    \item there exists an infinite group with exactly two conjugacy classes,
+    \item there exists a \emph{non-Hopfian} finitely presented group. That is, there exists a map \(f : G \surj G\) with \(\ker(f) \ne 1\). In fact, \(G = \BS(2, 3)\) works,
+    \item there exists an infinite finitely generated simple group [Higman],
+    \item every countable group embeds into a group with two generators [HNN],
+    \item there exists a group with an unsolvable word problem.
+\end{itemize}
+
+What about cutting surfaces along \emph{multi-curves}? For example,
+
+\textbf{diagram}
+
+\subsection{Graph of groups}
+
+For example, with the above decomposition, we have the graph
+
+\textbf{diagram}
+
 \end{document}

@@ -921,6 +921,7 @@ We will first prove interior estimates in the unit ball, and then extend them to
 
 \begin{theorem}
     [unit scale interior Schauder estimates]
+    \label{thm:unit-scale-int-schauder}
 
     Let \(\alpha \in (0, 1), \beta > 0\), and suppose \(a^{ij}, b^i, c \in C^{0, \alpha}(B_1(0))\), with 
     \[\abs{a^{ij}}_{0, \alpha; B_1(0)} + \abs{b^i}_{0, \alpha; B_1(0)} + \abs{c}_{0, \alpha; B_1(0)} \le \beta\]
@@ -1001,11 +1002,187 @@ We will first prove interior estimates in the unit ball, and then extend them to
 We now give some corollaries.
 
 \begin{corollary}
-    [scale invariant Schauder estimate] Suppose \(B_R(x_0) \sse \R^n\), and \(a^{ij}, b^i, c \in C^{0, \alpha}(B_R(x_0))\), with
+    [scale invariant Schauder estimate] 
+    \label{cor:scale-invariant-schauder-estimate}
+    Suppose \(B_R(x_0) \sse \R^n\), and \(a^{ij}, b^i, c \in C^{0, \alpha}(B_R(x_0))\), with
     \[a^{ij}\xi_i\xi_j \ge \lambda\abs{\xi}^2\]
     for some \(\lambda > 0\). Suppose also that
     \[\abs{a^{ij}}_{0, B_R(x_0)} + R^\alpha[a^{ij}]_{\alpha, B_R(x_0)} + R\left(\abs{b^i}_{0, B_R(x_0)} + R^\alpha[b^i]_{\alpha, B_R(x_0)}\right) + R^2\left(\abs{c}_{0, B_R(x_0)} + R^\alpha[c]_{\alpha, B_R(x_0)}\right) \le \beta\]
-     
+    for some \(\beta > 0\). Suppose \(u \in C^{2, \alpha}(B_R(x_0)) \cap C^0(\overline{B_R(x_0)})\), satisfying \(Lu = f \in C^{0, \alpha}(B_R(x_9))\). Then
+    \[\abs{u}'_{2, \alpha; B_{R/2}(x_0)} \le C\left(\abs{u}_{0, B_R(x_0)} + R^2\abs{f}_{0, B_R(x_0)} + R^{2 + \alpha}[f]_{\alpha, B_R(x_0)}\right)\]
+    where
+    \[\abs{u}'_{k, \alpha; B_\rho(y)} = \sum_{j=0}^k \rho^j\abs{D^ju}_{0, B_\rho(y)} + \rho^{k + \alpha}[D^ku]_{\alpha, B_\rho(y)}\]
+    and \(C = C(n, \lambda, \alpha, \beta)\) is independent of \(u\) and of \(R\).
 \end{corollary}
+
+\begin{proof}
+    Apply \cref{thm:unit-scale-int-schauder} with \(x \to x_0 + R x\).
+\end{proof}
+
+\begin{corollary}
+    [interior Schauder estimates in general domains]
+    Let \(\alpha \in (0, 1), \Omega \sse \R^n\) open and bounded. Suppose we have \(a^{ij}, b^i, c \in C^{0, \alpha}(\Omega)\), with
+    \[\abs{a^{ij}}_{0, \alpha; \Omega} + \abs{b^i}_{0, \alpha; \Omega} + \abs{c}_{0, \alpha; \Omega} \le \beta\]
+    with
+    \[a^{ij}(x)\xi_i\xi_j \ge \lambda \abs{\xi}^2\]
+    for some \(\lambda > 0\). Suppose \(u \in C^{2, \alpha}(\Omega) \cap C^0(\overline\Omega)\) satisfies \(Lu = f \in C^{0, \alpha}(\Omega)\). Then for all open \(\widetilde \Omega \Subset \Omega\),
+    \[\abs{u}_{2, \alpha; \widetilde \Omega} \le C\left(\abs{u}_{0, \Omega} + \abs{f}_{0, \alpha; \Omega}\right)\]
+    where \(C = C(n, \alpha, \beta, \lambda, d(\widetilde\Omega, \partial\Omega))\).
+\end{corollary}
+
+\begin{proof}
+    Let 
+    \[d = d(\widetilde\Omega, \partial\Omega) = \sup\{r > 0 \mid \left(\widetilde\Omega\right)_r \sse \Omega\}\]
+    where
+    \[(\widetilde\Omega)_r = \bigcup_{x \in \widetilde\Omega}B_r(x)\]
+    is the \(r\)-neighbourhood of \(\widetilde\Omega\). Then for all \(x \in \widetilde \Omega\), we have that \(B_d(x) \sse \Omega\), and so
+    \[\abs{a^{ij}}'_{0, \alpha; B_d(x)} + d\abs{b^i}'_{0, \alpha; B_d(x)} + d^2\abs{c}'_{0, \alpha; B_d(x)} \le C(d)\beta\]
+    Then by \cref{cor:scale-invariant-schauder-estimate}, we have an estimate
+    \begin{equation}
+        \begin{split}
+            \abs{u}_{0; B_{d/2}(x)} + d\abs{\DD u}_{0, B_{d/2}(x)} + d^2 \abs{\DD^2 u}_{0, B_{d/2}(x)} + d^{2 + \alpha}[\DD^2u]_{\alpha, B_{d/2}(x)} &\le C\left(\abs{u}_{0, B_d(x)} + d^2\abs{f}_{0; B_d(x)} + d^{2 + \alpha}[f]_{\alpha, B_d(x)}\right) \\
+            &\le C(\abs{u}_{0; \Omega} + \abs{f}_{0, \alpha; \Omega})
+        \end{split}
+        \tag{a}
+    \end{equation}
+    where \(C = C(n, \lambda, \alpha, \beta, d)\). In particular,
+    \[\abs{u(x)} + \abs{\DD u(x)} + \abs{\DD^2 u(x)} \le C\left(\abs{u}_{0, \Omega} + \abs{f}_{0, \alpha; \Omega}\right)\]
+    for all \(x \in \widetilde\Omega\). So
+    \[\abs{u}_{2, \Omega} \le C\left(\abs{u}_{0; \Omega} + \abs{f}_{0, \alpha; \Omega}\right) \tag{b}\]
+    But also, by (a),
+    \[\sup_{x, y \in \widetilde\Omega, \abs{x - y} < d/2}\frac{\abs{\DD^2 u(x) - \DD^2 u(y)}}{\abs{x - y}^\alpha} \le C\left(\abs{u}_{0; \Omega} + \abs{f}_{0, \alpha; \Omega}\right)\]
+    On the other hand, of \(\abs{x - y} \ge d/2\), then
+    \[\frac{\abs{\DD^2u(x) - \DD^2 u(y)}}{\abs{x - y}^\alpha} \le \left(\frac{d}{2}\right)^{-\alpha}\abs{u}_{2, \widetilde\Omega} \le \left(\abs{u}_{0; \Omega} + \abs{f}_{0, \alpha; \Omega}\right)\]
+    by (b). Hence
+    \[[\DD^2 u]_{\alpha; \widetilde\Omega} \le \left(\abs{u}_{0; \Omega} + \abs{f}_{0, \alpha; \Omega}\right)\]
+    and so combining this with (b), we get the required result.
+\end{proof}
+
+\subsection{Boundary Schauder estimates}
+
+Write
+\begin{align*}
+    \R^n_+ &= \left\{(x', x^n) \mid x' \in \R^{n-1}, x^n > 0\right\} \\
+    \R^n_- &= \left\{(x', x^n) \mid x' \in \R^{n-1}, x^n < 0\right\} \\
+    B_R^\pm(y) &= B_R(y) \cap \R^n_\pm \\
+    B_R^\pm &= B_R^\pm(0) \\
+    S_R(y) &= B_R(y) \cap \{x^n = 0\} \\
+\end{align*}
+
+\begin{theorem}
+    [boundary Schauder estimates in a unit ball] As before, \(0 < \alpha < 1\), \(a^{ij}, b^i, c \in C^{0, \alpha}(B_1^+)\), and
+    \[\abs{a^{ij}}_{0, \alpha; B_1^+} + \abs{b^i}_{0, \alpha, B_1^+} + \abs{c}_{0, \alpha; B_1^+} \le \beta\]
+    and
+    \[a^{ij}(x)\xi_i\xi_j \ge \lambda\abs{\xi}^2\]
+    for all \(x \in B_1^+\). Suppose \(u \in C^{2, \alpha}(B_1^+)\) satisfies
+    \[\begin{cases}
+        Lu = f &\text{in }B_1^+ \\
+        u = 0 &\text{on }S_1
+    \end{cases}\]
+    where \(f \in C^{0, \alpha}\) and \(\varphi \in C^{2, \alpha}\). Then
+    \[\abs{u}_{2, \alpha, B_{1/2}^+} \le C\left(\abs{u}_{0; B_1^+} + \abs{f}_{0, \alpha; B_1^+} + \abs{\varphi}_{2, \alpha; B_1^+}\right)\]
+\end{theorem}
+
+\begin{proof}
+    By considering \(v = u - \varphi\), suffices to consider the case when \(\varphi = 0\), since \(L\varphi \in C^{0, \alpha}(B_1^+)\).
+
+    The rest of the proof is as in \cref{thm:unit-scale-int-schauder}, which we will omit.
+\end{proof}
+
+\begin{proposition}
+    [reflection principle for harmonic functions] Let \(\Omega^+\) be an open subset of \(\R^n_+\), and let \(T = \partial\Omega^+ \cap \{x^n = 0\}\). Let \(\Omega^-\) be the reflection of \(\Omega^+\) in \(\{x^n = 0\}\). Let \(v \in C^2(\Omega^+) \cap C^0(\Omega^+ \cup T)\), and let \(\overline{v}\) be the odd reflection of \(v\) in \(T\). That is, \(\overline{v} : \Omega^+ \cup T \to \Omega^- \to \R\), where
+    \[\overline v(x', x^n) = \begin{cases}
+        v(x', x^n) & (x', x^n) \in \Omega^+ \cup T \\
+        -v(x', -x^n) & (x', x^n) \in \Omega^-
+    \end{cases}\]
+    Then if \(\Delta v = 0\) in \(\Omega^+\) and \(v\vert_T = 0\), then \(\overline{v} \in C^2(\Int(\Omega^+ \cup T \cup \Omega^-))\) and \(\Delta \overline{v} = 0\).
+\end{proposition}
+
+\begin{proof}
+    Use the mean value property. See examples sheet 2.
+\end{proof}
+
+\begin{remark}
+    This is trivial if \(T = \emptyset\), since \(\Omega^+\) and \(\Omega^-\) are disjoint. The important part of this theorem is that \(\overline v\) is \(C^2\) across \(T\). 
+\end{remark}
+
+\begin{proposition}
+    [boundary absorbing lemma] Given \(\theta \in (0, 1), \mu \in \R\), then there exists \(\delta = \delta(n, \theta, \mu)\), and \(C = C(n, \theta, \mu)\) such that:
+
+    Fix \(R > 0\), and let
+    \begin{align*}
+        \mcB &= \left\{B_\rho(y) \mid B_\rho(y) \sse B_R^+(0)\right\} \\
+        \mcB^+ &= \left\{B^+_\rho(y) \mid y^n = 0, B^+_\rho(y) \sse B_R^+(0)\right\}
+    \end{align*}
+    Suppose \(S : \mcB \cup \mcB^+ \to \R\) is a nonnegative subadditve function, such that
+    \[\rho\mu S(B_{\theta\rho}^+(y)) \le \delta\rho\mu S(B_\rho^+(y)) + \gamma\]
+    for all \(B_\rho^+(y) \in \mcB^+\), and
+    \[\rho\mu S(B_{\theta\rho}(y)) \le \gamma\]
+    for \(B_\rho(y) \in \mcB\). Then
+    \[R^\mu S(B_{\theta R}^+(0)) \le C\gamma\]
+\end{proposition}
+
+\begin{proof}
+    Examples sheet 2.
+\end{proof}
+
+\lec
+
+Let (H) denote the following hypothesis: ``Suppose \(\Omega \sse \R^n\) is a bounded domain, and \(0 < \alpha < 1\). Suppose \(a^{ij}, b^i, c \in C^{0, \alpha}(\Omega)\), with
+\[\abs{a^{ij}}_{0, \alpha; \Omega} + \abs{b^i}_{0, \alpha; \Omega} + \abs{c}_{0, \alpha; \Omega} \le \beta\]
+and suppose there exists \(\lambda > 0\) such that
+\[a^{ij}(x)\xi_i\xi_j \ge \lambda\abs{\xi}^2\]''
+
+\begin{theorem}
+    [boundary Schauder estimates in general domains]
+
+    Suppose (H) holds, ad \(\Omega\) is a \(C^{2, \alpha}\) domain. Then there exists \(\epsilon = \epsilon(\Omega) > 0\) such that if \(u \in C^{2, \alpha}(\overline\Omega)\), \(f \in C^{0, \alpha}(\Omega), \varphi \in C^{2, \alpha}(\overline\Omega)\) such that
+    \[\begin{cases}
+        Lu = f &\text{in }\Omega \\
+        u = \varphi&\text{on }\partial\Omega
+    \end{cases}\]
+    Then for all \(x \in \partial\Omega\),
+    \[\abs{u}_{2, \alpha; B_\epsilon(x) \cap \Omega} \le C\left(\abs{u}_{0; \Omega} + \abs{f}_{0, \alpha; \Omega} + \abs{\varphi}_{2, \alpha; \Omega}\right)\]
+\end{theorem}
+
+\begin{remark}
+    We need \(\Omega\) to be \(C^{2, \alpha}\) for \(u\) to be \(C^{2, \alpha}\) on \(\partial\Omega\).
+\end{remark}
+
+\begin{proof}
+    Omitted.
+    % Choose \(z \in \partial\Omega\). By definition, there eixsts \(R > 0\) and a \(C^{2, \alpha}\) diffeomorphism \(\psi : B_R(z) \to D\), sending \(B_R(z) \cap \Omega\) to \(y_n > 0\), and \(B_R(z) \cap \partial\Omega\) to \(y_n = 0\).
+
+    % Let \(x = (x^1, \dots, x^n)\) be coordinates in \(\Omega\), and let \(y = (y^1, \dots, y^n)\) be the corresponding coordinates in \(D\). Let
+    % \[\widetilde u(y) = u(\psi^{-1}(y))\]
+    % be the pullback of \(u\) along \(\psi^{-1}\). Then 
+    % \[\widetilde u\vert_{\{y^n = 0\} \cap D} = \left(\varphi \circ \psi^{-1}\right)\vert_{\{y^n = 0\} \cap D} = \widetilde \varphi\]
+
+    % To apply the unit scale boundary Schauder estimates, we need to find a PDE satisfied by \(\widetilde u\), and show that it satisfies the hypothesis. Note that \(u(x) = \widetilde u(\psi(x))\), and so
+    % \[\partial_{x^i}u = \partial_{y^k}\widetilde u \pdv{\psi^k}{x^i}\]
+    % and
+    % \[\partial^2_{x^ix^j}u = \partial^2_{y^ky^\ell}\widetilde u \pdv{\psi^k}{x^i}\pdv{\psi^\ell}{x^j} + \partial_{y^k}\widetilde u + \pdv[2]{\psi^k}{x^i}{x^j}\]
+    % Hence we can find the coefficients of the new PDE explicitly, which is
+    % \[A^{ij} \partial^2_{y^iy^j}\widetilde u + B^i\partial_{y^i}\widetilde u + C\widetilde u = \widetilde f\]
+    % where for example,
+    % \[A^{ij} = a^{k\ell}\pdv{\psi^i}{x^k}\pdv{\psi^j}{x^\ell}\]
+\end{proof}
+
+\subsection{Global Schauder estimates}
+
+We can combine the interior and boundary estimates to get:
+
+\begin{theorem}
+    [global Schauder estimates]
+
+    Suppose (H) holds, and suppose that \(\Omega\) is a \(C^{2, \alpha}\) domain. If \(u \in C^{2, \alpha}(\Omega), f \in C^{0, \alpha}(\Omega), \varphi \in C^{2, \alpha}(\Omega)\) is such that
+    \[\begin{cases}
+        Lu = f &\text{in }\Omega \\
+        u = \varphi &\text{on }\partial\Omega
+    \end{cases}\]
+    Then
+    \[\abs{u}_{2, \alpha; \Omega} \le C\left(\abs{u}_{0, \Omega} + \abs{f}_{0, \alpha; \Omega} + \abs{\varphi}_{2, \alpha; \Omega}\right)\]
+    where \(C = C(n, \lambda, \alpha, \beta, \Omega)\).
+\end{theorem}
 
 \end{document}

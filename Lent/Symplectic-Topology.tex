@@ -495,7 +495,7 @@ In this case, \((g, J, \omega)\) is a compatible triple.
     A submanifold \(L^n \sse (M^{2n}, \omega)\) is a \emph{Lagrangian submanifold} if \(\omega\vert_L = 0\).
 \end{definition}
 
-For example, \(\R^n \sse \C^n\).
+For example, \(\R^n \sse \C^n\), \(\T^n \sse \R^{2n}\), \(\R\P^n \sse \C\P^n\). If \(X\) is a projective variety defined over \(\R\), then \(X(\R) \sse X(\C)\) is Lagrangian.
 
 \begin{example}
     If \(\phi : M \to M\) is a diffeomorphism, then it is a symplectomorphism if and only if the graph
@@ -506,7 +506,73 @@ For example, \(\R^n \sse \C^n\).
 \begin{theorem}
     [Weinstein neighbourhood]
 
-    If \(L \sse (M^{2n}, \omega)\) is a compact Lagrangian, then there exists a neighbourhood \(U(L)\) of the zero section in \(\T^*L\), and a symplectic embedding \(U(L) \inj M\), sending the zero section to \(L\).
+    If \(L \sse (M^{2n}, \omega_M)\) is a compact Lagrangian, then there exists a neighbourhood \(U(L)\) of the zero section in \(\T^*L\), and a symplectic embedding \(U(L) \inj M\), sending the zero section to \(L\).
+\end{theorem}
+
+\lec
+
+\begin{proof}
+    Fix an almost complex structure \(J\) compatible with \(\omega_M\). This gives us an orthogonal decomposition
+    \[\T M\vert_L = \T L \oplus J \cdot \T L\]
+    This is orthogonal with respect to the metric \(g_J\). Let \(\Phi : \T^* M \to \T M\) be the lowering operator given by the metric. Now define
+    \begin{align*}
+        \varphi : U(L) &\to M \\
+        \varphi(q, f) &\mapsto \exp_q(J \cdot \Phi(f))
+    \end{align*}
+    Here, \(\exp\) is the exponential map with respect to the metric \(g_J\). We can assume that \(\varphi\) is a diffeomorphism onto its image, by compactness of \(L\) and by shrinking \(U(L)\).
+
+    Consider \(L \sse \T^*L\) embedded as the zero section. Note we have a canonical identification
+    \[\T_{q, 0}(\T^ L) = \T_qL \oplus \T_q^* L\]
+    With this,
+    \[\DD \varphi(v, f) = v + J\cdot \Phi(f) \in \T L \oplus J \cdot \T L\]
+    This is by the definition of the exponential map.
+
+    We claim that \(\varphi^*\omega_M = \omega_L\) on \(L \sse \T^* L\). Indeed,
+    \begin{align*}
+        \varphi^*\omega_M((v, f), (v', f')) &= \omega_M((v + J\Phi(f), v' + J\Phi(f'))) \\
+        &= \omega_M(v, J\Phi(f')) - \omega_M(v', J\Phi(f)) \\
+        &= f'(v) - f(v') \\
+        &= \dd\lambda_{\text{can}}((v, f), (v', f'))
+    \end{align*}
+    
+    Now apply Moser's trick. We can write
+    \[\varphi^*\omega_M - \omega_{\text{can}} = \dd\sigma\]
+    for some \(\sigma \in \Omega^1(\T^* L)\), with \(\sigma\vert_L = 0\). The time-1 flow then gives the associated symplectic embedding. Here, we flow along the vector field \(X_t\) so that
+    \[\iota_{X_t} \omega_{\text{can}} = \sigma\]
+\end{proof}
+
+\begin{remark}
+    We've used that \(J : \T L \to \nu_{L/M}\) is an isomorphism. This tell us that (assuming \(L\) is oriented), the intersection number \([L]\cdot [L] = (-1)^{n+1}\chi(L)\).
+
+    In this case, if \(\chi(L) \ne 0\), then \([L] \ne 0\).
+\end{remark}
+
+\subsection{First Chern class}
+
+\begin{definition}
+    A \emph{complex vector bundle} \(\mcE \to X\) is a real vector bundle, with am assocated endomorphism \(J \in \End(\mcE)\), with \(J^2 = -\id\).
+\end{definition}
+
+\begin{definition}
+    A \emph{symplectic vector bundle} \(\mcE \to X\) is a vector bundle, with \(\omega \in \Gamma(\Lambda^2\mcE^*)\), such that \(\omega_x\) is a symplectic form on \(\mcE_x\).
+\end{definition}
+
+On each sympelctic vector bundle, we have a canonical choice of a complex structure \(J\), up to homotopy. Moreover, since we have a homotopy equivalence \(\Sp(2n) \simeq \mathrm{U}(n)\), classification of symplectic vector bundles and complex vector bundles are the same.
+
+\begin{remark}
+    Note that classification of complex vector bundles is \emph{not} the same as classification of holomorphic vector bundles.
+\end{remark}
+
+\begin{example}
+    The tautological line bundle \(\mcL_{\mathrm{taut}} = \mcO(-1)\) over \(\C\P^n\) is a complex vector bundle.
+
+    The \emph{canonical bundle} \(\mcO(1) = \mcL_{\mathrm{taut}}^*\) is also a complex vector bundle.
+\end{example}
+
+\begin{theorem}
+    There exists a correspondence
+    \[\{\text{complex line bundles on }X\} \bij \HH^2(X; \Z)\]
+    by sending \(\mcL\) to \(c_1(\mcL)\).
 \end{theorem}
 
 \printindex

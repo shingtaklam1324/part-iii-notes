@@ -19,6 +19,8 @@ Note: Numbering has been redone on Oct 21, from `section.number` to `section.sub
 
 ## Lent
 
+The Lent notes are in varying levels of quality. I was busy at the start of Lent term with PhD applications, and fell behind with diagrams/index.
+
 * [Abelian Varieties](Lent/Abelian-Varieties.pdf)
 * [Elliptic PDEs](Lent/Elliptic-PDEs.pdf)
 * [Geometric Group Theory](Lent/Geometric-Group-Theory.pdf)
