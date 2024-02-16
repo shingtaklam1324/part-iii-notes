@@ -1128,7 +1128,7 @@ Write
 
 \lec
 
-Let (H) denote the following hypothesis: ``Suppose \(\Omega \sse \R^n\) is a bounded domain, and \(0 < \alpha < 1\). Suppose \(a^{ij}, b^i, c \in C^{0, \alpha}(\Omega)\), with
+Let (H) denote the following hypothesis: ``Suppose \(\Omega \sse \R^n\) is a bounded domain, and \(0 < \alpha < 1\). Suppose \(a^{ij}, b^i, c \in C^{0, \alpha}(\overline\Omega)\), with
 \[\abs{a^{ij}}_{0, \alpha; \Omega} + \abs{b^i}_{0, \alpha; \Omega} + \abs{c}_{0, \alpha; \Omega} \le \beta\]
 and suppose there exists \(\lambda > 0\) such that
 \[a^{ij}(x)\xi_i\xi_j \ge \lambda\abs{\xi}^2\]''
@@ -1183,6 +1183,37 @@ We can combine the interior and boundary estimates to get:
     Then
     \[\abs{u}_{2, \alpha; \Omega} \le C\left(\abs{u}_{0, \Omega} + \abs{f}_{0, \alpha; \Omega} + \abs{\varphi}_{2, \alpha; \Omega}\right)\]
     where \(C = C(n, \lambda, \alpha, \beta, \Omega)\).
+\end{theorem}
+
+\lec
+
+\section{Solvability of the Dirichlet problem}
+
+Given \(a^{ij}, b^i, c \in C^{0, \alpha}(\overline\Omega)\), the \emph{Dirichlet problem} for \(L\) is: Given \(f \in C^{0, \alpha}(\overline\Omega), \varphi \in C^{2, \alpha}(\overline\Omega)\), is there a solution \(u \in C^2(\overline\Omega)\), to
+\[\begin{cases}
+    Lu = f &\text{in }\Omega \\
+    u = \varphi &\text{on }\partial\Omega
+\end{cases}\]
+If so, is it unique?
+
+\begin{theorem}
+    Let \(\alpha \in (0, 1)\), \(\Omega \sse \R^n\) is a bounded \(C^{2, \alpha}\) domain. Suppose \(a^{ij}, b^i, c \in C^{0, \alpha}(\overline\Omega)\), with \(c \le 0\) in \(\Omega\). Then the following are equivalent:
+    \begin{enumerate}[(i)]
+        \item 
+        for any given \(f \in C^{0, \alpha}(\overline\Omega)\) and \(\varphi \in C^{2, \alpha}(\overline\Omega)\), the Dirichlet problem
+        \[\begin{cases}
+            Lu = f &\text{in }\Omega \\
+            u = \varphi &\text{on }\partial\Omega
+        \end{cases}\]
+        has a solution \(u \in C^{2, \alpha}(\overline\Omega)\).
+        \item For any given \(f \in C^{0, \alpha}(\overline\Omega)\) and \(\varphi \in C^{2, \alpha}(\overline\Omega)\), the Dirichlet problem
+        \[\begin{cases}
+            \Delta u = f &\text{in }\Omega \\
+            u = \varphi &\text{on }\partial\Omega
+        \end{cases}\]
+        has a solution \(u \in C^{2, \alpha}(\overline\Omega)\).
+    \end{enumerate}
+    
 \end{theorem}
 
 \end{document}

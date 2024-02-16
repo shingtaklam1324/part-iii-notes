@@ -2,6 +2,9 @@
 
 \usepackage[subsec]{../../Style}
 \usepackage{../../quiver}
+\usepackage{relsize}
+
+\renewcommand{\bigstar}{\mathop{\Huge \mathlarger{\mathlarger{*}}}}
 
 \title{Geometric Group Theory}
 \author{Shing Tak Lam}
@@ -898,5 +901,140 @@ What about cutting surfaces along \emph{multi-curves}? For example,
 For example, with the above decomposition, we have the graph
 
 \textbf{diagram}
+
+\lec
+
+First, we should \emph{carefully} define directed (or oriented) graphs.
+
+\begin{definition}
+    [oriented graph] An \emph{(oriented) graph} \(\Gamma\) consists of a pair of sets \(V = V_\Gamma, E = E_\Gamma\). \(V\) is the set of vertices, and \(E\) is the set of egdes. We have two maps
+    \[\iota = \iota_\Gamma, \tau = \tau_\Gamma : E \to V\]
+    We call \(\iota\) the \emph{origin map}, and \(\tau\) the \emph{terminus map}. 
+    
+    The \emph{realisation} of \(\Gamma\) is \(\abs{\Gamma}\), the \(1\)-dimensional cell complex given by the above data.
+\end{definition}
+
+Often we will abuse notation and not distinguish between \(\Gamma\) and \(\abs{\Gamma}\).
+
+\begin{example}
+    For example, we have
+
+    \textbf{diagram}
+\end{example}
+
+\begin{definition}
+    A \emph{graph of groups} \(\mcG\) consists of:
+    \begin{itemize}
+        \item a graph \(\Gamma\),
+        \item assignments
+        \begin{align*}
+            V &\to \text{Groups} \\
+            v &\mapsto G_v
+        \end{align*}
+        and
+        \begin{align*}
+            E &\to \text{Groups} \\
+            e &\mapsto G_e
+        \end{align*}
+        \item injective homomorphisms
+        \[\iota_e : G_e \to G_{\iota(e)} \qqtext{and} \tau_e : G_e \to G_{\tau(e)}\]
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    Continuing with the example as above,
+    \begin{align*}
+        G_u &= \pi_1(\Sigma_1) \\
+        G_v &= \pi_1(\Sigma_2) \\
+        G_w &= \pi_1(\Sigma_3)
+    \end{align*}
+    The maps are given by the inclusions of \(\pi_1(S^1) \inj \pi_1(\Sigma_1)\).
+\end{example}
+
+\begin{definition}
+    Let \(\mcG\) be a graph of groups, with connected underlying graph \(\Gamma\). Let \(T \sse \Gamma\) be a spanning tree. The \emph{fundamental group of \(\mcG\) with respect to \(T\)}, \(\pi_1(\mcG, T)\) is defined as follows:
+    \[\frac{\left(\underset{v \in V}{\bigstar}G_v\right) * F(E_\Gamma)}{\iinner{\{t_e\iota_e(h)t_e^{-1}\tau_e(h)^{-1} \mid e \in E, h \in G_e\} \cup \{t_e \mid e \in T\}}}\]
+    where \(F(E_\Gamma)  =\inner{t_e \mid e \in E}\).
+\end{definition}
+
+\begin{example}
+    \textbf{diagram}
+
+    In this case, the spanning tree is \(e\), and
+    \[\pi_1(\mcG, T) = G_u \underset{G_e}* G_v\]
+
+    Now if we have
+    
+    \textbf{diagram}
+
+    Then
+    \[\pi_1(\mcG, T) = G_u \underset{G_e}*\]
+\end{example}
+
+\begin{theorem}
+    [Seifert-van Kampen for graphs of groups] Let \(\Gamma\) be a graph. For each vertex \(v \in V, e \in E\), let \(X_v, X_e\) be connected cell complexes, and let \(\iota_e : X_e \to X_{\iota(e)}, \tau_e : X_e \to X_{\tau(e)}\) be inclusions of subcomplexes, or equivalently, injective cellular maps. Moreover, assume that the maps induce injections on \(\pi_1\).
+
+    Let
+    \[X = \frac{\bigsqcup_{v \in V}X_v}{\iota_e(x) \sim \tau_e(x)}\]
+    Setting \(G_v = \pi_1(X_v)\), \(G_e = \pi_1(X_e)\) and so on, defines a graph of groups \(\mcG\). Then
+    \[\pi_1(X) \cong \pi_1(\mcG, T)\]
+    for any spanning tree \(T\).
+\end{theorem}
+
+\begin{proof}
+    [Proof idea when \(\Gamma\) is finite] Induct on the number of edges of \(\Gamma\), and the two Seifert-van Kampen theorems we have seen.
+\end{proof}
+
+\begin{remark}
+    It follows (for example by taking the spaces to be presentation complexes), that \(\pi_1(\mcG, T)\) does not depend, up to isomorphism, on \(T\). Thus, we will write \(\pi_1(\mcG)\).
+\end{remark}
+
+\subsection{Quotients}
+
+Suppose \(G\) acts on a tree \(T\) (or any graph). That is, \(G\) acts on \(V_T\) and on \(E_T\), so that
+\[\iota(g\cdot \widetilde e) = g\cdot \iota(\widetilde e) \qqtext{and}\tau(g\cdot \widetilde e) = g\cdot \tau(\widetilde e)\]
+There is a natural quotient graph \(\Gamma = G \backslash T\). In this case,
+\begin{align*}
+    V_\Gamma &= G \backslash V_T \\
+    E_\Gamma &= G \backslash E_T \\
+    \iota_\Gamma(G\cdot \widetilde e) &= G\cdot \iota(\widetilde e) \\ 
+    \tau_\Gamma(G\cdot \widetilde e) &= G\cdot \tau(\widetilde e)
+\end{align*}
+Furthermore, \(\Gamma\) is naturally a graph of groups. Let \(v = G\widetilde v \in V_\Gamma\). Set \(G_v = \Stab_G(\widetilde v)\). This is well defined, up to conjugation in \(G\). Similarly, if \(e = G \cdot \widetilde e\), then \(G_e = \Stab_G(\widetilde e)\).
+
+Suppose \(\iota(e) = v\). So \(G \vdot \iota(\widetilde e) = G\widetilde v\). So we may choose \(\widetilde e\), such that \(\iota(\widetilde e) = \widetilde v\). Now \(G_e = \Stab_G(\widetilde e) \sse \Stab_G(\widetilde v) = G_v\). So the map is the inclusion map, which is injective.
+
+Let \(\iota_e\) be the inclusion homomorphism \(G_e \to G_v\).
+
+\begin{remark}
+    \(\iota_e\) is well defined, up to conjugation in \(G_v\).
+\end{remark}
+
+Define \(\tau_e\) similarly.
+
+\begin{example}
+    Let \(\Z = \inner{t}\) act on \(\R\), considered as a graph
+
+    \textbf{diagram}
+
+    and \(t\) is translation by \(1\). The quotient is \(\Z \backslash \R = S^1\). The associated graph of groups is
+
+    \textbf{diagram}
+
+    So \(\Z\) is an HNN extension of \(1\) by itself.
+\end{example}
+
+\begin{example}
+    Let \(D_\infty = \inner{s, t \mid s^2, t^2}\) act on \(\R\). The graph is the same as the above. \(s\) acts by reflection in \(0\), and \(t\) acts by reflection in \(1\). In this case, \(D_\infty \backslash \R\) is the graph
+    
+    \textbf{diagram}
+
+    and we have an associated graph of groups
+
+    \textbf{diagram}
+
+    So \(D_\infty = (\Z/2\Z) * (\Z/2\Z)\).
+\end{example}
+
 
 \end{document}
