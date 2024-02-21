@@ -875,7 +875,9 @@ Now suppose \(X\) is a scheme (which is Noetherian and separated).
 \end{itemize}
 
 \begin{theorem}
-    [finiteness] Suppose \(X \to \Spec(A)\) is proper, with \(A\) Noetherian. Suppose \(\mcF\) is a coherent \(\mcO_X\)-module. Then for all \(i\), \(\HH^i(X, \mcF)\) is a finite \(A\)-module.
+    [finiteness] 
+    \label{thm:finiteness}
+    Suppose \(X \to \Spec(A)\) is proper, with \(A\) Noetherian. Suppose \(\mcF\) is a coherent \(\mcO_X\)-module. Then for all \(i\), \(\HH^i(X, \mcF)\) is a finite \(A\)-module.
 \end{theorem}
 
 There is a proof in Hartshorne for \(X\) projective, For a full proof, see Itaka's book on Birational Geometry, or Stacks project.
@@ -1466,6 +1468,12 @@ Since \(\HH^*(X_B, \mcF_B) = \HH^*(K^\bullet \otimes_A B)\), where \(K^\bullet\)
     \[\HH^*(L^\bullet \otimes_A M) \cong \HH^*(K^\bullet \otimes_A M)\]
 \end{theorem}
 
+\begin{remark}
+    For the application to the previous theorem, note that if \(\mcF\) is \(A\)-flat, then the
+    \[K^p = \prod_{\# I = p + 1}\mcF(U_I)\]
+    is also \(A\)-flat.
+\end{remark}
+
 \begin{proof}
     We start from the top. Pick a finite free module \(L^n\), and a surjection \(L^n \surj \HH^n(K)\). Since \(L^n\) is free, we can lift this to a map \(L^n \to \ker(\dd : K^n \to K^{n+1})\). So we have
     % https://q.uiver.app/#q=WzAsOSxbMCwxLCJLXjAiXSxbMSwxLCJLXjEiXSxbMiwxLCJcXGNkb3RzIl0sWzMsMSwiS157bi0xfSJdLFs0LDEsIktebiJdLFs1LDEsIktee24rMX0iXSxbNiwxLCJcXGNkb3RzIl0sWzQsMCwiTF5uIl0sWzUsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdLFs0LDVdLFs1LDZdLFs3LDQsImZebiJdLFs3LDhdLFs4LDVdXQ==
@@ -1524,10 +1532,313 @@ Since \(\HH^*(X_B, \mcF_B) = \HH^*(K^\bullet \otimes_A B)\), where \(K^\bullet\)
         \arrow["{f^0}", from=1-1, to=2-1]
     \end{tikzcd}\]
     where for \(0 < p \le n\), \(\HH^p(K^\bullet) \cong \HH^p(L^\bullet)\), and \(\HH^0(L^\bullet)\surj \HH^0(K^\bullet)\). Replacing \(L^0\) bt \(L^0/\ker(\HH^0(f))\) gives the isomorphism at degree \(0\).
+    \lec
+    Let \(C^\bullet\) be the following complex (usually called the \emph{mapping cone} of \(f\)).
+    \[C^p  = L^p \oplus K^{p-1}\]
+    and
+    \[\dd(x, y) = (\dd x, -\dd y + f(x))\]
+    We have an exact sequence of complexes
+    % https://q.uiver.app/#q=WzAsNSxbMywwLCIoTF5cXGJ1bGxldCwgXFxkZF9MKSJdLFsyLDAsIihDXlxcYnVsbGV0LCBcXGRkX0MpIl0sWzQsMCwiMCJdLFsxLDAsIktbLTFdPShLXlxcYnVsbGV0LCAtXFxkZF9LKSJdLFswLDAsIjAiXSxbMywxXSxbNCwzXSxbMSwwXSxbMCwyXV0=
+    \[\begin{tikzcd}
+        0 & {K[-1]=(K^{\bullet-1}, -\dd_K)} & {(C^\bullet, \dd_C)} & {(L^\bullet, \dd_L)} & 0
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    Therefore, we have a long exact sequence of cohomology
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhIXntwLTF9KEteXFxidWxsZXQpIl0sWzEsMCwiXFxISF5wKENeXFxidWxsZXQpIl0sWzIsMCwiXFxISF5wKExeXFxidWxsZXQpIl0sWzMsMCwiXFxISF5wKEspIl0sWzAsMV0sWzEsMl0sWzIsMywiXFxkZWx0YSJdXQ==
+    \[\begin{tikzcd}
+        {\HH^{p-1}(K^\bullet)} & {\HH^p(C^\bullet)} & {\HH^p(L^\bullet)} & {\HH^p(K)}
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow["\delta", from=1-3, to=1-4]
+    \end{tikzcd}\]
+    and \(\delta = \HH^p(f)\). In particular, this is an isomorphism for all \(p\), and so \(C^\bullet\) is acyclic, i.e \(\HH^*(C) = 0\).
+
+    Since \(K^p = 0\) for sufficiently large \(p\), for some \(N\),
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCIwIl0sWzEsMCwiQ14wIl0sWzIsMCwiQ14xIl0sWzMsMCwiXFxjZG90cyJdLFs0LDAsIkNeTiJdLFs1LDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XSxbNCw1XV0=
+    \[\begin{tikzcd}
+        0 & {C^0} & {C^1} & \cdots & {C^N} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+        \arrow[from=1-5, to=1-6]
+    \end{tikzcd}\]
+    is exact. But \(C^1, \dots, C^N\) are all flat, so \(C^0\) is also flat (see examples sheet 2).
+
+    Finally, let \(M\) be any \(A\)-module. Write
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiUSJdLFsyLDAsIlAiXSxbMywwLCJNIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+    \[\begin{tikzcd}
+        0 & Q & P & M & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    with \(P\) free. Assume for all such \(M\), and \(q > p\), the map
+    \[\HH^q(L \otimes M) \to \HH^q(K \otimes M)\]
+    is an isomorphism. For example, this is true with \(p = n\). As \(K^\bullet, L^\bullet\) are flat, we get
+    % https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMCJdLFsxLDAsIkxcXG90aW1lcyBRIl0sWzIsMCwiTCBcXG90aW1lcyBQIl0sWzMsMCwiTCBcXG90aW1lcyBNIl0sWzQsMCwiMCJdLFswLDEsIjAiXSxbMSwxLCJLXFxvdGltZXMgUSJdLFsyLDEsIksgXFxvdGltZXMgUCJdLFszLDEsIksgXFxvdGltZXMgTSJdLFs0LDEsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XSxbNSw2XSxbNiw3XSxbNyw4XSxbOCw5XSxbMyw4XSxbMiw3XSxbMSw2XV0=
+\[\begin{tikzcd}
+	0 & {L\otimes Q} & {L \otimes P} & {L \otimes M} & 0 \\
+	0 & {K\otimes Q} & {K \otimes P} & {K \otimes M} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+	\arrow[from=1-4, to=2-4]
+	\arrow[from=1-3, to=2-3]
+	\arrow[from=1-2, to=2-2]
+\end{tikzcd}\]
+    which has exact rows. Hence we get a commutative diagram with long exact rows
+    % https://q.uiver.app/#q=WzAsMTAsWzAsMCwiXFxISF5wKEwgXFxvdGltZXMgUSkiXSxbMSwwLCJcXEhIXnAoTCBcXG90aW1lcyBQKSJdLFsyLDAsIlxcSEhecChMIFxcb3RpbWVzIE0pIl0sWzMsMCwiXFxISF57cCsxfShMXFxvdGltZXMgUSkiXSxbNCwwLCJcXEhIXntwKzF9KEwgXFxvdGltZXMgUCkiXSxbMCwxLCJcXEhIXnAoSyBcXG90aW1lcyBRKSJdLFsxLDEsIlxcSEhecChLIFxcb3RpbWVzIFApIl0sWzIsMSwiXFxISF5wKEtcXG90aW1lcyBNKSJdLFszLDEsIlxcSEhee3ArMX0oSyBcXG90aW1lcyBRKSJdLFs0LDEsIlxcSEhee3ArMX0oSyBcXG90aW1lcyBQKSJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdLFs1LDZdLFs2LDddLFs3LDhdLFs4LDldLFs0LDksIlxcZXBzaWxvbiIsMV0sWzMsOCwiXFxnYW1tYSIsMV0sWzIsN10sWzEsNiwiXFxiZXRhIiwxXSxbMCw1LCJcXGFscGhhIiwxXV0=
+\[\begin{tikzcd}
+	{\HH^p(L \otimes Q)} & {\HH^p(L \otimes P)} & {\HH^p(L \otimes M)} & {\HH^{p+1}(L\otimes Q)} & {\HH^{p+1}(L \otimes P)} \\
+	{\HH^p(K \otimes Q)} & {\HH^p(K \otimes P)} & {\HH^p(K\otimes M)} & {\HH^{p+1}(K \otimes Q)} & {\HH^{p+1}(K \otimes P)}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+	\arrow["\epsilon"{description}, from=1-5, to=2-5]
+	\arrow["\gamma"{description}, from=1-4, to=2-4]
+	\arrow[from=1-3, to=2-3]
+	\arrow["\beta"{description}, from=1-2, to=2-2]
+	\arrow["\alpha"{description}, from=1-1, to=2-1]
+\end{tikzcd}\]
+    By induction hypothesis, \(\gamma, \epsilon\) are isomorphisms. Since \(P\) is free, \(\beta\) is an isomorphism. By the five lemma, the middle map is surjective. The same argument for \(\alpha\) shows that \(\alpha\) is surjective, and so the middle map is injective.
 \end{proof}
 
-For the application to the previous theorem, note that if \(\mcF\) is \(A\)-flat, then the
-\[K^p = \prod_{\# I = p + 1}\mcF(U_I)\]
-is also \(A\)-flat.
+\begin{lemma}
+    [five lemma] Suppose we have
+    % https://q.uiver.app/#q=WzAsMTAsWzAsMCwiQSJdLFsxLDAsIkIiXSxbMiwwLCJDIl0sWzMsMCwiRCJdLFs0LDAsIkUiXSxbMCwxLCJBJyJdLFsxLDEsIkInIl0sWzIsMSwiQyciXSxbMywxLCJEJyJdLFs0LDEsIkUnIl0sWzAsNSwiYSJdLFsxLDYsImIiXSxbMiw3LCJjIl0sWzMsOCwiZCJdLFs0LDksImUiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XSxbNSw2XSxbNiw3XSxbNyw4XSxbOCw5XV0=
+    \[\begin{tikzcd}
+        A & B & C & D & E \\
+        {A'} & {B'} & {C'} & {D'} & {E'}
+        \arrow["a", from=1-1, to=2-1]
+        \arrow["b", from=1-2, to=2-2]
+        \arrow["c", from=1-3, to=2-3]
+        \arrow["d", from=1-4, to=2-4]
+        \arrow["e", from=1-5, to=2-5]
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+        \arrow[from=2-1, to=2-2]
+        \arrow[from=2-2, to=2-3]
+        \arrow[from=2-3, to=2-4]
+        \arrow[from=2-4, to=2-5]
+    \end{tikzcd}\]
+    where the rows are exact, \(b, d\) are isomorphisms. Then:
+    \begin{itemize}
+        \item if \(e\) is a monomorphism, then \(c\) is an epimorphism,
+        \item if \(a\) is an epimorphism, then \(c\) is monomorphism.  
+    \end{itemize}
+\end{lemma}
+
+\begin{proof}
+    Omitted, just a diagram chase.
+\end{proof}
+
+Recall the assumptions we have made, that is, \(X \to \Spec(A)\) proper, \(\mcF\) on \(X\) is coherent and flat over \(\Spec(A)\).
+
+\(\HH^0(X_B, \mcF_B) = \ker(\dd : L^0 \otimes B \to L^1 \otimes B)\), and for any finite flat (or equivalently, locally free) \(A\)-module \(M\),
+\[M \otimes_A B = \Hom_A(M^\vee, B) = \Hom_A(\Hom_A(M, A), B)\]
+and so
+\[\HH^0(X_B, \mcF_B) = \ker(\Hom_A((L^0)^\vee, B) \to \Hom_A((L^1)^\vee, B))\]
+Let
+\[Q = \coker((L^1)^\vee \to (L^0)^\vee)\]
+and so
+
+\begin{corollary}
+    There exists a finite \(A\)-module \(Q\), such that for all \(B\),
+    \[\HH^p(X_B, \mcF_B) = \Hom_A(Q, B)\]
+    and this is functorial in \(B\).
+\end{corollary}
+
+\begin{corollary}
+    [semicontinuity for \(\HH^0\)] For every \(r \ge 0\), the subset
+    \[Z_r = \left\{s \in \Spec(A) \ \big\vert\ \dim_{\kappa(s)}\left(\HH^0(X_s, \mcF(s)) \ge r\right)\right\} \sse \Spec(A)\]
+    is closed. Here, \(\mcF(s) = \mcF \otimes_A \kappa(s)\), viewed as a coherent \(\mcO_{X_s}\)-module.
+\end{corollary}
+
+\begin{remark}
+    Note Mumford calls \(\mcF(s)\) \(\mcF_s\), but this can cause confusion with stalks.
+\end{remark}
+
+\begin{remark}
+    This is also true for all \(\HH^p\). The statement implies that if \(s \in \overline{\{t\}}\), then \(\dim(\HH^0(X_s)) \ge \dim(\HH^0(X_r))\).
+\end{remark}
+
+\begin{proof}
+    By localising on \(\Spec(A)\), we can assume that \(L^0, L^1\) are free, isomorphic to \(A^m, A^n\) respectively. Then \((\dd^0)^\T\) is represented by an \(m \times n\) matrix over \(A\). So
+    \begin{align*}
+        Z_i &= \left\{s \mid \rank\left((\dd^0)^\T \otimes \id_{\kappa(s)}\right) \le m - r\right\} \\
+        &=\{s \mid \text{all }m - r + 1 \text{ minors of }C\text{ vanish in }\kappa(s)\}
+    \end{align*}
+\end{proof}
+
+\begin{corollary}
+    Assume \(\Spec(A)\) is connected. Then \(\chi(X_s, \mcF(s))\) is independent of \(s \in \Spec(A)\).
+
+    If \(X \sse \P^N_k\) is projective, then the Hilbert polynomial \(P(X_s, \mcF_s, t)\) is independent of \(s\).
+\end{corollary}
+
+\begin{proof}
+    Localising, we can assume \(L^0\) is free. But then 
+    \begin{align*}
+        \chi(X_s, \mcF(s)) &= \sum_p (-1)^p \dim_{\kappa(s)}\left(\HH^p(L \otimes \kappa(s))\right) \\
+        &= \sum_p (-1)^p \dim_{\kappa(s)}(L^p \otimes \kappa(s))
+    \end{align*}
+    But
+    \[\dim_{\kappa(s)}(L^p \otimes \kappa(x)) = \rank(L)\]
+    which is independent of \(s\).
+\end{proof}
+Note here, we use the fact from homological algebra that if we have a chain complex consisting of \(k\)-vector spaces, we can compute the Euler characteristic using cohomology or as the alternating sum of the dimensions.
+
+\lec
+
+Now lets look at the top dimensional cohomology, since \(L^p = 0\) for \(p > n\), we must have that \(\HH^p(X_B, \mcF_B) = 0\) for \(p > n\). Moreover,
+\[\HH^n(X_B, \mcF_B) = \coker(L^{n-1} \otimes_A B \to L^n \otimes_A B) = \coker(L^{n-1} \to L^n) \otimes_A B = \HH^n(X, \mcF) \otimes_A B\]
+Here, we use the fact that the tensor product is right exact. Hence the base change map is an isomorphism on the top degree.
+
+\textbf{Fibres:} Assume \(A\) is reduced. Then the map
+\[A \to \prod_{\mfp \in \Spec(A)}\frac{A}{\mfp}\]
+is injective. As \(\HH^n(X, \mcF)\) is a finite \(A\)-module, we get that
+
+\begin{align*}
+    \HH^n(X, \mcF) - 0 &\iff \forall s \in \Spec(A), \HH^n(X, \mcF) \otimes_A \kappa(s) = 0 \\
+    &\iff \forall s \in \Spec(A), \HH^n(X_s, \mcF(s)) = 0
+\end{align*}
+
+If these hold, then we can replace \(n\) with \(n - 1\), and by descending induction,
+\begin{corollary}
+    \label{cor:cohomology-eq-zero-iff}
+    Suppose \(A\) is reduced, and let \(p \ge 0\). Then the following are equivalent:
+    \begin{enumerate}[(i)]
+        \item for all \(i \ge p\), \(\HH^i(X, \mcF) = 0\),
+        \item for all \(i \ge p, s \in \Spec(A)\), \(\HH^i(X_s, \mcF(s)) = 0\)
+    \end{enumerate}
+\end{corollary}
+
+In particular, setting \(p = 0\), \(\HH^*(X, \mcF) = 0\) if and only if \(\HH^*(X_s, \mcF(s)) = 0\) for all \(s \in \Spec(A)\).
+
+\textbf{Higher direct images:} Suppose \(f : X \to Y\) is a morphism of (separated Noetherian) schemes, \(\mcF\) a quasicoherent sheaf on \(X\). Let \(V = \Spec(A) \sse Y\) be an open affine. Let
+\[\mcG_p(V) = \HH^p(f^{-1}(V), \mcF\vert_{f^{-1}(V)})\]
+This is an \(A\)-module. Now if we have \(V' = \Spec(A') \sse V\) affine, then \(\mcG_p(V') = \mcG_p(V) \otimes_A A'\), by flat base change.
+
+in particular, by question 2 on examples sheet 2, there exists a unique quasicoherent sheaf on \(Y\), extending \(\mcG_p\). We write \(R^pf_*\mcF\) for this sheaf, which is called the \emph{higher direct image sheaf}.
+
+\begin{remark}
+    For any abelian sheaf \(\mcF\) on \(X\), there is are sheaves \(R^pf_*\mcF\) on \(Y\), which are the sheafifications of \(V \mapsto \HH^p(f^{-1}(V), \mcF)\).
+
+    We can also define this as \(\HH^*(f_*K^\bullet)\), for a suitable resolution of \(\mcF\), see the relevant section of Hartshorne.
+\end{remark}
+
+We can rephrase the earlier results in terms of higher direct images. For example,
+
+\begin{theorem}
+    [restatement of \cref{thm:finiteness}]
+    Suppose \(f : X \to Y\) is proper, \(\mcF\) is q coherent \(\mcO_X\)-module, then \(R^pf_*\mcF\) is coherent.
+\end{theorem}
+
+and we can restate \cref{cor:cohomology-eq-zero-iff} as
+
+\begin{corollary}
+    Suppose \(Y\) is reduced. Then for all \(p \ge 0\), the following are equivalent:
+    \begin{enumerate}[(i)]
+        \item for all \(i \ge p\), \(R^if_*\mcF = 0\),
+        \item for all \(i \ge p, y \in Y\), \(\HH^i(X_y, \mcF(y)) = 0\)
+    \end{enumerate}
+\end{corollary}
+
+\section{Group schemes over a field}
+
+Fix a field \(k\). Write \(\Sch/k\) for the category of \(k\)-schemes, i.e. schemes with a morphism \(a_X : X \to \Spec(K)\). The morphisms are morphisms of schemes such that the diagram
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJYIl0sWzIsMCwiWSJdLFsxLDIsIlxcU3BlYyhrKSJdLFswLDJdLFswLDFdLFsxLDJdXQ==
+\[\begin{tikzcd}
+	X && Y \\
+	\\
+	& {\Spec(k)}
+	\arrow[from=1-1, to=3-2]
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-3, to=3-2]
+\end{tikzcd}\]
+commutes. We write \(\Aff/k\) for the category of affine \(k\)-schemes. Equivalently, the opposite category of the category of \(k\)-algebras.
+
+For \(X, S \in \Sch/k\), write \(X(S) = \Mor_k(S, X)\), and if \(R\) is a \(k\)-algebra, we write \(X(R) = X(\Spec(R))\) for the \(R\)-points.
+
+If \(X = \van(I) \sse \A^n_k\), then
+\[X(R) = \{(x_i) \in R^n \mid f(x_i) = 0 \text{ for all }f \in I\}\]
+
+We will write \(X \times Y = X \times_k Y = X \times_{\Spec(k)} Y\). Finally, in this course,
+
+\begin{definition}
+    [variety] A \emph{variety} is a separated \(k\)-scheme \(X\) of finite type which is geometrically integral\footnote{That is, \(X \times_k \Spec(\overline k)\) is integral.}.
+\end{definition}
+
+\begin{example}
+    \(X = \Spec(\Q(\sqrt 2)) = \van(t^2 - 2) \sse \A^1_\Q\) is not a variety. This is not a variety as \(X \times \Spec(\overline \Q)\) is two points.
+\end{example}
+
+\begin{theorem}
+    Let \(X/k\) be a proper variety\footnote{That is, the map \(X \to \Spec(k)\) is proper.}. Then \(\HH^0(X, \mcO_X) = k\).
+\end{theorem}
+
+\begin{proof}
+    Since
+    \[\HH^0(X, \mcO_X) \otimes_k \overline{k} = \HH^0(X_{\overline k}, \mcO_{X_{\overline k}})\]
+    we may assume that \(k = \overline k\) is algebraically closed. Now \(\HH^0(X, \mcO_X)\) is a finite integral \(k\)-algebra, which must be just \(k\).
+\end{proof}
+
+\begin{remark}
+    Proper varieties are also called \emph{complete} varieties.
+\end{remark}
+
+\begin{definition}
+    A \emph{\(k\)-group scheme} is a \(k\)-scheme \(G\), with a morphism \(m : G \times G \to G\), such that for every \(k\)-algebra \(R\), \(m\) makes \(G(R)\) into a group.
+\end{definition}
+
+Note the set \(G\) is rarely a group.
+
+\begin{example}
+    The additive group \(\mathbb G_a = \Spec(k[t])\). The group operation is given by
+    \begin{align*}
+        k[t] &\to k[u, v] \\
+        t &\mapsto u + v
+    \end{align*}
+    and for any \(k\)-algebra \(R\), \(\mathbb G_a(R) = (R, +)\).
+\end{example}
+
+\begin{example}
+    The multiplicative group \(\mathbb G_m = \Spec(k[t, t^{-1}])\). The group operation is given by
+    \begin{align*}
+        k[t] &\to k[u, v, u^{-1}, v^{-1}] \\
+        t &\mapsto uv 
+    \end{align*}
+    For any \(k\)-algebra \(R\), \(\mathbb G_m(R) = (R^*, \cdot)\).
+\end{example}
+
+\begin{example}
+    The general linear group is
+    \[\GL_n = \Spec\left(k\left[(t_{ij}), \frac{1}{\det(t_{ij})}\right]\right)\]
+    with multiplication
+    \[t_{ij} \mapsto \sum_{i=1}^n t_{ir}t_{rj}' \in k\left[(t_{ij}), (t_{ij})', \frac{1}{\det(t_{ij})\det(t_{ij}')}\right]\]
+\end{example}
+
+\begin{example}
+    Let \(\Gamma\) be a group, and
+    \[G = \bigsqcup_{\gamma \in \Gamma}\Spec(k)\]
+    with the discrete topology. There's an obvious way to make this into a group scheme using the group structure on \(\Gamma\).
+\end{example}
 
 \end{document}

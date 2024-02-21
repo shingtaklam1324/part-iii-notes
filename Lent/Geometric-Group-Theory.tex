@@ -224,7 +224,9 @@ Consider a presentation \(G = \inner{a_i \mid r_j}\), and the associated present
 \end{definition}
 
 \begin{example}
-    Example of disc diagram.
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (1).jpg}
+    \end{center}
 \end{example}
 
 Recall that \(X\) is given by a wedge of circles, with discs glued on for each relation. So the \(1\)-cells correspond to generators, \(2\)-cells go to relations (or cyclic conjugates, or inverses). With this:
@@ -247,14 +249,26 @@ Associated to each disc diagram \(D\), we have a \emph{boundary cycle}, which re
     \[w = \prod_{i=1}^k h_ir_i^{\pm 1}h_i\]
     in \(F(A)\), where \(h_i \in F(A)\), and \(r_i \in R\). Now build a \emph{lollipop diagram} \(D_0\), which has boundary word \(w_0\), which is equal to \(w\) in \(F(A)\), but may not be reduced.
 
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (2).jpg}
+    \end{center}
+
     If \(w_0\) is reduced, \(w = w_0\), and so we are done. Otherwise, \(w_0\) contains a cancelling pair, so
     \[w_0 = \cdots a a^{-1}\cdots\]
-    for some \(a \in A \cup A^{-1}\). In \(w_0\), this looks like:
+    for some \(a \in A \cup A^{-1}\).
 
     We can see that \(e_1, e_2\) share a vertex. There are two cases to consider:
     \begin{enumerate}
-        \item if the \emph{origin} of \(e_1\) is the \emph{terminus} of \(e_2\), then the diagram \(D_0\) is a wedge \(D_1 \vee D'\). Then \(D_1\) is a van Kampen diagram for \(w_1\), which is the result of cancelling \(a\) and \(a^{-1}\).
-        \item if the origin of \(e_1\) is distinct from the terminus of \(e_2\), then we can fold the edges to get \(D_1\), which has boundary word \(w_1\) as above.
+        \item if the \emph{origin} of \(e_1\) is the \emph{terminus} of \(e_2\), then the diagram \(D_0\) is a wedge \(D_1 \vee D'\). 
+        \begin{center}
+            \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (3).jpg}
+        \end{center}
+        Then \(D_1\) is a van Kampen diagram for \(w_1\), which is the result of cancelling \(a\) and \(a^{-1}\).
+        \item if the origin of \(e_1\) is distinct from the terminus of \(e_2\), then we can fold the edges to get \(D_1\), 
+        \begin{center}
+            \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (4).jpg}
+        \end{center}
+        which has boundary word \(w_1\) as above.
     \end{enumerate}
 
     In either case, \(w_1 = \partial D_1\) is obtained from \(w_0\) by cancelling a pair. Therefore, we may proceeed by induction, and after finitely many repetitions, we construct a van Kampen diagram \(D_n\) such that \(w_n = \partial D_n\) is reduced, and \(w_n = w\) in \(F(A)\). Thus, \(w_n = w\) as words, and so \(D_n\) is a van Kampen diagram for \(w\).
@@ -268,6 +282,10 @@ Associated to each disc diagram \(D\), we have a \emph{boundary cycle}, which re
 
 \begin{example}
     Let \(G = \Z^2 = \inner{a, b \mid [a,b]}\). Consider \(w = a^n b^n a^{-n}b^{-n}\). This has van Kampen diagram
+
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (5).jpg}
+    \end{center}
 
     In this case, \(\Area(D) = n^2\). We will show \(D\) is minimal, and so \(\Area(w) = n^2\).
 \end{example}
@@ -301,16 +319,32 @@ A \emph{graph} is a \(1\)-dimensional cell complex. Throughout, let \(G\) be a g
 
 \begin{example}
     The trivial group given by \(1 = \inner{a, b \mid a, b}\) has Cayley graph
+
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (6).jpg}
+    \end{center}
 \end{example}
 
 \begin{example}
     \(S_3 = \inner{r, s \mid srsr, r^3, s^2}\) has Cayley graph
+
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (7).jpg}
+    \end{center}
 \end{example}
 
 \begin{example}
     \(\Z = \inner{1}\) as Cayley graph
 
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (8).jpg}
+    \end{center}
+
     On the other hand, \(\Z = \inner{2, 3}\) has Cayley graph
+
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (9).jpg}
+    \end{center}
 \end{example}
 
 Note that the action of \(G\) on itself on the \emph{left} extends to an action of \(G\) on \(\Cay_S(G)\), sending an edge \(h \to hs\) to \(gh \to ghs\). Note the right action does not work, because of our definition of the Cayley graph.
@@ -504,8 +538,6 @@ That is, for finitely generated groups, the word metric is well defined, up to b
 \begin{example}
     Recall the two Cayley graphs of \(\Z\), with generating sets \(\{1\}\), and \(\{2, 3\}\) respectively.
 
-    \textbf{diagram}
-
     The Schwartz-Milnor says that these are both quasi-isometric to \(\Z\) with an appropriate word metric. So they are quasi-isometric. More generally, for any finitely generated group \(G\), the Cayley graphs of any two finite generating sets are quasi-isometric.
 \end{example}
 
@@ -527,7 +559,9 @@ That is, for finitely generated groups, the word metric is well defined, up to b
 
 Let \(A = \{a_1, \dots, a_n\}\). We will write \(F_n = F(A_n)\). The \emph{Cayley tree}  is the infinite \(2n\)-valent tree \(T_n = \Cay_A(F_n)\).
 
-\textbf{diagram for \(n=2\)}
+\begin{center}
+    \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (10).jpg}
+\end{center}
 
 \lec
 
@@ -540,11 +574,16 @@ We can translate our \emph{combinatorial} arguments about \(F_n\), about geometr
 A word \(w \in A^*\) is equivalent to an \emph{edge path}, which is a map \(w : I \to X_n\), where \(I\) is an interval.
 
 For example, consider the word \(w = a^2bb^{-1}a^{-1}\). The edge path is:
-\textbf{diagram}
+
+\begin{center}
+    \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (11).jpg}
+\end{center}
 
 An edge path in \(X_n\) lifts to a unique edge path in \(T_n\), based at \(1\). Conversely, each such path in \(T_n\) projects to a path in \(X_n\).
 
-\textbf{diagram}
+\begin{center}
+    \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (12).jpg}
+\end{center}
 
 \subsection*{Reduced words}
 
@@ -586,7 +625,9 @@ Now a word \(w \in A^*\) is cyclically reduced if and only if the corresponding 
 
 For example, if \(w = ab^2\). the lift is
 
-\textbf{diagram}
+\begin{center}
+    \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (12).jpg}
+\end{center}
 
 In particular, since \(w\) is locally injective, \(\widetilde w\) is as well, and so it is injective, by the lemma. The image of \(\widetilde w\) is called the \emph{axis} of \(w\).
 
@@ -618,23 +659,27 @@ The conjugacy problem follows, as the lemma tells us that we only need to check 
     \end{enumerate}
     Now consider the convex hull of \(\{1, g, u, gv\}\).
 
-    \textbf{diagram}
-
     For this, there are three (non-degenerate) different combinatorial types for the convex hull. The first case is
 
-    \textbf{diagram}
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (14).jpg}
+    \end{center}
 
     By the minimality in (i), \(\ell(\alpha) > 0\). Similarly, \(\ell(\beta) > 0\). On this diagram, we have \(\Axis(u)\) and \(g \vdot \Axis(v) = \Axis(gvg^{-1})\). But \(u = gvg^{-1}\). Contradiction (we will assume the middle length is non-zero for now).
 
     The second case is
     
-    \textbf{diagram}
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (15).jpg}
+    \end{center}
 
     The axes are labelled. But they translate in opposite directions. Contradiction (again, we assume the middle length is non-zero).
 
     The third case is:
 
-    \textbf{diagram}
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (16).jpg}
+    \end{center}
 
    If the middle length is \(\lambda\), then
    \[\tau(u) + \tau(v) = 2\ell(g) + 2\lambda \ge 2\ell(g)\]
@@ -651,15 +696,14 @@ The conjugacy problem follows, as the lemma tells us that we only need to check 
     \[X = \bigcup_{n \ge 1}X_n\]
     Pick a base vertex \(v_0 \in T\). For each \(e_i\), let \(\alpha_i\) be the illustrated loop.
 
-    \textbf{diagram}
+    \begin{center}
+        \includegraphics[scale=0.1]{diagrams/2024_02_20 17_55 Office Lens (17).jpg}
+    \end{center}
 
 \lec
 
     Note 
     \[X_{n+1} = X_n \cup e_{n+1} = X_n \cup_{Y_{n+1}} (S^1 \cup I)\]
-    where \(Y_n\) is the following
-
-    \textbf{diagram}
 
     By Seifert-van Kampen,
     \[\pi_1(X_{n+1}) = \pi_1(X_n) * \inner{\alpha_{n+1}}\]
@@ -989,7 +1033,7 @@ Often we will abuse notation and not distinguish between \(\Gamma\) and \(\abs{\
     It follows (for example by taking the spaces to be presentation complexes), that \(\pi_1(\mcG, T)\) does not depend, up to isomorphism, on \(T\). Thus, we will write \(\pi_1(\mcG)\).
 \end{remark}
 
-\subsection{Quotients}
+\subsubsection{Quotients}
 
 Suppose \(G\) acts on a tree \(T\) (or any graph). That is, \(G\) acts on \(V_T\) and on \(E_T\), so that
 \[\iota(g\cdot \widetilde e) = g\cdot \iota(\widetilde e) \qqtext{and}\tau(g\cdot \widetilde e) = g\cdot \tau(\widetilde e)\]
@@ -1036,5 +1080,112 @@ Define \(\tau_e\) similarly.
     So \(D_\infty = (\Z/2\Z) * (\Z/2\Z)\).
 \end{example}
 
+\lec
+
+\subsection{Bass-Serre tree}
+
+The main theorem of the subject is due to Serre, although we adopt a topological approach, due to Scott and Wall.
+
+\begin{theorem}
+    [Serre, the fundamental theorem of Bass-Serre theory] Let \(\mcG\) be a graph of groups, with connected underlying graph \(\Gamma\). Let \(G = \pi_1(\mcG)\). Then \(G\) acts on a tree \(T\), such that
+    \[\mcG \cong G \backslash T\]
+\end{theorem}
+
+\(T\) is called the \emph{Bass-Serre tree} of \(\mcG\).
+
+\begin{remark}
+    Letting \(G\) act on a tree \(T\) is equivalent to cutting \(G\) into pieces. The theorem says that \(\mcG\) has a ``universal cover'' \(T\), on which \(G = \pi_1(\mcG)\) acts, and we recover \(\mcG\) as the quotient. 
+\end{remark}
+
+\begin{proof}
+    [Sketch proof] Using presentation complexes, build a ``graph of spaces'' \(\mcX\) corresponding to \(\mcG\).
+
+    \textbf{diagram}
+
+    For each \(\bullet\), let \(X_\bullet\) be a presentation complex for \(G_\bullet\). Then build \(X\) as follows
+
+    \textbf{diagram}
+
+    For each ``edge space'', take a product with the interval \([-1, 1]\). We can use the homomorphism of groups to glue the ends of the cylinder to the appropriate vertex spaces. This is the data for \(\mcX\), and \(X\) is the resulting space.
+
+    Let \(\widetilde X\) be the universal cover of \(X\). It looks something like
+    
+    \textbf{diagram}
+
+    The result is a graph of spaces \(\widetilde \mcX\), where each vertex space \(\widetilde X_{\widetilde v}\) is the universal cover of some \(X_v\), and so on. The edge space is \([-1, 1] \times \widetilde X_{\widetilde e}\), where \(\widetilde X_{\widetilde e}\) is the universal cover of \(X_e\). Let \(\widetilde \Gamma\) be the underlying graph of \(\widetilde \mcX\). Now note that \(\widetilde X\) retracts onto \(\widetilde \Gamma\), by crushing all of the edge and vertex spaces to their base points. That is, we have maps
+    \[\iota : \widetilde \Gamma \inj \widetilde X \qqtext{and} r : \widetilde X \to \widetilde \Gamma\]
+    such that \(r \circ \iota \simeq \id\). So \(\iota_* : \pi_1(\widetilde\Gamma) \to \pi_1(\widetilde X)\) is injective. But \(\widetilde X\) is a universal cover, so simply connected. Hence \(\pi_1(\widetilde \Gamma)\) is simply connected. But a simply connected graph is a tree, so \(\widetilde \Gamma\) is a tree.
+
+    Set \(T = \widetilde \Gamma\).
+\end{proof}
+
+\begin{proposition}
+    Let \(G\) act on \(T\) with quotient \(\mcG\). Then
+    \begin{enumerate}[(i)]
+        \item there exists a \(G\)-equivariant bijection
+        \[V_T \bij \bigsqcup_{v \in V_\Gamma}G/G_v\]
+        \item there exists a \(G\)-equivariant bijection
+        \[E_T \bij \bigsqcup_{e \in E_\Gamma}G/G_e\]
+        \item for any \(\widetilde v \in V_T\), mapping to \(v \in V_\Gamma\), the set of edges of \(T\) incident at \(\widetilde{v}\) is \(G\)-equivariantly bijective with
+        \[\left(\bigsqcup_{\iota(e) = v} G_v/\iota_e(G_e)\right) \sqcup \left(\bigsqcup_{\tau(e) = v} G_v/\tau_e(G_e)\right)\]
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    For (i), choose orbit representatives \(\widetilde v \in G\cdot\widetilde v = v \in V_\Gamma\). Orbit stabiliser says that the map \(G \to G \cdot \widetilde v\) defines a \(G\)-equivariant bijection \(G/G_v \to G\cdot\widetilde v\).
+
+    For (ii), let \(G\) act on the set of edges. For (iii), let \(\Stab_G(\widetilde v)\) act on the set of incident edges.
+\end{proof}
+
+\begin{remark}
+    In particular, \(T\) is determined by the algebraic data of \(\mcG\), and so it is unique.
+\end{remark}
+
+\begin{example}
+    For
+
+    \textbf{diagram}
+
+    we have Bass-Serre tree
+
+    \textbf{diagram}
+\end{example}
+
+\begin{example}
+    For
+
+    \textbf{diagram}
+
+    we have Bass-Serre tree
+
+    \textbf{diagram}
+\end{example}
+
+\begin{example}
+    Here, \(F_2 = \pi_1(\mcG) = \Z \underset1* \Z\), and the graph of groups is
+
+    \textbf{diagram}
+
+    The Bass-Serre tree is
+
+    \textbf{diagram}
+
+    which is the tree with countably infinite valence at each vertex.
+\end{example}
+
+\begin{example}
+    On the other hand, we have another graph of groups
+
+    \textbf{diagram}
+
+    with Bass-Serre tree
+
+    \textbf{diagram}
+
+    with is the usual Cayley tree.
+\end{example}
+
+
+sheet2q5,9  
 
 \end{document}

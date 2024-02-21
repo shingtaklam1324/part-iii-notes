@@ -1002,6 +1002,7 @@ Unfortunately, there isn't a largest (or univeral) central extension, since we c
 
 \begin{theorem}
     [MacLane]
+    \label{thm:maclane}
     Given a presentation of \(G\), let \(M\) be a left \(\ZG\)-module. Then there is an exact sequence
     % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhIXjEoRiwgTSkiXSxbMSwwLCJcXEhvbV9HKFJfXFxhYiwgTSkiXSxbMiwwLCJcXEhIXjIoRywgTSkiXSxbMywwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM11d
     \[\begin{tikzcd}
@@ -1068,7 +1069,9 @@ This is important for studying central extensions.
 There is a formula:
 
 \begin{theorem}
-    [Hopf] Given a presentation \(G = F/R\),
+    [Hopf]
+    \label{thm:hopf}
+    Given a presentation \(G = F/R\),
     \[\mathrm{M}(G) = \frac{[F, F] \cap R}{[R, F]}\]
     Note that this is not necessarily all of \(F/[R, F]\).
 \end{theorem}
@@ -1108,6 +1111,7 @@ Define \(I_F = \ker(\epsilon : \Z F \to \Z)\), and \(\overline{I_R} = \ker(\Z F 
 \end{remark}
 
 \begin{lemma}
+    \label{lem:ideal-props}
     Let \(G\) be a group, and \(M\) is a (left) \(\ZG\)-module. Then
     \begin{enumerate}[(i)]
         \item \(I_G = \ker(\epsilon : \ZG \to \Z)\) is a free abelian group under addition, on the basis \(\{g - 1 \mid g \in G \setminus 1\}\),
@@ -1189,6 +1193,180 @@ Define \(I_F = \ker(\epsilon : \Z F \to \Z)\), and \(\overline{I_R} = \ker(\Z F 
 
     Exactness is basically clear from definitions, since \(\im(\dd_1) = I_G = \ker(\epsilon)\) and \(\ker(\dd_1) = \overline{I_R}/(\overline{I_R}I_F) = \im(\dd_2)\).
 \end{proof}
+
+\lec
+
+\begin{lemma}
+    Given a projective resolution
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGNkb3RzIl0sWzEsMCwiUF8xIl0sWzIsMCwiUF8wIl0sWzMsMCwiXFxaIl0sWzAsMV0sWzEsMiwiXFxkZF8xIl0sWzIsM11d
+\[\begin{tikzcd}
+	\cdots & {P_1} & {P_0} & \Z
+	\arrow[from=1-1, to=1-2]
+	\arrow["{\dd_1}", from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    Let \(J_n = \im(\dd_n) \sse P_{n-1}\), and let \(\psi : P_n \to J_n\) be the induced map. Then
+    \begin{enumerate}[(i)]
+        \item For a left \(\ZG\)-module \(M\), we have an exact sequence
+        % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhvbV9HKFBfe24tMX0sTSkiXSxbMSwwLCJcXEhvbV9HKEpfbiwgTSkiXSxbMiwwLCJcXEhIXm4oRywgTSkiXSxbMywwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM11d
+        \[\begin{tikzcd}
+            {\Hom_G(P_{n-1},M)} & {\Hom_G(J_n, M)} & {\HH^n(G, M)} & 0
+            \arrow[from=1-1, to=1-2]
+            \arrow[from=1-2, to=1-3]
+            \arrow[from=1-3, to=1-4]
+        \end{tikzcd}\]
+        where the first map is by restriction.
+        \item There is an exact sequence
+        % https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiXFxISF9uKEcsXFxaKSJdLFsyLDAsIlxcWlxcb3RpbWVzX1xcWkcgSl9uIl0sWzMsMCwiXFxaXFxvdGltZXNfXFxaRyBQX3tuLTF9Il0sWzAsMV0sWzEsMl0sWzIsM11d
+        \[\begin{tikzcd}
+            0 & {\HH_n(G,\Z)} & {\Z\otimes_{\ZG} J_n} & {\Z\otimes_{\ZG} P_{n-1}}
+            \arrow[from=1-1, to=1-2]
+            \arrow[from=1-2, to=1-3]
+            \arrow[from=1-3, to=1-4]
+        \end{tikzcd}\]
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    For (i), we have
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCJQX3tuKzF9Il0sWzEsMCwiUF9uIl0sWzIsMCwiSl9uIl0sWzMsMCwiMCJdLFsyLDEsIlBfe24tMX0iXSxbMCwxXSxbMSwyLCJcXHBzaSJdLFsyLDNdLFsxLDQsImRfbiIsMl0sWzIsNCwiXFxpb3RhIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJib3R0b20ifX19XV0=
+\[\begin{tikzcd}
+	{P_{n+1}} & {P_n} & {J_n} & 0 \\
+	&& {P_{n-1}}
+	\arrow[from=1-1, to=1-2]
+	\arrow["\psi", from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow["{d_n}"', from=1-2, to=2-3]
+	\arrow["\iota", hook', from=1-3, to=2-3]
+\end{tikzcd}\]
+    where the first row is exact. So we have
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCJcXEhvbV9HKFBfe24rMX0sTSkiXSxbMSwwLCJcXEhvbV9HKFBfbiwgTSkiXSxbMiwwLCJcXEhvbV9HKEpfbixNKSJdLFszLDAsIjAiXSxbMiwxLCJcXEhvbV9HKFBfe24tMX0sTSkiXSxbMywyXSxbMiwxLCJcXHBzaV4qIiwyXSxbMSwwLCJkXntuKzF9IiwyXSxbNCwxLCJkXm4iXSxbNCwyLCJcXGlvdGFeKiIsMl1d
+\[\begin{tikzcd}
+	{\Hom_G(P_{n+1},M)} & {\Hom_G(P_n, M)} & {\Hom_G(J_n,M)} & 0 \\
+	&& {\Hom_G(P_{n-1},M)}
+	\arrow[from=1-4, to=1-3]
+	\arrow["{\psi^*}"', from=1-3, to=1-2]
+	\arrow["{d^{n+1}}"', from=1-2, to=1-1]
+	\arrow["{d^n}", from=2-3, to=1-2]
+	\arrow["{\iota^*}"', from=2-3, to=1-3]
+\end{tikzcd}\]
+    where the first row is exact. So \(\im(\psi^*) = \ker(d^{n+1}), \ker(\psi^*) = 0\). With this, \(\im(\psi^*) \cong \Hom_G(J_n, M)\).
+
+    But also \(\im(\dd^n) = \im(\psi^* \circ \iota^*) \cong \im(\iota^*)\). Thus,
+    \[\HH^n(G, M) = \frac{\ker(\dd^{n+1})}{\im(\dd^n)} = \frac{\im(\psi^*)}{\im(\iota^*)} = \frac{\Hom_G(J_n, M)}{\im(\iota^*)}\]
+
+    (ii) is similar.
+\end{proof}
+
+\begin{proof}
+    [Proof of \cref{thm:maclane}] Applying the previous lemma to our partial resolution, we get an exact sequence
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXEhvbV9HXFxsZWZ0KFxcZnJhY3tJX0Z9e1xcb3ZlcmxpbmV7SV9SfUlfRn1cXHJpZ2h0KSJdLFsxLDAsIlxcSG9tX0coUl9cXGFiLCBNKSJdLFsyLDAsIlxcSEheMihHLE0pIl0sWzMsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdXQ==
+\[\begin{tikzcd}
+	{\Hom_G\left(\frac{I_F}{\overline{I_R}I_F}\right)} & {\Hom_G(R_\ab, M)} & {\HH^2(G,M)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    But
+    \begin{align*}
+        \Hom_G\left(\frac{I_F}{\overline{I_R}I_F}, M\right) &= \Hom_F\left(\frac{I_F}{\overline{I_R}I_F}, M\right) \\
+        &= \Hom_F(I_F, M)
+    \end{align*}
+    since \(M\) is a \(\ZG\)-module, and so it is trivial as a \(\Z R\)-module. Thus, any \(\Z F\)-map \(I_F \to M\) factors through \(I_F/\overline{I_R}I_F\).
+    But
+    \[\Hom_F(I_F, M) = \Der(F, M)\]
+    by \cref{lem:ideal-props} (iii). Recall an inner derivation is of the form
+    \[f \mapsto (f - 1)m\]
+    In particular, any inner derivation sends \(r \mapsto 0\), where \(r \in R\). Thus, the restriction map
+    \[\Hom_G\left(\frac{I_F}{\overline{I_R}I_F}\right) \to \Hom_G(R_\ab, M)\]
+    sends inner derivations to zero. Hence we have an induced map
+    \[\HH^1(F, M) \to \Hom_G(R_\ab, M)\]
+    and we are done.
+\end{proof}
+
+\begin{remark}
+    We will see this again with the five term exact sequence.
+\end{remark}
+
+\begin{proof}
+    [Proof of \cref{thm:hopf}] Apply the lemma again, we get
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiXFxISF8yKEcsIFxcWikiXSxbMiwwLCJcXFpcXG90aW1lc19cXFpHIFJfXFxhYiJdLFszLDAsIlxcWlxcb3RpbWVzX1xcWkdcXGZyYWN7SV9GfXtcXG92ZXJsaW5le0lfUn1JX0Z9Il0sWzAsMV0sWzEsMl0sWzIsM11d
+\[\begin{tikzcd}
+	0 & {\HH_2(G, \Z)} & {\Z\otimes_{\ZG} R_\ab} & {\Z\otimes_{\ZG}\frac{I_F}{\overline{I_R}I_F}}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+    But \(\Z \otimes_{\ZG} \cdot\) is the same as taking the coinvariants, and so 
+    \begin{align*}
+        \Z \otimes_{\ZG} R_\ab &= \frac{R}{[R, F]} \\
+        \Z \otimes_{\ZG} \frac{I_F}{\overline{I_R}I_F} &= \frac{I_F}{I_F^2} = \frac{F}{[F, F]} = F_\ab
+    \end{align*}
+    The kernel of the map
+    \[\frac{R}{[R, F]} \to \frac{F}{[F, F]}\]
+    is
+    \[\frac{[F, F] \cap R}{[R, F]}\]
+\end{proof}
+
+\begin{example}
+    Let \(G = V = (\Z/2\Z)^2\) be the Klein 4 group. Say \(x, y\) are generators, \(F = F_2\) free group on \(x, y\), \(R\) is generated as a normal subgroup of \(F\) by \(x^2, y^2, [x,y]\). So
+    \[G = \inner{x, y \mid x^2, y^2, [x, y]}\]
+    Note another presentation is \(G = \inner{x, y \mid x^2, y^2, (xy)^2}\). Let
+    \[R_D = \iinner{x^2, y^2, (xy)^4}\]
+    Note that \(R_D \sse R\), and so we have a map \(D_8 = F/R_D \to F/R = V\). Note that the kernel of this map is the centre of \(D_8\). So \([R, F] \sse R_D\), and \([R, F] \subsetneq [F, F]\). In Hopf's formula, \([F, F]\) is generated as a normal subgroup by \([x, y]\), and so \([F, F] \sse R\). So in the formula, \([F, F] \cap R = [F, F]\).
+    
+    Observe \(1 \equiv [x, y^2] \equiv [x, y]y[x, y]y^{-1} \equiv [x, y]^2 \pmod{[R, F]}\). Hence \([F, F]/[R, F]\) is generated by \([x, y]\) as a \(\Z F\) module, and is a trivial module, and is killed by multiplication by 2. So 
+    \[\mathrm{M}(G) = \frac{[F, F]}{[R, F]}\]
+    is either \(0\) or \(\Z/2\). But \([R, F] \ne [F, F]\), so \(\mathrm{M}(G) = \Z/2\).
+\end{example}
+
+\begin{remark}
+    The universal coefficient theorem and the corollary will be left unproved.
+\end{remark}
+
+\section{Brauer groups and Galois cohomology}
+
+\begin{definition}
+    [central simple algebra]
+    A \emph{central simple algebra \(A\)} over a field \(k\) is a finite dimensional \(k\)-vector space, with associative multiplication. Moreover, \(Z(A) = k\) and the only two-sided ideals are \(0\) and \(A\). 
+\end{definition}
+
+\begin{example}
+    \(\Mat_n(k)\) is a central simple algebra.
+\end{example}
+
+\begin{example}
+    Let \(k = \R\). Then the quaternions \(\bb H\) is a central simple algebra. This is in fact a division ring, any non-zero element has a multiplicative inverse.
+\end{example}
+
+We would like to classify central simple \(k\)-algebras, for a field \(k\).
+
+\begin{theorem}
+    [Artin-Wedderburn] A finite dimensional simple \(k\)-algebra \(A\) is isomorphic to \(\Mat_n(D)\), where \(D\) is a division ring over \(k\).
+\end{theorem}
+
+We will prove this later.
+
+\begin{remark}
+    Note that \(Z(A) = \{\lambda I \mid \lambda \in Z(D)\}\).
+\end{remark}
+
+We will define an equivalence relation on central simple \(k\)-algebras: We say that \(A \sim B\) if
+\[A\otimes_k \Mat_n(k) \cong B \otimes_k \Mat_m(k)\]
+for some \(m, n\). From Artin-Wedderburn, \(A \cong M_n(D)\), and so \([A] = [D]\).
+
+\begin{definition}
+    [Brauer group]
+    The \emph{Brauer group} \(\Br(k)\) is the set of equivalence classes, with
+    \[[A][B] = [A \otimes_k B]\]
+\end{definition}
+
+Recall that
+\[(a_1\otimes b_1)(a_2 \otimes b_2) = (a_1a_2)\otimes (b_1b_2)\]
+This has identity element
+\[[k] = [\Mat_n(k)]\]
+and
+\[[A]^{-1} = [A^\mathrm{op}]\]
 
 \printindex
 

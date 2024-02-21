@@ -575,6 +575,76 @@ On each sympelctic vector bundle, we have a canonical choice of a complex struct
     by sending \(\mcL\) to \(c_1(\mcL)\).
 \end{theorem}
 
+\lec
+
+We have functors
+\[X \mapsto \{\text{vector bundles on }X\}\]
+and
+\[X \mapsto \HH^2(X, \Z)\]
+In this case, the first functor is given by the functor
+\[X \mapsto \frac{\{f : X \to \C\P^\infty\}}{\text{homotopy}}\]
+where we pullback the tautological line bundle using a continuous map. Define \(c_1(\mcL) = f^*x\), where \(\HH^*(\C\P^\infty) = \Z[x]\). Note also \(K(\Z, 2) = \C\P^\infty\), and so \(\C\P^\infty\) represents \(\HH^2(\cdot, \Z)\). Moreover, note that \(\C\P^\infty = B\mathrm U(1)\), so it represents principal \(\mathrm U(1)\) bundles.
+
+We can also define \(c_1\) in terms of Chern-Weil theory, for example see Griffiths-Harris. In fact, for this it is just the curvature of a unitary connection.
+
+For a more general complex vector bundle \(\mcE\), we can define \(c_1(\mcE) = c_1(\det(E))\), where \(\det(E) = \Lambda^{\text{top}}\mcE\) is the \emph{determinant line bundle}.
+
+In practice, for a line bundle over \(X\) satisfying Poincar\'e duality, \(c_1(\mcL)\) is the Poincar\'e dual of the zero locus of a generic section of \(\mcL\). Note that the zero locus lives in \(\HH_{n-2}(\mcL)\), since \(\mcL\) is a complex line bundle.
+
+For an almost complex manifold \(X\), we will define \(c_1(X) = c_1(\T X)\).
+
+\begin{example}
+    For \(X = S^2\), consider rotation about a fixed axis. This has two zeroes. So \(c_1(S^2) = \PD(\text{2 points}) = 2 \in \HH^2(S^2; \Z)\).
+
+    More generally, if \(\Sigma_g\) is the surface of genus \(g\), \(c_1(\Sigma_g)\) is the number of zeroes of a generic vector field, which is \(\chi(\Sigma_g) = 2 - 2g\).
+\end{example}
+
+\begin{itemize}
+    \item \(c_1(\mcE)\) is invariant under homotopy of the almost complex structure \(J\), so \(c_1(M)\) is well defined for a symplectic manifold \(M\),
+    \item \(c_1(f^*\mcE) = f^*c_1(\mcE)\)
+    \item \(c_1(\mcE \otimes \mcF) = \rank(\mcE)c_1(F) + \rank(\mcF)c_1(\mcE)\),
+    \item \(c_1(\mcL^*) = -c_1(\mcL)\),
+    \item \(c_1(\mcL_{\text{taut}} \to \C\P^n) = -\PD(H) \in \HH^2(\C\P^n; \Z)\), where \(H\) is a hyperplane (class).
+    \item \(c_1(\C\P^n) = (n + 1)\PD(H)\). Note here, \(\T\C\P^n = \mcO(n+1)\).
+    \item if
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxtY0EiXSxbMiwwLCJcXG1jQiJdLFszLDAsIlxcbWNDIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & \mcA & \mcB & \mcC & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    is a short exact sequence of complex vector bundles, then \(c_1(\mcB) = c_1(\mcA) + c_1(\mcC)\).
+\end{itemize}
+
+\subsection{Four manifolds}
+
+Let \((X^4, J)\) be an almost complex 4 manifold. Let \(C^2 \sse X\) be an almost complex curve. So \(J\) restricts to an endomorphism \(\T C \to \T C\).
+
+\begin{proposition}
+    \[-\chi(C) = 2g(C) -2 = -c_1(X)\cdot [C] + [C]^2\]
+\end{proposition}
+
+Here, in dimension 4 we have a pairing \(\HH_2(X) \otimes \HH_2(X) \to \Z\).
+
+\begin{proof}
+    We have a short exact sequence of vector bundles
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxUIEMiXSxbMiwwLCJcXFQgWFxcdmVydF9DIl0sWzMsMCwiXFxudV97Qy9YfSJdLFs0LDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+    \[\begin{tikzcd}
+        0 & {\T C} & {\T X\vert_C} & {\nu_{C/X}} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    Hence
+    \[c_1(\T X\vert_C) = c_1(\T C) + c_1(\nu_{C/X})\]
+    Taking intersection with \([C]\), the right hand side is
+    \[\chi(C) + [C]\cdot [C]\]
+    and the left hand side is \(c_1(X) \cdot [C]\).
+\end{proof}
+
 \printindex
 
 \end{document}
