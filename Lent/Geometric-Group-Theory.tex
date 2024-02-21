@@ -1186,6 +1186,117 @@ The main theorem of the subject is due to Serre, although we adopt a topological
 \end{example}
 
 
-sheet2q5,9  
+% sheet2q5,9  
+
+\lec
+
+How do stable letters \(t_e \in \pi_1(\mcG)\) act on \(T\)? Choose a maximal tree \(M\) in \(\Gamma\). The action of \(G\) in \(T\) also depends on a choice of lift \(\widetilde M \sse T\), where we lift by the quotient map \(T \to \Gamma\).
+
+For example, when \(D_\infty\) acts on \(\R\), the Bass-Serre tree is
+
+\textbf{diagram}
+
+and the lift of a maximal tree is
+
+\textbf{diagram}
+
+The choice of \(\widetilde M\) determine choices of lifts of vertices \(\widetilde v \in T\) mapping to \(v \in \Gamma\). For each edge \(e \in E_\Gamma\) not contained in \(M\), choose a lift \(\widetilde e\) such that \(\iota(\widetilde e) = \widetilde{\iota(e)}\). The action of \(t_e\) on \(T\) is determined by the fact that:
+\[t_e\widetilde{\tau(e)} = \tau(\widetilde e)\]
+
+Most importantly, we can understand elements of \(G = \pi_1(\mcG, M)\) via reduced words.
+
+\begin{definition}
+    [loop]
+    Fix a base vertex \(v_0 \in V_\Gamma\). Consider an element
+    \[w = g_0t_1^{\pm 1}\cdots g_{k=1}t_k^{\pm 1}g_k \in \left(\bigstar_{v \in V_\Gamma}G_v\right) * F(E_\Gamma)\]
+    where \(g_i \in G_{v_i}\), and \(t_i = t_{e_i}\) is the corresponding stable letter. Then \(w\) is a \emph{(based) loop} if:
+    \begin{enumerate}[(i)]
+        \item \(v_0 = v_k\), which is also the base vertex we fixed at the start of the definition.
+        \item the path \(e_1^\pm 1\cdots e_k^\pm 1\) is a loop in \(\Gamma\) based at \(v_0\),
+        \item ``if it goes'' \(t_ig_i\), then \(v_i = \tau(e_i)\). On the other hand, ``if it goes'' \(t_i^{-1}g_i\), then \(v_i = \iota(e_i)\).
+    \end{enumerate}
+\end{definition}
+
+Recall the relations in \(\pi_1(\mcG)\) say that
+\[t_e\iota_e(G_e)t_e^{-1} = \tau_e(G_e)\]
+
+\begin{definition}
+    [pinch]
+    A sub-path of a loop is called a \emph{pinch} if it is of the form:
+    \begin{enumerate}[(i)]
+        \item \(t_e\iota_e(h)t_e^{-1}\) for \(h \in G_e\), or
+        \item \(t_e^{-1}\tau_e(h)t_e\) for \(h \in G_e\).
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    Loops should be thought of as defining paths in the Bass-Serre tree.
+\end{remark}
+
+A pinch corresponds to when the path double backs on itself. A based loop without pinches is called \emph{reduced}.
+
+\begin{theorem}
+    [normal form for graphs of groups] Let \(\mcG\) be a graph of groups. Then
+    \begin{enumerate}[(i)]
+        \item every element \(g \in \pi_1(\mcG)\) is represented by a based loop \(\gamma\),
+        \item if \(\gamma\) is reduced, then \(g\) is non-trivial.
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    [about the proof]
+    \begin{enumerate}[(i)]
+        \item The unique path \([\widetilde v_0, g\widetilde v_0]\) defines a loop representing \(g\),
+        \item reduced loops correspond to locally injective paths in \(T\), which are globally injective. Hence \(g\widetilde v_0  \ne \widetilde v_0\). 
+    \end{enumerate}
+\end{remark}
+
+\section{Property FA}
+
+Suppose \(G\) acts on a tree. A \emph{global fixed point} \(p \in T\) for \(G\) is a point \(x_0 \in T\) such that \(\Stab(x_0) = G\). We say \(G\) acts \emph{trivially} on \(T\) if there is a global fixed point.
+
+\begin{example}
+    Let \(\Z\) act on the tree \(T\)
+
+    \textbf{diagram}
+
+    The central point is a global fixed point. The quotient is
+
+    \textbf{diagram}
+\end{example}
+
+If \(G\) acts on some tree non-trivially, then we say that \(G\) splits. Otherwise, we say that \(G\) has \emph{property FA}.
+
+Here is a result from examples sheet 2:
+
+\begin{lemma}
+    If \(\phi\) is an isometry of a tree \(T\), then either:
+    \begin{enumerate}[(i)]
+        \item \(\phi\) fixes a point, or
+        \item \(\phi\) translates a line a positive distance.
+    \end{enumerate}
+    In (i), \(\phi\) is \emph{elliptic}, and in (ii), \(\phi\) is \emph{hyperbolic}.
+\end{lemma}
+
+\begin{remark}
+    If the order of \(\phi\) is finite, then \(\phi\) is elliptic.
+\end{remark}
+
+\begin{lemma}
+    Suppose \(\phi, \psi \in \Isom(T)\) are both elliptic, \(\Fix(\phi) \cap \Fix(\psi) = \emptyset\), then \(\phi\circ\psi\) is hyperbolic.
+\end{lemma}
+
+\begin{proof}
+    Note that \(\Fix(\phi)\) and \(\Fix(\psi)\) are connected subtrees of \(T\). Let \([x, y]\) be the unique path from \(\Fix(\phi)\) to \(\Fix(\psi)\).
+
+    Let \(I = [x, y] \cup [\psi^{-1}x, \psi^{-1}y]\). Note \(\psi^{-1}[x, y]\) is the path from \(\psi^{-1}\Fix(\phi)\) to \(\Fix(\psi)\).
+
+    \textbf{diagram}
+
+    Now note that \(I \cap \phi\psi I = \{x\}\), and so repeating this, we have a line 
+    \[\bigcup_{n \in \Z}(\phi\psi)^n I\]
+    which is preserved by \(\phi\psi\). In fact, the line is translated by \(2d(x, y)\). Thus, \(\phi\psi\) is hyperbolic.
+\end{proof}
+
 
 \end{document}
