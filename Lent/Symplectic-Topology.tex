@@ -645,6 +645,56 @@ Here, in dimension 4 we have a pairing \(\HH_2(X) \otimes \HH_2(X) \to \Z\).
     and the left hand side is \(c_1(X) \cdot [C]\).
 \end{proof}
 
+\lec
+
+Let \(X^4\) be a \(4\)-manifold, with an almost complex structure.
+
+\begin{theorem}
+    [Hirzebruch signature] Let \(X^4\) be an almost complex manifold. Then
+    \[c_1(X)^2 = 2\chi(X) + 3\sigma(X)\]
+    Here, \(\HH^2(X; \R)\) has a non-degenerate symmetric pairing from the intersection form/cup product. Thus, it has a signature which we denote by \(\sigma(X) = b_+ - b_-\).
+\end{theorem}
+
+We note that \(b_+ + b_- = b_2(X)\), and that \(c_1(X)^2 \equiv \sigma(x) \pmod 8\).
+
+\begin{proposition}
+    If \(X^4\) admits an almost complex structure, then \(X \# X\) does not.
+\end{proposition}
+
+In particular, \(\P^2 \# \P^2\) is not a complex manifold.
+
+\begin{proof}
+    Note that \(b_1(X \# X) = 2b_1(X)\) and \(b_\pm(X \# X) = 2b_\pm (X)\). If \(X\) admits an almost complex structure, then \(1 - b_1 + b_+\) must be even.
+\end{proof}
+
+In fact, a connect sum of \(n\) copies of \(\P^2\) has an almost complex structure if and only if \(n\) is odd.
+
+\section{K\"ahler manifolds}
+
+Suppose \(X\) is a complex manifold. Let \(J\) be the almost complex structure. Define
+\[\T_\C X = \T X \otimes \C\]
+Then \(J\) extends to an endomorphism of \(\T_\C X\). But now \(J^2 + \id = 0\), and so \(J\) is diagonalisable, and \(\T_\C X\) splits into
+\[\T^{1,0}X \oplus \T^{0, 1}X\]
+which are the \(i\) and \(-i\) eigenspaces of \(J\) respectively. Write
+\[\pdv{z_i} = \frac{1}{2}\left(\pdv{x_i} - i\pdv{y_i}\right) \qqtext{and} \pdv{\overline z_i} = \frac{1}{2}\left(\pdv{x_i} + i\pdv{y_i}\right)\]
+Then \(\T^{1, 0}X\) is the span of the \(\pdv{z_i}\) and \(\T^{0, 1}X\) is the span of the \(\pdv{\overline z_i}\).
+
+In terms of the cotangent bundle, we have a splitting
+\[\T_\C^* X = (\T^{1, 0})^*X \oplus (\T^{0, 1})^*X\]
+which again are the \(i\) and \(-i\) eigenspaces of \(J\). Then \((\T^{1, 0})^*X\) is the span of the \(\dd z_i\) and \((\T^{0, 1})^*X\) is the span of the \(\dd \overline z_i\).
+
+We define
+\[\Lambda^{\ell, k}X = \Lambda^\ell (\T^{1, 0}X)^* \otimes \Lambda^k (\T^{0,1}X)^*\]
+and let \(\Omega^{\ell, k} = \Gamma(\Omega^{\ell, k})\) be the space of sections. Locally, elements are of the form\footnote{Summation convention applies.}
+\[f_{I, J}\dd z_I \wedge \dd \overline{z}_J\]
+where \(\abs{I} = \ell\) and \(\abs{J} = k\).
+
+Note if \(f : X \to \C\) is a smooth function, then we have
+\[\dd f = \pdv{f}{z_i}\dd z_i + \pdv{f}{\overline{z}_j}\dd \overline z_j\]
+We write
+\[\partial f = \pdv{f}{z_i}\dd z_i \qqtext{and}\overline\partial f = \pdv{f}{\overline z_j}\dd \overline z_j\]
+for the holomorphic and antiholomorphic parts. In particular, \(\partial f \in \Omega^{1, 0}(X)\), \(\overline\partial f \in \Omega^{0, 1}(X)\), and \(f\) is holomorphic if and only if \(\overline\partial f = 0\).
+
 \printindex
 
 \end{document}
