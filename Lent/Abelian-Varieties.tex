@@ -1990,4 +1990,133 @@ So we need to show that we have the dotted arrow making the diagram commute. Tak
     \end{enumerate}
 \end{remark}
 
+\lec
+
+\begin{definition}
+    [left translation]
+    Suppose \(G/k\) is a group scheme, and \(x \in G(k)\). The \emph{(left) translation} morphism \(T_x : G \to G\) is the unique morphism such tha for all \(k\)-algebras \(R\), \(y \in G(R)\),
+    \[T_x(y) = xy = m(x, y)\]
+\end{definition}
+
+That is, \(T_x\) is the composition
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJHIFxcdGltZXMgXFxTcGVjKGspIFxcdGltZXMgRyJdLFsxLDAsIkcgXFx0aW1lcyBHIl0sWzIsMCwiRyJdLFsxLDIsIm0iXSxbMCwxLCJ4IFxcdGltZXMgXFxpZF9HIl1d
+\[\begin{tikzcd}
+	{G \times \Spec(k) \times G} & {G \times G} & G
+	\arrow["m", from=1-2, to=1-3]
+	\arrow["{x \times \id_G}", from=1-1, to=1-2]
+\end{tikzcd}\]
+Similarly, we can define right translation. Clearly
+\begin{itemize}
+    \item \(T_e = \id\),
+    \item \(T_{xy} = T_xT_y\)
+\end{itemize}
+So \(T_x : G \to G\) is an isomorphism of \(k\)-schemes. We don't just need to consider \(k\)-points.
+
+\begin{definition}
+    Let \(S\) be a \(k\)-scheme, \(x \in G(S)\), then define \(T_x : G \times S \to G \times S\) to be the morphism
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJHXFx0aW1lcyBTIl0sWzIsMCwiR1xcdGltZXMgKEcgXFx0aW1lcyBTKSA9IChHIFxcdGltZXMgRylcXHRpbWVzIFMiXSxbNCwwLCJHIFxcdGltZXMgUyJdLFswLDEsIlxcaWRcXHRpbWVzKHgsIFxcaWRfUykiXSxbMSwyLCJtXnRcXHRpbWVzIFxcaWRfUyJdXQ==
+    \[\begin{tikzcd}
+        {G\times S} && {G\times (G \times S) = (G \times G)\times S} && {G \times S}
+        \arrow["{\id\times(x, \id_S)}", from=1-1, to=1-3]
+        \arrow["{m^t\times \id_S}", from=1-3, to=1-5]
+    \end{tikzcd}\]
+    where \(m^t(g, h) = m(h, g)\).
+\end{definition}
+
+When \(S = \Spec(k)\), this is the same as the above. In particular, taking \(S = G, x = \id_G \in G(G)\) to be the ``tautological point'', we get the universal translation
+\[G \times G \to G \times G\]
+given by \((g, h) \mapsto (hg, h)\). This is universal since if \(x \in G(S)\) for any \(S\), then we have the commutative diagram
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJHIFxcdGltZXMgRyJdLFsyLDAsIkdcXHRpbWVzIEciXSxbMCwyLCJHXFx0aW1lcyBTIl0sWzIsMiwiR1xcdGltZXMgUyJdLFswLDEsIihtXnQsIFxccHJfMikiXSxbMiwzLCJUX3giXSxbMiwwLCJcXGlkX0dcXHRpbWVzIHgiXSxbMywxLCJcXGlkX0cgXFx0aW1lcyB4IiwyXV0=
+\[\begin{tikzcd}
+	{G \times G} && {G\times G} \\
+	\\
+	{G\times S} && {G\times S}
+	\arrow["{(m^t, \pr_2)}", from=1-1, to=1-3]
+	\arrow["{T_x}", from=3-1, to=3-3]
+	\arrow["{\id_G\times x}", from=3-1, to=1-1]
+	\arrow["{\id_G \times x}"', from=3-3, to=1-3]
+\end{tikzcd}\]
+In fact, this is a cartesian diagram.
+
+\begin{definition}
+    [group variety, abelian variety]
+    A \emph{group variety over \(k\)} is a \(k\)-group scheme which is also a variety. An \emph{abelian variety} is a group variety which is proper over \(k\).
+\end{definition}
+
+\begin{remark}
+    An \emph{algebraic group} is sometimes a group variety, or sometimes a group scheme of finite type.
+\end{remark}
+
+\begin{example}
+    \(\mathbb G_a, \mathbb G_m, \GL_n, \SL_n\) are group varieties. The simplest non-trivial abelian variety is an elliptic curve \(E/k\) (a non-singular plane cubic with a point \(e \in E(k)\)). The group law on \(E\) is the chord/tangent construction for a plane cubic. This makes \(E\) into an abelian variety of dimension \(1\).
+\end{example}
+
+% \begin{proposition}
+%     Abelian varieties are commutative.
+% \end{proposition}
+
+\begin{theorem}
+    [(classical form of) Mumford's rigidity lemma]
+    \label{thm:mumford-rigidity}
+
+    Let \(X, Y, Z\) be varieties over \(k\), where \(X\) is proper and \(X(k) \ne \emptyset\). Suppose \(f : X \times Y \to Z\) is a morphism. If for some \(y_0 \in Y\), \(z_0 \in Z\),
+    \[X \times \{y_0\} \sse f^{-1}(z_0)\]
+    then there exists \(g : Y \to Z\) such that \(f = g \circ \pr_2\). In particular, for all \(y \in Y\), \(f(X \times \{y\})\) is a single point.
+\end{theorem}
+
+In words, suppose \(X\) is proper, and we are given a family of maps \(X \to Z\) indexed by \(Y\). If one of the maps is constant, then they all are.
+
+Note that here
+\[X \times \{y_0\} = \pr_2^{-1}(y_0)\]
+is the fibre.
+
+\begin{remark}
+    [properness] Suppose \(X = Y = Z = \A^1_k\), and \(f : \A^1 \times \A^1 \to \A^1\) is given by \(f(x, y) = xy\). For \(y = 0\), this is the zero morphism \(\A^1 \to \A^1\). But if \(y \ne 0\) it is an isomorphism.
+\end{remark}
+
+\begin{corollary}
+    Suppose \(X\) is an abelian variety, \(G\) any group variety. If \(f : X \to G\) is a morphism and \(g = f(e_X)\). Then \(T_{g^{-1}}\circ f\) is a homomorphism.
+\end{corollary}
+
+\begin{proof}
+    Replacing \(f\) with \(T_{g^{-1}} \circ f\), we may assume \(f(e_X) = e_G\). Consider the morphism \(h : X \times X \to G\), given on (\(R\)-valued) points by
+    \[h(x, y) = f(x)f(y)f(xy)^{-1}\]
+    Then
+    \[h(X \times \{e_X\}) = \{e_G\} = h(\{e_X\} \times X)\]
+    Applying rigidity, the first equality implies that \(h\) factors through \(\pr_2\). The second equality implies \(h\) factors through \(\pr_1\). Hence \(h(x, y) = e_G\) for all \(x, y \in X(R)\).  Hence \(f\) is a homomorphism. 
+\end{proof}
+
+\begin{corollary}
+    Abelian varieties are commutative.
+\end{corollary}
+
+\begin{proof}
+    Consider the inverse map \(\iota : X \to X\). As \(\iota(e) = e\), \(\iota\) is a homomorphism. This means \(X(R)\) is commutative for all \(R\), since a group is abelian if and only if the inverse map is a homomorphism.
+\end{proof}
+
+\begin{remark}
+    The ``abelian'' in abelian varieties is the same Abel as for abelian groups, but not for the same reason. Similarly, abelian functions are a generalisation of elliptic functions.
+\end{remark}
+
+Instead of the rigidity lemma, we will prove a stronger statement:
+
+\begin{theorem}
+    Let \(p : X \to Y\) be a proper morphism of schemes, where \(Y\) is integral, and admits a section \(s : Y \to X\). That is, \(p \circ s = \id_Y\). Assume \(p_*\mcO_X = \mcO_Y\).
+
+    Let \(f : X \to Z\) be a morphism where \(Z\) is a separated scheme. Suppose there exists \(y \in Y, z \in Z\), such that \(X_y = p^{-1}(y) \sse f^{-1}(z)\). So \(f\) collapses \(X_y\) to a point. Then \(f  =g \circ p\), for some unique \(g : Y \to Z\).
+\end{theorem}
+
+\begin{remark}
+    To deduce \cref{thm:mumford-rigidity}, we have \(p = \pr_2 : X \times Y \to Y\). Integral and separated follow from \(Y\) being a variety. \(s\) is given by any element of \(X(k)\). \((\pr_2)_*\mcO_{X \times Y} = \mcO_Y\), since \(\HH^0(X, \mcO_X) = k\) for a proper variety.
+\end{remark}
+
+\begin{proof}
+    If \(g\) exists, then \(f \circ s = g \circ (p \circ s) = g\), and so \(g\) is unique, and it exists if and only if \(f = f \circ (s \circ p)\). Suppose also there exists an open dense \(Y' \sse Y\), over which \(g\) exists. Then \(f\vert_{f^{-1}(Y')} = (f \circ s \circ p)\vert_{f^{-1}(Y')}\). But as \(Y\) is reduced and \(Z\) is separated, \(f = f \circ s \circ p\) everywhere, see Hartshorne.
+
+    We know \(f\) maps \(X_y \sse X\) to \(\{z\} \sse Y\), and so let \(W\) be an open affine neighbourhood of \(z\). Then \(f^{-1}(W)\) is an open neighbourhood of \(X_y\). Since \(p\) is proper, it is closed, and any such neighbourhood of \(f^{-1}(W)\) contains \(p^{-1}(Y')\) for some sufficiently small open affine neighbourhood \(Y'\) of \(y\).
+
+    To see this, let \(T = p(X \setminus f^{-1}(W))\). This is closed and does not contain \(y\). Hence any open affine neighbourhood of \(y\) in \(Y \setminus T\) works. So let \(X' = p^{-1}(Y')\), and let \(p' : X' \to Y'\) be the restriction. Then \(f\) maps \(X'\) to \(W = \Spec(B) \sse Z\). Hence this is induced by a ring homomorphism \(B \to \Gamma(X', \mcO_{X'}) = \Gamma(Y', \mcO_{Y'})\), since \(f_*\mcO_X = \mcO_Y\). So \(f\vert_{V'}\) factors as \(X' \to Y' \to W\). Since \(Y\) is integral, \(Y'\) is dense in \(Y\).
+\end{proof}
+
+
 \end{document}
