@@ -1381,6 +1381,7 @@ In particular, \(\alpha + \beta + \gamma < \pi\).
 Recall that \(\Isom^+(\bb H^2) \cong \PSL(2, \R)\), acting on the upper half plane model by M\"obius transformations.
 
 \begin{definition}
+    [Fuchsian group]
     If \(\Gamma \le \PSL(2, \R)\) is a subgroup which acts properly discontinuously on \(\bb H^2\), then \(\Gamma\) is called a \emph{Fuchsian group}.
 \end{definition}
 
@@ -1410,5 +1411,87 @@ We can also think of them as the discrete subgroups of \(\PSL(2, \R)\). Some bas
 
 \lec
 
+\begin{proof}
+    Recall that \(\phi : \bb H^2 \to \bb H^2\) extends continuously to a homeomorphism \(\phi : \overline{\bb H}^2 \to \overline{\bb H}^2\). By Brouwer's fixed point theorem, \(\Fix(\phi) \sse \overline{\bb H}^2\) is non-empty. We saw that if \(\phi\) has at least three fixed points, then \(\phi= \id\), so we can consider it case by case.
+
+    \begin{enumerate}
+        \item \(\Fix(\phi) = \{\xi\} \sse \overline{\bb H}^2\).
+        \begin{enumerate}[(a)]
+            \item If \(\xi \in \bb H^2\), then \(\phi\) is elliptic.
+            \item If \(\xi \in \partial \bb H^2\), then \(\phi\) is parabolic.
+        \end{enumerate} 
+        \item \(\Fix(\phi) = \{\xi^+, \xi^-\}\).
+        \begin{enumerate}[(a)]
+            \item If \(\xi^+ \in \bb H^2\) (without loss of generality), we get a unique geodesic from \(\xi^+\) to \(\xi^-\). \(\phi\) preserves the geodesic \(\Ico{\xi^+, \xi^-}\). But then there is (at least) thre fixed points. So \(\phi = \id\).
+            \item If \(\xi^+, \xi^- \in \partial\bb H^2\), then again we have a uique geodesic from \(\xi^+\) to \(\xi^-\), and \(\phi\) preserves it. Since \(\phi\) has two fixed points, \(\phi\) must act on the geodesic by a translation by a positive distance.
+        \end{enumerate}
+    \end{enumerate}
+\end{proof}
+
+When \(\phi\) is hyperbolic, we call the geodesic it preserves its \emph{axis}.
+
+\subsection{Examples of Fuchsian groups}
+
+Recall \(\Gamma \le \Isom^+(\bb H^2)\) is \emph{Fuchsian} if the action of \(\Gamma\) on \(\bb H^2\) is properly discontinuous. In particular, for all \(x \in \bb H^2\), \(\Stab_\Gamma(x)\) is finite.
+
+Lets start with some easy examples.
+
+\begin{example}
+    Consider the disc model. The metric is radially symmetric, and so all rotations about \(0\) are isometries. In particular,
+    \[z \mapsto e^{2\pi i/n}z\]
+    is an isometry, generates \(\Z/n\Z \le \Isom^(\bb H^2)\).
+
+    In fact, any elliptic isometry is conjugate to this one.
+\end{example}
+
+\begin{example}
+    Now consider the upper half plane model. Consider the map \(z \mapsto \lambda z\), for any \(\lambda \in \R_{> 1}\). This is an element of \(\Isom^+(\bb H^2)\). The axis is \(\ell^+\). This gives \(\Z \cong \inner{\phi} \le \Isom^+(\bb H^2)\).
+
+    In fact, any elliptic isometry is conjugate to this one.
+\end{example}
+
+\begin{example}
+    Define \(\psi(z) = z + 1\). This is an isometry of \(\bb H^2\). This gives a parabolic isometry, where the fixed point is \(\infty\). This gives \(\Z \cong \inner{\psi} \le \Isom^+(\bb H^2)\).
+
+    In fact, any parabolic isometry is conjugate to this one.
+\end{example}
+
+These examples are called \emph{elementary}. There's one more elementary example
+
+\begin{example}
+    Consider upper half plane. Let \(s_1\) be rotation by \(\pi\) about \(i\), and \(s_2\) be rotation by \(\pi\) about \(2i\). Then we get
+    \[\inner{s_1, s_2} \cong D_\infty\]
+\end{example}
+
+\begin{example}
+    Let \(\Sigma_g\) be a closed orientable surface of genus \(g\), with \(g \ge 2\). In this case, \(\widetilde \Sigma_g\) is isometric to \(\bb H^2\). Then \(\pi_1(\widetilde \Sigma_g)\) is Fuchsian.
+\end{example}
+
+\begin{definition}
+    Let \(p, q, r \in \Z_{\ge 1}\). The \emph{\((p,q,r)\)-triangle group} is defined by the presentation
+    \[\Gamma(p,q,r) = \inner{a,b,c \mid a^p, b^q, c^r, abc} = \inner{a, b \mid a^p, b^q, (ab)^{-r}}\]
+\end{definition}
+
+From our criterion for FA, \(\Gamma(p, q, r)\) has property FA. Thus, it does not split, and so we can't use the techniques we have developed so far.
+
+Is \(\Gamma(p,q,r)\) non-trivial? infinite? and so on?
+
+\begin{example}
+    \(\Gamma(2,3,1) = 1\).
+\end{example}
+
+However, many interesting examples arise from Poincar\'e's polygon theorem.
+
+\begin{theorem}
+    [Poincar\'e's polygon theorem] If \(p^{-1} + q^{-1} + r^{-1} < 1\), then \(\Gamma(p, q, r)\) is an infinite Fuchsian group.
+\end{theorem}
+
+\begin{remark}
+    The converse is morally true. That is, the other cases are all finite or non-Fuchsian.
+\end{remark}
+
+\begin{proof}
+    We start with a geodesic triangle \(\Delta \sse \bb H^2\) with interior angles \(\pi/p, \pi/q, \pi/r\).
+\end{proof}
 
 \end{document}

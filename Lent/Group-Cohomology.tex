@@ -1485,7 +1485,109 @@ Before that, we need to prove some things:
     where \(D = \End_A(M)\) and the dimension of \(V\) as a \(k\)-vector space determines \(r\).
 \end{proof}
 
+\lec
 
+\begin{definition}
+    Let \(V\) be a finite dimensional \(k\)-vector space, with basis \(\{e_i\}_{i \in I}\). For \(v \in V\), define its \emph{support}
+    \[J(v) = \{i \in I \mid a_i \ne 0\}\]
+    where
+    \[v = \sum_i a_i e_i\]
+
+    For \(W\) a subspace of \(V\), \(w \in W\) non-zero is \emph{primordial} with respect to the basis if
+    \begin{enumerate}
+        \item \(J(w)\) is minimal amongst \(\{J(w') \mid w' \in W\}\),
+        \item \(a_i = 1\) for some \(i\), when \(w = \sum a_i e_i\).
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+    \begin{enumerate}[(i)]
+        \item For \(w, w' \in W\), with \(J(w)\) minimal, \(J(w') \sse J(w)\) if and only if \(w' = cw\) for some \(c \in k\). If so, \(J(w) = J(w')\).
+        \item The primordial elements span \(W\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    (i) is clear. For (ii), induct on \(\abs{J(w)}\). Let
+    \[w = \abs{i \in J(w)}a_ie_i\]
+    Amongst non-zero elements \(w' \in W\) with \(J(w') \sse J(w)\), choose one with \(\abs{J(w')}\) minimal. Then \(w_0 = cw'\) for some \(c \in k^\times\) is primordial. Now
+    \[w = a_jw_0 + (w - a_jw_0)\]
+    with \(w - a_jw_0 \in W\), and \(\abs{J(w - a_jw_0)} < \abs{J(w)}\).
+    
+    By the inductive hypothesis, \(w - a_jw_0\) is a linear combination of primordial elements.
+\end{proof}
+
+\begin{remark}
+    All of the same applies for vector spaces over division algebras.
+\end{remark}
+
+\begin{lemma}
+    Let \(A\) be a \(k\)-algebra, \(D\) a division algebra over \(k\), with centre \(k\). Then every two-sided ideal \(I\) of \(A \otimes_k D\) is generated as a left \(D\)-module by \(I \cap (A \otimes 1)\). 
+\end{lemma}
+
+\begin{proof}
+    The left \(D\)-module structure on \(A \otimes_k D\) is given by
+    \[\delta(a \otimes \delta') = a \otimes (\delta\delta')\]
+    The ideal \(I\) is a \(D\)-submodule of \(A \otimes_k D\). 
+    
+    Let \(\{e_i\}_{i \in I}\) be a basis for \(A\) as a \(k\)-vector space, then \(\{e_i \otimes 1\}_{i \in I}\) is a basis for \(A \otimes_k D\) as a left \(D\)-module, Let \(r \in I\) be primordial with respect to this basis, say
+    \[r = \sum_{i \in J(r)}\delta_i(e_i \otimes 1) = \sum_{i \in J(r)} e_i \otimes \delta_i\]
+
+    For any non-zero \(\delta \in D\), \(r\delta \in I\), and 
+    \[r\delta = \sum_i \delta_i\delta(e_i \otimes 1)\]
+    In particular, \(J(r\delta) = J(r)\), and so \(r\delta = \delta' r\) for some \(\delta' \in D\).
+
+    Since \(r\) is primordial, we have that \(\delta_i = 1\) for some \(i\), \(\delta = \delta'\), and so each \(\delta_i \in Z(D) = k\), and so \(r \in A \otimes 1\). Hence every primordial element of \(I\) is in \(A \otimes 1\). But by the previous lemma, the primordial elements span.
+\end{proof}
+
+\begin{proposition}
+    The tensor product of two finite dimensional simple \(k\)-algebras, at least one of whicb is central, is simple.
+\end{proposition}
+
+\begin{proof}
+    By Artin-Wedderburn, we may assume that one of the algebras is \(\Mat_n(D)\), where \(D\) is a division ring over \(k\) and central. Let \(A\) be the other simple algebra. By the lemma, \(A \otimes_k D\) is simple. So by Artin-Wedderburn, \(A \otimes_k D \cong \Mat_{n'}(D')\) for some division algebra \(D'\) over \(k\), and thus,
+    \[A \otimes_k \Mat_n(D) \cong \Mat_n(A \otimes_k D) \cong \Mat_n(\Mat_{n'}(D')) = \Mat_{nn'}(D')\]
+    and this is simple.
+\end{proof}
+
+\begin{corollary}
+    The tensor product of two central simple \(k\)-algebras is a central simple \(k\)-algebra.
+\end{corollary}
+
+\begin{proof}
+    Use the proposition, along with the fact that
+    \[Z(A \otimes_k B) = Z(A) \otimes_k Z(B)\]
+\end{proof}
+
+Thus, the Brauer group is defined. For the inverses, consider thr ring homomorphism
+\begin{align*}
+    A \otimes_k A^\opp &\to \End(V) \\
+    a \otimes a' &\mapsto (v \mapsto ava')
+\end{align*}
+Here, \(V\) is the vector space underlying \(A\) and \(A^\opp\). The map is injective, since \(A \otimes A^{\opp}\) is simple, and \(1 \otimes 1\) is mapped to the identity. By dimension counting, it is a linear isomorphism.
+
+\begin{definition}
+    Let \(G = \Gal(L/k)\), where \(L/k\) is a finite Galois extension, and \(\phi : G \times G \to L^\times\) is a normalised \(2\)-cocycle. We will define \(A = A(L, G, \phi)\).
+
+    As a \(L\)-vector space,  let \(A\) have basis \(\{e_\sigma\}_{\sigma \in G}\). The multiplication is 
+    \begin{align*}
+        \left(\sum_{\sigma \in G} \lambda_\sigma e_\sigma\right)\left(\sum_{\tau \in G} \mu_\tau e_\tau\right) &= \sum_{\sigma, \tau \in G}\lambda_\sigma \sigma(\mu_\tau)\phi(\sigma, \tau)e_{\sigma, \tau}
+    \end{align*}
+    This has multiplciative identity \(e_1\), since \(\phi\) is normalised. The multiplication is associative, since \(\phi\) is a \(2\)-cocycle.
+\end{definition}
+
+The centre of \(A(L, G, \phi)\) is \(k\). To see this, assume
+\[x = \sum\lambda_\sigma e_\sigma \in Z(A)\]
+Then for \(\beta \in L\), \((\beta e_1)x = x(\beta e_1)\). That is,
+\[\sum_\sigma (\beta \lambda_\sigma)e_\sigma = \sum_\sigma \lambda_\sigma \sigma(\beta)e_\sigma\]
+Thus, \(\beta = \sigma(\beta)\) for any \(\beta \in L, \sigma \in G\) with \(\lambda_\sigma \ne 0\). Thus, \(\lambda_\sigma = 0\) for \(\sigma \ne 1\), and hence \(x = \lambda_1 e_1\). But this has to commute with all \(e_\tau\), and so
+\[Z(A) = ke_1 \cong k\]
+
+Next, we note that \(A\) is simple. Let \(I\) be a two-sided dieal, and \(x \in I\) non-zero. Say
+\[x = \lambda_{\sigma_1}e_{\sigma_1} + \cdots + \lambda_{\sigma_m}e_{\sigma_m}\]
+with \(m\) minimal\footnote{We choose \(x\) such that \(m\) is minimal.}. If \(m > 1\), we can find \(\beta \in L^\times\) such that \(\sigma_m(\beta) \ne \sigma_{m-1}(\beta)\). Then
+\[y = x - \sigma_m(\beta)x\beta^{-1} \in I\]
+The coefficient of \(e_{\sigma_m}\) in \(y\) is zero, and this contradicts minimality. So \(x = \lambda_\sigma e_\sigma\) for some \(\sigma \in G\). This is a unit, and has inverse \(x^{-1} = \sigma^{-1}(\lambda_\sigma^{-1})e_{\sigma^{-1}}\). Hence \(I = A\).
 
 \printindex
 
