@@ -695,6 +695,99 @@ We write
 \[\partial f = \pdv{f}{z_i}\dd z_i \qqtext{and}\overline\partial f = \pdv{f}{\overline z_j}\dd \overline z_j\]
 for the holomorphic and antiholomorphic parts. In particular, \(\partial f \in \Omega^{1, 0}(X)\), \(\overline\partial f \in \Omega^{0, 1}(X)\), and \(f\) is holomorphic if and only if \(\overline\partial f = 0\).
 
+\lec
+
+With this all in mind, we have
+\[\Omega^k(X) = \bigoplus_{p + q = k}\Omega^{p, q}(X)\]
+where
+\[\Omega^{p, q}(X) = \Gamma(\Lambda^p(\T^{1, 0}X)^* \otimes \Lambda^q(\T^{0, 1}X)^*)\]
+Since \(J\) is integrable, the exterior derivative \(\dd : \Omega^k(X) \to \Omega^{k+1}(X)\) splits as
+\[\dd : \Omega^{p, q}(X) \to \Omega^{p+1,q}(X) \oplus \Omega^{p, q+1}(X)\]
+We write \(\partial : \Omega^{p, q}(X) \to \Omega^{p+1, q}(X)\) and \(\overline\partial : \Omega^{p, q}(X) \to \Omega^{p, q+1}(X)\).
+
+In particular, as \(\dd^2 = 0\),
+\[\partial^2 = \overline\partial^2 = \partial\overline\partial + \overline\partial\partial = 0\]
+and we can define the Dolbeault cohomology.
+
+\begin{definition}
+    [K\"ahler]
+    \(X\) is \emph{K\"ahler} if there exists a closed form
+    \[\omega = \frac{i}{2}\sum_{i, j}h_{ij}\dd z_i \wedge \dd\overline{z_j} \in \Omega^{1, 1}(X)\]
+    such that \(H = (h_{ij})\) is a positive definition Hermitian matrix.
+\end{definition}
+
+In particular, \(\omega \in \Omega^2_\R(X) \cap \Omega^{1, 1}(X)\), and
+\[\omega^n = \left(\frac{i}{2}\right)^n\det(H)\dd z_1 \wedge \cdots \wedge \dd z_n \wedge \dd \overline{z_1} \wedge \cdots \wedge \dd \overline{z_n}\]
+Now \(\det(H)\) is non-vanishing, and so \(\omega\) is non-degenerate. Thus, \(\omega\) defines a symplectic form.
+
+\begin{remark}
+    Complex submanifolds of K\"ahler manifolds are K\"ahler when we restrict \(\omega\).
+\end{remark}
+
+Note that an alternative definition is:
+
+\begin{definition}
+    [K\"ahler]
+
+    \((X, J, \omega)\) is K\"ahler if \(J\) is integrable, and \(\omega\) is compatible with \(J\), and so
+    \[g(u, v) = \omega(u, Jv)\]
+    defines a Riemannian metric.
+\end{definition}
+
+\begin{definition}
+    [plurisubharmonic]
+    \(\rho : X \to \R\) is \emph{plurisubharmonic} if the matrix
+    \[\left(\pdv[2]{\rho}{z_i}{\overline{z}_j}\right)\]
+    is positive definite.
+\end{definition}
+
+If \(\rho\) is plurisubharmonic, then
+\[\omega = \frac{i}{2}\partial\overline\partial\rho\]
+is a K\"ahler form, and we call \(\rho\) a \emph{K\"ahler potential}.
+
+\begin{example}
+    On \(\C\), \(\rho = \abs{z}^2 = \sum_i z_i\overline z_i\), and the associated K\"ahler form is the standard symplectic form.
+\end{example}
+
+\begin{proposition}
+    \(\C\P^n\) is K\"ahler.
+\end{proposition}
+
+\begin{proof}
+    We will use homoegeneous coordinates \([z_1: \cdots : z_{n+1}]\) on \(\C\P^n\). Recall that \(\C\P^n\) is covered by standard affines
+    \[U_j = \{z_j \ne 0\}\]
+    and on this, we have coordinates
+    \[\frac{z_1}{z_j}, \dots, \frac{z_{j-1}}{z_j}, \frac{z_{j+1}}{z_j}, \dots, \frac{z_{n+1}}{z_j}\]
+    Define \(\rho_j\) on \(U_j \cong \C^n\) by
+    \[\rho_j(w) = \log(1 + \abs{w}^2)\]
+    We claim that \(\rho_j\) is plurisubharmonic on \(U_j\), and that \(\partial\overline\partial \rho_i = \partial\overline\partial \rho_j\) on \(U_i \cap U_j\). Then we will have a globally defined form \(\omega\). We leave these computations.
+
+    For plurisubharmonic, note that we can compute at \(0 \in \C^n\) and use \(\mathrm{U}(n)\) equivariance.
+\end{proof}
+
+We call the above form \(\omega\) the \emph{Fubini-Study form}.
+
+\begin{corollary}
+    All quasi-projective varieties are K\"ahler.
+\end{corollary}
+
+By GAGA, we have a correspondence between closed complex submanifolds of \(\P^n\) and projective varieties over \(\C\). On the other hand, there exists closed K\"ahler manifolds which are not projective, for example a generic K3 surface.
+
+\begin{theorem}
+    [Hodge] If \(X\) is compact K\"ahler, then there exists isomorphisms
+    \[\HH^k(X) \cong \bigoplus_{p + q = n}\HH^{p, q}_{\overline\partial}(X)\]
+    Moreover, we have a natural isomorphism
+    \[\HH^{p, q}_{\overline\partial}(X) \cong \overline{\HH^{q, p}_{\overline\partial}(X)}\]
+    In particular, the odd Betti numbers are even.
+\end{theorem}
+
+\begin{theorem}
+    [Lefschetz]
+    The map
+    \[\cdot \wedge [\omega]^k : \HH^{n-k}(X) \to \HH^{n+k}(X)\]
+    is an isomorphism. Moreover, this respects the bidegree decomposition.
+\end{theorem}
+
 \printindex
 
 \end{document}

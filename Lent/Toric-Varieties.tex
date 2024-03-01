@@ -310,7 +310,7 @@ where we extend the pairing to \(N_\R \otimes M_\R \to \R\).
 
     and \(\check{\sigma_2}\),
 
-    Note here we see that the dual cone depends on the embedding (or lattice). Moroever, the dual of a strongly convex cone does not have to be strongly convex.
+    Note here we see that the dual cone depends on the embedding (or lattice). Moreover, the dual of a strongly convex cone does not have to be strongly convex.
 \end{example}
 
 \underline{Fact:} \(\check{\check{\sigma}} = \sigma\).
@@ -1362,8 +1362,8 @@ But we claim that the orbit space \(X/G\) is just \(\Spec(S^G)\). Note that this
     This has a \emph{cyclic quotient singularity}. Note also that
     \[\C[x^d, x^{d-1}y, \cdots, xy^{d-1}, y^d] = \C[u, uv, \dots, uv^d]\]
     where \(u = x^d, v = y/x\). The right hand side is the ring of invariants
-    \[\C[u, v]^G\]
-    where \(G\) acts with weights \((0, 1)\). So
+    \[\C[u^{1/d}, u^{1/d}v]^G\]
+    where \(G\) acts with weights \((1, 1)\), i.e. \((\xi \cdot f)(u^{1/d}, u^{1/d}v) = f(\xi u^{1/d}, \xi u^{1/d}v)\). So
     \[(\zeta \cdot f)(u, v) = f(u, \zeta v)\]
     Note this does not work for the action of \(\C^*\) on \(\A^2\), since
     \[\C[x, y]^{\C^*} = \C\]
@@ -1392,6 +1392,117 @@ where \(N/N'\) is finite. Note by the structure theorem, \(N/N'\) is a product o
         \item \(U_{\sigma, N} = U_{\sigma, N'}/G\).
     \end{enumerate}
 \end{theorem}
+
+\lec
+
+\begin{proof}
+    For simplicity, say we have
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTicgPSBkXFxaIl0sWzIsMCwiTj1cXFoiXSxbMywwLCJcXFovZFxcWiJdLFs0LDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+    \[\begin{tikzcd}
+        0 & {N' = d\Z} & {N=\Z} & {\Z/d\Z} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    Dualising, we get
+    % https://q.uiver.app/#q=WzAsNSxbMSwwLCJNPVxcWiJdLFsyLDAsIk0nPVxcZnJhY3sxfXtkfVxcWiJdLFswLDAsIjAiXSxbMywwLCJcXFovZFxcWiJdLFs0LDAsIjAiXSxbMiwwXSxbMCwxXSxbMSwzXSxbMyw0XV0=
+    \[\begin{tikzcd}
+        0 & {M=\Z} & {M'=\frac{1}{d}\Z} & {\Z/d\Z} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    Say \(G = \mu_d = \Z/d\Z\). Then this acts on \(M'\) by multiplication. Taking \(\Hom_\Z(\cdot, \C^*)\), gives (as groups)
+    % https://q.uiver.app/#q=WzAsNSxbMiwwLCJcXEhvbShOJywgXFxDXiopPSBUX3tOJ30iXSxbMSwwLCJcXG11X2QiXSxbMCwwLCIwIl0sWzMsMCwiVF9OIl0sWzQsMCwiMCJdLFsyLDFdLFsxLDBdLFswLDNdLFszLDRdXQ==
+    \[\begin{tikzcd}
+        0 & {\mu_d} & {\Hom(M', \C^*)= T_{N'}} & {T_N} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    Now we can see that \(N/N' \cong M'/M \cong \Hom_\Z(M'/M, \C^*)\). In particular, given \([v] \in N/N'\), the corresponding homomorphism sends \([m] \in M'/M\) by
+    \[[m] \mapsto e^{2\pi i\inner{v, m}}\]
+    Now \(\mu_d\) is a subgroup of \(T_N'\), which acts on \(U_{\sigma, N'}\), and so it acts on the ring \(\C[\sigma^\vee \cap M']\), and \(\C[\sigma^\vee \cap M']^G = \C[\sigma^\vee \cap M]\).
+\end{proof}
+
+\begin{example}
+    Consider
+    % https://q.uiver.app/#q=WzAsMixbMCwwLCJOJyA9IDJcXFogXFxvcGx1cyBcXFoiXSxbMSwwLCJOPVxcWl4yIl0sWzAsMSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XV0=
+    \[\begin{tikzcd}
+        {N' = 2\Z \oplus \Z} & {N=\Z^2}
+        \arrow[hook, from=1-1, to=1-2]
+    \end{tikzcd}\]
+    Say we have the cone \(\Cone((0, 1), (1, -1)\) in \(N'\). In \(N\), this will be the cone \(\Cone(((0, 1), (2, -1)))\). Dualising,
+    % https://q.uiver.app/#q=WzAsNSxbMSwwLCJNIl0sWzIsMCwiTSc9XFxmcmFjezF9MlxcWiBcXG9wbHVzXFxaIl0sWzMsMCwiXFxtdV8yIl0sWzAsMCwiMCJdLFs0LDAsIjAiXSxbMywwXSxbMCwxXSxbMSwyXSxbMiw0XV0=
+    \[\begin{tikzcd}
+        0 & M & {M'=\frac{1}2\Z \oplus\Z} & {\mu_2} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    In \(M\), we have the dual cone \(\Cone((1, 0), (1, 2))\), and so \(U_{\sigma, N} = \Spec(\C[u, uv, uv^2])\). On the other hand, in \(M'\), we have
+    \[U_{\sigma, N'} = \Spec(\C[u, uv]) = \A^2\]
+    and we have a corresponding toric morphism.
+
+    More generally, \(\widehat\varphi : d\Z \oplus \Z \to \Z^2\) and \(\sigma = \Cone((0, 1), (1, -1))\) gives a morphism \(\A^2 \to \A^2/\mu_d\). Singularities arising in this way are called \emph{cyclic quotient singularities}. In particular, this is the \(A_{d-1}\) singularity.
+\end{example}
+
+\begin{definition}
+    Suppose \(\sigma = \Cone(v_1, \dots, v_r)\), with \(v_1, \dots, v_r \in N\) and \(v_1, \dots, v_r\) being \(\R\)-linearly independent. Then we say \(\sigma\) is a \emph{simplicial} cone,
+\end{definition}
+
+In particular, from the theorem,
+\[U_\sigma = \frac{\A^r \times (\C^*)^{n-r}}{G} = \frac{\A^r}{G} \times (\C*)^{n - r}\]
+So \(U_\sigma\) has a cyclic quotient singularity.
+
+In two dimensions, every cone is simplicial. But this is not true in higher dimensions, for example, we can have a cone in \(\R^3\) which is generated by (at least) four rays.
+
+\section{Torus orbits and orbit-cone correspondence}
+
+Let \(x \in X_\Sigma\). The \emph{orbit} of \(x\) is
+\[T \cdot x = \{t \cdot x \mid t \in T\} \sse X_\Sigma\]
+
+\begin{remark}
+    \(T \cdot x = a(T \times \{x\})\).
+\end{remark}
+
+As usual, as a set, \(X_\Sigma\) is a disjoint union of torus orbits.
+
+\begin{example}
+    Consider the action \((t, s)(x, y) = (tx, sy)\) of \((\C^*)^2\) on \(\A^2\). Orbits are:
+    \begin{itemize}
+        \item \((\C^*)^2 \sse \A^2\), which is the orbit of \((1, 1)\), the distinguished point of the origin.
+        \item \(\C^* \times \{0\}\), which is the orbit of \((1, 0)\). This is the distinguished point of \(\tau_2\).
+        \item \(\{0\} \times \C^*\), which is the orbit of \((0, 1)\), the distinguished point of \(\tau_1\),
+        \item \(\{(0, 0)\}\), which is the distinguished point of \(\sigma\), the top dimensional cone.
+    \end{itemize}
+    We can see that a smaller cone corresponds to a larger orbit, and so on.
+\end{example}
+
+\begin{theorem}
+    [orbit-cone correspondence]
+    There is a bijection 
+    \[\{\text{cones in }\Sigma\} \bij \{\text{torus orbits in }X_\Sigma\}\]
+    given by sending \(\sigma\) to \(\Orb(\sigma) = T \cdot x_\sigma\), such that \(\dim(\Orb(\sigma)) = n - \dim(\sigma)\), where \(n = \rank(N) = \dim(X_\Sigma)\). Moreover,
+    \[\Orb(\sigma) \cong (\C^*)^{n - \dim(\sigma)}\]
+\end{theorem}
+
+\begin{lemma}
+    If \(\sigma \sse N_\R \cong \R^n\) is a strongly convex cone of dimension \(k\), then \(\Orb(\sigma) = T_{N(\sigma)} \cong (\C^*)^{n-k}\), where \(N_\sigma = \Span_\R(\sigma) \cap N\) and \(N(\sigma) = N/N_\sigma\). 
+\end{lemma}
+
+\begin{proof}
+    Consider \(\sigma = \overline{\sigma} \times \{0\}\), where \(\overline\sigma \sse N_\sigma \otimes \R\) is top dimensional. Then \(U_\sigma = U_{\overline\sigma, N_\sigma} \times U_{\{0\}, N(\sigma)}\). Then \(x_\sigma = (x_{\overline\sigma}, x_{\{0\}}) = (0, \dots, 0, 1, \dots, 1)\). Hence \(\Orb(x_\sigma) = T_{N(\sigma)}x_{\{0\}} = (\C^*)^{n-k}\).
+\end{proof}
+
+\begin{corollary}
+    \(x_\sigma\) is a torus fixed point if and only if \(\sigma\) is a top dimensional cone.
+\end{corollary}
+
 
 \printindex
 

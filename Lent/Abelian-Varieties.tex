@@ -1992,6 +1992,8 @@ So we need to show that we have the dotted arrow making the diagram commute. Tak
 
 \lec
 
+\section{Abelian varieties}
+
 \begin{definition}
     [left translation]
     Suppose \(G/k\) is a group scheme, and \(x \in G(k)\). The \emph{(left) translation} morphism \(T_x : G \to G\) is the unique morphism such tha for all \(k\)-algebras \(R\), \(y \in G(R)\),
@@ -2118,5 +2120,81 @@ Instead of the rigidity lemma, we will prove a stronger statement:
     To see this, let \(T = p(X \setminus f^{-1}(W))\). This is closed and does not contain \(y\). Hence any open affine neighbourhood of \(y\) in \(Y \setminus T\) works. So let \(X' = p^{-1}(Y')\), and let \(p' : X' \to Y'\) be the restriction. Then \(f\) maps \(X'\) to \(W = \Spec(B) \sse Z\). Hence this is induced by a ring homomorphism \(B \to \Gamma(X', \mcO_{X'}) = \Gamma(Y', \mcO_{Y'})\), since \(f_*\mcO_X = \mcO_Y\). So \(f\vert_{V'}\) factors as \(X' \to Y' \to W\). Since \(Y\) is integral, \(Y'\) is dense in \(Y\).
 \end{proof}
 
+\lec
+
+\begin{proposition}
+    Let \(k\) be a field, \(G\) a group variety over \(k\), then \(G\) is smooth over \(k\).
+\end{proposition}
+
+\begin{proof}
+    First of all, if \(X/k\) is a scheme of finite type, let \(\overline{X} = X \times_k \Spec(\overline k)\). Then \(X/k\) is smooth if and only if \(\overline{X}/\overline{k}\) is smooth.
+
+    To see this, smooth is equivalent to \(\Omega\) being locally free (and of the correct rank). Let \(p_X : \overline X \to X\) be the projection map. Then
+    \[\Omega_{\overline{X}/\overline{k}} = p_X^*\Omega_{X/k}\]
+    Thus, if \(\Omega_{X/k}\) is locally free, then so is \(\Omega_{\overline X/\overline k}\). For the other direction, it reduces to \(X = \Spec(A)\) and \(\Omega_{X/k} = \widetilde M\), where \(M = \Omega_{A/k}\) which is a finite \(A\)-module. We know that \(M \otimes_k \overline k\) is a free \(A \otimes \overline k\)-module. For this, we need to take a sufficiently small open affine. Then \(M \sse M \otimes_k \overline k\) is a direct summand as an \(A\)-module,, since \(k \sse \overline k\) has a vector space complement. Hence \(M \otimes_k \overline k\) is a free \(A\)-module, so \(M\) is projective and thus locally free.
+
+    So if \(G\) is a group variety, we may assume \(k = \overline k\). Then \(G\) is integral, and so there exists a non-empty open \(U \sse G\) which is smooth. If \(x \in G(k)\) and \(y \in U(k)\), then \(T_{xy^{-1}}(U) \sse G\) is a smooth open containing \(x\). So we can cover \(G\) by smooth opens, so \(G\) is smooth.
+\end{proof}
+
+\begin{remark}
+    If \(\Char(k) = 0\), then Cartier's theorem says that every finite type group scheme over \(k\) is smooth. This is false for \(\Char(k) = p > 0\).
+\end{remark}
+
+Our aim is now to:
+\begin{itemize}
+    \item prove that abelian varieties are projective,
+    \item show \(X[n] = \{x \in X(\overline k) \mid nx = e\}\) is finite (and determine the structure),
+    \item relate \(X(\overline k)\) and \(\Pic(X \times \Spec(\overline k))\), where the Picard group is the group of isomorphism classes of line bundles.
+\end{itemize}
+
+The last one is a generalisation of the Abel-Jacobi theorem, where if \(E\) is an elliptic curve, then we have a homomorphism
+\begin{align*}
+    E(\overline k) &\to \Cl^0(E \times \Spec(\overline k)) \\
+    p &\mapsto [p] - [e]
+\end{align*}
+
+\section{Seesaw, cube and square}
+
+\begin{theorem}
+    [seesaw]
+
+    Let \(X, Y\) be varieties over \(k\), with \(X\) proper. Let \(\mcL\) be a line bundle\footnote{i.e. an invertible \(\mcO_{X \times Y}\)-module, or locally free of rank \(1\)} on \(X \times Y\). For \(y \in Y\), write
+    \[i_y : X \times \Spec(\kappa(y)) \to X \times Y\]
+    for the inclusion of a fibre \(\pr_2^{-1}(y)\). Suppose for all closed points \(y \in Y\), \(\mcL(y) = i_y^*\mcL\) is trivial\footnote{i.e. isomorphic to \(\mcO_{X \times y}\), where \(X \times y = X \times \Spec(\kappa(y))\).}. Then there exists a line bundle \(\mcM\) on \(Y\), such that \(\mcL \cong \pr_2^*\mcM\). Morover, \(\mcM \cong (\pr_2)_*\mcL\), and so it is unique up to isomorphism.
+\end{theorem}
+
+\begin{proof}
+    First, we will show that every \(y \in Y\) has an open affine neighbourhood \(V\),  such that \(\mcL\vert_{X \times V} \cong \mcO_{X \times V}\), and so \(\mcL\vert_{X \times V} \cong \pr_2^*\mcO_V\). Suppose \(Y = \Spec(A)\) is affine. Then \(X \times Y \to Y\) is flat, and so there exists a finite \(A\)-module \(Q\), such that for all \(A\)-algebras \(B\), 
+    \[\HH^0(X\times \Spec(B), \mcL_B) = \Hom_A(Q, B)\]
+    In particular,
+    \[\HH^0(X \times y, i_y^*\mcL) = \Hom_A(Q, \kappa(y)) = (Q \otimes_A \kappa(y))^\vee\]
+    As \(\HH^0(X \times y, i_y^*\mcL) \cong \HH^0(X \times y, \mcO_{X \times y})\), which has dimension \(1\) for all closed points \(y \in Y\). Hence
+    \[\dim_{A/\mfm}(Q/\mfm Q) = 1\]
+    for all \(\mfm \in \maxSpec(A)\), and so \(Q\) is locally free of rank \(1\).
+
+    Localising further, every \(y_0\) has an open neighbourhood for which \(Q\) is free of rank \(1\), say equal to \(A\cdot q\). Then \(\HH^0(X \times \Spec(A), \mcL) = \Hom(Q, A) = A \cdot q^\vee\). For each closed \(y \in \Spec(A)\), \(q^\vee\) maps to a generator of \(\HH^0(X \times y, \iota_y\mcL)\), which is everywhere non-vanishing on \(X \times y\), since \(i_y^*\mcL \cong \mcO\). Hence \(q^\vee\) defines an isomorphism
+    \[\mcO_{X \times \Spec(A)} \cong \mcL\]
+    and as
+    \[(\pr_2)_*\mcO_{X \times \Spec(A)} = \mcO_{\Spec(A)}\]
+    we have that
+    \[\pr_2^*(\pr_2)_*\mcL \cong \mcL\]
+    and so in this case, \(\mcM = \mcO_{\Spec(A)}\). 
+    
+    For general \(Y\), the preceding argument shows that if \(\mcM = (\pr_2)_*\mcL\), then \(\mcM\) is locally free of rank \(1\), and the map \(\pr_2^*\mcM \to \mcL\) (through adjunction) is an isomorphism.
+
+    If \(\mcL \cong \pr_2^*\mcM'\) say, then we have an isomorphism \(\mcM' \cong (\pr_2)_*\mcL\) (as locally on \(Y\), both \(\mcL\) and \(\mcM'\) are free), and so \(\mcM \cong \mcM'\).
+\end{proof}
+
+\begin{remark}
+    If we have the fibre product \(X \times Y\), with \(Y \to \Spec(k)\) flat, and so by flat base change,
+    \[(\pr_2)_*\mcO_{X \times Y} = \mcO_Y\]
+    as \(\HH^0(X, \mcO_X) = k\).
+\end{remark}
+
+If moreover, \(x \in X(k)\) and \(\mcL\vert_{x \times Y}\) is trivial (as \(\mcL_{x \times Y} \cong M\)), and \(\mcL\) is trivial. However, it is not sufficient to just assume that \(\mcL_{x \times Y}, \mcL_{X \times y}\) for fixed \((x, y)\). We need it to be true for \emph{all} \((x, y)\).
+
+On the other hand, if we have \(X \times Y \times Z\), then the analogous statement would be true. That is, if
+\[\mcL\vert_{x \times Y \times Z}, \mcL\vert_{X \times y \times Z}, \mcL\vert_{X \times Y \times z}\]
+are trivial, then so is \(\mcL\).
 
 \end{document}

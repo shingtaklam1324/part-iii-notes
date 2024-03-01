@@ -1492,6 +1492,59 @@ However, many interesting examples arise from Poincar\'e's polygon theorem.
 
 \begin{proof}
     We start with a geodesic triangle \(\Delta \sse \bb H^2\) with interior angles \(\pi/p, \pi/q, \pi/r\).
+
+\lec
+
+    \textbf{diagram}
+
+    Let \(\alpha\) denote rotation about \(u\), with angle \(2\pi/p\); \(\beta\) about \(v\), with angle \(2\pi/q\) and \(\gamma\) about \(w\), with angle \(2\pi/r\). Note all of these are \emph{anticlockwise}.
+
+    Let \(G = \inner{\alpha, \beta,\gamma} \le \Isom^+(\bb H^2)\). Clearly \(\alpha^p = \beta^q = \gamma^r = 1\). Next, we show \(\alpha\beta\gamma = 1\).
+
+    \textbf{diagram}
+
+    We see that \(\beta(w) = \alpha^{-1}(w) = w'\). Hence \(\alpha\beta\gamma(w) = \alpha\beta(w) = w\). Similarly, \(\gamma(u) = \beta^{-1}(u)\), and so \(\alpha\beta\gamma(u) = \alpha\beta\beta^{-1}(u) = \alpha(u) = u\). Hence by the classification of orientation preserving isometries of \(\bb H^2\), it fixes two distinct points in \(\mathbb H^2\) and so it is trivial.
+
+    Hence we have a surjective homomorphism \(f : \Gamma(p, q, r) \surj G\), sending \(a\) to \(\alpha\) and so on. We will show that \(f\) is an isomorphism. Let \(r_\ell\) denote reflection in the line \(\ell\), and \(Q = \Delta \cup r_\ell(\Delta)\).
+
+    \textbf{diagram}
+
+    Define
+    \[\widetilde Q  = \frac{\Gamma \times Q}{\sim}\]
+    where \(\sim\) is the relation given by \((gc, x) \sim (g, c(x))\) for \(x \in m\), and \((gb, y) \sim (g, b(y))\) for \(y \in n'\). Next, define the \emph{development map}
+    \begin{align*}
+        F : \widetilde Q &\to \bb H^2 \\
+        F(g, x) &= f(g)x
+    \end{align*}
+    Note \(\widetilde Q\) is a complete geodesic metric space, via the path metric, and \(F\) is a local isometry, sending (sufficiently small) open balls in \(\widetilde Q\) isometrically to small open balls in \(\bb H^2\). In fact, \(F\) is an isometric embedding.
+
+    Indeed, if \(x, y \in \widetilde Q\), and \([x, y]\) is a geodesic, then \(F([x, y])\) is a local geodesic\footnote{i.e. locally it is a geodesic.} from \(F(x)\) to \(F(y)\). But local geodesics in \(\bb H^2\) are global geodesics. So \(d(F(x), F(y)) = d(x, y)\). Next, we prove that \(F\) is surjective. \(\im(F)\) is open, since it sends small open balls to small open balls. On the other hand, \(\widetilde Q\) is complete, and hence so is \(\im(F)\). But complete subsets of a metric space are closed, and so \(\im(F)\) is closed. Thus, by connectedness, \(F\) is an isometry.
+
+    So \(\widetilde Q\) is isometric to \(\bb H^2\), and the action of \(\Gamma\) on \(\widetilde Q\) is properly discontinuous by construction, so \(\Gamma\) is Fuchsian. Since \(Q\) is compact, and \(F\) us surjective, \(\Gamma\) must be infinite.
+\end{proof}
+
+\begin{remark}
+    It follows from the construction of \(\widetilde Q\) that only \(\Gamma \cdot u, \Gamma \cdot v, \Gamma \cdot w\) has non-trivial stabiliser. Moreover, \(\Stab(u) = \inner{a}, \Stab(v) = \inner{b}\) and \(\Stab(w) = \inner{c}\).
+
+    \(Q\) is called a \emph{fundamental domain} for the action of \(\Gamma\) on \(\bb H^2\).
+\end{remark}
+
+\subsection{Centres and Dehn's examples}
+
+\begin{lemma}
+    Suppose \(1/p + 1/q + 1/r < 1\). If \(g \in \Gamma(p, q, r)\), and the order of \(g\) is finite, then \(g\) is in the conjugate of one of \(\inner{a}, \inner{b}, \inner{c}\).
+\end{lemma}
+
+\begin{proof}
+    We saw that finite order elements of \(\bb H^2\) fix a point in \(\bb H^2\). If \(g \ne 1\), then the fixed point \(z\) must be in the orbit of one of \(u, v, w\). Say (without loss of generality) \(z = hu\). So \(ghu = hu\), and so \(h^{-1}gh \in \Stab(u) = \inner{a}\).
+\end{proof}
+
+\begin{proposition}
+    If \(\Gamma\) is a non-elementary Fuchsian group, then \(Z(\Gamma) = 1\).
+\end{proposition}
+
+\begin{proof}
+    Suppose \(z \in Z(\Gamma) \setminus 1\). Consider \(\Fix(z) \sse \overline{\bb H}^2\). Note that for \(g \in \Gamma, x \in \Fix(z)\), \(gx = gzx = zgx\), and so \(gx \in \Fix(z)\).
 \end{proof}
 
 \end{document}

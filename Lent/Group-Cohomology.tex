@@ -1589,6 +1589,197 @@ with \(m\) minimal\footnote{We choose \(x\) such that \(m\) is minimal.}. If \(m
 \[y = x - \sigma_m(\beta)x\beta^{-1} \in I\]
 The coefficient of \(e_{\sigma_m}\) in \(y\) is zero, and this contradicts minimality. So \(x = \lambda_\sigma e_\sigma\) for some \(\sigma \in G\). This is a unit, and has inverse \(x^{-1} = \sigma^{-1}(\lambda_\sigma^{-1})e_{\sigma^{-1}}\). Hence \(I = A\).
 
+\lec
+
+Suppose \([\phi] = [\phi']\), where \(\phi, \phi'\) are normalised \(2\)-cocycles. Then \(\phi, \phi'\) differ by a coboundary. So
+\[\phi'(\sigma, \tau) = \phi(\sigma, \tau)\sigma(u_\tau)u_{\sigma\tau}^{-1}u_\sigma\]
+where we write things multiplicatively, and \(u : G \to L^\times\). Define a \(L\)-linear map
+\begin{align*}
+    F : A(L, G, \phi') &\to A(L, G, \phi) \\
+    F(e_\sigma') &= u_\sigma e_\sigma
+\end{align*}
+With this,
+\begin{align*}
+    F(e_\sigma')F(e_\tau') = F(e_\sigma'e_\tau')
+\end{align*}
+and so \(F\) is an algebra homomorphism \(A(L, G, \phi') \to A(L, G, \phi)\). But these are simple algebras, and the equality of dimension on both sides means that \(F\) is an isomorphism.
+
+Thus, the map \(\HH^2(G, L^\times) \to \Br(k)\) only depends on the cohomology class. Recall that every cohomology class is represented by a(t least one) normalised cocycle. It remains to show our map
+\[\HH^2(\Gal(L/k), L^\times) \to \Br(k)\]
+is a homomorphism of abelian groups.
+
+\begin{lemma}
+    For normalised \(2\)-cocycles \(\phi, \phi'\),
+    \[A(L, G, \phi + \phi') \sim A(L, G, \phi) \otimes A(L, G, \phi')\]
+\end{lemma}
+
+\begin{proof}
+    Let \(A = A(L, G, \phi), B = A(L, G, \phi'), C = A(L, G, \phi + \phi')\). Regard \(A, B\) as left \(L\)-vector spaces. Define \(V = A \otimes_L B\). Note that
+    \[V = \frac{A \otimes_k B}{\inner{(la) \otimes b - a \otimes (lb) \mid a \in A, b \in B, l \in L}}\]
+    \(V\) has a right \(A \otimes_k B\)-structure, given by
+    \[(a' \otimes_L b')(a \otimes_k b) = (a'a) \otimes_L (b'b)\]
+    and \(V\) has a left \(C\)-module structure,
+    \[(le_\sigma'')(a \otimes_L b) = (le_\sigma a) \otimes_L (e'_\sigma b)\]
+    where \((e_\sigma)\) is a basis of \(A\), \((e'_\sigma)\) is a basis of \(B\), and \((e_\sigma'')\) is a basis of \(C\).
+
+    The two actions commute, and so the right action of \(A \otimes_k B\) on \(V\) defines a homomorphism
+    \[f : (A \otimes_k B)^\opp \to \End_C(V)\]
+    Note here we need the opposite ring since we think of \(\End_C\) as endomorphisms as a left-module. \(f\) is injective, since \(A \otimes_k B\) is simple.
+
+    \begin{claim}
+        The two algebras have the same dimension, and so \(f\) is an isomorphism.
+    \end{claim}
+
+    We'll assume this for now. Then note that
+    \[\End_C(V) \sim C^{\opp}\]
+    since we swap from a left \(C\)-module to a right \(C^{\opp}\)-module. Thus,
+    \[(A \otimes_k B)^\opp \sim C^\opp\]
+    and so \(A \otimes_k B \sim C\), and \([A][B] = [A \otimes_k B] = [C]\) in \(\Br(k)\).
+
+    \begin{proof}
+        [Proof of claim]
+        We know that \(C\) is a simple algebra, and so \(C^\opp\) is as well. \(V\) is a left \(C\)-module, and so it is a right \(C^\opp\)-module. Moreover,
+        \[V \cong \bigoplus_{i=1}^r M\]
+        where \(M\) is a simple \(C^{\opp}\)-module. Thus,
+        \[\End_C(V) \cong \End_{C^\opp}(V) \cong \Mat_r(D)\]
+        for some division algebra \(D = \End_{C^{\opp}}(M)\). But
+        \[C^{\opp} \cong \bigoplus_{i=1}^m M\]
+        by Artin-Wedderburn, which in turn is isomorphic to \(\Mat_m(D)\), with \(\dim(M) = m\dim(D)\).
+        
+        Now consider dimensions,
+        \begin{align*}
+            \dim(V) &= \dim(M) \\
+            \dim(C) &= \dim(C^\opp) = m^2\dim(D) \\
+            \dim(\End_C(V)) &= r^2\dim(D)
+        \end{align*}
+        and so
+        \[\dim(\End_C(V))\dim(C) = \dim(V)^2\]
+    \end{proof}
+\end{proof}
+
+\begin{remark}
+    The dimension count can also be done using the double centraliser theorem.
+\end{remark}
+
+\begin{theorem}
+    [double centraliser] Let \(A\) be a central simple \(k\)-algebra, with simple subalgebra \(B\). Then
+    \begin{enumerate}[(i)]
+        \item the centraliser \(C_A(B)\) is also simple,
+        \item \(\dim(B)\dim(C_A(B)) = \dim(A)\)
+        \item \(C_A(C_A(B)) = A\).
+        \item if \(B\) is central, then \(C_A(B)\) is central and \(A = B \otimes_k C_A(B)\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Exercise.
+\end{proof}
+
+In fact, the image of the map \(\HH^2(\Gal(L/k), L^\times) \to \Br(k)\) is contained in \(\Br(L/k)\). See the examples sheet.
+
+\begin{remark}
+    \begin{enumerate}[(i)]
+        \item By a theorem of Wedderburn, if \(k\) is a finite field, then \(\Br(k)\) is trivial. This is becuase finite division algebras are fields.
+        \item for a non-Archimedean local field \(k\), \(\Br(k) \cong \Q/\Z\),
+        \item for a number field \(K\), we have a short exact sequence
+        % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxCcihLKSJdLFsyLDAsIlxcYmlnb3BsdXNfdlxcQnIoS192KSJdLFszLDAsIlxcUS9cXFoiXSxbNCwwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+        \[\begin{tikzcd}
+            0 & {\Br(K)} & {\bigoplus_v\Br(K_v)} & {\Q/\Z} & 0
+            \arrow[from=1-1, to=1-2]
+            \arrow[from=1-2, to=1-3]
+            \arrow[from=1-3, to=1-4]
+            \arrow[from=1-4, to=1-5]
+        \end{tikzcd}\]
+    \end{enumerate}
+\end{remark}
+
+\section{General theory}
+
+\subsection{Long exact sequence of cohomology}
+
+\begin{proposition}
+    [long exact sequence of cohomology] 
+    \label{prop:les-cohomology}
+    Let
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTV8xIl0sWzIsMCwiTV8yIl0sWzMsMCwiTV8zIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & {M_1} & {M_2} & {M_3} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+    be a short exact sequence, then we have a long exact sequence
+    % https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXGNkb3RzIl0sWzEsMCwiXFxISF5uKEcsIE1fMSkiXSxbMiwwLCJcXEhIXm4oRywgTV8yKSJdLFszLDAsIlxcSEhebihHLCBNXzMpIl0sWzEsMSwiXFxISF57bisxfShHLCBNXzEpIl0sWzIsMSwiXFxISF57bisxfShHLCBNXzIpIl0sWzMsMSwiXFxISF57bisxfShHLCBNXzMpIl0sWzQsMSwiXFxjZG90cyJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdLFs0LDVdLFs1LDZdLFs2LDddXQ==
+\[\begin{tikzcd}
+	\cdots & {\HH^n(G, M_1)} & {\HH^n(G, M_2)} & {\HH^n(G, M_3)} \\
+	& {\HH^{n+1}(G, M_1)} & {\HH^{n+1}(G, M_2)} & {\HH^{n+1}(G, M_3)} & \cdots
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+\end{proposition}
+
+\begin{lemma}
+    [snake]
+    Let
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiQV9cXGJ1bGxldCJdLFsyLDAsIkJfXFxidWxsZXQiXSxbMywwLCJDX1xcYnVsbGV0Il0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+    \[\begin{tikzcd}
+        0 & {A_\bullet} & {B_\bullet} & {C_\bullet} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    be a short exact sequence of chain complexes, then there exists connecting maps \(\delta : \HH_{n+1}(C_\bullet) \to \HH_n(A_\bullet)\), such that we have a long exact sequence
+    % https://q.uiver.app/#q=WzAsNixbMSwwLCJcXEhIX3tuKzF9KENfXFxidWxsZXQpIl0sWzIsMCwiXFxISF9uKEFfXFxidWxsZXQpIl0sWzMsMCwiXFxISF9uKEJfXFxidWxsZXQpIl0sWzQsMCwiXFxISF9uKENfXFxidWxsZXQpIl0sWzUsMCwiXFxjZG90cyJdLFswLDAsIlxcY2RvdHMiXSxbNSwwXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+    \[\begin{tikzcd}
+        \cdots & {\HH_{n+1}(C_\bullet)} & {\HH_n(A_\bullet)} & {\HH_n(B_\bullet)} & {\HH_n(C_\bullet)} & \cdots
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+        \arrow[from=1-5, to=1-6]
+    \end{tikzcd}\]
+\end{lemma}
+
+\begin{proof}
+    [Proof of \cref{prop:les-cohomology}] Consider a projective resolution \(P_\bullet\) of \(\Z\). Since the modules in the resolution are projective, we have a short exact sequence of chain complexes
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxIb21fRyhQX1xcYnVsbGV0LCBNXzEpIl0sWzIsMCwiXFxIb21fRyhQX1xcYnVsbGV0LCBNXzIpIl0sWzMsMCwiXFxIb21fRyhQX1xcYnVsbGV0LCBNXzMpIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+    \[\begin{tikzcd}
+        0 & {\Hom_G(P_\bullet, M_1)} & {\Hom_G(P_\bullet, M_2)} & {\Hom_G(P_\bullet, M_3)} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    Apply the snake lemma.
+\end{proof}
+
+\subsection{Cup product}
+
+\begin{definition}
+    [cup product]
+    Given \([u] \in \HH^p(G, M), [v] \in \HH^q(G, N)\), define their \emph{cup product} \([u] \smile [v] = [u \smile v] \in \HH^{p+q}(G, M \otimes_\Z N)\) by defining it on cochains:
+
+    The \emph{diagonal action} of \(G\) on \(M \otimes_\Z N\) is given by
+    \[g(m \otimes n) = (gm) \otimes (gn)\]
+
+    Let \(u \in C^p(G, M), v \in C^q(G, N)\), define \(u \smile v \in C^p(G, M \otimes N)\) by
+    \[(u \smile v)(g_1, \dots, g_{p+q}) = (-1)^{pq}u(g_1, \dots, g_p) \otimes \left(g_1\cdots g_pv(g_{p+1}, \dots, g_{p+q})\right)\]
+    This induces a cup product on cohomology classes.
+\end{definition}
+
+In degree zero,
+\[\HH^0(G, M) \to \HH^0(G, N) \to \HH^0(G, M \otimes N)\]
+corresponds the map \(M^G \otimes N^G \to (M \otimes N)^G\) induced by inclusions.
+
+\lec
+
 \printindex
 
 \end{document}
