@@ -1544,7 +1544,82 @@ However, many interesting examples arise from Poincar\'e's polygon theorem.
 \end{proposition}
 
 \begin{proof}
-    Suppose \(z \in Z(\Gamma) \setminus 1\). Consider \(\Fix(z) \sse \overline{\bb H}^2\). Note that for \(g \in \Gamma, x \in \Fix(z)\), \(gx = gzx = zgx\), and so \(gx \in \Fix(z)\).
+    Suppose \(\gamma \in Z(\Gamma) \setminus 1\). Consider \(\Fix(\gamma) \sse \overline{\bb H}^2\). Note that for \(g \in \Gamma, x \in \Fix(\gamma)\), \(gx = g\gamma x = \gamma gx\), and so \(gx \in \Fix(\gamma)\).
+
+    \lec
+
+    Now we need to do some case analysis:
+    \begin{itemize}
+        \item if \(\gamma\) is elliptic, then \(\Fix(\gamma) = \{x\} \sse \bb H^2\). Without loss of generality, \(x = 0\) in the disc model \(\bb D \sse \C\). From this,
+        \[\Stab_{\Isom^+(\bb H^2)}(0) = \{z \mapsto e^{i\theta}z\}\]
+        By proper discontinuity, \(\Gamma\) is a subgroup of the above, and so it is a finite cyclic group.
+        \item if \(\gamma\) is parabolic, then without loss of generality \(\Fix(\gamma) = \{\infty\}\) in the upper half plane model. A direct computation shows that
+        \[\Stab_{\Isom^+(\bb H^2)}(\infty) = \{z \mapsto az + b\}\]
+        For \(\gamma\) to be the only fixed point, necessarily \(a = 1\), and so \(\gamma(z) = z + c\) for some \(c \in \R\) non-zero. But \(g\) commutes with \(\gamma\) only if \(a = 1\), and so
+        \[\Gamma \le \{z \mapsto z + b \mid b \in \R\}\]
+        Any discrete subgroup of \(\R\) is isomorphic to \(\Z\).
+        \item if \(\gamma\) is hyperbolic, without loss of generlity \(\Fix(\gamma) = \{0, \infty\}\) in the upper half plane model. So \(\Gamma\) acts by isometries \(\Axis(\gamma) = \ell^+\), and so \(\Gamma \cong \Z\) or \(D_\infty\) by proper discontinuity.
+    \end{itemize}
 \end{proof}
+
+We can now analyse Dehn's examples. Recall
+\[G_n = \inner{x,y,z \mid x^2 = y^3 = z, (xy)^{6n+5} = z^{5n+4}}\]
+for \(n \ge 0\). Note that \(z \in Z(G_n)\). Let 
+\(\Gamma_n = \frac{G_n}{\inner{z}} = \inner{x, y \mid x^2, y^3, (xy)^{6n+5}} = \Gamma(2, 3, 6n+5)\). Therefore, \(\Gamma_n\) is a Fuchsian triangle group if \(n \ge 1\), and so \(Z(\Gamma_n) = 1\). Hence \(Z(G_n) = \inner{z}\). Therefore, if \(\phi : G_m \to G_n\) is an isomorphism, then \(\phi(Z(G_m)) = Z(G_n)\), and so
+\[\Gamma_m = \frac{G_m}{Z(G_m)} \cong \frac{G_n}{Z(G_n)} = \Gamma_n\]
+But the order of torsion elements in \(\Gamma_n\) are the divisors of \(2, 3, 6n+5\). Hence if \(\Gamma_m \cong \Gamma_n\), we must have that \(m = n\). We have proven:
+
+\begin{theorem}
+    [Dehn] There are infinitely many non-homeomorphic 3-dimensional homology spheres.
+\end{theorem}
+
+\section{Hyperbolic groups}
+
+The goal is to define a notion of coarse hyperbolic geometry. This is something which looks like hyperbolic geometry that is invariant under quasi-isometry.
+
+\subsection{Hyperbolic metric spaces}
+
+Let \(X\) be a geodesic metric space. A \emph{geodesic triangle} is a triple of geodesics
+\[\Delta = [x, y] \cup [y, z] \cup [z, x]\]
+
+For \(A \sse X\), let
+\[N_\delta(A) = \{y \in X \mid \exists x \in A, d(x, y) \le \delta\} = \bigcup_{x \in A}B_\delta(x)\]
+be its (closed) \(\delta\)-neighbourhood.
+
+\begin{definition}
+    Let \(\delta \ge 0\). A geodesic triangle \(\Delta\) is \emph{\(\delta\)-slim} if the \(\delta\)-neighbourhood of any two sides cover the third side. So
+    \[[x, y] \sse N_\delta([x, z] \cup [y, z])\]
+    and so on.
+\end{definition}
+
+\begin{definition}
+    \(X\) is called \emph{\(\delta\)-hyperbolic} if every geodesic triangle \(\Delta \sse X\) is \(\delta\)-slim. We also say \(X\) is \emph{Gromov-hyperbolic}, or \emph{hyperbolic}.
+\end{definition}
+
+\begin{example}
+    If \(\diam(X) = \delta\), then \(X\) is \(\delta\)-hyperbolic.
+\end{example}
+
+\begin{example}
+    If \(X\) is a tree, then \(X\) is \(0\)-hyperbolic.
+\end{example}
+
+\begin{example}
+    [non-example]
+    Euclidean space is not Gromov-hyperbolic.
+\end{example}
+
+\begin{example}
+    \(\bb H^2\) is hyperbolic. To see this, \(\Delta\) is \(\delta\)-slim, where \(\delta\) is the radius of the largest semicircle which we can inscribe in \(\Delta\).
+
+    Let \(A(r)\) be the area of a circle of radius \(r\) in \(\bb H^2\). But now
+    \[\frac{1}{2}A(\delta) \le \Area(\Delta) < \pi\]
+    Since \(A(\delta) \to \infty\) as \(\delta \to \infty\), we see that \(\bb H^2\) is \(\delta\)-hyperbolic for sufficiently large \(\delta\).
+\end{example}
+
+\subsection{Mostow-Morse}
+
+The goal is to prove that Gromov-hyperbolicity is a quasi-isometry invariant.
+
 
 \end{document}
