@@ -788,6 +788,88 @@ By GAGA, we have a correspondence between closed complex submanifolds of \(\P^n\
     is an isomorphism. Moreover, this respects the bidegree decomposition.
 \end{theorem}
 
+\lec
+
+Let \(F_d = \van(z_0^d + \cdots + z_n^d)\) be the Fermat hypersurface. Then
+\[[F_d] = d[H] \in \HH_{2n-2}(\C\P^n, \Z)\]
+Moreover, all degree \(d\) hypersurfaces in \(\P^n\) are symplectomorphic. To see this, note that they are all diffeomorphic as we have a path of smooth hypersurfaces connecting any two degree \(d\) hypersurfaces. We'll see the fact that they are symplectomorphic later.
+
+We can get more complex submanifolds, by taking transverse intersection of smooth hypersurfaces.
+
+\section{Symplectic blowups}
+
+Let \(Z = \{(z, \ell) \in \C^n \times \P^{n-1} \mid z\in \ell\}\). We call this \(\Bl_0\C^n\), the blowup of \(\C^n\) at the origin. We have two projection maps:
+\begin{align*}
+    \pi : Z &\to \C^n \\
+    p : Z &\to \P^{n-1}
+\end{align*}
+Note that \(Z\) is also the total space of the tautological bundle \(\mcO(-1)\). Note that for \(z\) non-zero, \(\pi^{-1}(z) = \{(z, \ell_z)\}\) is a single point. On the other hand, we have the \emph{exceptional divisor}
+\[E = \pi^{-1}(0) = \{0\} \times \P^{n-1}\]
+\(\pi\) is an isomorphism away from \(E\).
+
+In general, if \(X\) is a complex manifold. Then we can form \(\widetilde X = \Bl_pX\), by choosing local charts about \(p\), and replace a neighbourhood of \(p\) with a neighbourhood of \(0\) in \(Z\).
+
+Why consider blowups?
+\begin{itemize}
+    \item in symplectic geometry, we can use blowups to construct new symplectic manifolds,
+    \item in algebraic geometry, we can use blowups to resolve singularities.
+\end{itemize}
+
+Now in symplectic geometry:
+
+Let \((M, \omega)\) be a symplectic manifold. Let
+\[Z_\delta = \pi^{-1}(B_\delta(0)) \sse Z\]
+and
+\[\omega_\lambda = \pi^*\omega_c + \lambda^2p^*\omega_{\P^{n-1}}\]
+Then \((Z_\delta, \omega_\lambda)\) is a symplectic manifold.
+
+\begin{lemma}
+    \label{lem:blowup-symplectomorphism}
+    \((Z_\delta \setminus E, \omega_\lambda)\) is symplectomorphic to \((B(\sqrt{\lambda^2 + \delta^2}) \setminus B(\lambda), \omega_{\std})\).
+\end{lemma}
+
+Let \(\Psi\) be the symplectomorphism above. Thus, to construct the symplectic blowup, suppose we have a symplectic embedding
+\[\varphi : B(\sqrt{\lambda^2 + \delta^2}) \inj M\]
+Let
+\[\widetilde M = M \setminus \varphi(B(\lambda)) \cup_\Psi Z_\delta\]
+Using this, we can glue to get \((\widetilde M, \widetilde{\omega_\lambda})\).
+
+\begin{proof}
+    [Proof of \cref{lem:blowup-symplectomorphism}]
+
+    Let \(\Phi : \C^n\setminus 0 \to \P^{n-1}\) be the quotient map. Then
+    \[\Phi^*\omega_{\P^{n-1}} = \frac{i}{2}\partial\overline\partial\abs{z}^2\]
+    Let \(\mu_\lambda \in \Omega^2(\C^n \setminus 0)\) be defined by
+    \[\mu_\lambda = \frac{i}{2}\partial\overline\partial\left(\abs{z}^2 + \lambda^2 \log(\abs{z}^2)\right)\]
+    We can check that
+    \[\abs{z}^2 + \lambda^2 \log(\abs{z}^2)\]
+    is plurisubharmonic, and that
+    \[\pi^*\mu_\lambda = \omega_\lambda\]
+    is a symplectic form on \(Z_\delta\setminus E \cong B(\delta) \setminus 0\). Now define
+    \begin{align*}
+        F : \C^n \setminus 0 &\to \C^n \setminus B(\lambda) \\
+        F(z) &= z\sqrt{1 + \frac{\lambda^2}{\abs{z}^2}}
+    \end{align*}
+    A computation shows that
+    \[F^*\omega_{\std} = \mu_\lambda\]
+\end{proof}
+
+\begin{remark}
+    Symplectic blowup is volume decreasing, as we remove a ball of radius \(\lambda\).
+\end{remark}
+
+We would like to find \([\omega_\lambda] \in \HH^2(M)\). We use Mayer-Vietoris,
+\[\widetilde M = M \setminus B(\lambda) \cup_{U} Z_\delta\]
+Here, \(U\) is homotopic to \(S^{2n-1}\). So we get (for \(n \ge 2\))
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiXFxISF4yKFxcd2lkZXRpbGRlIE0pIl0sWzIsMCwiXFxISF4yKE0gXFxzZXRtaW51cyBCKFxcbGFtYmRhKSlcXG9wbHVzIFxcSEheMihaX1xcZGVsdGEpIl0sWzMsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdXQ==
+\[\begin{tikzcd}
+	0 & {\HH^2(\widetilde M)} & {\HH^2(M \setminus B(\lambda))\oplus \HH^2(Z_\delta)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+Now \(\HH^2(M \setminus B(\lambda)) \cong \HH^2(M)\). Under the above isomorphism, \([\omega_\lambda] = [\omega] + \pi\lambda^2\PD[E]\).
+
 \printindex
 
 \end{document}

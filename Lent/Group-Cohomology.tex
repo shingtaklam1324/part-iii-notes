@@ -1780,6 +1780,69 @@ corresponds the map \(M^G \otimes N^G \to (M \otimes N)^G\) induced by inclusion
 
 \lec
 
+Moreover, there exists \(1 \in \HH^0(G, \Z)\) which is the unit for the cup product. For associativity, if we have \(u_i \in \HH^*(G, M_i)\), then
+\[(u_1 \smile u_2) \smile u_3 = u_1 \smile (u_2 \smile u_3) \in \HH^*(G, M_1 \otimes M_2 \otimes M_3)\]
+In addition, this is graded commutative. For \(u \in \HH^p(G, M), v \in \HH^q(G, N)\), then
+\[u \smile v = (-1)^{pq}\alpha_*(v \smile u)\]
+where \(\alpha : M \otimes N \to N \otimes M\) is the canonical isomorphism. This means that \(\HH^*(G, \Z)\) is graded commutative.
+
+\begin{remark}
+    Graded commutative does not imply commutative. But if we restrict outselves to cohomology of even degree only, then it is commutative.
+\end{remark}
+
+Moreover, we have a natural graded \(\HH^*(G, \Z)\)-module structure on \(\HH^*(G, M)\).
+
+Now suppose \(\alpha : H \to G\) is a group homomorphism. Then \(\alpha^*(u \smile v) = \alpha^*u \smile \alpha^*v\), for \(u \in \HH^*(G, M)\) and \(v \in \HH^*(G, N)\). Thus,
+\[\alpha^* : \HH^*(G, \Z) \to \HH^*(H, \Z)\]
+is a ring homomorphism.
+
+\begin{remark}
+    Recall that we can take a projective resolution of \(M\), and apply \(\Hom_G(\cdot, N)\), for \(\ZG\)-modules \(M, N\), to get \(\Ext^n(M, N)\). Taking \(M = N\), we get \(\Ext^n(M, M)\), which is a graded \(\HH^*(G, \Z)\)-module. So we can study modules \(M\) by considering these modules for \(\HH^*(G, \Z)\).
+
+    See Benson-Carlson.
+\end{remark}
+
+\section{Lyndon-Hochschild-Serre spectral sequence}
+
+Let \(G\) be a group, \(H\) be a normal subgroup, \(Q = G/H\). We would like to calculate the cohomology of \(G\) from that for \(H\) and \(Q\). In low degree, we get the \emph{five term exact sequence}. We use a general method for calculating (co)homology of double complexes using filtrations. 
+
+For the Lyndon-Hochschild-Serre spectral sequence, we have a particular double complex. Let \(X^\bullet\) be a \(\ZG\)-projective resolution of \(\Z\). amd \(Y^\bullet\) be a \(\Z Q\)-projective resolution of \(\Z\). Then \(X^\bullet\) is also a \(\Z H\)-projective resolution of \(\Z\). Let \(M\) be a \(\ZG\)-module. Then \(G\) acts on \(\Hom_H(X^\bullet, M)\) by
+\[(gf)(x) = g(f(g^{-1}x))\]
+Since \(H\) acts trivially under the above action, we may view \(\Hom_H(X^\bullet, M)\) as a \(\Z Q\)-module. We then form a double complex
+\[A = \Hom_Q(Y^\bullet, \Hom_H(X^\bullet, M))\]
+with differentials
+\begin{align*}
+    \dd' &= \Hom_Q(\dd_y, \id) \\
+    \dd'' &= \Hom_Q(\id, \dd_X^*)
+\end{align*}
+In this case, \(A^{p,q}\) is zero outside of the first quadrant. In general, we have a double complex \(A^{p, q}\), and differentials \(\dd', \dd''\) of degree \((1, 0)\) and \((0, 1)\) respectively. Here, we require
+\[(\dd')^2 = (\dd'')^2 = 0\]
+and
+\[\dd' \dd'' + \dd'' \dd' = 0\]
+Thus,  if we set \(\dd = \dd' + \dd''\), then \(\dd^2 = 0\). In our case, we don't have this unless if we put in alternating signs in either of the differentials. We'll follow the convention from Cartan-Eilenberg, which is that we don't write the signs, but remember that they are implied. We imply a \((-1)^p\) where \(p\) is the grading on \(X\). Write
+\[A^n = \bigoplus_{p+q = n}A^{p,q}\]
+Consider the cohomology of the \emph{total complex} \((A^n, \dd)\).
+
+The strategy is to filter the total cohomology by using subcomplexes \(F^pA\), whose components to the left of the \(p\)-th column are zero. Then
+\[(F^pA)^n = \bigoplus_{p' \ge p}A^{p', n - p'}\]
+Note \((F^0A)^n = A^n\), and \((F^pA)^n = 0\) for \(p > n\). The inclusions \(F^pA \inj A\) induces a map \(\HH^n(F^pA) \to \HH^n(A)\). We set
+\[F^p\HH^n(A) = \im(\HH^n(F^pA) \to \HH^n(A))\]
+Thus, we get a filtration
+\[\HH^n(A) = F^0\HH^n(A) \supseteq F^1\HH^n(A) \supseteq \cdots \supseteq 0 \tag{\(\dagger\)}\]
+The first spectral sequence allows us to calculate
+\[\bigoplus_{m=0}^n\frac{F^m\HH^n(A)}{F^{m+1}\HH^n(A)}\]
+There is a graded action of \(\HH^n(A)\). Thus, we know \(\HH^n(A)\) as an extension of abelian groups.
+
+Alternatively, we could consider the subcomplex obtained by removing rows from the bottom of our double complex. This will give \(\HH^n(A)\) up to extensions of abelian groups in a (potentially) different way. Fortunately, with our case of the Lyndon-Hochschild-Serre spectral sequence, this second sequence actually only has one non-trivial factor, and so we get that
+\[\HH^n(A) = \HH^n(G, M)\]
+Thus, the first sequence is giving \(\HH^n(G, M)\), up to extensions of abelian groups. So how do we calculate (\(\dagger\))?
+
+Back to our initial filtration. Let
+\[C^{p,q}_r = \{x \in (F^pA)^{p + q} \mid \dd x \in (F^{p+r})^{p+q+1}\}\]
+Define for \(r \ge 2\),
+\[E^{p,q}_r = \frac{C_r^{p, q} + (F^{p+1}A)^{p+q}}{\dd(C^{p-r+1,q+r-2}_{r-1}) + (F^{p+1}A)^{p+q}}\]
+This is called the \emph{\(E_r\)-page}.
+
 \printindex
 
 \end{document}

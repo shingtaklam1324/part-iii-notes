@@ -1617,9 +1617,96 @@ be its (closed) \(\delta\)-neighbourhood.
     Since \(A(\delta) \to \infty\) as \(\delta \to \infty\), we see that \(\bb H^2\) is \(\delta\)-hyperbolic for sufficiently large \(\delta\).
 \end{example}
 
-\subsection{Mostow-Morse}
+\subsection{The Mostow-Morse lemma}
 
 The goal is to prove that Gromov-hyperbolicity is a quasi-isometry invariant.
 
+\lec
+
+\begin{definition}
+    [quasigeodesic]
+    A path \(\gamma : [a, b] \to X\) is a \emph{\((\lambda, \epsilon)\)-quasigeodesic} if \(\gamma\) is a \((\lambda, \epsilon)\)-quasi isometric embedding. That is,
+    \[\frac{1}{\lambda}\abs{s - t} - \epsilon \le d(\gamma(s), \gamma(t)) \le \lambda\abs{s - t} + \epsilon\]
+\end{definition}
+
+\begin{definition}
+    [Hausdoff distance] Let \(A, B \sse X\) be nonempty subsets of a metric space \(X\). Let
+    \[N_C(A) = \bigcup_{a \in A}B_c(a) = \{x \in X \mid \exists a \in A, d(x, a) \le c\}\]
+    The \emph{Hausdorff distance} is
+    \[d_{\Haus}(A, B) = \inf\{c > 0 \mid A \sse N_c(B) \text{ and }B \sse N_c(A)\}\]
+\end{definition}
+
+\begin{definition}
+    [length] Let \(\gamma : [a, b] \to X\) be a path. The \emph{length} of \(\gamma\) is
+    \[\ell(\gamma) = \sup_{\mcD}\sum_{i=1}^n d(\gamma(t_{i-1}), \gamma(t_i))\]
+    where \(\mcD\) ranges over all dissections
+    \[a = t_0 < t_1 < \cdots < t_n = b\]
+\end{definition}
+
+\begin{lemma}
+    \label{lem:quasi-geodesic-tame}
+    For any \(\lambda \ge 1, \epsilon \ge 0\), there are \(\lambda' \ge 1, \epsilon' \ge 1\), such that for any geodesic metric space \(X\), and any \((\lambda, \epsilon)\)-quasigeodesic \(\alpha : [a, b] \to X\), there exists a continuous \((\lambda', \epsilon')\)-quasigeodesic \(\alpha' : [a, b] \to X\), such that
+    \begin{enumerate}[(i)]
+        \item \(\alpha'(a) = \alpha(a), \alpha'(b) = \alpha(b)\),
+        \item \(d_\Haus(\im(\alpha), \im(\alpha')) \le \lambda + \epsilon\),
+        \item \(\ell(\alpha'\vert_{[s, t]}) \le \lambda' d(\alpha'(s), \alpha'(t)) + \epsilon\), for all \(a \le s \le t \le b\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Let \(I = \{a, b\} \cup (a, b) \cap \Z\). Define \(\alpha'\) by setting \(\alpha'(t) = \alpha(t)\) for all \(t \in I\), and then interpolating using a (reparametrised) geodesic between points of \(I\).
+
+    Continuity is clear, and so is (i). (ii) is easy. The fact that \(\alpha'\) is a quasi-geodesic and (iii) follow from easy, but tedious calculations.
+\end{proof}
+
+\begin{lemma}
+    Let \(X\) be a \(\delta\)-hyperbolic metric space. Suppose \(\beta : [a, b] \to X\) is a geodesic, \(\alpha : [a, b] \to X\) is a continuous path, with \(\alpha(a) = \beta(a), \alpha(b) = \beta(b)\). Then
+    \[d(\beta(t), \im(\alpha)) \le \delta\lfloor\log_2(\ell(\alpha))\rfloor + 1\]
+\end{lemma}
+
+\begin{proof}
+    Let
+    \[N = \lfloor \log_2(\ell(\alpha))\rfloor\]
+    The proof proceeds by induction on \(N\). If \(N \le 0\) then \(\ell(\alpha) \le 1\) and we are done.
+
+    Consider the geodesic triangle with vertices
+    \[\alpha(a), \alpha(b), \alpha\!\!\left(\frac{a + b}{2}\right)\]
+    Since \(X\) is \(\delta\)-hyperbolic, \(\beta(t)\) has distance at most \(\delta\) from one of the other edges of the triangle. Call the corresponding half of \(\alpha\) \(\alpha'\), and the geodesic \(\beta'\). Now
+    \[\ell(\alpha') = \frac{\ell(\alpha)}{2} \implies \lfloor\log_2(\ell(\alpha'))\rfloor = N - 1\]
+    and we have a point \(\beta'(t')\) such that \(d(\beta(t), \beta'(t')) \le \delta\). By inductive hypothesis,
+    \begin{align*}
+        d(\beta(t), \im(\alpha)) &\le d(\beta(t), \im(\alpha')) \\
+        &\le d(\beta(t), \beta'(t')) + d(\beta'(t'), \im(\alpha')) \\
+        &\le \delta + \delta(N - 1) + 1 \\
+        &= \delta N + 1
+    \end{align*}
+    as required.
+\end{proof}
+
+We are now ready for the main result of this section:
+
+\begin{theorem}
+    [Mostow-Morse lemma] Let \(X\) be a (geodesic) \(\delta\)-hyperbolic space. Let \(\alpha : [a', b'] \to X\) be a \((\lambda, \epsilon)\)-quasigeodesic, and \(\beta : [a, b] \to X\) a geodesic, with
+    \[\beta(a) = \alpha(a') \qqtext{and}\beta(b) = \alpha(b')\]
+    Then there exists a constant \(C = C(\lambda, \epsilon, \delta)\), such that
+    \[d_\Haus(\im(\alpha), \im(\beta)) \le C\]
+\end{theorem}
+
+\begin{proof}
+    We may replace \(\alpha\) by the result of \cref{lem:quasi-geodesic-tame}. In particular, \(\alpha\) is continuous, and
+    \[\ell\left(\alpha_{[s, t]}\right) \le \lambda \abs{s - t} + \epsilon\]
+    for \(a \le s \le t \le b\). We need to bound
+    \[C_1 = \inf\{C \mid \im(\beta)\sse N_C(\im(\alpha))\} \qqtext{and} C_2 \inf\{C \mid \im(\alpha) \sse N_C(\im(\beta))\}\]
+    We'll first bound \(C_1\). For this, we'll need to bound
+    \[d(\beta(t), \im(\alpha)) = \inf_{t' \in [a, b]}d(\beta(t), \alpha(t'))\]
+    Let \(C = \sup\limits_{t \in [a, b]}d(\beta(t), \im(\alpha))\). Since \([a', b']\) is compact, it is realised at some \(\beta(t)\). Let
+    \[r = \max\{a, t - 2C\} \qqtext{and} s = \min\{b, t + 2C\}\]
+    Define the path \(\gamma\) by going from \(\beta(r)\) to the closest point \(\alpha(r')\) on \(\alpha\), following \(\alpha\) until the closest point \(\alpha(s')\) to \(\beta(s)\), and then going to \(\beta(s)\). Then
+    \begin{align*}
+        \ell(\gamma) &\le 2C + \ell(\alpha\vert_{[r', s']}) \\
+        &\le 2C + \lambda\abs{r' - s'} + \epsilon \\
+        &\le 6\lambda C + 2C + \epsilon
+    \end{align*}
+\end{proof}
 
 \end{document}

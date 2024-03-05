@@ -1485,6 +1485,7 @@ As usual, as a set, \(X_\Sigma\) is a disjoint union of torus orbits.
 
 \begin{theorem}
     [orbit-cone correspondence]
+    \label{thm:orbit-cone}
     There is a bijection 
     \[\{\text{cones in }\Sigma\} \bij \{\text{torus orbits in }X_\Sigma\}\]
     given by sending \(\sigma\) to \(\Orb(\sigma) = T \cdot x_\sigma\), such that \(\dim(\Orb(\sigma)) = n - \dim(\sigma)\), where \(n = \rank(N) = \dim(X_\Sigma)\). Moreover,
@@ -1503,6 +1504,141 @@ As usual, as a set, \(X_\Sigma\) is a disjoint union of torus orbits.
     \(x_\sigma\) is a torus fixed point if and only if \(\sigma\) is a top dimensional cone.
 \end{corollary}
 
+\lec
+
+First of all, note that for all \(\sigma \in \Sigma\), \(U_\sigma\) is fixed by \(T\). Let \(x \in U_\sigma\), or equivalently, a ring homomorphism \(\C[S_\sigma] \to \C\), or a map of semigroups \(S_\sigma \to \C\). For \(t \in T_N = \Hom(M, \C^*)\), we have a corresponding \(\gamma_t : M \to \C^*\) group homomorphism, sending \(m\) to \(\chi^m(t)\).
+
+Then \(t \cdot x \in U_\sigma\) corresponds to
+\[\gamma_{t \cdot x}(m) = \chi^m(t)\chi_x(m)\]
+
+\begin{lemma}
+    \((\C^*)^{n - \dim(\sigma)} \cong \Orb(\sigma) = \Hom_{\text{semigroup}}(\sigma^\perp \cap M, \C^*)\)
+\end{lemma}
+
+\begin{proof}
+    Observe that \(\sigma^\perp \sse \sigma^\vee\), and \(\sigma^\perp \cap M \sse \sigma^\vee \cap M = S_\sigma\) is the largest lattice contained in \(S_\sigma\), and has rank \(n - \dim(S_\sigma)\).
+
+    Recall \(x_\sigma\) corresponds to the morphism \(\gamma_\sigma : S_\sigma \to \C\), with
+    \[\gamma_\sigma(m) = \begin{cases}
+        1 & m \in \sigma^\perp \cap M \\
+        0 & \text{otherwise}
+    \end{cases}\]
+    Now \(t \cdot x_\sigma\) corresponds to the morphism
+    \[\gamma_{t\cdot \sigma}(m) = \begin{cases}
+        \chi^m(t) & m \in \sigma^\perp \cap M \\
+        0 & \text{otherwise}
+    \end{cases}\]
+    This shows that \(\Orb(\sigma)\) is contained in \(\Hom(\sigma^\perp \cap M, \C^*)\). 
+    
+    We will sketch the converse. For all morphisms of semigroups, \(\gamma : \sigma^\perp \cap M \to C\), pick \(t \in T_N\), such that \(\gamma\) sends all elements of \(\sigma^\perp \cap M\) to \(1\), and extend by zero on points \(m \in S_\sigma \setminus \sigma^\perp\). This will give \(\gamma_\sigma\).
+\end{proof}
+
+To prove \cref{thm:orbit-cone}, it remains to show that we have a bijection
+\[\{\text{cones in }\Sigma\} \bij \{\text{torus orbits in }X_\Sigma\}\]
+\begin{proof}
+    The map sending a cone to its orbit is clear. For the reverse map, let \(O\) be an orbit. Then \(O = T \cdot x \) for some \(x \in X_\Sigma\). Now choose \(\sigma_x\) to be the smallest cone containing \(x\). Since \(U_{\sigma_x}\) is closed under \(T\)-action, \(O = T \cdot x \sse U_{\sigma_x}\). We claim that \(O = \Orb(\sigma_x)\). Note that it suffices to show that \(x \in \Orb(\sigma_x)\).
+\end{proof}
+
+\begin{corollary}
+    \[U_\sigma = \bigcup_{\tau \faceof \sigma}\Orb(\tau)\]
+\end{corollary}
+
+\begin{definition}
+    The \emph{orbit closure} of \(\Orb(\sigma)\) in \(X_\Sigma\) is the Zariski closure
+    \[V(\sigma) = \overline{\Orb(\sigma)}\]
+\end{definition}
+
+\begin{lemma}
+    The correspondence in \cref{thm:orbit-cone} is order reversing. That is, for \(\tau, \sigma \in \Sigma\),
+    \begin{enumerate}[(i)]
+        \item \(\tau \faceof \sigma\) if and only if \(\Orb(\sigma) \sse V(\tau)\),
+        \item \(V(\sigma) = \bigcup_{\sigma \faceof \tau}\Orb(\tau)\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{example}
+    For \(\A^2\), the orbits are:
+    \begin{itemize}
+        \item \(\{(0,0)\}\),
+        \item \(\{0\} \times \C^*\),
+        \item \(\C^* \times \{0\}\),
+        \item \((\C^*)^2\),
+    \end{itemize}
+    and the orbit closures are
+    % https://q.uiver.app/#q=WzAsNCxbMSwyLCJcXHsoMCwwKVxcfSJdLFswLDEsIlxcezBcXH1cXHRpbWVzIFxcQV4xIl0sWzIsMSwiXFxBXjEgXFx0aW1lcyBcXHswXFx9Il0sWzEsMCwiXFxBXjIiXSxbMSwzXSxbMiwzXSxbMCwxXSxbMCwyXV0=
+    \[\begin{tikzcd}
+        & {\A^2} \\
+        {\{0\}\times \A^1} && {\A^1 \times \{0\}} \\
+        & {\{(0,0)\}}
+        \arrow[from=2-1, to=1-2]
+        \arrow[from=2-3, to=1-2]
+        \arrow[from=3-2, to=2-1]
+        \arrow[from=3-2, to=2-3]
+    \end{tikzcd}\]
+\end{example}
+
+\begin{example}
+    Consider \(\Bl_0(\A^2)\). Say \(\tau_3\) the new edge we add. \(\Orb(\tau_3) = \C^*\), \(\sigma_1\) and \(\sigma_2\) lie above \(\tau_3\), and their orbits are a point. Thus,
+    \[V(\tau_3) = \C^* \cup \{\text{pt}\} \cup \{\text{\pt}\} = \P^1\] 
+\end{example}
+
+In particular, \(V(\sigma)\) is a toric variety, and a toric subvariety of \(X_\Sigma\). Let \(N_\sigma = \Span_\R\{\sigma\} \cap N\). Then we have the short exact sequence
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTl9cXHNpZ21hIl0sWzIsMCwiTiJdLFszLDAsIk4oXFxzaWdtYSkiXSxbNCwwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+\[\begin{tikzcd}
+	0 & {N_\sigma} & N & {N(\sigma)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+If \(\tau\) is a cone which contains \(\sigma\) as a face, let \(\overline\tau\) be the image of \(\tau\) under the projection \(\pi : N_\R \to N(\sigma) \otimes \R\). The collection
+\[\Star(\sigma) = \{\overline\tau \mid \sigma\faceof \tau\}\]
+defines a fan in \(N(\sigma) \otimes \R \cong \R^{n - \dim(\sigma)}\). 
+
+\begin{theorem}
+    For any cone \(\sigma \in \Sigma\),
+    \[V(\sigma) = X_{\Star(\sigma)}\]
+    is a toric subvariety of \(X_\Sigma\).
+\end{theorem}
+
+\begin{proof}
+    [Proof sketch]
+    For \(\sigma\faceof \tau\), we claim that \(\overline\tau\) is a strongly convex cone in \(N(\sigma)_\R\), which corresponds to the variety
+    \[U_{\overline\sigma} = \Spec(\C[\overline\tau^\vee \cap N(\sigma)^\vee]) = \Spec(\C[\tau^\vee \cap \sigma^\perp \cap M])\]
+    and the closed embedding is given by
+    \begin{align*}
+        \C[\tau^\vee \cap M] &\surj \C[\tau^\vee \cap \sigma^\perp \cap M] \\
+        \chi^m &\mapsto \begin{cases}
+            \chi^m & m \in \sigma^\perp \\
+            0 & \text{otherwise}
+        \end{cases}
+    \end{align*}
+    We need to check that these local closed maps glue to a closed embedding \(X_{\Star(\sigma)} \inj X_\Sigma\), and that the iamge of \(X_{\Star(\sigma)}\) is \(V(\sigma)\).
+\end{proof}
+
+\begin{example}
+    For \(\P^2\), we have
+    \[V(\tau_2) = X_{\Star(\tau_2)} \cong \P^1 \sse \P^2\]
+    as \(\van(z_2)\). Recall \(X_\Sigma \cong \P^2\), with
+    \begin{align*}
+        U_{\sigma_0} &= \Spec(\C[x, y]) \\
+        U_{\sigma_1} &= \Spec(\C[x^{-1}, x^{-1}y]) \\
+        U_{\sigma_2} &= \Spec(\C[y^{-1}, y^{-1}x])
+    \end{align*}
+    The homogeneous coordinates on \(\P^2\) are \([z_0:z_1:z_2]\), which corresponds to \(x = z_1/z_0, y = z_2/z_0\). So \(U_{\sigma_i} = \{z_i \ne 0\}\) in \(\P^2\). Now \(U_0 \cong \A^2 \sse \P^2\), by mapping \((x, y) \mapsto [1 : x: y]\), and so on.
+
+    Now we focus on \(\tau_2 = \R_{\ge 0}\cdot e_2\). The short exact sequence is
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTl97XFx0YXVfMn09XFxaIFxcY2RvdCBlXzIiXSxbMiwwLCJOPVxcWlxcY2RvdCBlXzFcXG9wbHVzXFxaXFxjZG90IGVfMiJdLFszLDAsIk4oXFx0YXVfMik9XFxaXFxjZG90IGVfMSJdLFs0LDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+    \[\begin{tikzcd}
+        0 & {N_{\tau_2}=\Z \cdot e_2} & {N=\Z\cdot e_1\oplus\Z\cdot e_2} & {N(\tau_2)=\Z\cdot e_1} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    Now \(\Star(\tau_2)\) is a fan in \(\Z\cdot e_1 \otimes \R\), given by
+    \[\{\overline{\tau_2} = \{0\}, \overline{\sigma_0} = \Cone(e_1), \overline{\sigma_1} = \Cone(-e_1)\}\]
+\end{example}
 
 \printindex
 

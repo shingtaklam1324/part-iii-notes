@@ -2157,6 +2157,7 @@ The last one is a generalisation of the Abel-Jacobi theorem, where if \(E\) is a
 
 \begin{theorem}
     [seesaw]
+    \label{thm:seesaw}
 
     Let \(X, Y\) be varieties over \(k\), with \(X\) proper. Let \(\mcL\) be a line bundle\footnote{i.e. an invertible \(\mcO_{X \times Y}\)-module, or locally free of rank \(1\)} on \(X \times Y\). For \(y \in Y\), write
     \[i_y : X \times \Spec(\kappa(y)) \to X \times Y\]
@@ -2304,6 +2305,109 @@ So we can check identities between line bundles after passing to \(\overline k\)
 
 \begin{proof}
     It is a homomorphism, and so it suffices to show that if \(\mcL_{\overline k} \cong \mcO_{X_{\overline k}}\), then \(\mcL\) is trivial. But on the examples sheet, we see that \(\mcL \cong \mcO_X\) if and only if \(\HH^0(X, \mcL)\) and \(\HH^0(X, \mcL^\vee)\) are non-zero. But as \(\HH^0(X_{\overline k}, \mcL_{\overline k}) = \HH^0(X, \mcL) \otimes_k\overline k\), we get the result.
+\end{proof}
+
+\lec
+
+From now on, assume \(X\) is an abelian variety over \(k\). To study \(\Pic(X)\), we will use:
+
+\begin{proposition}
+    Let \(\mcL\) be a line bundle on \(X\). For \(x \in X(\overline k)\), define
+    \[\varphi_\mcL(x) = T_x^*\mcL \otimes \mcL^\vee \in \Pic(X_{\overline k})\]
+    More precisely, it's the isomorphism class of \(T_x^*\mcL \otimes \mcL^\vee\) in the Picard group. Then
+    \[\varphi_\mcL : X(\overline k) \to \Pic(X_{\overline k})\]
+    is a homomorphism.
+\end{proposition}
+
+\begin{proof}
+    \begin{align*}
+        \varphi_\mcL(x + y) &= T_{x + y}^*\mcL \otimes \mcL^\vee \\
+        \varphi_\mcL(x) + \varphi_\mcL(y) &= T_x^*\mcL \otimes \mcL^\vee \otimes T_y^*\otimes \mcL^\vee
+    \end{align*}
+    These two are equal by the theorem of the square.
+\end{proof}
+
+Note we will write the group operation in \(\Pic(X)\) either as \(+\) or as \(\otimes\). Thus, \(\varphi_\mcL\) combines the group law on \(X\) and on \(\Pic(X_{\overline k})\).
+
+\begin{definition}
+    [N\'eron-Severi group]
+    Define 
+    \[\Pic^0(X_{\overline k}) = \{\mcL \mid \varphi_\mcL = 0\}\]
+    and
+    \[K(\mcL) = \ker(\varphi_\mcL)\]
+    Define the \emph{N\'eron-Severi group} of \(X\) to be
+    \[\NS(X_{\overline k}) = \frac{\Pic(X_{\overline k})}{\Pic^0(X_{\overline k})}\]
+\end{definition}
+Note that \(\NS(X_{\overline k})\) is a subgroup of \(\Hom(X(\overline k), \Pic(X_{\overline k}))\). In the end, \(\Pic^0(X_{\overline k})\) will turn out to be the \(\overline k\)-points of another abelian variety \(\widehat X\), the \emph{dual abelain variety}, and \(\NS(X_{\overline k})\) is a finitely generated free abelian group.
+
+First of all, we will give an alternative characterisation of \(\Pic^0\).
+
+\begin{proposition}
+    Let \(\Lambda(\mcL) = m^*\mcL \otimes \pr_1^*\mcL^\vee \otimes \pr_2^*\mcL^\vee \in \Pic(X \times X)\). Then \(\mcL \in \Pic^0(X)\) if and only of \(\Lambda(\mcL)\) is trivial. That is,
+    \[m^*\mcL \cong \pr_1^*\mcL \otimes \pr_2^*\mcL\]
+    \(\Lambda(\mcL)\) is called the \emph{Mumford line bundle}.
+\end{proposition}
+
+\begin{proof}
+    \(\varphi_\mcL\) depends only on the isomorphism class of \(\mcL_{\overline k} \in \Pic(X_{\overline k})\), and so we can assume \(k = \overline k\). Let \(x \in X(k)\). Then
+    \begin{align*}
+        m \circ (\id \times x) &= T_x \\
+        \pr_1 \circ\ (\id \times x) &= \id_X \\
+        \pr_2 \circ\ (\id \times x) &= x
+    \end{align*}
+    Hence
+    \[\Lambda(\mcL)\vert_{X \times x} = T_x^*\mcL \otimes \mcL^\vee \otimes \mcO_X = \varphi_L(x)\]
+    Moreover, \(\Lambda(\mcL)\vert_{e \times X} = \varphi_\mcL(x) = \mcO_X\) is trivial. Thus, by seesaw, \(\Lambda(\mcL)\) is trivial if and only if for all \(x \in X(k)\), \(\mcL\vert_{X \times x} \cong \mcO_X\). That is, \(\varphi_\mcL = 0\).
+\end{proof}
+
+\begin{proposition}
+    \leavevmode
+    \begin{enumerate}[(i)]
+        \item for all line bundles \(\mcL\), \(\im(\varphi_\mcL) \sse \Pic^0(X_{\overline k})\),
+        \item if \(\mcL \in \Pic^0(X_{\overline k})\), then \(i_*\mcL \cong \mcL^\vee\),
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Without loss of generality, assume \(k = \overline k\). For (i), let \(x \in X(k)\) and \(\mcM = \varphi_\mcL(x) = T_x^*\mcL \otimes \mcL^\vee\). For \(y \in X(k)\),
+    \[\varphi_\mcM(y) = T_y^*(T_x^*\mcL \otimes \mcL^\vee) \otimes (T_x^*\mcL \otimes \mcL^\vee)^\vee \cong \mcO_X\]
+    by the theorem of the square. Hence \(\varphi_\mcM = 0\), and so \(\mcM \in \Pic^0(X_{\overline k})\).
+
+    For (ii), by the previous proposition,
+    \[m^*\mcL \cong \pr_1^*\mcL \otimes \pr_2^*\mcL\]
+    and consider \(d : X \to X \times X\), \(d(x) = (x, -x)\). Now
+    \[d^*(\pr_1^*\mcL \otimes \pr_2^*\mcL) = \mcL \otimes i^*\mcL\]
+    and
+    \[d^*m^*\mcL = (m \circ d)^*\mcL = \mcO_X\]
+    as \(m \circ d\) is the constant map. Thus, \(\mcL \otimes i^*\mcL \cong \mcO_X\),a nd so \(i^*\mcL \cong \mcL^\vee\).
+\end{proof}
+
+\begin{theorem}
+    Let \(\mcL \in \Pic^0(X)\) be non-trivial. Then \(\HH^r(X, \mcL) = 0\) for all \(r \ge 0\).
+\end{theorem}
+
+\begin{proof}
+    To start off, we will show \(\HH^0(X, \mcL)\) is zero. If not, let \(s \in \HH^0(X, \mcL)\) be a non-zero section. This has an effective divisor \(D = \div(s)\), and \(\mcL \cong \mcO_X(D)\). Now \(\mcL \in \Pic^0(X)\), and so \(\mcL^\vee \cong i^*\mcL = \mcO_X(i^*D)\). and so \(\HH^0(X, \mcL^\vee) \cong \HH^0(X, \mcO_X(i^*D)) \ne 0\). But then from the examples sheet, if both \(\mcL\) and \(\mcL^\vee\) have a non-zero global section, then \(\mcL\) is trivial.
+
+    So assume for all \(0 \le i < n\), \(\HH^i(X, \mcL) = 0\). Consider
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJYIl0sWzEsMSwiWFxcdGltZXMgWCJdLFsyLDAsIlgiXSxbMCwxLCJcXGlkIFxcdGltZXMgZSIsMl0sWzEsMiwibSIsMl0sWzAsMiwiXFxpZCJdXQ==
+    \[\begin{tikzcd}
+        X && X \\
+        & {X\times X}
+        \arrow["{\id \times e}"', from=1-1, to=2-2]
+        \arrow["m"', from=2-2, to=1-3]
+        \arrow["\id", from=1-1, to=1-3]
+    \end{tikzcd}\]
+    So on \(\HH^n(X, \mcL)\), the identity map factors as
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXEhIXm4oWCwgXFxtY0wpIl0sWzEsMCwiXFxISF5uKFggXFx0aW1lcyBYLCBtXipcXG1jTCkiXSxbMiwwLCJcXEhIXm4oWCwgXFxtY0wpIl0sWzAsMSwibV4qIl0sWzEsMiwiKFxcaWRcXHRpbWVzIGUpXioiXV0=
+    \[\begin{tikzcd}
+        {\HH^n(X, \mcL)} & {\HH^n(X \times X, m^*\mcL)} & {\HH^n(X, \mcL)}
+        \arrow["{m^*}", from=1-1, to=1-2]
+        \arrow["{(\id\times e)^*}", from=1-2, to=1-3]
+    \end{tikzcd}\]
+    Now \(m^*\mcL \cong \pr_1^*\mcL \otimes \pr_2^*\mcL = \mcL \boxtimes \mcL\). By K\"unneth,
+    \[\HH^n(X \times X, \mcL \boxtimes \mcL) \cong \bigoplus_{p + q = n}\HH^p(X, \mcL) \otimes_k \HH^q(X, \mcL)\]
+    The right hand side vanishes by the induction hypothesis. But the identity map factors through the zero map, and so \(\HH^n(X, \mcL) = 0\).
 \end{proof}
 
 \end{document}
