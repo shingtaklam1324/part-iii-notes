@@ -868,7 +868,77 @@ Here, \(U\) is homotopic to \(S^{2n-1}\). So we get (for \(n \ge 2\))
 	\arrow[from=1-2, to=1-3]
 	\arrow[from=1-3, to=1-4]
 \end{tikzcd}\]
-Now \(\HH^2(M \setminus B(\lambda)) \cong \HH^2(M)\). Under the above isomorphism, \([\omega_\lambda] = [\omega] + \pi\lambda^2\PD[E]\).
+Now \(\HH^2(M \setminus B(\lambda)) \cong \HH^2(M)\). Under the above isomorphism, \([\omega_\lambda] = [\omega] - \pi\lambda^2\PD[E]\).
+
+\lec
+
+Another way to see that \(\omega_\lambda\) is symplectic is as follows. Note that \(\pi^*\omega_{\C^n}\) and \(p^*\omega_{\P^{n-1}}\) are both compatible with respect to the standard complex structure \(J\). In particular, \(\pi^*\omega_{\C^n}\) is symplectic away from \(E\).
+
+On \(E\), we have
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxUIEUiXSxbMiwwLCJcXFQgWlxcdmVydF9FIl0sWzMsMCwiXFxudV9FIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & {\T E} & {\T Z\vert_E} & {\nu_E} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+Note that \(\nu_E = \ker(\dd p)\) which includes into \(\T Z\vert_E\), which gives a splitting of the short exact sequence. Thus, we have a pointwise splitting
+\[(\T Z\vert_E)_p = \T E \oplus \nu_E\]
+On the first factor, we have the non-degenerate form \(p^*\omega_{\P^{n-1}}\), and on the second factor we have the non-degenerate form \(\pi^*\omega_{\C^n}\).
+
+On the other hand, 
+\[\pi\lambda^2\PD[E] = [\omega_\lambda] \in \HH^2(Z_\delta)\]
+Next, note that we have isomorphisms
+\begin{align*}
+    \HH^2(Z_\delta) \\
+    &\cong \HH_{2n-2}(Z_\delta, \partial Z_\delta) \\
+    &\cong \HH_{2n-2}(Z_\delta) \\
+    &\cong \HH_{2n-2}(\Tot(\mcO_{\P^{n-1}}(-1))) \\
+    &\cong \HH_{2n-2}(\P^{n-1}) \\
+    &= \Z[E]
+\end{align*}
+and for a line \(L\) in \(\P^{n-1}\), we have \(\HH_2(Z_\delta) = [L]\), and so
+\[[E]\cdot [L] = c_1(\mcO_{\P^{-1}}(-1))\cdot [L] = -1\]
+On the other hand,
+\[\int_L\omega_\lambda = \lambda^2\int_L\omega_{\P^{n-1}} = \pi\]
+
+\begin{remark}
+    Suppose we started off with an almost complex structure \(J\). Then we would like to construct a \(\widetilde J\) on the blowup \(\widetilde M\), and so on. See McDuff-Salamon.
+\end{remark}
+
+\begin{remark}
+    In general, we can blow up along complex submanifolds, symplectic submanifolds, subschemes... Here, we replace the submanifold with the projectivisation of its normal bundle.
+\end{remark}
+
+Consider the rational map
+\begin{align*}
+    \P^2 &\ratmap \P^1 \\
+    [x:y:z] &\mapsto [x:y]
+\end{align*}
+In an affine, this sends \((x, y)\) to \(x/y\). Note this is not defined at \(p_0 = [0:0:1]\). But, if we blow up at \(p_0\), then we have a well defined map. Consider the neighbourhood
+\[\{((x, y), [t_1:t_2]) \in \C^2 \times \P^1 \mid xt_2 = yt_1\}\]
+The projection to \(\P^1\) defines a well defined map, which is an extension of the above map away from \(E\).
+In this case, we get a Hirzebruch surface \(\bb F_1\). Thus, we have a \(\bb P^1\)-bundle \(\bb F_1 \to \P^1\). More generally, we can write this as
+\[\P(\mcO(-1) \oplus \mcO) \to \P^1\]
+
+\subsection{Rational elliptic surface}
+
+Let \(f, g\) define smooth cubics in \(\P^2\). Let \(V_f = \van(f)\) and \(V_g = \van(g)\), and assume that \(V_f \transverse V_g\), and so \(\mcB = V_f \cap V_g\) is \(9\)-points. So now we have a pencil of cubics, which is a \(\P^1\)-family of cubics \(sf + tg\), where \([s : t] \in \P^1\). Thus, we get
+\[V_{[s:t]} = \van(sf + tg)\]
+Consider the rational map \([f : g] : \P^2 \ratmap \P^1\). This is not defined at \(\mcB\). Let
+\[S = \Bl_\mcB\P^2\]
+Then we have a well defined map \(\phi : S \to \P^1\). Moreover, each point \(E_i \in \mcB\) defines a section of \(\phi\).
+
+\begin{remark}
+    Let \(F\) be a fibre, then it is a fibre of a fibration (locally near \(F\)). Hence its self intersection \(F \cdot F\) is zero (this is true in the middle dimension of a fibration). This raises the question: how does the normal bundl change with blowups?
+
+    Note that \(\nu\vert_F\) is trivial if \(F\) is a fibre of a fibration.
+\end{remark}
+
+\begin{remark}
+    For a fibration, what we want is a homotopy lifting property for \(f : E \to B\). Note in algebraic geometry,  we can have non-smooth fibres. For example, the map \(S \to \P^1\) will have singular fibres, where \(V_x\) is a singular cubic. But this is complex codimension \(1\).
+\end{remark}
 
 \printindex
 

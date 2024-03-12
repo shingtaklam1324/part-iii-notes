@@ -1696,7 +1696,7 @@ We are now ready for the main result of this section:
     We may replace \(\alpha\) by the result of \cref{lem:quasi-geodesic-tame}. In particular, \(\alpha\) is continuous, and
     \[\ell\left(\alpha_{[s, t]}\right) \le \lambda \abs{s - t} + \epsilon\]
     for \(a \le s \le t \le b\). We need to bound
-    \[C_1 = \inf\{C \mid \im(\beta)\sse N_C(\im(\alpha))\} \qqtext{and} C_2 \inf\{C \mid \im(\alpha) \sse N_C(\im(\beta))\}\]
+    \[C_1 = \inf\{C \mid \im(\beta)\sse N_C(\im(\alpha))\} \qqtext{and} C_2 = \inf\{C \mid \im(\alpha) \sse N_C(\im(\beta))\}\]
     We'll first bound \(C_1\). For this, we'll need to bound
     \[d(\beta(t), \im(\alpha)) = \inf_{t' \in [a, b]}d(\beta(t), \alpha(t'))\]
     Let \(C = \sup\limits_{t \in [a, b]}d(\beta(t), \im(\alpha))\). Since \([a', b']\) is compact, it is realised at some \(\beta(t)\). Let
@@ -1704,9 +1704,204 @@ We are now ready for the main result of this section:
     Define the path \(\gamma\) by going from \(\beta(r)\) to the closest point \(\alpha(r')\) on \(\alpha\), following \(\alpha\) until the closest point \(\alpha(s')\) to \(\beta(s)\), and then going to \(\beta(s)\). Then
     \begin{align*}
         \ell(\gamma) &\le 2C + \ell(\alpha\vert_{[r', s']}) \\
-        &\le 2C + \lambda\abs{r' - s'} + \epsilon \\
+        &\le 2C + \lambda d(\alpha(r'), \alpha(s')) + \epsilon \\
         &\le 6\lambda C + 2C + \epsilon
     \end{align*}
+
+    \lec
+
+    On the other hand, the lemma above shows that
+    \[C \le \delta\lfloor \log_2(\ell(\gamma))\rfloor + 1\]
+    Thus,
+    \[C \le \delta\lfloor\log_2(6\lambda C + 2 C + \epsilon)\rfloor + 1\]
+    Since the left hand side is linear, and the right hand side is logarithmic in \(C\), there is an upper bound on \(C\), which only depends on \(\delta, \lambda\) and \(\epsilon\).
+
+    Next, we need to bound \(C_2\), i.e. we need to bound \(d(\alpha(t), \im(\beta))\). Let \([s', r'] \sse [a', b']\) be maximal such that \(\alpha \vert_{(s', r')}\) lies outside of \(N_C(\im(\beta))\). Here, \(C\) is the constant from above. By continuity, there exists \(t \in [a, b]\), and \(s \in [a', s'], r \in [r', b']\) such that
+    \[d(\beta(t), \alpha(s)), d(\beta(t), \alpha(r)) \le C\]
+    as the interval is connected. Thus, \(d(\alpha(r), \alpha(s)) \le 2C\). Hence
+    \[\ell(\alpha \vert_{[s', r']}) \le \ell(\alpha\vert_{[s, r]}) \le \lambda d(\alpha(s), \alpha(r)) + \epsilon \le 2\lambda C + \epsilon\]
+    Hence every point on \(\alpha\) is at most \(2C \lambda + C + \epsilon\) from \(\im(\beta)\). 
 \end{proof}
+
+\begin{corollary}
+    Let \(X, Y\) be geodesic metric spaces. If \(X\) is \(\delta\)-hyperbolic, and \(X\) is quasi-isometric to \(Y\), then \(Y\) is \(\delta'\)-hyperbolic for some \(\delta'\).
+\end{corollary}
+
+\begin{proof}
+    Let \(f : X \to Y, g : Y \to X\) be \((\lambda, \epsilon)\)-quasi-isometries, such that
+    \[d(f(g(y)), y) \le \epsilon \qqtext{and}d(g(f(x)), x) \le \epsilon\]
+    Consider a geodesic triangle
+    \[[y_1, y_2] \cup [y_2, y_3] \cup [y_3, y_1] \sse Y\]
+    Consider \(y \in [y_1, y_2]\). By the Mostow-Morse lemma, there exists \(x \in [g(y_1), g(y_2)]\) such that
+    \[d(x, g(y)) \le C\]
+    Since \(X\) is \(\delta\)-hyperbolic, there exists (without loss of generality) \(x' \in [g(y_2), g(y_3)]\) such that \(d(x, x') \le \delta\). By the Mostow-Morse lemma again, there exists \(y' \in [y_2, y_3]\) such that 
+    \[d(x', g(y')) \le C\]
+    In summary,
+    \[d(g(y), g(y')) \le 2C + \delta\]
+    and so
+    \[d(f(g(y)), f(g(y'))) \le \lambda(2C + \delta) + \epsilon\]
+    and thus
+    \[d(y, y') \le \lambda(2C + \delta) + 3\epsilon\]
+    The right hand side is a function of \(\delta, \lambda\) and \(\epsilon\) only.
+\end{proof}
+
+\begin{example}
+    Let \(G = \pi_1(\Sigma_2)\). This has presentation
+    \[\inner{a_1, b_1, a_2, b_2 \mid [a_1, b_1][a_2, b_2]}\]
+    By the Schwarz-Milnor lemma, \(\Cay(G) \qi \bb H^2\), which is Gromov hyperbolic, and so \(\Cay(G)\) is Gromov hyperbolic.
+\end{example}
+
+\subsection{Hyperbolic groups}
+
+Using the previous corollary, the following properties of a group \(G\) are all equivalent.
+\begin{enumerate}
+    \item \(G\) has a finite generating set \(S\), such that \(\Cay(G, S)\) is Gromov hyperbolic.
+    \item \(G\) is finitely generated, and for any finite generating set \(S\), \(\Cay(G, S)\) is Gromov hyperbolic.
+    \item \(G\) acts properly discontinuously and cocompactly by isometries on some proper geodesic Gromov hyperbolic metric space \(X\).
+    \item Every proper geodesic metric space \(X\) on which \(G\) acts properly discontinuously and compactly is Gromov hyperbolic.
+\end{enumerate}
+
+\begin{definition}
+    \(G\) is \emph{(word) hyperbolic} if any of the above hold.
+\end{definition}
+
+\lec
+
+\begin{example}
+    If \(G\) is finite, then \(\Cay_S(G)\) is bounded, and so hyperbolic.
+\end{example}
+
+\begin{example}
+    If \(G = F_m\), then the standard generating set gives \(\Cay_S(G)\) which is a tree. Recall that trees are \(0\)-hyperbolic.
+\end{example}
+
+\begin{example}
+    If \(\Z^2\) was hyperbolic, then \(\R^2\) would be Gromov hyperbolic, which it is not.
+\end{example}
+
+\begin{example}
+    For \(g \ge 2\), let \(\Sigma_g\) be the closed oriented surface of genus \(g\). Let \(G \pi_1(\Sigma_g)\). Then \(G\) acts on \(\bb H^2\) properly discontinuously, cocompactly by isometries. Thus, \(G\) is hyperbolic.
+\end{example}
+
+\begin{remark}
+    Sometimes authors say a group acts on a space \emph{geometrically} if it acts properly discontinuously and cocompactly by isometries.
+\end{remark}
+
+\begin{example}
+    \(\pi_1(M)\) is hyperbolic if \(M\) is any closed Riemannian manifold with negative sectional curvature.
+\end{example}
+
+\begin{example}
+    \(\SL_2(\Z) \cong \Z/4 \underset{\Z/2}{*} \Z/6\). The Bass-Serre tree is an infinite \(3\)-valent tree \(T\), and \(\SL_2(\Z)\) acts geometrically on \(T\), so \(\SL_2(\Z)\) is hyperbolic.
+\end{example}
+
+\begin{example}
+    [random finitely presented groups] If
+    \[G = \inner{a_1, \dots, a_m \mid r_1, \dots, r_n}\]
+    is ``chosen at random'', then \(G\) is infinite and hyperbolic.
+\end{example}
+
+\subsection{Local geodesics}
+
+Our goal is to solve the word problem in hyperbolic groups. The key ingredient is a ``local to global'' statement, about geodesics in hyperbolic metric spaces.
+
+\begin{definition}
+    A path \(\gamma\) in a metric space \(X\) is a \emph{\(c\)-local geodesic} if \(d(\gamma(s), \gamma(t)) = \abs{s - t}\) whenever \(\abs{s - t} \le c\).
+\end{definition}
+
+\begin{lemma}
+    Let \(X\) be a \(\delta\)-hyperbolic metric space. If \(\alpha : [a, b] \to X\) is a \(10\delta\)-local geodesic, then
+    \[\im(\alpha) \sse N_{2\delta}([\alpha(a), \alpha(b)])\]
+    for any geodesic \([\alpha(a), \alpha(b)]\).
+\end{lemma}
+
+\begin{proof}
+    Let
+    \[C = \sup_{t \in [a, b]}d(\alpha(t), [\alpha(a), \alpha(b)])\]
+    Say it is realised at \(t_0 \in [a, b]\). Let \(r = \max\{a, t_0 - 5\delta\}, s = \min\{b, t_0 + 5\delta\}\).
+
+    Let \(x, y, z \in [\alpha(a), \alpha(b)]\) be the closest points to \(\alpha(r), \alpha(s), \alpha(t_0)\) respectively. Then \(d(x, \alpha(r)), d(y, \alpha(r)) \le C\), and \(d(\alpha(t_0), z) = C\). Consider the quadrilateral with vertices \(\alpha(r), \alpha(s), x, y\).
+
+    Note we can subdivide it into two triangles. and so any point \(p\) on \(\alpha([r, s])\) is within distance \(2\delta\) of one of the other three sides. Apply this to \(p = \alpha(t_0)\). Suppose there is a point \(w \in [\alpha(r), x]\), such that \(d(\alpha(t_0), w) \le 2\delta\). But then
+    \[d(\alpha(r), w) \ge d(\alpha(r), \alpha(t_0)) - d(\alpha(t_0), w) \ge 5\delta - 2\delta = 3\delta\]
+    In this case,
+    \begin{align*}
+        d(\alpha(t_0), x) &\le 2\delta + d(w, x) \\
+        &< 3\delta + d(w, x) \\
+        &\le d(\alpha(r), x) \\
+        &\le C
+    \end{align*}
+    But this contradicts \(d(\alpha(t_0), [\alpha(a), \alpha(b)]) = C\). Therefore, \(\alpha(t_0)\) is not within \(2\delta\) of \([\alpha(r), x]\). By symmetry, it is not within \(2\delta\) of \([\alpha(s), y]\). Thus, it is within \(2\delta\) of \([x, y]\). With this, \(C \le 2\delta\).
+\end{proof}
+
+\begin{remark}
+    This is a coarse analogue of the fact that local geodesics in trees are global geodesics.
+\end{remark}
+
+A consequence of this is key to solving the word problem in hyperbolic groups.
+
+\begin{lemma}
+    [shortcuts in hyperbolic spaces]Let \(X\) be \(\delta\)-hyperbolic. Any loop \(\alpha : [a, b] \to X\) such that \(\ell(\alpha) > 4\delta\) contains \(a \le s < t \le b\), such that 
+    \[d(\alpha(s), \alpha(t)) < \ell(\alpha\vert_{[s, t]}) \le 10\delta \tag{\(*\)}\]
+\end{lemma}
+
+\begin{proof}
+    Unless \((*)\) is satisfied, then \(\alpha\) is a \(10\delta\)-local geodesic. By the previous lemma, 
+    \[\im(\alpha) \sse N_{2\delta}([\alpha(a), \alpha(b)]) = B_{2\delta}(\alpha(a))\]
+    Since \(\alpha\) is a \(10\delta\) local geodesic, and \(\diam(B_{2\delta}(\alpha(a)))\le 4\delta\), it follows that \(\ell(\alpha) \le 4\delta\).
+\end{proof}
+
+\lec
+
+\subsection{Dehn's algorithm}
+
+We will solve the word problem for all hyperbolic groups, using an algorithm that Dehn exhibited for hyperbolic surface groups, in 1912.
+
+\begin{theorem}
+    [relations in hyperbolic groups] Let \(G\) be a hyperbolic group, and \(S\) a finite generating set. For every non-trivial edge loop \(\alpha\) in \(\Cay_S(G)\), there is an edge loop \(\gamma\) of length at most \(20\delta\), such that
+    \[\ell(\alpha\beta\gamma\beta^{-1}) < \ell(\alpha)\]
+    for some choice of path \(\beta\) from \(1\) to a point on \(\gamma\).
+\end{theorem}
+
+\begin{proof}
+    If \(\ell(\alpha) \le 20\delta\), then we can take \(\gamma = \alpha^{-1}\). Then \(\alpha\gamma\) is homotopic to the constant loop, and so \(\ell(\alpha\gamma) = 0 < \ell(\alpha)\).
+
+    Otherwise, from the previous lemma, let
+    \begin{align*}
+        \beta &= (\alpha\vert_{[t, b]})^{-1} \\
+        \gamma &= (\alpha\vert_{[s, t]})^{-1}\cdot [\alpha(s), \alpha(t)]
+    \end{align*}
+    Then \(\ell(\gamma) < 20\delta\), and \(\alpha\beta\gamma\beta^{-1}\) is homotopic to
+    \[\alpha\vert_{[a, s]}\cdot[\alpha(s), \alpha(t)]\cdot \alpha\vert_{[t, b]}\]
+    which has length less than \(\ell(\alpha)\).
+\end{proof}
+
+\begin{corollary}
+    [Gromov] Hyperbolic groups are finitely presented.
+\end{corollary}
+
+\begin{proof}
+    Let \(S\) be a finite generating set for a hyperbolic group \(G\). Consider \(\Cay_S(G)\). This is \(\delta\)-hyperbolic for some \(\delta\). Let
+    \[R = \{\text{edge loops in }\Cay_S(G)\text{ based at 1 with length at most }20\delta\}\]
+    This is a finite set, with size at most \((2\abs{S})^{20\delta}\) say. We claim that \(\inner{S \mid R}\) is a presentation for \(G\). To see this, by the theorem, and induction on length, every relation is a product of conjugates of elements of \(R\).
+\end{proof}
+
+\begin{corollary}
+    [Dehn, Gromov] Let \(G\) be a hyperbolic group. The word problem in \(G\) is solvable.
+\end{corollary}
+
+\begin{proof}
+    Consider the presentation \(G = \inner{S \mid R}\), constructed in the previous corollary. Let \(w \in F(S)\). The theorem tells us that if \(w\) represents the trivial element in \(G\), then there is a cyclic conjugate \(w'\) of \(w\), and \(r \in R\), such that \(\ell(w'r) < \ell(w)\). To see this, let \(\alpha = w\) and let \(w' = \beta^{-1}\alpha\beta\), \(r = \gamma\). Since \(w\) has finitely many cyclic conjugates, and \(R\) is finite, we have finitely many combinations of \((w', r)\) to check. If we fine one such combination, then we replace \(w\) with \(w'r\) and repeat.
+
+    On the other hand, if we cannot find \((w', r)\), then it must be the case that \(w\) did not represent a loop.
+
+    Since \(\ell(w'r) < \ell(w)\), this process has to terminate, either showing that \(w\) is not a loop, or when \(w'r\) is the trivial element.
+\end{proof}
+
+\begin{remark}
+    A presentation in the corollary is called a \emph{Dehn presentation}. That is, a presentation \(\inner{S \mid R}\), such that for any non-trivial word \(w\), with \(w = 1\) in \(G\), there exists \(h \in G, r^{\pm 1}\in R\) such that
+    \[\ell(whrh^{-1}) < \ell(w)\]
+    It turns out a group \(G\) has a Dehn presentation if and only if \(G\) is hyperbolic.
+\end{remark}
 
 \end{document}

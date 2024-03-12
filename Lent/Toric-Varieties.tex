@@ -1640,6 +1640,142 @@ defines a fan in \(N(\sigma) \otimes \R \cong \R^{n - \dim(\sigma)}\).
     \[\{\overline{\tau_2} = \{0\}, \overline{\sigma_0} = \Cone(e_1), \overline{\sigma_1} = \Cone(-e_1)\}\]
 \end{example}
 
+\lec
+
+\begin{example}
+    [example continued]
+
+    Thus, \(X_{\Star(\tau_2)} \cong \P^1\), and we have a morphism \(N(\tau_2) = \Z \cdot e_2 \inj \Z e_1 \oplus \Z e_2\), which gives the embedding \(X_{\Star(\tau_2)} \inj X_\Sigma\). So we can check that \(X_{\Star(\tau_2)}\) is embedded as
+    \[[w_0 : w_1] \mapsto [w_0 : w_1 : 0]\]
+
+    On the other hand,
+    \[V(\tau_2) = \overline{T\cdot x_{\tau_2}}\]
+    but \(x_{\tau_2} = [1:1:0]\), and by the orbit-cone correspondence
+    \begin{align*}
+        \Orb(\tau_2) = (\C^*)^2 &\sse \P^2
+        (s, t)&\mapsto [s:t:0]
+    \end{align*}
+    and so
+    \begin{align*}
+        V(\tau_2) = \C^* \times \A^1 &\sse \P^2 \\
+        (t, z) &\mapsto [1 : t : z]
+    \end{align*}
+\end{example}
+
+\(X_\Sigma\) is \emph{stratified} by orbit closures \(V(\tau)\) correspond to torus invariant\footnote{i.e. \(T V \sse V\)} subvarieties. Moreover, \(\codim(V(\tau)) = \dim(\tau)\).
+
+\section{Divisors}
+
+Assume that \(X\) is separated, Noetherian, normal in codimension \(1\). In particular, for any toric variety which comes from a cone, \(X = X_\Sigma\) satisfies the above requirements.
+
+The group of \emph{Weil divisors} is
+\[\Div(X) = \bigoplus_{V \sse X \text{ codimension 1 subvariety}}\Z \cdot V\]
+The \emph{principal divisors} is
+\[\Div_0(X) = \{\div(f) \mid f \in \Gamma(\mcK^*_X)\}\]
+where
+\[\div(f) = \sum_{V \sse X}\ord_V(f)\cdot V\]
+where \(\ord_V(f)\) is the order of vanishing of \(f\) on \(V\), and \(\mcK_X^*\) is the sheaf of non-zero rational functions on \(X\). Recall \(\mcO_{X, V}\) is a discrete valuation ring, and we have a corresponding discrete valuation \(\nu : \Gamma(\mcK^*) \to \Z\).
+
+\begin{example}
+    For \(X = \Spec(\C[X]) = \A^1\), the origin is a codimension 1 subvariety, and \(\mcO_{\A^1, 0} = \C[x]_{\inner{x}}\). This is a DVR, and it induces a valuation \(\C(t) \to \Z\), which is the order of vanishing at \(0\).
+\end{example}
+
+The \emph{Weil class group} is
+\[\Cl(X) = \frac{\Div(X)}{\Div_0(X)} = A_{n-1}(X)\]
+Note there is a higher dimensional generalisation, producting a group \(A_\bullet(X)\) called the \emph{Chow group}.
+
+\underline{Fact:} If \(X = \Spec(R)\) where \(R\) is a UFD, then \(\Cl(X) = 0\).
+
+Thus, \(\Cl(\A^n)\) and \(\Cl((\C^*)^n)\) are zero. 
+
+If \(X = X_\Sigma\), the group of \emph{\(T\)-invariant Weil divisors} is
+\[\Div_T(X) = \bigoplus_{V \sse X_\Sigma \text{ codim. 1 subvar., }T\cdot V \sse V}\Z \cdot V = \bigoplus_{\rho \in \Sigma(1)}\Z \cdot V(\rho) = \Z^{\Sigma(1)}\]
+Let \(f \in \Gamma(\mcK_{X_\Sigma}^*)\), then \(\div(f) \in \Div_T(X_\Sigma)\) if and only if \(f\vert_{T_N} \in \Gamma(\mcO_{T_N}^*)\) has no zeroes or poles.
+
+But this is the same as morphisms \(T_N \to \C^*\), and so this is the same as \(f = \chi^m\) for some \(m \in M\). That is, we have a morphism \(M \to \Div_0(X) \cap \Div_T(X)\), sending \(m\) to \(\div(\chi^m)\). Recall
+
+\begin{theorem}
+    [Excision] Let \(U \sse X\) be open, \(Z = X \setminus U\). Write \(Z = Z_1 \cup \cdots \cup Z_s \cup W\), where \(Z_i\) are the codimension \(1\) irreducible components, and \(W\) consists of the higher codimension components. Then we have an exact sequence
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFpecyJdLFsxLDAsIlxcQ2woWCkiXSxbMiwwLCJcXENsKFUpIl0sWzMsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdXQ==
+    \[\begin{tikzcd}
+        {\Z^s} & {\Cl(X)} & {\Cl(U)} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+    \end{tikzcd}\] 
+\end{theorem}
+
+Apply this to a toric variety \(X = X_\Sigma\) and \(U = T_N\). Then the codimension 1 irreducible components of \(X_\Sigma \setminus T_N\), which are the \(V(\rho)\) for \(\rho \in \Sigma(1)\). We also know that \(\Cl(T_N) = 0\), and so we get a surjection
+\[\Div_T(X) = \Z^{\Sigma(1)} \surj \Cl(X_\Sigma)\]
+Thus, we have a sequence
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJNIl0sWzEsMCwiXFxaXntcXFNpZ21hKDEpfSJdLFsyLDAsIlxcQ2woWF9cXFNpZ21hKSJdLFszLDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXV0=
+\[\begin{tikzcd}
+	M & {\Z^{\Sigma(1)}} & {\Cl(X_\Sigma)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd} \tag{i}\]
+Let us look at the morphism \(M \to \Div_T(X_\Sigma)\) more closely.
+
+\begin{lemma}
+    \[\ord_{V(\rho)}(\chi^m) = \inner{v_\rho, m}\]
+    where \(v_\rho\) is the minimal generator of \(\rho\).
+\end{lemma}
+
+\begin{proof}
+    We can work locally in \(U_\rho \cong \A^1 \times (\C^*)^{n-1}\), by considering \(V(\rho) \cap U_\rho\). Now consider the composite map
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXEMiXSxbMSwwLCJVX1xccmhvIl0sWzIsMCwiXFxDIl0sWzAsMSwiXFxsYW1iZGFfe3ZfXFxyaG99Il0sWzEsMiwiXFxjaGlebSJdXQ==
+    \[\begin{tikzcd}
+        \C & {U_\rho} & \C
+        \arrow["{\lambda_{v_\rho}}", from=1-1, to=1-2]
+        \arrow["{\chi^m}", from=1-2, to=1-3]
+    \end{tikzcd}\]
+    This sends \(x\) to \(x^d\), where \(d = \inner{v_\rho, m}\). Now
+    \[\ord_{v_\rho}(\chi^m) = \ord_0(\chi^m \circ \lambda_{v_\rho}) = \inner{v_\rho, m}\]
+\end{proof}
+
+Then
+\[\div(\chi^m) = \sum_{\rho \in \Sigma(1)} \inner{v_\rho, m}\cdot V(\rho) \in \Div_T(X)\]
+If \(\Span_\R(\Sigma(1)) = N_\R\), or equivalently if \(X_\Sigma\) has no torus factor, then
+\[\div(\chi^m) = 0 \iff \inner{v_\rho, m} = 0\]
+for all \(\rho \in \Sigma(1)\). In turn, this is true if and only if \(m = 0\). In this case, the sequence (i) is exact on the left. So we get
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTSJdLFsyLDAsIlxcWl57XFxTaWdtYSgxKX0iXSxbMywwLCJcXENsKFgpIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & M & {\Z^{\Sigma(1)}} & {\Cl(X)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd} \tag{ii}\]
+
+\lec
+
+\subsection{Examples}
+
+Let \(X\) be a toric variety, \(T \sse X\) the dense torus. In this case, we have a supply of
+\begin{itemize}
+    \item integral closed codimension \(1\) subschemes, from \(D_\rho\), for \(\rho \in \Sigma(1)\),
+    \item for \(m \in M\), we have \(\chi^m : T \to \C^*\).
+\end{itemize}
+and from the above, we have
+\[\Cl(X) = \frac{\bigoplus_\rho \Z \cdot \rho}{\im(M \to \bigoplus_\rho \Z\cdot \rho)}\]
+where \(m \mapsto \sum\inner{v_\rho, m}\rho\).
+
+\begin{example}
+    Recall that we know \(\Cl(\P^n) = \Z\), where \(1\) is sent to a hyperplane class. In this case, the rays in the fan of \(\P^n\) are generated by \(e_1, \dots, e_n, e_{n+1} = -e_1 - \cdots - e_n \in N \cong \Z^n\). By (ii), we have
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiTSJdLFsyLDAsIlxcYmlnb3BsdXNcXGxpbWl0c197aT0xfV57bisxfVxcWlxcY2RvdFxccmhvX2kiXSxbMywwLCJcXENsKFxcUF5uKSJdLFs0LDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+    \[\begin{tikzcd}
+        0 & M & {\bigoplus\limits_{i=1}^{n+1}\Z\cdot\rho_i} & {\Cl(\P^n)} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    In this case,
+    \[m \mapsto \sum_i \inner{m, e_i}\rho_i\]
+    By choosing the dual basis \(e_i^\vee\) for \(M\), the image of \(e_i^\vee\) is \(\rho_i - \rho_{n+1}\). Thus, the cokernel can be identified with \(\Z \cdot \rho_{n+1}\) (or any \(Z \cdot \rho_i\)).
+\end{example}
+
 \printindex
 
 \end{document}

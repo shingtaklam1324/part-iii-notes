@@ -1843,6 +1843,61 @@ Define for \(r \ge 2\),
 \[E^{p,q}_r = \frac{C_r^{p, q} + (F^{p+1}A)^{p+q}}{\dd(C^{p-r+1,q+r-2}_{r-1}) + (F^{p+1}A)^{p+q}}\]
 This is called the \emph{\(E_r\)-page}.
 
+\lec
+
+In this case, \(\dd\) induces a map \(\dd_r^{p,q} : E_r^{p, q} \to E_r^{p+r, q-r+1}\), satisfying \(\dd_r^2 = 0\). In practice, we have the \(E_2\)-page with \(d_2\), and then we compute the cohomology
+\[\HH(E_2, \dd_2) = E_3\]
+in general,
+\[\HH(E_r, \dd_r) = E_{r+1}\]
+
+Note that this process must stabilise for a particular coordinate \((p, q)\). For large enough \(r\), the map \(\dd_r\) is going to have image zero when applied to an element with coordinate \((p, q)\). Similarly, for large enough \(r\), the elements whose image under \(\dd_r\) has coordinate \((p, q)\) must be zero. Thus, when we take the cohomology, we are just dealing with zero maps. What we end up is denoted by \(E^{p, q}_\infty\). Note we don't necessarily have an \(r\) where \(E_\infty = E_r\), since the \(r\) for which the terms stabilise depend on \((p, q)\).
+
+\subsection{The \(E_2\)-page}
+
+In the first spectral sequence, we consider \(\HH'(\HH''(A))\), where \(\HH'\) and \(\HH'\) denote cohomology with respect to \(\dd'\) and \(\dd''\) respectively. Since \(\dd' \dd'' + \dd'' \dd' = 0\), the horizontal differential \(\dd'\) induces a differential on \(\HH''(A)\). We can then calculate \(\HH'(\HH''(A))\).
+
+Note that for the second spectral sequence,  we consider \(\HH''(\HH'(A))\) instead. Consider how to compute \(\HH'(\HH''(A))\). Start in the \((p, q)\)-th position. Let \(a^{p, q}\) be a vertical cocycle. So \(\dd'' a^{p, q} = 0\). This defines a class in \(\HH''(A)\), modulo the image under \(\dd''\) of eleents in \((p, q-1)\)-th position. For \(a^{p, q}\) to represent a horizontal cocycle in \(\HH''(A)\) under \(\dd'\), it must be that \(d'a^{p, q}\) (which has coordinates \((p+1, q)\)), is the image under \(\dd''\) of an element \(a^{p+1, q-1}\), with coordinates \((p+1, q-1)\). Thus,
+\[\dd(a^{p, q} - a^{p+1, q-1}) = -\dd'a^{p+1, q-1} \in A^{p+2, q-1}\]
+Here, we are using \(\dd = \dd' + \dd''\). Hence \(a^{p, q} - a^{p+1, q-1}\) is a cocycle under \(\dd\) modulo everything two-steps to the right of the \((p, q)\)-th position. Similarly, if \(a^{p, q}\) represents coboundary in \(\HH''(A)\) under \(\dd'\), then there are elements \(b^{p-1, q}\) and \(b^{p, q-1}\) such that
+\[\begin{cases}
+    \dd'' b^{p-1, q} &= 0 \\
+    \dd' b^{p-1, q} &= \dd'' b^{p, q-1} + a^{p, q}
+\end{cases}\]
+Thus,
+\[\dd(b^{p-1, q} - b^{p, q-1}) \equiv a^{p, q}\]
+modulo eveything everything two to the right of \((p-1, q)\). Thus, the cohomology classes in \(\HH'(\HH''(A))\) gives elements of the \(E_2\)-page, and vice versa. The upshot is that the \(E_2\)-page is \(\HH'(\HH''(A))\), together with \(\dd_2\) which is induced by \(\dd\).
+
+Suppose \(a \in A^n\) is a cocycle with respect to \(\dd\), starting in \(A^{p, q}\), where \(p + q = n\). That is, \(a \in (F^pA)^n \setminus (F^{p+1}A)^n\). Then \(\dd a = 0\), and so we get an element in \(E^{p, q}_r\) for all \(r\). Since \(\dd_r\) is induced by \(\dd\), \(\dd_r a = 0\). Thus, \(a\) determines an element of \(E_\infty^{p, q}\), and thus we have a map
+\[F^p\HH^{p+q}(A) \to E^{p,q}_\infty\]
+This map is surjective, and so
+\[E_\infty^{p, q} = \bigoplus_{p, n}\frac{F^p\HH^n(A)}{F^{p+1}\HH^n(A)}\]
+This is a graded version of \(\HH^*(A)\). In the particular case of the Lyndon-Hochschild-Serre sequences, \(A = \Hom_Q(Y^\bullet, \Hom_H(X^\bullet, M))\). Here,
+\begin{align*}
+    \dd' &= \Hom_Q(d_Y, \id) \\
+    \dd'' &= \Hom_Q(\id, \dd_X^*)
+\end{align*}
+Recall we have suppressed the alternating sign in \(\dd''\). Now
+\[\HH''(A) = \Hom_Q(Y, \HH^*(\Hom_H(X^\bullet, M)))\]
+Since terms of \(Y^\bullet\) are \(\Z Q\)-projective, and so \(\Hom_Q(Y, \cdot)\) preserves exactness. Thus,
+\[E_2 = \HH'\HH''(A) = \HH^*(\Hom_Q(Y^\bullet, \HH^*(H, M))) = \HH^*(Q, \HH^*(G, M))\]
+Recall \(\HH^*(G, M)\) is a \(\Z Q\)-module so this makes sense. The \(\dd_2\) is induced from \(\dd\).
+
+For the second spectral sequence, we have that the \(E_2\)-page is given by \(\HH''(\HH'(A))\), and we have
+\[\HH'(\Hom_Q(Y^\bullet, \Hom_H(X^\bullet, M)))= \HH^*(Q, \Hom_H(X^\bullet, M))\]
+
+\begin{lemma}
+    \(\HH^p(Q, \Hom_H(X^\bullet, M)) = 0\) for \(p > 0\).
+\end{lemma}
+
+We'll prove this later. Thus, \(\HH'(A)\) is concentrated on the line \(p = 0\). On this line,
+\[\HH^0(Q, \Hom_H(X^\bullet, M)) = \Hom_H(X^\bullet, M)^Q = \Hom_G(X^\bullet, M)\]
+Hence
+\[\HH''(\HH'(A)) = \HH^*(\Hom_G(X^\bullet, M)) = \HH^*(G, M)\]
+
+Thus, for the second spectral sequence, the \(E_2\)-page is concentrated on the line \(p = 0\). It follows \(E_r = E_\infty\) for \(r \ge 2\). So \(E_\infty\) is also concentrated on the line \(p = 0\). Hence the filtration of \(\HH^n(A)\) has only one non-trivial factor. Thus, we get
+\[\HH^n(A) = \HH^n(G, M)\]
+for each \(n\).
+
 \printindex
 
 \end{document}

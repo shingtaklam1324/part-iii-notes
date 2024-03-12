@@ -1312,6 +1312,7 @@ Moreover, as \(\chi\) is additive in short exact sequences, so is the Hilbert po
 A related notion is an \emph{ample} line bundle, which is one which satisfies one of the following conditions.
 
 \begin{theorem}
+    \label{thm:ample-criterion}
     Let \(X/k\) be proper, \(\mcL\) a line bundle on \(X\). Then the following are equivalent:
     \begin{enumerate}[(i)]
         \item for some \(r \ge 1\), \(\mcL^{\otimes r}\) is very ample,
@@ -1326,6 +1327,7 @@ A related notion is an \emph{ample} line bundle, which is one which satisfies on
 For a curve, \(\mcL\) is ample if and only if \(\mcL \cong \mcO(D)\) for some \(\deg(D) \ge 0\).
 
 \begin{proposition}
+    \label{prop:hilbert-poly-leading-term}
     Let \(X \sse \P^N_k\) be an integral closed subscheme, of dimension \(d\). Let \(\eta \in X\) be its generic point. Let \(\mcF\) be a coherent \(\mcO_X\)-module. Then
     \[P(X, \mcF, t) = \dim_{\kappa(\eta)}\left(\mcF_\eta\right)P(X, t) + \text{terms of degree less than }d\]
 \end{proposition}
@@ -2338,7 +2340,7 @@ Note we will write the group operation in \(\Pic(X)\) either as \(+\) or as \(\o
     Define the \emph{N\'eron-Severi group} of \(X\) to be
     \[\NS(X_{\overline k}) = \frac{\Pic(X_{\overline k})}{\Pic^0(X_{\overline k})}\]
 \end{definition}
-Note that \(\NS(X_{\overline k})\) is a subgroup of \(\Hom(X(\overline k), \Pic(X_{\overline k}))\). In the end, \(\Pic^0(X_{\overline k})\) will turn out to be the \(\overline k\)-points of another abelian variety \(\widehat X\), the \emph{dual abelain variety}, and \(\NS(X_{\overline k})\) is a finitely generated free abelian group.
+Note that \(\NS(X_{\overline k})\) is a subgroup of \(\Hom(X(\overline k), \Pic(X_{\overline k}))\). In the end, \(\Pic^0(X_{\overline k})\) will turn out to be the \(\overline k\)-points of another abelian variety \(\widehat X\), the \emph{dual abelian variety}, and \(\NS(X_{\overline k})\) is a finitely generated free abelian group.
 
 First of all, we will give an alternative characterisation of \(\Pic^0\).
 
@@ -2364,7 +2366,7 @@ First of all, we will give an alternative characterisation of \(\Pic^0\).
     \leavevmode
     \begin{enumerate}[(i)]
         \item for all line bundles \(\mcL\), \(\im(\varphi_\mcL) \sse \Pic^0(X_{\overline k})\),
-        \item if \(\mcL \in \Pic^0(X_{\overline k})\), then \(i_*\mcL \cong \mcL^\vee\),
+        \item if \(\mcL \in \Pic^0(X_{\overline k})\), then \(i^*\mcL \cong \mcL^\vee\),
     \end{enumerate}
 \end{proposition}
 
@@ -2383,6 +2385,7 @@ First of all, we will give an alternative characterisation of \(\Pic^0\).
 \end{proof}
 
 \begin{theorem}
+    \label{thm:pic0-cohomology}
     Let \(\mcL \in \Pic^0(X)\) be non-trivial. Then \(\HH^r(X, \mcL) = 0\) for all \(r \ge 0\).
 \end{theorem}
 
@@ -2408,6 +2411,240 @@ First of all, we will give an alternative characterisation of \(\Pic^0\).
     Now \(m^*\mcL \cong \pr_1^*\mcL \otimes \pr_2^*\mcL = \mcL \boxtimes \mcL\). By K\"unneth,
     \[\HH^n(X \times X, \mcL \boxtimes \mcL) \cong \bigoplus_{p + q = n}\HH^p(X, \mcL) \otimes_k \HH^q(X, \mcL)\]
     The right hand side vanishes by the induction hypothesis. But the identity map factors through the zero map, and so \(\HH^n(X, \mcL) = 0\).
+\end{proof}
+
+\lec
+
+\begin{proposition}
+    Suppose \(\mcL \in \Pic(X)\). Then there exists a closed subgroup scheme \(Z \sse X\) such that \(K(\mcL) = Z(\overline k)\), and \(\Lambda(\mcL)\vert_{X \times Z}\) is trivial.
+\end{proposition}
+
+\begin{proof}
+    Recall
+    \[\Lambda(\mcL) = m^*\mcL \otimes \pr_1^*\mcL^\vee \otimes \pr_2^*\mcL^\vee \in \Pic(X \times X)\]
+    and that for all \(x \in X(\overline k)\),
+    \[\Lambda(\mcL)\vert_{X \times x} = T_x^*\mcL \otimes \mcL^\vee = \varphi_\mcL(x)\]
+    and
+    \[\Lambda(\mcL)\vert_{e \times X} = \mcO_{X_{\overline k}}\]
+    Hence
+    \[K(\mcL) = \{x \in X(\overline k) \mid \Lambda(\mcL)\vert_{X \times x} \cong \mcO_{X_{\overline k}}\}\]
+    Thus, if
+    \[Z = \{x \in X \mid \Lambda(\mcL)\vert_{X \times x} \cong \mcO_{X \times \Spec(\kappa(x))}\}\]
+    Then by sheet 3 question 2, \(Z\) is closed, and \(Z(\overline k)\) is \(K(\mcL)\). 
+    
+    Give \(Z\) the reduced subscheme structure. Then the seesaw theorem implies that
+    \[\Lambda(\mcL)\vert_{X \times Z} = \pr_2^*\mcM\]
+    for some \(\mcM \in \Pic(Z)\). Now
+    \[\Lambda(\mcL)\vert_{e \times X} \cong \mcO_X\]
+    and so restricting to \(e \times Z\), we get \(\mcM \cong \mcO_Z\). So we just need to check that \(Z\) is a subgroup scheme.
+
+    First, \(Z\) is non-empty, and so consider the automorphism of \(X \times X\) given by
+    \begin{align*}
+        f : X \times X &\to X \times X \\
+        (x, y) &\mapsto (x + y, y)
+    \end{align*}
+    We just need to check that it takes \(Z \times Z\) isomorphically to itself. Since \(Z\) is reduced, and \(X\) is a variety, it is enough to check
+    \[f(Z \times Z)(\overline k) = (Z \times Z)(\overline k)\]
+    But this is true since \(Z(\overline k) = K(\mcL)\) is a subgroup of \(X(\overline k)\). 
+\end{proof}
+
+\begin{remark}
+    \begin{enumerate}[(i)]
+        \item In fact, it's not hard to prove that there exists a unique closed subgroup scheme \(\underline{K}(\mcL)\), which need not be reduced, such that for any closed subscheme \(S \sse X\), \(S \sse \underline{K}(\mcL)\) if and only if
+        \[\Lambda(\mcL)\vert_{X \times S} \cong \mcO_{X \times S}\]
+        \item If \(K(\mcL)\) is infinite, then \(\dim(Z) > 0\). Thus, taking the irreducible component containing \(e\), there exists an abelian subvariety \(Y \sse X\) such that \(Y(\overline k) \sse K(\mcL)\). This is immediate if \(k = \overline k\), and in general, we just need to check that \(Y\) is geometrically integral. 
+    \end{enumerate}
+\end{remark}
+
+\subsection{Ampleness criterion}
+
+Suppose \(\mcL = \mcO_X(D)\) for some \(D \ge 0\) effective divisor. We can take Weil or Cartier divisors, since they are equivalent in this case. Say
+\[D = \sum_i n_i D_i\]
+where \(n_i \ge 0\) and \(D_i\) are integral closed subschemes of codimension 1 of \(X\). In this case,
+\[K(\mcL) \supseteq H(D) = \{x \in X(\overline k) \mid T_x(D) = D\}\]
+where \(T_x(D) = D\) is equality of divisors on \(X_{\overline k}\). \(H(D)\) is a subgroup of \(X(\overline k)\), and it is also the \(\overline k\)-points of a closed subscheme of \(X_{\overline k}\). 
+
+Assume \(k = \overline k\). So if \(x \in X(k)\), and \(Y \sse X\) any closed subset, \(T_xY = Y\) if and only if for all \(y \in Y(k)\), \(x + y \in Y\). Equivalently,
+\[x \in \bigcap_{y \in Y(k)}\{x \mid (x, y) \in m^{-1}(Y)\} = \bigcap_{y \in Y(k)}\pr_1(X \times y \cap m^{-1}(Y))\]
+and the right hand side is a closed subset.
+
+\begin{theorem}
+    Let \(\mcL=  \mcO_X(D)\). Then the following are equivalent:
+    \begin{enumerate}[(i)]
+        \item \(\mcL\) is ample,
+        \item \(K(\mcL)\) is finite,
+        \item \(H(D)\) is finite.
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    Since \(H(D) \sse K(\mcL) \sse X(\overline k)\), they only depend on \(\mcL_{\overline k}\). But if \(\mcL_{\overline k}\) is ample, then so is \(\mcL\). For this, note that
+    \[\HH^i(X, \mcF \otimes \mcL^n) \otimes_k \overline k = \HH^i(X_{\overline k}, \mcF_{\overline k}\otimes \mcL_{\overline k}^n)\]
+    for \(\mcF\) coherent on \(X\). See \cref{thm:ample-criterion}(iii).
+
+    In particular, we can assume \(k = \overline k\) to prove the theorem.
+\end{remark}
+
+\begin{proof}
+    (ii) implies (iii) is obvious, as \(H(D) \sse K(\mcL)\). We'll now prove (i) implies (ii). Suppose \(\mcL\) is ample, but \(K(\mcL)\) is infinite. Then there exists an abelian subvariety \(Y\)\footnote{i.e. a subvariety which is also a closed subgroup scheme}, such that \(K(\mcL)\) contains \(Y(\overline k)\) and \(\dim(Y) > 0\). But \(\mcL\) restricited to \(Y\) (or any closed subscheme) is also ample, by any of the criterion in \cref{thm:ample-criterion}.
+
+    Replacing \(X\) by \(Y\), we may assume that \(K(\mcL) = X(k)\). That is, \(\mcL \in \Pic^0(X)\). But then \(i^*\mcL \cong \mcL^\vee\), and \(i\) is an automorphism, and so \(\mcL^\vee\) is ample. Note that if \(\mcL_1, \mcL_2\) are ample, then for all coherent \(\mcF\), then there exists \(n_0\) such that for \(n \ge n_0\), \(\mcF \otimes \mcL_1^n\) and \(\mcL_2^n\) are generated by global sections, and so \(F \otimes (\mcL_1 \otimes \mcL_2)^n\) is also generated by global sections, and so \(\mcL_1 \otimes \mcL_2\) is ample.
+
+    But in this case, we have that \(\mcL \otimes \mcL^\vee = \mcO_X\) is ample. But as \(\dim(X) > 0\), there exists a non-empty proper closed subscheme \(W\), and the ideal sheaf \(\mcI_W\) has
+    \[0 = \HH^0(X, \mcI_W) \sse \HH^0(X, \mcO_X) = k\]
+    So \(\dim(X) = 0\). Contradiction.
+    
+\lec
+
+    It remains to show that if \(H(D)\) is finite, then \(\mcL\) is ample. It suffices to show that \(\mcL^2\) is ample. For any \(x \in X(k)\), by the theorem of the square,
+    \[\mcL^2 \cong T_x^*\mcL \otimes T^*_{-x}\mcL \cong \mcO_X(T_x^*D + T_{-x}^*D)\]
+    Let \(s_x \in \HH^0(X, \mcL^2)\) be non-zero, with \(\div(s_x) = T_x^*D + T_{-x}^*D\). Note here \(T_x^*D = T_x^{-1}D = T_{-x}D\). If \(y \in X(k)\), then \(x_x(y) = 0\) if and only if \(y \in T_x^*D + T_{-x}^*D\). In turn, this is true if and only if \(x \in E_y = T_y^*D + T_{-y}^*D\).
+
+    Thus, for all \(x \notin (X \setminus E_y)(k)\), \(s_x(y) \ne 0\). Therefore, sections of \(\mcL^2\) give a morphism \(f : X \to \P^N_k\), where \(N = \dim(\HH^0(X, \mcL^2)) - 1\), and \(f^*\mcO_{\P^N}(1) \cong \mcL^2\).
+
+    Note here if
+    \[\HH^0(X, \mcL^2) = \Span_k\{f_0, \dots, f_N\}\]
+    Then \(X = \bigcup_i U_i\), where \(U_i = \{f_i \ne 0\}\). Define
+    \begin{align*}
+        f : U_i &\to \A^N_k =\{t_i \ne 0\} \sse \P^N_k \\
+        f &= \left(\frac{f_0}{f_i}, \dots, \frac{f_{i-1}}{f_i}, \frac{f_{i+1}}{f_i}, \dots, \frac{f_n}{f_i} \right)
+    \end{align*}
+    Here, \(f_j/f_i \in \mcO_X(U_i)\) as \(\mcL\) is invertible.
+
+    \begin{claim}
+        \(f\) has finite fibres.
+    \end{claim}
+
+    \begin{proof}
+        [Proof of claim]
+        Suppose \(y, y' \in X(k)\) are such that \(f(y) = f(y')\). Then for all \(s \in \HH^0(X, \mcL^2)\), either both \(s(y), s(y')\) are zero, or they are both non-zero. In particular, \(x \in E_y\) if and only if \(x \in E_{y'}\). Thus, as subsets of \(X\), \(E_y = E_{y'}\). 
+        
+        So if \(f\) does not have finite fibres, then there exists \(p \in \P^N(k)\), such that \(f^{-1}(p)\) contains a closed subscheme \(Y\) of positive dimension, and for all \(y, y' \in Y\), \(E_y = E_{y'}\). If \(D'\) is any component of \(D\), then \(T_y^*D'\) is equal to \(T_{y'}^*D' \in E_{y'}\), since they are equal for \(y = y'\), and as \(Y\) is connected, they have to be equal for all \(y'\). Thus, \(T_{y' - y}^*D'\) for all components \(D'\) of \(D\), and so \(y' - y \in H(D)\), which is a finite set. Contradiction.
+
+    \end{proof}
+    \begin{remark}
+        Note that it might happen that \(f^{-1}(p)\) is not connected, and \(y' - y \in H(D)\) only holds for \(y, y'\) in the same connected component.
+    \end{remark}
+    It remains to show that \(\mcL^2\) is ample, using finiteness which we have just proven.
+
+    \begin{lemma}
+        If \(f : X \to Y\) is a morphism of proper \(k\)-varieties, with finite fibres and \(\mcL\) is an ample line bundle on \(Y\), then \(f^*\mcL\) is an ample line bundle on \(X\).
+    \end{lemma}
+
+    \begin{proof}
+        [Sketch proof]
+        \(f\) being proper with finite fibres implies that it is finite. This is a consequence of Zariski's main theorem. However, this is easy when \(f\) is projective.
+        
+        Now for any coherent sheaf \(\mcF\) on \(X\), \(i > 0\)
+        \[\HH^i(X, \mcF \otimes (f^*\mcL)^n) = \HH^i(Y, f_*\mcF \otimes \mcL^n) = 0\]
+        for \(n\) sufficiently large.
+    \end{proof}
+\end{proof}
+
+\begin{corollary}
+    Abelian varieties are projective.
+\end{corollary}
+
+\begin{proof}
+    It is enough to find an effective divisor such that \(H(D)\) is finite. Let \(U\) be a non-empty affine open, and let \(D\) be the complement, with the reduced subscheme structure. Then (see examples sheet 4), \(D\) is a divisor.
+
+    Now we will show that \(H(D)\) is finite. We can assume \(k\) is algebraically closed. Then \(H(D)\) is the set of \(k\)-points of a closed subgroup scheme \(Z \sse X\), Here, \(Z\) is the closure of \(H(D)\). Now for any \(x \in H(D)\), \(T_x^*D = D\), and so \(T_x^*U = U\). Hence if \(x_0 \in U\), then \(x + x_0 \in U\) for all \(x \in H(D)\). So \(U\) contains a translate of \(H(D)\), and so it contains a translate of \(Z\), since \(H(D) = Z(k)\). Now \(Z\) is proper, and \(U\) is affine, and so \(\dim(Z) = 0\). Hence \(H(D)\) is finite.
+\end{proof}
+
+\begin{corollary}
+    For all \(n \ge 1\), the set
+    \[\ker([n])(\overline k) = \{x \in X(\overline k) \mid nx = e\}\]
+    is finite. The map \([n] : X \to X\) is surjective. Moroever, \(X(\overline k)\) is divisible.
+\end{corollary}
+
+\begin{proof}
+    Suppose \(\ker([n])(\overline k)\) is finite. Then for all \(x, x' \in X(\overline k)\), \([n](x) = [n](x')\) if and only if \(x' - x \in \ker([n])\), i.e. for all \(y \in X(\overline k)\), \([n]^{-1}(y)\) is finite.
+
+    The morphism \([n] : X \to X\) having finite fibres over each \(y \in X(\overline k)\) has to be dominant, and as \(X\) is proper, it has to be surjective. In particular, \([n]^{-1}(y)\) is non-empty for all \(y \in X(\overline k)\), hence \(X(\overline k)\) is divisible.
+
+    Thus, it remains to show that \(\ker([n])(\overline k)\) is finite. Assume \(k\) is algebraically closed. Suppose if \(\ker([n])(\overline k)\) is infinite. Then it contains a subvariety \(V(k)\) of positive dimension. The composition
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJWIl0sWzEsMCwiWCJdLFsyLDAsIlgiXSxbMCwxLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsxLDIsIltuXSJdXQ==
+    \[\begin{tikzcd}
+        V & X & X
+        \arrow[hook, from=1-1, to=1-2]
+        \arrow["{[n]}", from=1-2, to=1-3]
+    \end{tikzcd}\]
+    is the constant map \(v \to \Spec(k) \to X\) at \(e\). Let \(\mcL\) be an ample line bundle on \(X\). If we replace it by \(\mcL \otimes i^*\mcL\), we may assume that \(\mcL \cong i^*\mcL\). In this case, \([n]^*\mcL \cong \mcL^{n^2}\), which is also ample on \(X\), and so it is ample on \(V\). But \([n]^*\mcL\vert_V \cong \mcO_V\). So \(V\) admits a trivial ample line bundle, and so \(\dim(V) = 0\). Contradiction.
+\end{proof}
+
+\lec
+
+As \([n]\) has finite fibres, and is proper (in fact projective, as \(X\) is projective), \([n]\) is a finite morphism (for projective morphisms, this is a rather easy fact, it is enough to find a hypersurface \(H \sse \P^n\) which (locally) doesn't meet \(X\) for \(f : X \inj \P^N_Y\). Then locally on \(Y\), \(X \sse \P^N_Y \setminus Y\), which is affine over \(Y\). Then it follows that \(X\) is finite over \(Y\)).
+
+Now as \(X\) is a smooth variety, so \([n] : X \to X\) finite surjective, is flat. Hence \([n]_*\mcO_X\) is a locally free \(\mcO_X\)-module of some rank \(r\), called the degree of \([n]\). This is equal to the degree of the extension of function fields \([n]^* : \kappa(X) \to \kappa(X)\), by passing to the generic point of \(X\).
+
+\begin{theorem}
+    \[\deg([n] : X \to X) = n^{2g}\]
+    where \(g = \dim(X)\). In paticular, \(\ker([n])(\overline k)\) has at most \(n^{2g}\) points. This holds as
+    \[n^{2g} = \dim_k(\Gamma(\ker([n]), \mcO))\]
+\end{theorem}
+
+\begin{proof}
+    Recall if \(X \sse \P^N\) is projective, and \(\mcF\) is a coherent sheaf on \(X\), then
+    \[P_X(\mcF, t) \in \Q[t]\]
+    is such that
+    \[P_X(\mcF, n) = \chi(X, \mcF(n)) = \chi(X, \mcF \otimes \mcO_X(n))\]
+    with
+    \[\deg(P_X(\mcF, \cdot)) = \dim(\Supp(\mcF))\]
+    Recall from \cref{prop:hilbert-poly-leading-term} that if \(X \sse \P^N_k\) is integral, \(\dim(X) = d\) and with generic point \(\eta\), then
+    \[P_X(\mcF, t) = \dim_{\kappa(\eta)}\left(\mcF_\eta\right)P_X(t) + \text{terms of degree less than }d\]
+    Let \(\mcL\) be an ample line bundle on \(X\), and assume \(i^*\mcL \cong \mcL\). We can do this since we can replace \(\mcL\) with \(\mcL \otimes i^*\mcL\) if required. This then determines an embedding \(X \inj \P^N_k\), for which \(\mcL \cong \mcO_X(1)\). Let \(\mcF = [n]_*\mcO_X\). Then in this case,
+    \[P_X([n]_*\mcO_X, t) = \deg([n])P_X(t) + \text{terms of degree less than }g\]
+    and \(\deg(P_X(t)) = g\). As \([n]\) is finite, for any \(m \in \Z\), and any open affine \(U \sse X\), we have that
+    \[([n]_*\mcO_X \otimes \mcL^m)(U) = ([n]^*\mcL^m)([n]^{-1}U)\]
+    and so
+    \[\HH^0(X, [n]_*\mcO_X \otimes \mcL^m) = \HH^0(X, [n]^*\mcL^m = \HH^0(X, \mcL^{n^2m}))\]
+    Next, recall for \(m\) sufficiently large, \(P_X(\mcF, m) = \dim(\HH^0(X, \mcF(m)))\) as the other cohomology groups vanish. For \(m\) sufficiently large,
+    \begin{align*}
+        \deg([n])P_X(m) &= P_X([n]_*\mcO_X, m) + \text{terms of degree less than }g \\
+        &= \dim(\HH^0(X, [n]_*\mcO_X \otimes \mcL^m)) + \text{terms of degree less than }g \\
+        &= \dim(\HH^0(X, \mcL^{n^2m})) + \text{terms of degree less than }g \\
+        &= P_X(n^2m) + \text{terms of degree less than }g
+    \end{align*}
+    Since \(\deg(P_X(t)) = g\),
+    \[P_X(n^2t) = n^{2g}P_X(t) + \text{terms of degree less than }g\]
+    Thus, \(\deg([n]) = n^{2g}\).
+\end{proof}
+
+\begin{theorem}
+    If \(\Char(k) \nmid n\), then \(\ker([n])(\overline k) \cong (\Z/n\Z)^{2g}\). If \(\Char(k) = p > 0\), then
+    \[\ker([p^j])(\overline k) \cong (\Z/p_j\Z)^r\]
+    for all \(j \ge 1\). Here, \(0 \le r \le h\) is independent of \(j\). \(r\) is called the \emph{\(p\)-rank of \(X\)}.   
+\end{theorem}
+
+To complete the study of \(\varphi_\mcL\), we have the following result:
+
+\begin{theorem}
+    Suppose \(\mcL\) is ample. Then \(\varphi_\mcL : X(\overline k) \to \Pic^0(X_{\overline k}) \sse \Pic(X_{\overline k})\) is surjective. That is,
+    \[\Pic^0(X_{\overline k}) = \frac{X(\overline k)}{K(\mcL)}\]
+    where \(K(\mcL)\) is finite.
+\end{theorem}
+
+\begin{proof}
+    We may assume \(k = \overline k\). Let \(\mcM \in \Pic^0(X)\) and suppose \(\mcM \notin \im(\varphi_\mcL)\). Let \(\mcF = \Lambda(\mcL) \otimes \pr_1^*\mcM^\vee\). This is a line bundle on \(X \times X\). If \(x \in X\), then
+    \[\mcF\vert_{X \times x} = T_x^*\mcL \otimes \mcL^\vee \otimes \mcM^\vee \in \Pic(X_{\kappa(x)})\]
+    By assumption, for all \(x \in X(k)\), \(\mcF\vert_{X \times x} \not\cong \mcO_X\), since \(\mcM \not\cong \varphi_\mcL(x)\). Now by sheet 3, question 2 (ii), \(\mcF\vert_{X \times x}\) is non-trivial for all \(x \in X\). As
+    \[\mcF\vert_{X \times x} = \varphi_\mcL(x) \otimes \mcM^\vee \in \Pic^0\]
+    By \cref{thm:pic0-cohomology},
+    \[\HH^i(X_{\kappa(x)}, \mcF\vert_{X \times x}) = 0\]
+    for all \(i\). Thus, for any open affine \(U \sse X\), \(\HH^i(X \times U, \mcF\vert_{X \times U}) = 0\). Therefore, by sheet 2 question 5,
+    \[\HH^i(X \times X, \mcF) = 0\]
+    for all \(i\). Equivalently, \(R^i\pr_2^*\mcF = 0\). On the other hand, \(\mcF\vert_{x \times X} = \Lambda(\mcL)\vert_{x \times X}\) as \(\pr_1^*\mcM\vert_{x \times X} \cong \mcO_X = T_x^*\mcL \cong \mcL^\vee\). So if \(X \notin K(\mcL)\),
+    \[\mcF \vert_{x \times X} \not \cong \mcO_X\]
+    and so as above,
+    \[\HH^i(x \times X, \mcF\vert_{x \times X})\]
+    is zero for all \(i\). Again, for all open affines \(U \sse X \setminus K(\mcL)\),
+    \[\HH^i(U \times X, \mcF \vert_{U \times X})\]
+    is zero for all \(i\). As \(K(\mcL)\) is finite and \(X\) is projective, there exists an open affine \(V\) containing \(K(\mcL)\). Same exercise shows that
+    \[0 = \HH^i(X \times X, \mcF) = \HH^i(V \times X, \mcF\vert_{V \times X})\]
+    But now for all \(x \in V\),
+    \[\HH^i(x \times X, \mcF\vert_{x \times X}) = 0\]
+    Taking \(x = e \in K(\mcL) \sse V\), \(\mcF\vert_{e \times X} = \mcO_X\). This has non-zero \(\HH^0\). Contradiction.
 \end{proof}
 
 \end{document}
