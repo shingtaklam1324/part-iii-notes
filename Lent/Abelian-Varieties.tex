@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage{../../Style}
+\usepackage{../../quiver}
 
 \title{Abelian Varieties}
 \author{Shing Tak Lam}
@@ -2612,6 +2613,7 @@ Now as \(X\) is a smooth variety, so \([n] : X \to X\) finite surjective, is fla
 \end{proof}
 
 \begin{theorem}
+    \label{thm:ker-mult-cong}
     If \(\Char(k) \nmid n\), then \(\ker([n])(\overline k) \cong (\Z/n\Z)^{2g}\). If \(\Char(k) = p > 0\), then
     \[\ker([p^j])(\overline k) \cong (\Z/p_j\Z)^r\]
     for all \(j \ge 1\). Here, \(0 \le r \le h\) is independent of \(j\). \(r\) is called the \emph{\(p\)-rank of \(X\)}.   
@@ -2646,5 +2648,137 @@ To complete the study of \(\varphi_\mcL\), we have the following result:
     \[\HH^i(x \times X, \mcF\vert_{x \times X}) = 0\]
     Taking \(x = e \in K(\mcL) \sse V\), \(\mcF\vert_{e \times X} = \mcO_X\). This has non-zero \(\HH^0\). Contradiction.
 \end{proof}
+
+\lec
+
+\begin{proof}
+    [Proof of \cref{thm:ker-mult-cong}]
+    We may assume \(k = \overline k\). Since \(X(k)\) is divisible, and \(\ker([n])(k)\) is finite, it follows that for all primes \(p\), \(\ker([p^j])(k) \cong (\Z/p^j\Z)^r\), with \(r\) independent of \(j\), by considering
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxrZXIoW3Bee2otMX1dKShrKSJdLFsyLDAsIlxca2VyKFtwXmpdKShrKSJdLFszLDAsIlxca2VyKFtwXSkoaykiXSxbNCwwLCIwIl0sWzAsMV0sWzEsMl0sWzIsMywicF57ai0xfSJdLFszLDRdXQ==
+    \[\begin{tikzcd}
+        0 & {\ker([p^{j-1}])(k)} & {\ker([p^j])(k)} & {\ker([p])(k)} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow["{p^{j-1}}", from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    Let \(G = \ker(n)\sse X\). This is a finite group scheme over \(k\). We know that
+    \[\dim_k(\Gamma(G, \mcO_G)) = n^{2g} = \deg([n])\]
+    If \(n\) is invertible in \(k\), then we have a map (examples sheet 4 question 1)
+    \[[n]_* : \T_{G, e} \to \T_{G, e}\]
+    on the tangent space, which is multiplication by \(n\). Then this is an isomorphism. On the other hand, \([n] : G \to G\) factors through \(\Spec(k)\),
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJHIl0sWzEsMSwiXFxTcGVjKGspIl0sWzIsMCwiRyJdLFswLDEsImFfRyIsMl0sWzEsMiwiZSIsMl0sWzAsMiwiW25dIl1d
+    \[\begin{tikzcd}
+        G && G \\
+        & {\Spec(k)}
+        \arrow["{a_G}"', from=1-1, to=2-2]
+        \arrow["e"', from=2-2, to=1-3]
+        \arrow["{[n]}", from=1-1, to=1-3]
+    \end{tikzcd}\]
+    and so we must have that \(\T_{G, e}\) is zero. Hence \(\mcO_{G, e} = k\). But then
+    \[G = \bigsqcup_{x \in G(k)}\Spec(\mcO_{G, x}) = \bigsqcup_{x \in G(k)}\Spec(k)\]
+    since translation induces an isomorphism \(\mcO_{G, x} \cong \mcO_{G, e}\). So \(G\) is a constant group scheme, of order \(n^{2g}\). Therefore, \(G\) is isomorphci to the constant group scheme \((\Z/n\Z)^{2g}\).
+
+    Now suppose \(\Char(k) = p > 0\). It is enough to compute \(G(k)\) for \(G = \ker([p]) \sse X\). From examples sheet 4 question 3, we  have a Frobenius homomorphism \(F = F_{X/k} : X \to X'=X\), which on the structure sheaf is \(t \mapsto t^p\). To make the Frobenius a \(k\)-morphism, we have
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCJYIl0sWzAsMSwiXFxTcGVjKGspIl0sWzEsMCwiWCciXSxbMiwwLCJYIl0sWzIsMSwiXFxTcGVjKGspIl0sWzAsMl0sWzIsMywiPSIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSw0LCJ0XFxtYXBzdG8gdF5wIiwyXSxbMCwxLCJhX1giLDFdLFsyLDEsImFfe1gnfSIsMV0sWzMsNCwiYV9YIl1d
+    \[\begin{tikzcd}
+        X & {X'} & X \\
+        {\Spec(k)} && {\Spec(k)}
+        \arrow[from=1-1, to=1-2]
+        \arrow["{=}", no head, from=1-2, to=1-3]
+        \arrow["{t\mapsto t^p}"', from=2-1, to=2-3]
+        \arrow["{a_X}"{description}, from=1-1, to=2-1]
+        \arrow["{a_{X'}}"{description}, from=1-2, to=2-1]
+        \arrow["{a_X}", from=1-3, to=2-3]
+    \end{tikzcd}\]
+    Moreover, \(\ker(F)\) is killed by \([p]\), i.e. \(\ker(F) \sse \ker([p])\). Also,
+    \[\ker(F) \cong \Spec\left(\frac{k[t_1, \dots, t_g]}{\inner{t_1^p, \dots, t_g^p}}\right)\]
+    Let \(\mfm_e = \inner{f_1, \dots, t_g}\). Then \(\ker(F)\) is a one-point scheme, and
+    \[\dim(\Gamma(\ker(F), \mcO)) = p^g\]
+    Thus,
+    \[\dim(\mcO_{G, e}) \ge p^g\]
+    and as \(p^{2g} = \dim(\Gamma(G, \mcO)) = \abs{G(k)}\dim(\mcO_{G, e})\), \(\abs{G(k)} = p^r\) for some \(0 \le r \le g\).
+\end{proof}
+
+\begin{remark}
+    If \(g = 1\), then \(X\) is an elliptic curve and either \(r = 1\), so \(X\) is ordinary, or \(r = 0\) and \(X\) is supersingular. In general, for \(0 \le r \le g\), there exists \(X\) of dimension \(g\), with \(p\)-rank \(r\). Take \(X = E_1^r \times E_0^{g-r}\), where \(E_1\) is ordinary and \(E_0\) is supersingular.
+\end{remark}
+
+\begin{remark}
+    If \(k\) is algebraically closed, \(\Char(k) = p > 0\). Then
+    \begin{itemize}
+        \item If \(r = g\), then
+        \[\ker([p^j]) = (\Z/p^j\Z)^g \times (\mu_{p^j})^g\]
+        where \(\mu_{p^j} = \ker([p^j] : \mathbb G_m \to \mathbb G_m)\),
+        \item Otherwise, 
+        \[\ker([p^j]) = (\Z/p^j\Z)^r \times G^0\]
+        where \(G^0\) is a single point. In general, \(G^0\) is not isomorphic to \((\mu_p^j)^{2g-r}\). 
+    \end{itemize}
+    Moreover, there exists a classification and duality theory for finite group schemes over a perfect field, and \(G^0\) fits into this classification.
+\end{remark}
+
+Recall that for \(X/k\), if \(\mcL\) is an ample line bundle on \(X\), then we have a homomorphism
+\[\varphi_\mcL : X(\overline k) \surj \Pic^0(X_{\overline k}) \sse \Pic(X_{\overline k})\]
+with finite kernel.
+
+\begin{theorem}
+    There exists a dual abelian variety \(\widehat X\) over \(k\), with \(\dim(\widehat X) = \dim(X)\), and we have an isomorphism
+    \[\Psi : \widehat X(\overline k) \cong \Pic^0(X_{\overline k})\]
+    and for any ample \(\mcL\), there exists a unique surjective homomorphism \(\lambda_\mcL : X \to \widehat X\) such that
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJYKFxcb3ZlcmxpbmUgaykiXSxbMSwwLCJcXHdpZGVoYXR7WH0oXFxvdmVybGluZSBrKSJdLFsyLDAsIlxcUGljXjAoWF97XFxvdmVybGluZSBrfSkiXSxbMCwxLCJcXGxhbWJkYV9cXG1jTCJdLFsxLDIsIlxcUHNpIl0sWzAsMiwiXFx2YXJwaGlfXFxtY0wiLDIseyJjdXJ2ZSI6M31dXQ==
+    \[\begin{tikzcd}
+        {X(\overline k)} & {\widehat{X}(\overline k)} & {\Pic^0(X_{\overline k})}
+        \arrow["{\lambda_\mcL}", from=1-1, to=1-2]
+        \arrow["\Psi", from=1-2, to=1-3]
+        \arrow["{\varphi_\mcL}"', curve={height=18pt}, from=1-1, to=1-3]
+    \end{tikzcd}\]
+\end{theorem}
+
+When \(g = 1\), \(X\) is an elliptic curve \(E\), and we have Abel's theorem, which says that
+\[E(\overline k) \cong \Cl^0(E_{\overline k})\]
+where \(\Cl^0(E_{\overline k})\) are degree zero divisors, sending \(x\) to \(\inner{x} - \inner{e}\). Thus, if \(\mcL = \mcO(e)\), then
+\[\varphi_\mcL(-x) = T_{-x}^*\mcL \otimes \mcL^\vee = \mcO(\inner{x} - \inner{e})\]
+and so we have that \(\widehat E = E\). Thus, we have a \emph{canonical} line bundle \(\mcO(e)\) on \(E\).
+
+Suppose \(X/k\) is any proper variety. Then we would like a group scheme \(\underline{\Pic}_{X/k}\) which classify line bundles on \(X\). These are called \emph{Picard schemes}. We certainly want
+\[\underline{\Pic}_{X/k}(\overline k) = \Pic(X_{\overline k})\]
+First guess for any \(k\)-scheme \(S\),
+\[\underline{\Pic}_{X/k}(S) = \Pic(X\times S)\]
+However, this cannot be the case. There cannot be a group scheme \(G\) with \(G(S) = \Pic(X \times S)\), for two reasons:
+\begin{enumerate}
+    \item If \(S = \bigcup_i U_i\), then
+    \[G(S) = \{(f_i : U_i \to G) \mid f_i\vert_{U_i \cap U_j} = f_j\vert_{U_i\cap U_j}\}\]
+    But then
+    \[\Pic(X \times S) = \ker\left(\prod_i \Pic(X \times U_i) \to \prod_{i, j}\Pic(X \times (U_i \cap U_j))\right)\]
+    where we send \((\mcL_i)\) to \((\mcL_i \otimes \mcL_j^\vee)_{U_i \cap U_j}\). This fails even for \(X = \Spec(k)\) and \(S = \P^1_k\). Here, we have an ``extraneous'' \(\Pic(S)\).
+
+    \item
+    We could instead hope that
+    \[G(S) = \frac{\Pic(X \times S)}{\pr_2^*\Pic(S)}\]
+    For any \(k\)-variety \(G\), if \(k'/k\) is a finite Galois extension, then
+    \[G(k) = G(k')^{\Gal(k'/k)}\]
+    Let \(X\) be the conic \(x_0^2 + x_1^2 + x_2^2 = 0\) in \(\P^2_\R\). Then \(X(\R) = \emptyset\) and \(X_\C = \P^1_\C\). But \(\Pic(\P^1_\C) \cong \Z\). In this case, we have
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFBpYyhYX1xcQykiXSxbMiwwLCJcXFoiXSxbMCwyLCJcXFBpYyhYKSJdLFsyLDIsIjJcXFoiXSxbMCwxLCJcXGNvbmciXSxbMiwzLCJcXGNvbmciXSxbMiwwLCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFszLDEsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV1d
+    \[\begin{tikzcd}
+        {\Pic(X_\C)} && \Z \\
+        \\
+        {\Pic(X)} && 2\Z
+        \arrow["\cong", from=1-1, to=1-3]
+        \arrow["\cong", from=3-1, to=3-3]
+        \arrow[hook, from=3-1, to=1-1]
+        \arrow[hook, from=3-3, to=1-3]
+    \end{tikzcd}\]
+    Thus, \(\Gal(\C/\R)\) acts trivially on \(\Pic(X_\C)\), and so \(\Pic(X) \ne \Pic(X_\C)^{\Gal(\C/\R)}\).
+\end{enumerate}
+
+We have two solutions, which give the ``correct'' \(\underline{\Pic}_{X/k}\).
+
+\begin{enumerate}
+    \item sheafification (for \'etale topology)
+    \item assume \(e \in X(k) \ne \emptyset\). Define
+    \[\Pic_e(X \times S) = \{\mcL \in \Pic(X \times S) \mid \mcL\vert_{e \times S}\cong \mcO_S\}\]
+\end{enumerate}
+
+A basic result of Grothendieck: If \(X/k\) is a projective variety, \(e \in X(k)\), then there exists a group scheme \(\underline{\Pic}_{X/k}\) locally of finite type over \(k\), such that \(\underline{\Pic}_{X/k}(S) = \Pic_e(X\times S)\) and this is natural in \(S\). The proof uses Hilbert schemes.
 
 \end{document}

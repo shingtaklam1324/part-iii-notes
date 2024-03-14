@@ -1776,6 +1776,92 @@ where \(m \mapsto \sum\inner{v_\rho, m}\rho\).
     By choosing the dual basis \(e_i^\vee\) for \(M\), the image of \(e_i^\vee\) is \(\rho_i - \rho_{n+1}\). Thus, the cokernel can be identified with \(\Z \cdot \rho_{n+1}\) (or any \(Z \cdot \rho_i\)).
 \end{example}
 
+A similar computation shows thwt \(\Cl(\P^n \times \P^m) \cong \Z^2\).
+
+For nice schemes, we know that the class group is a finitely generated abelian group. Can it have torsion? Yes, say if we take \(U = \P^n \setminus X_d\), where \(X_d\) is a degree \(d\) irreducible hypersurface. In this case, \(\Cl(U) = \Z/d\Z\). Is there a toric example?
+
+\begin{example}
+    Let
+    \[\widehat{C}_2 = \Spec\left(\frac{\C[x,y,z]}{\inner{x^2 - yz}}\right)\]
+    \(\widehat C_2\) is toric, and a possible fan is given by
+    \[\Cone((2, -1), (0, 1))\]
+    Choose basis \(e_1, e_2\) of \(N\), \(v_1 = e_2, v_2 = 2e_1 - e_2\). The exact sequence (ii) is as follows
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxaXFxjZG90IGVfMV5cXHZlZSBcXG9wbHVzXFxaXFxjZG90IGVfMl5cXHZlZSJdLFsyLDAsIlxcWlxcY2RvdCB2XzFcXG9wbHVzXFxaXFxjZG90IHZfMiJdLFszLDAsIlxcQ2woXFx3aWRlaGF0IENfMikiXSxbNCwwLCIwIl0sWzAsMV0sWzEsMiwiQSJdLFsyLDNdLFszLDRdXQ==
+    \[\begin{tikzcd}
+        0 & {\Z\cdot e_1^\vee \oplus\Z\cdot e_2^\vee} & {\Z\cdot v_1\oplus\Z\cdot v_2} & {\Cl(\widehat C_2)} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow["A", from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    where
+    \begin{align*}
+        A(e_1^\vee) &= 2v_1 \\
+        A(e_2^\vee) &= v_1 - v_2
+    \end{align*}
+    Thus, in the class group
+    \begin{align*}
+        [D_1] - [D_2] &= [\div(\chi^{e_2^\vee})] \\
+        2[D_1] &= [\div(\chi^{e_1^\vee})]
+    \end{align*}
+    Thus, \(\Cl(\widehat C_2) = \Z/2\Z\).
+\end{example}
+
+\underline{Warning:} Calculating the cokernel of an integer matrix requires calculating Smith normal form.
+
+\textbf{End of examinable material}
+
+\section{*Line bundles*}
+
+Let \(\Pic(X)\) be the group of line bundles on \(X\), up to isomorphism, with group operation \(\otimes\). Given a line bundle \(\mcL\), let
+\[\mcL^\vee = \Hom_{\mcO_X}(\mcL, \mcO_X)\]
+denote the \emph{dual}, which is the inverse of \(\mcL\), and \(\mcO_X\) is the identity element. For toric varieties (or anything which is integral over a field), 
+\[\Pic(X) \cong \CaCl(X) = \frac{\CaDiv(X)}{\Prin(X)}\]
+which is the Cartier class group. If \(X\) is normal, then the group of Cartier divisors \(\CaDiv(X)\) is a subgroup of \(\Div(X)\), where the image correspond to the Weil divisors which are locally principal. That is, divisors \(D\) such that there exists an open cover \(U_i\), such that
+\[D \vert_{U_i} = \div(f_i)\]
+
+For \(X\) toric, \(\Pic(X) = \CaCl(X)\), we have the following
+% https://q.uiver.app/#q=WzAsOCxbMCwxLCJNIl0sWzEsMSwiXFxEaXZfVChYKSJdLFsyLDEsIlxcQ2woWCkiXSxbMywxLCIwIl0sWzAsMCwiTSJdLFsxLDAsIlxcQ2FEaXZfVChYKSJdLFsyLDAsIlxcUGljKFgpIl0sWzMsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFs0LDAsIj0iLDIseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzQsNV0sWzUsMSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbNSw2XSxbNiwyLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFs2LDddXQ==
+\[\begin{tikzcd}
+	M & {\CaDiv_T(X)} & {\Pic(X)} & 0 \\
+	M & {\Div_T(X)} & {\Cl(X)} & 0
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow["{=}"', no head, from=1-1, to=2-1]
+	\arrow[from=1-1, to=1-2]
+	\arrow[hook, from=1-2, to=2-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[hook, from=1-3, to=2-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+
+How do we tell when \(D \in \Div_T(X)\) is Cartier?
+
+\begin{remark}
+    If \(X\) is smooth, then \(\CaDiv_T(X) = \Div_T(X)\).
+\end{remark}
+
+In general, to find \(\Pic(X)\), we need to answer this question.
+
+\begin{lemma}
+    [Fulton chapter 3, CLS chapter 4] Let \(U_\sigma\) be affine toric, with cone \(\sigma\). Then 
+    \[\CaDiv_T(U_\sigma) = \{\div(\chi^m) \mid m \in S_\sigma\}\]
+    Thus, \(D \sim 0\) for all \(D \in \CaDiv_T(U_\sigma)\), and \(\CaCl(U_\sigma) = \Pic(U_\sigma) = 0\).
+\end{lemma}
+
+\begin{example}
+    Say \(X_\Sigma = \van(xy - zw) \sse \A^3 \sse \P^3\). In this case,
+    \[\Div_T(X_\Sigma) = \bigoplus_i \Z \cdot \rho_i\]
+    For \(m \in M\), then
+    \[\div(\chi^m) = \sum\inner{m, v_i}D_{\rho_i}\]
+\end{example}
+
+\begin{theorem}
+    If \(X_\Sigma\) is toric, then
+    \[\Pic(X_\Sigma) = \frac{\{\varphi : \abs{\Sigma} \to \R \mid \text{continuous and restricts to a linear function on each }\sigma \in \Sigma\}}{M = \text{globally linear function}}\]
+\end{theorem}
+
 \printindex
 
 \end{document}

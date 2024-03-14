@@ -1879,13 +1879,14 @@ This is a graded version of \(\HH^*(A)\). In the particular case of the Lyndon-H
 Recall we have suppressed the alternating sign in \(\dd''\). Now
 \[\HH''(A) = \Hom_Q(Y, \HH^*(\Hom_H(X^\bullet, M)))\]
 Since terms of \(Y^\bullet\) are \(\Z Q\)-projective, and so \(\Hom_Q(Y, \cdot)\) preserves exactness. Thus,
-\[E_2 = \HH'\HH''(A) = \HH^*(\Hom_Q(Y^\bullet, \HH^*(H, M))) = \HH^*(Q, \HH^*(G, M))\]
-Recall \(\HH^*(G, M)\) is a \(\Z Q\)-module so this makes sense. The \(\dd_2\) is induced from \(\dd\).
+\[E_2 = \HH'\HH''(A) = \HH^*(\Hom_Q(Y^\bullet, \HH^*(H, M))) = \HH^*(Q, \HH^*(H, M))\]
+Recall \(\HH^*(H, M)\) is a \(\Z Q\)-module so this makes sense. The \(\dd_2\) is induced from \(\dd\).
 
 For the second spectral sequence, we have that the \(E_2\)-page is given by \(\HH''(\HH'(A))\), and we have
 \[\HH'(\Hom_Q(Y^\bullet, \Hom_H(X^\bullet, M)))= \HH^*(Q, \Hom_H(X^\bullet, M))\]
 
 \begin{lemma}
+    \label{lem:cohoology-vanishing}
     \(\HH^p(Q, \Hom_H(X^\bullet, M)) = 0\) for \(p > 0\).
 \end{lemma}
 
@@ -1897,6 +1898,238 @@ Hence
 Thus, for the second spectral sequence, the \(E_2\)-page is concentrated on the line \(p = 0\). It follows \(E_r = E_\infty\) for \(r \ge 2\). So \(E_\infty\) is also concentrated on the line \(p = 0\). Hence the filtration of \(\HH^n(A)\) has only one non-trivial factor. Thus, we get
 \[\HH^n(A) = \HH^n(G, M)\]
 for each \(n\).
+
+\lec
+
+\begin{proof}
+    [Proof of \cref{lem:cohoology-vanishing}]
+    Since each \(X^q\) is \(\ZG\)-projective, it is a direct summand of a free module. It suffices to prove the lemma for \(\ZG\). Let \(\widetilde M\) be \(M\) as an additive group, but with trivial \(\ZG\)-module structure. We claim that there is an isomorphism of \(\ZG\)-modules
+    \[\Hom_H(\ZG, M) \cong \Hom_H(\ZG, \widetilde M)\]
+    where \(G\) acts on the left hand side by \((gf)(x) = g(f(g^{-1}x))\), and on the right hand side as in the coinduced module on examples sheet 1. That is, \((gf)(x) = f(xg)\).
+
+    To see this, for \(f \in \Hom_H(\ZG, M)\), define \(f' \in \Hom_H(\ZG, \widetilde M)\) by
+    \[f'(x) = xf(x^{-1})\]
+    for \(x \in G\). We leave the check that \(f'\) is well defined, \((f')' = f\) and this gives a \(\ZG\)-module isomorphism.
+
+    This claim allows us to use Shapiro's lemma, and noting that we have an isomorphism
+    \[\Hom_H(\ZG, \widetilde M) = \Hom(\Z Q, \widetilde M)\]
+    since \(H\) acts trivially. Thus,
+    \[\HH^p(Q, \Hom_H(\ZG, M)) \cong \HH^p(Q, \Hom(\Z Q, \widetilde M)) \cong \HH^p(1, \widetilde M) = 0\]
+    for \(p > 0\), where Shapiro's lemma says that
+    \[\HH^p(H, N) = \HH^p(G, \coind_G^H(M))\]
+\end{proof}
+
+\begin{example}
+    Let \(G = S_3\), viewed as the extension
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIxIl0sWzEsMCwiQ18zIl0sWzIsMCwiU18zIl0sWzMsMCwiQ18yIl0sWzQsMCwiMSJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+    \[\begin{tikzcd}
+        1 & {C_3} & {S_3} & {C_2} & 1
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    Thus, we need to consider
+    \[\HH^p(C_2, \HH^q(C_3, \Z))\]
+    Here, \(C_2\) acts on \(C_3\) by conjugation, i.e.
+    \[(1\ 2)(1\ 2\ 3)(1\ 2)^{-1} = (1\ 3\ 2)\]
+    which is the inversion map. Since this is a group homomorphism, the induced map on \(\HH^*(C_3, \Z)\) is a ring homomorphism. As a ring,
+    \[\HH^*(C_3, \Z) = \frac{\Z[c]}{\inner{3c}}\]
+    where \(\deg(c) = 2\). Note that this is a commutatitve ring, and
+    \begin{align*}
+        \HH^*(C_3, \Z) = \begin{cases}
+            \Z & * = 0 \\
+            \Z/3\Z & * > 0 \text{ even} \\
+            0 & * \text{ odd}
+        \end{cases}
+    \end{align*}
+    The action of \(C_2\) on \(\HH^2(C_3, \Z)\) is multiplication by \(-1\). We found a generator on examples sheet 1. Then the action of \(C_2\) on \(\HH^{4k}\) is trivial, and on \(\HH^{4k+2}\) is multiplication by \(-1\). Thus, we have
+    \begin{align*}
+        \HH^0(C_2, \HH^{4k+2}(C_3, \Z)) &= 0 \\
+        \HH^0(C_2, \HH^{4k}(C_3, \Z)) &= \Z/3\Z \\
+    \end{align*}
+    Also from the examples sheet, \(\HH^p(C_2, \Z/3\Z) = 0\) for any \(p \ge 1\). So the \(E_2\)-page of the first spectral sequence is as follows:
+    % https://q.uiver.app/#q=WzAsMTEsWzAsNSwiXFxaIl0sWzEsNSwiMCJdLFsyLDUsIlxcWi8yXFxaIl0sWzMsNSwiMCJdLFs0LDUsIlxcWi8yXFxaIl0sWzUsNSwiXFxjZG90cyJdLFswLDQsIjAiXSxbMCwzLCIwIl0sWzAsMiwiMCJdLFswLDEsIlxcWi8zXFxaIl0sWzAsMCwiXFx2ZG90cyJdXQ==
+    \[\begin{tikzcd}
+        \vdots \\
+        {\Z/3\Z} \\
+        0 \\
+        0 \\
+        0 \\
+        \Z & 0 & {\Z/2\Z} & 0 & {\Z/2\Z} & \cdots
+    \end{tikzcd}\]
+    Note that \(\dd_2\) goes down \(1\) and right \(2\). Hence all differentials are zero maps. To work out \(E_\infty\), we need to take the homology of the \(E_2\)-page to get the \(E_3\)-page, which is the same, and \(d_3 = 0\) and so on. Thus, we have a picture of \(E_\infty\). Thus, we get
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxaLzJcXFoiXSxbMiwwLCJcXEhIXns0a30oQSkiXSxbMywwLCJcXFovM1xcWiJdLFs0LDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+    \[\begin{tikzcd}
+        0 & {\Z/2\Z} & {\HH^{4k}(A)} & {\Z/3\Z} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    which forces \(\HH^{4k}(A) = \Z/6\Z\), and we deduce that
+    \[\HH^n(S_3, \Z) = \begin{cases}
+        \Z & n = 0 \\
+        0 & n \text{ odd} \\
+        \Z/2\Z & n \equiv 2 \pmod 4 \\
+        \Z/6\Z & n \equiv 0 \pmod 4, n > 0
+    \end{cases}\]
+\end{example}
+
+\begin{remark}
+    On examples sheet 3, we will work this out for \(G = Q_8\) in two ways. Once from a well-chosen resolution, and once from spectral sequences. This shows us that the spectral sequence only gives us cohomology up to extension.
+\end{remark}
+
+\begin{remark}
+    Calculations are harder when we have to think about \(\dd_2, \dd_3\) and so on.
+\end{remark}
+
+\begin{remark}
+    Spectral sequences behave well with products, and we can use them to work out the product structure on \(\HH^*(G, \Z)\).
+\end{remark}
+
+Now let us think about low degree cohomology.
+
+\begin{proposition}
+    [five term exact sequence]
+    \label{prop:five-term-exact-sequence}
+
+    The first spectral sequence of a double complex \(A\), with \(A^{p, q} = 0\) unless \(p, q \ge 0\), gives an exact sequence
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCIwIl0sWzEsMCwiRV8yXnsxLDB9Il0sWzIsMCwiXFxISF4xKEEpIl0sWzMsMCwiRV8yXnswLDF9Il0sWzQsMCwiRV8yXnsyLDB9Il0sWzUsMCwiXFxISF4yKEEpIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNCwiXFxkZF8yIl0sWzQsNV1d
+    \[\begin{tikzcd}
+        0 & {E_2^{1,0}} & {\HH^1(A)} & {E_2^{0,1}} & {E_2^{2,0}} & {\HH^2(A)}
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow["{\dd_2}", from=1-4, to=1-5]
+        \arrow[from=1-5, to=1-6]
+    \end{tikzcd}\]
+\end{proposition}
+
+\begin{corollary}
+    [five term exact sequence of group cohomology] 
+    \label{cor:five-term-exact-sequence-group-cohomology}
+    Let \(H \idealof G\), and \(M\) be a \(\ZG\)-module. Then there is an exact sequence
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCIwIl0sWzEsMCwiXFxISF4xKEcvSCxNKSJdLFsyLDAsIlxcSEheMShHLCBNKSJdLFszLDAsIlxcSEheMShILCBNKV57Ry9IfSJdLFs0LDAsIlxcSEheMihHL0gsIE1eSCkiXSxbNSwwLCJcXEhIXjIoRywgTSkiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XSxbNCw1XV0=
+    \[\begin{tikzcd}
+        0 & {\HH^1(Q,M)} & {\HH^1(G, M)} & {\HH^1(H, M)^Q} & {\HH^2(Q, M^H)} & {\HH^2(G, M)}
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+        \arrow[from=1-5, to=1-6]
+    \end{tikzcd}\]
+\end{corollary}
+
+\begin{proof}
+    [Proof of \cref{prop:five-term-exact-sequence}] On the \(E_2\)-page, we have
+    % https://q.uiver.app/#q=WzAsMyxbMiwxLCJFXzJeezEsMH0iXSxbNCwyLCJFXzJeezMsLTF9Il0sWzAsMCwiRV8yXnstMSwxfSJdLFsyLDBdLFswLDFdXQ==
+    \[\begin{tikzcd}
+        {E_2^{-1,1}} \\
+        && {E_2^{1,0}} \\
+        &&&& {E_2^{3,-1}}
+        \arrow[from=1-1, to=2-3]
+        \arrow[from=2-3, to=3-5]
+    \end{tikzcd}\]
+    and so \(E_3^{1, 0} = E_2^{1, 0}\). Repeating, we see that \(E_\infty^{1, 0} = E_2^{1, 0}\). But this is the bottom factor of out filtration of \(\HH^1(A)\), and so it injects into \(\HH^1(A)\) with cokernel \(E_\infty^{0, 1}\). Thus, we get
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiRV9cXGluZnR5XnsxLDB9Il0sWzIsMCwiXFxISF4xKEEpIl0sWzMsMCwiRV97XFxpbmZ0eX1eezAsMX0iXSxbNCwwLCIwIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+    \[\begin{tikzcd}
+        0 & {E_\infty^{1,0}} & {\HH^1(A)} & {E_{\infty}^{0,1}} & 0
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    Now returning to the \(E_2\)-page, we have
+    % https://q.uiver.app/#q=WzAsNCxbMiwxLCJFXzJeezAsMX0iXSxbMCwwLCJFXzJeey0yLDJ9Il0sWzQsMiwiRV8yXnsyLDB9Il0sWzYsMywiRV8yXns0LC0xfSJdLFsxLDBdLFswLDJdLFsyLDNdXQ==
+    \[\begin{tikzcd}
+        {E_2^{-2,2}} \\
+        && {E_2^{0,1}} \\
+        &&&& {E_2^{2,0}} \\
+        &&&&&& {E_2^{4,-1}}
+        \arrow[from=1-1, to=2-3]
+        \arrow[from=2-3, to=3-5]
+        \arrow[from=3-5, to=4-7]
+    \end{tikzcd}\]
+    and \(E_2^{2, 0}\) is not-necessarily zero. This, \(E_3^{0, 1} = \ker(E_2^{0, 1} \to E_2^{2, 0})\). On the \(E_3\)-page, the differential \(\dd_3\) has
+    % https://q.uiver.app/#q=WzAsMyxbMywyLCJFXzNeezAsMX0iXSxbMCwwLCJFXzNeey0zLDN9Il0sWzYsNCwiRV8zXnszLC0xfSJdLFsxLDBdLFswLDJdXQ==
+    \[\begin{tikzcd}
+        {E_3^{-3,3}} \\
+        \\
+        &&& {E_3^{0,1}} \\
+        \\
+        &&&&&& {E_3^{3,-1}}
+        \arrow[from=1-1, to=3-4]
+        \arrow[from=3-4, to=5-7]
+    \end{tikzcd}\]
+    and we have that \(E_\infty^{0,1} = E_3^{0, 1}\).
+
+\lec
+
+    Moreover, \(E_\infty^{2, 0} \inj \HH^2(A)\) since it is the bottom factor in the filtration of \(\HH^2(A)\). Sticking everything together, we get the result.
+\end{proof}
+
+If we apply this to the Lyndon-Hochschild-Serre spectral sequence, we get \cref{cor:five-term-exact-sequence-group-cohomology}.
+
+Recall the \(\Z Q\)-module structure on \(\HH^n(H, M)\) is as follows:
+
+Let \(G\) act on cochains \(C^n(H, M)\) by
+\[(g\cdot\phi)(h_1, \dots, h_n) = g\phi(g^{-1}hg, \dots, g^{-1}h_ng)\]
+This descends to an action of \(G\) on \(\HH^n(H, M)\). Under this, \(H\) acts trivially, and so we have a \(Q\) action. Here, we're only interested in \(\HH^1(H, M)\), and so if \(\phi : H \to M\) is a derivation, representing the cohomology class \([\phi]\), then
+\[[\phi] \in \HH^1(H, M)^{Q} \iff [\phi] = [g\phi]\]
+for all \(g \in G\). If \(M\) is a trivial \(\ZG\)-module, then \(\HH^1(H, M) = \Hom(H_\ab, M)\), and the fixed points are the \(\Z Q\)-maps.
+
+For the maps in \cref{cor:five-term-exact-sequence-group-cohomology}, we have restriction maps \(\HH^n(G, M) \to \HH^n(H, M)^Q\), where we define the maps on cochains by
+\[f \in C^n(G, M) \mapsto \res f = f\vert_{H^n} \in C^n(H, M)\]
+which then induces a map on cohomology.
+
+Next, we have inflation maps \(\HH^n(Q, M^H) \to \HH^n(G, M)\), defined on cochain as follows:
+\[f \in C^n(Q, M^H) \mapsto \inf f \in C^n(G, M)\]
+given by
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJHXm4iXSxbMSwwLCJRXm4iXSxbMiwwLCJNXkgiXSxbMywwLCJNIl0sWzAsMV0sWzEsMiwiZiJdLFsyLDNdXQ==
+\[\begin{tikzcd}
+	{G^n} & {Q^n} & {M^H} & M
+	\arrow[from=1-1, to=1-2]
+	\arrow["f", from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+
+Next, we have the transgression map \(T_g : \HH^1(H, M)^Q \to \HH^2(Q, M^H)\), which corresponds to \(\dd_2\) on the \(E_2\)-page.
+
+For general \(M\), let \(s : Q \to G\) be a set-theoretic section, with \(s(1) = 1\). Define
+\begin{align*}
+    \rho : G &\to H \\
+    \rho(g) &= g s(gH)^{-1}
+\end{align*}
+Then we take the cohomology class represented by the derivation \(f : H \to M\), and define
+\begin{align*}
+    T_g(f) : G^2 &\to M \\
+    T_g(f)(g_1, g_2) &= f(\rho(g_1)\rho(g_2)) - f(\rho(g_1g_2))
+\end{align*}
+Note that changing \(g_1, g_2\) by multiplication by elements of \(H\) does not change tthe value. So we can define a cochain \(T_g(f) : Q^2 \to M\). The image lies in \(M^H\) and it is a cocycle. Thus, we have a map
+\[[f] \in \HH^1(H, M)^Q \mapsto [T_g(f)] \in \HH^2(Q, M^H)\]
+
+For a special case, assume the action of \(H\) on \(M\) is trivial. We have the short exact sequence
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIxIl0sWzEsMCwiSCJdLFsyLDAsIkciXSxbMywwLCJHL0giXSxbNCwwLCIxIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+\[\begin{tikzcd}
+	1 & H & G & {G/H} & 1
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+and we have an extension
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIxIl0sWzEsMCwiSF9cXGFiIl0sWzIsMCwiRy9bSCxIXSJdLFszLDAsIkcvSCJdLFs0LDAsIjEiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+\[\begin{tikzcd}
+	1 & {H_\ab} & {G/[H,H]} & {G/H} & 1
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+Let \(\epsilon \in \HH^2(G/[H, H], H_\ab)\) correspond to this extension. Take \([f] \in \HH^1(H, M)^{G/H} = \Hom(H_\ab, M)^{G/H}\). That is, \(f\) is a \(\Z(G/H)\)-map \(H_\ab \to M\). Thus, we have
+\[f_* : \HH^2(G/H, H_\ab) \to \HH^2(G/H, M)\]
+and then \(T_g(f) = f_*(\epsilon)\).
 
 \printindex
 

@@ -930,15 +930,154 @@ Consider the rational map \([f : g] : \P^2 \ratmap \P^1\). This is not defined a
 \[S = \Bl_\mcB\P^2\]
 Then we have a well defined map \(\phi : S \to \P^1\). Moreover, each point \(E_i \in \mcB\) defines a section of \(\phi\).
 
-\begin{remark}
-    Let \(F\) be a fibre, then it is a fibre of a fibration (locally near \(F\)). Hence its self intersection \(F \cdot F\) is zero (this is true in the middle dimension of a fibration). This raises the question: how does the normal bundl change with blowups?
+% \begin{remark}
+%     Let \(F\) be a smooth fibre, then it is a fibre of a fibration (locally near \(F\)). Hence its self intersection \(F \cdot F\) is zero (this is true in the middle dimension of a fibration). This raises the question: how does the normal bundl change with blowups?
 
-    Note that \(\nu\vert_F\) is trivial if \(F\) is a fibre of a fibration.
+%     Note that \(\nu\vert_F\) is trivial if \(F\) is a fibre of a fibration.
+% \end{remark}
+
+% \begin{remark}
+%     For a fibration, what we want is a homotopy lifting property for \(f : E \to B\). Note in algebraic geometry,  we can have non-smooth fibres. For example, the map \(S \to \P^1\) will have singular fibres, where \(V_x\) is a singular cubic. But this is complex codimension \(1\).
+% \end{remark}
+
+\lec
+
+\begin{remark}
+    If \(\pi\) is locally a submersion, \(F = \pi^{-1}(p)\) is a smooth fibre, and \(\nu_F\) is trivial as a complex fibre bundle.
 \end{remark}
 
+\section{Fibre connect sums of symplectic manifolds}
+
+\begin{theorem}
+    [symplectic neighbourhood theorem] 
+    \label{thm:symplectic-neighbourhood}
+    Let \(Q \sse (X, \omega)\) be a symplectic submanifold, then a neighbourhood of \(Q\) is symplectically determined by \((Q, \omega_Q)\) and \(\nu_{Q/X} \to Q\) as a symplectic vector bundle.
+\end{theorem}
+
+Note we have an exact sequence
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxUIFEiXSxbMiwwLCJcXFQgWFxcdmVydF9RIl0sWzMsMCwiXFxudV97US9YfT1cXFQgUV5cXG9tZWdhIl0sWzQsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdXQ==
+\[\begin{tikzcd}
+	0 & {\T Q} & {\T X\vert_Q} & {\nu_{Q/X}=\T Q^\omega} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+and so the symplectic structure on \(\nu_{Q/X}\) is determined by the symplectic structure on \(\T X\vert_Q\).
+
+\begin{corollary}
+    For \(Q \sse X^4\), a symplectic neighbourhood is determined by
+    \begin{itemize}
+        \item \(\int_Q\omega\),
+        \item \(\chi(Q)\) (corresponding to \(c_1\) of \(\T Q\)),
+        \item \(Q \cdot Q\) (corresponding to \(c_1\) of the normal bundle)
+    \end{itemize}
+\end{corollary}
+
+\begin{proof}
+    [Sketch proof of \cref{thm:symplectic-neighbourhood}]
+
+    Say we have symplectic embeddings \((Q, \omega) \inj (X_1, \omega_1)\) and into \((X_2, \omega_2)\), with normal bundles \(\nu_1 \cong \nu_2\). Then use the tubular neighbourhood theorem to get a diffeomorphism \(\varphi\) between the neighbourhoods of \(Q\) in \(X_1, X_2\) respectively, which is the identity on \(Q\).
+
+    Note that \(\varphi^*\omega_2\vert_{\T Q} = \omega_1\vert_{\T Q}\). Then use Moser's trick.
+\end{proof}
+
+\begin{corollary}
+    Say we have a symplectic embedding \((Q^{2n-2}, \Omega) \inj (M^{2n}, \omega)\). This extends to a map
+    \[h : (Q^{2n-2} \times D^2(\epsilon), \Omega \oplus \omega_{\text{std}}) \inj (M^{2n}, \omega)\]
+    if and only if \(c_1(\nu_{Q/M}) = 0\).
+\end{corollary}
+
 \begin{remark}
-    For a fibration, what we want is a homotopy lifting property for \(f : E \to B\). Note in algebraic geometry,  we can have non-smooth fibres. For example, the map \(S \to \P^1\) will have singular fibres, where \(V_x\) is a singular cubic. But this is complex codimension \(1\).
+    Note \(h\) is not determined topologically from this data, since framings are classified by homotopy classes of maps \([Q, \SO(2)] = [Q, S^1]\).
 \end{remark}
+
+\underline{Fact:} There exists a symplectomorphism ``turning the annulus inside out''. Here, the annulus is \(B^2(\epsilon)\setminus 0\), and the map is
+\[\Phi(r, \theta) = \left(\sqrt{\epsilon^2 - r^2}, -\theta\right)\]
+
+Suppose \(Q\) has two codimension \(2\) symplectic embeddings \(Q \inj M_1, Q \inj M_2\), with \(\nu_{\Q/M_1}\) is trivial. Fix extensions \(h_i : Q \times B^2(\epsilon) \to M_i\) as above. Define the \emph{symplectic fibre sum}
+\[M_1 \#_Q M_2 = (M_1 \setminus Q) \cup_{\id \times \Phi} (M_2 \setminus Q)\]
+where \(\omega = \omega_i\) on \(M_i\), which agrees on the overlaps as we are gluing by a symplectomorphism.
+
+\begin{remark}
+    Framings matter topologically, and \(\epsilon\) matters symplectically. We note that
+    \[\vol(M_1 \#_Q M_2) < \vol(M_1) + \vol(M_2)\]
+\end{remark}
+
+\underline{Fact:} This construction is `local', so in fact we can relax the condition of \(c_1(\nu_i) = 0\) to allow \(c_1(\nu_1) = -c_1(\nu_2)\).
+
+\begin{example}
+    If \(C^2 \sse (X^4, \omega)\) is such that \(g(C) = 0\), \(C \cdot C = -1\). Then we can form 
+    \[X^4 \underset{\{C = L\}}{\#}(\P^2, r \omega_{\text{FS}})\]
+    where \(L\) is a line in \(\P^2\), and \(r\) is chosen so that
+    \[\int_L r\omega_{\text{FS}} = \int_C\omega_X\]
+    This is the \emph{blow down} of \(Q\).
+\end{example}
+
+\begin{example}
+    Say \(C \sse (X^4, \omega)\) is such that \(g(C) = 0\), with \(C \cdot C = -4\). Take \(A \sse \P^2\) be a smooth conic, and the blow down is
+    \[X \underset{\{C = A\}}{\#}\P^2\]
+    Again, we need to scale the symplectic form on \(\P^2\). In this case, \(A \cdot A = (2L)\cdot (2L) = 4\) and \(g(A) = 0\), so everything works out.
+\end{example}
+
+For examples in symplectic geometry: Start off with a complex K\"ahler manifold, say a projective manifold. Then perform operations such as blow down, fibre connect sum and so on.
+
+\lec
+
+We will now construct a symplectic manifold with no integrable complex structure.
+
+Recall \(\pi : E(1) \to \P^1\) is given by blowing up the base points of a pencil of cubics. In this case, \(E(1)\) is K\"ahler. Let \(F\) be a smooth fibre.
+
+\underline{Fact:} \(\pi_1(E(1)\setminus F) = 0\).
+
+Also note that \(c_1(\nu F) = 0\). Let \((T^4, \omega = \omega_{\text{std}} + \epsilon\dd\theta_1 \wedge \dd\theta_3)\). For small \(\epsilon\), \(\omega\) is symplectic. Let
+\begin{align*}
+    C_1 &= T^2 \times \{*\} \\
+    C_2 &= (S^1 \times \{*\}) \times (S^1 \times \{*\})
+\end{align*}
+These are now both symplectic submanifolds of \(T^4\). Now \(\nu C_1\) and \(\nu C_2\) are trivial, and so there exists a symplectic form on 
+\[Y = (T^4 \#_{C_1 = F} E(1)) \#_{C_2 = F} E(1)\]
+(choose \(\omega\) scaled appropriately).
+
+\begin{proposition}
+    \(\pi_1(Y) \cong \pi_1(T^4)/\inner{\pi_1(C_1), \pi_1(C_2)} \cong \Z\).
+\end{proposition}
+
+\begin{proof}
+    Seifert-van Kampen.
+\end{proof}
+
+In particular, \(\HH^1(Y; \Z) = \Z\), and so \(b^1(Y) = 1\). Thus, \(Y\) cannot be K\"ahler.
+
+\section{Fibrations of complex manifolds}
+
+Let \(f : X \to Y\) be a holomorphic map of K\"ahler manifolds, with \(\dim_\C(X) \ge \dim_\C(Y)\), and assume \(f\) is surjective. Let
+\[S = \{x \in X \mid \rank(\dd f_x) < \dim_\C(Y)\}\]
+In this case, \(S\) is a complex submanifold of complex dimension at most \(\dim_\C(Y) - 1\).  The fact that it is a complex submanifold follows by the implicit function theorem. Thus, \(f(S)\) has codimension at least \(1\) in \(Y\). Then we have
+\[f : U = X \setminus f^{-1}(f(S)) \to W = Y \setminus f(S)\]
+By Ehresmann's theorem, \(f : U \to W\) is a fibre bundle. But note that \(W\) is connected, since it is \(Y\) with a smooth real codimension at least \(2\) subset removed. Such \(f : X \to Y\) are often called fibrations.
+
+For \(w_1, w_2 \in W\), \([f^{-1}(w_1)] = [f^{-1}(w_2)]\) in homology. By Moser, if we set \(F_w = f^{-1}(w)\), then we have a symplectomorphism
+\[(F_{w_1}, \omega_X\vert_{F_{w_1}}) \cong (F_{w_2}, \omega_X\vert_{F_{w_2}})\]
+Since we can smoothly trivialise over a path connecting \(w_1, w_2\) in \(W\).
+
+\begin{remark}
+    We have not used the ``horizontal'' directions at all.
+\end{remark}
+
+We can do better. On \(f : U \to W\), we can split at \(x \in U\), say \(x \in F_y\),
+\[\T_xX = \T_xF_y \oplus (T_xF_y)^\omega\]
+This gives an Ehresmann connection. Given \(\gamma\) a path in \(W\), with \(\gamma(0) = w_0\) and \(\gamma(1) = w_1\), this gives a parallel transport map \(\varphi_t : F_{w_0} \to F_{\gamma(t)}\) with respect to the above connection.
+
+If \(p_t = \varphi_t(p_0)\), then \(p_t' \in (\T_{\gamma(t)}F)^\omega\).
+
+\begin{proposition}
+    For all \(t \in [0, 1]\), \(\varphi_t\) is a symplectomorphism.
+\end{proposition}
+
+Thus, we have a \emph{canonical} symplectomorphism between fibres connected by a path.
+
+For a more concrete example, consider \(E(1) \to \P^1\).
 
 \printindex
 

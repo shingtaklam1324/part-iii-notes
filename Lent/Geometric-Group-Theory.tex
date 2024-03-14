@@ -1904,4 +1904,98 @@ We will solve the word problem for all hyperbolic groups, using an algorithm tha
     It turns out a group \(G\) has a Dehn presentation if and only if \(G\) is hyperbolic.
 \end{remark}
 
+\lec
+
+\section{*Outlook, further topics, open problems*}
+
+\subsection*{Random groups}
+
+Fix a generating set \(S = \{a_1, \dots, a_m\}\). Fix \(n \ge 1\), choose a subset
+\[\{r_1, \dots, r_n\} \sse F(S)\]
+uniformly at random such that \(\ell(r_i) = \ell\) for all \(i\). Consider the resulting group
+\[G = \inner{a_1, \dots, a_m \mid r_1, \dots, r_n}\]
+For any property \(P\) of groups, we can look at
+\[\P(G \in P)\]
+which depends on \(m, n, \ell\). We say that a \emph{random group has property \(P\)} if
+\[\P(G \in P) \to 1\]
+as \(\ell \to \infty\).
+
+\begin{theorem}
+    [Gromov, Ol'shanski]
+
+    For \(m \ge 2\), a random group is infinite and hyperbolic.
+\end{theorem}
+
+\subsection*{Subgroups}
+
+One of the most important open problems concern subgroups of hyperbolic groups.
+
+\begin{conjecture}
+    [surface subgroup] Unless \(G\) is virtually\footnote{has a finite index subgroup which is} free, if \(G\) is word hyperbolic, then there exists a surface \(\Sigma_g\) of genus \(g \ge 2\), such that \(\pi_1(\Sigma_g) \le G\).
+\end{conjecture}
+
+This has been proven in a special case by Kahn-Markovich, when \(G = \pi_1(M^3)\) for \(M\) a compact \(3\)-manifold.
+
+\subsection*{Representations and residual finiteness}
+
+A group \(G\) is \emph{linear} if it is a subgroup of \(\GL(n, \C)\) for some \(n\). That is, it has a faithful representation over \(\C\).
+
+\begin{theorem}
+    [M. Kapovich] There is a hyperbolic group which is not linear.
+\end{theorem}
+
+But a weaker property is also important.
+
+\begin{definition}
+    A group \(G\) is \emph{residually finite} if for any \(g \in G\) non-trivial, there exists a homomorphism \(f : G \to Q\) finite, such that \(f(g) \ne 1\).
+\end{definition}
+
+All finitely generated linear groups are residually finite. Then it is an open question whether every hyperbolic group is residually finite. Recent progress includes
+
+\begin{theorem}
+    [Olivier-Wise, Agol] Random groups are residually finite. In fact, they are linear.
+\end{theorem}
+
+\subsection*{Boundaries}
+
+Recall that \(\partial\bb H^2 = S^1\).
+
+\begin{definition}
+    Let \(X\) be a proper hyperbolic metric space. A \emph{geodesic ray} is an isometric embedding \(\gamma : \Ico{0, \infty} \to X\). We say that \(\gamma_1 \sim \gamma_2\) if there exists \(C \ge 0\) such that
+    \[d(\gamma_1(t), \gamma_2(t)) \le C\]
+    for all \(t\).
+
+    The \emph{Gromov boundary} of \(X\) is defined to be
+    \[\partial_\infty X = \frac{\{\text{geodesic rays in X}\}}{\sim}\]
+\end{definition}
+
+\begin{remark}
+    \(\partial_\infty X\) admits a natural boundary, so that \(\partial_\infty X\) and \(X \cup \partial_\infty X\) are compact.
+\end{remark}
+
+A quasi-isometry \(f : X \to Y\) induces a homeomorphism \(\partial_\infty X \to \partial_\infty Y\). Thus, for a hyperbolic group \(G\), we may define
+\[\partial_\infty G = \partial_\infty \Cay_S(G)\]
+
+\begin{example}
+    If \(G\) is a cocompact Fuchsian group (e.g. \(\pi_1(\Sigma_g)\) and triangle groups), then \(G\) is quasi-isometric to \(\bb H^2\), and so \(\partial_\infty G = \partial\bb H^2 = S^1\).
+\end{example}
+
+\begin{theorem}
+    If \(G\) is hyperbolic and \(\partial_\infty G \cong S^1\), then \(G\) is virtually Fuchsian.    
+\end{theorem}
+
+\begin{conjecture}
+    [Cannon] If \(G\) is hyperbolic, and \(\partial_\infty G \cong S^2\), then \(G\) is virtually \(\pi_1(M)\) for \(M\) a \(3\)-manifold.
+\end{conjecture}
+
+\subsection*{Non-positive curvature}
+
+\begin{definition}
+    Suppose \(X\) is a geodesic metric space. Each geodesic triangle in \(X\) has a well defined (up to isometry) \emph{comparison triangle} \(\overline\Delta \sse \R^n\). That is, it is a triangle with the same side lengths as \(\Delta\). Let \(f : \overline\Delta \to \Delta\) be the natural map.
+
+    \(X\) is \emph{CAT(0)} if \(d(x, y) \ge d(f(x), f(y))\) for all \(x, y \in \overline\Delta\).
+\end{definition}
+
+One question: Does every hyperbolic group act geometrically on a CAT(0) space?
+
 \end{document}
