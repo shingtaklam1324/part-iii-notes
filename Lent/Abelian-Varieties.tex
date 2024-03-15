@@ -2205,13 +2205,14 @@ are trivial, then so is \(\mcL\).
 
 \begin{theorem}
     [cube]
+    \label{thm:cube}
     Let \(X,Y,Z\) be \(k\)-varieties, with \(X, Y\) proper. Let \(x \in X, y \in Y, z \in Z\), and \(\mcL\) be a line bundle on \(X \times Y \times Z\). Suppose that each of
     \[\mcL\vert_{x \times Y \times Z}, \mcL\vert_{X \times y \times Z}, \mcL\vert_{X \times Y \times z}\]
     is trivial. Then \(\mcL\) is trivial.
 \end{theorem}
 
 \begin{proof}
-    [Proof deferred]
+    See \cref{sec:proof-cube}.
 \end{proof}
 
 \begin{remark}
@@ -2360,7 +2361,7 @@ First of all, we will give an alternative characterisation of \(\Pic^0\).
     \end{align*}
     Hence
     \[\Lambda(\mcL)\vert_{X \times x} = T_x^*\mcL \otimes \mcL^\vee \otimes \mcO_X = \varphi_L(x)\]
-    Moreover, \(\Lambda(\mcL)\vert_{e \times X} = \varphi_\mcL(x) = \mcO_X\) is trivial. Thus, by seesaw, \(\Lambda(\mcL)\) is trivial if and only if for all \(x \in X(k)\), \(\mcL\vert_{X \times x} \cong \mcO_X\). That is, \(\varphi_\mcL = 0\).
+    Moreover, \(\Lambda(\mcL)\vert_{e \times X} = \varphi_\mcL(e) = \mcO_X\) is trivial. Thus, by seesaw, \(\Lambda(\mcL)\) is trivial if and only if for all \(x \in X(k)\), \(\mcL\vert_{X \times x} \cong \mcO_X\). That is, \(\varphi_\mcL = 0\).
 \end{proof}
 
 \begin{proposition}
@@ -2780,5 +2781,122 @@ We have two solutions, which give the ``correct'' \(\underline{\Pic}_{X/k}\).
 \end{enumerate}
 
 A basic result of Grothendieck: If \(X/k\) is a projective variety, \(e \in X(k)\), then there exists a group scheme \(\underline{\Pic}_{X/k}\) locally of finite type over \(k\), such that \(\underline{\Pic}_{X/k}(S) = \Pic_e(X\times S)\) and this is natural in \(S\). The proof uses Hilbert schemes.
+
+\lec
+
+\section{Proof of \cref{thm:cube}}
+
+\label{sec:proof-cube}
+
+% As \(\Pic(X) \inj \Pic(X_{\overline k})\) for any \(X\), we may assume that \(k\) is algebraically closed.
+
+\textbf{Step 1:} We will prove the statement for \(Z = \Spec(A)\), where \(A\) is a finite local \(k\)-algebra. with residue field \(k\). So \(A = k \oplus \mfm\) with \(\mfm\) nilpotent, and so \(Z = \{\pt\}\).
+
+Induct on \(\dim_k(A)\). If \(\dim_k(A) = 1\), then \(A = k\), and so \(\mcL = \mcL\vert_{X \times Y \times z}\) is trivial. Otherwise, we can find an ideal \(I \sse \mfm\) with dimension \(1\). To see this, any minimal non-zero ideal of \(A\) is necessarily killed by \(\mfm\), and is a \(k\)-vector space. Thus, by minimality it has dimension \(1\). Say \(I = \Span_k\{t\}\). Let \(Z_1 = \Spec(A/I)\).
+
+If \(V/k\) is a proper variety, then for any \(K\)-algebra \(B\), \(\HH^0(V_B, \mcO_{V_B}) = B\), since \(\HH^0(V, \mcO_V) = k\) and we can use flat base change.
+
+\begin{lemma}
+    [tangent space to \(\Pic\)] Let \(V\) be a proper \(k\)-variety. Then there exists an exact sequence, functorial in \(V\),
+
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiXFxISF4xKFYsIFxcbWNPX1YpIl0sWzIsMCwiXFxQaWMoVlxcdGltZXMgWikiXSxbMywwLCJcXFBpYyhWXFx0aW1lcyBaXzEpIl0sWzAsMV0sWzEsMl0sWzIsM11d
+    \[\begin{tikzcd}
+        0 & {\HH^1(V, \mcO_V)} & {\Pic(V\times Z)} & {\Pic(V\times Z_1)}
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+    \end{tikzcd}\]
+    where the last map is induced by inclusion.     
+\end{lemma}
+When \(Z = \Spec(k[\epsilon]/\epsilon^2)\), then \(Z_1 = k\), and \(\ker(\Pic(V \times Z) \to \Pic(V))\) is the ``tangent space''. 
+
+For example, this tells us that the dimension of \(\underline{\Pic}_{V/k}\) is at most the dimension of \(\HH^1(V, \mcO_V)\).
+
+\begin{proof}
+    First note that we have an exact sequence of abelian groups
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiSSJdLFszLDAsIkFeXFx0aW1lcyJdLFs0LDAsIihBL0kpXlxcdGltZXMiXSxbNSwwLCIxIl0sWzAsMV0sWzEsMiwiYVxcbWFwc3RvIDErYSJdLFsyLDNdLFszLDRdXQ==
+    \[\begin{tikzcd}
+        0 & I && {A^\times} & {(A/I)^\times} & 1
+        \arrow[from=1-1, to=1-2]
+        \arrow["{a\mapsto 1+a}", from=1-2, to=1-4]
+        \arrow[from=1-4, to=1-5]
+        \arrow[from=1-5, to=1-6]
+    \end{tikzcd}\]
+    Note that \((1 + a)(1 + b) = 1 + (a + b)\) since \(I^2 = 0\). On the other hand,
+    \[\ker(A^\times \to (A/I)^\times) = 1 + I\]
+    and the cokernel is trivial, since if \(a \in A\) is a unit in \(A/I\), then \(a\) is a unit, since \((1 + I) \sse A^\times\). Therefore, we have an exact sequence of sheaves on \(V\), given by
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiSVxcbWNPX3tWXFx0aW1lcyBafSJdLFsyLDAsIlxcbWNPX3tWXFx0aW1lcyBafV5cXHRpbWVzIl0sWzMsMCwiXFxtY09fe1YgXFx0aW1lcyBaXzF9XlxcdGltZXMiXSxbNCwwLCIxIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF1d
+    \[\begin{tikzcd}
+        0 & {I\mcO_{V\times Z}} & {\mcO_{V\times Z}^\times} & {\mcO_{V \times Z_1}^\times} & 1
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+    \end{tikzcd}\]
+    Note that as topological spaces, \(V, V\times Z, V \times Z_1\) are all the same (or canonically isomorphic). But now multiplication by \(t\) defines an isomorphism \(\mcO_{V} \cong I\mcO_{V \times Z}\), and so by the long exact sequence of cohomology, we obtain
+    % https://q.uiver.app/#q=WzAsNyxbMCwwLCIwIl0sWzEsMCwiXFxISF4wXFxsZWZ0KFYsIFxcbWNPX1ZcXHJpZ2h0KSJdLFsyLDAsIlxcSEheMFxcbGVmdChWIFxcdGltZXMgWiwgXFxtY09fe1ZcXHRpbWVzIFp9XlxcdGltZXNcXHJpZ2h0KSJdLFszLDAsIlxcSEheMFxcbGVmdChWIFxcdGltZXMgWl8xLCBcXG1jT197ViBcXHRpbWVzIFpfMX1eXFx0aW1lc1xccmlnaHQpIl0sWzEsMSwiXFxISF4xXFxsZWZ0KFYsIFxcbWNPX1ZcXHJpZ2h0KSJdLFsyLDEsIlxcSEheMVxcbGVmdChWIFxcdGltZXMgWiwgXFxtY09fe1YgXFx0aW1lcyBafV5cXHRpbWVzXFxyaWdodCkiXSxbMywxLCJcXEhIXjFcXGxlZnQoViBcXHRpbWVzIFpfMSwgXFxtY09fe1ZcXHRpbWVzIFpfMX1eXFx0aW1lc1xccmlnaHQpIl0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF0sWzQsNV0sWzUsNl1d
+    \[\begin{tikzcd}
+        0 & {\HH^0\left(V, \mcO_V\right)} & {\HH^0\left(V \times Z, \mcO_{V\times Z}^\times\right)} & {\HH^0\left(V \times Z_1, \mcO_{V \times Z_1}^\times\right)} \\
+        & {\HH^1\left(V, \mcO_V\right)} & {\HH^1\left(V \times Z, \mcO_{V \times Z}^\times\right)} & {\HH^1\left(V \times Z_1, \mcO_{V\times Z_1}^\times\right)}
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-2, to=1-3]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=2-2]
+        \arrow[from=2-2, to=2-3]
+        \arrow[from=2-3, to=2-4]
+    \end{tikzcd}\]
+    On the first row, we get
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiayJdLFsyLDAsIkFeXFx0aW1lcyJdLFszLDAsIihBL0kpXlxcdGltZXMiXV0=
+    \[\begin{tikzcd}
+        0 & k & {A^\times} & {(A/I)^\times}
+    \end{tikzcd}\]
+    and we saw the last map is surjective. Thus, the map \(\HH^1(V< \mcO_V) \to \HH^1(V \times Z, \mcO_{V \times Z}^\times)\) is injective. Moroever, for any scheme \(X\),
+    \[\Pic(X) = \HH^1(X, \mcO_X^\times)\]
+\end{proof}
+
+To see that \(\Pic(X) = \HH^1(X, \mcO_X^\times)\), note that if \(\mcL\) is a line bundle on \(X\), then there exists an open cover
+\[X = \bigcup_i U_i\]
+of \(X\), such that for all \(i\), we have an isomorphism
+\[\mcO_{U_i} \cong \mcL\vert_{U_i}\]
+say sending \(1\) to \(s_i \in \Gamma(U_i, \mcL)\).  On \(U_i \cap U_j\), there exists a unique \(a_{ij} \in \mcO_X(U_i \cap U_j)^\times\) such that \(s_i = a_{ij}s_j\). Clearly the \((a_{ij})\) satisfy the cocycle conditions, and it defines a \v Cech \(1\)-cocycle. Thus, we gave an element of \(\check \HH^1((U_i), \mcO_X^\times)\). Passing to the limit of all covers, we get an element of \(\HH^1(X, \mcO_X^\times)\).
+
+Lots of checking to show that this only depends on the isomorphism class, and that it is an isomorphism of groups and so on...
+
+Returning to the proof. by induction, assume \(\mcL\vert_{X \times Y \times Z_1}\) is trivial. Apply the lemma, we get
+% https://q.uiver.app/#q=WzAsOCxbMSwwLCJcXEhIXjEoWFxcdGltZXMgWSwgXFxtY09fe1ggXFx0aW1lcyBZfSkiXSxbMiwwLCJcXFBpYyhYIFxcdGltZXMgWSBcXHRpbWVzIFopIl0sWzMsMCwiXFxQaWMoWCBcXHRpbWVzIFkgXFx0aW1lcyBaXzEpIl0sWzAsMCwiMCJdLFswLDEsIjAiXSxbMSwxLCJcXEhIXjEoWCwgXFxtY09fWClcXG9wbHVzXFxISF4xKFksIFxcbWNPX1kpIl0sWzIsMSwiXFxQaWMoWCBcXHRpbWVzIFopXFxvcGx1c1xcUGljKFlcXHRpbWVzIFopIl0sWzMsMSwiXFxQaWMoWCBcXHRpbWVzIFpfMSlcXG9wbHVzXFxQaWMoWVxcdGltZXMgWl8xKSJdLFszLDBdLFswLDFdLFsxLDIsImMiXSxbNCw1XSxbNSw2XSxbNiw3XSxbMiw3XSxbMSw2LCJiIiwxXSxbMCw1LCJhIiwxXV0=
+\[\begin{tikzcd}
+	0 & {\HH^1(X\times Y, \mcO_{X \times Y})} & {\Pic(X \times Y \times Z)} & {\Pic(X \times Y \times Z_1)} \\
+	0 & {\HH^1(X, \mcO_X)\oplus\HH^1(Y, \mcO_Y)} & {\Pic(X \times Z)\oplus\Pic(Y\times Z)} & {\Pic(X \times Z_1)\oplus\Pic(Y\times Z_1)}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow["c", from=1-3, to=1-4]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=1-4, to=2-4]
+	\arrow["b"{description}, from=1-3, to=2-3]
+	\arrow["a"{description}, from=1-2, to=2-2]
+\end{tikzcd}\]
+The rows are exact, and the vertical maps are induced by restruction \(y^*, x^*\). By K\"unneth, \(a\) is an isomorphism. Now \(\mcL \in \Pic(X \times Y \times Z)\), with \(b(\mcL) = 0\) by hypothesis, and \(c(\mcL) = 0\) by the induction hypothesis. From the diagram, we must then have that \(\mcL = 0 \in \Pic(X \times Y \times Z)\).
+
+\textbf{Step 2:} Consider \(Z = \Spec(A)\) where \(A\) is a local Noetherian \(k\)-algebra, with \(A/\mfm = k\). Let
+\[Z_n = \Spec\left(\frac{A}{\mfm^n}\right)\]
+by the previous step, \(\mcL\vert_{X \times Y \times Z_n}\) is trivial for all \(n\). As before, we have finity cyclic \(A\)-modules \(Q, Q'\), such that for all \(A\)-algebras \(B\), \(\HH^0(\mcL_B) = \Hom_A(Q, B)\) and \(\HH^0(\mcL_B^\vee) = \Hom_A(Q', B)\). For all \(n \ge 1\),
+\[Q \otimes \left(\frac{A}{\mfm^n}\right) \cong \frac{A}{\mfm^n}\]
+since \(\mcL\vert_{X \times Y \times Z_n}\) is trivial. So
+\begin{align*}
+    \Ann(Q) &\sse \bigcap_n \mfm^n = 0 \\
+    \Ann(Q') &\sse \bigcap_n \mfm^n = 0
+\end{align*}
+So \(Q, Q'\) are isomorphic to \(A\). Thus, \(\mcL\) is trivial.
+
+\textbf{Step 3:} Now assume that \(Z\) is a \(k\)-variety. Then \(\mcL\vert_{X \times Y \times \mcO_{Z, s}}\) is trivial, by the previous part. Let
+\[F = \{z' \in Z \mid \mcL\vert_{X \times Y \times z'} \text{ is trivial}\}\]
+Then \(F\) contains the generic point of \(z\) (which is the generic point of \(\mcO_{Z, z}\)), and as \(F\) is closed, \(F = Z\). Thus, by \cref{thm:seesaw},
+\[\mcL \cong \pr_3^*\mcM\]
+for a line bundle \(\mcM\) on \(Z\). But then
+\[\mcO_Z \cong \mcL_{x \times y \times Z} \cong M\]
+and thus \(\mcL\) is trivial.
+
 
 \end{document}
